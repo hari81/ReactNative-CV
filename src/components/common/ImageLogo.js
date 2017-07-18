@@ -4,13 +4,9 @@ import React from 'react';
 const ImageLogo = () => {
   return (
     <View style={styles.imageContainer}>
-    <TouchableOpacity title="Hedging" style={styles.buttonStyle} onPress={()=>Alert.alert("you Clciked")}>
-    <Image source={{uri: 'https://www.cargill.com/image/1432080092113/cargill-color-logo.jpg'}}
+    <Image source={require('./logo.png')}
      style={styles.logoStyle} />
      <Text style={styles.textStyle}> Price Hedging</Text>
-    </TouchableOpacity>
-
-
      </View>
   )
 };
@@ -26,27 +22,18 @@ const styles = {
     paddingBottom: 10,
 
   },
-  buttonStyle: {
-    //flex: 1,
-    //alignSelf: 'stretch',
-    backgroundColor: 'green',
-    borderRadius: 5,
-  //  borderWidth: 1,
-  //  borderColor: 'green',
-    marginLeft: 5,
-    marginRight: 5
-  },
+
   logoStyle: {
-    height: 150,
-    width: 250,
+    height: 50,
+    width: 120,
     paddingLeft: 10,
     //alignItems: 'flex-start',
 
   },
   textStyle: {
-    fontSize: 35,
+    fontSize: 25,
     color: 'white',
-    backgroundColor: '#279989'
+    //backgroundColor: '#279989'
     //justifyContent: 'center',
     //alignItems: 'center',
 

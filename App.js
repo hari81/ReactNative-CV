@@ -44,8 +44,8 @@ export default class App extends React.Component {
   render() {
     let { width, height } = Dimensions.get('window');
     return (
-      <View style={{flex: 1}}>
-        <View style={{backgroundColor:'#007681', marginTop: 5, marginBottom: 5,
+      <View style={{flex: 1, flexDirection: 'column' }}>
+        <View style={{backgroundColor:'#007681', marginTop: 5, marginBottom: 10,
                 width: width, height: height-110}}>
 
 
@@ -72,7 +72,7 @@ export default class App extends React.Component {
       {/*<View style={{width: width, height: height-100, backgroundColor: 'white'}}>
       </View> */}
       <View style={{width: width,
-        height: 100,
+        height: 90,
         backgroundColor:'#007681',
         alignItems: 'center',
           justifyContent: 'flex-end'}}>
