@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'react-native';
-import { Header } from './common';
-import { Button } from './common/Button';
+import { LogoHeader, OrderButton } from './common';
+
 
 class CancelOrder extends Component {
     state = {
@@ -13,7 +13,7 @@ class CancelOrder extends Component {
 
         return (
               <View style={styles.containerStyle}>
-                <Header
+                <LogoHeader
                 subHeaderText="PRICE HEDGING"
                 phNumber="+1-952-742-7414"
                 />
@@ -73,9 +73,15 @@ class CancelOrder extends Component {
                               </Text>
                           </View>
 
-                          <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:10}}>
-                              <Button>BACK TO ORDERS LIST</Button>
-                              <Button>CANCEL ORDER NOW</Button>
+                          <View
+                              style={{ flexDirection: 'row',
+                              marginTop: 10,
+                              marginBottom: 10,
+                              marginLeft: 160,
+                              marginRight: 160 }}
+                          >
+                              <OrderButton>BACK TO ORDERS LIST</OrderButton>
+                              <OrderButton>CANCEL ORDER NOW</OrderButton>
                           </View>
 
 
