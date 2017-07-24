@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'react-native';
-import { LogoHeader, OrderButton } from './common';
+import { connect } from 'react-redux';
+import { LogoHeader, OrderButton } from '../components/common/index';
+import { backToOrders } from '../actions/index';
 
 
 class CancelOrder extends Component {
     state = {
         switchValue: false
     }
+    // toggling switch component
 
+    onBackToOrders(e) {
+        this.props.backToOrders(e);
+    }
     toggleSwitch = (value) => this.setState({ switchValue: value })
     render() {
-
         return (
               <View style={styles.containerStyle}>
                 <LogoHeader
@@ -80,7 +85,9 @@ class CancelOrder extends Component {
                               marginLeft: 160,
                               marginRight: 160 }}
                           >
-                              <OrderButton>BACK TO ORDERS LIST</OrderButton>
+                              <OrderButton
+                                  onPress={this.onBackToOrders.bind(this)}
+                              >BACK TO ORDERS LIST</OrderButton>
                               <OrderButton>CANCEL ORDER NOW</OrderButton>
                           </View>
 
@@ -95,12 +102,9 @@ class CancelOrder extends Component {
 }
 const styles = {
     containerStyle: {
-        height: 768,
+        flex: 1,
         flexDirection: 'column',
-        borderRightWidth: 5,
-        borderTopWidth: 5,
-        borderBottomWidth: 5,
-        borderLeftWidth: 5,
+        borderWidth: 5,
         borderColor: '#007681'
     },
 
@@ -136,7 +140,12 @@ const styles = {
 
     }
 }
+const mapStateToProps = ({ auth }) => {
+    const { message } = auth
+    return {
+        message
+    };
+};
 
-
-export default CancelOrder;
+export default connect(mapStateToProps, { backToOrders })(CancelOrder);
 
