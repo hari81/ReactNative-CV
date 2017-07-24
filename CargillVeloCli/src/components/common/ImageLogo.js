@@ -16,17 +16,15 @@ const ImageLogo = () => (
 const styles = {
   imageContainer: {
     justifyContent: 'center',
-    //alignItems: 'left',
     marginLeft: 2,
     marginRight: 20,
     flexDirection: 'column',
-    paddingTop: 25,
     paddingBottom: 10,
 
   },
 
   logoStyle: {
-    height: 80,
+    height: 82,
     width: 180,
     paddingLeft: 10,
     alignItems: 'center',
@@ -35,10 +33,6 @@ const styles = {
   textStyle: {
     fontSize: 25,
     color: 'white',
-    //backgroundColor: '#279989'
-    //justifyContent: 'center',
-    //alignItems: 'center',
-
   },
 
 
