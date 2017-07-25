@@ -5,7 +5,6 @@ import { emailChanged, passwordChanged, loginUser, switchChanged } from '../acti
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
 
 class LoginForm extends Component {
-    state= { switchValue: false }
 
     onEmailChange(text) {
         this.props.emailChanged(text);
@@ -19,8 +18,8 @@ class LoginForm extends Component {
         const { email, password } = this.props;
         this.props.loginUser({ email, password });
     }
-    onSwitchChange(text) {
-        this.props.switchChanged(text);
+    onSwitchChange(value) {
+        this.props.switchChanged(value);
     }
 
     toggleSwitch = (value) => this.setState({ switchValue: value })
@@ -32,13 +31,15 @@ class LoginForm extends Component {
             <Button onPress={this.onButtonPress.bind(this)}>Login</Button>
         );
     }
+
+
     render() {
         return (
             <Card>
 
                 <CardSection>
                     <Input
-                        placeholder="user@gmail.com"
+                        placeholder="Email"
                         label="Email"
                         onChangeText={this.onEmailChange.bind(this)}
                         value={this.props.email}
@@ -48,7 +49,7 @@ class LoginForm extends Component {
                 <CardSection>
                     <Input
                         secureTextEntry
-                        placeholder="password"
+                        placeholder="Password"
                         label="Password"
                         onChangeText={this.onPasswordChange.bind(this)}
                         value={this.props.password}
@@ -60,12 +61,12 @@ class LoginForm extends Component {
                     >
                         <Switch
                             style={{ backgroundColor: '#007681' }}
-                            onValueChange={this.onSwitchChange.bind(this)}
-                            value={this.state.switchValue}
+                            onValueChange={(value) => this.onSwitchChange(value)}
+                            value={this.props.switchValue}
                         />
 
                         <Text
-                            style={{ fontSize: 20, marginLeft: 20 }}
+                            style={{ fontSize: 20, marginLeft: 20, color: '#ffffff' }}
                         > Save Username </Text>
                     </View>
                 </CardSection>
@@ -94,19 +95,19 @@ class LoginForm extends Component {
 const styles = {
     errorStyles: {
         fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
+        color: '#ffffff'
     }
 }
 
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error, message, loading } = auth
+    const { email, password, error, message, loading, switchValue } = auth
     return {
         email,
         password,
         error,
         message,
-        loading
+        loading,
+        switchValue
     };
 }
 export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser, switchChanged })(LoginForm);

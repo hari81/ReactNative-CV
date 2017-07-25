@@ -1,4 +1,5 @@
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
 import { EMAIL_CHANGED,
          PASSWORD_CHANGED,
          LOGIN_FAIL,
@@ -7,6 +8,8 @@ import { EMAIL_CHANGED,
          SWITCH_CHANGED,
          CANCEL_BUTTON_PRESSED,
          BACK_TO_ORDERS } from './types';
+
+const base64 = require('base-64');
 
 export const emailChanged = (text) => {
     return {
@@ -20,12 +23,8 @@ export const passwordChanged = (text) => {
         payload: text
     };
 }
-export const switchChanged = (text) => {
-    return {
-        type: SWITCH_CHANGED,
-        payload: text
-    };
-}
+
+
 export const loginUser = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
@@ -34,14 +33,16 @@ export const loginUser = ({ email, password }) => {
             Actions.main();
         } else {
             dispatch({ type: LOGIN_FAIL });
+
         }
     };
 };
-export const onCancelButtonPress = (e) => {
+export const onCancelButtonPress = (quantity) => {
     return (dispatch) => {
         dispatch({
             type: CANCEL_BUTTON_PRESSED,
-            payload: e
+            payload: quantity
+
         });
         Actions.cancelorder();
     };
