@@ -4,7 +4,7 @@ import React from 'react';
 
 const ImageLogo = () => (
     <View style={styles.imageContainer}>
-    <Image source={require('./logo.png')}
+    <Image source={require('./img/cargillLogoWhite.png')}
      style={styles.logoStyle}
     />
      <Text style={styles.textStyle}>

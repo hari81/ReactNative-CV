@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import {
-    ListView, View, SegmentedControlIOS, Text
+    FlatList, View, SegmentedControlIOS, Text
 } from 'react-native';
 import OrderItem from './OrderItem';
 import { LogoHeader } from '../components/common';
 
-class Orders extends Component {
-    componentWillMount() {
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
+const customData = require('../restAPI/restapi.json');
 
-        this.dataSource = ds.cloneWithRows(['row 1', 'row 2', 'row 3']);
+class Orders extends Component {
+    renderData(item) {
+       return <OrderItem item={item} />;
     }
 
-
-        render() {
+    render() {
             return (
-                <View>
+
                 <View style={styles.containerStyle}>
                     <LogoHeader
-                        subHeaderText="PRICE HEADGING"
+                        subHeaderText="PRICE HEDGING"
                         phNumber="+1-952-742-7414"
                         data="Refresh Data"
                     />
@@ -49,15 +46,13 @@ class Orders extends Component {
                             />
                         </View>
                     </View>
-                </View>
 
-                    <ListView
-                    dataSource={this.dataSource}
-                    renderRow={() => <OrderItem />}
+                    <FlatList
+                        style={styles.listViewStyle}
+                        data={customData.value}
+                        renderItem={({ item }) => this.renderData(item)}
                     />
                 </View>
-
-
             );
         }
 
@@ -66,37 +61,6 @@ const styles = {
         containerStyle: {
             flex: 1,
             backgroundColor: '#007681',
-
-
-        },
-        positionTextStyle: {
-            fontSize: 20,
-            paddingTop: 20,
-            paddingLeft: 30,
-            fontWeight: 'bold',
-
-
-        },
-        subContainerStyle: {
-            height: 94,
-            flexDirection: 'row',
-            backgroundColor: '#ffffff',
-            marginRight: 10,
-            marginLeft: 10,
-            borderRadius: 3,
-            justifyContent: 'flex-start',
-
-
-        },
-        contentContainerStyle: {
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 70,
-            width: 100,
-            borderWidth: 1,
-            borderColor: '#007681',
-            marginLeft: 10,
-            marginTop: 12
 
 
         },
@@ -148,8 +112,24 @@ const styles = {
             backgroundColor: '#5db7e8',
             justifyContent: 'center',
             alignItems: 'center'
-        }
+        },
+    touchopa: {
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: '#279989',
+        borderBottomWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        elevation: 1,
+        marginLeft: 12,
+        marginRight: 12,
+        marginTop: 10,
+        backgroundColor: 'white',
+    },
+
     }
 ;
-                    export default Orders ;
+export default Orders;
 

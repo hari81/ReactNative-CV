@@ -18,14 +18,19 @@ export const passwordChanged = (text) => {
     return {
         type: PASSWORD_CHANGED,
         payload: text
+    }
+}
+export const switchChanged = ({ email, value }) => {
+    return (dispatch) => {
+        if (value) {
+            dispatch({
+                type: SWITCH_CHANGED,
+                payload: email
+            })
+        }
     };
 }
-export const switchChanged = (text) => {
-    return {
-        type: SWITCH_CHANGED,
-        payload: text
-    };
-}
+
 export const loginUser = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
@@ -34,14 +39,16 @@ export const loginUser = ({ email, password }) => {
             Actions.main();
         } else {
             dispatch({ type: LOGIN_FAIL });
+
         }
     };
 };
-export const onCancelButtonPress = (e) => {
+export const onCancelButtonPress = (quantity) => {
     return (dispatch) => {
         dispatch({
             type: CANCEL_BUTTON_PRESSED,
-            payload: e
+            payload: quantity
+
         });
         Actions.cancelorder();
     };

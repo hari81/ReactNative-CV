@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View, Switch } from 'react-native';
+import { Text, View, Switch, Image,TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { LogoHeader, OrderButton } from '../components/common/index';
 import { backToOrders } from '../actions/index';
-
 
 class CancelOrder extends Component {
     state = {
         switchValue: false
     }
-    // toggling switch component
 
     onBackToOrders(e) {
         this.props.backToOrders(e);
     }
     toggleSwitch = (value) => this.setState({ switchValue: value })
+
     render() {
         return (
               <View style={styles.containerStyle}>
@@ -47,10 +47,10 @@ class CancelOrder extends Component {
                                   <Text >
                                       Your contract month is
                                   </Text>
-                                  <Text style={styles.contentStyle}>September</Text>
+                                  <Text style={styles.contentStyle}>July</Text>
                               </View>
 
-                              <View >
+                              <View style={{ marginLeft: 80 }} >
                                   <Text >
                                       Your product is
                                   </Text>
@@ -58,7 +58,7 @@ class CancelOrder extends Component {
                                   <Text >
                                       Your bushel quantity is
                                   </Text>
-                                  <Text style={styles.contentStyle}>25,000</Text>
+                                  <Text style={styles.contentStyle}>{this.props.quantity}</Text>
                                   <Text >
                                       Your order type is
                                   </Text>
@@ -76,6 +76,10 @@ class CancelOrder extends Component {
                               <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
                                   Agree to Terms and Conditions
                               </Text>
+                              <TouchableHighlight onPress={() => <Text />}><Image
+                              style={{ width: 30, height: 30, marginLeft: 10 }}
+                              source={ require('../components/common/img/Info.png' )}
+                              /></TouchableHighlight>
                           </View>
 
                           <View
@@ -140,12 +144,19 @@ const styles = {
 
     }
 }
-const mapStateToProps = ({ auth }) => {
-    const { message } = auth
+const mapStateToProps = (state) => {
     return {
-        message
-    };
-};
+        quantity: state.cancelItem
+    }
+}
 
-export default connect(mapStateToProps, { backToOrders })(CancelOrder);
+
+
+
+const matchDispatchToProps = (dispatch) => {
+    return bindActionCreators({ backToOrders }, dispatch);
+}
+
+
+export default connect(mapStateToProps, matchDispatchToProps)(CancelOrder);
 

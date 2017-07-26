@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, } from 'react-native';
 import Dimensions from 'Dimensions';
 import LoginForm from '../containers/LoginForm';
 import { Header, ImageLogo } from './common/index';
@@ -49,6 +49,7 @@ export default class App extends React.Component {
             </View>
           </View>
         </View>
+
       <View
             style={{ width,
             backgroundColor: '#007681',
@@ -56,12 +57,11 @@ export default class App extends React.Component {
                 height: 140
            }}
       >
+
                <Text
-                   style={{ color: 'white', paddingTop: 8 }}
-               >Cargill Website | Privacy | Terms & Conditions</Text>
+                   style={{ color: 'white', paddingTop: 8 }}>Cargill Website | Privacy | Terms & Conditions</Text>
                 <Text
-                    style={{ color: 'white' }}
-                >2017 Cargill, Incorporated. All Rights Reserved.</Text>
+                    style={{ color: 'white' }}>2017 Cargill, Incorporated. All Rights Reserved.</Text>
       </View>
 
 

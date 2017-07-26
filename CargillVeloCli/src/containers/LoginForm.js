@@ -5,9 +5,9 @@ import { emailChanged, passwordChanged, loginUser, switchChanged } from '../acti
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
 
 class LoginForm extends Component {
-    state= { switchValue: false }
 
     onEmailChange(text) {
+        console.log(text);
         this.props.emailChanged(text);
     }
 
@@ -19,11 +19,13 @@ class LoginForm extends Component {
         const { email, password } = this.props;
         this.props.loginUser({ email, password });
     }
-    onSwitchChange(text) {
-        this.props.switchChanged(text);
+   onSwitchChange(value) {
+        const { email } = this.props;
+        console.log(email)
+        this.props.switchChanged({ email, value });
     }
 
-    toggleSwitch = (value) => this.setState({ switchValue: value })
+    //toggleSwitch = (value) => this.setState({ switchValue: value })
     renderButton() {
         if (this.props.loading) {
             return <Spinner size="large" />;
@@ -32,26 +34,27 @@ class LoginForm extends Component {
             <Button onPress={this.onButtonPress.bind(this)}>Login</Button>
         );
     }
+
     render() {
         return (
             <Card>
 
                 <CardSection>
                     <Input
-                        placeholder="user@gmail.com"
+                        placeholder="Email"
                         label="Email"
                         onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
+
                     />
+
                 </CardSection>
 
                 <CardSection>
                     <Input
                         secureTextEntry
-                        placeholder="password"
+                        placeholder="Password"
                         label="Password"
                         onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
                     />
                 </CardSection>
                 <CardSection>
@@ -61,11 +64,11 @@ class LoginForm extends Component {
                         <Switch
                             style={{ backgroundColor: '#007681' }}
                             onValueChange={this.onSwitchChange.bind(this)}
-                            value={this.state.switchValue}
+                            value={this.props.switchValue}
                         />
 
                         <Text
-                            style={{ fontSize: 20, marginLeft: 20 }}
+                            style={{ fontSize: 20, marginLeft: 20, color: '#ffffff' }}
                         > Save Username </Text>
                     </View>
                 </CardSection>
@@ -73,11 +76,6 @@ class LoginForm extends Component {
                     <Text style={styles.errorStyles}>
                         {this.props.error}
                     </Text>
-                    <Text style={{ color: 'green', fontSize: 20 }}>
-                        {this.props.message}
-                    </Text>
-
-
                 </CardSection>
                 <CardSection>
                     {this.renderButton()}
@@ -94,19 +92,16 @@ class LoginForm extends Component {
 const styles = {
     errorStyles: {
         fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
+        color: '#ffffff'
     }
 }
 
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error, message, loading } = auth
+    const { email, password, error } = auth
     return {
         email,
         password,
-        error,
-        message,
-        loading
+        error
     };
 }
 export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser, switchChanged })(LoginForm);
