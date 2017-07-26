@@ -7,8 +7,8 @@ import CancelOrder from './containers/CancelOrder';
 const RouterComponent = () => {
   return (
     <Router>
-        <Scene key="auth" >
-        <Scene hideNavBar key="app" component={App} initial />
+        <Scene key="auth" initial >
+        <Scene hideNavBar key="app" component={App}  />
         </Scene>
         <Scene key="main" >
             <Scene hideNavBar key='orders' component={Orders} />

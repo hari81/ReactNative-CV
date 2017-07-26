@@ -20,7 +20,7 @@ class OrderItem extends Component {
             buySell,
             orderType,
             price,
-            riskProductName } = this.props.rowData;
+            riskProductName } = this.props.item;
         return (
 
             <View style={styles.subContainerStyle}>
@@ -128,39 +128,3 @@ const styles = {
 
 
 export default connect(null, { onCancelButtonPress })(OrderItem);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

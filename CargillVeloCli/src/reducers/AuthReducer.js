@@ -1,37 +1,35 @@
 
-import { AlertIOS } from 'react-native';
+import { AlertIOS, AsyncStorage } from 'react-native';
 import {
     EMAIL_CHANGED,
     PASSWORD_CHANGED,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     LOGIN_USER,
-    BACK_TO_ORDERS
+    BACK_TO_ORDERS, SWITCH_CHANGED
 } from '../actions/types';
 
 
 const INITIAL_STATE = { email: '',
                         password: '',
                         error: '',
-                        message: '',
                         loading: false,
                         msg: '',
+                        userData: ''
                          }
 export default (state = INITIAL_STATE, action) => {
-    console.log(action)
+
     switch (action.type) {
         case EMAIL_CHANGED:
-            return { ...state, email: action.payload };
+            return Object.assign({}, state, { email: action.payload });
         case PASSWORD_CHANGED:
-            return { ...state, password: action.payload }
+            return Object.assign({}, state, { password: action.payload });
         case LOGIN_USER:
-            return { ...state, loading: true, error: '' };
-
+            return Object.assign({}, state, { loading: true, error: '' });
         case LOGIN_SUCCESS:
-            return { ...state, message: 'Login Success', error: '', loading: false }
+            return Object.assign({}, state, { loading: false, error: '' });
         case LOGIN_FAIL:
-            return { ...state,
-                error: 'Authentication Failed',
+            return Object.assign({}, state, { error: 'Authentication Failed',
                 password: '',
                 email: '',
                 message: AlertIOS.alert(
@@ -39,9 +37,10 @@ export default (state = INITIAL_STATE, action) => {
                     'Eigher Username or Password is incorrect'
                 ),
                 loading: false
-            }
+            })
         case BACK_TO_ORDERS:
             return { ...state }
+
         default:
             return state;
     }

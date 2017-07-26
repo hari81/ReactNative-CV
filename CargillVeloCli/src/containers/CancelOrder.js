@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, Image } from 'react-native';
+import { Text, View, Switch, Image,TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LogoHeader, OrderButton } from '../components/common/index';
@@ -14,6 +14,7 @@ class CancelOrder extends Component {
         this.props.backToOrders(e);
     }
     toggleSwitch = (value) => this.setState({ switchValue: value })
+
     render() {
         return (
               <View style={styles.containerStyle}>
@@ -75,10 +76,10 @@ class CancelOrder extends Component {
                               <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
                                   Agree to Terms and Conditions
                               </Text>
-                              <Image
-                              style={{ width: 30, height: 30, marginLeft:10 }}
+                              <TouchableHighlight onPress={() => <Text />}><Image
+                              style={{ width: 30, height: 30, marginLeft: 10 }}
                               source={ require('../components/common/img/Info.png' )}
-                              />
+                              /></TouchableHighlight>
                           </View>
 
                           <View

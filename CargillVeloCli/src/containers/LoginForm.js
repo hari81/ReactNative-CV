@@ -7,6 +7,7 @@ import { Button, Card, CardSection, Input, Spinner } from '../components/common/
 class LoginForm extends Component {
 
     onEmailChange(text) {
+        console.log(text);
         this.props.emailChanged(text);
     }
 
@@ -18,11 +19,13 @@ class LoginForm extends Component {
         const { email, password } = this.props;
         this.props.loginUser({ email, password });
     }
-    onSwitchChange(value) {
-        this.props.switchChanged(value);
+   onSwitchChange(value) {
+        const { email } = this.props;
+        console.log(email)
+        this.props.switchChanged({ email, value });
     }
 
-    toggleSwitch = (value) => this.setState({ switchValue: value })
+    //toggleSwitch = (value) => this.setState({ switchValue: value })
     renderButton() {
         if (this.props.loading) {
             return <Spinner size="large" />;
@@ -31,7 +34,6 @@ class LoginForm extends Component {
             <Button onPress={this.onButtonPress.bind(this)}>Login</Button>
         );
     }
-
 
     render() {
         return (
@@ -42,8 +44,9 @@ class LoginForm extends Component {
                         placeholder="Email"
                         label="Email"
                         onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
+
                     />
+
                 </CardSection>
 
                 <CardSection>
@@ -52,7 +55,6 @@ class LoginForm extends Component {
                         placeholder="Password"
                         label="Password"
                         onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
                     />
                 </CardSection>
                 <CardSection>
@@ -61,7 +63,7 @@ class LoginForm extends Component {
                     >
                         <Switch
                             style={{ backgroundColor: '#007681' }}
-                            onValueChange={(value) => this.onSwitchChange(value)}
+                            onValueChange={this.onSwitchChange.bind(this)}
                             value={this.props.switchValue}
                         />
 
@@ -74,11 +76,6 @@ class LoginForm extends Component {
                     <Text style={styles.errorStyles}>
                         {this.props.error}
                     </Text>
-                    <Text style={{ color: 'green', fontSize: 20 }}>
-                        {this.props.message}
-                    </Text>
-
-
                 </CardSection>
                 <CardSection>
                     {this.renderButton()}
@@ -100,14 +97,11 @@ const styles = {
 }
 
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error, message, loading, switchValue } = auth
+    const { email, password, error } = auth
     return {
         email,
         password,
-        error,
-        message,
-        loading,
-        switchValue
+        error
     };
 }
 export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser, switchChanged })(LoginForm);

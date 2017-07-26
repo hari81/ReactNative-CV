@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    ListView, View, SegmentedControlIOS, Text
+    FlatList, View, SegmentedControlIOS, Text
 } from 'react-native';
 import OrderItem from './OrderItem';
 import { LogoHeader } from '../components/common';
@@ -8,13 +8,11 @@ import { LogoHeader } from '../components/common';
 const customData = require('../restAPI/restapi.json');
 
 class Orders extends Component {
-    renderData(rowData) {
-        return <OrderItem rowData={rowData} />;
+    renderData(item) {
+       return <OrderItem item={item} />;
     }
+
     render() {
-        const standardDataSource =
-            new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.clonedData = standardDataSource.cloneWithRows(customData.value);
             return (
 
                 <View style={styles.containerStyle}>
@@ -49,13 +47,11 @@ class Orders extends Component {
                         </View>
                     </View>
 
-                    <ListView
+                    <FlatList
                         style={styles.listViewStyle}
-                        dataSource={this.clonedData}
-                        renderRow={(rowData) => this.renderData(rowData)}
+                        data={customData.value}
+                        renderItem={({ item }) => this.renderData(item)}
                     />
-
-
                 </View>
             );
         }
