@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, Image,TouchableHighlight } from 'react-native';
+import { Text, View, Switch, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LogoHeader, OrderButton } from '../components/common/index';
-import { backToOrders } from '../actions/index';
+import { LogoHeader, OrderButton } from './common/index';
+import { backToOrders } from '../redux/actions/index';
 
 class CancelOrder extends Component {
     state = {
@@ -32,7 +32,7 @@ class CancelOrder extends Component {
                                   <Text >
                                       Your trade direction is
                                   </Text>
-                                  <Text style={styles.contentStyle}>Sell</Text>
+                                  <Text style={styles.contentStyle}>{this.props.data.buySell}</Text>
                                   <Text >
                                       Your crop is a
                                   </Text>
@@ -54,15 +54,15 @@ class CancelOrder extends Component {
                                   <Text >
                                       Your product is
                                   </Text>
-                                  <Text style={styles.contentStyle}>CRM Swap</Text>
+                                  <Text style={styles.contentStyle}>{this.props.data.riskProductName}</Text>
                                   <Text >
                                       Your bushel quantity is
                                   </Text>
-                                  <Text style={styles.contentStyle}>{this.props.quantity}</Text>
+                                  <Text style={styles.contentStyle}>{this.props.data.quantity}</Text>
                                   <Text >
                                       Your order type is
                                   </Text>
-                                  <Text style={styles.contentStyle}>Market</Text>
+                                  <Text style={styles.contentStyle}>{this.props.data.orderType}</Text>
                               </View>
 
 
@@ -76,10 +76,10 @@ class CancelOrder extends Component {
                               <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
                                   Agree to Terms and Conditions
                               </Text>
-                              <TouchableHighlight onPress={() => <Text />}><Image
+                              <Image
                               style={{ width: 30, height: 30, marginLeft: 10 }}
-                              source={ require('../components/common/img/Info.png' )}
-                              /></TouchableHighlight>
+                              source={ require('./common/img/Info.png' )}
+                              />
                           </View>
 
                           <View
@@ -146,7 +146,7 @@ const styles = {
 }
 const mapStateToProps = (state) => {
     return {
-        quantity: state.cancelItem
+        data: state.cancelItem
     }
 }
 

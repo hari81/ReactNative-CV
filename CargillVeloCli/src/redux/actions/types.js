@@ -6,4 +6,4 @@ export const LOGIN_USER = 'login_user';
 export const SWITCH_CHANGED = 'switch_changed';
 export const CANCEL_BUTTON_PRESSED = 'cancel_button_pressed';
 export const BACK_TO_ORDERS = 'back_to_orders';
-
+//export const ITEMS_FETCH_DATA_SUCCESS= 'items_fetch_success'
