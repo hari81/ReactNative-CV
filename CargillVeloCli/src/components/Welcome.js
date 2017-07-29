@@ -22,7 +22,7 @@ export default class App extends React.Component {
 
           <View style={{ alignItems: 'center' }}>
             <Text style={{ color: 'white', fontSize: 20, marginTop: 25 }}>
-              Please log in below by entering your username and password...
+              Please log in below by entering your username and password
             </Text>
           </View>
             <View
