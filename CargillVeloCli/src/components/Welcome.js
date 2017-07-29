@@ -59,9 +59,11 @@ export default class App extends React.Component {
       >
 
                <Text
-                   style={{ color: 'white', paddingTop: 8 }}>Cargill Website | Privacy | Terms & Conditions</Text>
+                   style={{ color: 'white', paddingTop: 8 }}
+               >Cargill Website | Privacy | Terms & Conditions</Text>
                 <Text
-                    style={{ color: 'white' }}>2017 Cargill, Incorporated. All Rights Reserved.</Text>
+                    style={{ color: 'white' }}
+                >2017 Cargill, Incorporated. All Rights Reserved.</Text>
       </View>
 
 

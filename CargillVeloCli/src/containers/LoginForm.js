@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser, switchChanged } from '../actions/index';
-import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
+import { emailChanged, passwordChanged, loginUser, switchChanged } from '../redux/actions/index';
+import { Button, Card, CardSection, Input } from '../components/common/index';
 
 class LoginForm extends Component {
 
     onEmailChange(text) {
-        console.log(text);
         this.props.emailChanged(text);
     }
 
@@ -25,11 +24,7 @@ class LoginForm extends Component {
         this.props.switchChanged({ email, value });
     }
 
-    //toggleSwitch = (value) => this.setState({ switchValue: value })
-    renderButton() {
-        if (this.props.loading) {
-            return <Spinner size="large" />;
-        }
+    onLoginButton() {
         return (
             <Button onPress={this.onButtonPress.bind(this)}>Login</Button>
         );
@@ -72,36 +67,27 @@ class LoginForm extends Component {
                         > Save Username </Text>
                     </View>
                 </CardSection>
+
                 <CardSection>
-                    <Text style={styles.errorStyles}>
-                        {this.props.error}
-                    </Text>
+                    {this.onLoginButton()}
                 </CardSection>
-                <CardSection>
-                    {this.renderButton()}
-                </CardSection>
+
                 <Text style={{ fontSize: 20, color: 'white' }}>
                     Having trouble logging in? Please call +1-952-742-7414 or
                     email cargillpricehedge@cargill.com
                 </Text>
+
             </Card>
         );
     }
     }
 
-const styles = {
-    errorStyles: {
-        fontSize: 20,
-        color: '#ffffff'
-    }
-}
-
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error } = auth
+    const { email, password } = auth
     return {
         email,
-        password,
-        error
+        password
     };
 }
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser, switchChanged })(LoginForm);
+export default connect(mapStateToProps,
+                       { emailChanged, passwordChanged, loginUser, switchChanged })(LoginForm);

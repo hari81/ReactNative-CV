@@ -3,7 +3,6 @@ import { EMAIL_CHANGED,
          PASSWORD_CHANGED,
          LOGIN_FAIL,
          LOGIN_SUCCESS,
-         LOGIN_USER,
          SWITCH_CHANGED,
          CANCEL_BUTTON_PRESSED,
          BACK_TO_ORDERS } from './types';
@@ -18,7 +17,7 @@ export const passwordChanged = (text) => {
     return {
         type: PASSWORD_CHANGED,
         payload: text
-    }
+    };
 }
 export const switchChanged = ({ email, value }) => {
     return (dispatch) => {
@@ -26,14 +25,13 @@ export const switchChanged = ({ email, value }) => {
             dispatch({
                 type: SWITCH_CHANGED,
                 payload: email
-            })
+            });
         }
     };
 }
 
 export const loginUser = ({ email, password }) => {
     return (dispatch) => {
-        dispatch({ type: LOGIN_USER });
         if (email === 'Cargill' && password === '1234') {
             dispatch({ type: LOGIN_SUCCESS });
             Actions.main();
@@ -43,11 +41,11 @@ export const loginUser = ({ email, password }) => {
         }
     };
 };
-export const onCancelButtonPress = (quantity) => {
+export const onCancelButtonPress = (quantity, buySell, orderType, riskProductName) => {
     return (dispatch) => {
         dispatch({
             type: CANCEL_BUTTON_PRESSED,
-            payload: quantity
+            payload: { quantity, buySell, orderType, riskProductName }
 
         });
         Actions.cancelorder();

@@ -1070,7 +1070,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-W23DN4U7X.com.cargill.cancelorder";
+				PRODUCT_BUNDLE_IDENTIFIER = "-W23DN4U7X.com.cargill.home";
 				PRODUCT_NAME = CargillVeloCli;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1091,7 +1091,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-W23DN4U7X.com.cargill.cancelorder";
+				PRODUCT_BUNDLE_IDENTIFIER = "-W23DN4U7X.com.cargill.home";
 				PRODUCT_NAME = CargillVeloCli;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
