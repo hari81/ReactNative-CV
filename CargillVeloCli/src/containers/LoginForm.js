@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
-import { Text, View, Switch } from 'react-native';
+import { Text, View, Switch, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser, switchChanged } from '../redux/actions/index';
-import { Button, Card, CardSection, Input } from '../components/common/index';
+import base64 from 'base-64';
+import { emailChanged, passwordChanged, loginUser, saveUserSwitchChanged } from '../redux/actions/index';
+import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
 
 class LoginForm extends Component {
+    constructor()
+    {
+        super();
+        AsyncStorage.getItem('userData')
+            .then((data) => {
+                const userInfo = JSON.parse(data);
+                if (userInfo) {
+                    this.props.emailChanged(userInfo.email ? base64.decode(userInfo.email) : '');
+                    this.props.saveUserSwitchChanged({ value:true });
+                }
+            })
+            .catch((error) => {
+                throw new Error(error);
+            });
+    }
 
     onEmailChange(text) {
         this.props.emailChanged(text);
@@ -15,19 +31,21 @@ class LoginForm extends Component {
     }
 
     onButtonPress() {
-        const { email, password } = this.props;
-        this.props.loginUser({ email, password });
+        const { email, password, saveUser } = this.props;
+        this.props.loginUser({ email, password, saveUser });
     }
-   onSwitchChange(value) {
-        const { email } = this.props;
-        console.log(email)
-        this.props.switchChanged({ email, value });
+   onSaveUserChange(value) {
+        this.props.saveUserSwitchChanged({ value });
     }
 
-    onLoginButton() {
-        return (
-            <Button onPress={this.onButtonPress.bind(this)}>Login</Button>
-        );
+    renderButton() {
+        if(this.props.loading)
+        {
+           return( <Spinner size="large"/> );
+        } else {
+
+           return( <Button onPress={this.onButtonPress.bind(this)}>Login</Button> );
+        }
     }
 
     render() {
@@ -39,6 +57,7 @@ class LoginForm extends Component {
                         placeholder="Email"
                         label="Email"
                         onChangeText={this.onEmailChange.bind(this)}
+                        value={this.props.email}
 
                     />
 
@@ -50,6 +69,7 @@ class LoginForm extends Component {
                         placeholder="Password"
                         label="Password"
                         onChangeText={this.onPasswordChange.bind(this)}
+                        value={this.props.password}
                     />
                 </CardSection>
                 <CardSection>
@@ -57,9 +77,10 @@ class LoginForm extends Component {
                         style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}
                     >
                         <Switch
-                            style={{ backgroundColor: '#007681' }}
-                            onValueChange={this.onSwitchChange.bind(this)}
-                            value={this.props.switchValue}
+                            style={{ backgroundColor: '#3d4c57' }}
+                            onTintColor= "#01aca8"
+                            onValueChange={this.onSaveUserChange.bind(this)}
+                            value={this.props.saveUser}
                         />
 
                         <Text
@@ -68,8 +89,9 @@ class LoginForm extends Component {
                     </View>
                 </CardSection>
 
+                <Text style={styles.errorStyle}> {this.props.error} </Text>
                 <CardSection>
-                    {this.onLoginButton()}
+                    {this.renderButton()}
                 </CardSection>
 
                 <Text style={{ fontSize: 20, color: 'white' }}>
@@ -82,12 +104,22 @@ class LoginForm extends Component {
     }
     }
 
+    const styles = {
+    errorStyle: {
+        color: 'red',
+        marginLeft: 200
+    }
+    };
+
 const mapStateToProps = ({ auth }) => {
-    const { email, password } = auth
+    const { email, password,loading, saveUser, error } = auth;
     return {
         email,
-        password
+        password,
+        loading,
+        saveUser,
+        error
     };
 }
 export default connect(mapStateToProps,
-                       { emailChanged, passwordChanged, loginUser, switchChanged })(LoginForm);
+                       { emailChanged, passwordChanged, loginUser, saveUserSwitchChanged })(LoginForm);

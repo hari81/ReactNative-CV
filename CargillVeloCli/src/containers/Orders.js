@@ -1,68 +1,86 @@
 import React, { Component } from 'react';
 import {
-    FlatList, View, SegmentedControlIOS, Text
+    FlatList, View, SegmentedControlIOS, Text, TouchableOpacity
 } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import OrderItem from '../components/ViewOrders';
+import OrderItem from '../components/OrderItem';
 import OpenPositions from '../components/OpenPositions';
 import ClosedPositions from '../components/ClosedPositions';
-import { LogoHeader } from '../components/common';
-import { itemsFetchData } from '../redux/actions/ViewOrderAction';
+import { LogoPhoneHeader, Spinner } from '../components/common';
+import { itemsFetchData, dropDownCrop } from '../redux/actions/ViewOrderAction';
+
 
 const openpositions = require('../restAPI/openpositions.json');
 const closedpositions = require('../restAPI/closedpositions.json');
 
 class Orders extends Component {
-    state = {
-        selectedTab: 'Orders'
-    }
+
+        state = {
+            selectedTab: 'Orders'
+        };
+
+
     componentWillMount() {
         this.props.itemsFetchData();
+        this.props.dropDownCrop(this.props.email,this.props.password);
     }
 
     renderFlatList() {
-        if (this.state.selectedTab === 'Orders') {
-            console.log('Orders Button Pressed');
-            return (<FlatList
-                data={this.props.orders.value}
-                renderItem={({ item }) => <OrderItem item={item} />}
-            />);
+        if (this.props.orders.fetchflag){
+            return (<View style={{flex: 1}}>
+
+                <Text style={{ marginTop: 50, color: 'white', textAlign: 'center', fontSize: 25 }}>
+                    Loading orders...
+                </Text>
+                <Spinner size="large"/>
+            </View>);
         }
-        if (this.state.selectedTab === 'Open Positions') {
-            console.log('Open Positions Pressed');
-            return (<FlatList
-                data={openpositions.lines}
-                renderItem={({ item }) => <OpenPositions item={item} />}
-            />);
-        }
-        if (this.state.selectedTab === 'Closed Positions') {
-            console.log('Closed Positions Pressed');
-            return (<FlatList
-                data={closedpositions.lines}
-                renderItem={({ item }) => <ClosedPositions item={item} />}
-            />);
+        else {
+            if (this.state.selectedTab === 'Orders') {
+
+                console.log('Orders Button Pressed');
+
+                return (<FlatList
+                    data={this.props.orders.items.value}
+                    keyExtractor={item => item.orderId}
+                    renderItem={({item}) => <OrderItem item={item}/>}
+                />);
+            }
+            if (this.state.selectedTab === 'Open Positions') {
+                console.log('Open Positions Pressed');
+                return (<FlatList
+                    data={openpositions.lines}
+                    renderItem={({item}) => <OpenPositions item={item}/>}
+                />);
+            }
+            if (this.state.selectedTab === 'Closed Positions') {
+                console.log('Closed Positions Pressed');
+                return (<FlatList
+                    data={closedpositions.lines}
+                    renderItem={({item}) => <ClosedPositions item={item}/>}
+                />);
+            }
         }
     }
     render() {
         return (
 
             <View style={styles.containerStyle}>
-                <LogoHeader
-                    subHeaderText="PRICE HEDGING"
-                    phNumber="+1-952-742-7414"
-                    data="Refresh Data"
-                />
+
+               <LogoPhoneHeader/>
+
                 <View style={styles.segmentarea}>
 
                     <View style={styles.positions}>
-                        <Text style={{ fontSize: 20 }}>Positions & Orders</Text>
+                        <Text style={{ fontSize: 18, color: '#01aca8' }}>Positions & Orders</Text>
                     </View>
 
-                    <View justifyContent='center'>
+                    <View style={{ justifyContent: 'center', marginLeft: 40 }}>
                         <SegmentedControlIOS
                             alignItems='center'
-                            tintColor="green"
+                            tintColor="#01aca8"
                             style={styles.segment}
                             values={['Orders', 'Open Positions', 'Closed Positions']}
                             selectedIndex={0}
@@ -75,6 +93,48 @@ class Orders extends Component {
 
                         />
                     </View>
+
+                    <View
+                        style={{ flex: 1,
+                            marginLeft: 60,
+                            paddingTop: 18,
+                            justifyContent: 'flex-start',
+                            width: 150,
+                            height: 100,
+                        }}
+                    >
+
+                        <TouchableOpacity
+                            style={{ justifyContent: 'center' }}
+                            onPress={() => { this.dropDown && this.dropDown.show(); }}
+                        >
+                            <View
+                                style={{ width: 150,
+                                    height: 25,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    borderWidth: 1,
+                                    borderColor: '#3d4c57',
+                                    borderRadius: 5 }}
+                            >
+                                <ModalDropdown
+                                    ref={(el) => { this.dropDown = el; }}
+                                    options={['CORN', 'SOYBEAN', 'AAAAAAA',
+                                        'BBBBBBB', 'CCCCCCCCC', 'DDDDDD']}
+                                    defaultValue={'CORN'}
+                                    style={{ flex: 1 }}
+                                    textStyle={{ fontWeight: 'bold', textAlign: 'center' }}
+                                    onSelect={(index, value) => { }}
+                                    dropdownTextStyle={{ fontWeight: 'bold' }}
+                                    dropdownStyle={{ width: 150, marginLeft: 10 }}
+
+                                />
+                                <Text>▼</Text>
+                            </View>
+
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
                 {this.renderFlatList()}
             </View>
@@ -86,7 +146,7 @@ class Orders extends Component {
 const styles = {
         containerStyle: {
             flex: 1,
-            backgroundColor: '#007681',
+            backgroundColor: '#3d4c57',
 
 
         },
@@ -107,6 +167,8 @@ const styles = {
             marginRight: 10,
             marginTop: 10,
             marginBottom: 5,
+            borderTopColor: '#e7b514',
+            borderTopWidth: 5
         },
         segment: {
             marginLeft: 50,
@@ -157,14 +219,15 @@ const styles = {
 
     }
   const mapStateToProps = (state) => {
-    console.log(state)
+  //  console.log(state)
     return {
-       orders: state.vieworder
+       orders: state.vieworder,
+        auth: state.auth
     };
 }
 
 const matchDispatchToProps = (dispatch) => {
-   return bindActionCreators({ itemsFetchData }, dispatch);
+   return bindActionCreators({ itemsFetchData , dropDownCrop}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Orders);

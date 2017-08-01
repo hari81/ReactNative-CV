@@ -10,7 +10,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         style={inputStyle}
-        //value={value}
+        value={value}
         onChangeText={onChangeText}
       />
     </View>
