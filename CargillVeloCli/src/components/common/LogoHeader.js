@@ -32,7 +32,7 @@ const styles = {
     },
     viewStyle: {
         flexDirection: 'row',
-        backgroundColor: '#007681',
+        backgroundColor: '#3d4c57',
         height: 70,
         paddingTop: 20
     },

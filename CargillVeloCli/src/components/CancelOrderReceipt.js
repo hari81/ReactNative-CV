@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { LogoHeader, OrderButton } from './common/index';
 import { backToOrders } from '../redux/actions/index';
 
-class CancelOrder extends Component {
+class CancelOrderReceipt extends Component {
     state = {
         switchValue: false
     }
