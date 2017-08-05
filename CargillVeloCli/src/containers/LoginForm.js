@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, Switch, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import base64 from 'base-64';
-import { emailChanged, passwordChanged, loginUser, saveUserSwitchChanged } from '../redux/actions/index';
+import { emailChanged, passwordChanged, saveUserSwitchChanged } from '../redux/actions/index';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
+import { loginUser } from '../redux/actions/LoginAuth';
 
 class LoginForm extends Component {
     constructor()
@@ -14,7 +16,7 @@ class LoginForm extends Component {
                 const userInfo = JSON.parse(data);
                 if (userInfo) {
                     this.props.emailChanged(userInfo.email ? base64.decode(userInfo.email) : '');
-                    this.props.saveUserSwitchChanged({ value:true });
+                    this.props.saveUserSwitchChanged({ value: true });
                 }
             })
             .catch((error) => {
@@ -31,7 +33,7 @@ class LoginForm extends Component {
     }
 
     onButtonPress() {
-        const { email, password, saveUser } = this.props;
+        const { email, password, saveUser } = this.props.auth;
         this.props.loginUser({ email, password, saveUser });
     }
    onSaveUserChange(value) {
@@ -39,12 +41,11 @@ class LoginForm extends Component {
     }
 
     renderButton() {
-        if(this.props.loading)
-        {
-           return( <Spinner size="large"/> );
+        if (this.props.loading) {
+           return ( <Spinner size="large"/> );
         } else {
 
-           return( <Button onPress={this.onButtonPress.bind(this)}>Login</Button> );
+           return (<Button onPress={this.onButtonPress.bind(this)}>Login</Button>);
         }
     }
 
@@ -57,7 +58,7 @@ class LoginForm extends Component {
                         placeholder="Email"
                         label="Email"
                         onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
+                        value={this.props.auth.email}
 
                     />
 
@@ -69,7 +70,7 @@ class LoginForm extends Component {
                         placeholder="Password"
                         label="Password"
                         onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
+                        value={this.props.auth.password}
                     />
                 </CardSection>
                 <CardSection>
@@ -78,9 +79,9 @@ class LoginForm extends Component {
                     >
                         <Switch
                             style={{ backgroundColor: '#3d4c57' }}
-                            onTintColor= "#01aca8"
+                            onTintColor="#01aca8"
                             onValueChange={this.onSaveUserChange.bind(this)}
-                            value={this.props.saveUser}
+                            value={this.props.auth.saveUser}
                         />
 
                         <Text
@@ -111,15 +112,12 @@ class LoginForm extends Component {
     }
     };
 
-const mapStateToProps = ({ auth }) => {
-    const { email, password,loading, saveUser, error } = auth;
+const mapStateToProps = (state) => {
     return {
-        email,
-        password,
-        loading,
-        saveUser,
-        error
+        auth: state.auth
     };
 }
-export default connect(mapStateToProps,
-                       { emailChanged, passwordChanged, loginUser, saveUserSwitchChanged })(LoginForm);
+const matchDispatchToProps = (dispatch) => {
+    return bindActionCreators({ emailChanged, passwordChanged, loginUser, saveUserSwitchChanged }, dispatch)
+}
+export default connect(mapStateToProps, matchDispatchToProps)(LoginForm);

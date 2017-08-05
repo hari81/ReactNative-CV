@@ -5,7 +5,7 @@ import {
     PASSWORD_CHANGED,
     LOGIN_FAIL,
     LOGIN_USER,
-    BACK_TO_ORDERS, USER_SWITCH_CHANGED, LOGIN_SUCCESS
+    USER_SWITCH_CHANGED, LOGIN_SUCCESS
 } from '../actions/types';
 
 
@@ -25,23 +25,21 @@ export default (state = INITIAL_STATE, action) => {
         case PASSWORD_CHANGED:
             return Object.assign({}, state, { password: action.payload });
         case LOGIN_USER:
-            return Object.assign({}, state, {loading:true, error: ''});
+            return Object.assign({}, state, { error: '' });
         case LOGIN_SUCCESS:
-            return Object.assign({},state, { loading: false, error: ''});
+            return Object.assign({},state, { loading: false, error: '' });
         case LOGIN_FAIL:
             return Object.assign({}, state, { error: 'Authentication Failed',
                 password: '',
                 email: '',
-                message: AlertIOS.alert(
+                msg: AlertIOS.alert(
                     'Error',
                     'Invalid Username or Password'
                 ),
                 loading: false
             })
         case USER_SWITCH_CHANGED:
-            return Object.assign({}, state, {saveUser: action.payload});
-        case BACK_TO_ORDERS:
-            return { ...state }
+            return Object.assign({}, state, { saveUser: action.payload });
 
         default:
             return state;
