@@ -57,7 +57,7 @@ export default class MyFarm extends React.Component
                 </View>
 
                 <View
-                    style={{ width: width,
+                    style={{ width,
                         height: 90,
                         backgroundColor: '#3d4c57',
                         alignItems: 'center',
@@ -66,7 +66,7 @@ export default class MyFarm extends React.Component
                 >
                     <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
                         <TouchableOpacity>
-                        <View style={{width: 1150, height: 80, backgroundColor: 'white'}}>
+                        <View style={{ width: 1150, height: 80, backgroundColor: 'white'}}>
                             <Text>2016</Text>
                             <Text>Corn</Text>
                             <Text>Corp</Text>

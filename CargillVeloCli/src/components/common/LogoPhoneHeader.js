@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, Image, TouchableHighlight, Alert} from 'react-native';
-
+import { Text, View, Image, TouchableHighlight, Alert }  from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Refresh from './img/Refresh.png';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import HomeIcon from './img/homeIconMed.png';
@@ -21,7 +21,7 @@ const LogoPhoneHeader = () => {
             >
                 <TouchableHighlight
 
-                    onPress={() => Alert("Goes to Home Screen")}
+                    onPress={() => Actions.dashboard()}
                 >
                     <Image source={HomeIcon} />
                 </TouchableHighlight>
@@ -31,7 +31,7 @@ const LogoPhoneHeader = () => {
                     source={cargillLogoWhite}
                 />
                 <Text
-                    style={{ color: 'white', textAlign: 'center', fontSize: 20 }}
+                    style={{ color: 'white', textAlign: 'center', fontSize: 14 }}
                 >
                     Price Hedging
                 </Text>
@@ -52,7 +52,7 @@ const LogoPhoneHeader = () => {
                     </TouchableHighlight>
                     <Text
                         style={{ color: 'white',
-                            fontSize: 20,
+                            fontSize: 14,
                             borderColor: 'white',
                             borderRightWidth: 2 }}
                     >
@@ -60,7 +60,7 @@ const LogoPhoneHeader = () => {
                     </Text>
 
                 </View>
-                <Text style={{ color: 'white', fontSize: 20 }}> | </Text>
+                <Text style={{ color: 'white', fontSize: 14 }}> | </Text>
                 <View
                     style={{ flex: 1,
                         flexDirection: 'row',
@@ -72,9 +72,9 @@ const LogoPhoneHeader = () => {
                         style={{ width: 25, height: 25, marginLeft: 1, marginRight: 1 }}
                         source={Phone}
                     />
-                    <Text style={{ color: 'white', fontSize: 20 }}> +1-952-742-7414</Text>
+                    <Text style={{ color: 'white', fontSize: 14 }}> +1-952-742-7414</Text>
                 </View>
-                <Text style={{ color: 'white', fontSize: 20 }}> | </Text>
+                <Text style={{ color: 'white', fontSize: 14 }}> | </Text>
                 <View>
 
                     <Image

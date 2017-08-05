@@ -1,115 +1,106 @@
 import React, { Component } from 'react';
 import { Text, View, Switch, Image, AlertIOS } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 import { LogoHeader, OrderButton } from './common/index';
-import { backToOrders } from '../redux/actions/index';
 
 class CancelOrder extends Component {
     state = {
         switchValue: false
     }
 
-    onBackToOrders(e) {
-
-        this.props.backToOrders(e);
+    onBackToOrders() {
+        Actions.orders();
     }
-    cancelOrder () {
-        if (!this.state.switchValue)
-        {
+    cancelOrder() {
+        if (!this.state.switchValue) {
             AlertIOS.alert('Please Make sure',
                 'Agree terms and Conditions & Switch on'
             );
         }
     }
-    toggleSwitch = (value) => this.setState({ switchValue: value })
 
     render() {
+        console.log(this.props);
         return (
-              <View style={styles.containerStyle}>
-                <LogoHeader
-                subHeaderText="PRICE HEDGING"
-                phNumber="+1-952-742-7414"
-                />
-                  <View >
-                      <Text style={styles.headerText}>Review Cancel Details</Text>
-                      <Text style={styles.subHeaderTextStyle}>Cancel this order? </Text>
-                      <View style={styles.productContainer}>
-                          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.containerStyle}>
+                <LogoHeader />
+                <View >
+                    <Text style={styles.headerText}>Review Cancel Details</Text>
+                    <Text style={styles.subHeaderTextStyle}>Cancel this order? </Text>
+                    <View style={styles.productContainer}>
+                        <View style={{ flexDirection: 'row' }}>
 
-                              <View>
-                                  <Text >
-                                      Your trade direction is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.buySell}</Text>
-                                  <Text >
-                                      Your crop is a
-                                  </Text>
-                                  <Text style={styles.contentStyle}>
-                                      Corn
-                                  </Text>
-                                  <Text >
-                                      Your crop year is
-                                  </Text>
+                            <View>
+                                <Text >
+                                    Your trade direction is
+                                </Text>
+                                <Text style={styles.contentStyle}>{this.props.buySell}</Text>
+                                <Text >
+                                    Your crop is
+                                </Text>
+                                <Text style={styles.contentStyle}>
+                                    {this.props.underlyingObject.commodity.name}
+                                </Text>
+                                <Text >
+                                    Your crop year is
+                                </Text>
 
-                                  <Text style={styles.contentStyle}>2017</Text>
-                                  <Text >
-                                      Your contract month is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>July</Text>
-                              </View>
+                                <Text style={styles.contentStyle}>{this.props.underlyingYear}</Text>
+                                <Text >
+                                    Your contract month is
+                                </Text>
+                                <Text style={styles.contentStyle}>{this.props.underlyingObject.contractMonth.month.name}</Text>
+                            </View>
 
-                              <View style={{ marginLeft: 80 }} >
-                                  <Text >
-                                      Your product is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.riskProductName}</Text>
-                                  <Text >
-                                      Your bushel quantity is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</Text>
-                                  <Text >
-                                      Your order type is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.orderType}</Text>
-                              </View>
+                            <View style={{ marginLeft: 80 }} >
+                                <Text >
+                                    Your product is
+                                </Text>
+                                <Text style={styles.contentStyle}>{this.props.riskProductName}</Text>
+                                <Text >
+                                    Your bushel quantity is
+                                </Text>
+                                <Text style={styles.contentStyle}>{this.props.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</Text>
+                                <Text >
+                                    Your order type is
+                                </Text>
+                                <Text style={styles.contentStyle}>{this.props.orderType}</Text>
+                            </View>
 
 
-                          </View>
+                        </View>
 
-                          <View style={{ flexDirection: 'row', marginTop: 200 }}>
-                              <Switch
-                                  onValueChange={this.toggleSwitch}
-                                  value={this.state.switchValue}
-                              />
-                              <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
-                                  Agree to Terms and Conditions
-                              </Text>
-                              <Image
-                              style={{ width: 30, height: 30, marginLeft: 10 }}
-                              source={ require('./common/img/Info.png' )}
-                              />
-                          </View>
+                        <View style={{ flexDirection: 'row', marginTop: 200 }}>
+                            <Switch
+                                onValueChange={this.toggleSwitch}
+                                value={this.state.switchValue}
+                            />
+                            <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
+                                Agree to Terms and Conditions
+                            </Text>
+                            <Image
+                                style={{ width: 30, height: 30, marginLeft: 10 }}
+                                source={ require('./common/img/Info.png' )}
+                            />
+                        </View>
 
-                          <View
-                              style={{ flexDirection: 'row',
-                              marginTop: 10,
-                              marginBottom: 10,
-                              marginLeft: 160,
-                              marginRight: 160 }}
-                          >
-                              <OrderButton
-                                  onPress={this.onBackToOrders.bind(this)}
-                              >BACK TO ORDERS LIST</OrderButton>
-                              <OrderButton
-                                  onPress={this.cancelOrder.bind(this)}
-                              >CANCEL ORDER NOW</OrderButton>
-                          </View>
+                        <View
+                            style={{ flexDirection: 'row',
+                                marginTop: 10,
+                                marginBottom: 10,
+                                marginLeft: 160,
+                                marginRight: 160 }}
+                        >
+                            <OrderButton
+                                onPress={this.onBackToOrders.bind(this)}
+                            >BACK TO ORDERS LIST</OrderButton>
+                            <OrderButton onPress={this.cancelOrder.bind(this)}>CANCEL ORDER NOW</OrderButton>
+                        </View>
 
 
-                      </View>
-                  </View>
-              </View>
+                    </View>
+                </View>
+            </View>
 
 
         );
@@ -155,19 +146,7 @@ const styles = {
 
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        data: state.cancelItem
-    }
-}
 
 
-
-
-const matchDispatchToProps = (dispatch) => {
-    return bindActionCreators({ backToOrders }, dispatch);
-}
-
-
-export default connect(mapStateToProps, matchDispatchToProps)(CancelOrder);
+export default CancelOrder;
 

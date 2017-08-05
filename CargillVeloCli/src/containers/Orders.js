@@ -5,63 +5,49 @@ import {
 import ModalDropdown from 'react-native-modal-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import OrderItem from '../components/OrderItem';
+import ViewOrders from '../components/ViewOrders';
 import OpenPositions from '../components/OpenPositions';
 import ClosedPositions from '../components/ClosedPositions';
-import { LogoPhoneHeader, Spinner } from '../components/common';
-import { itemsFetchData, dropDownCrop } from '../redux/actions/ViewOrderAction';
-
-
-const openpositions = require('../restAPI/openpositions.json');
-const closedpositions = require('../restAPI/closedpositions.json');
+import { LogoPhoneHeader } from '../components/common';
+import { ViewOrdersData, dropDownCrop } from '../redux/actions/ViewOrderAction';
+import { OpenPositionsData } from '../redux/actions/OpenPositions';
+import { ClosedPositionsData } from '../redux/actions/ClosedPositions';
 
 class Orders extends Component {
+   constructor(props) {
+       super(props);
+       this.state = {
+           selectedTab: props.selectedTab || 'Orders'
 
-        state = {
-            selectedTab: 'Orders'
-        };
-
-
-    componentWillMount() {
-        this.props.itemsFetchData();
-        this.props.dropDownCrop(this.props.email,this.props.password);
+       };
+   }
+    componentDidMount() {
+        this.props.ViewOrdersData();
+        this.props.OpenPositionsData();
+        this.props.ClosedPositionsData();
     }
-
     renderFlatList() {
-        if (this.props.orders.fetchflag){
-            return (<View style={{flex: 1}}>
+        if (this.state.selectedTab === 'Orders') {
+            return (<FlatList
+                data={this.props.viewOrders.value}
+                renderItem={({ item }) => <ViewOrders item={item} />}
+                //keyExtractor={this.props.viewOrders.value.map((item) => item.orderId)}
 
-                <Text style={{ marginTop: 50, color: 'white', textAlign: 'center', fontSize: 25 }}>
-                    Loading orders...
-                </Text>
-                <Spinner size="large"/>
-            </View>);
+            />);
         }
-        else {
-            if (this.state.selectedTab === 'Orders') {
-
-                console.log('Orders Button Pressed');
-
-                return (<FlatList
-                    data={this.props.orders.items.value}
-                    keyExtractor={item => item.orderId}
-                    renderItem={({item}) => <OrderItem item={item}/>}
-                />);
-            }
-            if (this.state.selectedTab === 'Open Positions') {
-                console.log('Open Positions Pressed');
-                return (<FlatList
-                    data={openpositions.lines}
-                    renderItem={({item}) => <OpenPositions item={item}/>}
-                />);
-            }
-            if (this.state.selectedTab === 'Closed Positions') {
-                console.log('Closed Positions Pressed');
-                return (<FlatList
-                    data={closedpositions.lines}
-                    renderItem={({item}) => <ClosedPositions item={item}/>}
-                />);
-            }
+        if (this.state.selectedTab === 'Open Positions') {
+            return (<FlatList
+                data={this.props.openPositions.lines}
+                renderItem={({ item }) => <OpenPositions item={item} />}
+                //keyExtractor={item => item.orderId}
+            />);
+        }
+        if (this.state.selectedTab === 'Closed Positions') {
+            return (<FlatList
+            data={this.props.closedPositions}
+            renderItem={({ item }) => <ClosedPositions item={item} />}
+            //keyExtractor={item => item.id}
+            />);
         }
     }
     render() {
@@ -69,7 +55,7 @@ class Orders extends Component {
 
             <View style={styles.containerStyle}>
 
-               <LogoPhoneHeader/>
+               <LogoPhoneHeader />
 
                 <View style={styles.segmentarea}>
 
@@ -83,7 +69,12 @@ class Orders extends Component {
                             tintColor="#01aca8"
                             style={styles.segment}
                             values={['Orders', 'Open Positions', 'Closed Positions']}
-                            selectedIndex={0}
+                            selectedIndex={{
+                                Orders: 0,
+                                'Open Positions': 1,
+                                'Closed Positions': 2
+                            }[this.state.selectedTab]
+                            }
                             onChange={(event) => {
                                 this.setState({
                                     selectedIndex: event.nativeEvent.selectedSegmentIndex
@@ -119,8 +110,7 @@ class Orders extends Component {
                             >
                                 <ModalDropdown
                                     ref={(el) => { this.dropDown = el; }}
-                                    options={['CORN', 'SOYBEAN', 'AAAAAAA',
-                                        'BBBBBBB', 'CCCCCCCCC', 'DDDDDD']}
+                                    options={['CORN', 'SOYBEAN']}
                                     defaultValue={'CORN'}
                                     style={{ flex: 1 }}
                                     textStyle={{ fontWeight: 'bold', textAlign: 'center' }}
@@ -218,17 +208,18 @@ const styles = {
     },
 
     }
-  const mapStateToProps = (state) => {
-  //  console.log(state)
+const mapStateToProps = (state) => {
+    //console.log(state.closedPositions)
     return {
-       orders: state.vieworder,
-        auth: state.auth
+        viewOrders: state.vieworder.items,
+        openPositions: state.openPositions,
+        closedPositions: state.closedPositions
+
     };
 }
 
 const matchDispatchToProps = (dispatch) => {
-   return bindActionCreators({ itemsFetchData , dropDownCrop}, dispatch);
+   return bindActionCreators({ ViewOrdersData, ClosedPositionsData, OpenPositionsData, dropDownCrop, }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Orders);
-//export default Orders;
