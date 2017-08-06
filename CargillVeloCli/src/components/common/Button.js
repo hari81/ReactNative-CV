@@ -17,8 +17,8 @@ const styles = {
   textStyle: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 30,
-    fontWeight: '600',
+    fontSize: 20,
+   // fontWeight: '600',
     paddingTop: 10,
     paddingBottom: 10
   },
@@ -29,8 +29,8 @@ const styles = {
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#01aca8',
-    marginLeft: 5,
-    marginRight: 5
+   // marginLeft: 5,
+   // marginRight: 5
   }
 };
 

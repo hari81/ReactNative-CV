@@ -36,7 +36,7 @@ export const saveUserSwitchChanged = ({value}) => {
 
 };
 
-export const loginUser = ({ email, password, saveUser }) => {
+export const loginUser = ({ email,password,saveUser }) => {
     return (dispatch) => {
         dispatch({type: LOGIN_USER});
         const url = AUTHENTICATE_URL +'identities/authenticate';
@@ -53,11 +53,13 @@ export const loginUser = ({ email, password, saveUser }) => {
             headers,
             body: JSON.stringify({
                 domain: 'commodityhedging.com',
-                password,
+                password: password,
                 username: email
             })
         })
+
             .then(response => {
+                //console.log(getState().auth.password, getState().auth.email);
                 if (response.ok) {
                     return response.json()
                         .then(responseJson => {
@@ -75,7 +77,7 @@ export const loginUser = ({ email, password, saveUser }) => {
 
                                 }
                                 dispatch({type: LOGIN_SUCCESS});
-                                Actions.main({A:1, B:2});
+                                Actions.main(); //{A:1, B:2} as arguments
                             } else {
                                 dispatch({type: LOGIN_FAIL});
                             }

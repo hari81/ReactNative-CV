@@ -13,7 +13,7 @@ export function itemsFetchDataSuccess(items) {
 }
 export const ViewOrdersData = () => {
     return (dispatch, getState) => {
-        dispatch( {type: FETCHING_ORDERS_ACTIVITY} )
+        dispatch( {type: FETCHING_ORDERS_ACTIVITY} );
 
 
         const url = RESTAPIURL+'api/orders';
@@ -23,7 +23,7 @@ export const ViewOrdersData = () => {
 
         const headers = new Headers();
         headers.append('Authorization', 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password));
-        headers.append('x-api-key','rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb')
+        headers.append('x-api-key','rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb');
         return fetch(url, {
             method: 'GET',
             headers

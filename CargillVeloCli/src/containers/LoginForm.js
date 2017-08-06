@@ -31,8 +31,8 @@ class LoginForm extends Component {
     }
 
     onButtonPress() {
-        const { email, password, saveUser } = this.props.auth;
-        this.props.loginUser({ email, password, saveUser })//.then(response => console.log("login success", response));
+        const { saveUser, email, password } = this.props.auth;
+        this.props.loginUser({email, password, saveUser })//.then(response => console.log("login success", response));
     }
    onSaveUserChange(value) {
         this.props.saveUserSwitchChanged({ value });
@@ -76,29 +76,30 @@ class LoginForm extends Component {
                         value={this.props.auth.password}
                     />
                 </CardSection>
+                <Text style={styles.errorStyle}> {this.props.auth.error} </Text>
                 <CardSection>
                     <View
-                        style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}
+                        style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' , alignItems: 'center' }}
                     >
                         <Switch
-                            style={{ backgroundColor: '#3d4c57' }}
+                            style={{ backgroundColor: '#3d4c57', marginLeft: 10 }}
                             onTintColor= "#01aca8"
                             onValueChange={this.onSaveUserChange.bind(this)}
                             value={this.props.auth.saveUser}
                         />
 
                         <Text
-                            style={{ fontSize: 20, marginLeft: 20, color: '#ffffff' }}
+                            style={{ fontSize: 15, marginLeft: 15, color: '#ffffff' }}
                         > Save Username </Text>
                     </View>
                 </CardSection>
 
-                <Text style={styles.errorStyle}> {this.props.auth.error} </Text>
+
                 <CardSection>
                     {this.renderButton()}
                 </CardSection>
 
-                <Text style={{ fontSize: 20, color: 'white' }}>
+                <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10 }}>
                     Having trouble logging in? Please call +1-952-742-7414 or
                     email cargillpricehedge@cargill.com
                 </Text>

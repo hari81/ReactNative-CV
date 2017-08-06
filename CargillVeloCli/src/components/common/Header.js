@@ -23,7 +23,7 @@ const styles = {
         position: 'relative'
     },
     textStyle: {
-        fontSize: 80,
+        fontSize: 50,
         color: 'white'
     }
 };

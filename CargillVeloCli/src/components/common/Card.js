@@ -15,7 +15,7 @@ const styles = {
   
     elevation: 1,
     marginLeft: 50,
-    marginRight: 5,
+    marginRight: 70,
     marginTop: 10,
     marginBottom: 5,
   }

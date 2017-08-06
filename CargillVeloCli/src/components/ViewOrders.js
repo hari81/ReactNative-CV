@@ -101,7 +101,8 @@ render() {
 
                 <View style={styles.buttonview}>
                     <TouchableHighlight
-                        style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
+                        //style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
+                        style={styles.viewbutton}
                         onPress={() => this.onCancelPress({...this.props.item, month, year, crop, orderId})}
                        // disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
                         color= {orderState.label === 'PENDING_CANCEL'? 'red' : 'yellow'}

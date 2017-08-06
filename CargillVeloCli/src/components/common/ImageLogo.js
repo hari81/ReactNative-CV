@@ -4,7 +4,7 @@ import React from 'react';
 
 const ImageLogo = () => (
     <View style={styles.imageContainer}>
-    <Image source={require('./img/cargillLogoWhite.png')}
+    <Image source={require('./img/cargillLogoWhite3.png')}
      style={styles.logoStyle}
     />
      <Text style={styles.textStyle}>
@@ -24,15 +24,17 @@ const styles = {
   },
 
   logoStyle: {
-    height: 82,
-    width: 180,
-    paddingLeft: 10,
+    height: 113,
+    width: 250,
+    //paddingLeft: 10,
     alignItems: 'center',
 
   },
   textStyle: {
+      marginTop: 10,
     fontSize: 25,
     color: 'white',
+      textAlign: 'center'
   },
 
 

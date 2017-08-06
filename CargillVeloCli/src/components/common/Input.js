@@ -22,17 +22,17 @@ const styles = {
     color: '#000',
     paddingRight: 5,
     paddingLeft: 5,
-    fontSize: 25,
-    lineHeight: 30,
+    fontSize: 15,
+    lineHeight: 20,
     flex: 2
   },
   labelStyle: {
-    fontSize: 18,
+    fontSize: 15,
     paddingLeft: 20,
     flex: 1
   },
   containerStyle: {
-    height: 70,
+    height: 50,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

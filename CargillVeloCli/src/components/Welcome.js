@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 import React from 'react';
-import { Text, View, Linking} from 'react-native';
+import { Text, View, Linking, StatusBar} from 'react-native';
 import Dimensions from 'Dimensions';
 import LoginForm from '../containers/LoginForm';
 import { Header, ImageLogo } from './common/index';
@@ -9,20 +9,31 @@ export default class App extends React.Component {
     render() {
     const { width, height } = Dimensions.get('window');
     return (
+
+
       <View style={{ flex: 1, flexDirection: 'column' }}>
+          <StatusBar barStyle="light-content" />
+          <View
+              style={{ backgroundColor: 'black',
+                  width : width,
+                  height: 20,
+
+              }}
+          />
         <View
                 style={{ backgroundColor: '#3d4c57',
-                width,
-                height: height - 120,
-                    marginTop: 10,
-                    marginRight: 30,
-                    marginBottom: 10
+                width : width - 100,
+                height: height - 160,
+                   marginTop: 30,
+                    marginRight: 50,
+                    marginLeft: 50,
+                   marginBottom: 50
                 }}
         >
             <Header headerText='Welcome' />
 
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ color: 'white', fontSize: 20, marginTop: 25 }}>
+            <Text style={{ color: 'white', fontSize: 15, marginTop: 15 }}>
               Please log in below by entering your username and password
             </Text>
           </View>
@@ -34,17 +45,17 @@ export default class App extends React.Component {
               alignItems: 'stretch' }}
             >
             <View
-                style={{ flex: 1,
+                style={{ flex: 1.5,
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderRightWidth: 2,
+                borderRightWidth: 1,
                 borderColor: 'white' }}
             >
             <ImageLogo />
             </View>
             <View style={{ flex: 2 }}>
             <View style={{ alignItems: 'flex-start', marginLeft: 50 }}>
-              <Text style={{ fontSize: 25, color: 'white' }}> Login below </Text>
+              <Text style={{ fontSize: 20, color: 'white' }}> Login below </Text>
             </View>
               <LoginForm />
             </View>
@@ -53,25 +64,25 @@ export default class App extends React.Component {
 
           <View
               style={{ width: width,
-                  height: 90,
+                  height: 60,
                   backgroundColor: '#3d4c57',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 10 }}
+                  justifyContent: 'center'
+                   }}
           >
               <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-                  <Text style={{ color: 'white', fontSize: 15 }}>
+                  <Text style={{ color: 'white', fontSize: 12 }}>
                       Cargill Website | </Text>
-                  <Text style={{ color: 'white', fontSize: 15 }} onPress={() => Linking.openURL('http://go.cargill.com/CargillPriceHedgingPrivacy')}>
+                  <Text style={{ color: 'white', fontSize: 12 }} onPress={() => Linking.openURL('http://go.cargill.com/CargillPriceHedgingPrivacy')}>
                       Privacy
                       | </Text>
-                  <Text style={{ color: 'white', fontSize: 15 }} onPress={() => Linking.openURL('http://go.cargill.com/CargillPriceHedgingTerms')}>
+                  <Text style={{ color: 'white', fontSize: 12 }} onPress={() => Linking.openURL('http://go.cargill.com/CargillPriceHedgingTerms')}>
                       Terms & Conditions
                   </Text>
               </View>
 
 
-              < Text style={{ color: 'white', fontSize: 15 }}>
+              < Text style={{ color: 'white', fontSize: 12 }}>
                   &copy; 2017 Cargill, Incorporated. All Rights Reserved.
               </Text>
 

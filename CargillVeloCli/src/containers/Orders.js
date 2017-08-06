@@ -36,41 +36,49 @@ class Orders extends Component {
 
     renderFlatList() {
         if (this.props.viewOrders.fetchflag){
-            return (<View style={{flex: 1, justifyContent: 'center'}}>
+            return (<View style={{flex: 1, justifyContent: 'center', flexDirection: 'column'}}>
 
                 <Text style={{ marginTop: 50, color: 'white', textAlign: 'center', fontSize: 25 }}>
                     Loading orders...
                 </Text>
                 <Spinner size="large"/>
             </View>);
-        }
-        else {
-            if (this.state.selectedTab === 'Orders') {
+        } else {
+            /*if (this.props.viewOrders.items.value.length === 0 ) {
+                return (<View style={{flex: 1, justifyContent: 'center', flexDirection: 'column'}} >
+                    <Text style={{ marginTop: 50, color: 'white', textAlign: 'center', fontSize: 25 }}>
+                        Sorry... No Orders Available!.
+                    </Text>
+                </View>);
+            }*/
 
-                console.log('Orders Button Pressed');
+                if (this.state.selectedTab === 'Orders') {
 
-                return (<FlatList
-                    data={this.props.viewOrders.items.value}
-                    keyExtractor={item => item.orderId}
-                    renderItem={({item}) => <ViewOrders item={item}/>}
-                />);
-            }
-            if (this.state.selectedTab === 'Open Positions') {
-                console.log('Open Positions Pressed');
-                return (<FlatList
-                    data={openpositions.lines}
-                    keyExtractor={item => item.orderId}
-                    renderItem={({item}) => <OpenPositions item={item}/>}
-                />);
-            }
-            if (this.state.selectedTab === 'Closed Positions') {
-                console.log('Closed Positions Pressed');
-                return (<FlatList
-                    data={closedpositions.lines}
-                    keyExtractor={item => item.orderId}
-                    renderItem={({item}) => <ClosedPositions item={item}/>}
-                />);
-            }
+                    console.log('Orders Button Pressed');
+
+                    return (<FlatList
+                        data={this.props.viewOrders.items.value}
+                        keyExtractor={item => item.orderId}
+                        renderItem={({item}) => <ViewOrders item={item}/>}
+                    />);
+                }
+                if (this.state.selectedTab === 'Open Positions') {
+                    console.log('Open Positions Pressed');
+                    return (<FlatList
+                        data={openpositions.lines}
+                        keyExtractor={item => item.orderId}
+                        renderItem={({item}) => <OpenPositions item={item}/>}
+                    />);
+                }
+                if (this.state.selectedTab === 'Closed Positions') {
+                    console.log('Closed Positions Pressed');
+                    return (<FlatList
+                        data={closedpositions.lines}
+                        keyExtractor={item => item.orderId}
+                        renderItem={({item}) => <ClosedPositions item={item}/>}
+                    />);
+                }
+
         }
     }
     render() {
@@ -85,7 +93,7 @@ class Orders extends Component {
 
             <View style={styles.containerStyle}>
 
-               <LogoPhoneHeader onPress={this.props.ViewOrdersData()}/>
+               <LogoPhoneHeader />
 
                 <View style={styles.segmentarea}>
 
@@ -140,7 +148,7 @@ class Orders extends Component {
                                     style={{ flex: 1 }}
                                     textStyle={{ fontWeight: 'bold', textAlign: 'center' }}
                                     onSelect={(index, value) => {
-                                        this.props.selectedCrop(value, email, password)}}
+                                        this.props.selectedCrop(value)}}
                                     dropdownTextStyle={{ fontWeight: 'bold' }}
                                     dropdownStyle={{ width: 150, marginLeft: 10 }}
                                     animated={false}
