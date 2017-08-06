@@ -1,6 +1,8 @@
+/*jshint esversion: 6 */
+"use strict";
 import React from 'react';
-import { Text, View, Image, TouchableHighlight, Alert }  from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Text, View, Image, TouchableHighlight, Alert} from 'react-native';
+
 import Refresh from './img/Refresh.png';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import HomeIcon from './img/homeIconMed.png';
@@ -8,7 +10,7 @@ import Phone from './img/Phone.png';
 import User from './img/User.png';
 
 
-const LogoPhoneHeader = () => {
+const LogoPhoneHeader = (onPress) => {
 
     return (
 
@@ -21,7 +23,7 @@ const LogoPhoneHeader = () => {
             >
                 <TouchableHighlight
 
-                    onPress={() => Actions.dashboard()}
+                    onPress={() => Alert("Goes to Home Screen")}
                 >
                     <Image source={HomeIcon} />
                 </TouchableHighlight>
@@ -45,9 +47,10 @@ const LogoPhoneHeader = () => {
             >
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                     <TouchableHighlight onPress={() => Alert("Data will refresh")}>
-                        <Image
+                        <Image onPress={onPress}
                             style={{ width: 25, height: 25, marginLeft: 1, marginRight: 5 }}
                             source={Refresh}
+
                         />
                     </TouchableHighlight>
                     <Text

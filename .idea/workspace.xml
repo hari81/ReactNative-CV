@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51c3838d-e280-48ac-ba03-6de42c893755" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/ViewOrders.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/OrderItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/package.json" afterPath="$PROJECT_DIR$/CargillVeloCli/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/CancelOrder.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/CancelOrder.js" />
+    <list default="true" id="51c3838d-e280-48ac-ba03-6de42c893755" name="Default" comment="Manage orders, cancel Order using backend and draft as well,Login Authentication, Provision our identity server with initial commodityhedging users">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/img/Plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/img/confirmationSuccess.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/.jshintrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/src/ServiceURLS/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/CancelOrder.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/FarmInput.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/CancelOrder.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/ServiceURLS/service.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/containers/DashBoard.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/ClosedPositions.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/Dashboard/OpenPositionsCount.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/Dashboard/OpenWorkingOrdersCount.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/LoginAuth.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/OpenPositions.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ClosedPositions.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ClosedUnderlying.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/Dashboard/OpenPositionsCount.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/Dashboard/OpenWorkingOrdersCount.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/OpenPositions.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/app.json" afterPath="$PROJECT_DIR$/CargillVeloCli/app.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/index.ios.js" afterPath="$PROJECT_DIR$/CargillVeloCli/index.ios.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/App.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/App.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/Router.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/Router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/CancelOrderReceipt.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/CancelOrderReceipt.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/ClosedPositions.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/ClosedPositions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/OpenPositions.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/OpenPositions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/ViewOrders.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/ViewOrders.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/Welcome.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/Welcome.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/Button.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/Button.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/Input.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/Input.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/CropButton.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/CropButton.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoHeader.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoHeader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/OrderButton.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/OrderButton.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/components/common/index.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/components/common/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/containers/LoginForm.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/containers/LoginForm.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/containers/MyFarm.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/containers/MyFarm.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/ViewOrderAction.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/ViewOrderAction.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/index.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/types.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/types.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/AuthReducer.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/AuthReducer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ViewOrdersReducer.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ViewOrdersReducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/index.js" afterPath="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,58 +58,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Orders.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2381">
-              <caret line="172" column="18" lean-forward="true" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthReducer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/AuthReducer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="36" column="49" lean-forward="false" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrderItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/OrderItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="165" column="18" lean-forward="false" selection-start-line="165" selection-start-column="18" selection-end-line="165" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyFarm.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MyFarm.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/MyFarm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="61" column="50" lean-forward="false" selection-start-line="61" selection-start-column="50" selection-end-line="61" selection-end-column="50" />
+            <state relative-caret-position="45">
+              <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClosedPositions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/ClosedPositions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,52 +83,88 @@
       <file leaf-file-name="ViewOrderAction.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/ViewOrderAction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+            <state relative-caret-position="945">
+              <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Orders.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1410">
+              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginForm.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/LoginForm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FarmInput.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/FarmInput.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="38" column="2" lean-forward="false" selection-start-line="38" selection-start-column="2" selection-end-line="38" selection-end-column="2" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/ServiceURLS/service.js">
+      <file leaf-file-name="CropButton.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/CropButton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="27" lean-forward="true" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="types.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/types.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewOrdersReducer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ViewOrdersReducer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1873">
-              <caret line="125" column="14" lean-forward="true" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="14" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#0#51#0" expanded="true" />
+                <marker date="1501913022000" expanded="true" signature="835:836" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Button.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/Button.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="522">
+              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogoPhoneHeader.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <marker date="1501991310000" expanded="true" signature="1806:1833" ph="&lt;Image/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="1806:1875" ph="&lt;TouchableHighlight/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="1806:2204" ph="&lt;View/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="1806:3149" ph="&lt;View/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="1806:3166" ph="&lt;View/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="1806:3176" ph="{...}" />
+                <marker date="1501991310000" expanded="true" signature="1896:2179" ph="&lt;Text/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="1933:2092" ph="{&quot;color&quot;: 'white'...}" />
+                <marker date="1501991310000" expanded="true" signature="2295:2828" ph="&lt;View/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="2328:2516" ph="{&quot;flexDirection&quot;: 'row'...}" />
+                <marker date="1501991310000" expanded="true" signature="2556:2713" ph="&lt;Image/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="2919:3129" ph="&lt;View/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="2947:3105" ph="&lt;Image/&gt;" />
+                <marker date="1501991310000" expanded="true" signature="3193:3357" ph="{...}" />
+                <marker date="1501991310000" expanded="true" signature="3210:3354" ph="{&quot;alignItems&quot;: 'center'...}" />
               </folding>
             </state>
           </provider>
@@ -152,7 +181,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="project/velo" />
+        <entry key="$PROJECT_DIR$" value="feature/crew81-86" />
       </map>
     </option>
   </component>
@@ -161,9 +190,7 @@
       <list>
         <option value="$PROJECT_DIR$/CargillVeloCli/package.json" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/components/common/index.js" />
-        <option value="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/components/common/Input.js" />
-        <option value="$PROJECT_DIR$/CargillVeloCli/src/containers/MyFarm.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/components/Welcome.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoHeader.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/AuthReducer.js" />
@@ -176,9 +203,11 @@
         <option value="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/types.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ViewOrdersReducer.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/ServiceURLS/service.js" />
-        <option value="$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/redux/actions/ViewOrderAction.js" />
         <option value="$PROJECT_DIR$/CargillVeloCli/src/components/OrderItem.js" />
+        <option value="$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js" />
+        <option value="$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js" />
+        <option value="$PROJECT_DIR$/CargillVeloCli/src/containers/MyFarm.js" />
       </list>
     </option>
   </component>
@@ -220,6 +249,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -227,30 +258,10 @@
               <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
               <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="CargillVeloCli" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="CargillVeloCli" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="CargillVeloCli" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,11 +303,14 @@
       <workItem from="1501326064681" duration="32298000" />
       <workItem from="1501416273033" duration="20404000" />
       <workItem from="1501518261817" duration="40362000" />
+      <workItem from="1501951090719" duration="871000" />
+      <workItem from="1501973052834" duration="568000" />
+      <workItem from="1501991715854" duration="2031000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93064000" />
+    <option name="totallyTimeSpent" value="97622000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="160" y="23" width="1229" height="805" extended-state="0" />
@@ -307,7 +321,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.64507043" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18309858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -315,6 +329,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32732317" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -343,6 +358,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Manage orders, cancel Order using backend and draft as well,Login Authentication, Provision our identity server with initial commodityhedging users" />
+    <option name="LAST_COMMIT_MESSAGE" value="Manage orders, cancel Order using backend and draft as well,Login Authentication, Provision our identity server with initial commodityhedging users" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="1" />
@@ -350,67 +369,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/CardSection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/Header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/ImageLogo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="34" lean-forward="false" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/Input.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -418,9 +380,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -428,7 +387,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -436,9 +394,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2370">
           <caret line="169" column="28" lean-forward="true" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -446,9 +402,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -456,9 +409,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -466,9 +416,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -476,7 +424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -484,9 +431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <element signature="e#1#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -494,9 +438,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="36" column="20" lean-forward="true" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -504,7 +446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -512,25 +453,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="0" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/CancelOrder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/CancelOrder.js" />
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ViewOrdersReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
+          <folding>
+            <marker date="1501624709000" expanded="true" signature="724:773" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -538,10 +472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="43">
           <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
-          <folding>
-            <marker date="1501328315000" expanded="true" signature="198:566" ph="{&quot;base-64&quot;: &quot;^0.1.0&quot;...}" />
-            <marker date="1501328315000" expanded="true" signature="589:774" ph="{&quot;babel-jest&quot;: &quot;20.0.3&quot;...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -550,20 +480,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/OpenPositions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="39" lean-forward="false" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/Router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="16" column="62" lean-forward="false" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -571,9 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -581,9 +498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -591,9 +505,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -601,9 +512,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -611,7 +519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="34" lean-forward="false" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -619,7 +526,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -627,17 +533,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -645,31 +540,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/Button.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/CancelOrder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/CancelOrder.js" />
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/OrderButton.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -677,9 +555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -687,17 +562,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/LoginForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="109" column="23" lean-forward="true" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -705,17 +569,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
           <caret line="12" column="50" lean-forward="true" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1873">
-          <caret line="125" column="14" lean-forward="true" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="375">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -723,7 +583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="36" column="49" lean-forward="false" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -731,70 +590,168 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/types.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="165">
+          <caret line="11" column="45" lean-forward="false" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ViewOrdersReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <marker date="1501624709000" expanded="true" signature="724:773" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/OrderItem.js" />
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/ServiceURLS/service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="27" lean-forward="true" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/OpenPositions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="81" column="23" lean-forward="false" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+          <folding>
+            <marker date="1501325982000" expanded="true" signature="4527:4533" ph="{&quot;borderColor&quot;: 'grey'...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/index.ios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+            <marker date="1501816031000" expanded="true" signature="587:709" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/reducers/ClosedPositions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/ClosedPositions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/ViewOrderAction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+        <state relative-caret-position="945">
+          <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/redux/actions/LoginAuth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/FarmInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="2" lean-forward="false" selection-start-line="38" selection-start-column="2" selection-end-line="38" selection-end-column="2" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/CropButton.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1501913022000" expanded="true" signature="835:836" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/Button.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/common/LogoPhoneHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <marker date="1501991310000" expanded="true" signature="1806:1833" ph="&lt;Image/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="1806:1875" ph="&lt;TouchableHighlight/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="1806:2204" ph="&lt;View/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="1806:3149" ph="&lt;View/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="1806:3166" ph="&lt;View/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="1806:3176" ph="{...}" />
+            <marker date="1501991310000" expanded="true" signature="1896:2179" ph="&lt;Text/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="1933:2092" ph="{&quot;color&quot;: 'white'...}" />
+            <marker date="1501991310000" expanded="true" signature="2295:2828" ph="&lt;View/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="2328:2516" ph="{&quot;flexDirection&quot;: 'row'...}" />
+            <marker date="1501991310000" expanded="true" signature="2556:2713" ph="&lt;Image/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="2919:3129" ph="&lt;View/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="2947:3105" ph="&lt;Image/&gt;" />
+            <marker date="1501991310000" expanded="true" signature="3193:3357" ph="{...}" />
+            <marker date="1501991310000" expanded="true" signature="3210:3354" ph="{&quot;alignItems&quot;: 'center'...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/LoginForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/Orders.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2381">
-          <caret line="172" column="18" lean-forward="true" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/components/OrderItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="165" column="18" lean-forward="false" selection-start-line="165" selection-start-column="18" selection-end-line="165" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1410">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/containers/MyFarm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="61" column="50" lean-forward="false" selection-start-line="61" selection-start-column="50" selection-end-line="61" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CargillVeloCli/src/ServiceURLS/service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="27" lean-forward="true" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
+        <state relative-caret-position="45">
+          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
           <folding />
         </state>
       </provider>

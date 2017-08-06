@@ -9,3 +9,4 @@ export * from './Header';
 export * from './OrderButton';
 export * from './LogoPhoneHeader';
 export * from './CropButton';
+export * from './FarmInput';

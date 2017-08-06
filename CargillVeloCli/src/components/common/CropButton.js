@@ -1,58 +1,39 @@
-import React, { Component } from 'react';
-import { Text, View, Button, TouchableHighlight } from 'react-native';
-
-export default class CropButton extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { pressStatus: true };
-    }
-
-    render() {
-        return (
-            <Button
-                style={styles.container}
-                onPress={this.props.onPress}
-                
-            />
-        )
-    }
-}
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 
-const styles = {
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'green',
-        height: 60,
-        width: 80,
-        
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#000066'
-    },
-    welcomePress: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#ffffff'
-    },
-    offButtonPressStyle: {
-        borderColor: '#000066',
-        borderWidth: 1,
-        borderRadius: 10,
-    },
-    onButtonPressStyle: {
-        borderColor: '#000066',
-        backgroundColor: '#000066',
-        borderWidth: 1,
-        borderRadius: 10,
-    },
+
+const CropButton = ({onPress, year, cropType, style}) => {
+        return(
+            <TouchableOpacity onPress={onPress} >
+            <View style={style}>
+                <Text style={styles.yearCrop}>{year}</Text>
+                <Text style={styles.cropType}>{cropType}</Text>
+                <Text style={styles.yearCrop}>Crop</Text>
+            </View>
+            </TouchableOpacity> ) ;
 
 };
+
+const styles = {
+    buttonStyle: {
+        width: 150,
+        height: 80,
+         backgroundColor: 'white',
+        justifyContent: 'center',
+        borderRadius: 5,
+        alignItems: 'center',
+        marginRight: 10
+    },
+    yearCrop: {
+        fontSize: 15
+    },
+    cropType: {
+        fontSize: 25
+    }
+
+};
+
+export { CropButton };
 
 

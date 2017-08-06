@@ -1,11 +1,15 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Button } from 'react-native';
 
-const OrderButton = ({ onPress, children }) => {
+const OrderButton = ({ onPress, children, disabled }) => {
     const { buttonStyle, textStyle } = styles;
 
     return (
-        <TouchableOpacity onPress={onPress} style={buttonStyle}>
+        <TouchableOpacity onPress={onPress} style={buttonStyle} disabled={disabled}
+                raised='true'
+                theme='dark'
+                overrides='true'
+                backgroundColor='#3fffff'>
             <Text style={textStyle}>
                 {children}
             </Text>
@@ -19,6 +23,7 @@ const styles = {
         color: 'black',
         fontSize: 20,
         fontWeight: '600',
+        color: '#279989',
         paddingTop: 10,
         paddingBottom: 10
     },
@@ -27,7 +32,7 @@ const styles = {
         alignSelf: 'stretch',
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: 'green',
+        borderColor: '#01aca8',
         marginLeft: 5,
         marginRight: 5
     }

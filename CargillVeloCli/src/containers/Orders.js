@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import React, { Component } from 'react';
 import {
     FlatList, View, SegmentedControlIOS, Text, TouchableOpacity
@@ -8,54 +9,83 @@ import { bindActionCreators } from 'redux';
 import ViewOrders from '../components/ViewOrders';
 import OpenPositions from '../components/OpenPositions';
 import ClosedPositions from '../components/ClosedPositions';
-import { LogoPhoneHeader } from '../components/common';
-import { ViewOrdersData, dropDownCrop } from '../redux/actions/ViewOrderAction';
-import { OpenPositionsData } from '../redux/actions/OpenPositions';
-import { ClosedPositionsData } from '../redux/actions/ClosedPositions';
+import { LogoPhoneHeader, Spinner } from '../components/common';
+import { ViewOrdersData, dropDownCrop, selectedCrop } from '../redux/actions/ViewOrderAction';
+
+
+const openpositions = require('../restAPI/openpositions.json');
+const closedpositions = require('../restAPI/closedpositions.json');
 
 class Orders extends Component {
-   constructor(props) {
-       super(props);
+
+    constructor(props)
+    {
+        super(props);
        this.state = {
-           selectedTab: props.selectedTab || 'Orders'
-
-       };
-   }
-    componentDidMount() {
-        this.props.ViewOrdersData();
-        this.props.OpenPositionsData();
-        this.props.ClosedPositionsData();
+            selectedTab: 'Orders'
+        };
     }
-    renderFlatList() {
-        if (this.state.selectedTab === 'Orders') {
-            return (<FlatList
-                data={this.props.viewOrders.value}
-                renderItem={({ item }) => <ViewOrders item={item} />}
-                //keyExtractor={this.props.viewOrders.value.map((item) => item.orderId)}
 
-            />);
+
+    componentWillMount() {
+        //console.log(this.props);
+        this.props.ViewOrdersData();
+        //this.props.dropDownCrop(this.props.auth.email,this.props.auth.password);
+    }
+
+
+    renderFlatList() {
+        if (this.props.viewOrders.fetchflag){
+            return (<View style={{flex: 1, justifyContent: 'center'}}>
+
+                <Text style={{ marginTop: 50, color: 'white', textAlign: 'center', fontSize: 25 }}>
+                    Loading orders...
+                </Text>
+                <Spinner size="large"/>
+            </View>);
         }
-        if (this.state.selectedTab === 'Open Positions') {
-            return (<FlatList
-                data={this.props.openPositions.lines}
-                renderItem={({ item }) => <OpenPositions item={item} />}
-                //keyExtractor={item => item.orderId}
-            />);
-        }
-        if (this.state.selectedTab === 'Closed Positions') {
-            return (<FlatList
-            data={this.props.closedPositions}
-            renderItem={({ item }) => <ClosedPositions item={item} />}
-            //keyExtractor={item => item.id}
-            />);
+        else {
+            if (this.state.selectedTab === 'Orders') {
+
+                console.log('Orders Button Pressed');
+
+                return (<FlatList
+                    data={this.props.viewOrders.items.value}
+                    keyExtractor={item => item.orderId}
+                    renderItem={({item}) => <ViewOrders item={item}/>}
+                />);
+            }
+            if (this.state.selectedTab === 'Open Positions') {
+                console.log('Open Positions Pressed');
+                return (<FlatList
+                    data={openpositions.lines}
+                    keyExtractor={item => item.orderId}
+                    renderItem={({item}) => <OpenPositions item={item}/>}
+                />);
+            }
+            if (this.state.selectedTab === 'Closed Positions') {
+                console.log('Closed Positions Pressed');
+                return (<FlatList
+                    data={closedpositions.lines}
+                    keyExtractor={item => item.orderId}
+                    renderItem={({item}) => <ClosedPositions item={item}/>}
+                />);
+            }
         }
     }
     render() {
+       /* const dDValues = this.props.orders.dropDownData;
+        const DDV =[];
+        for (let i=0; i<dDValues.length; i++) {
+            DDV[i] = dDValues[i].name;
+        }
+        const {email, password} = this.props.auth;*/
+
         return (
 
             <View style={styles.containerStyle}>
 
-               <LogoPhoneHeader />
+               <LogoPhoneHeader onPress={this.props.ViewOrdersData()}/>
 
                 <View style={styles.segmentarea}>
 
@@ -69,12 +99,7 @@ class Orders extends Component {
                             tintColor="#01aca8"
                             style={styles.segment}
                             values={['Orders', 'Open Positions', 'Closed Positions']}
-                            selectedIndex={{
-                                Orders: 0,
-                                'Open Positions': 1,
-                                'Closed Positions': 2
-                            }[this.state.selectedTab]
-                            }
+                            selectedIndex={0}
                             onChange={(event) => {
                                 this.setState({
                                     selectedIndex: event.nativeEvent.selectedSegmentIndex
@@ -97,7 +122,7 @@ class Orders extends Component {
 
                         <TouchableOpacity
                             style={{ justifyContent: 'center' }}
-                            onPress={() => { this.dropDown && this.dropDown.show(); }}
+                           // onPress={() => { this.dropDown && this.dropDown.show(); }}
                         >
                             <View
                                 style={{ width: 150,
@@ -105,18 +130,20 @@ class Orders extends Component {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     borderWidth: 1,
-                                    borderColor: '#3d4c57',
+                                    borderColor: '#279989',
                                     borderRadius: 5 }}
                             >
                                 <ModalDropdown
-                                    ref={(el) => { this.dropDown = el; }}
-                                    options={['CORN', 'SOYBEAN']}
-                                    defaultValue={'CORN'}
+                                   // ref={(el) => { this.dropDown = el; }}
+                                    options={['Corn','Soybeans']}//{DDV}
+                                    defaultValue={'Corn'}
                                     style={{ flex: 1 }}
                                     textStyle={{ fontWeight: 'bold', textAlign: 'center' }}
-                                    onSelect={(index, value) => { }}
+                                    onSelect={(index, value) => {
+                                        this.props.selectedCrop(value, email, password)}}
                                     dropdownTextStyle={{ fontWeight: 'bold' }}
                                     dropdownStyle={{ width: 150, marginLeft: 10 }}
+                                    animated={false}
 
                                 />
                                 <Text>▼</Text>
@@ -208,18 +235,17 @@ const styles = {
     },
 
     }
-const mapStateToProps = (state) => {
-    //console.log(state.closedPositions)
+  const mapStateToProps = (state) => {
+  //  console.log(state)
     return {
-        viewOrders: state.vieworder.items,
-        openPositions: state.openPositions,
-        closedPositions: state.closedPositions
+       viewOrders: state.vieworder,
 
     };
 }
 
-const matchDispatchToProps = (dispatch) => {
-   return bindActionCreators({ ViewOrdersData, ClosedPositionsData, OpenPositionsData, dropDownCrop, }, dispatch);
+const mapDispatchToProps = (dispatch) => {
+   return bindActionCreators({ ViewOrdersData , dropDownCrop, selectedCrop }, dispatch);
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(Orders);
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);
+//export default Orders;
