@@ -1,16 +1,18 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
-
+import { Text, View, Image, TouchableHighlight } from 'react-native';
+import { Actions} from 'react-native-router-flux';
 import User from './img/User.png';
 
 const LogoHeader = (props) => {
     const { viewStyle, subHeadTextStyle, phNumberStyle, dataStyle } = styles;
     return (
         <View style={viewStyle}>
+            <TouchableHighlight onPress={()=>Actions.dashboard()}>
             <Image
                 style={{ width: 30, height: 30, marginLeft: 10 }}
                 source={ require('./img/homeIcon.png')}
             />
+            </TouchableHighlight>
             <Image
             style={{ width: 70, height: 30, marginLeft: 30, marginRight: 10 }}
             source={ require('./img/Logo.png') }

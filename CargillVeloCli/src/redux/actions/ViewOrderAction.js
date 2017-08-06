@@ -1,11 +1,13 @@
+/* jshint esversion: 6 */
+"use strict";
 import base64 from 'base-64';
+
  import{ RESTAPIURL } from "../../ServiceURLS";
 
 
 import { FETCHING_ORDERS_ACTIVITY, DROP_DOWN_VALUES, CROP_DROPDOWN_LOAD } from './types';
 
 export function itemsFetchDataSuccess(items) {
-
     return {
         type: 'ITEMS_FETCH_DATA_SUCCESS',
         items
@@ -13,6 +15,7 @@ export function itemsFetchDataSuccess(items) {
 }
 export const ViewOrdersData = () => {
     return (dispatch, getState) => {
+
         dispatch( {type: FETCHING_ORDERS_ACTIVITY} );
 
 
@@ -21,15 +24,16 @@ export const ViewOrdersData = () => {
         //const password = 'test1234';
 
 
-        const headers = new Headers();
-        headers.append('Authorization', 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password));
-        headers.append('x-api-key','rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb');
         return fetch(url, {
             method: 'GET',
-            headers
+            headers:{
+                Authorization: 'Basic ' + base64.encode(getState().auth.email + ':' + getState().auth.password),
+                'x-api-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb'
+            }
         })
             .then(response => response.json())
             .then((items) => {
+
                    /* if(items.value && items.value.length)
                     {
                         console.log('Undefined');
@@ -45,7 +49,10 @@ export const ViewOrdersData = () => {
                     headers.append('x-api-key', 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb')
                     return fetch(RESTAPIURL+'api/underlyings/'+item.underlying, {
                         method: 'GET',
-                        headers
+                        headers:{
+                            Authorization: 'Basic ' + base64.encode(getState().auth.email + ':' + getState().auth.password),
+                            'x-api-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb'
+                        }
                     })
                         .then(response => response.json())
 
@@ -82,19 +89,19 @@ export const ViewOrdersData = () => {
 
 export const dropDownCrop = () => {
     return(dispatch, getState) => {
-        const url = RESTAPIURL+'api/commodities';
+        const url = RESTAPIURL + 'api/commodities';
         console.log(url);
         return fetch(url, {
             method: 'GET',
             headers: {
-            'Authorization': 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password),
+                'Authorization': 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password),
                 'x-api-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb'
-                }
+            }
         })
             .then(response => response.json())
             .then(dropDownData => {
-                   dispatch({type: DROP_DOWN_VALUES, payload: dropDownData})
-                })
+                dispatch({type: DROP_DOWN_VALUES, payload: dropDownData})
+            })
             .catch(error => console.log('error are' + error));
 
     }

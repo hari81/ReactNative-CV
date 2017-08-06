@@ -5,6 +5,7 @@ import Orders from './containers/Orders';
 import CancelOrder from './components/CancelOrder';
 import OpenPositions from './components/OpenPositions';
 import CancelOrderReceipt from './components/CancelOrderReceipt';
+import DashBoard from './containers/DashBoard';
 
 const RouterComponent = () => {
   return (
@@ -13,6 +14,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key="app" component={App} initial />
         </Scene>
         <Scene key="main" >
+            <Scene hideNavBar key='dashboard' component={DashBoard} />
             <Scene hideNavBar key='orders' component={Orders} />
             <Scene hideNavBar key='cancelorder' component={CancelOrder} />
             <Scene hideNavBar key='openposition' component={OpenPositions} />

@@ -2,7 +2,7 @@
 "use strict";
 import React from 'react';
 import { Text, View, Image, TouchableHighlight, Alert} from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 import Refresh from './img/Refresh.png';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import HomeIcon from './img/homeIconMed.png';
@@ -23,7 +23,7 @@ const LogoPhoneHeader = (onPress) => {
             >
                 <TouchableHighlight
 
-                    onPress={() => Alert("Goes to Home Screen")}
+                    onPress={() => Actions.dashboard()}
                 >
                     <Image source={HomeIcon} />
                 </TouchableHighlight>

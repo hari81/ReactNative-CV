@@ -13,8 +13,7 @@ class CancelOrderReceipt extends Component {
 
     onBackToDashBoard(e) {
 
-       // this.props.backToOrders(e);
-        Actions.orders();
+        Actions.dashboard();
     }
 
     reviewPositions() {

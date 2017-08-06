@@ -1,4 +1,5 @@
-
+/* jshint esversion: 6 */
+"use strict";
 import { AlertIOS } from 'react-native';
 import {
     EMAIL_CHANGED,
@@ -30,7 +31,8 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER:
             return Object.assign({}, state, {loading:true, error: ''});
         case LOGIN_SUCCESS:
-            return Object.assign({},state, { loading: false, error: ''});
+            return Object.assign({}, state, { loading: false, error: '' });
+
         case LOGIN_FAIL:
             return Object.assign({}, state, { error: 'Authentication Failed',
                 password: '',
@@ -45,8 +47,6 @@ export default (state = INITIAL_STATE, action) => {
             return Object.assign({}, state, {error: 'No Response from server... Try again'});
         case USER_SWITCH_CHANGED:
             return Object.assign({}, state, {saveUser: action.payload});
-        case BACK_TO_ORDERS:
-            return { ...state }
 
         default:
             return state;

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Text, View, Switch, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
-import { emailChanged, passwordChanged, loginUser, saveUserSwitchChanged } from '../redux/actions/index';
+import { emailChanged, passwordChanged,  saveUserSwitchChanged } from '../redux/actions/index';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
-
+import { loginUser } from '../redux/actions/LoginAuth';
 class LoginForm extends Component {
     constructor()
     {

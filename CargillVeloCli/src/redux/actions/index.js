@@ -36,7 +36,7 @@ export const saveUserSwitchChanged = ({value}) => {
 
 };
 
-export const loginUser = ({ email,password,saveUser }) => {
+/*export const loginUser = ({ email,password,saveUser }) => {
     return (dispatch) => {
         dispatch({type: LOGIN_USER});
         const url = AUTHENTICATE_URL +'identities/authenticate';
@@ -112,7 +112,7 @@ export const backToOrders = (e) => {
         });
         Actions.orders();
     };
-};
+};*/
 
 export const orderReceipt = (orderid) => {
     return (dispatch, getState) => {

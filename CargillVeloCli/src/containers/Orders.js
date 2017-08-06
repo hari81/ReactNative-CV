@@ -11,27 +11,33 @@ import OpenPositions from '../components/OpenPositions';
 import ClosedPositions from '../components/ClosedPositions';
 import { LogoPhoneHeader, Spinner } from '../components/common';
 import { ViewOrdersData, dropDownCrop, selectedCrop } from '../redux/actions/ViewOrderAction';
+import { OpenPositionsData } from '../redux/actions/OpenPositions';
+import { ClosedPositionsData } from '../redux/actions/ClosedPositions';
 
-
-const openpositions = require('../restAPI/openpositions.json');
-const closedpositions = require('../restAPI/closedpositions.json');
+//const openpositions = require('../restAPI/openpositions.json');
+//const closedpositions = require('../restAPI/closedpositions.json');
 
 class Orders extends Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
-       this.state = {
-            selectedTab: 'Orders'
+        this.state = {
+            selectedTab: props.selectedTab || 'Orders'
+
         };
+    }
+    componentDidMount() {
+        this.props.ViewOrdersData();
+        this.props.OpenPositionsData();
+        this.props.ClosedPositionsData();
     }
 
 
-    componentWillMount() {
+    /*componentWillMount() {
         //console.log(this.props);
         this.props.ViewOrdersData();
         //this.props.dropDownCrop(this.props.auth.email,this.props.auth.password);
-    }
+    }*/
 
 
     renderFlatList() {
@@ -65,7 +71,7 @@ class Orders extends Component {
                 if (this.state.selectedTab === 'Open Positions') {
                     console.log('Open Positions Pressed');
                     return (<FlatList
-                        data={openpositions.lines}
+                        data={this.props.openPositions.lines}
                         keyExtractor={item => item.orderId}
                         renderItem={({item}) => <OpenPositions item={item}/>}
                     />);
@@ -73,7 +79,7 @@ class Orders extends Component {
                 if (this.state.selectedTab === 'Closed Positions') {
                     console.log('Closed Positions Pressed');
                     return (<FlatList
-                        data={closedpositions.lines}
+                        data={this.props.closedPositions}
                         keyExtractor={item => item.orderId}
                         renderItem={({item}) => <ClosedPositions item={item}/>}
                     />);
@@ -107,7 +113,12 @@ class Orders extends Component {
                             tintColor="#01aca8"
                             style={styles.segment}
                             values={['Orders', 'Open Positions', 'Closed Positions']}
-                            selectedIndex={0}
+                            selectedIndex={{
+                                Orders: 0,
+                                'Open Positions': 1,
+                                'Closed Positions': 2
+                            }[this.state.selectedTab]
+                            }
                             onChange={(event) => {
                                 this.setState({
                                     selectedIndex: event.nativeEvent.selectedSegmentIndex
@@ -247,12 +258,14 @@ const styles = {
   //  console.log(state)
     return {
        viewOrders: state.vieworder,
+        openPositions: state.openPositions,
+        closedPositions: state.closedPositions
 
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
-   return bindActionCreators({ ViewOrdersData , dropDownCrop, selectedCrop }, dispatch);
+   return bindActionCreators({ ViewOrdersData ,ClosedPositionsData, OpenPositionsData, dropDownCrop, selectedCrop }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
