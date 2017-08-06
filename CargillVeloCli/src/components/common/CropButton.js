@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import { Text, View, Button, TouchableHighlight } from 'react-native';
 
 export default class CropButton extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { pressStatus: true };
-    }
-
     render() {
         return (
-            <Button
-                style={styles.container}
-                onPress={this.props.onPress}
-                
-            />
+            <TouchableHighlight style={buttonStatus ? styles.afterPress : styles.beforePress} onPress={this.props.onPress}>
+                <View>
+                    <Text>2017</Text>
+                    <Text>CORN</Text>
+                </View>
+            </TouchableHighlight>
         )
     }
 }
@@ -52,6 +48,14 @@ const styles = {
         borderWidth: 1,
         borderRadius: 10,
     },
+    beforePress: {
+        backgroundColor: 'white',
+        width: 100,
+    },
+    afterPress: {
+        backgroundColor: 'green',
+        width: 100,
+    }
 
 };
 

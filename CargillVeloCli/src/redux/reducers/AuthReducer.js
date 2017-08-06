@@ -27,7 +27,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER:
             return Object.assign({}, state, { error: '' });
         case LOGIN_SUCCESS:
-            return Object.assign({},state, { loading: false, error: '' });
+            return Object.assign({}, state, { loading: false, error: '' });
         case LOGIN_FAIL:
             return Object.assign({}, state, { error: 'Authentication Failed',
                 password: '',

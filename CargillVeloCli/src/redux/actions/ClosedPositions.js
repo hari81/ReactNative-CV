@@ -9,7 +9,7 @@ export const ClosedPositionsData = () =>{
         const headers = new Headers();
         headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
         headers.append('x-api-key', 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb')
-        fetch(url, {
+        return fetch(url, {
             method: 'GET',
             headers
         })

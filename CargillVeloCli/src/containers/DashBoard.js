@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LogoPhoneHeader } from '../components/common';
 import { dashboardOpenWorkingOrdersCount } from '../redux/actions/Dashboard/OpenWorkingOrdersCount';
 import { dashboardOpenPositionsCount } from '../redux/actions/Dashboard/OpenPositionsCount';
-import CropButton from '../components/common/CropButton';
-
 
 class DashBoard extends Component {
+    constructor() {
+        super();
+        this.state = {
+            buttonStatus: false,
+            yearCrop: '2017CORN',
+
+        };
+    }
+    /*onSelect() {
+        //const yearCrop = `${year}${crop}`
+        switch (this.state.yearCrop) {
+            default:
+                this.props.dashboardOpenWorkingOrdersCount();
+                this.props.dashboardOpenPositionsCount();
+                this.setState({ buttonStatus: true });
+        }
+    }*/
+
     onCorn2017Press() {
-      this.props.dashboardOpenWorkingOrdersCount();
-      this.props.dashboardOpenPositionsCount();
+        this.props.dashboardOpenWorkingOrdersCount();
+        this.props.dashboardOpenPositionsCount();
+        this.setState({ buttonStatus: true });
     }
     dashBoardToOrders() {
         Actions.orders();
@@ -124,64 +141,20 @@ class DashBoard extends Component {
                         <Text style={{ color: 'white', fontSize: 20 }}>MY CROPS</Text>
 
                     </View>
+                        <ScrollView horizontal showsHorizontalScrollIndicator>
 
-                        {/* <ScrollView horizontal showsHorizontalScrollIndicator>
-                          <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                    <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>CORN</Text>
-                                        <Text style={{ fontSize: 14 }}>Crop</Text>
-                                    </View>
-                            </CropButton>
+                            <TouchableHighlight
+                             style={this.state.buttonStatus ? styles.afterPress : styles.beforePress}
+                             onPress={() => this.onCorn2017Press()}
+                         >
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={this.state.buttonStatus ? styles.afterPressText : styles.beforePressText}>2017</Text>
+                                <Text style={this.state.buttonStatus ? styles.afterPressText : styles.beforePressText}>CORN</Text>
+                            </View>
+                        </TouchableHighlight>
 
-                            <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>SOYABEAN</Text>
-                                    <Text style={{ fontSize: 14 }}>Crop</Text>
-                                </View>
-                            </CropButton>
+                        </ScrollView>
 
-                            <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>CORN</Text>
-                                    <Text style={{ fontSize: 14 }}>Crop</Text>
-                                </View>
-                            </CropButton>
-
-                            <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>CORN</Text>
-                                    <Text style={{ fontSize: 14 }}>Crop</Text>
-                                </View>
-                            </CropButton>
-
-                            <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>CORN</Text>
-                                    <Text style={{ fontSize: 14 }}>Crop</Text>
-                                </View>
-                            </CropButton>
-
-                            <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>SOYABEAN</Text>
-                                    <Text style={{ fontSize: 14 }}>Crop</Text>
-                                </View>
-                            </CropButton>
-                            <CropButton onPress={this.onCorn2017Press.bind(this)} >
-                                <View style={{ width: 100, height: 40, alignItems: 'center'  }}>
-                                    <Text style={{ fontSize: 14 }}>2017</Text>
-                                    <Text style={{ fontSize: 18 }}>CORN</Text>
-                                    <Text style={{ fontSize: 14 }}>Crop</Text>
-                                </View>
-                            </CropButton>
-
-                 </ScrollView>*/}
                     </View>
                 </View>
 
@@ -288,6 +261,28 @@ const styles = {
         borderRadius: 5,
 
 
+    },
+    beforePress: {
+        backgroundColor: 'white',
+        width: 120,
+        height: 80,
+        borderRadius: 3,
+        margin: 10
+    },
+    afterPress: {
+        backgroundColor: 'green',
+        width: 120,
+        height: 80,
+        borderRadius: 3,
+        margin: 10
+    },
+    afterPressText: {
+      color: 'white',
+        fontSize: 20
+    },
+    beforePressText: {
+        color: 'black',
+        fontSize: 20
     }
 
 }
