@@ -1,46 +1,52 @@
 import React, { Component } from 'react';
 import {
-    FlatList, View, SegmentedControlIOS, Text
+    FlatList, View, SegmentedControlIOS, Text, TouchableOpacity
 } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import OrderItem from '../components/ViewOrders';
+import ViewOrders from '../components/ViewOrders';
 import OpenPositions from '../components/OpenPositions';
 import ClosedPositions from '../components/ClosedPositions';
-import { LogoHeader } from '../components/common';
-import { itemsFetchData } from '../redux/actions/ViewOrderAction';
-
-const openpositions = require('../restAPI/openpositions.json');
-const closedpositions = require('../restAPI/closedpositions.json');
+import { LogoPhoneHeader } from '../components/common';
+import { ViewOrdersData, dropDownCrop } from '../redux/actions/ViewOrderAction';
+import { OpenPositionsData } from '../redux/actions/OpenPositions';
+import { ClosedPositionsData } from '../redux/actions/ClosedPositions';
 
 class Orders extends Component {
-    state = {
-        selectedTab: 'Orders'
-    }
-    componentWillMount() {
-        this.props.itemsFetchData();
-    }
+   constructor(props) {
+       super(props);
+       this.state = {
+           selectedTab: props.selectedTab || 'Orders'
 
+       };
+   }
+    componentDidMount() {
+        this.props.ViewOrdersData();
+        this.props.OpenPositionsData();
+        this.props.ClosedPositionsData();
+    }
     renderFlatList() {
         if (this.state.selectedTab === 'Orders') {
-            console.log('Orders Button Pressed');
             return (<FlatList
-                data={this.props.orders.value}
-                renderItem={({ item }) => <OrderItem item={item} />}
+                data={this.props.viewOrders.value}
+                renderItem={({ item }) => <ViewOrders item={item} />}
+                //keyExtractor={this.props.viewOrders.value.map((item) => item.orderId)}
+
             />);
         }
         if (this.state.selectedTab === 'Open Positions') {
-            console.log('Open Positions Pressed');
             return (<FlatList
-                data={openpositions.lines}
+                data={this.props.openPositions.lines}
                 renderItem={({ item }) => <OpenPositions item={item} />}
+                //keyExtractor={item => item.orderId}
             />);
         }
         if (this.state.selectedTab === 'Closed Positions') {
-            console.log('Closed Positions Pressed');
             return (<FlatList
-                data={closedpositions.lines}
-                renderItem={({ item }) => <ClosedPositions item={item} />}
+            data={this.props.closedPositions}
+            renderItem={({ item }) => <ClosedPositions item={item} />}
+            //keyExtractor={item => item.id}
             />);
         }
     }
@@ -48,24 +54,27 @@ class Orders extends Component {
         return (
 
             <View style={styles.containerStyle}>
-                <LogoHeader
-                    subHeaderText="PRICE HEDGING"
-                    phNumber="+1-952-742-7414"
-                    data="Refresh Data"
-                />
+
+               <LogoPhoneHeader />
+
                 <View style={styles.segmentarea}>
 
                     <View style={styles.positions}>
-                        <Text style={{ fontSize: 20 }}>Positions & Orders</Text>
+                        <Text style={{ fontSize: 18, color: '#01aca8' }}>Positions & Orders</Text>
                     </View>
 
-                    <View justifyContent='center'>
+                    <View style={{ justifyContent: 'center', marginLeft: 40 }}>
                         <SegmentedControlIOS
                             alignItems='center'
-                            tintColor="green"
+                            tintColor="#01aca8"
                             style={styles.segment}
                             values={['Orders', 'Open Positions', 'Closed Positions']}
-                            selectedIndex={0}
+                            selectedIndex={{
+                                Orders: 0,
+                                'Open Positions': 1,
+                                'Closed Positions': 2
+                            }[this.state.selectedTab]
+                            }
                             onChange={(event) => {
                                 this.setState({
                                     selectedIndex: event.nativeEvent.selectedSegmentIndex
@@ -75,6 +84,47 @@ class Orders extends Component {
 
                         />
                     </View>
+
+                    <View
+                        style={{ flex: 1,
+                            marginLeft: 60,
+                            paddingTop: 18,
+                            justifyContent: 'flex-start',
+                            width: 150,
+                            height: 100,
+                        }}
+                    >
+
+                        <TouchableOpacity
+                            style={{ justifyContent: 'center' }}
+                            onPress={() => { this.dropDown && this.dropDown.show(); }}
+                        >
+                            <View
+                                style={{ width: 150,
+                                    height: 25,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    borderWidth: 1,
+                                    borderColor: '#3d4c57',
+                                    borderRadius: 5 }}
+                            >
+                                <ModalDropdown
+                                    ref={(el) => { this.dropDown = el; }}
+                                    options={['CORN', 'SOYBEAN']}
+                                    defaultValue={'CORN'}
+                                    style={{ flex: 1 }}
+                                    textStyle={{ fontWeight: 'bold', textAlign: 'center' }}
+                                    onSelect={(index, value) => { }}
+                                    dropdownTextStyle={{ fontWeight: 'bold' }}
+                                    dropdownStyle={{ width: 150, marginLeft: 10 }}
+
+                                />
+                                <Text>▼</Text>
+                            </View>
+
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
                 {this.renderFlatList()}
             </View>
@@ -86,7 +136,7 @@ class Orders extends Component {
 const styles = {
         containerStyle: {
             flex: 1,
-            backgroundColor: '#007681',
+            backgroundColor: '#3d4c57',
 
 
         },
@@ -107,6 +157,8 @@ const styles = {
             marginRight: 10,
             marginTop: 10,
             marginBottom: 5,
+            borderTopColor: '#e7b514',
+            borderTopWidth: 5
         },
         segment: {
             marginLeft: 50,
@@ -156,16 +208,18 @@ const styles = {
     },
 
     }
-  const mapStateToProps = (state) => {
-    console.log(state)
+const mapStateToProps = (state) => {
+    //console.log(state.closedPositions)
     return {
-       orders: state.vieworder
+        viewOrders: state.vieworder.items,
+        openPositions: state.openPositions,
+        closedPositions: state.closedPositions
+
     };
 }
 
 const matchDispatchToProps = (dispatch) => {
-   return bindActionCreators({ itemsFetchData }, dispatch);
+   return bindActionCreators({ ViewOrdersData, ClosedPositionsData, OpenPositionsData, dropDownCrop, }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Orders);
-//export default Orders;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, } from 'react-native';
+import { Text, View, Linking} from 'react-native';
 import Dimensions from 'Dimensions';
 import LoginForm from '../containers/LoginForm';
 import { Header, ImageLogo } from './common/index';
@@ -10,9 +10,9 @@ export default class App extends React.Component {
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
         <View
-                style={{ backgroundColor: '#007681',
+                style={{ backgroundColor: '#3d4c57',
                 width,
-                height: height - 140,
+                height: height - 120,
                     marginTop: 10,
                     marginRight: 30,
                     marginBottom: 10
@@ -50,24 +50,34 @@ export default class App extends React.Component {
           </View>
         </View>
 
-      <View
-            style={{ width,
-            backgroundColor: '#007681',
-            alignItems: 'center',
-                height: 140
-           }}
-      >
+          <View
+              style={{ width: width,
+                  height: 90,
+                  backgroundColor: '#3d4c57',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 10 }}
+          >
+              <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+                  <Text style={{ color: 'white', fontSize: 15 }}>
+                      Cargill Website | </Text>
+                  <Text style={{ color: 'white', fontSize: 15 }} onPress={() => Linking.openURL('http://go.cargill.com/CargillPriceHedgingPrivacy')}>
+                      Privacy
+                      | </Text>
+                  <Text style={{ color: 'white', fontSize: 15 }} onPress={() => Linking.openURL('http://go.cargill.com/CargillPriceHedgingTerms')}>
+                      Terms & Conditions
+                  </Text>
+              </View>
 
-               <Text
-                   style={{ color: 'white', paddingTop: 8 }}
-               >Cargill Website | Privacy | Terms & Conditions</Text>
-                <Text
-                    style={{ color: 'white' }}
-                >2017 Cargill, Incorporated. All Rights Reserved.</Text>
+
+              < Text style={{ color: 'white', fontSize: 15 }}>
+                  &copy; 2017 Cargill, Incorporated. All Rights Reserved.
+              </Text>
+
+          </View>
+
+
       </View>
-
-
-    </View>
     );
   }
 }

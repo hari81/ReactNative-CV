@@ -1,62 +1,25 @@
-import { Actions } from 'react-native-router-flux';
-import { EMAIL_CHANGED,
-         PASSWORD_CHANGED,
-         LOGIN_FAIL,
-         LOGIN_SUCCESS,
-         SWITCH_CHANGED,
-         CANCEL_BUTTON_PRESSED,
-         BACK_TO_ORDERS } from './types';
+import {
+    EMAIL_CHANGED,
+    PASSWORD_CHANGED,
+    USER_SWITCH_CHANGED,
+} from './types';
 
 export const emailChanged = (text) => {
     return {
         type: EMAIL_CHANGED,
         payload: text
     };
-}
+};
 export const passwordChanged = (text) => {
     return {
         type: PASSWORD_CHANGED,
         payload: text
     };
-}
-export const switchChanged = ({ email, value }) => {
-    return (dispatch) => {
-        if (value) {
-            dispatch({
-                type: SWITCH_CHANGED,
-                payload: email
-            });
-        }
-    };
-}
-
-export const loginUser = ({ email, password }) => {
-    return (dispatch) => {
-        if (email === 'Cargill' && password === '1234') {
-            dispatch({ type: LOGIN_SUCCESS });
-            Actions.main();
-        } else {
-            dispatch({ type: LOGIN_FAIL });
-
-        }
-    };
 };
-export const onCancelButtonPress = (quantity, buySell, orderType, riskProductName) => {
-    return (dispatch) => {
-        dispatch({
-            type: CANCEL_BUTTON_PRESSED,
-            payload: { quantity, buySell, orderType, riskProductName }
+export const saveUserSwitchChanged = ({ value }) => {
+    return {
+        type: USER_SWITCH_CHANGED,
+        payload: value
+    };
 
-        });
-        Actions.cancelorder();
-    };
-}
-export const backToOrders = (e) => {
-    return (dispatch) => {
-        dispatch({
-            type: BACK_TO_ORDERS,
-            payload: e
-        });
-        Actions.orders();
-    };
-}
+};
