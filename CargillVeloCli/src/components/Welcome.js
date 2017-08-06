@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import React from 'react';
 import { Text, View, Linking} from 'react-native';
 import Dimensions from 'Dimensions';

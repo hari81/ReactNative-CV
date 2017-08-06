@@ -1,4 +1,5 @@
 {
-  "name": "CargillVeloCli",
-  "displayName": "CargillVeloCli"
+  "name": "Velo IPAD App",
+  "displayName": "Velo Mobile App",
+  "RESTAPIURL": "https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/"
 }

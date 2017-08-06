@@ -1,117 +1,62 @@
 import React, { Component } from 'react';
 import { Text, View, Switch, Image, AlertIOS } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LogoHeader, OrderButton } from './common/index';
 import { backToOrders } from '../redux/actions/index';
 
+import confirm from './common/img/confirmationSuccess.png';
+
 class CancelOrderReceipt extends Component {
-    state = {
-        switchValue: false
+
+
+    onBackToDashBoard(e) {
+
+       // this.props.backToOrders(e);
+        Actions.orders();
     }
 
-    onBackToOrders(e) {
+    reviewPositions() {
 
-        this.props.backToOrders(e);
     }
-    cancelOrder () {
-        if (!this.state.switchValue)
-        {
-            AlertIOS.alert('Please Make sure',
-                'Agree terms and Conditions & Switch on'
-            );
-        }
-    }
-    toggleSwitch = (value) => this.setState({ switchValue: value })
-
     render() {
         return (
-              <View style={styles.containerStyle}>
+            <View style={styles.containerStyle}>
                 <LogoHeader
                 subHeaderText="PRICE HEDGING"
                 phNumber="+1-952-742-7414"
                 />
-                  <View >
-                      <Text style={styles.headerText}>Review Cancel Details</Text>
-                      <Text style={styles.subHeaderTextStyle}>Cancel this order? </Text>
+                  <View style={{ borderTopColor: '#e7b514', borderTopWidth: 3}}>
+                      <Text style={styles.headerText}>Order Receipt</Text>
+                      <Text style={styles.subHeaderTextStyle}>Your Order has been cancelled.</Text>
                       <View style={styles.productContainer}>
-                          <View style={{ flexDirection: 'row' }}>
+                         <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Image source={confirm} style={{width:120, height: 120}} />
 
-                              <View>
-                                  <Text >
-                                      Your trade direction is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.buySell}</Text>
-                                  <Text >
-                                      Your crop is a
-                                  </Text>
-                                  <Text style={styles.contentStyle}>
-                                      Corn
-                                  </Text>
-                                  <Text >
-                                      Your crop year is
-                                  </Text>
-
-                                  <Text style={styles.contentStyle}>2017</Text>
-                                  <Text >
-                                      Your contract month is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>July</Text>
-                              </View>
-
-                              <View style={{ marginLeft: 80 }} >
-                                  <Text >
-                                      Your product is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.riskProductName}</Text>
-                                  <Text >
-                                      Your bushel quantity is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</Text>
-                                  <Text >
-                                      Your order type is
-                                  </Text>
-                                  <Text style={styles.contentStyle}>{this.props.data.orderType}</Text>
-                              </View>
-
+                            <Text style={{ marginTop: 50, fontSize: 20}}>
+                                Your order was cancelled. Your order number is: {this.props.orderid}</Text>
 
                           </View>
-
-                          <View style={{ flexDirection: 'row', marginTop: 200 }}>
-                              <Switch
-                                  onValueChange={this.toggleSwitch}
-                                  value={this.state.switchValue}
-                              />
-                              <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
-                                  Agree to Terms and Conditions
-                              </Text>
-                              <Image
-                              style={{ width: 30, height: 30, marginLeft: 10 }}
-                              source={ require('./common/img/Info.png' )}
-                              />
-                          </View>
-
                           <View
                               style={{ flexDirection: 'row',
-                              marginTop: 10,
-                              marginBottom: 10,
+                              marginTop: 190,
+                              marginBottom: 20,
                               marginLeft: 160,
                               marginRight: 160 }}
-                          >
+                            >
                               <OrderButton
-                                  onPress={this.onBackToOrders.bind(this)}
-                              >BACK TO ORDERS LIST</OrderButton>
+                                  onPress={this.onBackToDashBoard.bind(this)}
+                              >BACK TO DASHBOARD</OrderButton>
                               <OrderButton
-                                  onPress={this.cancelOrder.bind(this)}
-                              >CANCEL ORDER NOW</OrderButton>
-                          </View>
+                                  onPress={this.reviewPositions.bind(this)}
 
+                              >REVIEW POSITIONS & ORDERS</OrderButton>
+                          </View>
 
                       </View>
                   </View>
               </View>
-
-
         );
     }
 }
@@ -129,7 +74,9 @@ const styles = {
         paddingTop: 8,
         paddingLeft: 14,
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        borderTopWidth: 3,
+        color: '#01aca8'
     },
     subHeaderTextStyle: {
         height: 100,
@@ -148,26 +95,23 @@ const styles = {
         alignItems: 'center',
         paddingTop: 20
     },
-    contentStyle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        paddingRight: 100
 
-    }
-}
-const mapStateToProps = (state) => {
+};
+
+/*const mapStateToProps = (state) => {
     return {
         data: state.cancelItem
     }
-}
+};
 
 
 
 
-const matchDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ backToOrders }, dispatch);
-}
+};
 
 
-export default connect(mapStateToProps, matchDispatchToProps)(CancelOrder);
+export default connect(mapStateToProps, mapDispatchToProps)(CancelOrderReceipt);*/
 
+export default CancelOrderReceipt;

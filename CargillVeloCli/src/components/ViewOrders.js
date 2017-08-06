@@ -1,15 +1,20 @@
+
+/*jshint esversion: 6 */
+
 import React, { Component } from 'react';
 import {
     Text, TouchableHighlight, View
 } from 'react-native';
+import { connect } from 'react-redux';
+import {Actions } from 'react-native-router-flux';
 
-import { Actions } from 'react-native-router-flux';
+const underlying = require('../restAPI/underlying.json');
 
 class ViewOrders extends Component {
 
-    onCancelPress(items) {
-        //this.props.onCancelButtonPress(items);
-        Actions.cancelorder(items);
+    onCancelPress(item) {
+        //this.props.onCancelButtonPress(this.props.item);//
+        Actions.cancelorder(item);
     }
 render() {
     const { quantity,
@@ -19,19 +24,24 @@ render() {
         buySell,
         orderState,
         orderType,
-        riskProductName, underlyingObject } = this.props.item;
-       // console.log(this.props.item);
+        riskProductName,
+       underlyingObject } = this.props.item;
+        //console.log(this.props.item);
+    const year = underlyingObject.contractMonth.year.value;
+    const month = underlyingObject.contractMonth.month.name;
+    const crop = underlyingObject.commodity.name;
+    const unit = underlyingObject.commodity.unit;
 
         return (
             <View style={styles.subContainerStyle}>
 
                 <View style={styles.yearStyle}>
-                    <View style={{ backgroundColor: '#01aca8', height: 40, justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
-                            {underlyingObject.contractMonth.month.name}
+                    <View style={{backgroundColor: '#01aca8', height: 35, justifyContent: 'center'}}>
+                        <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>
+                            {month}
                         </Text>
                     </View>
-                    <View style={{ backgroundColor: '#3d4c57', height: 50, justifyContent: 'center' }}>
+                    <View style={{backgroundColor: '#3d4c57', height: 55, justifyContent: 'center'}}>
                         <Text
                             style={{
                                 textAlign: 'center',
@@ -40,26 +50,26 @@ render() {
                                 fontWeight: 'bold'
                             }}
                         >
-                            {underlyingObject.contractMonth.year.value}
+                            {year}
                         </Text>
                     </View>
                 </View>
 
-                <View style={{ width: 220 }}>
-                    <View style={{ margin: 10 }}>
+                <View style={{width: 220}}>
+                    <View style={{margin: 10}}>
 
-                        <Text>{underlyingObject.commodity.name}  { riskProductName }</Text>
-                        <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <Text style={{ color: '#01aca8' }}>QUANTITY</Text>
-                                <View style={{ width: 150 }}>
+                        <Text>{crop}  {riskProductName}</Text>
+                        <View style={{flexDirection: 'row', marginTop: 20}}>
+                            <View style={{flexDirection: 'column'}}>
+                                <Text style={{color: '#01aca8'}}>QUANTITY</Text>
+                                <View style={{width: 150}}>
                                     <Text>{quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " " +
-                                    underlyingObject.commodity.unit}s</Text>
+                                    unit}s</Text>
 
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'column' }}>
-                                <Text style={{ color: '#01aca8' }}>DIRECTION</Text>
+                            <View style={{flexDirection: 'column'}}>
+                                <Text style={{color: '#01aca8'}}>DIRECTION</Text>
                                 <Text>{buySell}</Text>
                             </View>
                         </View>
@@ -91,8 +101,10 @@ render() {
 
                 <View style={styles.buttonview}>
                     <TouchableHighlight
-                        style={styles.viewbutton}
-                        onPress={() => this.onCancelPress(this.props.item)}
+                        style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
+                        onPress={() => this.onCancelPress({...this.props.item, month, year, crop, orderId})}
+                       // disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
+                        color= {orderState.label === 'PENDING_CANCEL'? 'red' : 'yellow'}
                         underlayColor='#dddddd'
                     >
                         <Text style={styles.buttonText}>CANCEL</Text>
@@ -153,23 +165,19 @@ const styles = {
         borderColor: 'grey',
         marginTop: 16,
         marginBottom: 16,
-        marginLeft: 40
+        marginLeft: 30
     },
     yearStyle: {
         marginRight: 10,
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 10,
         marginLeft: 10,
+        marginBottom: 10,
         width: 100,
         justifyContent: 'space-around',
+
     },
 
 };
 
-/*const matchDispatchToProps = (dispatch) => {
-    return bindActionCreators({ onCancelButtonPress }, dispatch);
-}
 
-export default connect(null, matchDispatchToProps)(ViewOrders);
-*/
 export default ViewOrders;
