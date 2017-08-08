@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+'use strict';
+
 export * from './Button';
 export * from './Card';
 export * from './CardSection';
@@ -10,3 +13,4 @@ export * from './OrderButton';
 export * from './LogoPhoneHeader';
 export * from './CropButton';
 export * from './FarmInput';
+export * from  './LogoHomeHeader';

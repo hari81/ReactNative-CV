@@ -10,7 +10,7 @@ import Phone from './img/Phone.png';
 import User from './img/User.png';
 
 
-const LogoPhoneHeader = () => {
+const LogoHomeHeader = () => {
         //const { click } = this.props;
     return (
 
@@ -18,15 +18,10 @@ const LogoPhoneHeader = () => {
             <View
                 style={{ flex: 1,
                     flexDirection: 'row',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'flex-start', marginLeft: 50,
                     alignItems: 'center' }}
             >
-                <TouchableHighlight
 
-                    onPress={() => Actions.dashboard()}
-                >
-                    <Image source={HomeIcon} style={{ width: 30, height: 30, marginLeft: 10 }} />
-                </TouchableHighlight>
 
                 <Image
                     style={{ width: 70, height: 32, marginLeft: 30, marginRight: 10 }}
@@ -97,9 +92,9 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginLeft: 10,
+        //marginLeft: 10,
         height: 40
     },
 }
 
-export { LogoPhoneHeader };
+export { LogoHomeHeader };

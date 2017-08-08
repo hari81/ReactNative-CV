@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+'use strict';
+
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 

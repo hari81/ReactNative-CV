@@ -1,37 +1,52 @@
+/*jshint esversion: 6 */
+'use strict';
+
 import React, { Component } from 'react';
-import { Text, View, Switch, Image, AlertIOS, TouchableHighlight } from 'react-native';
+import { Text, View, Switch, Image, AlertIOS, TouchableHighlight, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux';
 import { LogoHeader, OrderButton } from './common/index';
 import { backToOrders, orderReceipt } from '../redux/actions/index';
 
 class CancelOrder extends Component {
-    state = {
-        switchValue: false,
+    constructor() {
+        super();
+        this.state = {
+            switchValue: false,
 
+        };
     }
 
     onBackToOrders(e) {
-        //Actions.orders();
-        this.props.backToOrders(e);
+        Actions.orders();
+        //this.props.backToOrders(e);
     }
     cancelOrder () {
 
             console.log(this.props.orderId);
-            this.props.orderReceipt(this.props.orderId)
+            this.props.orderReceipt(this.props.orderId);
             //Actions.cancelorderreceipt();
 
     }
     toggleSwitch = (value) => {
         this.setState({ switchValue: value })
-    }
+    };
 
     render() {
-
+        const { width, height } = Dimensions.get('window');
         console.log(this.props);
         return (
               <View style={styles.containerStyle}>
+                  <StatusBar barStyle="light-content" />
+                  <View
+                      style={{ backgroundColor: 'black',
+                          width : width,
+                          height: 20,
+
+                      }}
+                  />
                 <LogoHeader
                 subHeaderText="PRICE HEDGING"
                 phNumber="+1-952-742-7414"
@@ -108,11 +123,11 @@ class CancelOrder extends Component {
                                   onPress={this.onBackToOrders.bind(this)}
                               >BACK TO ORDERS LIST</OrderButton>
                               <TouchableHighlight
-                                  style={[styles.buttonStyle, this.state.switchValue?  {backgroundColor: '#279989'} : {}]}
+                                  style={[styles.buttonStyle, this.state.switchValue?  {backgroundColor: '#279989'} : {backgroundColor: 'gray'}]}
                                   onPress={this.cancelOrder.bind(this)}
                                   disabled = {!this.state.switchValue}
 
-                              ><Text style={[styles.textStyle, this.state.switchValue?  {color: 'white'} : {} ]}> CANCEL ORDER NOW </Text></TouchableHighlight>
+                              ><Text style={[styles.textStyle, this.state.switchValue?  {color: 'white'} : { color: 'black'} ]}> CANCEL ORDER NOW </Text></TouchableHighlight>
                           </View>
 
 
@@ -128,7 +143,7 @@ const styles = {
 
     textStyle: {
         alignSelf: 'center',
-        color: 'black',
+      //  color: 'black',
         fontSize: 20,
         fontWeight: '600',
         color: '#279989',
@@ -147,7 +162,7 @@ const styles = {
     containerStyle: {
         flex: 1,
         flexDirection: 'column',
-        borderWidth: 5,
+       // borderWidth: 5,
         borderColor: '#3d4c57'
     },
 

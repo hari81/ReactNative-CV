@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import { Image, View, Text } from 'react-native';
 import React from 'react';
 

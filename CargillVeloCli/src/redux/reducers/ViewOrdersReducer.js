@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import { FETCHING_ORDERS_ACTIVITY, DROP_DOWN_VALUES, CROP_DROPDOWN_LOAD} from '../actions/types';
 
 const INITIAL_STATEORDERS = {

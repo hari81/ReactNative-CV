@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import React from 'react';
 import { Text, TouchableOpacity, Button } from 'react-native';
 
@@ -20,7 +22,7 @@ const OrderButton = ({ onPress, children, disabled }) => {
 const styles = {
     textStyle: {
         alignSelf: 'center',
-        color: 'black',
+      //  color: 'black',
         fontSize: 20,
         fontWeight: '600',
         color: '#279989',

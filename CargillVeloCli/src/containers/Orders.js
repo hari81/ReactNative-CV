@@ -6,6 +6,7 @@ import {
 import ModalDropdown from 'react-native-modal-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Dimensions from 'Dimensions';
 import ViewOrders from '../components/ViewOrders';
 import OpenPositions from '../components/OpenPositions';
 import ClosedPositions from '../components/ClosedPositions';
@@ -13,6 +14,7 @@ import { LogoPhoneHeader, Spinner } from '../components/common';
 import { ViewOrdersData, dropDownCrop, selectedCrop } from '../redux/actions/ViewOrderAction';
 import { OpenPositionsData } from '../redux/actions/OpenPositions';
 import { ClosedPositionsData } from '../redux/actions/ClosedPositions';
+import st from '../Utils/SafeTraverse';
 
 //const openpositions = require('../restAPI/openpositions.json');
 //const closedpositions = require('../restAPI/closedpositions.json');
@@ -49,14 +51,15 @@ class Orders extends Component {
                 </Text>
                 <Spinner size="large"/>
             </View>);
-        } else {
-            /*if (this.props.viewOrders.items.value.length === 0 ) {
+        }
+            if (!st(this.props,['viewOrders','items','value','length'])) {
+            console.log('identify', st(this.props,['viewOrders','items','value','length']));
                 return (<View style={{flex: 1, justifyContent: 'center', flexDirection: 'column'}} >
                     <Text style={{ marginTop: 50, color: 'white', textAlign: 'center', fontSize: 25 }}>
                         Sorry... No Orders Available!.
                     </Text>
                 </View>);
-            }*/
+            }
 
                 if (this.state.selectedTab === 'Orders') {
 
@@ -65,7 +68,7 @@ class Orders extends Component {
                     return (<FlatList
                         data={this.props.viewOrders.items.value}
                         keyExtractor={item => item.orderId}
-                        renderItem={({item}) => <ViewOrders item={item}/>}
+                        renderItem={({item}) => <ViewOrders key={item.orderId} item={item}/>}
                     />);
                 }
                 if (this.state.selectedTab === 'Open Positions') {
@@ -73,7 +76,7 @@ class Orders extends Component {
                     return (<FlatList
                         data={this.props.openPositions.lines}
                         keyExtractor={item => item.orderId}
-                        renderItem={({item}) => <OpenPositions item={item}/>}
+                        renderItem={({item}) => <OpenPositions key={item.orderId} item={item}/>}
                     />);
                 }
                 if (this.state.selectedTab === 'Closed Positions') {
@@ -81,13 +84,14 @@ class Orders extends Component {
                     return (<FlatList
                         data={this.props.closedPositions}
                         keyExtractor={item => item.orderId}
-                        renderItem={({item}) => <ClosedPositions item={item}/>}
+                        renderItem={({item}) => <ClosedPositions key={item.orderId} item={item}/>}
                     />);
                 }
 
-        }
+
     }
     render() {
+        const { width, height } = Dimensions.get('window');
        /* const dDValues = this.props.orders.dropDownData;
         const DDV =[];
         for (let i=0; i<dDValues.length; i++) {
@@ -98,7 +102,13 @@ class Orders extends Component {
         return (
 
             <View style={styles.containerStyle}>
+                <View
+                    style={{ backgroundColor: 'black',
+                        width : width,
+                        height: 20,
 
+                    }}
+                />
                <LogoPhoneHeader />
 
                 <View style={styles.segmentarea}>
@@ -159,7 +169,7 @@ class Orders extends Component {
                                     style={{ flex: 1 }}
                                     textStyle={{ fontWeight: 'bold', textAlign: 'center' }}
                                     onSelect={(index, value) => {
-                                        this.props.selectedCrop(value)}}
+                                        /*this.props.selectedCrop(value)*/}}
                                     dropdownTextStyle={{ fontWeight: 'bold' }}
                                     dropdownStyle={{ width: 150, marginLeft: 10 }}
                                     animated={false}

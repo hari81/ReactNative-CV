@@ -1,9 +1,13 @@
+/*jshint esversion: 6 */
+'use strict';
+
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LogoPhoneHeader } from '../components/common';
+import Dimensions from 'Dimensions';
+import { LogoHomeHeader } from '../components/common';
 import { dashboardOpenWorkingOrdersCount } from '../redux/actions/Dashboard/OpenWorkingOrdersCount';
 import { dashboardOpenPositionsCount } from '../redux/actions/Dashboard/OpenPositionsCount';
 
@@ -11,25 +15,19 @@ class DashBoard extends Component {
     constructor() {
         super();
         this.state = {
-            buttonStatus: false,
-            yearCrop: '2017CORN',
+           selectedButton: 'CORN2016'
 
         };
     }
-    /*onSelect() {
-        //const yearCrop = `${year}${crop}`
-        switch (this.state.yearCrop) {
-            default:
-                this.props.dashboardOpenWorkingOrdersCount();
-                this.props.dashboardOpenPositionsCount();
-                this.setState({ buttonStatus: true });
-        }
-    }*/
 
-    onCorn2017Press() {
+
+    componentDidMount() {
         this.props.dashboardOpenWorkingOrdersCount();
         this.props.dashboardOpenPositionsCount();
-        this.setState({ buttonStatus: true });
+
+    }
+    onChangeButton(selectedButton){
+        this.setState({ selectedButton });
     }
     dashBoardToOrders() {
         Actions.orders();
@@ -37,16 +35,35 @@ class DashBoard extends Component {
     dashBoardToOpenPositions() {
         Actions.orders({ selectedTab: 'Open Positions' });
     }
+    toMyFarm() {
+        Actions.myfarm();
+    }
+    refresh()
+    {
+        Alert("Data");
+    }
     render() {
+        const { width, height } = Dimensions.get('window');
         return (
             <View style={styles.containerStyle}>
-                <LogoPhoneHeader />
+                <View
+                style={{ backgroundColor: 'black',
+                width : width,
+                height: 20,
+
+            }} />
+                <LogoHomeHeader  />
 
                 <View style={styles.firstRowStyle}>
+                      <TouchableHighlight onPress={this.toMyFarm.bind(this)}>
                     <View style={styles.myFormStyle}>
-                        <Text style={{ fontSize: 24, fontWeight: '600' }}>My Farm</Text>
+
+                           <Text style={{ fontSize: 24, fontWeight: '600' }}>My Farm </Text>
+
                         <Text>2016 Corn</Text>
+
                     </View>
+                     </TouchableHighlight>
                     <View style={styles.borderStyle} />
                     <View style={{ justifyContent: 'center', marginLeft: 20 }}>
                         <Text>
@@ -83,10 +100,10 @@ class DashBoard extends Component {
 
                     <View style={styles.thirdRowBorderStyle} />
 
-                    <View style={{ justifyContent: 'center', alignItems: 'center', margin: 10, width: 100 }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', margin: 10, width: 120 }}>
                         <Text style={{ fontWeight: 'bold' }}>CORN</Text>
-                        <Text style={{ color: '#007681', fontSize: 24, fontWeight: 'bold' }}>$3.7529</Text>
-                        <Text>July 2017</Text>
+                        <Text style={{ color: '#007681', fontSize: 24, fontWeight: 'bold' }}>$3.72</Text>
+                        <Text>September 2017</Text>
                     </View>
 
                     <View style={styles.thirdRowBorderStyle} />
@@ -137,21 +154,82 @@ class DashBoard extends Component {
 
                 <View style={styles.fourthRowStyle}>
                     <View style={{ flexDirection: 'column', flex: 1 }}>
-                    <View >
-                        <Text style={{ color: 'white', fontSize: 20 }}>MY CROPS</Text>
-
-                    </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 10, alignItems:'center'}}>
+                            <Text style={{color: 'white', fontSize: 20 }}> MY CROPS </Text>
+                            <View style={{height: 2, width: 820, backgroundColor: '#e7b514' }}/>
+                        </View>
                         <ScrollView horizontal showsHorizontalScrollIndicator>
+                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 15, marginRight: 15}}>
 
-                            <TouchableHighlight
-                             style={this.state.buttonStatus ? styles.afterPress : styles.beforePress}
-                             onPress={() => this.onCorn2017Press()}
-                         >
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={this.state.buttonStatus ? styles.afterPressText : styles.beforePressText}>2017</Text>
-                                <Text style={this.state.buttonStatus ? styles.afterPressText : styles.beforePressText}>CORN</Text>
+                                <TouchableHighlight  onPress={this.onChangeButton.bind(this, 'CORN2016')}
+                                                     style={[styles.buttonStyle, this.state.selectedButton==='CORN2016' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                                >
+
+                                    <View style={[styles.buttonStyle, this.state.selectedButton==='CORN2016'? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                        <Text style={[styles.yearCrop,this.state.selectedButton==='CORN2016'? {color: "white"} : {color: "#3d4c57"}]}>2016</Text>
+                                        <Text style={[styles.cropType, this.state.selectedButton==='CORN2016' ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
+                                        <Text style={[styles.yearCrop,this.state.selectedButton==='CORN2016'? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                                    </View>
+
+
+
+                                </TouchableHighlight>
+                                <TouchableHighlight onPress={this.onChangeButton.bind(this, 'SOYBEAN2016')}
+                                                    style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2016' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                                >
+
+                                    <View style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2016' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2016' ? {color: "white"} : {color: "#3d4c57"}]}>2016</Text>
+                                        <Text style={[styles.cropType, this.state.selectedButton==='SOYBEAN2016' ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2016' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                                    </View>
+
+                                </TouchableHighlight>
+
+                                <TouchableHighlight onPress={this.onChangeButton.bind(this, 'CORN2017')}
+                                                    style={[styles.buttonStyle, this.state.selectedButton==='CORN2017' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                                >
+                                    <View style={[styles.buttonStyle, this.state.selectedButton==='CORN2017' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2017' ? {color: "white"} : {color: "#3d4c57"}]}>2017</Text>
+                                        <Text style={[styles.cropType, this.state.selectedButton==='CORN2017' ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2017' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                                    </View>
+
+                                </TouchableHighlight>
+
+                                <TouchableHighlight onPress={this.onChangeButton.bind(this, 'SOYBEAN2017')}
+                                                    style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2017' ? {backgroundColor: "#279989"} : { backgroundColor: "white"}]}
+                                >
+                                    <View style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2017' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2017' ? {color: "white"} : {color: "#3d4c57"}]}>2017</Text>
+                                        <Text style={[styles.cropType, this.state.selectedButton==='SOYBEAN2017' ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2017' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                                    </View>
+                                </TouchableHighlight>
+
+                                <TouchableHighlight onPress={this.onChangeButton.bind(this, 'CORN2018')}
+
+                                                    style={[styles.buttonStyle, this.state.selectedButton==='CORN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                                >
+                                    <View style={[styles.buttonStyle, this.state.selectedButton==='CORN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2018' ? {color: "white"} : {color: "#3d4c57"}]}>2018</Text>
+                                        <Text style={[styles.cropType, this.state.selectedButton==='CORN2018' ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2018' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                                    </View>
+                                </TouchableHighlight>
+                                <TouchableHighlight onPress={this.onChangeButton.bind(this, 'SOYBEAN2018')}
+                                                    style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                                >
+                                    <View style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2018' ? {color: "white"} : {color: "#3d4c57"}]}>2018</Text>
+                                        <Text style={[styles.cropType, this.state.selectedButton==='SOYBEAN2018' ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
+                                        <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2018' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                                    </View>
+                                </TouchableHighlight>
+
+
                             </View>
-                        </TouchableHighlight>
+
 
                         </ScrollView>
 
@@ -262,39 +340,32 @@ const styles = {
 
 
     },
-    beforePress: {
+    buttonStyle: {
+        width: 150,
+        height: 80,
         backgroundColor: 'white',
-        width: 120,
-        height: 80,
-        borderRadius: 3,
-        margin: 10
+        justifyContent: 'center',
+        borderRadius: 5,
+        alignItems: 'center',
+        marginRight: 10
     },
-    afterPress: {
-        backgroundColor: 'green',
-        width: 120,
-        height: 80,
-        borderRadius: 3,
-        margin: 10
+    yearCrop: {
+        fontSize: 15
     },
-    afterPressText: {
-      color: 'white',
-        fontSize: 20
-    },
-    beforePressText: {
-        color: 'black',
-        fontSize: 20
+    cropType: {
+        fontSize: 25
     }
 
-}
+};
 const mapStateToProps = (state) => {
     //console.log(state.openPositionsCount)
     return {
      openOrders: state.openWorkingOrders,
         openPositionsCount: state.openPositionsCount
     };
-}
+};
 const matchDispatchToProps = (dispatch) => {
     return bindActionCreators({ dashboardOpenWorkingOrdersCount,
                                  dashboardOpenPositionsCount }, dispatch);
-}
+};
 export default connect(mapStateToProps, matchDispatchToProps)(DashBoard);

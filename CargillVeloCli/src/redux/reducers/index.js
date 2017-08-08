@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
 import cancelorder from './CancelOrder';

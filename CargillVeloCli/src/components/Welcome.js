@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+'use strict';
 import React from 'react';
 import { Text, View, Linking, StatusBar} from 'react-native';
 import Dimensions from 'Dimensions';

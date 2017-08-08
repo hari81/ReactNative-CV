@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import {Actions } from 'react-native-router-flux';
+import st from '../Utils/SafeTraverse';
 
 const underlying = require('../restAPI/underlying.json');
 
@@ -27,11 +28,19 @@ render() {
         riskProductName,
        underlyingObject } = this.props.item;
         //console.log(this.props.item);
-    const year = underlyingObject.contractMonth.year.value;
+    const year = st(underlyingObject, ['contractMonth', 'year', 'value']);
     const month = underlyingObject.contractMonth.month.name;
     const crop = underlyingObject.commodity.name;
     const unit = underlyingObject.commodity.unit;
-
+        console.log("UTC " + createTime.replace('T',' ').substr(0,19));
+    let d= new Date(createTime);
+    let strDate =   d.getFullYear()+ "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+       ("0" + d.getDate()).slice(-2) + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" +("0" + d.getSeconds()).slice(-2) ;
+    let utcdate = new Date(createTime);
+    let offset = new Date().getTimezoneOffset();
+    utcdate.setMinutes(utcdate.getMinutes() - offset);
+     //let strDate = utcdate.getFullYear()+ "-" +utcdate.getMonth() +"-" +utcdate.getDate()  +" " + utcdate.toLocaleTimeString();
+            console.log("CST" + utcdate);
         return (
             <View style={styles.subContainerStyle}>
 
@@ -92,7 +101,7 @@ render() {
 
                 <View style={{flexDirection: 'column', marginLeft: 20, marginTop: 10, width: 175}}>
                     <Text style={{color: '#01aca8'}}> ORDER CREATION DATE</Text>
-                    <Text> {createTime.replace('T',' ').substr(1,18)}</Text>
+                    <Text> { strDate }</Text>
                     <Text style={{color: '#01aca8', marginTop: 6}}> ORDER EXPIRATION DATE </Text>
                     <Text> {expirationDate} </Text>
                 </View>
@@ -103,7 +112,9 @@ render() {
                     <TouchableHighlight
                         //style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
                         style={styles.viewbutton}
-                        onPress={() => this.onCancelPress({...this.props.item, month, year, crop, orderId})}
+                        onPress={orderState.label !== 'PENDING_CANCEL' ?
+                            () => this.onCancelPress({...this.props.item, month, year, crop, orderId}) : () => {}
+                        }
                        // disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
                         color= {orderState.label === 'PENDING_CANCEL'? 'red' : 'yellow'}
                         underlayColor='#dddddd'

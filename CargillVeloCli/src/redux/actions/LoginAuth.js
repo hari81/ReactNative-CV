@@ -1,10 +1,14 @@
+/*jshint esversion: 6 */
+'use strict';
+
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import base64 from 'base-64';
-import { LOGIN_USER, LOGIN_SUCCESS, LOGIN_FAIL } from "./types"
-export const loginUser = ({ email, password, saveUser }) => {
-    console.log(email,password)
-    return (dispatch) => {
+import { LOGIN_USER, LOGIN_SUCCESS, LOGIN_FAIL,  SERVER_NORESPONSE} from "./types";
+
+export const loginUser = ({ saveUser }) => {
+    //console.log(email,password)
+    return (dispatch, getState) => {
         dispatch({type: LOGIN_USER});
         const url = 'https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/qa/identities/authenticate';
 
@@ -20,8 +24,8 @@ export const loginUser = ({ email, password, saveUser }) => {
             headers,
             body: JSON.stringify({
                 domain: 'commodityhedging.com',
-                password,
-                username: email
+                password: getState().auth.password,
+                username: getState().auth.email
             })
         })
             .then(response => {
@@ -33,8 +37,8 @@ export const loginUser = ({ email, password, saveUser }) => {
                                 let userInfo;
                                 if (saveUser) {
                                     userInfo = JSON.stringify({
-                                        email: base64.encode(email),
-                                        password: base64.encode(password)
+                                        email: base64.encode(getState().auth.email),
+                                        password: base64.encode(getState().auth.password)
                                     });
                                     AsyncStorage.setItem('userData', userInfo);
 
@@ -49,9 +53,14 @@ export const loginUser = ({ email, password, saveUser }) => {
                             }
                         })
                 }
+
+
             })
-            .catch((status, error) => console.log('error'+error));
+            .catch((status, error) => {
+                        console.log('error'+error);
+                        dispatch({type: SERVER_NORESPONSE});
+            });
 
     }
 
-}
+};

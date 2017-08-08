@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+'use strict';
+
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import base64 from 'base-64';

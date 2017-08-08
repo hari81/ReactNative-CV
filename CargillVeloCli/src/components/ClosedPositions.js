@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import React, { Component } from 'react';
 import {
     Text, View, Image, TouchableHighlight, Linking
@@ -76,7 +78,7 @@ class ClosedPositions extends Component {
 
             <View style={styles.subContainerStyle}>
                 <View style={styles.yearStyle}>
-                    <View style={{ backgroundColor: '#01aca8', height: 40, justifyContent: 'center' }}>
+                    <View style={{ backgroundColor: '#01aca8', height: 40, justifyContent: 'center', alignItems:'center' }}>
                         <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
                             {month[0]}
                         </Text>

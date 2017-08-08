@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import React, { Component } from 'react';
 import { Text, View, Switch, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
@@ -32,7 +34,7 @@ class LoginForm extends Component {
 
     onButtonPress() {
         const { saveUser, email, password } = this.props.auth;
-        this.props.loginUser({email, password, saveUser })//.then(response => console.log("login success", response));
+        this.props.loginUser({ saveUser })//.then(response => console.log("login success", response));
     }
    onSaveUserChange(value) {
         this.props.saveUserSwitchChanged({ value });
@@ -112,7 +114,7 @@ class LoginForm extends Component {
     const styles = {
     errorStyle: {
         color: 'white',
-        marginLeft: 200,
+        marginLeft: 100,
         fontSize: 20
     }
     };

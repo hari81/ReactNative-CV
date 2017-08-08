@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+'use strict';
 import {CANCEL_BUTTON_PRESSED, ORDER_RECEIPT} from '../actions/types';
 
 const INITIAL_STATE = {

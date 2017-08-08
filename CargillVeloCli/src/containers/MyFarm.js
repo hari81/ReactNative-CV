@@ -1,15 +1,12 @@
+/*jshint esversion: 6 */
+'use strict';
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, ScrollView, Alert, TouchableHighlight, Image } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Alert, TouchableHighlight, Image, StatusBar } from 'react-native';
 import Dimensions from 'Dimensions';
 
 import { LogoHeader, CardSection, CropButton, FarmInput} from '../components/common';
 import Plus from '../components/common/img/Plus.png';
 
-const flag= {
-    cornFlag2016: true, soyflag2016:false,
-    cornFlag2017: false, soyflag2017:false,
-    cornFlag2018: false, soyflag2018:false,
-};
 
 export default class MyFarm extends Component
 {
@@ -17,50 +14,61 @@ export default class MyFarm extends Component
     {
         super();
         this.state = {
-            cornFlag2016: true, soyflag2016:false,
-            cornFlag2017: false, soyflag2017:false,
-            cornFlag2018: false, soyflag2018:false,
-        }
+           selectedButton: 'CORN2016'
+        };
     }
-     onPress1()
+
+     onChangeButton(selectedButton)
      {
-         this.setState({buttonFlag: true})
+         this.setState({selectedButton})
+         //switch
      }
     render() {
         const {width, height} = Dimensions.get('window');
         console.log(width, height);
         return (
             <View style={{flex: 1, flexDirection: 'column'}}>
-                <View style={{
+
+                {/* <StatusBar barStyle="light-content" />*/}
+                <View
+                    style={{ backgroundColor: 'black',
+                        width : width,
+                        height: 20,
+
+                    }}
+                />
+                <LogoHeader
+                    phNumber="+1-952-742-7414"
+                    subHeaderText="Price Hedging" />
+
+                <View style={{height: 80, backgroundColor: 'gray'}}>
+
+                    <View style= {{ height: 60, borderTopColor: '#e7b514',
+                        borderTopWidth: 3, backgroundColor: 'white', marginTop: 20, marginLeft: 20, marginRight: 20,
+                        justifyContent: 'flex-start', flexDirection: 'row'}}>
+                        <View style={{ height: 30, justifyContent: 'flex-end', borderRightColor: 'gray',
+                            borderRightWidth: 2, marginTop: 20}}>
+                            <Text style={{color: '#279989', fontSize : 25, paddingRight: 30, paddingLeft: 20}}> My Farm Set up </Text>
+                        </View>
+                        <View style={{ justifyContent: 'flex-end', height: 50, marginLeft: 30}}>
+                            <Text> Please complete the fields below.
+                                This information will be used to provide you with insights </Text>
+                            <Text> about your farm in the MY Farm section of the application.</Text>
+                        </View>
+                    </View>
+
+                </View>
+
+                { /* <View style={{
                     backgroundColor: '#3d4c57',
                     width,
-                    height: height - 160,
+                    height: height - 250,
 
                     marginRight: 30,
-                    marginBottom: 15 }}>
+                    marginBottom: 30 }}>*/}
 
-                    <LogoHeader
-                        phNumber="+1-952-742-7414"
-                        subHeaderText="Price Hedging" />
 
-                    <View style={{height: 80, backgroundColor: 'gray'}}>
-
-                        <View style= {{ height: 60, borderTopColor: '#e7b514',
-                            borderTopWidth: 3, backgroundColor: 'white', marginTop: 20, marginLeft: 20, marginRight: 20,
-                                justifyContent: 'flex-start', flexDirection: 'row'}}>
-                            <View style={{ height: 30, justifyContent: 'flex-end', borderRightColor: 'gray',
-                                borderRightWidth: 2, marginTop: 20}}>
-                                <Text style={{color: '#279989', fontSize : 25, paddingRight: 30, paddingLeft: 20}}> My Farm Set up </Text>
-                            </View>
-                            <View style={{ justifyContent: 'flex-end', height: 50, marginLeft: 30}}>
-                                <Text> Please complete the fields below.
-                                    This information will be used to provide you with insights </Text>
-                                <Text> about your farm in the MY Farm section of the application.</Text>
-                            </View>
-                        </View>
-
-                    </View>
-                <View style= {{ height: height- 310, backgroundColor: 'white'}}>
+                <View style= {{ height: height- 290, backgroundColor: 'white'}}>
 
                         {/*<View style={{marginLeft: 20, marginRight: 20}}>
                         <View style={{ width: 200, borderRightColor: 'gray', borderRightWidth: 2}}> </View>
@@ -75,18 +83,18 @@ export default class MyFarm extends Component
                                 marginLeft: 20, flexDirection: 'column', justifyContent:'space-around', width: 450, height: 300 }}>
 
                                 <Text style={{color: 'white', marginBottom: 10, marginLeft: 50}}> * Acres Planted &#8730; (acres) </Text>
-                                <FarmInput placeholder="Acres Planted"/>
+                                <FarmInput placeholder="Ex: 2500 acres"/>
                                 <Text style={{color: 'white', marginBottom: 10, marginTop: 30, marginLeft: 50}}> * Cost Per Acre </Text>
-                                <FarmInput/>
+                                <FarmInput  placeholder="Ex: $525 /per acre"/>
                                 <Text style={{color: 'white', marginBottom: 10, marginTop: 30, marginLeft: 50}}> * Profit Goal Per Acre </Text>
-                                <FarmInput />
+                                <FarmInput placeholder="Ex: $75 /per acre" />
                                 <Text style={{color: 'white', marginBottom: 10, marginTop: 30, marginLeft: 50}}> * Expected Yield </Text>
-                                <FarmInput/>
+                                <FarmInput placeholder="Ex: 175 bushels"/>
 
                             </View>
                             <View>
-                                <Text style={{color: 'white', marginLeft: 50, marginBottom: 10}}> * Crop Insurance Coverage </Text>
-                                 <FarmInput />
+                                <Text style={{color: 'white', marginLeft: 50, marginBottom: 10}}> * Basis Estimate for Unsold Production (-/+) </Text>
+                                 <FarmInput placeholder="Ex: -0.15 cents/bushel" />
                                 <Text style={{color: 'white', marginLeft: 50, marginTop: 20}}> Physical Transactions Total </Text>
                                 <Text style={{color: 'white', marginLeft: 50, marginBottom: 20}}> (Bushels) </Text>
                                 <Text style={{color: 'white', marginLeft: 50}}> Weighted Average Price of </Text>
@@ -125,7 +133,7 @@ export default class MyFarm extends Component
 
                     </View>
 
-            </View>
+                {/*  </View>*/}
             <View style={{
                     width: width,
                     height: 145,
@@ -139,92 +147,69 @@ export default class MyFarm extends Component
                 <ScrollView  horizontal showsHorizontalScrollIndicator>
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 15, marginRight: 15}}>
 
-                        <TouchableHighlight  onPress={() => {
-                            this.setState( {
-                            cornFlag2016: true, soyflag2016:false,
-                            cornFlag2017: false, soyflag2017:false,
-                            cornFlag2018: false, soyflag2018:false,
-                        })}}
-                                     style={[styles.buttonStyle, this.state.cornFlag2016 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                        <TouchableHighlight  onPress={this.onChangeButton.bind(this, 'CORN2016')}
+                                     style={[styles.buttonStyle, this.state.selectedButton==='CORN2016' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
                                              >
 
-                            <View style={[styles.buttonStyle, this.state.cornFlag2016 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
-                                <Text style={[styles.yearCrop,this.state.cornFlag2016 ? {color: "white"} : {color: "#3d4c57"}]}>2016</Text>
-                                <Text style={[styles.cropType, this.state.cornFlag2016 ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
-                                <Text style={[styles.yearCrop,this.state.cornFlag2016 ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                            <View style={[styles.buttonStyle, this.state.selectedButton==='CORN2016'? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                <Text style={[styles.yearCrop,this.state.selectedButton==='CORN2016'? {color: "white"} : {color: "#3d4c57"}]}>2016</Text>
+                                <Text style={[styles.cropType, this.state.selectedButton==='CORN2016' ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
+                                <Text style={[styles.yearCrop,this.state.selectedButton==='CORN2016'? {color: "white"} : {color: "gray"}]}>Crop</Text>
                             </View>
 
 
 
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={() => {this.setState( {
-                            cornFlag2016: false, soyflag2016:true,
-                            cornFlag2017: false, soyflag2017:false,
-                            cornFlag2018: false, soyflag2018:false,
-                        }); console.log(this.state);}}
-                                    style={[styles.buttonStyle, this.state.soyflag2016 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                        <TouchableHighlight onPress={this.onChangeButton.bind(this, 'SOYBEAN2016')}
+                                    style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2016' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
                              >
 
-                            <View style={[styles.buttonStyle, this.state.soyflag2016 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
-                                <Text style={[styles.yearCrop,this.state.soyflag2016 ? {color: "white"} : {color: "#3d4c57"}]}>2016</Text>
-                                <Text style={[styles.cropType, this.state.soyflag2016 ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
-                                <Text style={[styles.yearCrop,this.state.soyflag2016 ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                            <View style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2016' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2016' ? {color: "white"} : {color: "#3d4c57"}]}>2016</Text>
+                                <Text style={[styles.cropType, this.state.selectedButton==='SOYBEAN2016' ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2016' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
                             </View>
 
                         </TouchableHighlight>
 
-                        <TouchableHighlight onPress={() => this.setState( {
-                            cornFlag2016: false, soyflag2016:false,
-                            cornFlag2017: true, soyflag2017:false,
-                            cornFlag2018: false, soyflag2018:false,
-                        })}
-                                    style={[styles.buttonStyle, this.state.cornFlag2017 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                        <TouchableHighlight onPress={this.onChangeButton.bind(this, 'CORN2017')}
+                                    style={[styles.buttonStyle, this.state.selectedButton==='CORN2017' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
                              >
-                            <View style={[styles.buttonStyle, this.state.cornFlag2017 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
-                                <Text style={[styles.yearCrop,this.state.cornFlag2017 ? {color: "white"} : {color: "#3d4c57"}]}>2017</Text>
-                                <Text style={[styles.cropType, this.state.cornFlag2017 ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
-                                <Text style={[styles.yearCrop,this.state.cornFlag2017 ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                            <View style={[styles.buttonStyle, this.state.selectedButton==='CORN2017' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2017' ? {color: "white"} : {color: "#3d4c57"}]}>2017</Text>
+                                <Text style={[styles.cropType, this.state.selectedButton==='CORN2017' ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2017' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
                             </View>
 
                         </TouchableHighlight>
 
-                        <TouchableHighlight onPress={() => this.setState( {
-                            cornFlag2016: false, soyflag2016:false,
-                            cornFlag2017: false, soyflag2017:true,
-                            cornFlag2018: false, soyflag2018:false,
-                        })}
-                                    style={[styles.buttonStyle, this.state.soyflag2017 ? {backgroundColor: "#279989"} : { backgroundColor: "white"}]}
+                        <TouchableHighlight onPress={this.onChangeButton.bind(this, 'SOYBEAN2017')}
+                                    style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2017' ? {backgroundColor: "#279989"} : { backgroundColor: "white"}]}
                            >
-                            <View style={[styles.buttonStyle, this.state.soyflag2017 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
-                                <Text style={[styles.yearCrop,this.state.soyflag2017 ? {color: "white"} : {color: "#3d4c57"}]}>2017</Text>
-                                <Text style={[styles.cropType, this.state.soyflag2017 ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
-                                <Text style={[styles.yearCrop,this.state.soyflag2017 ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                            <View style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2017' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2017' ? {color: "white"} : {color: "#3d4c57"}]}>2017</Text>
+                                <Text style={[styles.cropType, this.state.selectedButton==='SOYBEAN2017' ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2017' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
                             </View>
                         </TouchableHighlight>
 
-                        <TouchableHighlight
-                            onPress={() => this.setState( {
-                                cornFlag2016: false, soyflag2016:false,
-                                cornFlag2017: false, soyflag2017:false,
-                                cornFlag2018: true, soyflag2018:false,
-                            })}
-                            style={[styles.buttonStyle, this.state.cornFlag2018 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                        <TouchableHighlight onPress={this.onChangeButton.bind(this, 'CORN2018')}
+
+                            style={[styles.buttonStyle, this.state.selectedButton==='CORN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
                             >
-                            <View style={[styles.buttonStyle, this.state.cornFlag2018 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
-                                <Text style={[styles.yearCrop,this.state.cornFlag2018 ? {color: "white"} : {color: "#3d4c57"}]}>2018</Text>
-                                <Text style={[styles.cropType, this.state.cornFlag2018 ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
-                                <Text style={[styles.yearCrop,this.state.cornFlag2018 ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                            <View style={[styles.buttonStyle, this.state.selectedButton==='CORN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2018' ? {color: "white"} : {color: "#3d4c57"}]}>2018</Text>
+                                <Text style={[styles.cropType, this.state.selectedButton==='CORN2018' ? {color: "white"} : {color: "#3d4c57"}]}>CORN</Text>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='CORN2018' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={() => this.setState( {
-                            cornFlag2016: false, soyflag2016:false,
-                            cornFlag2017: false, soyflag2017:false,
-                            cornFlag2018: false, soyflag2018:true,
-                        })}>
-                            <View style={[styles.buttonStyle, this.state.soyflag2018 ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
-                                <Text style={[styles.yearCrop,this.state.soyflag2018 ? {color: "white"} : {color: "#3d4c57"}]}>2018</Text>
-                                <Text style={[styles.cropType, this.state.soyflag2018 ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
-                                <Text style={[styles.yearCrop,this.state.soyflag2018 ? {color: "white"} : {color: "gray"}]}>Crop</Text>
+                        <TouchableHighlight onPress={this.onChangeButton.bind(this, 'SOYBEAN2018')}
+                             style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}
+                            >
+                            <View style={[styles.buttonStyle, this.state.selectedButton==='SOYBEAN2018' ? {backgroundColor: "#279989"} : {backgroundColor: "white"}]}>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2018' ? {color: "white"} : {color: "#3d4c57"}]}>2018</Text>
+                                <Text style={[styles.cropType, this.state.selectedButton==='SOYBEAN2018' ? {color: "white"} : {color: "#3d4c57"}]}>SOYBEAN</Text>
+                                <Text style={[styles.yearCrop, this.state.selectedButton==='SOYBEAN2018' ? {color: "white"} : {color: "gray"}]}>Crop</Text>
                             </View>
                         </TouchableHighlight>
 
@@ -255,4 +240,4 @@ const styles = {
     cropType: {
         fontSize: 25
     }
-}
+};

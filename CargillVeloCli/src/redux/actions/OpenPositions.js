@@ -1,9 +1,11 @@
+/*jshint esversion: 6 */
+'use strict';
 import base64 from 'base-64';
 
 export const OpenPositionsData = () =>{
     return (dispatch, getState) => {
         //console.log(getState().auth)
-        return fetch('https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/positions?state=open&commodity=S', {
+        return fetch('https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/positions?state=open&commodity=C', {
             method: 'GET',
             headers:{
                 Authorization:'Basic ' + base64.encode(getState().auth.email + ':' + getState().auth.password),

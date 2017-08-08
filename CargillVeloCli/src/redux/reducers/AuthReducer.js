@@ -35,8 +35,7 @@ export default (state = INITIAL_STATE, action) => {
 
         case LOGIN_FAIL:
             return Object.assign({}, state, { error: 'Authentication Failed',
-                password: '',
-                email: '',
+
                 message: AlertIOS.alert(
                     'Error',
                     'Invalid Username or Password'
