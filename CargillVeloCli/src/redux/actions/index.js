@@ -1,42 +1,40 @@
 /*jshint esversion: 6 */
-'use strict';
+"use strict";
 
-import { Actions } from 'react-native-router-flux';
-import { AsyncStorage } from 'react-native';
-import base64 from 'base-64';
+import { Actions } from "react-native-router-flux";
+import { AsyncStorage } from "react-native";
+import base64 from "base-64";
 import {
-    EMAIL_CHANGED,
-    PASSWORD_CHANGED,
-    LOGIN_FAIL,
-    LOGIN_SUCCESS,
-    USER_SWITCH_CHANGED,
-    CANCEL_BUTTON_PRESSED,
-    BACK_TO_ORDERS,
-    LOGIN_USER,
-    SERVER_NORESPONSE,
-    ORDER_RECEIPT
-} from './types';
-import { AUTHENTICATE_URL, RESTAPIURL } from '../../ServiceURLS';
+  EMAIL_CHANGED,
+  PASSWORD_CHANGED,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  USER_SWITCH_CHANGED,
+  CANCEL_BUTTON_PRESSED,
+  BACK_TO_ORDERS,
+  LOGIN_USER,
+  SERVER_NORESPONSE,
+  ORDER_RECEIPT
+} from "./types";
+import { AUTHENTICATE_URL, RESTAPIURL } from "../../ServiceURLS";
 
-
-export const emailChanged = (text) => {
-    return {
-        type: EMAIL_CHANGED,
-        payload: text
-    };
+export const emailChanged = text => {
+  return {
+    type: EMAIL_CHANGED,
+    payload: text
+  };
 };
-export const passwordChanged = (text) => {
-    return {
-        type: PASSWORD_CHANGED,
-        payload: text
-    };
+export const passwordChanged = text => {
+  return {
+    type: PASSWORD_CHANGED,
+    payload: text
+  };
 };
-export const saveUserSwitchChanged = ({value}) => {
-    return {
-        type: USER_SWITCH_CHANGED,
-        payload: value
-    };
-
+export const saveUserSwitchChanged = ({ value }) => {
+  return {
+    type: USER_SWITCH_CHANGED,
+    payload: value
+  };
 };
 
 /*export const loginUser = ({ email,password,saveUser }) => {
@@ -117,27 +115,28 @@ export const backToOrders = (e) => {
     };
 };*/
 
-export const orderReceipt = (orderid) => {
-    return (dispatch, getState) => {
+export const orderReceipt = orderid => {
+  return (dispatch, getState) => {
+    const url = RESTAPIURL + "api/orders/" + orderid;
+    console.log(getState().auth);
+    console.log(url);
+    return fetch(url, {
+      method: "DELETE",
+      headers: {
+        "x-api-key": "rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb",
+        Authorization:
+          "Basic " +
+          base64.encode(getState().auth.email + ":" + getState().auth.password)
+      }
+    })
+      .then(response => {
+        debugger;
+        if (response.ok) {
+          console.log(response);
 
-        const url = RESTAPIURL + 'api/orders/' + orderid;
-        console.log(getState().auth);
-        console.log(url);
-        return fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'x-api-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb',
-                'Authorization': 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password)
-            }
-        })
-            .then(response => {
-                debugger;
-                if (response.ok) {
-                    console.log(response);
-
-                    Actions.cancelorderreceipt({orderid: orderid});
-                    return response.json()
-                        /*.then(responseJson => {
+          Actions.cancelorderreceipt({ orderid: orderid });
+          return response.json();
+          /*.then(responseJson => {
                          console.log(responseJson);
                             switch (responseJson.status) {
                                 case 200:
@@ -156,13 +155,11 @@ export const orderReceipt = (orderid) => {
 
                             }
                         })*/
-                } else {
-                    dispatch({type: SERVER_NORESPONSE});
-                    console.log("Response failed");
-                }
-            })
-            .catch((status, error) => console.log(error));
-    }
-
+        } else {
+          dispatch({ type: SERVER_NORESPONSE });
+          console.log("Response failed");
+        }
+      })
+      .catch((status, error) => console.log(error));
+  };
 };
-

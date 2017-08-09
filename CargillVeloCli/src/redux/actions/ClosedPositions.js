@@ -1,61 +1,68 @@
 /*jshint esversion: 6 */
-'use strict';
+"use strict";
 
-export const ClosedPositionsData = () =>{
-    return (dispatch, getState) => {
-        const base64 = require('base-64');
+import base64 from "base-64";
 
-        const url = 'https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/positions?state=closed&commodity=C'
-       // const username = 'BernM@commodityhedging.com';
-       // const password = 'test1234';
+export const ClosedPositionsData = () => {
+  return (dispatch, getState) => {
+    //console.log(getState().auth)
 
-        const headers = new Headers();
-        headers.append('Authorization', 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password));
-        headers.append('x-api-key', 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb')
-        return fetch(url, {
-            method: 'GET',
-            headers
-        })
-            .then(response => response.json())
-            .then((closedPositions) => {
-                    //console.log(closedPositions);
-
-                    dispatch(closedPositionsDataSuccess(closedPositions));
-
-                    return Promise.all(closedPositions.map((items) => {
-                        return Promise.all(items.lines.map((itemss) => {
-                            const base64 = require('base-64');
-
-                           // const username = 'BernM@commodityhedging.com';
-                          //  const password = 'test1234';
-                            const headers = new Headers();
-                            headers.append('Authorization', 'Basic ' + base64.encode(getState().auth.email + ":" + getState().auth.password));
-                            headers.append('x-api-key', 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb')
-                            return fetch('https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/underlyings/' + itemss.underlying, {
-                                method: 'GET',
-                                headers
-                            })
-                                .then(response => response.json());
-                        }))
-                            .then((closedUnderlying) => {
-                                dispatch(closedPositionsUnderlying(closedUnderlying))
-                            });
-                    }));
+    return fetch(
+      "https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/positions?state=closed&commodity=C",
+      {
+        method: "GET",
+        headers: {
+          Authorization:
+            "Basic " +
+            base64.encode(
+              getState().auth.email + ":" + getState().auth.password
+            ),
+          "x-api-key": "rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(closed => {
+        //console.log(closed)
+        //dispatch(openPositionsDataSuccess(openPositions))
+        return Promise.all(
+          closed.map(items => {
+            console.log(items.lines[0].underlying);
+            return fetch(
+              "https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/underlyings/" +
+                items.lines[0].underlying,
+              {
+                method: "GET",
+                headers: {
+                  Authorization:
+                    "Basic " +
+                    base64.encode(
+                      getState().auth.email + ":" + getState().auth.password
+                    ),
+                  "x-api-key": "rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb"
                 }
-            )
-            .catch((error) => console.log(error));
-    }
-}
+              }
+            ).then(response => response.json());
+          })
+        )
+          .then(res => {
+            return closed.map((item, index) => {
+              return Object.assign({}, item, {
+                underlyingObjectData: res[index]
+              });
+            });
+          })
+          .then(closedPositions =>
+            dispatch(closedPositionsDataSuccess(closedPositions))
+          );
+      })
+      .catch(error => console.log(error));
+  };
+};
 export function closedPositionsDataSuccess(closedPositions) {
-    return {
-        type: 'CLOSED_POSITIONS_DATA_SUCCESS',
-        closedPositions
-    };
-}
-export function closedPositionsUnderlying(closedUnderlying) {
-    //console.log(closedUnderlying)
-    return {
-        type: 'CLOSED_POSITIONS_DATA_SUCCESS_UNDERLYING',
-        closedUnderlying
-    };
+  //console.log(closedPositions);
+  return {
+    type: "CLOSED_POSITIONS_DATA_SUCCESS",
+    closedPositions
+  };
 }
