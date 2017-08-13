@@ -99,20 +99,20 @@ class ClosedPositions extends Component {
         >
           <Text style={{ color: "#01aca8" }}> PRODUCT</Text>
           <Text>
-            {" "}{product}
+            {product}
           </Text>
           <View style={{ flexDirection: "row", marginTop: 6 }}>
             <View style={{ flexDirection: "column" }}>
               <Text style={{ color: "#01aca8" }}> NET PRICE</Text>
               <Text>
-                {" "}{netPrice}{" "}
+                ${netPrice.toFixed(2)}
               </Text>
             </View>
             <View style={{ flexDirection: "column", marginLeft: 20 }}>
               <Text style={{ color: "#01aca8" }}> CLOSED PRICE</Text>
               <View style={{ width: 100 }}>
                 <Text>
-                  {closedPrice}
+                  ${closedPrice.toFixed(2)}
                 </Text>
               </View>
             </View>
@@ -127,13 +127,13 @@ class ClosedPositions extends Component {
             <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
               <Image
                 style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
-                source={require("./common/img/PDF.png")}
+                source={require("../common/img/PDF.png")}
               />
             </TouchableHighlight>
           </View>
           <Text style={{ color: "#01aca8", marginTop: 16 }}> TRADE ID#</Text>
           <Text>
-            {" "}{id}{" "}
+            {id}
           </Text>
         </View>
 
@@ -142,11 +142,11 @@ class ClosedPositions extends Component {
         >
           <Text style={{ color: "#01aca8" }}> TRADE DATE</Text>
           <Text>
-            {" "}{tradeDate}
+            {tradeDate}
           </Text>
           <Text style={{ color: "#01aca8", marginTop: 6 }}> UNWIND DATE</Text>
           <Text>
-            {" "}{unwindDate}{" "}
+            {unwindDate}
           </Text>
         </View>
       </View>

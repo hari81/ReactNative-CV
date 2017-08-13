@@ -15,33 +15,33 @@ import { connect } from "react-redux";
 import { Actions } from "react-native-router-flux";
 import Dimensions from "Dimensions";
 import { bindActionCreators } from "redux";
-import { LogoHeader, OrderButton } from "./common/index";
-import { backToOrders, orderReceipt } from "../redux/actions/index";
+import { LogoHeader, OrderButton } from "../common/index";
+import { orderReceipt } from "../../redux/actions/CancelOrders";
 
 class CancelOrder extends Component {
   constructor() {
     super();
-    this.state = {
+   /* this.state = {
       switchValue: false
-    };
+    };*/
   }
 
   onBackToOrders(e) {
     Actions.orders();
-    //this.props.backToOrders(e);
+
   }
   cancelOrder() {
-    console.log(this.props.orderId);
+
     this.props.orderReceipt(this.props.orderId);
-    //Actions.cancelorderreceipt();
+
   }
-  toggleSwitch = value => {
+ /* toggleSwitch = value => {
     this.setState({ switchValue: value });
-  };
+  };*/
 
   render() {
     const { width, height } = Dimensions.get("window");
-    console.log(this.props);
+
     return (
       <View style={styles.containerStyle}>
         <StatusBar barStyle="light-content" />
@@ -49,7 +49,7 @@ class CancelOrder extends Component {
         <View
           style={{
             backgroundColor: "black",
-            width: width,
+            width,
             height: 20
           }}
         />
@@ -125,7 +125,7 @@ class CancelOrder extends Component {
                     </Text>
                   </View>
                 </View>
-                <View style={{ flexDirection: "row", marginTop: 120 }}>
+                  {/*<View style={{ flexDirection: "row", marginTop: 120 }}>
                   <Switch
                     onValueChange={this.toggleSwitch}
                     value={this.state.switchValue}
@@ -138,11 +138,11 @@ class CancelOrder extends Component {
                     style={{ width: 30, height: 30, marginLeft: 10 }}
                     source={require("./common/img/Info.png")}
                   />
-                </View>
+                </View>*/}
                 <View
                   style={{
                     flexDirection: "row",
-                    marginTop: 10,
+                    marginTop: 120,
                     marginBottom: 10,
                     marginLeft: 160,
                     marginRight: 160
@@ -151,25 +151,30 @@ class CancelOrder extends Component {
                   <OrderButton onPress={this.onBackToOrders.bind(this)}>
                     BACK TO ORDERS LIST
                   </OrderButton>
-                  <TouchableHighlight
-                    style={[
+                    { /* style={[
                       styles.buttonStyle,
                       this.state.switchValue
                         ? { backgroundColor: "#279989" }
                         : { backgroundColor: "gray" }
                     ]}
+
+                    disabled={!this.state.switchValue} */}
+                  <TouchableHighlight
+
+                      style={styles.buttonStyle}
                     onPress={this.cancelOrder.bind(this)}
-                    disabled={!this.state.switchValue}
                   >
-                    <Text
-                      style={[
+                      {/* style={[
                         styles.textStyle,
                         this.state.switchValue
                           ? { color: "white" }
                           : { color: "black" }
-                      ]}
+                      ]} */}
+                    <Text
+
+                        style = {[styles.textStyle,{color:'white'} ]}
                     >
-                      {" "}CANCEL ORDER NOW{" "}
+                      CANCEL ORDER NOW
                     </Text>
                   </TouchableHighlight>
                 </View>
@@ -184,7 +189,7 @@ class CancelOrder extends Component {
 const styles = {
   textStyle: {
     alignSelf: "center",
-    //  color: 'black',
+
     fontSize: 20,
     fontWeight: "600",
     color: "#279989",
@@ -197,27 +202,26 @@ const styles = {
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#01aca8",
+    backgroundColor: '#01aca8',
     marginLeft: 5,
     marginRight: 5
   },
   containerStyle: {
     flex: 1,
     flexDirection: "column",
-    // borderWidth: 5,
+
     borderColor: "#3d4c57"
   },
 
   headerText: {
-    //height: 100,
-    //justifyContent: "flex-end",
-    //paddingTop: 8,
+
     paddingLeft: 14,
     fontSize: 20,
     fontWeight: "bold",
     color: "#279989"
   },
   subHeaderTextStyle: {
-    // height: 100,
+
     justifyContent: "flex-start",
     alignItems: "flex-start",
     fontSize: 30,
@@ -240,15 +244,10 @@ const styles = {
   }
 };
 
-const mapStateToProps = state => {
-  return {
-    data: state.cancelItem,
-    auth: state.auth
-  };
-};
+
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ backToOrders, orderReceipt }, dispatch);
+  return bindActionCreators({  orderReceipt }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CancelOrder);
+export default connect(null, mapDispatchToProps)(CancelOrder);

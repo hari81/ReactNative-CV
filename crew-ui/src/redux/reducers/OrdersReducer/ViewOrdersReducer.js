@@ -4,7 +4,7 @@ import {
   FETCHING_ORDERS_ACTIVITY,
   DROP_DOWN_VALUES,
   CROP_DROPDOWN_LOAD
-} from "../actions/types";
+} from "../../actions/types";
 
 const INITIAL_STATEORDERS = {
   fetchflag: false,
@@ -29,7 +29,7 @@ export default function(state = INITIAL_STATEORDERS, action) {
       return Object.assign({}, state, { dropDownData: action.payload });
     case CROP_DROPDOWN_LOAD:
       return Object.assign({}, state, { items: action.payload });
-      case
+      //case
     default:
       return state;
   }

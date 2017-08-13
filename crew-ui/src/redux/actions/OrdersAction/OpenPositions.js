@@ -1,14 +1,16 @@
 /*jshint esversion: 6 */
 "use strict";
-
 import base64 from "base-64";
+import { REST_API_URL} from "../../../ServiceURLS/index";
 
-export const ClosedPositionsData = () => {
+export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
     //console.log(getState().auth)
 
+    const url = REST_API_URL + "api/positions?commodity=" + crop + "&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year";
+    console.log(url);
     return fetch(
-      "https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/positions?state=closed&commodity=C",
+      url,
       {
         method: "GET",
         headers: {
@@ -22,14 +24,14 @@ export const ClosedPositionsData = () => {
       }
     )
       .then(response => response.json())
-      .then(closed => {
-        //console.log(closed)
+      .then(opens => {
+       // console.log(opens)
         //dispatch(openPositionsDataSuccess(openPositions))
         return Promise.all(
-          closed.map(items => {
-            console.log(items.lines[0].underlying);
+          opens.map(items => {
+            //console.log(items.lines[0].underlying)
             return fetch(
-              "https://a7gp732c12.execute-api.us-east-1.amazonaws.com/qa/extracense/api/underlyings/" +
+               REST_API_URL + "api/underlyings/" +
                 items.lines[0].underlying,
               {
                 method: "GET",
@@ -46,23 +48,23 @@ export const ClosedPositionsData = () => {
           })
         )
           .then(res => {
-            return closed.map((item, index) => {
+            return opens.map((item, index) => {
               return Object.assign({}, item, {
                 underlyingObjectData: res[index]
               });
             });
           })
-          .then(closedPositions =>
-            dispatch(closedPositionsDataSuccess(closedPositions))
+          .then(openPositions =>
+            dispatch(openPositionsDataSuccess(openPositions))
           );
       })
       .catch(error => console.log(error));
   };
 };
-export function closedPositionsDataSuccess(closedPositions) {
-  //console.log(closedPositions);
+export function openPositionsDataSuccess(openPositions) {
+  console.log(openPositions);
   return {
-    type: "CLOSED_POSITIONS_DATA_SUCCESS",
-    closedPositions
+    type: "OPEN_POSITIONS_DATA_SUCCESS",
+    openPositions
   };
 }

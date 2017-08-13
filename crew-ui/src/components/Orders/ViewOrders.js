@@ -4,13 +4,13 @@ import React, { Component } from "react";
 import { Text, TouchableHighlight, View } from "react-native";
 import { connect } from "react-redux";
 import { Actions } from "react-native-router-flux";
-import st from "../Utils/SafeTraverse";
+import st from "../../Utils/SafeTraverse";
 
-const underlying = require("../restAPI/underlying.json");
+const underlying = require("../../restAPI/underlying.json");
 
 class ViewOrders extends Component {
   onCancelPress(item) {
-    //this.props.onCancelButtonPress(this.props.item);//
+
     Actions.cancelorder(item);
   }
   render() {
@@ -30,7 +30,8 @@ class ViewOrders extends Component {
     const month = st(underlyingObject, ["contractMonth", "month", "name"]);
     const crop = st(underlyingObject, ["commodity", "name"]);
     const unit = st(underlyingObject, ["commodity", "unit"]);
-    // console.log("UTC " + createTime.replace("T", " ").substr(0, 19));
+    const targetPrice = this.props.item.targetPrice || 0;
+
     let d = new Date(createTime);
     let strDate =
       d.getFullYear() +
@@ -48,7 +49,7 @@ class ViewOrders extends Component {
     let offset = new Date().getTimezoneOffset();
     utcdate.setMinutes(utcdate.getMinutes() - offset);
     //let strDate = utcdate.getFullYear()+ "-" +utcdate.getMonth() +"-" +utcdate.getDate()  +" " + utcdate.toLocaleTimeString();
-    console.log("CST" + utcdate);
+   // console.log("CST" + utcdate);
     return (
       <View style={styles.subContainerStyle}>
         <View style={styles.yearStyle}>
@@ -124,7 +125,7 @@ class ViewOrders extends Component {
             {orderId}
           </Text>
           <Text style={{ color: "#01aca8", marginTop: 6 }}> PRICE</Text>
-          <Text> N/A </Text>
+          <Text> ${targetPrice.toFixed(2)} </Text>
         </View>
 
         <View
@@ -169,8 +170,8 @@ class ViewOrders extends Component {
 
         <View style={styles.buttonview}>
           <TouchableHighlight
-            //style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
-            style={styles.viewbutton}
+            style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
+
             onPress={
               orderState.label !== "PENDING_CANCEL"
                 ? () =>
@@ -183,8 +184,8 @@ class ViewOrders extends Component {
                     })
                 : () => {}
             }
-            // disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
-            color={orderState.label === "PENDING_CANCEL" ? "red" : "yellow"}
+            disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
+
             underlayColor="#dddddd"
           >
             <Text style={styles.buttonText}>CANCEL</Text>

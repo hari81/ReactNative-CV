@@ -4,9 +4,9 @@ import React from "react";
 import { Scene, Router } from "react-native-router-flux";
 import App from "./components/Welcome";
 import Orders from "./containers/Orders";
-import CancelOrder from "./components/CancelOrder";
-import OpenPositions from "./components/OpenPositions";
-import CancelOrderReceipt from "./components/CancelOrderReceipt";
+import CancelOrder from "./components/CancelOrders/CancelOrder";
+import OpenPositions from "./components/Orders/OpenPositions";
+import CancelOrderReceipt from "./components/CancelOrders/CancelOrderReceipt";
 import DashBoard from "./containers/DashBoard";
 import MyFarm from "./containers/MyFarm";
 
@@ -27,6 +27,7 @@ const RouterComponent = () => {
           component={CancelOrderReceipt}
         />
         <Scene hindeNavBar key="myfarm" component={MyFarm} />
+
       </Scene>
     </Router>
   );

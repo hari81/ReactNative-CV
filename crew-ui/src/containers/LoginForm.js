@@ -59,9 +59,6 @@ class LoginForm extends Component {
       return <Button onPress={this.onButtonPress.bind(this)}>Login</Button>;
     }
   }
-  /* componentWillReceiveProps(nextprops){
-        console.log(this.props.auth.loading, nextprops.auth.loading)
-    }*/
 
   render() {
     return (
@@ -72,6 +69,7 @@ class LoginForm extends Component {
             label="Email"
             onChangeText={this.onEmailChange.bind(this)}
             value={this.props.auth.email}
+
           />
         </CardSection>
 
@@ -85,7 +83,7 @@ class LoginForm extends Component {
           />
         </CardSection>
         <Text style={styles.errorStyle}>
-          {" "}{this.props.auth.error}{" "}
+          {this.props.auth.error}
         </Text>
         <CardSection>
           <View
@@ -104,7 +102,7 @@ class LoginForm extends Component {
             />
 
             <Text style={{ fontSize: 15, marginLeft: 15, color: "#ffffff" }}>
-              {" "}Save Username{" "}
+              Save Username
             </Text>
           </View>
         </CardSection>

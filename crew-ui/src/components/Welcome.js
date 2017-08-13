@@ -12,6 +12,7 @@ export default class App extends React.Component {
     const { width, height } = Dimensions.get("window");
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
+
         <StatusBar barStyle="light-content" />
         <View
           style={{
@@ -64,7 +65,9 @@ export default class App extends React.Component {
                   {" "}Login below{" "}
                 </Text>
               </View>
+
               <LoginForm />
+
             </View>
           </View>
         </View>
@@ -100,7 +103,9 @@ export default class App extends React.Component {
             &copy; 2017 Cargill, Incorporated. All Rights Reserved.
           </Text>
         </View>
+
       </View>
+
     );
   }
 }

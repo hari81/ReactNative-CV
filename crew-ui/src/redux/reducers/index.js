@@ -3,19 +3,15 @@
 
 import { combineReducers } from "redux";
 import AuthReducer from "./AuthReducer";
-import cancelorder from "./CancelOrder";
-import vieworders from "./ViewOrdersReducer";
-import OpenPositions from "./OpenPositions";
-import ClosedPositions from "./ClosedPositions";
-import openWorkingOrdersCount from "./Dashboard/OpenWorkingOrdersCount";
-import openPositionsCounting from "./Dashboard/OpenPositionsCount";
+import vieworders from "./OrdersReducer/ViewOrdersReducer";
+import OpenPositions from "./OrdersReducer/OpenPositions";
+import ClosedPositions from "./OrdersReducer/ClosedPositions";
+
 
 export default combineReducers({
   auth: AuthReducer,
-  cancelItem: cancelorder,
   vieworder: vieworders,
   openPositions: OpenPositions,
   closedPositions: ClosedPositions,
-  openWorkingOrders: openWorkingOrdersCount,
-  openPositionsCount: openPositionsCounting
+
 });
