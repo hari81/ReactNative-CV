@@ -9,7 +9,7 @@ import {
   Alert,
   TouchableHighlight,
   Image,
-  StatusBar
+  StatusBar, Slider
 } from "react-native";
 import Dimensions from "Dimensions";
 
@@ -26,7 +26,13 @@ export default class MyFarm extends Component {
     super();
     this.state = {
       selectedButton: "CORN2016",
-      value: ""
+        farmInput:'',
+      value: "",
+      estimate: 0,
+        acres: '',
+        profit:'',
+        cost:'',
+        yield: ''
     };
   }
 
@@ -54,6 +60,30 @@ export default class MyFarm extends Component {
       default:
     }
   }
+    onChangeAcres(value){
+        const re = /[0-9]+$/;
+        if ( re.test(value)) {
+            this.setState({acres: value});
+        }
+    }
+    onChangeCost(value){
+        const re = /[0-9]+$/;
+        if ( re.test(value)) {
+            this.setState({cost: value});
+        }
+    }
+    onChangeProfit(value){
+        const re = /[0-9]+$/;
+        if ( re.test(value)) {
+            this.setState({profit: value});
+        }
+    }
+    onChangeYield(value){
+        const re = /[0-9]+$/;
+        if ( re.test(value)) {
+            this.setState({yield: value});
+        }
+    }
   render() {
     const { width, height } = Dimensions.get("window");
     console.log(width, height);
@@ -175,7 +205,13 @@ export default class MyFarm extends Component {
                 >
                   {" "}* Acres Planted (acres){" "}
                 </Text>
-                <FarmInput placeholder="Ex: 2500 acres" />
+                <FarmInput value= {this.state.acres}
+                           onblur = {() => { if(this.state.acres !== '') {this.setState({acres: this.state.acres + " acres"})}}}
+                           onfocus = { () => { if(this.state.acres.slice(-5) === 'acres')
+                           {this.setState({acres: this.state.acres.slice(0,(this.state.acres.length-6))
+                           })}}}
+                           onChangeText = {this.onChangeAcres.bind(this)}
+                           placeholder="Ex: 2500 acres                              " />
                 <Text
                   style={{
                     color: "white",
@@ -186,7 +222,14 @@ export default class MyFarm extends Component {
                 >
                   {" "}* Cost Per Acre{" "}
                 </Text>
-                <FarmInput placeholder="Ex: $525 /per acre" />
+                <FarmInput
+                    value= {this.state.cost}
+                    onblur = {() => { if(this.state.cost !== '') {this.setState({cost: "$" +this.state.cost + " /per acre"})}}}
+                    onfocus = { () => { if(this.state.cost.slice(-4) === 'acre')
+                    {this.setState({cost: this.state.cost.slice(1,(this.state.cost.length-10))
+                    })}}}
+                    onChangeText = {this.onChangeCost.bind(this)}
+                    placeholder="Ex: $525 /per acre              " />
                 <Text
                   style={{
                     color: "white",
@@ -197,7 +240,14 @@ export default class MyFarm extends Component {
                 >
                   {" "}* Profit Goal Per Acre{" "}
                 </Text>
-                <FarmInput placeholder="Ex: $75 /per acre" />
+                <FarmInput
+                    value= {this.state.profit}
+                    onblur = {() => { if(this.state.profit !== '') {this.setState({profit: "$" +this.state.profit + " /per acre"})}}}
+                    onfocus = { () => { if(this.state.profit.slice(-4) === 'acre')
+                    {this.setState({profit: this.state.profit.slice(1,(this.state.profit.length-10))
+                    })}}}
+                    onChangeText = {this.onChangeProfit.bind(this)}
+                    placeholder="Ex: $75 /per acre      " />
                 <Text
                   style={{
                     color: "white",
@@ -208,7 +258,14 @@ export default class MyFarm extends Component {
                 >
                   {" "}* Expected Yield{" "}
                 </Text>
-                <FarmInput placeholder="Ex: 175 bushels" />
+                <FarmInput
+                    value= {this.state.yield}
+                    onblur = {() => { if(this.state.yield !== '') {this.setState({yield: this.state.yield + " bushels"})}}}
+                    onfocus = { () => { if(this.state.yield.slice(-7) === 'bushels')
+                    {this.setState({yield: this.state.yield.slice(0,(this.state.yield.length-8))
+                    })}}}
+                    onChangeText = {this.onChangeYield.bind(this)}
+                    placeholder="Ex: 175 bushels      " />
               </View>
               <View>
                 <Text
@@ -216,7 +273,23 @@ export default class MyFarm extends Component {
                 >
                   {" "}* Basis Estimate for Unsold Production (-/+){" "}
                 </Text>
-                <FarmInput placeholder="Ex: -0.15 cents/bushel" />
+                  <Text style={[styles.slidenum, this.state.estimate > 0 ? {color:'green'} : {color:'red'}] }>
+                      ${this.state.estimate.toFixed(2)}
+                  </Text>
+                      <Slider
+                          style={{ marginLeft: 50, width: 300, }}
+                          step={.01}
+                          minimumValue={-2}
+                          maximumValue={2}
+                          value={this.state.estimate}
+                          onValueChange={slideval => this.setState({ estimate: slideval })}
+                          maximumTrackTintColor = 'red'
+                          minimumTrackTintColor = 'green'
+                          thumbTintColor = '#279989'
+                      />
+
+
+
                 <Text style={{ color: "white", marginLeft: 50, marginTop: 20 }}>
                   {" "}Physical Transactions Total{" "}
                 </Text>
@@ -671,5 +744,12 @@ const styles = {
   },
   cropType: {
     fontSize: 25
-  }
+  },
+
+    slidenum: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+
 };

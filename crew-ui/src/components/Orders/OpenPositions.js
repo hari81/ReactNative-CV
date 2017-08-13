@@ -10,7 +10,7 @@ import {
   Linking,
   Alert
 } from "react-native";
-import st from "../Utils/SafeTraverse";
+import st from "../../Utils/SafeTraverse";
 
 class OpenPositions extends Component {
   render() {
@@ -120,7 +120,7 @@ class OpenPositions extends Component {
           </Text>
           <Text style={{ color: "#01aca8", marginTop: 6 }}> NET PRICE</Text>
           <Text>
-            {" "}{lines[0].netPremium}
+            ${lines[0].netPremium.toFixed(2)}
           </Text>
         </View>
 
@@ -137,7 +137,7 @@ class OpenPositions extends Component {
             <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
               <Image
                 style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
-                source={require("./common/img/PDF.png")}
+                source={require("../common/img/PDF.png")}
               />
             </TouchableHighlight>
           </View>
@@ -152,7 +152,7 @@ class OpenPositions extends Component {
             flexDirection: "column",
             marginLeft: 20,
             marginTop: 10,
-            width: 100
+            width: 110
           }}
         >
           <Text style={{ color: "#01aca8" }}> TRADE DATE </Text>
@@ -169,7 +169,8 @@ class OpenPositions extends Component {
 
         <View style={styles.buttonview}>
           <TouchableHighlight
-            style={styles.viewbutton}
+            style={[styles.viewbutton, status === "pendingUnwind" ? {backgroundColor: '#7FFFD4'}: {}] }
+            disabled = { status === "pendingUnwind" ? true: false }
             onPress={() => Alert.alert("Unwind will be in progress...")}
             underlayColor="#dddddd"
           >

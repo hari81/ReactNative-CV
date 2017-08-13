@@ -3,7 +3,7 @@
 import React from "react";
 import { TextInput, View } from "react-native";
 
-const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry }) => {
+const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, onfocus }) => {
   const { inputStyle, containerStyle } = styles;
 
   return (
@@ -14,6 +14,11 @@ const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry }) => {
         style={inputStyle}
         value={value}
         onChangeText={onChangeText}
+        onBlur = {onblur}
+        onFocus = {onfocus}
+        keyboardType = 'numeric'
+        placeholderTextColor = '#3d4c57'
+
       />
     </View>
   );

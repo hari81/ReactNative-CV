@@ -1,20 +1,22 @@
 /*jshint esversion: 6 */
 "use strict";
+
 import React, { Component } from "react";
 import { Text, View, Image, AlertIOS, StatusBar } from "react-native";
 import { Actions } from "react-native-router-flux";
 import Dimensions from "Dimensions";
-import { LogoHeader, OrderButton } from "./common/index";
-import { backToOrders } from "../redux/actions/index";
+import { LogoHeader, OrderButton } from "../common/index";
 
-import confirm from "./common/img/confirmationSuccess.png";
+import confirm from "../common/img/confirmationSuccess.png";
 
 class CancelOrderReceipt extends Component {
-  onBackToDashBoard(e) {
+  onBackToDashBoard() {
     Actions.dashboard();
   }
 
-  reviewPositions() {}
+  reviewPositions() {
+      Actions.orders();
+  }
   render() {
     const { width, height } = Dimensions.get("window");
     return (

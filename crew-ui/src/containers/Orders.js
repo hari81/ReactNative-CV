@@ -12,17 +12,17 @@ import ModalDropdown from "react-native-modal-dropdown";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Dimensions from "Dimensions";
-import ViewOrders from "../components/ViewOrders";
-import OpenPositions from "../components/OpenPositions";
-import ClosedPositions from "../components/ClosedPositions";
+import ViewOrders from "../components/Orders/ViewOrders";
+import OpenPositions from "../components/Orders/OpenPositions";
+import ClosedPositions from "../components/Orders/ClosedPositions";
 import { LogoPhoneHeader, Spinner } from "../components/common";
 import {
   ViewOrdersData,
   dropDownCrop,
   selectedCrop
-} from "../redux/actions/ViewOrderAction";
-import { OpenPositionsData } from "../redux/actions/OpenPositions";
-import { ClosedPositionsData } from "../redux/actions/ClosedPositions";
+} from "../redux/actions/OrdersAction/ViewOrderAction";
+import { OpenPositionsData } from "../redux/actions/OrdersAction/OpenPositions";
+import { ClosedPositionsData } from "../redux/actions/OrdersAction/ClosedPositions";
 import st from "../Utils/SafeTraverse";
 
 //const openpositions = require('../restAPI/openpositions.json');
@@ -33,33 +33,90 @@ class Orders extends Component {
     super(props);
     this.state = {
       selectedTab: props.selectedTab || "Orders",
-      language: ""
+      Crop: props.Crop || 'C'
     };
+
   }
   componentDidMount() {
-    this.props.ViewOrdersData();
-    this.props.OpenPositionsData();
-    this.props.ClosedPositionsData();
+    const crop = this.state.Crop;
+    console.log(crop)
+     /* switch (this.state.selectedTab) {
+          case "Orders":
+              this.props.ViewOrdersData(crop)
+              break;
+          case "Open Positions":
+              this.props.OpenPositionsData(crop);
+              break;
+          case "Closed Positions":
+              this.props.ClosedPositionsData(crop);
+              break;
+          default:
+              console.log("Something wrong");*/
+      this.props.dropDownCrop();
+    this.props.ViewOrdersData(this.state.Crop);
+    this.props.OpenPositionsData(this.state.Crop);
+    this.props.ClosedPositionsData(this.state.Crop);
+
   }
 
-  /*componentWillMount() {
-        //console.log(this.props);
-        this.props.ViewOrdersData();
-        //this.props.dropDownCrop(this.props.auth.email,this.props.auth.password);
-    }*/
 
+    refreshData = () => {
+
+        const crop = this.state.Crop;
+        switch (this.state.selectedTab) {
+            case "Orders":
+                this.props.ViewOrdersData(crop)
+                break;
+            case "Open Positions":
+                this.props.OpenPositionsData(crop);
+                break;
+            case "Closed Positions":
+                this.props.ClosedPositionsData(crop);
+                break;
+            default:
+                console.log("Something wrong");
+        };
+
+        /*this.props.ViewOrdersData(this.state.Crop);
+        this.props.OpenPositionsData(this.state.Crop);
+        this.props.ClosedPositionsData(this.state.Crop);*/
+    }
+  dropDown (cropCode) {
+    console.log(cropCode);
+
+    this.setState({Crop: cropCode});
+      this.props.ViewOrdersData(cropCode);
+      this.props.OpenPositionsData(cropCode);
+      this.props.ClosedPositionsData(cropCode);
+
+    /*switch (this.state.selectedTab) {
+        case "Orders":
+        this.props.ViewOrdersData(crop);
+
+        break;
+        case "Open Positions":
+            this.props.OpenPositionsData(crop);
+            break;
+        case "Closed Positions":
+            this.props.ClosedPositionsData(crop);
+            break;
+        default:
+          console.log("Something wrong");
+    }*/
+  }
   renderFlatList() {
     if (this.props.viewOrders.fetchflag) {
       return (
         <View
-          style={{ flex: 1, justifyContent: "center", flexDirection: "column" }}
+          style={{  justifyContent: "center", flexDirection: "column" }}
         >
           <Text
             style={{
-              marginTop: 50,
+              marginTop: 30,
               color: "white",
               textAlign: "center",
-              fontSize: 25
+              fontSize: 25,
+                marginBottom: 30
             }}
           >
             Loading orders...
@@ -73,14 +130,11 @@ class Orders extends Component {
       //console.log("Orders Button Pressed");
 
       if (!st(this.props, ["viewOrders", "items", "value", "length"])) {
-        /* console.log(
-          "identify",
-          st(this.props, ["viewOrders", "items", "value", "length"])
-        );*/
+
         return (
           <View
             style={{
-              flex: 1,
+
               justifyContent: "center",
               flexDirection: "column"
             }}
@@ -109,14 +163,38 @@ class Orders extends Component {
       }
     }
     if (this.state.selectedTab === "Open Positions") {
-      //console.log("Open Positions Pressed");
-      return (
-        <FlatList
-          data={this.props.openPositions}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => <OpenPositions key={item.id} item={item} />}
-        />
-      );
+        //console.log("Open Positions Pressed");
+        if (!st(this.props, ["openPositions", "length"])) {
+
+            return (
+                <View
+                    style={{
+
+                        justifyContent: "center",
+                        flexDirection: "column"
+                    }}
+                >
+                    <Text
+                        style={{
+                            marginTop: 30,
+                            color: "white",
+                            textAlign: "center",
+                            fontSize: 25
+                        }}
+                    >
+                        Sorry... No Open Positions Available!.
+                    </Text>
+                </View>
+            );
+        } else {
+            return (
+                <FlatList
+                    data={this.props.openPositions}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => <OpenPositions key={item.id} item={item}/>}
+                />
+            );
+        }
     }
     if (this.state.selectedTab === "Closed Positions") {
       // console.log("Closed Positions Pressed");
@@ -146,27 +224,41 @@ class Orders extends Component {
       }
     }
   }
+  pickerValues()
+  {
+      return this.props.viewOrders.dropDownData.map((item) => (
+          <Picker.Item label={item.name} value={item.code}  key={item.code} />));
+      //return PickerItems;
+  }
   render() {
-    const { width, height } = Dimensions.get("window");
-    /* const dDValues = this.props.orders.dropDownData;
-        const DDV =[];
-        for (let i=0; i<dDValues.length; i++) {
-            DDV[i] = dDValues[i].name;
-        }
-        const {email, password} = this.props.auth;*/
+    const { width } = Dimensions.get("window");
 
     return (
       <View style={styles.containerStyle}>
         <View
           style={{
             backgroundColor: "black",
-            width: width,
+            width ,
             height: 20
           }}
         />
-        <LogoPhoneHeader />
+        <LogoPhoneHeader   refresh={this.refreshData}/>
 
-        <View style={styles.segmentarea}>
+        <View style={{ height: 90, backgroundColor: "gray" }}>
+          <View
+              style={{
+                  height: 70,
+                  borderTopColor: "#e7b514",
+                  borderTopWidth: 3,
+                  backgroundColor: "white",
+                  marginTop: 20,
+                  marginLeft: 10,
+                  marginRight: 10,
+                  justifyContent: "flex-start",
+                  flexDirection: "row"
+              }}
+          >
+
           <View style={styles.positions}>
             <Text style={{ fontSize: 18, color: "#01aca8" }}>
               Positions & Orders
@@ -181,7 +273,7 @@ class Orders extends Component {
               values={["Orders", "Open Positions", "Closed Positions"]}
               selectedIndex={
                 {
-                  Orders: 0,
+                  "Orders": 0,
                   "Open Positions": 1,
                   "Closed Positions": 2
                 }[this.state.selectedTab]
@@ -194,7 +286,7 @@ class Orders extends Component {
               onValueChange={val => this.setState({ selectedTab: val })}
             />
           </View>
-        </View>
+
           <View
             style={{
               flex: 1,
@@ -202,19 +294,31 @@ class Orders extends Component {
               paddingTop: 18,
               justifyContent: "flex-start",
               width: 150,
-              height: 100
+              height: 60,
+              borderRadius: 10
             }}
           >
             <Picker
-              selectedValue={this.state.language}
-              onValueChange={crop => this.setState({ language: crop })}
+                style = {[{width: 150, height: 55},
+                    this.state.Crop === 'C' ? {backgroundColor: '#fff8dc'} : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
+               mode = "dropdown"
+                itemStyle={{height: 48}}
+              selectedValue={this.state.Crop}
+              onValueChange={this.dropDown.bind(this)}
             >
-              <Picker.Item label="Corn" value="CORN" />
-              <Picker.Item label="Soybeans" value="SOYBEANS" />
+
+                {this.pickerValues()}
+
             </Picker>
           </View>
 
-        {this.renderFlatList()}
+          </View>
+          </View>
+        <View style={{ backgroundColor: "white", height: 650 }}>
+          <View style={{ backgroundColor: "#3d4c57", height:650, marginLeft: 5, marginRight: 5, marginTop: 10}}>
+            {this.renderFlatList()}
+          </View>
+        </View>
       </View>
     );
   }
@@ -225,29 +329,11 @@ const styles = {
     flex: 1,
     backgroundColor: "#3d4c57"
   },
-  segmentarea: {
-    flexDirection: "row",
-    backgroundColor: "white",
-    height: 64,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: "#279989",
-    borderBottomWidth: 0,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 10,
-    marginBottom: 5,
-    borderTopColor: "#e7b514",
-    borderTopWidth: 5
-  },
+
   segment: {
     marginLeft: 50,
-    width: 500
+    width: 500,
+
   },
   positions: {
     left: 30,

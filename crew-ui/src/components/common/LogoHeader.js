@@ -48,7 +48,7 @@ const LogoHeader = props => {
         <Text style={phNumberStyle}>
           {props.phNumber}
         </Text>
-        <Text style={{ fontSize: 25, color: "white", paddingLeft: 20 }}>
+        <Text style={{ fontSize: 30, color: "white", paddingLeft: 20 }}>
           {" "}|{" "}
         </Text>
         <Image

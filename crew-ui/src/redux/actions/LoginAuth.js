@@ -10,23 +10,22 @@ import {
   LOGIN_FAIL,
   SERVER_NORESPONSE
 } from "./types";
+import { AUTHENTICATE_URL, X_API_KEY } from "../../ServiceURLS/index";
 
 export const loginUser = ({ saveUser }) => {
-  //console.log(email,password)
+
   return (dispatch, getState) => {
     dispatch({ type: LOGIN_USER });
-    const url =
-      "https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/qa/identities/authenticate";
+    const url = `${AUTHENTICATE_URL}identities/authenticate`;
 
-    const headers = new Headers();
-
-    headers.append("x-api-key", "rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb");
-    headers.append("Accept-Encoding", "gzip,deflate");
-    headers.append("Content-Type", "application/json");
-    headers.append("User-Agent", "Crew 0.1.0");
     return fetch(url, {
       method: "POST",
-      headers,
+      headers: {
+          "x-api-key": X_API_KEY,
+          "Accept-Encoding": "gzip,deflate",
+          "Content-Type": "application/json",
+          "User-Agent": "Crew 0.1.0"
+        },
       body: JSON.stringify({
         domain: "commodityhedging.com",
         password: getState().auth.password,
@@ -34,7 +33,7 @@ export const loginUser = ({ saveUser }) => {
       })
     })
       .then(response => {
-        console.log(response);
+
         if (response.ok) {
           return response.json().then(responseJson => {
             if (responseJson.authenticated) {
@@ -57,7 +56,7 @@ export const loginUser = ({ saveUser }) => {
         }
       })
       .catch((status, error) => {
-        console.log("error" + error);
+       // console.log("error" + error);
         dispatch({ type: SERVER_NORESPONSE });
       });
   };

@@ -15,29 +15,35 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Dimensions from "Dimensions";
 import { LogoHomeHeader } from "../components/common";
-import { dashboardOpenWorkingOrdersCount } from "../redux/actions/Dashboard/OpenWorkingOrdersCount";
-import { dashboardOpenPositionsCount } from "../redux/actions/Dashboard/OpenPositionsCount";
+
+import { dropDownCrop } from "../redux/actions/OrdersAction/ViewOrderAction";
 
 class DashBoard extends Component {
   constructor() {
     super();
     this.state = {
-      selectedButton: "CORN2016"
+      selectedButton: "CORN2016",
+        cropCode: 'C'
     };
   }
 
   componentDidMount() {
-    this.props.dashboardOpenWorkingOrdersCount();
-    this.props.dashboardOpenPositionsCount();
+
+    this.props.dropDownCrop();
   }
   onChangeButton(selectedButton) {
     this.setState({ selectedButton });
+   // console.log(this.props.drop.dropDownData);
+    const val = this.props.drop.dropDownData.filter( item => item.name.substr(0,4).toUpperCase() === selectedButton.substr(0,4).toUpperCase());
+    this.setState({cropCode: val[0].code})
+   //console.log(val[0].code);
   }
   dashBoardToOrders() {
-    Actions.orders();
+
+    Actions.orders({Crop: this.state.cropCode});
   }
   dashBoardToOpenPositions() {
-    Actions.orders({ selectedTab: "Open Positions" });
+    Actions.orders({ selectedTab: "Open Positions", Crop: this.state.cropCode });
   }
   toMyFarm() {
     Actions.myfarm();
@@ -133,7 +139,7 @@ class DashBoard extends Component {
             >
               <View>
                 <Text style={{ color: "#007681", fontSize: 30 }}>
-                  {this.props.openOrders.totalCount}
+                  0
                 </Text>
               </View>
               <View style={{ flexDirection: "column" }}>
@@ -157,7 +163,7 @@ class DashBoard extends Component {
             >
               <View>
                 <Text style={{ color: "#007681", fontSize: 30, paddingTop: 8 }}>
-                  {this.props.openPositionsCount.totalCount}
+                  0
                 </Text>
               </View>
               <View style={{ flexDirection: "column" }}>
@@ -628,17 +634,17 @@ const styles = {
   }
 };
 const mapStateToProps = state => {
-  //console.log(state.openPositionsCount)
+
   return {
-    openOrders: state.openWorkingOrders,
-    openPositionsCount: state.openPositionsCount
+
+      drop: state.vieworder
   };
 };
 const matchDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      dashboardOpenWorkingOrdersCount,
-      dashboardOpenPositionsCount
+
+        dropDownCrop
     },
     dispatch
   );
