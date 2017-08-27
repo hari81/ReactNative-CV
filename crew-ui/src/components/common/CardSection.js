@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
-"use strict";
-import React from "react";
-import { View } from "react-native";
+'use strict';
+import React from 'react';
+import { View } from 'react-native';
 
 const CardSection = props =>
   <View style={styles.containerStyle}>
@@ -10,13 +10,13 @@ const CardSection = props =>
 
 const styles = {
   containerStyle: {
-    //borderBottomWidth: 1,
+
     padding: 5,
-    //backgroundColor: '#fff',
-    justifyContent: "flex-start",
-    flexDirection: "row",
-    //borderColor: '#ddd',
-    position: "relative"
+
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+
+    position: 'relative'
   }
 };
 

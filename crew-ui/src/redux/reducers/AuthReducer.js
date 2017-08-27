@@ -1,24 +1,25 @@
 /* jshint esversion: 6 */
-"use strict";
-import { AlertIOS } from "react-native";
+'use strict';
+import { AlertIOS } from 'react-native';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
   LOGIN_FAIL,
   LOGIN_USER,
-
+  LOG_OUT,
   USER_SWITCH_CHANGED,
   LOGIN_SUCCESS,
   SERVER_NORESPONSE
-} from "../actions/types";
+} from '../actions/types';
 
 const INITIAL_STATE = {
-  email: "",
-  password: "",
-  error: "",
-  msg: "",
+  email: '',
+  password: '',
+  error: '',
+  msg: '',
   loading: false,
-  saveUser: false
+  saveUser: false,
+  logout: false
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -27,23 +28,27 @@ export default (state = INITIAL_STATE, action) => {
     case PASSWORD_CHANGED:
       return Object.assign({}, state, { password: action.payload });
     case LOGIN_USER:
-      return Object.assign({}, state, { loading: true, error: "" });
+      return Object.assign({}, state, { loading: true, error: '' });
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, { loading: false, error: "" });
+      return Object.assign({}, state, { loading: false, error: '' });
 
     case LOGIN_FAIL:
       return Object.assign({}, state, {
-        error: "Authentication Failed",
+        error: 'Authentication Failed',
 
-        message: AlertIOS.alert("Error", "Invalid Username or Password"),
+        message: AlertIOS.alert('Error', 'Invalid Username or Password'),
         loading: false
       });
     case SERVER_NORESPONSE:
       return Object.assign({}, state, {
-        error: "No Response from server... Try again"
+        error: 'No Response from server... Try again'
       });
     case USER_SWITCH_CHANGED:
       return Object.assign({}, state, { saveUser: action.payload });
+
+    case LOG_OUT:
+      return Object.assign(({}, state, { logout: action.payload }));
+
 
     default:
       return state;

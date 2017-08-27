@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
-"use strict";
-import React from "react";
-import { View } from "react-native";
+'use strict';
+import React from 'react';
+import { View } from 'react-native';
 
 const Card = props =>
   <View style={styles.containerStyle}>

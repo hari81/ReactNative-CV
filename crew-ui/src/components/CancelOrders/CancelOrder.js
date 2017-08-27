@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
-"use strict";
+'use strict';
 
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -10,13 +10,13 @@ import {
   AlertIOS,
   TouchableHighlight,
   StatusBar
-} from "react-native";
-import { connect } from "react-redux";
-import { Actions } from "react-native-router-flux";
-import Dimensions from "Dimensions";
-import { bindActionCreators } from "redux";
-import { LogoHeader, OrderButton } from "../common/index";
-import { orderReceipt } from "../../redux/actions/CancelOrders";
+} from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import Dimensions from 'Dimensions';
+import { bindActionCreators } from 'redux';
+import { LogoHeader, OrderButton } from '../common/index';
+import { orderReceipt } from '../../redux/actions/CancelOrders';
 
 class CancelOrder extends Component {
   constructor() {
@@ -26,7 +26,7 @@ class CancelOrder extends Component {
     };*/
   }
 
-  onBackToOrders(e) {
+  onBackToOrders() {
     Actions.orders();
 
   }
@@ -40,45 +40,45 @@ class CancelOrder extends Component {
   };*/
 
   render() {
-    const { width, height } = Dimensions.get("window");
+    const { width, height } = Dimensions.get('window');
 
     return (
       <View style={styles.containerStyle}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle='light-content' />
 
         <View
           style={{
-            backgroundColor: "black",
+            backgroundColor: 'black',
             width,
             height: 20
           }}
         />
 
-        <LogoHeader subHeaderText="PRICE HEDGING" phNumber="+1-952-742-7414" />
+        <LogoHeader subHeaderText='PRICE HEDGING' phNumber='+1-952-742-7414' />
 
-        <View style={{ height: 80, backgroundColor: "gray" }}>
+        <View style={{ height: 80, backgroundColor: 'gray' }}>
           <View
             style={{
               height: 60,
-              borderTopColor: "#e7b514",
+              borderTopColor: '#e7b514',
               borderTopWidth: 3,
-              backgroundColor: "white",
+              backgroundColor: 'white',
               marginTop: 20,
               marginLeft: 20,
               marginRight: 20,
-              justifyContent: "flex-end"
+              justifyContent: 'flex-end'
             }}
           >
             <Text style={styles.headerText}>Review Cancel Details</Text>
           </View>
         </View>
 
-        <View style={{ backgroundColor: "white" }}>
-          <View style={{ backgroundColor: "#3d4c57", margin: 20 }}>
+        <View style={{ backgroundColor: 'white' }}>
+          <View style={{ backgroundColor: '#3d4c57', margin: 20 }}>
             <Text style={styles.subHeaderTextStyle}>Cancel this order? </Text>
             <View
               style={{
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 marginTop: 40,
                 marginRight: 20,
                 marginLeft: 20,
@@ -87,7 +87,7 @@ class CancelOrder extends Component {
               }}
             >
               <View style={styles.productContainer}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: 'row' }}>
                   <View>
                     <Text>Your trade direction is</Text>
                     <Text style={styles.contentStyle}>
@@ -117,7 +117,7 @@ class CancelOrder extends Component {
                     <Text style={styles.contentStyle}>
                       {this.props.quantity
                         .toString()
-                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </Text>
                     <Text>Your order type is</Text>
                     <Text style={styles.contentStyle}>
@@ -125,23 +125,23 @@ class CancelOrder extends Component {
                     </Text>
                   </View>
                 </View>
-                  {/*<View style={{ flexDirection: "row", marginTop: 120 }}>
+                  {/*<View style={{ flexDirection: 'row', marginTop: 120 }}>
                   <Switch
                     onValueChange={this.toggleSwitch}
                     value={this.state.switchValue}
-                    onTintColor="#01aca8"
+                    onTintColor='#01aca8'
                   />
                   <Text style={{ paddingTop: 8, marginLeft: 12, fontSize: 18 }}>
                     Agree to Terms and Conditions
                   </Text>
                   <Image
                     style={{ width: 30, height: 30, marginLeft: 10 }}
-                    source={require("./common/img/Info.png")}
+                    source={require('./common/img/Info.png')}
                   />
                 </View>*/}
                 <View
                   style={{
-                    flexDirection: "row",
+                    flexDirection: 'row',
                     marginTop: 120,
                     marginBottom: 10,
                     marginLeft: 160,
@@ -154,8 +154,8 @@ class CancelOrder extends Component {
                     { /* style={[
                       styles.buttonStyle,
                       this.state.switchValue
-                        ? { backgroundColor: "#279989" }
-                        : { backgroundColor: "gray" }
+                        ? { backgroundColor: '#279989' }
+                        : { backgroundColor: 'gray' }
                     ]}
 
                     disabled={!this.state.switchValue} */}
@@ -167,8 +167,8 @@ class CancelOrder extends Component {
                       {/* style={[
                         styles.textStyle,
                         this.state.switchValue
-                          ? { color: "white" }
-                          : { color: "black" }
+                          ? { color: 'white' }
+                          : { color: 'black' }
                       ]} */}
                     <Text
 
@@ -188,58 +188,58 @@ class CancelOrder extends Component {
 }
 const styles = {
   textStyle: {
-    alignSelf: "center",
+    alignSelf: 'center',
 
     fontSize: 20,
-    fontWeight: "600",
-    color: "#279989",
+    fontWeight: '600',
+    color: '#279989',
     paddingTop: 10,
     paddingBottom: 10
   },
   buttonStyle: {
     flex: 1,
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#01aca8",
+    borderColor: '#01aca8',
     backgroundColor: '#01aca8',
     marginLeft: 5,
     marginRight: 5
   },
   containerStyle: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
 
-    borderColor: "#3d4c57"
+    borderColor: '#3d4c57'
   },
 
   headerText: {
 
     paddingLeft: 14,
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#279989"
+    fontWeight: 'bold',
+    color: '#279989'
   },
   subHeaderTextStyle: {
 
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     fontSize: 30,
-    color: "white",
+    color: 'white',
     paddingTop: 8,
     borderRightWidth: 10,
     paddingLeft: 14,
     borderBottomWidth: 10,
     borderLeftWidth: 10,
-    backgroundColor: "#3d4c57"
+    backgroundColor: '#3d4c57'
   },
   productContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 20
   },
   contentStyle: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     paddingRight: 100
   }
 };

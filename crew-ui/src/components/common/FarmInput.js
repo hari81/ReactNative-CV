@@ -1,7 +1,8 @@
 /*jshint esversion: 6 */
-"use strict";
-import React from "react";
-import { TextInput, View } from "react-native";
+'use strict';
+import React from 'react';
+import { TextInput, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, onfocus }) => {
   const { inputStyle, containerStyle } = styles;
@@ -23,24 +24,27 @@ const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, 
     </View>
   );
 };
+/*FarmInput.propTypes = {
+    value: PropTypes.number
+};*/
 
 const styles = {
   inputStyle: {
-    color: "#000",
+    color: '#000',
     paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 15,
+    paddingLeft: 20,
+    fontSize: 16,
     lineHeight: 25
   },
 
   containerStyle: {
-    height: 40,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 3,
-    width: 300,
-    marginLeft: 50
+    height: 45,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 4,
+    width: 356,
+
   }
 };
 

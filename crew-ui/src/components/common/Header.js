@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
-"use strict";
-import React from "react";
-import { Text, View } from "react-native";
+'use strict';
+import React from 'react';
+import { Text, View } from 'react-native';
 
 // Make a component
 const Header = props => {
@@ -18,17 +18,17 @@ const Header = props => {
 
 const styles = {
   viewStyle: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 100,
     paddingTop: 15,
-    shadowColor: "#000",
+    shadowColor: '#000',
     elevation: 2,
-    position: "relative"
+    position: 'relative'
   },
   textStyle: {
     fontSize: 50,
-    color: "white"
+    color: 'white'
   }
 };
 

@@ -1,0 +1,58 @@
+{
+  "myCrops": [
+    {
+      "id": 1,
+      "cropYear": 2016,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": true
+      }
+    },
+    {
+      "id": 2,
+      "cropYear": 2016,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    },
+    {
+      "id": 3,
+      "cropYear": 2017,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 4,
+      "cropYear": 2017,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    },
+    {
+      "id": 5,
+      "cropYear": 2018,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 6,
+      "cropYear": 2018,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 /*jshint esversion: 6 */
-"use strict";
-import { Image, View, Text } from "react-native";
-import React from "react";
+'use strict';
+import { Image, View, Text } from 'react-native';
+import React from 'react';
 
 const ImageLogo = () =>
   <View style={styles.imageContainer}>
     <Image
-      source={require("./img/cargillLogoWhite3.png")}
+      source={require('./img/cargillLogoWhite3.png')}
       style={styles.logoStyle}
     />
     <Text style={styles.textStyle}>Price Hedging</Text>
@@ -14,10 +14,10 @@ const ImageLogo = () =>
 
 const styles = {
   imageContainer: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginLeft: 2,
     marginRight: 20,
-    flexDirection: "column",
+    flexDirection: 'column',
     paddingBottom: 10
   },
 
@@ -25,13 +25,13 @@ const styles = {
     height: 113,
     width: 250,
     //paddingLeft: 10,
-    alignItems: "center"
+    alignItems: 'center'
   },
   textStyle: {
     marginTop: 10,
     fontSize: 25,
-    color: "white",
-    textAlign: "center"
+    color: 'white',
+    textAlign: 'center'
   }
 };
 

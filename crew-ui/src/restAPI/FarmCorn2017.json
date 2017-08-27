@@ -1,0 +1,23 @@
+{
+  "accountId": 519,
+  "areaUnit": null,
+  "commodities": [
+    {
+      "commodity": "C",
+      "currency": "USD",
+      "cropYears": [
+        {
+          "id": 2,
+          "cropYear": 2017,
+          "areaPlanted": 35,
+          "unitCost": 55,
+          "unitProfitGoal": 58,
+          "expectedYield": 20,
+          "basis": -2,
+          "includeBasis": true,
+          "active": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,15 +1,23 @@
 /*jshint esversion: 6 */
-"use strict";
+'use strict';
 
-const env = 'qa'; //Please change env constant to switch between environments
+const env = 'velo'; //Please change env constant to switch between environments
 
 //Rest API's
 export const REST_API_URL =
-  `https://a7gp732c12.execute-api.us-east-1.amazonaws.com/${env}/extracense/`;
+  `https://a7gp732c12.execute-api.us-east-1.amazonaws.com/${env}/extracense/`; //EC_REST_API_URL
+
+// Rest Velo service
+export const VELO_REST_API_URL = `https://t6sd119in4.execute-api.us-east-1.amazonaws.com/${env}/`;
+
+
+//Rest DEV service  -- using External Trades
+export const DEV_REST_API_URL = 'https://t6sd119in4.execute-api.us-east-1.amazonaws.com/DEV/';
+
 
 //Authentication URL
 export const AUTHENTICATE_URL =
-  `https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/${env}/`;
+  `https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/qa/`;
 
 //x-api-key
 export const X_API_KEY = `rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb`;
@@ -17,6 +25,8 @@ export const X_API_KEY = `rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb`;
 //WEB links
 export const PRIVACY = `http://go.cargill.com/CargillPriceHedgingPrivacy`;
 export const TERMS = `http://go.cargill.com/CargillPriceHedgingTerms`;
+
+
 
 //env = QA, VELO, PROD
 
