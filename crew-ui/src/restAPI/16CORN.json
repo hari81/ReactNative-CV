@@ -1,0 +1,155 @@
+{
+  "myCrops": [
+    {
+      "id": 1,
+      "cropYear": 2016,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": true
+      }
+    },
+    {
+      "id": 2,
+      "cropYear": 2016,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    },
+    {
+      "id": 3,
+      "cropYear": 2017,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 4,
+      "cropYear": 2017,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    },
+    {
+      "id": 5,
+      "cropYear": 2018,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 6,
+      "cropYear": 2018,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    }
+  ],
+  "activeCropYear": 2016,
+  "activeCommodity": {
+    "code": "C",
+    "name": "Corn",
+    "unit": "bushel",
+    "contractSize": "5000",
+    "currency": "USD",
+    "matrixPriceIncrement": "0.2",
+    "matrixYieldIncrement": "2"
+  },
+  "actionBar": {
+    "todaysPrice": {
+      "price": 3.78,
+      "priceTimestamp": "2017-08-04T16:59:39.966Z",
+      "contractMonth": {
+        "code": "U2017",
+        "shortCode": "U7",
+        "month": {
+          "value": 9,
+          "code": "U",
+          "name": "September"
+        },
+        "year": {
+          "value": 2017,
+          "oneDigit": 7
+        }
+      }
+    },
+    "openOrders": {
+      "totalQuantity": 400000,
+      "totalCount": 15
+    },
+    "openPositions": {
+      "totalQuantity": 112016,
+      "totalTradeAmount": 415824,
+      "totalCount": 25
+    },
+    "externalTrades": {
+      "totalQuantity": 160000,
+      "totalTradeAmount": 500100,
+      "totalCount": 14
+    }
+  },
+  "myFarmTiles": {
+    "breakEvenPrice":  {
+      "value": 3.70,
+      "info" : "Breakeven price = (Total cost – Value of Hedged Quantity) divided by Remaining Unsold Quantity), (Total Cost = Total Acres * Cost per Acre), (Value of Hedged Quantity = Quantity Hedged * Weighted Average Price) blah blah blah"
+    },
+    "targetPrice":  {
+      "value": 3.95,
+      "info" : "Target price is blah blah blah"
+    },
+    "averagePriceSold":  {
+      "value":  4.00,
+      "info": "Average Price Sold is blah blah blah"
+    },
+    "profitPerAcre":  {
+      "value":  100,
+      "info": "Profit per acre is blah blah blah"
+    },
+    "unhedgedProduction": {
+      "value": 2200000,
+      "info":  "Unhedged Production is blah blah blah"
+    },
+    "basisEstimate":  {
+      "value": -0.15,
+      "info":  "Basis Estimate is blah blah blah",
+      "enabled":  true
+    }
+  },
+  "myFarmProduction":  {
+    "estimatedTotalProduction":  36000,
+    "unhedgedProduction": {
+      "totalQuantity":  25000,
+      "totalTradeAmount":  945000
+    },
+    "openOrders": {
+      "totalQuantity":  30000
+    },
+    "externalTrades":  {
+      "totalQuantity":  1000,
+      "totalTradeAmount":  549200
+    },
+    "openPositions":  {
+      "totalQuantity":  10000,
+      "totalTradeAmount":  415800
+    }
+  },
+  //Trades/sales, openPositions, unhedgedproduction
+  "openClosed":[
+    {"number": 1000 },
+    {"number": 10000},
+    {"number": 25000}
+  ]
+
+
+
+}

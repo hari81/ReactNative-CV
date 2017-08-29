@@ -1,0 +1,102 @@
+{
+  "myCrops": [
+    {
+      "id": 1,
+      "cropYear": 2016,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 2,
+      "cropYear": 2016,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    },
+    {
+      "id": 3,
+      "cropYear": 2017,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 4,
+      "cropYear": 2017,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": true
+      }
+    },
+    {
+      "id": 5,
+      "cropYear": 2018,
+      "commodity": {
+        "code": "C",
+        "name": "Corn",
+        "active": false
+      }
+    },
+    {
+      "id": 6,
+      "cropYear": 2018,
+      "commodity": {
+        "code": "S",
+        "name": "Soybean",
+        "active": false
+      }
+    }
+  ],
+  "activeCropYear": 2017,
+  "activeCommodity": {
+    "code": "S",
+    "name": "Soybeans",
+    "unit": "bushel",
+    "contractSize": "5000",
+    "currency": "USD",
+    "matrixPriceIncrement": "0.2",
+    "matrixYieldIncrement": "2"
+  },
+  "actionBar": {
+    "todaysPrice": {
+      "price": 9.3025,
+      "priceTimestamp": "2017-08-06T16:59:39.966Z",
+      "contractMonth": {
+        "code": "X2017",
+        "shortCode": "X7",
+        "month": {
+          "value": 11,
+          "code": "X",
+          "name": "November"
+        },
+        "year": {
+          "value": 2017,
+          "oneDigit": 7
+        }
+      }
+    },
+    "openOrders": {
+      "totalQuantity": 0,
+      "totalCount": 0
+    },
+    "openPositions": {
+      "totalQuantity": 150000,
+      "totalTradeAmount": 500800,
+      "totalCount": 12
+    },
+    "externalTrades": {
+      "totalQuantity": 500,
+      "totalTradeAmount": 45000,
+      "totalCount": 4
+    }
+  }
+
+}

@@ -1,12 +1,13 @@
 /*jshint esversion: 6 */
-"use strict";
+'use strict';
 
 
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
   USER_SWITCH_CHANGED,
-} from "./types";
+  LOG_OUT
+} from './types';
 
 
 export const emailChanged = text => {
@@ -28,6 +29,9 @@ export const saveUserSwitchChanged = ({ value }) => {
   };
 };
 
-
-
-
+export const logOut = (val) => {
+  return {
+    type: LOG_OUT,
+    payload: val
+  };
+};

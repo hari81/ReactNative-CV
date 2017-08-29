@@ -1,32 +1,33 @@
 /*jshint esversion: 6 */
-"use strict";
+'use strict';
 
-import React, { Component } from "react";
-import { Text, View, Switch, AsyncStorage } from "react-native";
-import { connect } from "react-redux";
-import base64 from "base-64";
+import React, { Component } from 'react';
+import { Text, View, Switch, AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import base64 from 'base-64';
 import {
   emailChanged,
   passwordChanged,
   saveUserSwitchChanged
-} from "../redux/actions/index";
+} from '../redux/actions/index';
 import {
   Button,
   Card,
   CardSection,
   Input,
   Spinner
-} from "../components/common/index";
-import { loginUser } from "../redux/actions/LoginAuth";
+} from '../components/common/index';
+import { loginUser } from '../redux/actions/LoginAuth';
+
 class LoginForm extends Component {
   constructor() {
     super();
-    AsyncStorage.getItem("userData")
+    AsyncStorage.getItem('userData')
       .then(data => {
         const userInfo = JSON.parse(data);
         if (userInfo) {
           this.props.emailChanged(
-            userInfo.email ? base64.decode(userInfo.email) : ""
+            userInfo.email ? base64.decode(userInfo.email) : ''
           );
           this.props.saveUserSwitchChanged({ value: true });
         }
@@ -45,8 +46,8 @@ class LoginForm extends Component {
   }
 
   onButtonPress() {
-    const { saveUser, email, password } = this.props.auth;
-    this.props.loginUser({ saveUser }); //.then(response => console.log("login success", response));
+    const { saveUser } = this.props.auth;
+    this.props.loginUser({ saveUser }); //.then(response => console.log('login success', response));
   }
   onSaveUserChange(value) {
     this.props.saveUserSwitchChanged({ value });
@@ -54,7 +55,7 @@ class LoginForm extends Component {
 
   renderButton() {
     if (this.props.auth.loading) {
-      return <Spinner size="large" />;
+      return <Spinner size='large' />;
     } else {
       return <Button onPress={this.onButtonPress.bind(this)}>Login</Button>;
     }
@@ -65,8 +66,8 @@ class LoginForm extends Component {
       <Card>
         <CardSection>
           <Input
-            placeholder="Email"
-            label="Email"
+            placeholder='Email'
+            label='Email'
             onChangeText={this.onEmailChange.bind(this)}
             value={this.props.auth.email}
 
@@ -76,8 +77,8 @@ class LoginForm extends Component {
         <CardSection>
           <Input
             secureTextEntry
-            placeholder="Password"
-            label="Password"
+            placeholder='Password'
+            label='Password'
             onChangeText={this.onPasswordChange.bind(this)}
             value={this.props.auth.password}
           />
@@ -89,19 +90,19 @@ class LoginForm extends Component {
           <View
             style={{
               flex: 1,
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center"
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
             }}
           >
             <Switch
-              style={{ backgroundColor: "#3d4c57", marginLeft: 10 }}
-              onTintColor="#01aca8"
+              style={{ backgroundColor: '#3d4c57', marginLeft: 10 }}
+              onTintColor='#01aca8'
               onValueChange={this.onSaveUserChange.bind(this)}
               value={this.props.auth.saveUser}
             />
 
-            <Text style={{ fontSize: 15, marginLeft: 15, color: "#ffffff" }}>
+            <Text style={{ fontSize: 15, marginLeft: 15, color: '#ffffff' }}>
               Save Username
             </Text>
           </View>
@@ -111,7 +112,7 @@ class LoginForm extends Component {
           {this.renderButton()}
         </CardSection>
 
-        <Text style={{ fontSize: 12, color: "white", paddingLeft: 10 }}>
+        <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10 }}>
           Having trouble logging in? Please call +1-952-742-7414 or email
           cargillpricehedge@cargill.com
         </Text>
@@ -122,7 +123,7 @@ class LoginForm extends Component {
 
 const styles = {
   errorStyle: {
-    color: "white",
+    color: 'white',
     marginLeft: 100,
     fontSize: 20
   }

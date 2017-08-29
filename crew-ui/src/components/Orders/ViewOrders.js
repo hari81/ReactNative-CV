@@ -1,12 +1,12 @@
 /*jshint esversion: 6 */
 
-import React, { Component } from "react";
-import { Text, TouchableHighlight, View } from "react-native";
-import { connect } from "react-redux";
-import { Actions } from "react-native-router-flux";
-import st from "../../Utils/SafeTraverse";
+import React, { Component } from 'react';
+import { Text, TouchableHighlight, View } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import st from '../../Utils/SafeTraverse';
 
-const underlying = require("../../restAPI/underlying.json");
+//const underlying = require('../../restAPI/underlying.json');
 
 class ViewOrders extends Component {
   onCancelPress(item) {
@@ -26,57 +26,57 @@ class ViewOrders extends Component {
       underlyingObject
     } = this.props.item;
     //console.log(this.props.item);
-    const year = st(underlyingObject, ["contractMonth", "year", "value"]);
-    const month = st(underlyingObject, ["contractMonth", "month", "name"]);
-    const crop = st(underlyingObject, ["commodity", "name"]);
-    const unit = st(underlyingObject, ["commodity", "unit"]);
+    const year = st(underlyingObject, ['contractMonth', 'year', 'value']);
+    const month = st(underlyingObject, ['contractMonth', 'month', 'name']);
+    const crop = st(underlyingObject, ['commodity', 'name']);
+    const unit = st(underlyingObject, ['commodity', 'unit']);
     const targetPrice = this.props.item.targetPrice || 0;
 
     let d = new Date(createTime);
     let strDate =
       d.getFullYear() +
-      "-" +
-      ("0" + (d.getMonth() + 1)).slice(-2) +
-      "-" +
-      ("0" + d.getDate()).slice(-2) +
-      " " +
-      ("0" + d.getHours()).slice(-2) +
-      ":" +
-      ("0" + d.getMinutes()).slice(-2) +
-      ":" +
-      ("0" + d.getSeconds()).slice(-2);
+      '-' +
+      ('0' + (d.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + d.getDate()).slice(-2) +
+      ' ' +
+      ('0' + d.getHours()).slice(-2) +
+      ':' +
+      ('0' + d.getMinutes()).slice(-2) +
+      ':' +
+      ('0' + d.getSeconds()).slice(-2);
     let utcdate = new Date(createTime);
     let offset = new Date().getTimezoneOffset();
     utcdate.setMinutes(utcdate.getMinutes() - offset);
-    //let strDate = utcdate.getFullYear()+ "-" +utcdate.getMonth() +"-" +utcdate.getDate()  +" " + utcdate.toLocaleTimeString();
-   // console.log("CST" + utcdate);
+    //let strDate = utcdate.getFullYear()+ '-' +utcdate.getMonth() +'-' +utcdate.getDate()  +' ' + utcdate.toLocaleTimeString();
+   // console.log('CST' + utcdate);
     return (
       <View style={styles.subContainerStyle}>
         <View style={styles.yearStyle}>
           <View
             style={{
-              backgroundColor: "#01aca8",
+              backgroundColor: '#01aca8',
               height: 35,
-              justifyContent: "center"
+              justifyContent: 'center'
             }}
           >
-            <Text style={{ fontSize: 18, color: "white", textAlign: "center" }}>
+            <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
               {month}
             </Text>
           </View>
           <View
             style={{
-              backgroundColor: "#3d4c57",
+              backgroundColor: '#3d4c57',
               height: 55,
-              justifyContent: "center"
+              justifyContent: 'center'
             }}
           >
             <Text
               style={{
-                textAlign: "center",
+                textAlign: 'center',
                 fontSize: 25,
-                color: "white",
-                fontWeight: "bold"
+                color: 'white',
+                fontWeight: 'bold'
               }}
             >
               {year}
@@ -89,21 +89,21 @@ class ViewOrders extends Component {
             <Text>
               {crop} {riskProductName}
             </Text>
-            <View style={{ flexDirection: "row", marginTop: 20 }}>
-              <View style={{ flexDirection: "column" }}>
-                <Text style={{ color: "#01aca8" }}>QUANTITY</Text>
+            <View style={{ flexDirection: 'row', marginTop: 20 }}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ color: '#01aca8' }}>QUANTITY</Text>
                 <View style={{ width: 150 }}>
                   <Text>
                     {quantity
                       .toString()
-                      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") +
-                      " " +
+                      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') +
+                      ' ' +
                       unit}s
                   </Text>
                 </View>
               </View>
-              <View style={{ flexDirection: "column" }}>
-                <Text style={{ color: "#01aca8" }}>DIRECTION</Text>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ color: '#01aca8' }}>DIRECTION</Text>
                 <Text>
                   {buySell}
                 </Text>
@@ -114,55 +114,55 @@ class ViewOrders extends Component {
 
         <View
           style={{
-            flexDirection: "column",
+            flexDirection: 'column',
             marginLeft: 20,
             marginTop: 10,
             width: 70
           }}
         >
-          <Text style={{ color: "#01aca8" }}>ORDER #</Text>
+          <Text style={{ color: '#01aca8' }}>ORDER #</Text>
           <Text>
             {orderId}
           </Text>
-          <Text style={{ color: "#01aca8", marginTop: 6 }}> PRICE</Text>
+          <Text style={{ color: '#01aca8', marginTop: 6 }}> PRICE</Text>
           <Text> ${targetPrice.toFixed(2)} </Text>
         </View>
 
         <View
           style={{
-            flexDirection: "column",
+            flexDirection: 'column',
             marginLeft: 20,
             marginTop: 10,
             width: 130
           }}
         >
-          <Text style={{ color: "#01aca8" }}> STATUS </Text>
+          <Text style={{ color: '#01aca8' }}> STATUS </Text>
           <Text>
-            {" "}{orderState.label}{" "}
+            {' '}{orderState.label}{' '}
           </Text>
-          <Text style={{ color: "#01aca8", marginTop: 6 }}> ORDER TYPE </Text>
+          <Text style={{ color: '#01aca8', marginTop: 6 }}> ORDER TYPE </Text>
           <Text>
-            {" "}{orderType}{" "}
+            {' '}{orderType}{' '}
           </Text>
         </View>
 
         <View
           style={{
-            flexDirection: "column",
+            flexDirection: 'column',
             marginLeft: 20,
             marginTop: 10,
             width: 175
           }}
         >
-          <Text style={{ color: "#01aca8" }}> ORDER CREATION DATE</Text>
+          <Text style={{ color: '#01aca8' }}> ORDER CREATION DATE</Text>
           <Text>
-            {" "}{strDate}
+            {' '}{strDate}
           </Text>
-          <Text style={{ color: "#01aca8", marginTop: 6 }}>
-            {" "}ORDER EXPIRATION DATE{" "}
+          <Text style={{ color: '#01aca8', marginTop: 6 }}>
+            {' '}ORDER EXPIRATION DATE{' '}
           </Text>
           <Text>
-            {" "}{expirationDate}{" "}
+            {' '}{expirationDate}{' '}
           </Text>
         </View>
 
@@ -173,7 +173,7 @@ class ViewOrders extends Component {
             style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
 
             onPress={
-              orderState.label !== "PENDING_CANCEL"
+              orderState.label !== 'PENDING_CANCEL'
                 ? () =>
                     this.onCancelPress({
                       ...this.props.item,
@@ -186,7 +186,7 @@ class ViewOrders extends Component {
             }
             disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
 
-            underlayColor="#dddddd"
+            underlayColor='#dddddd'
           >
             <Text style={styles.buttonText}>CANCEL</Text>
           </TouchableHighlight>
@@ -198,32 +198,32 @@ class ViewOrders extends Component {
 
 const styles = {
   subContainerStyle: {
-    flexDirection: "row",
+    flexDirection: 'row',
     margin: 10,
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     borderRadius: 4,
     height: 110
   },
   contentContainerStyle: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 100,
     borderWidth: 1,
-    borderColor: "#01aca8",
+    borderColor: '#01aca8',
     marginLeft: 14,
     marginTop: 14,
     marginBottom: 14
   },
   buttonview: {
-    alignItems: "flex-end",
-    justifyContent: "flex-start",
-    width: "17%"
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    width: '17%'
   },
   buttonText: {
-    color: "#ffffff",
+    color: '#ffffff',
     fontSize: 16,
-    textAlign: "center",
-    justifyContent: "center"
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   viewbutton: {
     height: 35,
@@ -232,13 +232,13 @@ const styles = {
     marginTop: 30,
     paddingLeft: 8,
     paddingRight: 8,
-    backgroundColor: "#279989",
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: '#279989',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   borderStyle: {
     borderLeftWidth: 2,
-    borderColor: "grey",
+    borderColor: 'grey',
     marginTop: 16,
     marginBottom: 16,
     marginLeft: 30
@@ -249,7 +249,7 @@ const styles = {
     marginLeft: 10,
     marginBottom: 10,
     width: 100,
-    justifyContent: "space-around"
+    justifyContent: 'space-around'
   }
 };
 
