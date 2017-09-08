@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { myFarmCropValues,
+import { myFarmCropValues, myFarmTradeSalesOutSideApp,
     cropButtonPress
 } from '../../redux/actions/MyFarm/CropAction';
 import { allButtons } from '../../redux/actions/MyFarm/ButtonAction';
@@ -24,6 +24,8 @@ class CropButtons extends Component {
        this.setState({ cflag: true });
       // for(this.props.but.allCropButtons.myCrops.length
         this.props.myFarmCropValues(this.props.item.commodity.code, this.props.item.cropYear, cropNameAndYear);
+        this.props.myFarmTradeSalesOutSideApp(this.props.item.commodity.code, this.props.item.cropYear);
+
     }
 
 
@@ -81,7 +83,8 @@ const matchDispatchToProps = (dispatch) => {
     return bindActionCreators({
         myFarmCropValues,
         allButtons,
-        cropButtonPress }, dispatch);
+        cropButtonPress,
+        myFarmTradeSalesOutSideApp}, dispatch);
 
 };
 

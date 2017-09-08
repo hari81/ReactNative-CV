@@ -8,7 +8,7 @@ const ExternalInput = ({
                    value,
                    onChangeText,
                    placeholder,
-                   secureTextEntry, edit
+                   secureTextEntry, edit ,focus, onblur
                }) => {
     const { inputStyle, containerStyle } = styles;
 
@@ -23,6 +23,8 @@ const ExternalInput = ({
                 onChangeText={onChangeText}
                 autoCorrect = {false}
                 editable={edit}
+                onFocus = {focus}
+                onBlur = {onblur}
             />
         </View>
     );
@@ -45,7 +47,8 @@ const styles = {
         fontSize: 15,
         paddingBottom: 10,
         color: 'white',
-        alignSelf: 'stretch'
+       // alignSelf: 'stretch',
+        alignItems: 'center'
 
     },
     containerStyle: {

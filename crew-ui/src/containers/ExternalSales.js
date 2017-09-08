@@ -9,8 +9,9 @@ import { connect } from 'react-redux';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
 import minus from '../components/common/img/Minus.png';
+import { myFarmTradeSalesOutSideApp } from '../redux/actions/MyFarm/CropAction';
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
-import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
+import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
 
 
 class ExternalSales extends Component {
@@ -19,18 +20,20 @@ class ExternalSales extends Component {
         super(props);
         this.state = {
             transaction: [{}],
-            deletedItems: [{}]
+
         };
         this.valueUpdate = this.valueUpdate.bind(this);
     }
 
     addNewTransaction = () => {
+        this.refs.scrollView.scrollToEnd();
         this.setState({ transaction: [...this.state.transaction, {}] });
+        this.refs.scrollView.scrollToEnd();
+
     };
     valueUpdate(index, val, trans ){
-
         const newTransaction = this.state.transaction.map((t, i) => {
-            if(i===index) {
+            if(i === index) {
                 return Object.assign({}, t, { [trans]: val });
             }
             return t;
@@ -41,51 +44,99 @@ class ExternalSales extends Component {
         console.log(this.state.transaction);
 
     }
+    componentWillMount(){
+        // this.props.externalGetTrans();
+        console.log('external',this.props.extra.externalGetData.trades);
+        // if (this.props.extra.externalGetData.trades !== 'undefined'){
+        this.setState({transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
+        // }
+        console.log(this.state.transaction);
+    }
     componentDidMount() {
        // this.props.externalGetTrans();
-        console.log(this.props.extra.externalGetData.trades);
+        console.log('external',this.props.extra.externalGetData.trades);
        // if (this.props.extra.externalGetData.trades !== 'undefined'){
-        this.setState({transaction: this.props.extra.externalGetData.trades || [{}] });
+        this.setState({transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
        // }
         console.log(this.state.transaction);
     }
 
     cancelTransaction(index){
-        console.log(index);
+        console.log('index',index);
 
         if (this.state.transaction[index].active) {
+
             this.state.transaction[index].active = false;
-          const del = this.state.transaction[index];
-            this.state.transaction.splice(index, 1);
-            this.setState({deletedItems: this.state.deletedItems.push(del), transaction: [...this.state.transaction] });
         }
         else {
             this.state.transaction.splice(index, 1);
-            this.setState({ transaction: [...this.state.transaction] });
         }
+        this.setState({ transaction: [...this.state.transaction] });
+        console.log(this.state.transaction.length);
+        console.log(this.state.transaction);
+        //console.log(this.props.extra.externalGetData.trades);
 
-        console.log(this.state.deletedItems);
     }
     cancelButtonClick() {
-        //fetch call
-        this.props.externalGetTrans();
+        console.log('length', this.state.transaction.length);
+        for (let index = 0; index < this.props.extra.externalGetData.trades.length; index++) {
+            if (!this.props.extra.externalGetData.trades[index].active) {
+                this.props.extra.externalGetData.trades[index].active = true;
+            }
+        }
+       // this.props.externalGetTrans();
+
+
         this.setState({transaction: this.props.extra.externalGetData.trades || [{}]});
+        console.log(this.props.extra.externalGetData.trades);
 
     }
 
     saveTransactions()
     {
-        //fetch Save data call
-        Alert.alert('Save Data');
+        const tradeData = this.state.transaction;
+        console.log(tradeData.length);
+        if(tradeData.length>0)
+        {
+            for(let i=0;i<tradeData.length;i++)
+            {
+                console.log('length of transactin', tradeData.length);
+                if(tradeData[i].tradeDate === '' || tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' ||
+                    tradeData[i].tradeDate === undefined || tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined ){
+                    Alert.alert('Please fill all mandatory(*) fields before saving the data.');
+                    return;
+                }
+            }
+        }
+        this.props.saveExternalTrades(this.state.transaction);
+
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps){
        // if(nextProps.extra.externalGetData > 0) {
        // if (Object.keys(this.props.far.myFarmCropData).length !== 0 && (this.props.far.myFarmCropData).constructor === Object) {
-            const transValues = nextProps.extra.externalGetData.trades;
-            console.log(transValues);
-            this.setState({transaction: transValues || [{}] });
+
+
+        this.setState({transaction: JSON.parse(JSON.stringify(nextProps.extra.externalGetData.trades || [{}])) });
        // }
+    }
+    externalCropYearName()
+    {
+        if (!this.props.extra.exflag) {
+           return (this.props.far.myFarmCropData.name);
+        } else {
+            return (this.props.Crops.activeCommodity.name + ' ' + this.props.Crops.activeCropYear);
+        }
+    }
+
+    backToDashboardMyfarm = () =>
+    {
+        if(this.props.extra.exflag) {
+            Actions.dashboard();
+        } else {
+            this.props.myFarmTradeSalesOutSideApp(this.props.far.myFarmCropData.code, this.props.far.myFarmCropData.name.slice(-4));
+            Actions.myfarm();
+        }
     }
 
     render(){
@@ -94,33 +145,40 @@ class ExternalSales extends Component {
             <View style={{ width: 1024, height: 768, backgroundColor: 'rgb(29,37,49)' }}>
                 <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
                     <Text style={{ fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5 }}>Close </Text>
-                    <TouchableHighlight onPress={() => { Actions.myfarm(); } } >
+                    <TouchableHighlight onPress={ this.backToDashboardMyfarm } >
                     <Image source={cancel} style={{ width: 32, height: 32, marginRight: 23 }} />
                     </TouchableHighlight>
                 </View>
 
                 <View style={{ height: 100, justifyContent: 'space-between', alignItems: 'center', marginTop: 20, marginBottom: 20 }}>
-                    <Text style={{ fontSize: 24, color: 'white', paddingBottom: 20 }}>{this.props.far.myFarmCropData.name} Trades / Sales Outside the App</Text>
+                    <Text style={{ fontSize: 24, color: 'white', paddingBottom: 20 }}>{this.externalCropYearName()}  Trades / Sales Outside the App</Text>
                     <View style={{flexDirection: 'row' }}>
                         <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
-                        Below you can enter transactions that were completed outside of the application.
-                        This information is </Text>
-                        <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
-                            used to calculate your total marketed production, as well as your average marketed price, value of sold </Text>
-                    <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
-                    production and the break even on unsold production.</Text>
+                            <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
+                                Below you can enter transactions that were completed outside of the application.
+                                This information is
+                            </Text>
+                            <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
+                                used to calculate your total marketed production, as well as your average marketed price, value of sold
+                            </Text>
+                            <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
+                                production and the break even on unsold production.
+                            </Text>
                         </View>
-                    <View style={{ width: 144, justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableHighlight onPress={this.addNewTransaction}>
-                        <Image source={plus} style={{ width: 32, height: 32 }} />
-                    </TouchableHighlight>
+                        <View style={{ width: 144, justifyContent: 'center', alignItems: 'center', marginLeft: 25 }}>
+                            <TouchableHighlight onPress={this.addNewTransaction}>
+                                <Image source={plus} style={{ width: 32, height: 32 }} />
+                            </TouchableHighlight>
+                            <Text style={{color: 'white', fontSize:10}}>Add</Text>
+                            <Text style={{color: 'white', fontSize:10}}>Transaction</Text>
+                        </View>
                     </View>
                 </View>
-                </View>
-                <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }}>
+                <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView'>
 
-                     {this.state.transaction.map((item, index) => <ExternalValues
+                     {this.state.transaction
+                         .filter(item => item.active === undefined || item.active)
+                         .map((item, index) => <ExternalValues
                                                         key={index} item={index}
                                                         onSelectVal = {this.valueUpdate.bind(this, index)}
                                                      cancelTrans={this.cancelTransaction.bind(this, index)}
@@ -181,8 +239,8 @@ class ExternalSales extends Component {
 }
 const mapStateToProps = (state) => {
 
-    return{ far: state.myFar, extra: state.external };
+    return{ far: state.myFar, extra: state.external, Crops: state.dashBoardButtons };
 }
 
-export default connect(mapStateToProps, { externalGetTrans })(ExternalSales);
+export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp })(ExternalSales);
 

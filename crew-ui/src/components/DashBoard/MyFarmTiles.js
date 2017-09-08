@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import Info from '../common/img/Info.png';
 import { showInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
 import { allButtons } from '../../redux/actions/MyFarm/ButtonAction';
-import { myFarmCropValues, cropButtonPress } from '../../redux/actions/MyFarm/CropAction';
+import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp } from '../../redux/actions/MyFarm/CropAction';
 class MyFarmTiles extends Component {
     //info button condition check
     infoButton(str){
@@ -34,6 +34,7 @@ class MyFarmTiles extends Component {
         const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()} ${this.props.Crops.activeCropYear}`;
         //this.props.cropButtonPress(buttonAction);
         this.props.myFarmCropValues(this.props.Crops.activeCommodity.code, this.props.Crops.activeCropYear, buttonAction);
+        this.props.myFarmTradeSalesOutSideApp(this.props.Crops.activeCommodity.code,this.props.Crops.activeCropYear);
         //this.props.myFarmCropValues('C', 2021, buttonAction);
 
         Actions.myfarm();
@@ -182,7 +183,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, {showInfoButtonClick, allButtons, myFarmCropValues, cropButtonPress })(MyFarmTiles);
+export default connect(mapStateToProps, {showInfoButtonClick, allButtons, myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp })(MyFarmTiles);
 
 
 

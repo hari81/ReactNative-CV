@@ -22,7 +22,7 @@ const LogoHomeHeader = () => {
                         <Image style={{ width: 25, height: 25, marginLeft: 1, marginRight: 5 }} source={Refresh}/>
                     </TouchableHighlight>
                     <Text style={{color: "white", fontSize: 14, borderColor: "white", borderRightWidth: 2}}>
-                        Refesh Data
+                        Refresh Data
                     </Text>
                 </View>
                 <Text style={{ color: "white", fontSize: 14 }}> | </Text>

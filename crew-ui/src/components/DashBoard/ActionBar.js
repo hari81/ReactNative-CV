@@ -3,17 +3,21 @@ import { Text, View, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
+import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
 class ActionBar extends Component {
 
     dashBoardToOrders() {
         const Crop= this.props.Crops.activeCommodity.code;
-        Actions.orders({Crop});
+        Actions.orders({ Crop });
 
     }
     dashBoardToOpenPositions() {
         const Crop= this.props.Crops.activeCommodity.code;
-        Actions.orders({selectedTab: 'Open Positions', Crop});
+        Actions.orders({ selectedTab: 'Open Positions', Crop });
 
+    }
+    dashBoardToExternalTrades() {
+        this.props.externalGetTransDashboard(this.props.Crops.activeCommodity.code, this.props.Crops.activeCropYear);
     }
     render(){
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a')
@@ -74,6 +78,7 @@ class ActionBar extends Component {
                 <View style={styles.thirdRowBorderStyle} />
 
                 <View style={{ alignItems: 'center', marginHorizontal:12, width: 110, flexDirection: 'row'}}>
+                    <TouchableOpacity onPress={this.dashBoardToExternalTrades.bind(this)}>
                     <View style={{width:45}}>
                         <Text style={{ color: 'rgb(1,172,168)', fontSize: 36}}>{this.props.Crops.actionBar.externalTrades.totalCount}</Text>
                     </View>
@@ -81,6 +86,7 @@ class ActionBar extends Component {
                         <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>Trades/Sales</Text>
                         <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>(Outside the App)</Text>
                     </View>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.placeOrderButtonStyle}>
@@ -127,4 +133,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, null)(ActionBar);
+export default connect(mapStateToProps, { externalGetTransDashboard })(ActionBar);
