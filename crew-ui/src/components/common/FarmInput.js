@@ -18,7 +18,7 @@ const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, 
         onBlur = {onblur}
         onFocus = {onfocus}
         keyboardType = 'numeric'
-        placeholderTextColor = '#3d4c57'
+        placeholderTextColor = 'rgba(61,76,87, .5)'
 
       />
     </View>

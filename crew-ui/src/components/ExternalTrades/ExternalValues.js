@@ -2,13 +2,13 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, TextInput, TouchableHighlight, Image, Text } from 'react-native';
+import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, Button, TouchableOpacity, Picker} from 'react-native';
 import Calendar from 'react-native-calendar-datepicker';
+import Sugar from 'sugar';
 import Moment from 'moment';
 import { ExternalInput } from './ExternalInput';
 import { ExternalNumberInput } from './ExternalNumberInput';
-
-import PropType from 'prop-types';
+import cancel from '../common/img/Cancel-40.png';
 
 import minus from '../common/img/Minus.png';
 
@@ -18,236 +18,291 @@ export default class ExternalValues extends Component {
         super(props);
         this.state = {
             show: false,
-            //date: ''
+            date: new Date(),
+            quan: '',
+            basis: '',
+            adj: '',
+            fuPrice: ''
     }
 
     }
-    /*onDateChange = (date) =>
+    onDateChange = (date) =>
     {
         this.setState({date});
-    };*/
+       // console.log(this.state.date);
+    };
     externalTrans(transtype, value,) {
-       // this.props.onSelectVal(value, transtype);
+
 
        switch (transtype) {
             case 'quantity':
                 const re = /^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?$/;
                 if ((re.test(value) || value === '') && value.length <= 10 && value <= 9000000.99) {
                     this.props.onSelectVal(value, transtype);
+                    this.setState({ quan: value });
                 }
                 break;
             case 'futuresPrice':
                 const reg = /^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
                 if ((reg.test(value) || value === '') && value.length <= 7 && value <= 99.9999) {
-                    this.props.onSelectVal(value, transtype);
+                    this.props.onSelectVal(value , transtype);
+                    this.setState({ fuPrice: value });
+
                 }
                 break;
             case 'basis':
-              // const regu = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/   /^'-'?$\d?$+(?:\.\d{1,2})?$/
-                //regul = /^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?$/ correct
-               const regu = /^-?\$?\d+(,\d{3})*\.?[0-9]?[0-9]?$/;
-                if ((regu.test(value) || value === '' || value === '-') && value.length <= 5 && value <= 9.99) {
+               const regu = /^-?\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
+                if ((regu.test(value) || value === '' || value === '-') && value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
                     this.props.onSelectVal(value, transtype);
+                    this.setState({ basis: value });
+                    break;
+                }
+                else
+                {
+                    if(/^[\-\$?\d]?$/.test(value)) {
+                        this.props.onSelectVal(value, transtype);
+                        this.setState({ basis: value });
+                    }
+
                 }
                 break;
             case 'adjustments':
-                const regul = /^-?\$?\d+(,\d{3})*\.?[0-9]?[0-9]?$/;
-                if ((regul.test(value) || value === '') && value.length <= 4 && value <= 9.99) {
+                const regul = /^-?\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
+                if ((regul.test(value) || value === '') && value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
                     this.props.onSelectVal(value, transtype);
+                   this.setState({ adj: value });
+                    break;
+                }
+                else
+                {
+                    if(/^[\-\$?\d]?$/.test(value)){
+                        this.props.onSelectVal(value, transtype);
+                        this.setState({ adj: value });
+                    }
+
                 }
                 break;
             case 'netContractPrice':
-                if(value > 0) {
+                console.log('I am in netprice');
                     this.props.onSelectVal(value, transtype);
-                }
                 break;
+           case 'tradeDate':
+               this.setState({ date: value });
+               this.props.onSelectVal(value, transtype);
 
+                break;
             default:
                 this.props.onSelectVal(value, transtype);
         }
     }
 
-    calendarVisibility () {
+    dateVisibility () {
         if (this.state.show) {
-            const BLUE = '#2196F3';
-            const WHITE = '#FFFFFF';
-            const GREY = '#BDBDBD';
-            const BLACK = '#424242';
-            const LIGHT_GREY = '#F5F5F5';
-            return (
-                <View style={{flexDirection: 'row', position: 'absolute', zIndex: 1}}>
-                    {/*  <View style={{flexGrow: 1}}></View> */}
-                    <Calendar
-                        onChange={(date) => { this.setState({ date, show: false }); }}
-                        selected={this.state.date}
-                        //finalStage="month"
-                        minDate={Moment().startOf('day')}
-                        maxDate={Moment().add(10, 'years').startOf('day')}
-                        //General Styling}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: GREY,
-                            borderRadius: 5,
-                            alignSelf: 'center',
-                            marginTop: 20,
+            //console.log('DataPickerIOS');
+           return(<View style={{ top: -15, marginLeft: 165,height: 200, width: 300, position: 'absolute', backgroundColor: 'white', zIndex: 1, }}>
+              <DatePickerIOS
+                    date={this.state.date || new Date()}
+                    mode="date"
+                    onDateChange={this.externalTrans.bind(this, 'tradeDate')}
 
-                        }}
-                        barView={{
-                            backgroundColor: BLUE,
-                            padding: 10,
-                        }}
-                        barText={{
-                            fontWeight: 'bold',
-                            color: WHITE,
-                        }}
-                        stageView={{
-                            padding: 0,
-                        }}
-                        // Day selector styling
-                        dayHeaderView={{
-                            backgroundColor: LIGHT_GREY,
-                            borderBottomColor: GREY,
-                        }}
-                        dayHeaderText={{
-                            fontWeight: 'bold',
-                            color: BLACK,
-                        }}
-                        dayRowView={{
-                            borderColor: LIGHT_GREY,
-                            height: 40,
-                        }}
-                        dayText={{
-                            color: BLACK,
-                        }}
-                        dayDisabledText={{
-                            color: GREY,
-                        }}
-                        dayTodayText={{
-                            fontWeight: 'bold',
-                            color: BLUE,
-                        }}
-                        daySelectedText={{
-                            fontWeight: 'bold',
-                            backgroundColor: BLUE,
-                            color: WHITE,
-                            borderRadius: 15,
-                            borderColor: "transparent",
-                            overflow: 'hidden',
-                        }}
-                        // Styling month selector.
-                        monthText={{
-                            color: BLACK,
-                            borderColor: BLACK,
-                        }}
-                        monthDisabledText={{
-                            color: GREY,
-                            borderColor: GREY,
-                        }}
-                        monthSelectedText={{
-                            fontWeight: 'bold',
-                            backgroundColor: BLUE,
-                            color: WHITE,
-                            overflow: 'hidden',
-                        }}
-                        // Styling year selector.
-                        yearMinTintColor={BLUE}
-                        yearMaxTintColor={GREY}
-                        yearText={{
-                            color: BLACK,
-                        }}
-                    />
-                    {/*<View style={{flexGrow: 1}}></View>*/}
-                </View>)
-        } else {
-            return null;
+
+                />
+            </View> );
+        }
+    }
+    preVisibility ()
+    {
+        if (this.state.show) {
+
+            return(<View style={{top: -15,marginLeft: 150,height: 200, width: 15, position: 'absolute', backgroundColor: 'white', zIndex: 1, borderBottomLeftRadius: 10, borderTopLeftRadius: 10}}>
+
+            </View> );
+        }
+    }
+    doneVisibility ()
+    {
+        if (this.state.show) {
+
+            return(<View style={{top: -15,marginLeft: 465,height: 200, width: 20, position: 'absolute', backgroundColor: 'white', zIndex: 1, borderBottomRightRadius:10, borderTopRightRadius: 10}}>
+
+                <TouchableOpacity  onPress = {() =>  this.setState({ show: false }) }>
+                    <View style={{justifyContent: 'flex-start'}}>
+                        <Image source={cancel} style={{height: 20, width: 20, }} />
+                    </View>
+                </TouchableOpacity>
+
+
+            </View> );
+        }
+    }
+
+componentWillMount()
+{
+ if (Object.keys(this.props.items).length !== 0){
+    this.setState({ date: new Date(this.props.items.tradeDate),
+        quan: this.props.items.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+        fuPrice: '$'+this.props.items.futuresPrice.toFixed(4),
+        basis: '$'+this.props.items.basis.toFixed(4),
+        adj: '$'+this.props.items.adjustments.toFixed(4)
+    });
+    //console.log('will quan',this.state.quan);
+    }
+}
+    componentDidMount()
+    {
+        if (Object.keys(this.props.items).length !== 0){
+            this.setState({date: new Date(this.props.items.tradeDate),
+                fuPrice: '$'+this.props.items.futuresPrice.toFixed(4),
+                basis: '$'+this.props.items.basis.toFixed(4),
+                adj: '$'+this.props.items.adjustments.toFixed(4),
+                quan: this.props.items.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') });
+          //  console.log('didmount quan',this.state.quan);
+        }
+        this.props.onSelectVal(this.state.date, 'tradeDate');
+    }
+    componentWillReceiveProps(newProps)
+    {
+
+        if (Object.keys(this.props.items).length !== 0){
+            this.setState({ date: new Date(newProps.items.tradeDate || new Date().toJSON()) });
+            console.log(this.state.date)
+
         }
     }
 
     render() {
 
-    const { cancelTrans, items, placeholdervalues} = this.props;
+    const { cancelTrans, items = {}, placeholdervalues } = this.props;
+        const a = Number(items.adjustments || 0);
+        const b = Number(items.basis || 0);
+        const f = Number(items.futuresPrice || 0);
         return (
-            <View style={{ marginBottom: 40 }}>
+            <View style={{ backgroundColor: '#3d4c57' }}>
+                <View style={{marginBottom: 15, height:5, backgroundColor: 'black'}}/>
                 <View style={{ flexDirection: 'row' }}>
-                    {/*<View>
-                    <DatePickerIOS
-                            date={this.state.date}
-                            mode="date"
-                            onDateChange={this.onDateChange}
 
-                        />
-                    </View>*/}
                     <ExternalInput
-                                onfocus = {() => { this.setState({ show: true }); }}
-                                onblur = {() => { this.setState({ show: false }); }}
+                                focus = {() => { this.setState({ show: true }); }}
+                                //onblur = {() => { this.setState({ show: false }); }}
                                 placeholder={'MM/DD/YYYY'}
                                 label='Trade Date *'
-                                value={typeof items.tradeDate === 'undefined'? '' : new Date(items.tradeDate).toLocaleDateString()}
+                               // value={typeof items.tradeDate === 'undefined' ? '' : this.state.date.toLocaleDateString()}
+                               value={this.state.date.toLocaleDateString()}
+
                     />
+                    {this.preVisibility()}
+                    {this.dateVisibility()}
+                    {this.doneVisibility()}
+
+                    <View
+                        style={{
+
+                            justifyContent: 'flex-end',
+                            marginLeft: 10,
+                            marginRight: 5,
+                            alignItems: 'center'
+
+                        }}
+                    >
+                        <Text style={{ fontSize: 15, color: 'white', paddingBottom: 10, alignItems: 'center' }}>Contract Month *</Text>
+                        <View
+                            style={{
+                                justifyContent: 'flex-end',
+                                // flexDirection: 'row',
+                                alignItems: 'center',
+                                borderRadius: 5,
+                                backgroundColor: 'white',
+                                marginBottom: 10
+                            }}
+                        >
+                        <Picker
+                            style={{width:135, height: 45 }}
+                            mode = 'dropdown'
+                            itemStyle={{height: 45}}
+                            selectedValue={'CZ2018'}
+                           // onValueChange={this.dropDown.bind(this)}
+                        >
+
+                            <Picker.Item label='CZ2018' value='CZ2018' key='CZ2018' />
+                            <Picker.Item label='CU2018' value='CU2018' key='CU2018' />
+                            <Picker.Item label='SU2018' value='SU2018' key='SU2018' />
+                        </Picker>
+                        </View>
+                    </View>
 
                     <ExternalNumberInput
-                        // placeholder={typeof placeholdervalues.quantity === 'undefined'? 'null' : placeholdervalues.quantity}
-                         val = { typeof items.quantity === 'undefined'? '' :items.quantity.toString()  }
+
+                        placeholder='Ex: 22,000'
+                        val={typeof items.quantity === 'undefined' ? '' : this.state.quan}
                         onChangeText={this.externalTrans.bind(this, 'quantity')}
-                        label='Quantity *' />
+                        label='Quantity *'
+                        onfocus={() => { this.setState({ quan: this.state.quan.toString().replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') }); }}
+                        onblur={() => { this.setState({ quan: this.state.quan.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') });
+                            }}
 
-                    <ExternalNumberInput
-
-                        val={typeof items.futuresPrice === 'undefined'? '' : items.futuresPrice.toString()}
-                        onChangeText={this.externalTrans.bind(this, 'futuresPrice')}
-                       // placeholder={placeholdervalues.futuresPrice}
-                        label='Future Price *' />
-                    <ExternalNumberInput
-                       // placeholder={placeholdervalues.basis}
-                        val = {typeof items.basis === 'undefined'? '' :items.basis.toString()}
-                        onChangeText={this.externalTrans.bind(this, 'basis')}
-                        label='Basis($)(-/+)' />
-                    <ExternalNumberInput
-                       // placeholder={placeholdervalues.adjustments}
-                        val = {typeof items.adjustments === 'undefined'? '' :items.adjustments.toString()}
-                        onChangeText={this.externalTrans.bind(this, 'adjustments')}
-                        label='Adjustments($)(-/+)' />
-                    <ExternalNumberInput
-                      //  placeholder={placeholdervalues.netContractPrice}
-                        val={typeof (parseFloat(items.adjustments) + parseFloat(items.basis)+parseFloat(items.futuresPrice)) === 'undefined'?
-                            '' : (parseFloat(items.adjustments) + parseFloat(items.basis)+parseFloat(items.futuresPrice)).toFixed(2).toString()==='NaN' ?
-                                '0': (parseFloat(items.adjustments) + parseFloat(items.basis)+parseFloat(items.futuresPrice)).toFixed(2).toString() }
-                        onChangeText={this.externalTrans.bind(this, 'netContractPrice')}
-                        label='NET Contact Price($)'
-                        edit = {false}
                     />
+                    <ExternalNumberInput
+                        val = {typeof items.futuresPrice === 'undefined' ? '' : this.state.fuPrice }
+                        //val={typeof items.futuresPrice === 'undefined'? '' : items.futuresPrice.toString()}
+                        onChangeText={this.externalTrans.bind(this, 'futuresPrice')}
+                        placeholder =' $3.9550'
+                        label='Futures Price *'
+                        onfocus={() => { this.setState({ fuPrice: this.state.fuPrice.slice(1, this.state.fuPrice.length) }); }}
+                        onblur={() => { this.setState({ fuPrice: '$'+this.state.fuPrice }); }}
+                    />
+                    <ExternalNumberInput
+
+                        val={typeof items.basis === 'undefined' ? '' : this.state.basis}
+                       // val = {items.basis.toFixed(4)}
+                        onChangeText={this.externalTrans.bind(this, 'basis')}
+                        placeholder =' $-0.2500'
+                        label='Basis($-/+)'
+                        onfocus={() => { this.setState({ basis: this.state.basis.slice(1, this.state.basis.length) }); }}
+                        onblur={() => { this.setState({ basis: '$'+this.state.basis }); }}
+                    />
+                    <ExternalNumberInput
+
+                        val={typeof items.adjustments === 'undefined' ? '' : this.state.adj}
+                      //  val = { items.adjustments.toFixed(4) }
+                        onChangeText={this.externalTrans.bind(this, 'adjustments')}
+                        placeholder =' $-0.0500'
+                        label='Adjustments($-/+)'
+                        onfocus={() => { this.setState({ adj: this.state.adj.slice(1, this.state.adj.length) }); }}
+                        onblur={() => { this.setState({ adj: '$'+this.state.adj }); }}
+                    />
+
                 </View>
-                <View style={{ width: 870, height: 50, backgroundColor: 'white', marginTop: 30, borderRadius: 5, marginLeft: 25, flexDirection: 'row' }}>
+                <View style={{ marginTop: 10, flexDirection: 'row', zIndex: -1 }}>
+                    <View style={{justifyContent: 'space-between', marginRight: 5 }}>
+                    <Text style={{ fontSize: 15, color: 'white', paddingLeft: 20, paddingBottom: 10}}> Notes </Text>
+                        <View style={[{backgroundColor: 'white', width: 740, height: 50, borderRadius: 5, marginLeft: 20 }]}>
                     <TextInput
                         value = {items.notes}
-                        style={{ width: 870, height: 50 }}
-                     //   placeholder= {placeholdervalues.notes}
+                        style={{ width: 865, height: 45, paddingLeft: 20 }}
+                        multiline
+                        placeholder = 'Sale to grain elevator in Fort Wayne for October delivery.'
                         onChangeText={this.externalTrans.bind(this, 'notes')} />
+                        </View>
+                    </View>
+                    <ExternalNumberInput
+                        val={isNaN((a + b + f).toFixed(4)) ? '' : '$'+(a + b + f).toFixed(4).toString()}
+                        onChange={this.externalTrans.bind(this, 'netContractPrice')}
+                        label='NET Contract ($)'
+                        placeholder =' $3.6550'
+                        edit = {false}
+                        stylenp={{borderWidth: 2, borderColor: (a + b + f).toFixed(4) < 0 ? 'red': 'green'}}
+                    />
+                    <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', marginLeft:20 }}>
                     <TouchableHighlight onPress={cancelTrans}>
-                    <Image source={minus} style={{ width: 32, height: 32, marginLeft: 50 }} />
+                    <Image source={minus} style={{ width: 32, height: 32 }} />
                     </TouchableHighlight>
+                        <Text style={{ color: 'white', fontSize: 10 }}>Remove</Text>
+                        <Text style={{ color: 'white', fontSize: 10 }}>Transaction</Text>
+                    </View>
+
                 </View>
+                <View style={{marginTop: 15, height:5, backgroundColor: 'black' }}/>
             </View>
         );
     }
 }
-/*ExternalValues.prototype = {
-    qty: PropType.number.isRequired
-}*/
-/*var a=10;
-function log()
-{
-    this.a = 5;
-
-}
-log();
-console.log(a)
-
-var c=30;
-function log()
-{
-    console.log("ins",c);
-    var c =35;
-}
-log();
-console.log('out', c) */

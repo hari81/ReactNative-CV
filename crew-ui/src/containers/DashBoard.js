@@ -27,10 +27,12 @@ class DashBoard extends Component {
                 <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20}}/>
                 <LogoHomeHeader />
                 <View style={{backgroundColor:'rgb(239,244,247)'}}>
-                    <View style={{ height:83, width:1024,backgroundColor:'rgb(64,78,89)'}}/>
+                    <View style={{height:83, width: 1024, backgroundColor:'rgb(64,78,89)'}}/>
                     <MyFarmTiles/>
-                    <MyFarmProduction/>
+                     <MyFarmProduction />
+                   <View style={{height:100, width:1024}}>
                     <ActionBar/>
+                   </View>
                     <View style={styles.fourthRowStyle}>
                         <View style={{ flexDirection: 'column' }}>
                             <View style={{ flexDirection: 'row', marginTop: 10, marginLeft:20 }}>
