@@ -5,6 +5,7 @@ import base64 from 'base-64';
 import { FETCHING_ORDERS_ACTIVITY, ALL_BUTTONS } from '../types';
 import { REST_API_URL } from '../../../ServiceURLS/index';
 import ButtonsData from '../../../restAPI/AllButtonsData.json';
+import Data from '../../../restAPI/MyCropButtons.json';
 
 export const allButtons = () => {
 
@@ -28,6 +29,23 @@ export const allButtons = () => {
                  //cropValues = farmCorn2017;*/
         // console.log(farmCorn2017);
         dispatch({ type: ALL_BUTTONS, payload: ButtonsData });
+        let result = [];
+        const commodities = Data.commodities;
+        console.log('length', commodities.length);
+        const firstCropYears =  commodities.crops;
+        let k =0;
+        for(let i=0; i<commodities.length; i++)
+        {
+            let crops = commodities[i].crops;
+            for(let j=0; j<crops.length; j++)
+            {
+             result[k]=   Object.assign({},
+                    { id:commodities[i].commodity + crops[j].cropYear, cropYear: crops[j].cropYear, code:commodities[i].commodity, name:commodities[i].name });
+             k++;
+            }
+        }
+        console.log('result',result);
+
        /*  })
          .catch(error => console.log('error ' + error));*/
     };

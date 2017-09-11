@@ -2,14 +2,22 @@
 'use strict';
 import React from "react";
 import { Text, View, Image, TouchableHighlight, Alert } from "react-native";
+import {Actions} from 'react-native-router-flux';
 import Refresh from "./img/Refresh.png";
 import cargillLogoWhite from "./img/cargillLogoWhite.png";
 import Phone from "./img/Phone.png";
+import HomeIcon from './img/homeIconMed.png';
 import User from "./img/User.png";
 
 const LogoHomeHeader = () => {
     return (
         <View style={{flexDirection:'row', height:43, backgroundColor:'rgb(35,43,50)' }}>
+            <TouchableHighlight onPress={() => Actions.dashboard()}>
+                <Image
+                    source={HomeIcon}
+                    style={{ width: 30, height: 30, marginLeft: 10 }}
+                />
+            </TouchableHighlight>
             <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-start", marginLeft: 50, alignItems: "center"}}>
                 <Image style={{ width: 76, height: 34, marginLeft: 30, marginRight: 10 }} source={cargillLogoWhite}/>
                 <Text style={{ color: "white", textAlign: "center", fontSize: 14 }}>

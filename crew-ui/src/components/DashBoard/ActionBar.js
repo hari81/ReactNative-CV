@@ -8,16 +8,19 @@ class ActionBar extends Component {
 
     dashBoardToOrders() {
         const Crop= this.props.Crops.activeCommodity.code;
-        Actions.orders({ Crop });
+        Actions.orders({Crop});
 
     }
     dashBoardToOpenPositions() {
         const Crop= this.props.Crops.activeCommodity.code;
-        Actions.orders({ selectedTab: 'Open Positions', Crop });
+        Actions.orders({selectedTab: 'Open Positions', Crop});
 
     }
     dashBoardToExternalTrades() {
-        this.props.externalGetTransDashboard(this.props.Crops.activeCommodity.code, this.props.Crops.activeCropYear);
+        const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        console.log('cropData', cropData);
+
+        this.props.externalGetTransDashboard(cropData[0].code, cropData[0].cropYear);
     }
     render(){
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a')
@@ -31,9 +34,10 @@ class ActionBar extends Component {
                 <View style={styles.thirdRowBorderStyle} />
 
                 <View style={{ justifyContent: 'center', alignItems: 'center', margin:9, width: 124}}>
-                    <Text style={{ fontFamily:'HelveticaNeue-Bold', fontSize:18, color:'rgb(131,141,148)'}}>
+                    <Text style={{ fontFamily:'HelveticaNeue-Bold', fontSize:14, color:'rgb(131,141,148)'}}>
                         {this.props.Crops.activeCommodity.name.toUpperCase()}
                     </Text>
+
                     <Text style={{ color: 'rgb(1,172,168)', fontSize: 28, fontFamily:'HelveticaNeue-Medium'}}>
                         {this.props.Crops.activeCommodity.currency === 'USD' ? '$' : this.props.Crops.activeCommodity.currency}
                         {this.props.Crops.actionBar.todaysPrice.price.toFixed(4)}
@@ -61,37 +65,38 @@ class ActionBar extends Component {
 
                 <View style={styles.thirdRowBorderStyle} />
                 <TouchableOpacity onPress={this.dashBoardToOpenPositions.bind(this)}>
-                    <View style={{ alignItems: 'center', marginHorizontal:12,width: 110,marginTop: 14, flexDirection: 'row'}}>
-                        <View style={{width:50}}>
-                            <Text style={{ color: 'rgb(1,172,168)', fontSize: 36}}>
+                    <View style={{ alignItems: 'center', marginHorizontal: 12, width: 110, marginTop: 14, flexDirection: 'row'}}>
+                        <View style={{ width: 50 }}>
+                            <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
                                 {this.props.Crops.actionBar.openPositions.totalCount}
                             </Text>
                         </View>
-                        <View style={{ flexDirection: 'column', marginLeft:8 }}>
-                            <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>Open</Text>
-                            <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>Trades</Text>
-                            <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>(In App)</Text>
+                        <View style={{ flexDirection: 'column', marginLeft: 8 }}>
+                            <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Open</Text>
+                            <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Trades</Text>
+                            <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>(In App)</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
 
                 <View style={styles.thirdRowBorderStyle} />
+                <TouchableOpacity onPress={this.dashBoardToExternalTrades.bind(this)}>
+                <View style={{ alignItems: 'center', marginHorizontal: 12, width: 110, marginTop: 14, flexDirection: 'row'}}>
 
-                <View style={{ alignItems: 'center', marginHorizontal:12, width: 110, flexDirection: 'row'}}>
-                    <TouchableOpacity onPress={this.dashBoardToExternalTrades.bind(this)}>
-                    <View style={{width:45}}>
+                    <View style={{ width: 45 }}>
                         <Text style={{ color: 'rgb(1,172,168)', fontSize: 36}}>{this.props.Crops.actionBar.externalTrades.totalCount}</Text>
                     </View>
-                    <View style={{ flexDirection: 'column'}}>
-                        <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>Trades/Sales</Text>
-                        <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:14, color:'rgb(61,76,87)'}}>(Outside the App)</Text>
+                    <View style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Trades/Sales</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>(Outside the App)</Text>
                     </View>
-                    </TouchableOpacity>
-                </View>
 
-                <View style={styles.placeOrderButtonStyle}>
-                    <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:18, color:'rgb(255,255,255)'}}>PLACE NEW ORDER NOW</Text>
                 </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={()=>Actions.quoteswap()}><View style={styles.placeOrderButtonStyle}>
+                    <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:18, color:'rgb(255,255,255)'}}>PLACE NEW ORDER NOW</Text>
+                </View></TouchableOpacity>
             </View>
         )
     }
@@ -108,10 +113,11 @@ const styles={
         borderWidth:1
     },
     thirdRowBorderStyle: {
-        width:1,
-        height:70,
+        width: 1,
+        height: 70,
         backgroundColor: 'rgb(221,221,221)',
-        marginTop:4
+        marginTop: 4,
+
     },
     placeOrderButtonStyle: {
         height: 40,
@@ -129,6 +135,8 @@ const mapStateToProps = state => {
 
     return {
         Crops: state.dashBoardButtons,
+        cropBut: state.cropsButtons
+
 
     };
 };

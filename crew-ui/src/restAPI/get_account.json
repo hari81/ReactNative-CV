@@ -1,0 +1,30 @@
+{
+  "userId": 9805,
+  "userName": "stwong1",
+  "firstName": "Stephen",
+  "lastname": "Wong",
+  "email": "Stephen_Wong@cargill.com",
+  "defaultAccountId": 519,
+  "accounts": [
+    {
+      "accountId": 608,
+      "defaultAccount": false
+    },
+    {
+      "accountId": 537,
+      "defaultAccount": false
+    },
+    {
+      "accountId": 519,
+      "defaultAccount": true
+    },
+    {
+      "accountId": 547,
+      "defaultAccount": false
+    },
+    {
+      "accountId": 573,
+      "defaultAccount": false
+    }
+  ]
+}

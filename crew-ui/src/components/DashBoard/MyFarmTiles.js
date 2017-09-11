@@ -29,15 +29,25 @@ class MyFarmTiles extends Component {
     }
     goToFarm()
     {
-        this.props.allButtons();
-        //fetch call to
-        const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()} ${this.props.Crops.activeCropYear}`;
-        //this.props.cropButtonPress(buttonAction);
-        this.props.myFarmCropValues(this.props.Crops.activeCommodity.code, this.props.Crops.activeCropYear, buttonAction);
-        this.props.myFarmTradeSalesOutSideApp(this.props.Crops.activeCommodity.code,this.props.Crops.activeCropYear);
-        //this.props.myFarmCropValues('C', 2021, buttonAction);
+     console.log('cropButtons',this.props.cropBut.cropButtons);
+     console.log('Id',this.props.cropBut.selectedId);
+     const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+     console.log('cropData', cropData);
+        const buttonAction = `${cropData[0].name.toUpperCase()} ${cropData[0].cropYear}`;
+       // const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()} ${this.props.Crops.activeCropYear}`;
+       // this.props.myFarmCropValues(this.props.Crops.activeCommodity.code, this.props.Crops.activeCropYear, buttonAction);
+      //  this.props.myFarmTradeSalesOutSideApp(this.props.Crops.activeCommodity.code,this.props.Crops.activeCropYear);
+       this.props.myFarmCropValues(cropData[0].code,cropData[0].cropYear, buttonAction);
+         this.props.myFarmTradeSalesOutSideApp(cropData[0].code,cropData[0].cropYear);
 
         Actions.myfarm();
+    }
+
+    enterCropDetails = () => {
+        const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        //const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()}${this.props.Crops.activeCropYear}`;
+        this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
+        Actions.myfarm({ tradeflag: true });
     }
     render(){
         //returning Enter Crop Details when my farm tiles data is absent in json
@@ -54,9 +64,7 @@ class MyFarmTiles extends Component {
                         <Text>Enter your current {this.props.Crops.activeCropYear} {this.props.Crops.activeCommodity.name} crop details to receive helpful insights</Text>
                     </View>
                     <View style={styles.enterCropButtonStyle}>
-                        <TouchableOpacity onPress={ () => { const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()}${this.props.Crops.activeCropYear}`;
-                            this.props.allButtons();  this.props.myFarmCropValues('C', 2021, buttonAction);
-                            Actions.myfarm({  tradeflag: true})}}>
+                        <TouchableOpacity onPress={this.enterCropDetails}>
                             <Text style={{color: 'white'}}>Enter Crop Details</Text>
                         </TouchableOpacity>
                     </View>
@@ -179,6 +187,7 @@ const styles={
 const mapStateToProps = state => {
     return {
         Crops: state.dashBoardButtons,
+        cropBut: state.cropsButtons,
         myf: state.myFar
     };
 };

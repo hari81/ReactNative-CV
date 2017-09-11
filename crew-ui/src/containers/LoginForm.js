@@ -18,6 +18,9 @@ import {
   Spinner
 } from '../components/common/index';
 import { loginUser } from '../redux/actions/LoginAuth';
+import { firstButton, cropsButton } from '../redux/actions/Dashboard/DashBoardButtonsAction';
+import { cropsButtons } from '../redux/actions/CropButtons/ButtonAction';
+import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 
 class LoginForm extends Component {
   constructor() {
@@ -47,10 +50,15 @@ class LoginForm extends Component {
 
   onButtonPress() {
     const { saveUser } = this.props.auth;
-    this.props.loginUser({ saveUser }); //.then(response => console.log('login success', response));
+    this.props.loginUser({ saveUser });
+      this.props.cropsButtons();
+      this.props.firstButton();
+      this.props.productType();
+
   }
   onSaveUserChange(value) {
     this.props.saveUserSwitchChanged({ value });
+
   }
 
   renderButton() {
@@ -136,5 +144,9 @@ export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
   loginUser,
-  saveUserSwitchChanged
+  saveUserSwitchChanged,
+    firstButton,
+    cropsButton,
+    productType,
+    cropsButtons
 })(LoginForm);

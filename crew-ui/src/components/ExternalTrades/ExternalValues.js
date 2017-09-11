@@ -39,7 +39,9 @@ export default class ExternalValues extends Component {
                 const re = /^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?$/;
                 if ((re.test(value) || value === '') && value.length <= 10 && value <= 9000000.99) {
                     this.props.onSelectVal(value, transtype);
+
                     this.setState({ quan: value });
+                   // this.props.onSelectVal(this.state.date, 'tradeDate');
                 }
                 break;
             case 'futuresPrice':
@@ -147,6 +149,8 @@ componentWillMount()
     });
     //console.log('will quan',this.state.quan);
     }
+   // console.log('hello');
+  //  this.props.onSelectVal(this.state.date, 'tradeDate');
 }
     componentDidMount()
     {
@@ -159,15 +163,6 @@ componentWillMount()
           //  console.log('didmount quan',this.state.quan);
         }
         this.props.onSelectVal(this.state.date, 'tradeDate');
-    }
-    componentWillReceiveProps(newProps)
-    {
-
-        if (Object.keys(this.props.items).length !== 0){
-            this.setState({ date: new Date(newProps.items.tradeDate || new Date().toJSON()) });
-            console.log(this.state.date)
-
-        }
     }
 
     render() {
@@ -278,7 +273,7 @@ componentWillMount()
                         <View style={[{backgroundColor: 'white', width: 740, height: 50, borderRadius: 5, marginLeft: 20 }]}>
                     <TextInput
                         value = {items.notes}
-                        style={{ width: 865, height: 45, paddingLeft: 20 }}
+                        style={{ width: 740, height: 45, paddingLeft: 20, fontSize: 15 }}
                         multiline
                         placeholder = 'Sale to grain elevator in Fort Wayne for October delivery.'
                         onChangeText={this.externalTrans.bind(this, 'notes')} />

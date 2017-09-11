@@ -6,7 +6,7 @@ import { MY_FARM_CROP_VALUES, CROP_TYPE_AND_YEAR, MY_FARM_CROP_VALUES_SUMMARY, S
 import { DEV_REST_API_URL, X_API_KEY, DEV_CROP_EXTERNAL_TRADE_URL, } from '../../../ServiceURLS/index';
 import { Alert } from 'react-native';
 
-export const myFarmCropValues = (commodityCode, cropYear, cropName) => {
+export const myFarmCropValues = (commodityCode, cropYear) => {
 
     return (dispatch, getState) => {
        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
@@ -28,8 +28,8 @@ export const myFarmCropValues = (commodityCode, cropYear, cropName) => {
 
             .then(cropValues => {
                 console.log('cropValues:', cropValues);
-                const cropValuesCodeName = Object.assign({}, cropValues, { name: cropName, code: commodityCode });
-                dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValuesCodeName });
+               // const cropValuesCodeName = Object.assign({}, cropValues);
+                dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
 
             })
             .catch(error => console.log('error ', error));
@@ -65,7 +65,7 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
 
             .then(cropValuesSummary => {
                 console.log('cropValuesSummary:', cropValuesSummary);
-               // const cropValuesCodeName = Object.assign({}, cropValues, { name: cropName, code: commodityCode });
+
                 dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary });
             })
             .catch(error => { console.log('error ', error); });
@@ -73,16 +73,10 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
     };
 };
 
-export const cropButtonPress = text => {
-    return {
-        type: CROP_TYPE_AND_YEAR,
-        payload: text
-    };
-}
-
-export const cropDataSave = (cropValues, code) => {
+export const cropDataSave = (cropValues) => {
 
     return (dispatch, getState) => {
+        const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         console.log(cropValues);
         // console.log('id', getState().myFar.myFarmCropData.cropYear.id);
         const uCost = cropValues.cost.slice(-4) === 'acre' ?
@@ -93,8 +87,8 @@ export const cropDataSave = (cropValues, code) => {
             cropValues.yield.slice(0, (cropValues.yield.length - 8)) : cropValues.yield;
         const aPlanted = cropValues.acres.slice(-5) === 'acres' ?
             cropValues.acres.slice(0, (cropValues.acres.length - 6)) : cropValues.acres;
-        const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${code}/${cropValues.selectedButton.slice(-4)}`;
-
+        //const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${code}/${cropValues.selectedButton.slice(-4)}`;
+        const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${cropButData[0].code}/${cropButData[0].cropYear}`;
         console.log('url', url);
         console.log('Post Values', aPlanted, uCost, uProfitGoal, eYield);
         if (getState().myFar.myFarmCropData.cropYear === null) {
@@ -131,8 +125,8 @@ export const cropDataSave = (cropValues, code) => {
                     }
                 })
                 .then(postResponse => {
-                    const cropValuesCodeName = Object.assign({}, postResponse, { name: cropValues.selectedButton, code: code });
-                    dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValuesCodeName });
+                    //const cropValuesCodeName = Object.assign({}, postResponse);
+                    dispatch({ type: MY_FARM_CROP_VALUES, payload: postResponse });
                 })
                 .catch((status, error) => {
                     console.log('error' + error);
@@ -140,6 +134,19 @@ export const cropDataSave = (cropValues, code) => {
                 });
 
         } else {
+            console.log('saved values', JSON.stringify({
+                "cropYear": {
+                    "id": getState().myFar.myFarmCropData.cropYear.id,
+                    "unitCost": uCost.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1"),
+                    "unitProfitGoal": uProfitGoal.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1"),
+                    "expectedYield": eYield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1"),
+                    "basis": cropValues.estimate.toFixed(2),
+                    "includeBasis": cropValues.incbasis,
+                    "areaPlanted": aPlanted.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1"),
+                    "active": getState().myFar.myFarmCropData.cropYear.active,
+                    "areaUnit": getState().myFar.myFarmCropData.cropYear.areaUnit
+                }
+            }));
             return fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -165,7 +172,7 @@ export const cropDataSave = (cropValues, code) => {
                     }
                 })
             })
-                .then(response => {
+                .then(response => { console.log(response);
 
                     if (response.ok) {
                         console.log('Data Saved');
@@ -174,8 +181,8 @@ export const cropDataSave = (cropValues, code) => {
                     }
                 })
                 .then(putResponse => {
-                    const cropValuesCodeName = Object.assign({}, putResponse, { name: cropValues.selectedButton, code: code });
-                    dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValuesCodeName });
+                   // const cropValuesCodeName = Object.assign({}, putResponse);
+                    dispatch({ type: MY_FARM_CROP_VALUES, payload: putResponse });
                 })
                 .catch((status, error) => {
                     console.log('error' + error);
