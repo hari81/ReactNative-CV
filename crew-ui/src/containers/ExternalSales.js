@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
 import minus from '../components/common/img/Minus.png';
-import { myFarmTradeSalesOutSideApp } from '../redux/actions/MyFarm/CropAction';
+import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
 import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
 
@@ -101,6 +101,10 @@ class ExternalSales extends Component {
             for(let i=0;i<tradeData.length;i++)
             {
                 console.log('length of transactin', tradeData.length);
+                if(tradeData[i].tradeDate === undefined || tradeData[i].tradeDate === '' )
+                {
+                    tradeData[i].tradeDate = new Date();
+                }
                 if(tradeData[i].tradeDate === '' || tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' ||
                     tradeData[i].tradeDate === undefined || tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined ){
                     Alert.alert('Please fill all mandatory(*) fields before saving the data.');
@@ -122,11 +126,9 @@ class ExternalSales extends Component {
     }
     externalCropYearName()
     {
-        if (!this.props.extra.exflag) {
-           return (this.props.far.myFarmCropData.name);
-        } else {
-            return (this.props.Crops.activeCommodity.name + ' ' + this.props.Crops.activeCropYear);
-        }
+        const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        return(cropData[0].name.toUpperCase() + ' ' + cropData[0].cropYear);
+
     }
 
     backToDashboardMyfarm = () =>
@@ -134,7 +136,9 @@ class ExternalSales extends Component {
         if(this.props.extra.exflag) {
             Actions.dashboard();
         } else {
-            this.props.myFarmTradeSalesOutSideApp(this.props.far.myFarmCropData.code, this.props.far.myFarmCropData.name.slice(-4));
+            const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+            this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYea);
+            this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
             Actions.myfarm();
         }
     }
@@ -239,8 +243,8 @@ class ExternalSales extends Component {
 }
 const mapStateToProps = (state) => {
 
-    return{ far: state.myFar, extra: state.external, Crops: state.dashBoardButtons };
+    return{ far: state.myFar, extra: state.external, cropBut: state.cropsButtons };
 }
 
-export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp })(ExternalSales);
+export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues })(ExternalSales);
 

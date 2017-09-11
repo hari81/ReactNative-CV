@@ -9,8 +9,9 @@ import OpenPositions from './components/Orders/OpenPositions';
 import CancelOrderReceipt from './components/CancelOrders/CancelOrderReceipt';
 import DashBoard from './containers/DashBoard';
 import MyFarm from './containers/MyFarm';
-import ExternalSales from "./containers/ExternalSales";
-
+import ExternalSales from './containers/ExternalSales';
+import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
+import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
 const RouterComponent = () => {
   return (
     <Router>
@@ -29,6 +30,8 @@ const RouterComponent = () => {
         />
         <Scene hideNavBar key='myfarm' component={MyFarm} />
           <Scene hideNavBar key='externalsales' component={ExternalSales} />
+          <Scene hideNavBar key='quoteswap' component={QuoteSwap}/>
+          <Scene hideNavBar key="chartApp" component={ChartApp}  />
 
       </Scene>
     </Router>

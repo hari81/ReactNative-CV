@@ -9,8 +9,9 @@ import { X_API_KEY, DEV_CROP_EXTERNAL_TRADE_URL } from '../../../ServiceURLS/ind
 export const externalGetTrans = () => {
 
     return (dispatch, getState) => {
-        const commodityCode = getState().myFar.myFarmCropData.code;
-        const cropYear = getState().myFar.myFarmCropData.name.slice(-4);
+        const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
+        const commodityCode = cropButData[0].code;
+        const cropYear = cropButData[0].cropYear;
 
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const url = `${DEV_CROP_EXTERNAL_TRADE_URL}externalTrades/519/${commodityCode}/${cropYear}/trades`;
@@ -68,6 +69,10 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
 
             .then(tradeValues => {
                 console.log('tradeValues', tradeValues);
+                if (tradeValues.trades.length === 0)
+                {
+                    tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
+                }
                 if (!Array.isArray(tradeValues.trades)) {
                     //return Promise.resolve([{}]);
                     tradeValues = [{}];
@@ -85,8 +90,9 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
 export const saveExternalTrades = (trades) => {
 
     return (dispatch, getState) => {
-        const commodityCode = getState().myFar.myFarmCropData.code;
-        const cropYear = getState().myFar.myFarmCropData.name.slice(-4);
+        const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
+        const commodityCode = cropButData[0].code;
+        const cropYear = cropButData[0].cropYear;
         const tradeValues = trades.map(item => {
             if (item.active === undefined) {
             return Object.assign({}, item,

@@ -17,7 +17,8 @@ import {
   FarmInput
 } from '../components/common';
 
-import MyButtons from '../components/common/MyButtons';
+import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
+import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
 import { cropDataSave, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 
@@ -25,7 +26,6 @@ import { cropDataSave, myFarmCropValues } from '../redux/actions/MyFarm/CropActi
   constructor(props) {
     super(props);
     this.state = {
-      selectedButton: '',
       estimate: 0,
       acres: '',
       profit: '',
@@ -64,13 +64,14 @@ cancelMyFarm = () => {
 cropDataSave = () => {
       console.log(this.state);
     if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '' ) {
-        Alert.alert("Values are missing, Please make sure fill all TextInputs with Numbers");
+        Alert.alert('Values are missing, Please make sure fill all TextInputs with Numbers');
         console.log('Values are missing, Please fill all TextInputs');
         return;
     }
-    this.props.cropDataSave(this.state, this.props.far.myFarmCropData.code);
+    //const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+    this.props.cropDataSave(this.state);
 
-      this.setState({tradeflag: false});
+      this.setState({ tradeflag: false });
 }
 
      externalsales()
@@ -108,9 +109,10 @@ cropDataSave = () => {
     }
 
         setData =(props) => {
-          const cropNameYear = props.far.myFarmCropData.name;
+         // const cropNameYear = props.far.myFarmCropData.name;
           // this.setState({selectedButton: cropNameYear});
-        console.log('cropName',props.far.myFarmCropData.name);
+            const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        //console.log('cropName',props.far.myFarmCropData.name);
         console.log('year',props.far.myFarmCropData.cropYear);
           if (Object.keys(props.far.myFarmCropData).length !== 0) { //&& (props.far.myFarmCropData).constructor === Object) {
               const cropData = props.far.myFarmCropData.cropYear;
@@ -122,13 +124,13 @@ cropDataSave = () => {
                       yield: '',
                       estimate: 0,
                       incbasis: false,
-                      selectedButton: cropNameYear,
+                    //  selectedButton: cropNameYear,
                       tradeflag: true
 
                   });
 
               } else {
-                      console.log(cropNameYear);
+                     // console.log(cropNameYear);
                       //console.log(this.props.far.myFarmCropData);
                       this.setState({
                           acres: cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' acres',
@@ -137,7 +139,7 @@ cropDataSave = () => {
                           yield: cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' bushels',
                           estimate: cropData.basis,
                           incbasis: cropData.includeBasis,
-                          selectedButton: cropNameYear,
+                         // selectedButton: cropNameYear,
                           tradeflag: false
                       });
                   }
@@ -148,13 +150,14 @@ cropDataSave = () => {
 
     componentWillReceiveProps(newProps)
     {
-        this.setData(newProps)
+        this.setData(newProps);
     }
 
 
   render() {
 
     const { width, height } = Dimensions.get('window');
+      const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 
     return (
         <View>
@@ -226,11 +229,11 @@ cropDataSave = () => {
               </View>
           </View>
 
-        <View style={{ height: height - 290, backgroundColor: 'rgb(239,244,247)' }}>
+        <View style={{ height: height - 275, backgroundColor: 'rgb(239,244,247)' }}>
 
           <View
             style={{
-              height: height - 330,
+              height: height - 315,
               backgroundColor: '#3d4c57',
              marginHorizontal: 16,
              marginTop: 20
@@ -244,7 +247,7 @@ cropDataSave = () => {
                 fontSize: 20
               }}
             >
-                {`My ${this.state.selectedButton} Crop`}
+                {`My ${cropButData[0].name.toUpperCase()} ${cropButData[0].cropYear} Crop`}
             </Text>
 
             <View style={{ flexDirection: 'row', marginTop: 20 }}>
@@ -278,7 +281,7 @@ cropDataSave = () => {
                          {this.setState({ acres: this.state.acres.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0, 7).trim()
                           }) } }}}
                            onChangeText={this.onChangeAcres.bind(this)}
-                           placeholder='Ex: 2500 acres                              ' />
+                           placeholder='Ex: 2,500 acres                              ' />
                 <Text
                   style={{
                       color: 'white',
@@ -404,7 +407,8 @@ cropDataSave = () => {
                           </View>
                       </View>
                       </View >
-                    <View style={{ width: 505, height: 168, backgroundColor: 'rgb(89,108,121)', marginTop: 5, alignItems: 'center', justifyContent: 'space-around' }}>
+                  <OutSideTradeSales tradeFlag={this.state.tradeflag} />
+                  {/*  <View style={{ width: 505, height: 168, backgroundColor: 'rgb(89,108,121)', marginTop: 5, alignItems: 'center', justifyContent: 'space-around' }}>
                 <Text style={{ color: 'white', fontSize: 19 }}>
                   Trades / Sales Outside the App
                 </Text>
@@ -458,7 +462,7 @@ cropDataSave = () => {
                     </Text>
                   </View>
                 </TouchableHighlight>
-              </View>
+              </View> */}
                 <View
                   style={{
                     flexDirection: 'row',
@@ -513,7 +517,7 @@ cropDataSave = () => {
           </View>
         </View>
 
-            <MyButtons values={this.state}/>
+            <MyCropButton />
         </View>
     );
   }
@@ -551,8 +555,8 @@ testStyle: {
 
 const mapStatetoProps = (state) => {
     console.log(state.myFar);
-    return { far: state.myFar, ext: state.external };
-}
+    return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons };
+};
 
 export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues })(MyFarm);
 

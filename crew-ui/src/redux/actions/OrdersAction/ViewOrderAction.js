@@ -70,8 +70,7 @@ export const ViewOrdersData = (crop) => {
         );
 
         })
-            .catch((error) =>
-                    console.log('error are'  +error ));
+            .catch(error => console.log('error are'  +error ))
 
     };
 };

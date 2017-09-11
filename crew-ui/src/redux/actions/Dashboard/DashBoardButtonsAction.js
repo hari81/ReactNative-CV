@@ -37,3 +37,10 @@ export const sixthButton = () => {
         payload: require('../../../restAPI/18SOY')
     };
 };
+
+export const cropsButton=()=>{
+    return {
+        type:'CROP_BUTTON',
+        payload: require('../../../restAPI/CropsButton')
+    }
+};

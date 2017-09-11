@@ -1,0 +1,76 @@
+{
+  "user": {
+    "firstName": "Jose",
+    "lastName": "Pinto",
+    "userName": "jpjr",
+    "userId": 9802,
+    "email": "foo@bar.baz"
+  },
+  "account": {
+    "accountId": 519,
+    "legalName": "Jose Pinto",
+    "referenceAccount": 1
+  },
+  "commodities": [
+    {
+      "commodity": "C",
+      "name": "Corn",
+      "unit": "bushel",
+      "contractSize": 5000,
+      "matrixPriceIncrement": 0.05,
+      "matrixYieldIncrement": 5,
+      "quantityIncrement": 1000,
+      "tickSizeIncrement": 0.25,
+      "riskLimits": {
+        "shortLimit": 400000,
+        "longLimit": 150000,
+        "shortOptionLimit": 0,
+        "longOptionLimit": 0
+      },
+      "crops": [
+        {
+          "cropYear": 2017,
+          "futureContracts": []
+        },
+        {
+          "cropYear": 2018,
+          "futureContracts": []
+        },
+        {
+          "cropYear": 2019,
+          "futureContracts": []
+        }
+      ]
+    },
+    {
+      "commodity": "S",
+      "name": "Soybeans",
+      "unit": "bushel",
+      "contractSize": 5000,
+      "matrixPriceIncrement": 0.2,
+      "matrixYieldIncrement": 2,
+      "quantityIncrement": 1000,
+      "tickSizeIncrement": 0.25,
+      "riskLimits": {
+        "shortLimit": 120000,
+        "longLimit": 50000,
+        "shortOptionLimit": 0,
+        "longOptionLimit": 0
+      },
+      "crops": [
+        {
+          "cropYear": 2017,
+          "futureContracts": []
+        },
+        {
+          "cropYear": 2018,
+          "futureContracts": []
+        },
+        {
+          "cropYear": 2019,
+          "futureContracts": []
+        }
+      ]
+    }
+  ]
+}
