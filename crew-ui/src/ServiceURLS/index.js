@@ -24,6 +24,8 @@ export const DEV_UNUSED_URL = 'https://vtbelr7y02.execute-api.us-east-1.amazonaw
 //Authentication URL
 export const AUTHENTICATE_URL =
   `https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/qa/`;
+//Rest qa service
+export const QA_ACCOUNT_EXTERNALTRADES_FARMDATA = 'https://9itz0yke9l.execute-api.us-east-1.amazonaws.com/qa/';
 
 //x-api-key
 export const X_API_KEY = `rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb`;

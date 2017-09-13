@@ -2,10 +2,23 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import { LogoHomeHeader } from '../../components/common/index';
 import Dimensions from 'Dimensions';
+import {connect} from 'react-redux';
 import MyCropButton from '../../components/common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
 import SetOrderDetails from './SetOrderDetails';
-export default class QuoteSwap extends Component {
+import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import st from '../../Utils/SafeTraverse';
+class QuoteSwap extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            cropcode:props.cropcode||st(props,['Crops',0,'code']),
+            cropyear:props.cropyear || st(props,['Crops',0,'cropYear'])
+        }
+    }
+    componentDidMount(){
+        this.props.quoteSwapUnderlying(this.state.cropyear,this.state.cropcode);
+    }
     render(){
         const { width, height } = Dimensions.get('window');
         return(
@@ -22,3 +35,9 @@ export default class QuoteSwap extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        Crops: state.cropsButtons.cropButtons,
+    };
+};
+export default connect(mapStateToProps,{quoteSwapUnderlying})(QuoteSwap);

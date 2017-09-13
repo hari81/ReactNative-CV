@@ -2,7 +2,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, Button, TouchableOpacity, Picker} from 'react-native';
+import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, Button, TouchableOpacity, Picker, Keyboard, KeyboardAvoidingView} from 'react-native';
 import Calendar from 'react-native-calendar-datepicker';
 import Sugar from 'sugar';
 import Moment from 'moment';
@@ -125,11 +125,11 @@ export default class ExternalValues extends Component {
     {
         if (this.state.show) {
 
-            return(<View style={{top: -15,marginLeft: 465,height: 200, width: 20, position: 'absolute', backgroundColor: 'white', zIndex: 1, borderBottomRightRadius:10, borderTopRightRadius: 10}}>
+            return(<View style={{top: -15,marginLeft: 465,height: 200, width: 30, position: 'absolute', backgroundColor: 'white', zIndex: 1, borderBottomRightRadius:10, borderTopRightRadius: 10}}>
 
                 <TouchableOpacity  onPress = {() =>  this.setState({ show: false }) }>
                     <View style={{justifyContent: 'flex-start'}}>
-                        <Image source={cancel} style={{height: 20, width: 20, }} />
+                        <Image source={cancel} style={{height: 30, width: 30, }} />
                     </View>
                 </TouchableOpacity>
 
@@ -173,11 +173,12 @@ componentWillMount()
         const f = Number(items.futuresPrice || 0);
         return (
             <View style={{ backgroundColor: '#3d4c57' }}>
+                <KeyboardAvoidingView  behavior='padding'>
                 <View style={{marginBottom: 15, height:5, backgroundColor: 'black'}}/>
                 <View style={{ flexDirection: 'row' }}>
 
                     <ExternalInput
-                                focus = {() => { this.setState({ show: true }); }}
+                                focus = {() => {Keyboard.dismiss(); this.setState({ show: true }); }}
                                 //onblur = {() => { this.setState({ show: false }); }}
                                 placeholder={'MM/DD/YYYY'}
                                 label='Trade Date *'
@@ -243,7 +244,7 @@ componentWillMount()
                         placeholder =' $3.9550'
                         label='Futures Price *'
                         onfocus={() => { this.setState({ fuPrice: this.state.fuPrice.slice(1, this.state.fuPrice.length) }); }}
-                        onblur={() => { this.setState({ fuPrice: '$'+this.state.fuPrice }); }}
+                        onblur={() => { this.setState({ fuPrice: this.state.fuPrice === '' ? '':'$'+this.state.fuPrice }); }}
                     />
                     <ExternalNumberInput
 
@@ -253,7 +254,7 @@ componentWillMount()
                         placeholder =' $-0.2500'
                         label='Basis($-/+)'
                         onfocus={() => { this.setState({ basis: this.state.basis.slice(1, this.state.basis.length) }); }}
-                        onblur={() => { this.setState({ basis: '$'+this.state.basis }); }}
+                        onblur={() => { this.setState({ basis: this.state.basis===''? '':'$'+this.state.basis }); }}
                     />
                     <ExternalNumberInput
 
@@ -263,7 +264,7 @@ componentWillMount()
                         placeholder =' $-0.0500'
                         label='Adjustments($-/+)'
                         onfocus={() => { this.setState({ adj: this.state.adj.slice(1, this.state.adj.length) }); }}
-                        onblur={() => { this.setState({ adj: '$'+this.state.adj }); }}
+                        onblur={() => { this.setState({ adj: this.state.adj === ''? '' : '$'+this.state.adj }); }}
                     />
 
                 </View>
@@ -297,6 +298,7 @@ componentWillMount()
 
                 </View>
                 <View style={{marginTop: 15, height:5, backgroundColor: 'black' }}/>
+                </KeyboardAvoidingView>
             </View>
         );
     }

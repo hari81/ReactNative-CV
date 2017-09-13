@@ -324,8 +324,8 @@ class Orders extends Component {
             }}
           ><Text style={{ fontSize: 10 }}>Select Commodity{/*▼*/}</Text>
             <Picker
-                style={[{ width: 150, height: 55 },
-                    this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
+                style={{ width: 150, height: 55 }}
+                   // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
                mode = 'dropdown'
                 itemStyle={{height: 48}}
               selectedValue={this.state.Crop}

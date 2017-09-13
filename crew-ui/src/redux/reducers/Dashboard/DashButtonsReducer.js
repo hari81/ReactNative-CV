@@ -15,6 +15,10 @@ export default function (state = '', action) {
             return action.payload;
         case '18SOY':
             return action.payload;
+        case '19CORN':
+            return action.payload;
+        case '19SOY':
+            return action.payload;
         default:
             return state;
     }

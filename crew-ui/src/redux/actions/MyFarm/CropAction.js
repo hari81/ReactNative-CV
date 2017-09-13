@@ -3,15 +3,17 @@
 
 import base64 from 'base-64';
 import { MY_FARM_CROP_VALUES, CROP_TYPE_AND_YEAR, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY } from '../types';
-import { DEV_REST_API_URL, X_API_KEY, DEV_CROP_EXTERNAL_TRADE_URL, } from '../../../ServiceURLS/index';
+import { DEV_REST_API_URL, X_API_KEY, QA_ACCOUNT_EXTERNALTRADES_FARMDATA,  } from '../../../ServiceURLS/index';
 import { Alert } from 'react-native';
 
 export const myFarmCropValues = (commodityCode, cropYear) => {
 
     return (dispatch, getState) => {
        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-        const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${commodityCode}/${cropYear}`;
-        console.log(url);
+        const accountNo = getState().account.accountDetails.defaultAccountId;
+       // console.log(accountNo);
+        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}cropData/${accountNo}/${commodityCode}/${cropYear}`;
+     //   console.log(url);
         return fetch(url, {
                 method: 'GET',
 
@@ -27,7 +29,7 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
             .then(response => response.json())
 
             .then(cropValues => {
-                console.log('cropValues:', cropValues);
+              //  console.log('cropValues:', cropValues);
                // const cropValuesCodeName = Object.assign({}, cropValues);
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
 
@@ -40,8 +42,9 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
 
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-        const url = `${DEV_CROP_EXTERNAL_TRADE_URL}externalTrades/519/${commodityCode}/${cropYear}/summary`;
-        console.log('outsideapp',url);
+        const accountNo = getState().account.accountDetails.defaultAccountId;
+        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
+       // console.log('outsideapp',url);
         return fetch(url, {
             method: 'GET',
             headers: {
@@ -52,7 +55,7 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
         })
 
             .then(response => {
-                console.log(response);
+             //   console.log(response);
                 if(response.status === 404)
                 {
 
@@ -64,7 +67,7 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
             })
 
             .then(cropValuesSummary => {
-                console.log('cropValuesSummary:', cropValuesSummary);
+             //   console.log('cropValuesSummary:', cropValuesSummary);
 
                 dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary });
             })
@@ -76,8 +79,9 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
 export const cropDataSave = (cropValues) => {
 
     return (dispatch, getState) => {
+        const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
-        console.log(cropValues);
+      //  console.log(cropValues);
         // console.log('id', getState().myFar.myFarmCropData.cropYear.id);
         const uCost = cropValues.cost.slice(-4) === 'acre' ?
             cropValues.cost.slice(1, (cropValues.cost.length - 10)) : cropValues.cost;
@@ -88,9 +92,9 @@ export const cropDataSave = (cropValues) => {
         const aPlanted = cropValues.acres.slice(-5) === 'acres' ?
             cropValues.acres.slice(0, (cropValues.acres.length - 6)) : cropValues.acres;
         //const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${code}/${cropValues.selectedButton.slice(-4)}`;
-        const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${cropButData[0].code}/${cropButData[0].cropYear}`;
-        console.log('url', url);
-        console.log('Post Values', aPlanted, uCost, uProfitGoal, eYield);
+        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}cropData/${accountNo}/${cropButData[0].code}/${cropButData[0].cropYear}`;
+        //console.log('url', url);
+       // console.log('Post Values', aPlanted, uCost, uProfitGoal, eYield);
         if (getState().myFar.myFarmCropData.cropYear === null) {
             return fetch(url, {
                 method: 'POST',
@@ -119,9 +123,9 @@ export const cropDataSave = (cropValues) => {
                 .then(response => {
 
                     if (response.status === 201) {
-                        console.log('Data Saved');
+                       // console.log('Data Saved');
                         Alert.alert("Data Saved Successfully");
-                        return response;
+                        return response.json();
                     }
                 })
                 .then(postResponse => {
@@ -134,7 +138,7 @@ export const cropDataSave = (cropValues) => {
                 });
 
         } else {
-            console.log('saved values', JSON.stringify({
+           /* console.log('saved values', JSON.stringify({
                 "cropYear": {
                     "id": getState().myFar.myFarmCropData.cropYear.id,
                     "unitCost": uCost.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1"),
@@ -146,7 +150,7 @@ export const cropDataSave = (cropValues) => {
                     "active": getState().myFar.myFarmCropData.cropYear.active,
                     "areaUnit": getState().myFar.myFarmCropData.cropYear.areaUnit
                 }
-            }));
+            }));*/
             return fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -175,7 +179,7 @@ export const cropDataSave = (cropValues) => {
                 .then(response => { console.log(response);
 
                     if (response.ok) {
-                        console.log('Data Saved');
+                     //   console.log('Data Saved');
                         Alert.alert("Data Saved Successfully");
                         return response.json();
                     }

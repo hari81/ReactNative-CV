@@ -13,6 +13,10 @@ import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMont
 
 import {Button} from '../../components/common/Button';
 class SetOrderDetails extends Component{
+
+
+
+
     showArrow(btnNumber){
         switch(btnNumber){
             case 1:
@@ -53,7 +57,9 @@ class SetOrderDetails extends Component{
                 <TouchableOpacity onPress={this.cancelButton.bind(this)} ><View style={{marginLeft: 240}}><Image source={cancelimage} style={{
                     width: 16,
                     height: 16
-                }}/></View></TouchableOpacity>
+                }}/>
+                </View>
+                </TouchableOpacity>
                 <Text style={{fontFamily:'HelveticaNeue-Thin', color:'rgb(59,74,85)', fontSize:14}}>{message}</Text>
             </View>
 
@@ -85,10 +91,10 @@ class SetOrderDetails extends Component{
                     <View style={{flexDirection:'column',marginLeft:49}}>
                         <ProductType/>
                         <TradeDirection/>
-                        <ContractMonth/>
+
 
                     </View>
-                    <View style={{height:364,width:1, marginLeft:50, marginTop:20, backgroundColor:'rgb(127,143,164)'}}/>
+                    <View style={{height:364,width:1, marginLeft:40, marginTop:20, backgroundColor:'rgb(127,143,164)'}}/>
                     <View style={{flexDirection:'column',marginLeft:33}}>
                         <BushelQuantity/>
                         <OrderType/>

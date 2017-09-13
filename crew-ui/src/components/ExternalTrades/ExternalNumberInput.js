@@ -31,7 +31,7 @@ class ExternalNumberInput extends React.Component {
                     onFocus = {onfocus}
                     onBlur = {onblur}
                     onChange = {onChange}
-
+                    keyboardType = 'numeric'
                 />
             </View>
         );

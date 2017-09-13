@@ -18,9 +18,10 @@ import {
   Spinner
 } from '../components/common/index';
 import { loginUser } from '../redux/actions/LoginAuth';
-import { firstButton, cropsButton } from '../redux/actions/Dashboard/DashBoardButtonsAction';
+import { thirdButton, cropsButton } from '../redux/actions/Dashboard/DashBoardButtonsAction';
 import { cropsButtons } from '../redux/actions/CropButtons/ButtonAction';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
+import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 
 class LoginForm extends Component {
   constructor() {
@@ -51,8 +52,10 @@ class LoginForm extends Component {
   onButtonPress() {
     const { saveUser } = this.props.auth;
     this.props.loginUser({ saveUser });
-      this.props.cropsButtons();
-      this.props.firstButton();
+      this.props.accountDetails();
+     // this.props.cropsButtons();
+
+      this.props.thirdButton();
       this.props.productType();
 
   }
@@ -89,6 +92,7 @@ class LoginForm extends Component {
             label='Password'
             onChangeText={this.onPasswordChange.bind(this)}
             value={this.props.auth.password}
+
           />
         </CardSection>
         <Text style={styles.errorStyle}>
@@ -145,8 +149,9 @@ export default connect(mapStateToProps, {
   passwordChanged,
   loginUser,
   saveUserSwitchChanged,
-    firstButton,
+    thirdButton,
     cropsButton,
     productType,
-    cropsButtons
+    cropsButtons,
+    accountDetails
 })(LoginForm);
