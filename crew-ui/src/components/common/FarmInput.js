@@ -4,7 +4,7 @@ import React from 'react';
 import { TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, onfocus }) => {
+const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, onfocus}) => {
   const { inputStyle, containerStyle } = styles;
 
   return (

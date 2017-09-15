@@ -3,9 +3,10 @@
 
 import React, { Component } from 'react';
 
-import { View, Text, Image, ScrollView, TouchableHighlight, DatePickerIOS, Alert } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableHighlight, DatePickerIOS, Alert, KeyboardAvoidingView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
 import minus from '../components/common/img/Minus.png';
@@ -26,9 +27,9 @@ class ExternalSales extends Component {
     }
 
     addNewTransaction = () => {
-        this.refs.scrollView.scrollToEnd();
+        this.refs.scrollView.scrollTo({x:0, y: this.state.transaction.length*210, animated: true});
         this.setState({ transaction: [...this.state.transaction, {}] });
-        this.refs.scrollView.scrollToEnd();
+
 
     };
     valueUpdate(index, val, trans ){
@@ -41,66 +42,78 @@ class ExternalSales extends Component {
         //this.setState({ transaction: newTransaction }, () => console.log(this.state.transaction));
 
         this.setState({ transaction: newTransaction });
-        console.log(this.state.transaction);
+       // console.log(this.state.transaction);
 
     }
     componentWillMount(){
         // this.props.externalGetTrans();
-        console.log('external',this.props.extra.externalGetData.trades);
+        //console.log('external',this.props.extra.externalGetData.trades);
         // if (this.props.extra.externalGetData.trades !== 'undefined'){
         this.setState({transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
         // }
-        console.log(this.state.transaction);
+      //  console.log(this.state.transaction);
     }
     componentDidMount() {
        // this.props.externalGetTrans();
-        console.log('external',this.props.extra.externalGetData.trades);
+       // console.log('external',this.props.extra.externalGetData.trades);
        // if (this.props.extra.externalGetData.trades !== 'undefined'){
         this.setState({transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
        // }
-        console.log(this.state.transaction);
+      //  console.log(this.state.transaction);
+
     }
 
     cancelTransaction(index){
-        console.log('index',index);
-
+      //  console.log('index',index);
+//
+        let newTransaction = this.state.transaction;
         if (this.state.transaction[index].active) {
 
-            this.state.transaction[index].active = false;
+            newTransaction[index].active = false;
         }
         else {
-            this.state.transaction.splice(index, 1);
+            newTransaction = this.state.transaction.filter((t, i) => index !== i);
         }
-        this.setState({ transaction: [...this.state.transaction] });
-        console.log(this.state.transaction.length);
-        console.log(this.state.transaction);
+        this.setState({ transaction: newTransaction });
+     //   console.log(this.state.transaction.length);
+     //   console.log(this.state.transaction);
         //console.log(this.props.extra.externalGetData.trades);
 
     }
     cancelButtonClick() {
-        console.log('length', this.state.transaction.length);
+      //  this.props.externalGetTrans();
+     /*  console.log('length', this.state.transaction.length);
         for (let index = 0; index < this.props.extra.externalGetData.trades.length; index++) {
             if (!this.props.extra.externalGetData.trades[index].active) {
                 this.props.extra.externalGetData.trades[index].active = true;
             }
-        }
+        }*/
        // this.props.externalGetTrans();
+        this.setState({ transaction: []});
+      /*  if(this.state.transaction.length === 0 )
+        {
 
+            Alert.alert(" No Trades, Will show examples");
+            //return;
+        }*/
+setTimeout(() => {
+    this.setState({transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
+}, 0)
 
-        this.setState({transaction: this.props.extra.externalGetData.trades || [{}]});
-        console.log(this.props.extra.externalGetData.trades);
+     //   console.log(this.props.extra.externalGetData.trades);*/
+      //  this.setState({transaction: this.props.extra.externalGetData.trades || [{}]});
 
     }
 
     saveTransactions()
     {
         const tradeData = this.state.transaction;
-        console.log(tradeData.length);
+       // console.log(tradeData.length);
         if(tradeData.length>0)
         {
             for(let i=0;i<tradeData.length;i++)
             {
-                console.log('length of transactin', tradeData.length);
+               // console.log('length of transactin', tradeData.length);
                 if(tradeData[i].tradeDate === undefined || tradeData[i].tradeDate === '' )
                 {
                     tradeData[i].tradeDate = new Date();
@@ -120,8 +133,9 @@ class ExternalSales extends Component {
        // if(nextProps.extra.externalGetData > 0) {
        // if (Object.keys(this.props.far.myFarmCropData).length !== 0 && (this.props.far.myFarmCropData).constructor === Object) {
 
-
-        this.setState({transaction: JSON.parse(JSON.stringify(nextProps.extra.externalGetData.trades || [{}])) });
+console.log('here')
+       this.setState({transaction: JSON.parse(JSON.stringify(nextProps.extra.externalGetData.trades || [{}])) });
+      //  this.setState({transaction: nextProps.extra.externalGetData.trades || [{}] });
        // }
     }
     externalCropYearName()
@@ -137,14 +151,14 @@ class ExternalSales extends Component {
             Actions.dashboard();
         } else {
             const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-            this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYea);
+            this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
             this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
             Actions.myfarm();
         }
     }
 
     render(){
-       // console.log('externnal', this.props.extra);
+        console.log('externnal', this.state.transaction);
         return(
             <View style={{ width: 1024, height: 768, backgroundColor: 'rgb(29,37,49)' }}>
                 <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
@@ -178,8 +192,9 @@ class ExternalSales extends Component {
                         </View>
                     </View>
                 </View>
-                <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView'>
 
+                <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView' removeClippedSubviews>
+                    <KeyboardAwareScrollView scrollEnabled={false} resetScrollToCoords = {{x:0, y:0}}>
                      {this.state.transaction
                          .filter(item => item.active === undefined || item.active)
                          .map((item, index) => <ExternalValues
@@ -189,7 +204,7 @@ class ExternalSales extends Component {
                                                         items = {item}
                                                         placeholdervalues = {this.props.extra.externalGetData.tradeTemplate}
                                                         />)}
-
+                    </KeyboardAwareScrollView>
                 </ScrollView>
 
 

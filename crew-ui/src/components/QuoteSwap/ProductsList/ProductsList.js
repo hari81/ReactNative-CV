@@ -18,7 +18,7 @@ class ProductsList extends Component {
     render(){
         return (
             <TouchableOpacity onPress={this.selectProduct.bind(this,this.props.item.name,this.props.item.id)}>
-                <View style={{height:30,width:252, backgroundColor:'white',borderRadius:4,justifyContent:'center'}}>
+                <View style={{height:36,width:252, backgroundColor:'white',borderRadius:4,justifyContent:'center'}}>
                     <ScrollView>
                         <Text style={{color:'rgb(159,159,159)',fontFamily:'HelveticaNeue', fontSize:16, paddingLeft:10}}>{this.props.item.name}</Text>
                     </ScrollView>

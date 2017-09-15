@@ -1,5 +1,5 @@
 const INITIAL_STATE={
-    contractMonth:0,
+    contractMonth:'',
     bidprice:'',
     askprice:''
 }

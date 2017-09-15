@@ -7,7 +7,7 @@ import {
   View,
   Switch,
   TouchableHighlight,
-   Slider, Alert, Keyboard
+   Slider, Alert, Keyboard, ScrollView, findNodeHandle, TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
@@ -21,6 +21,7 @@ import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
 import { cropDataSave, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
+import BasisSliderSwitch from '../components/MyFarm/BasisSliderSwitch';
 
  class MyFarm extends Component {
   constructor(props) {
@@ -32,14 +33,16 @@ import { cropDataSave, myFarmCropValues } from '../redux/actions/MyFarm/CropActi
       cost: '',
       yield: '',
       incbasis: false,
-      tradeflag: props.tradeflag || false
+      tradeflag: props.tradeflag || false,
+        flag: false,
+        marTop: 0
     };
   }
 cancelMyFarm = () => {
       Keyboard.dismiss();
     if(!this.state.tradeflag) {
         const cropData = this.props.far.myFarmCropData.cropYear;
-        console.log(cropData);
+    //    console.log(cropData);
         this.setState({
             acres: cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' acres',
             profit: '$' + cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre',
@@ -62,10 +65,10 @@ cancelMyFarm = () => {
 
 }
 cropDataSave = () => {
-      console.log(this.state);
+    //  console.log(this.state);
     if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '' ) {
         Alert.alert('Values are missing, Please make sure fill all TextInputs with Numbers');
-        console.log('Values are missing, Please fill all TextInputs');
+      //  console.log('Values are missing, Please fill all TextInputs');
         return;
     }
     //const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
@@ -104,8 +107,20 @@ cropDataSave = () => {
               this.setState({ yield: value });
         }
     }
-    componentWillMount() {
+     _keyboardDidShow () {
+         alert('Keyboard Shown');
+     }
+
+     _keyboardDidHide () {
+         alert('Keyboard Hidden');
+         this.refs.scrollView.scrollToEnd();
+
+     }
+
+     componentWillMount() {
       this.setData(this.props);
+        /*.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);*/
     }
 
         setData =(props) => {
@@ -113,7 +128,7 @@ cropDataSave = () => {
           // this.setState({selectedButton: cropNameYear});
             const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
         //console.log('cropName',props.far.myFarmCropData.name);
-        console.log('year',props.far.myFarmCropData.cropYear);
+       // console.log('year',props.far.myFarmCropData.cropYear);
           if (Object.keys(props.far.myFarmCropData).length !== 0) { //&& (props.far.myFarmCropData).constructor === Object) {
               const cropData = props.far.myFarmCropData.cropYear;
               if( !cropData ) {
@@ -152,7 +167,40 @@ cropDataSave = () => {
     {
         this.setData(newProps);
     }
-
+     inputFocused (refName) {
+      console.log('scroll');
+         setTimeout(() => {
+             let scrollResponder = this.refs.scrollView.getScrollResponder();
+             scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+                 findNodeHandle(this.refs[refName]),
+                 250, //additionalOffset
+                 true
+             );
+         }, 50);
+        switch(refName) {
+            case 'profits':
+                if (this.state.profit.slice(-4) === 'acre') {
+                    if (this.state.profit.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1, (this.state.profit.length - 10)).trim().length <= 7) {
+                        this.setState({
+                            profit: this.state.profit.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1, (this.state.profit.length - 10)).trim()
+                        })
+                    } else {
+                        this.setState({
+                            profit: this.state.profit.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1, 8).trim()
+                        })
+                    }
+                }
+                break;
+            case 'exyield':
+                if(this.state.yield.slice(-7) === 'bushels'){
+                    if(this.state.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0,(this.state.yield.length-8)).trim().length <= 7){
+                        this.setState({yield: this.state.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0,(this.state.yield.length-8)).trim()})} else {
+                        this.setState({yield: this.state.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0,7).trim()})
+                    }
+                }
+                break;
+        }
+     }
 
   render() {
 
@@ -160,7 +208,9 @@ cropDataSave = () => {
       const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 
     return (
-        <View>
+        <View
+           // style={this.state.flag ? { marginTop: this.state.marTop} : {}}
+        >
         {/*<View style={{ flex: 1, flexDirection: 'column' }}
         <StatusBar barStyle='light-content' />>*/}
         <View
@@ -263,10 +313,11 @@ cropDataSave = () => {
                   height: 350
                 }}
               >
+                  <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
                 <Text
                   style={{ color: 'white', marginBottom: 10, fontSize: 16 }}
                 >
-                  Acres Planted
+                  Acres Planted *
                 </Text>
                 <FarmInput
                     value={this.state.acres.toString()}
@@ -290,14 +341,14 @@ cropDataSave = () => {
                       fontSize: 16
                   }}
                 >
-                  Cost Per Acre
+                  Cost Per Acre *
                 </Text>
                 <FarmInput
                     value= {this.state.cost.toString()}
-                   onblur = {() => { if(this.state.cost !== '') {this.setState({cost: '$' +this.state.cost.toString()
+                   onblur = {() => { this.setState({flag: false, marTop: 0});if(this.state.cost !== '') {this.setState({cost: '$' +this.state.cost.toString()
                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre'});}
                        if( this.state.cost.slice(-4) === 'acre') { this.setState({cost: this.state.cost});}}}
-                   onfocus = { () => { if(this.state.cost.slice(-4) === 'acre'){
+                   onfocus = { () => {this.setState({flag: true, marTop: -100}); if(this.state.cost.slice(-4) === 'acre'){
                        if(this.state.cost.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1,(this.state.cost.length-10)).trim().length <=7){
                            this.setState({cost: this.state.cost.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1, (this.state.cost.length - 10)).trim()})
                        }else {
@@ -314,14 +365,34 @@ cropDataSave = () => {
                     fontSize: 16
                   }}
                 >
-                  Profit Goal Per Acre
+                  Profit Goal Per Acre *
                 </Text>
-                <FarmInput
+                      <View style={styles.containerStyle}>
+                          <TextInput
+
+                              placeholder = 'Ex: $75 /per acre               '
+                              style={styles.inputStyle}
+                              value={this.state.profit}
+                              onChangeText={this.onChangeProfit.bind(this)}
+                              onBlur = {() => {this.setState({flag: false, marTop: 0}); if(this.state.profit !== '') {this.setState({profit: '$' +this.state.profit.toString()
+                                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre'});}
+                                  if( this.state.profit.slice(-4) === 'acre') { this.setState({profit: this.state.profit});} }}
+
+                              onFocus = { this.inputFocused.bind(this, 'profits')}
+                              keyboardType = 'numeric'
+                              placeholderTextColor = 'rgba(61,76,87, .5)'
+                              ref= 'profits'
+
+                          />
+                      </View>
+
+
+                      {/*<FarmInput
                     value= {this.state.profit}
-                    onblur = {() => { if(this.state.profit !== '') {this.setState({profit: '$' +this.state.profit.toString()
+                    onblur = {() => {this.setState({flag: false, marTop: 0}); if(this.state.profit !== '') {this.setState({profit: '$' +this.state.profit.toString()
                         .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre'});}
                     if( this.state.profit.slice(-4) === 'acre') { this.setState({profit: this.state.profit});} }}
-                    onfocus = { () => { if(this.state.profit.slice(-4) === 'acre'){
+                    onfocus = { () => {this.setState({flag: true, marTop: -200}); if(this.state.profit.slice(-4) === 'acre'){
                    if(this.state.profit.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1,(this.state.profit.length-10)).trim().length<=7) {
                        this.setState({
                            profit: this.state.profit.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(1, (this.state.profit.length - 10)).trim()
@@ -332,7 +403,7 @@ cropDataSave = () => {
                        })
                    }}}}
                     onChangeText = {this.onChangeProfit.bind(this)}
-                    placeholder='Ex: $75 /per acre               ' />
+                    placeholder='Ex: $75 /per acre               ' />*/}
                 <Text
                   style={{
                     color: 'white',
@@ -341,128 +412,50 @@ cropDataSave = () => {
                     fontSize: 16
                   }}
                 >
-                  Expected Yield
+                  Expected Yield *
                 </Text>
-                <FarmInput
+
+
+                      <View style={styles.containerStyle}>
+                      <TextInput
+
+                          placeholder={'Ex: 175 bushels                '}
+                          style={styles.inputStyle}
+                          value={this.state.yield}
+                          onChangeText={this.onChangeYield.bind(this)}
+                          onBlur = {() => { this.setState({flag: false, marTop: 0});if(this.state.yield !== '') {this.setState({ yield: this.state.yield.toString()
+                              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' bushels' });}
+                              if( this.state.yield.slice(-7) === 'bushels') { this.setState({yield: this.state.yield});}}}
+                          onFocus = { this.inputFocused.bind(this, 'exyield')}
+                          keyboardType = 'numeric'
+                          placeholderTextColor = 'rgba(61,76,87, .5)'
+                            ref = 'exyield'
+                      />
+                    </View>
+
+
+
+                      {/* <FarmInput
                     value= {this.state.yield}
-                   onblur = {() => { if(this.state.yield !== '') {this.setState({ yield: this.state.yield.toString()
+
+                   onblur = {() => { this.setState({flag: false, marTop: 0});if(this.state.yield !== '') {this.setState({ yield: this.state.yield.toString()
                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' bushels' });}
                        if( this.state.yield.slice(-7) === 'bushels') { this.setState({yield: this.state.yield});}}}
-                    onfocus = { () => { if(this.state.yield.slice(-7) === 'bushels'){
+                    onfocus = { () => {this.setState({flag: true, marTop: -250});  if(this.state.yield.slice(-7) === 'bushels'){
                         if(this.state.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0,(this.state.yield.length-8)).trim().length <= 7){
                    this.setState({yield: this.state.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0,(this.state.yield.length-8)).trim()})} else {
                                 this.setState({yield: this.state.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, "$1").slice(0,7).trim()})
                             }
                   }}}
                     onChangeText = {this.onChangeYield.bind(this)}
-                    placeholder='Ex: 175 bushels                ' />
+                    placeholder='Ex: 175 bushels                ' /> */}
+                  </ScrollView>
               </View>
               <View style={{marginRight: 20}}>
-                  <View style={{ flexDirection: 'row'}}>
-                      <View style={{ width: 370, height: 118, backgroundColor: 'rgb(89,108,121)', marginRight: 5, justifyContent: 'space-around', alignItems: 'center'}}>
-                         <Text
-                             style={{ color: 'white', fontSize: 16 }}
-                         >
-                            Basis Estimate for Unsold Production (-/+)
-                        </Text>
-                      <Text style={[styles.slidenum, this.state.estimate > 0 ? { color: 'rgb(39,153,137)' } : { color: 'rgb(181,182,181)' }]}>
-                          ${this.state.estimate.toFixed(2)}
-                      </Text>
-                          <View>
-                          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                              <Text style={{ fontSize: 16, color: 'white' }}>$-2.00</Text>
-                              <Text style={{ fontSize: 16, color: 'white' }}>$2.00</Text>
-                          </View>
-                        <View style={{flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 25, color: 'white' }}>|</Text>
-                      <Slider
-                          style={{ width: 325 }}
-                          step={.01}
-                          minimumValue={-2}
-                          maximumValue={2}
-                          value={this.state.estimate}
-                          onValueChange={slideval => this.setState({ estimate: slideval })}
-                          maximumTrackTintColor='rgb(181,182,181)'
-                          minimumTrackTintColor='rgb(39,153,137)'
-                          thumbTintColor='rgb(181,182,181)'
-                      />
-                            <Text style={{ fontSize: 25, color: 'white' }}>|</Text>
-                        </View>
-                          </View>
-                      </View>
-                      <View style={{ width: 130, height: 118, backgroundColor: 'rgb(89,108,121)', justifyContent: 'center' }}>
-                          <Text style={{ color: 'rgb(255,255,255)', fontSize: 10, textAlign: 'center' }}> TOGGLE ON/OFF TO
-                           INCLUDE BASIS IN
-                           CALCULATIONS </Text>
-                          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 15 }}>
-                          <Text style={{ color: 'rgb(255,255,255)'}}>OFF</Text>
-                              <Switch
-                                  value={this.state.incbasis}
-                                  style={{ marginLeft: 5, marginRight: 5 }}
-                                  onTintColor='#01aca8'
-                                  onValueChange = {() => this.setState({ incbasis: !this.state.incbasis })}
-
-                              />
-                          <Text style={{ color: 'rgb(255,255,255)' }}>ON</Text>
-                          </View>
-                      </View>
-                      </View >
+                  <BasisSliderSwitch estim={this.state.estimate} basis={this.state.incbasis}
+                                     sliderVal={val => this.setState({estimate: val})}
+                                    switchVal={val => this.setState({incbasis: val})}/>
                   <OutSideTradeSales tradeFlag={this.state.tradeflag} />
-                  {/*  <View style={{ width: 505, height: 168, backgroundColor: 'rgb(89,108,121)', marginTop: 5, alignItems: 'center', justifyContent: 'space-around' }}>
-                <Text style={{ color: 'white', fontSize: 19 }}>
-                  Trades / Sales Outside the App
-                </Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ justifyContent:'space-between', alignItems: 'flex-end' }}>
-                                <Text
-                                    style={{ color: 'white', marginBottom: 10, fontSize: 19 }}
-                                 >
-                                    Total
-                                </Text>
-                                <Text style={{ color: 'white', fontSize: 19 }}>
-                                    Average Price
-                                </Text>
-
-                            </View>
-                            <View style={{ justifyContent:'space-between', marginLeft: 20 }}>
-                                <Text
-                                    style={{ color: 'white', marginBottom: 10, fontSize: 19 }}
-                                >
-                                    {this.props.far.cropValuesSummary.totalQuantity === undefined? 0:this.props.far.cropValuesSummary.totalQuantity.toString()
-                                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels
-                                </Text>
-                                <Text style={{ color: 'white', fontSize: 19 }}>
-                                    ${this.props.far.cropValuesSummary.averagePrice === undefined? 0: this.props.far.cropValuesSummary.averagePrice.toFixed(2)} per bushel
-                                </Text>
-                            </View>
-                        </View>
-
-                <TouchableHighlight
-                  style={ [{
-
-                    borderRadius: 5,
-                    height: 40,
-                    width: 300,
-                    backgroundColor: 'rgb(39,153,137)'
-                  }, this.state.tradeflag ? {backgroundColor: 'rgba(39,153,137,0.35)'} : {}]}
-                  disabled={this.state.tradeflag}
-                  onPress = {this.externalsales.bind(this)}
-                >
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignItems: 'center'
-                    }}
-                  >
-
-                    <Text style={{ color: 'white' }}>
-                      ADD / MODIFY TRADES / SALES
-                    </Text>
-                  </View>
-                </TouchableHighlight>
-              </View> */}
                 <View
                   style={{
                     flexDirection: 'row',
@@ -538,23 +531,34 @@ const styles = {
   cropType: {
     fontSize: 25
   },
-
-    slidenum: {
-        fontSize: 20,
-        textAlign: 'center',
-
-    },
 testStyle: {
     color: 'white',
     marginBottom: 10,
     marginTop: 30,
     fontSize: 16
-}
+},
+    inputStyle: {
+        color: '#000',
+        paddingRight: 5,
+        paddingLeft: 20,
+        fontSize: 16,
+        lineHeight: 25
+    },
+
+    containerStyle: {
+        height: 45,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 4,
+        width: 356,
+
+    }
 
 };
 
 const mapStatetoProps = (state) => {
-    console.log(state.myFar);
+  //  console.log(state.myFar);
     return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons };
 };
 

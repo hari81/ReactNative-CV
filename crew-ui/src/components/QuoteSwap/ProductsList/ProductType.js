@@ -28,8 +28,8 @@ class ProductType extends Component {
                 <TouchableWithoutFeedback onPress={()=>this.setState({productListEnable:!this.state.productListEnable})}>
                     <View style={styles.container}>
                         <Text style={{color:'rgb(255,255,255)', fontSize:16, fontFamily:'HelveticaNeue', paddingBottom:10}}>PRODUCT</Text>
-                        <View style={{width:252,height:42, backgroundColor:'rgb(255,255,255)',flexDirection:'row'}}>
-                            <View style={{width:200,margin:10}}><Text style={{color:'rgb(159,159,159)',fontFamily:'HelveticaNeue', fontSize:16}}>{this.state.productName}</Text></View>
+                        <View style={{width:252,height:50, backgroundColor:'rgb(255,255,255)',flexDirection:'row'}}>
+                            <View style={{width:200,margin:10}}><Text style={{color:'rgb(159,159,159)',fontFamily:'HelveticaNeue', fontSize:14}}>{this.state.productName}</Text></View>
                             <Image source={expandArrow} style={{height:20,width:20,margin:10}}/>
                         </View>
                     </View>

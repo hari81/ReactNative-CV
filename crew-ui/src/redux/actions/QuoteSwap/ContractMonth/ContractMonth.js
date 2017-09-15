@@ -3,6 +3,7 @@ import { REST_API_URL, X_API_KEY } from '../../../../ServiceURLS/index';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
+        dispatch({type:'SPIN_ACTIVE'})
         const url = `${REST_API_URL}api/underlyings?commodity=${code}&cropYear=${year}&sort=contractMonth.month,contractMonth.year`
         return fetch(url, {
             method: 'GET',
@@ -46,7 +47,8 @@ export const quoteSwapUnderlying = (year, code) => {
                                 year: o.contractMonth.year.value,
                                 askPrice: underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].askPrice:0,
                                 bidPrice: underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].bidPrice:0,
-                                underlying:underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].underlying:0
+                                cropCode:code,
+                                cropYear:year
                             };
                         });
                         console.log(contractData);

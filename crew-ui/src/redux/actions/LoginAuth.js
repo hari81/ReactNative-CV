@@ -49,7 +49,7 @@ export const loginUser = ({ saveUser }) => {
                 AsyncStorage.removeItem('userData');
               }
               dispatch({ type: LOGIN_SUCCESS });
-              dispatch({ type: '16CORN', payload: require('../../restAPI/16CORN.json') });
+              //dispatch({ type: '16CORN', payload: require('../../restAPI/16CORN.json') });
 
 
               Actions.main();

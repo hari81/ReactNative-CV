@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Info from '../common/img/Info.png';
 import { showInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
-import { allButtons } from '../../redux/actions/MyFarm/ButtonAction';
+
 import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp } from '../../redux/actions/MyFarm/CropAction';
 class MyFarmTiles extends Component {
     //info button condition check
@@ -33,11 +33,7 @@ class MyFarmTiles extends Component {
      console.log('Id',this.props.cropBut.selectedId);
      const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
      console.log('cropData', cropData);
-        const buttonAction = `${cropData[0].name.toUpperCase()} ${cropData[0].cropYear}`;
-       // const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()} ${this.props.Crops.activeCropYear}`;
-       // this.props.myFarmCropValues(this.props.Crops.activeCommodity.code, this.props.Crops.activeCropYear, buttonAction);
-      //  this.props.myFarmTradeSalesOutSideApp(this.props.Crops.activeCommodity.code,this.props.Crops.activeCropYear);
-       this.props.myFarmCropValues(cropData[0].code,cropData[0].cropYear, buttonAction);
+       this.props.myFarmCropValues(cropData[0].code,cropData[0].cropYear);
          this.props.myFarmTradeSalesOutSideApp(cropData[0].code,cropData[0].cropYear);
 
         Actions.myfarm();
@@ -45,7 +41,7 @@ class MyFarmTiles extends Component {
 
     enterCropDetails = () => {
         const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-        //const buttonAction = `${this.props.Crops.activeCommodity.name.toUpperCase()}${this.props.Crops.activeCropYear}`;
+        this.props.myFarmCropValues(cropData[0].code,cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
         Actions.myfarm({ tradeflag: true });
     }
@@ -192,7 +188,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, {showInfoButtonClick, allButtons, myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp })(MyFarmTiles);
+export default connect(mapStateToProps, {showInfoButtonClick, myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp })(MyFarmTiles);
 
 
 

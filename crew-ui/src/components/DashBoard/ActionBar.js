@@ -22,6 +22,11 @@ class ActionBar extends Component {
 
         this.props.externalGetTransDashboard(cropData[0].code, cropData[0].cropYear);
     }
+    dashboardToPlaceOrder(){
+        const cropcode= this.props.Crops.activeCommodity.code;;
+        const cropyear = this.props.Crops.activeCropYear;
+        Actions.quoteswap({cropcode,cropyear});
+    }
     render(){
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a')
         return(
@@ -94,7 +99,7 @@ class ActionBar extends Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>Actions.quoteswap()}><View style={styles.placeOrderButtonStyle}>
+                <TouchableOpacity onPress={this.dashboardToPlaceOrder.bind(this)}><View style={styles.placeOrderButtonStyle}>
                     <Text style={{fontFamily:'HelveticaNeue-Light', fontSize:18, color:'rgb(255,255,255)'}}>PLACE NEW ORDER NOW</Text>
                 </View></TouchableOpacity>
             </View>

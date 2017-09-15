@@ -10,13 +10,15 @@ import allCrops from './Dashboard/DashButtonsReducer';
 import myFarmButtons from './MyFarm/CropReducer';
 import externalTrades from './External/ExternalTrades';
 import infoButtons from './Dashboard/infobuttonsReducer';
-import selectId from './Dashboard/SelectId';
-import cropButton from './Dashboard/CropButtons';
+import accountDetails from './AccountInfo/AccountInfoReducer';
+//import selectId from './Dashboard/SelectId';
+//import cropButton from './Dashboard/CropButtons';
 import productTypes from './QuoteSwap/ProductType/ProductType';
 import selectcontractMonth from './QuoteSwap/ContractMonth/ContractMonthSelect';
 import contractMonth from './QuoteSwap/ContractMonth/ContractMonthData';
 import cropsButton from './CropButtons/ButtonReducer';
-import selectedProduct from './QuoteSwap/ProductType/SelectedProduct'
+import selectedProduct from './QuoteSwap/ProductType/SelectedProduct';
+
 export default combineReducers({
     auth: AuthReducer,
     vieworder: vieworders,
@@ -24,14 +26,15 @@ export default combineReducers({
     closedPositions: ClosedPositions,
     dashBoardButtons: allCrops,
     info: infoButtons,
-    cropButtons: cropButton,
+   // cropButtons: cropButton,
     cropsButtons: cropsButton,
-    selectedId: selectId,
+   // selectedId: selectId,
     myFar: myFarmButtons,
     external: externalTrades,
     products: productTypes,
     selectedContractMonth: selectcontractMonth,
-    contractMonthData: contractMonth,
-    selectedProductQuoteSwap: selectedProduct
+    contractData: contractMonth,
+    selectedProductQuoteSwap: selectedProduct,
+    account: accountDetails
 });
 

@@ -37,6 +37,18 @@ export const sixthButton = () => {
         payload: require('../../../restAPI/18SOY')
     };
 };
+export const seventh =() => {
+    return {
+        type: '19CORN',
+        payload: require('../../../restAPI/19CORN')
+    };
+}
+export const eighth =() => {
+    return {
+        type: '19SOY',
+        payload: require('../../../restAPI/19SOY')
+    };
+}
 
 export const cropsButton=()=>{
     return {

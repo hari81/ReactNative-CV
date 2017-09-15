@@ -1,31 +1,27 @@
 import base64 from 'base-64';
 import { FETCHING_ORDERS_ACTIVITY, ALL_BUTTONS, SELECT_ID } from '../types';
-import { REST_API_URL } from '../../../ServiceURLS/index';
+import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
 
-//import Data from '../../../restAPI/MyCropButtons.json';
 import Data from '../../../restAPI/get_crops.json';
 export const cropsButtons = () => {
 
     return (dispatch, getState) => {
+        const accountNo = getState().account.accountDetails.defaultAccountId;
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-        const url = REST_API_URL + '';
-        /* return fetch(url, {
+        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}accounts/${accountNo}/crops`;
+        console.log('buttons url', url);
+         return fetch(url, {
              method: 'GET',
              headers: {
                  'Authorization': 'Base ' + base64.encode(getState().email + ':' + getState().password),
                  'x-pai-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb'
              }
          })
-             .then(response => response.json())
+             .then(response => {console.log(response); return response.json()})
 
-             .then(cropValues => {
+             .then(buttonData => { console.log('buttonData',buttonData);
                  //console.log(`cropValues: ${cropValues}`);
-                 if (!Array.isArray(cropValues)) {
-                     return Promise.resolve([]);
-                 }
-                 //cropValues = farmCorn2017;*/
 
-        //dispatch({ type: ALL_BUTTONS, payload: ButtonsData });
         const ButtonsData = [];
         const commodities = Data.commodities;
        // console.log('length', commodities.length);
@@ -41,10 +37,10 @@ export const cropsButtons = () => {
         }
         ButtonsData.sort((a, b) => { return a.cropYear - b.cropYear });
         dispatch({ type: ALL_BUTTONS, payload: ButtonsData });
-        console.log('ButtonsData', ButtonsData);
+        //console.log('ButtonsData', ButtonsData);
 
-        /*  })
-          .catch(error => console.log('error ' + error));*/
+         })
+          .catch(error => console.log('error ' + error));
     };
 };
 
