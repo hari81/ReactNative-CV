@@ -30,16 +30,13 @@ export const externalGetTrans = () => {
 
              .then(tradeValues => {
                //  console.log('tradeValues', tradeValues);
-                 if (tradeValues.trades.length === 0)
-                 {
+                 if (tradeValues.trades.length === 0){
                      tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
                  }
                 if (!Array.isArray(tradeValues.trades)) {
                      //return Promise.resolve([{}]);
                      tradeValues = [{}];
                  }
-
-
         dispatch({ type: EXTERNAL_GET_TRANS, payload: tradeValues });
                 dispatch({ type: EXTERNAL_FLAG, payload: false });
                  Actions.externalsales();
@@ -146,7 +143,7 @@ export const saveExternalTrades = (trades) => {
                 const savedTrades = Object.assign({}, { trades: savedTradeValues });
                 //console.log(savedTrades);
                 dispatch({ type: EXTERNAL_GET_TRANS, payload: savedTrades });
-                Alert.alert('Save Data');
+                Alert.alert('Trade Data Saved Successfully');
             })
             .catch(error => console.log('error ' + error));
     };

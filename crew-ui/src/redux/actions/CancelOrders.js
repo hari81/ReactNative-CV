@@ -1,7 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
-
 import base64 from 'base-64';
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -28,29 +24,7 @@ export const orderReceipt = orderid => {
                     console.log(response);
 
                     Actions.cancelorderreceipt({ orderid: orderid });
-                    //return response.json();
-                    //.then(responseJson => {
-                    //  console.log(responseJson);
-                    /*     switch (response.status) {
-                             case 200:
-                             Actions.cancelorderreceipt({orderid: orderid});
-                             break;
-                             case 404 || 410:
-                             console.log('Order cannot be canceled as it is already completed');
-                             Alert.alert('Orders Can't be deleted');
-                             break;
-                             //Actions.cancelorderreceipt({orderid: orderid});
-                             //dispatch({type: ORDER_NOTDELETED});
-                             case 500:
-                                 console.log('Bad request');
-                                // dispatch({type: INTERNAL_SERVER})
-                                 Alert.alert('Internal Server, Please contact Cargill desk');
-                                 break;
-                             default:
-                                 console.log('None of the case');
 
-                         }*/
-                    // })
                 } else {
                     console.log(response.status);
                     if(response.status === 404 ) {

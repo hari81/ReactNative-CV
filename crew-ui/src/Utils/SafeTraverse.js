@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 export default function safeTraverse(obj, paths = []) {
   let val = obj;
   let idx = 0;

@@ -2,7 +2,6 @@ import { ACCOUNT_INFORMATION } from '../../actions/types';
 
 const INITIAL_STATE = {
     accountDetails: {}
-
 };
 
 export default function (state = INITIAL_STATE, action) {

@@ -1,5 +1,4 @@
-/*jshint esversion: 6 */
-'use strict';
+
 import React from 'react';
 import { TextInput, View } from 'react-native';
 
@@ -20,7 +19,7 @@ const Input = ({
         style={inputStyle}
         value={value}
         onChangeText={onChangeText}
-        autoCorrect = {false}
+        autoCorrect={false}
       />
     </View>
   );

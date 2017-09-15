@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -10,12 +8,9 @@ const CardSection = props =>
 
 const styles = {
   containerStyle: {
-
     padding: 5,
-
     justifyContent: 'flex-start',
     flexDirection: 'row',
-
     position: 'relative'
   }
 };

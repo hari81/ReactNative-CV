@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-'use strict';
 import { AlertIOS } from 'react-native';
 import {
   EMAIL_CHANGED,
@@ -41,7 +39,7 @@ export default (state = INITIAL_STATE, action) => {
       });
     case SERVER_NORESPONSE:
       return Object.assign({}, state, {
-        error: 'No Response from server... Try again'
+        error: 'Network connection failed'
       });
     case USER_SWITCH_CHANGED:
       return Object.assign({}, state, { saveUser: action.payload });

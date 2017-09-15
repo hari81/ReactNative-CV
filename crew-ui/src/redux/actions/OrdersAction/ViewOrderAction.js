@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-'use strict';
 import base64 from 'base-64';
 
 import { REST_API_URL, X_API_KEY } from '../../../ServiceURLS/index';

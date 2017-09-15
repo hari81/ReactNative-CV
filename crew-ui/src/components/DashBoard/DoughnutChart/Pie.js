@@ -1,14 +1,5 @@
-'use strict';
-
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    ART,
-    LayoutAnimation,
-    Dimensions,
-} from 'react-native';
+import { View, ART } from 'react-native';
 const {
     Surface,
     Group,
@@ -36,26 +27,26 @@ class Pie extends React.Component {
 
     createPieChart(index) {
 
-        var arcs = shape.pie()
+        const arcs = shape.pie()
             .value(this.value)
             .startAngle(0)
             .sort(null)
             (this.props.data);
 
-        var hightlightedArc = shape.arc()
+        const hightlightedArc = shape.arc()
             .outerRadius(100)
-            .padAngle(.02)
+            .padAngle(0.02)
             .innerRadius(50);
 
-        var arc = shape.arc()
+        const arc = shape.arc()
             .outerRadius(100)
-            .padAngle(.02)
-            .innerRadius(50)
+            .padAngle(0.02)
+            .innerRadius(50);
 
 
 
-        var arcData = arcs[index];
-        var path = (this.state.highlightedIndex === index) ? hightlightedArc(arcData) : arc(arcData);
+        const arcData = arcs[index];
+        const path = (this.state.highlightedIndex === index) ? hightlightedArc(arcData) : arc(arcData);
 
         return {
             path,

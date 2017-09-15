@@ -1,9 +1,8 @@
-import { ALL_BUTTONS, SELECT_ID  } from '../../actions/types';
+import { ALL_BUTTONS, SELECT_ID } from '../../actions/types';
 
 const INITIAL_STATE = {
     cropButtons: [],
     selectedId: 'C2017'
-
 };
 
 export default function (state = INITIAL_STATE, action) {

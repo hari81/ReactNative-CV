@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
 import vieworders from './OrdersReducer/ViewOrdersReducer';

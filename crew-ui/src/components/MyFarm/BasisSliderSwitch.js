@@ -5,10 +5,10 @@ import { View, Text, Slider, Switch } from 'react-native';
 class BasisSliderSwitch extends Component {
 
 render(){
-    const {estim, basis} = this.props;
-    return(
-        <View style={{ flexDirection: 'row'}}>
-            <View style={{ width: 370, height: 118, backgroundColor: 'rgb(89,108,121)', marginRight: 5, justifyContent: 'space-around', alignItems: 'center'}}>
+    const { estim, basis } = this.props;
+    return (
+        <View style={{ flexDirection: 'row' }}>
+            <View style={{ width: 370, height: 118, backgroundColor: 'rgb(89,108,121)', marginRight: 5, justifyContent: 'space-around', alignItems: 'center' }}>
                 <Text
                     style={{ color: 'white', fontSize: 16 }}
                 >
@@ -22,11 +22,11 @@ render(){
                         <Text style={{ fontSize: 16, color: 'white' }}>$-2.00</Text>
                         <Text style={{ fontSize: 16, color: 'white' }}>$2.00</Text>
                     </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontSize: 25, color: 'white' }}>|</Text>
                         <Slider
                             style={{ width: 325 }}
-                            step={.01}
+                            step={0.01}
                             minimumValue={-2}
                             maximumValue={2}
                             value={estim}
@@ -43,13 +43,13 @@ render(){
                 <Text style={{ color: 'rgb(255,255,255)', fontSize: 10, textAlign: 'center' }}> TOGGLE ON/OFF TO
                     INCLUDE BASIS IN
                     CALCULATIONS </Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 15 }}>
-                    <Text style={{ color: 'rgb(255,255,255)'}}>OFF</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 15 }}>
+                    <Text style={{ color: 'rgb(255,255,255)' }}>OFF</Text>
                     <Switch
                         value={basis}
                         style={{ marginLeft: 5, marginRight: 5 }}
                         onTintColor='#01aca8'
-                        onValueChange ={() => this.props.switchVal(!basis)}
+                        onValueChange={() => this.props.switchVal(!basis)}
 
                     />
                     <Text style={{ color: 'rgb(255,255,255)' }}>ON</Text>

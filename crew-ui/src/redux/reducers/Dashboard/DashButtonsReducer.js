@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 export default function (state = '', action) {
     switch (action.type) {
         case '16CORN':

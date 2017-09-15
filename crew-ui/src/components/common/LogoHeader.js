@@ -1,12 +1,10 @@
-/*jshint esversion: 6 */
-'use strict';
 import React from 'react';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import User from './img/User.png';
 
 const LogoHeader = props => {
-  const { viewStyle, subHeadTextStyle, phNumberStyle, dataStyle } = styles;
+  const { viewStyle, subHeadTextStyle, phNumberStyle } = styles;
   return (
     <View style={viewStyle}>
       <View
@@ -82,7 +80,6 @@ const styles = {
   phNumberStyle: {
     fontSize: 14,
     paddingTop: 8,
-    // paddingLeft: 10,
     color: '#ffffff'
   }
 };

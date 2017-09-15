@@ -6,7 +6,7 @@
       "commodity": {
         "code": "C",
         "name": "Corn",
-        "active": false
+        "active": true
       }
     },
     {
@@ -24,7 +24,7 @@
       "commodity": {
         "code": "C",
         "name": "Corn",
-        "active": true
+        "active": false
       }
     },
     {
@@ -67,10 +67,10 @@
   },
   "actionBar": {
     "todaysPrice": {
-      "price": 3.84,
-      "priceTimestamp": "2017-08-05T16:59:39.966Z",
+      "price": 3.515,
+      "priceTimestamp": "2017-09-14T16:59:39.966Z",
       "contractMonth": {
-        "code": "Z2017",
+        "code": "2017",
         "shortCode": "Z7",
         "month": {
           "value": 12,
@@ -84,19 +84,72 @@
       }
     },
     "openOrders": {
-      "totalQuantity": 30000,
+      "totalQuantity": 400000,
       "totalCount": 15
     },
     "openPositions": {
-      "totalQuantity": 110000,
-      "totalTradeAmount": 415800,
-      "totalCount": 32
+      "totalQuantity": 112016,
+      "totalTradeAmount": 415824,
+      "totalCount": 25
     },
     "externalTrades": {
-      "totalQuantity": 140000,
-      "totalTradeAmount": 549200,
-      "totalCount": 12
+      "totalQuantity": 160000,
+      "totalTradeAmount": 500100,
+      "totalCount": 3
     }
-  }
+  },
+  "myFarmTiles": {
+    "breakEvenPrice":  {
+      "value": 3.70,
+      "info" : "Breakeven price = (Total cost � Value of Hedged Quantity) divided by Remaining Unsold Quantity), (Total Cost = Total Acres * Cost per Acre), (Value of Hedged Quantity = Quantity Hedged * Weighted Average Price) blah blah blah"
+    },
+    "targetPrice":  {
+      "value": 3.95,
+      "info" : "Target price is blah blah blah"
+    },
+    "averagePriceSold":  {
+      "value":  4.00,
+      "info": "Average Price Sold is blah blah blah"
+    },
+    "profitPerAcre":  {
+      "value":  100,
+      "info": "Profit per acre is blah blah blah"
+    },
+    "unhedgedProduction": {
+      "value": 2200000,
+      "info":  "Unhedged Production is blah blah blah"
+    },
+    "basisEstimate":  {
+      "value": -0.15,
+      "info":  "Basis Estimate is blah blah blah",
+      "enabled":  true
+    }
+  },
+  "myFarmProduction":  {
+    "estimatedTotalProduction":  70000,
+    "unhedgedProduction": {
+      "totalQuantity":  40000,
+      "totalTradeAmount":  945000
+    },
+    "openOrders": {
+      "totalQuantity":  30000
+    },
+    "externalTrades":  {
+      "totalQuantity":  10000,
+      "totalTradeAmount":  549200
+    },
+    "openPositions":  {
+      "totalQuantity":  20000,
+      "totalTradeAmount":  415800
+    }
+  },
+  //Trades/sales, openPositions, unhedgedproduction
+  "openClosed":[
+    {"number": 10000 },
+    {"number": 20000},
+    {"number": 40000}
+  ]
+
+
 
 }

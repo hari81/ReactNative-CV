@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -116,7 +114,4 @@ const styles = {
   }
 };
 
-
 export default connect(null, { logOut })(LogoPhoneHeader);
-
-//export { LogoPhoneHeader };

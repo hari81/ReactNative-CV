@@ -1,12 +1,10 @@
-/*jshint esversion: 6 */
-'use strict';
 import base64 from 'base-64';
 import { REST_API_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS } from '../types';
 
 export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
-      dispatch({type: FETCHING_ORDERS_ACTIVITY});
+      dispatch({ type: FETCHING_ORDERS_ACTIVITY });
 
       const url = REST_API_URL + 'api/positions?commodity=' + crop + '&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year';
       console.log(url);
@@ -63,19 +61,13 @@ export const OpenPositionsData = (crop) => {
                       });
                   })
                   .then(openPositions =>
-                      dispatch({type: OPEN_POSITIONS_DATA_SUCCESS, openPositions}));
+                      dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions }));
           })
           .catch(error => {
-                debugger;
+
               console.error("openposit " + error);
 
           });
   }
 };
-/*export function openPositionsDataSuccess(openPositions) {
-  console.log(openPositions);
-  return {
-    type: 'OPEN_POSITIONS_DATA_SUCCESS',
-    openPositions
-  };
-}*/
+

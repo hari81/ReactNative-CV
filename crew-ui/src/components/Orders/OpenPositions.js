@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import React, { Component } from 'react';
 import {
   Text,
@@ -169,8 +166,8 @@ class OpenPositions extends Component {
 
         <View style={styles.buttonview}>
           <TouchableHighlight
-            style={[styles.viewbutton, status === 'pendingUnwind' ? {backgroundColor: '#7FFFD4'}: {}] }
-            disabled = { status === 'pendingUnwind' ? true: false }
+            style={[styles.viewbutton, status === 'pendingUnwind' ? { backgroundColor: '#7FFFD4' } : {}]}
+            disabled={status === 'pendingUnwind'}
             onPress={() => Alert.alert('Unwind will be in progress...')}
             underlayColor='#dddddd'
           >

@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 
 const env = 'velo'; //Please change env constant to switch between environments
 
@@ -35,8 +33,6 @@ export const X_API_KEY = `rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb`;
 //WEB links
 export const PRIVACY = `http://go.cargill.com/CargillPriceHedgingPrivacy`;
 export const TERMS = `http://go.cargill.com/CargillPriceHedgingTerms`;
-
-
 
 
 /*

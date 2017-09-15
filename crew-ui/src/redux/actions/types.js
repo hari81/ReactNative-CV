@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 export const EMAIL_CHANGED = 'email_changed';
 export const PASSWORD_CHANGED = 'password_changed';
 export const USER_SWITCH_CHANGED = 'user_switch_changed';

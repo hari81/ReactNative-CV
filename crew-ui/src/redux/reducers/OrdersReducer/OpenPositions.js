@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import {
     OPEN_POSITIONS_DATA_SUCCESS
 } from '../../actions/types';
