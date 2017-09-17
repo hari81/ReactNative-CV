@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
-
-import { View, Text, Image, ScrollView, TouchableHighlight, DatePickerIOS, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
-import minus from '../components/common/img/Minus.png';
 import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
 import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
 
-
 class ExternalSales extends Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.state = {
             transaction: [{}],
-
+            removeTransaction: []
         };
         this.valueUpdate = this.valueUpdate.bind(this);
     }
@@ -27,9 +23,11 @@ class ExternalSales extends Component {
         this.refs.scrollView.scrollTo({ x: 0, y: this.state.transaction.length * 210, animated: true });
         this.setState({ transaction: [...this.state.transaction, {}] });
     };
+
     valueUpdate(index, val, trans) {
+        // this.refs.scrollView.scrollTo({ x: 0, y: index * 210, animated: true });
         const newTransaction = this.state.transaction.map((t, i) => {
-            if(i === index) {
+            if (i === index) {
                 return Object.assign({}, t, { [trans]: val });
             }
             return t;
@@ -37,66 +35,81 @@ class ExternalSales extends Component {
         //this.setState({ transaction: newTransaction }, () => console.log(this.state.transaction));
         this.setState({ transaction: newTransaction });
     }
+
     componentWillMount() {
-        this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
-    }
-    componentDidMount() {
-        this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
+        this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
     }
 
-    cancelTransaction(index){
-      //  console.log('index',index);
-//
-        let newTransaction = this.state.transaction;
-        if (this.state.transaction[index].active) {
-            newTransaction[index].active = false;
-        }
-        else {
-            newTransaction = this.state.transaction.filter((t, i) => index !== i);
-        }
-        this.setState({ transaction: newTransaction });
+    componentDidMount() {
+        this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
     }
+
+    removeTransaction(index) {
+        console.log('index', index);
+        let newTransaction = this.state.transaction;
+        console.log('flag', this.state.transaction[index].active);
+        if (this.state.transaction[index].active) {
+            const addItem = this.state.removeTransaction;
+            newTransaction[index].active = false;
+            const removeTrans = this.state.transaction.filter((t, i) => index === i);
+            addItem.push(removeTrans[0]);
+            newTransaction = this.state.transaction.filter((t, i) => index !== i);
+            setTimeout(() => {
+                this.setState({ removeTransaction: addItem });
+                this.setState({ transaction: [] });
+                this.setState({ transaction: newTransaction });
+            }, 0);
+        } else {
+            newTransaction = this.state.transaction.filter((t, i) => index !== i);
+            setTimeout(() => {
+                this.setState({ transaction: [] });
+                this.setState({ transaction: newTransaction });
+            }, 0);
+        }
+    }
+
     cancelButtonClick() {
-        this.setState({ transaction: [] });
+        this.setState({ transaction: [], removeTransaction: [] });
         setTimeout(() => {
-            this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.externalGetData.trades || [{}])) });
+            this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
         }, 0);
     }
 
-    saveTransactions()
-    {
+    saveTransactions() {
         const tradeData = this.state.transaction;
-       // console.log(tradeData.length);
+        // console.log(tradeData.length);
         if (tradeData.length > 0) {
             for (let i = 0; i < tradeData.length; i++) {
-                if (tradeData[i].tradeDate === undefined || tradeData[i].tradeDate === '') {
-                    tradeData[i].tradeDate = new Date();
-                }
-                if (tradeData[i].tradeDate === '' || tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' ||
-                    tradeData[i].tradeDate === undefined || tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined ){
-                    Alert.alert('Please fill all mandatory(*) fields before saving the data.');
-                    return;
+                if (tradeData[i].active || tradeData[i].active === undefined) {
+                    if (tradeData[i].tradeDate === undefined || tradeData[i].tradeDate === '') {
+                        tradeData[i].tradeDate = new Date();
+                    }
+                    if (tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' ||
+                        tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined) {
+                        Alert.alert('Please fill all mandatory(*) fields before saving the data.');
+                        return;
+                    }
                 }
             }
-        } else {
+        } else if (this.state.removeTransaction.length === 0) {
             Alert.alert('No transctions to Save .');
             return;
         }
-        this.props.saveExternalTrades(this.state.transaction);
-}
-
+        this.props.saveExternalTrades(this.state.transaction, this.state.removeTransaction);
+        this.setState({ removeTransaction: [] });
+    }
 
     componentWillReceiveProps(nextProps) {
-       this.setState({ transaction: JSON.parse(JSON.stringify(nextProps.extra.externalGetData.trades || [{}])) });
+        this.setState({ transaction: JSON.parse(JSON.stringify(nextProps.extra.tradeData.trades || [{}])) });
     }
-    externalCropYearName()
-    {
+
+    externalCropYearName() {
         const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-        return (cropData[0].name.toUpperCase() + ' ' + cropData[0].cropYear);
+        return (`${cropData[0].name.toUpperCase()} ${cropData[0].cropYear}`);
     }
-    backToDashboardMyfarm = () =>
-    {
-        if(this.props.extra.exflag) {
+
+    backToDashboardMyfarm = () => {
+        if (this.props.extra.exflag) {
             Actions.dashboard();
         } else {
             const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
@@ -104,16 +117,16 @@ class ExternalSales extends Component {
             this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
             Actions.myfarm();
         }
-    }
+    };
 
     render() {
-        console.log('externnal', this.state.transaction);
-        return(
+        // console.log('externnal', this.state.transaction);
+        return (
             <View style={{ width: 1024, height: 768, backgroundColor: 'rgb(29,37,49)' }}>
                 <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
                     <Text style={{ fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5 }}>Close </Text>
                     <TouchableHighlight onPress={this.backToDashboardMyfarm} >
-                    <Image source={cancel} style={{ width: 32, height: 32, marginRight: 23 }} />
+                        <Image source={cancel} style={{ width: 32, height: 32, marginRight: 23 }} />
                     </TouchableHighlight>
                 </View>
 
@@ -144,19 +157,19 @@ class ExternalSales extends Component {
 
                 <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView' removeClippedSubviews>
                     <KeyboardAwareScrollView scrollEnabled={false} resetScrollToCoords={{ x: 0, y: 0 }}>
-                     {this.state.transaction
-                         .filter(item => item.active === undefined || item.active)
-                         .map((item, index) => (<ExternalValues
-                                                        key={index} item={index}
-                                                        onSelectVal={this.valueUpdate.bind(this, index)}
-                                                        cancelTrans={this.cancelTransaction.bind(this, index)}
-                                                        items={item}
-                                                        placeholdervalues={this.props.extra.externalGetData.tradeTemplate}
-                                                />)
-                         )}
+                        {this.state.transaction
+                            .filter(item => item.active === undefined || item.active)
+                            .map((item, index) => (<ExternalValues
+                                    key={index} item={index}
+                                    onSelectVal={this.valueUpdate.bind(this, index)}
+                                    removeTrans={this.removeTransaction.bind(this, index)}
+                                    items={item}
+                                    placeholdervalues={this.props.extra.tradeData.tradeTemplate}
+                                    ref={`ref${index}`}
+                                />)
+                            )}
                     </KeyboardAwareScrollView>
                 </ScrollView>
-
 
                 <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100 }}>
                     <TouchableHighlight
@@ -166,7 +179,7 @@ class ExternalSales extends Component {
                             height: 40,
                             width: 150
                         }}
-                        onPress={ this.cancelButtonClick.bind(this)}
+                        onPress={this.cancelButtonClick.bind(this)}
                     >
                         <View
                             style={{
@@ -175,7 +188,6 @@ class ExternalSales extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}
-
                         >
                             <Text style={{ textAlign: 'center' }}>CANCEL</Text>
                         </View>
@@ -207,9 +219,8 @@ class ExternalSales extends Component {
     }
 }
 const mapStateToProps = (state) => {
-
     return { far: state.myFar, extra: state.external, cropBut: state.cropsButtons };
-}
+};
 
 export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues })(ExternalSales);
 

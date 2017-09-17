@@ -1,9 +1,9 @@
 import React from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, View, Text, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 
 class ExternalNumberInput extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
     render() {
@@ -12,7 +12,7 @@ class ExternalNumberInput extends React.Component {
             val,
             onChangeText,
             placeholder,
-            edit, onfocus, onblur,stylenp, onChange
+            edit, onfocus, onblur, stylenp, onChange
         } = this.props;
 
         return (
@@ -22,13 +22,19 @@ class ExternalNumberInput extends React.Component {
                 <TextInput
                     placeholder={placeholder}
                     style={[styles.inputStyle, stylenp]}
-                    value={val + ''}
+                    value={`${val} `}
                     onChangeText={onChangeText}
                     editable={edit}
                     onFocus={onfocus}
                     onBlur={onblur}
                     onChange={onChange}
                     keyboardType='numeric'
+                    returnKeyType='done'
+                    onKeyPress={(e) => {
+                        if (e.nativeEvent.key === 'Enter') {
+                            Keyboard.dismiss();
+                        }
+                    }}
                 />
             </View>
         );

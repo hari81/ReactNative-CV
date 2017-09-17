@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import App from './components/Welcome';

@@ -24,8 +24,7 @@ export const SAVE_CROP_DATA_LOCALLY = 'save_crop_data_locally';
 
 export const ALL_BUTTONS = 'all_buttons';
 export const SELECT_ID = 'select_id';
-
-export const CROP_TYPE_AND_YEAR = 'crop_type_and_year';
+export const BUTTONS_SPINNER = 'buttons_spinner';
 
 export const EXTERNAL_GET_TRANS = 'external_get_trans';
 export const EXTERNAL_FLAG = 'external_flag';

@@ -10,13 +10,13 @@ import Dimensions from 'Dimensions';
 import {
   LogoHeader,
 } from '../components/common';
-
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
 import { cropDataSave, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 import BasisSliderSwitch from '../components/MyFarm/BasisSliderSwitch';
 import FarmInputFields from '../components/MyFarm/FarmInputFields';
+
  class MyFarm extends Component {
   constructor(props) {
     super(props);
@@ -32,14 +32,14 @@ import FarmInputFields from '../components/MyFarm/FarmInputFields';
   }
 cancelMyFarm = () => {
       Keyboard.dismiss();
-    if(!this.state.tradeflag) {
+    if (!this.state.tradeflag) {
         const cropData = this.props.far.myFarmCropData.cropYear;
     //    console.log(cropData);
         this.setState({
-            acres: cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' acres',
-            profit: '$' + cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre',
-            cost: '$' + cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre',
-            yield: cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' bushels',
+            acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
+            profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
+            cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
+            yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
             estimate: cropData.basis,
             incbasis: cropData.includeBasis,
         });
@@ -54,68 +54,58 @@ cancelMyFarm = () => {
             incbasis: false
         });
     }
-
-}
+};
 cropDataSave = () => {
-    if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '' ) {
+    if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
         Alert.alert('Values are missing, Please make sure fill all TextInputs with Numbers');
         return;
     }
-
     this.props.cropDataSave(this.state);
+    this.setState({ tradeflag: false });
+};
 
-      this.setState({ tradeflag: false });
+externalsales() {
+ this.props.externalGetTrans();
 }
 
-     externalsales()
-     {
-         this.props.externalGetTrans();
+componentWillMount() {
+this.setData(this.props);
+}
 
-     }
+setData =(props) => {
+   // const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+  if (Object.keys(props.far.myFarmCropData).length !== 0) {
+      const cropData = props.far.myFarmCropData.cropYear;
+      if (!cropData) {
+          this.setState({
+              acres: '',
+              profit: '',
+              cost: '',
+              yield: '',
+              estimate: 0,
+              incbasis: false,
+              tradeflag: true
 
-     componentWillMount() {
-      this.setData(this.props);
-    }
+          });
+      } else {
+              this.setState({
+                  acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
+                  profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
+                  cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
+                  yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
+                  estimate: cropData.basis,
+                  incbasis: cropData.includeBasis,
+                  tradeflag: false
+              });
+          }
+      }
+};
 
-        setData =(props) => {
-           // const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-          if (Object.keys(props.far.myFarmCropData).length !== 0) {
-              const cropData = props.far.myFarmCropData.cropYear;
-              if (!cropData) {
-                  this.setState({
-                      acres: '',
-                      profit: '',
-                      cost: '',
-                      yield: '',
-                      estimate: 0,
-                      incbasis: false,
-                      tradeflag: true
-
-                  });
-
-              } else {
-                      this.setState({
-                          acres: cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' acres',
-                          profit: '$' + cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre',
-                          cost: '$' + cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' /per acre',
-                          yield: cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' bushels',
-                          estimate: cropData.basis,
-                          incbasis: cropData.includeBasis,
-                          tradeflag: false
-                      });
-                  }
-
-              }
-
-    }
-
-    componentWillReceiveProps(newProps)
-    {
-        this.setData(newProps);
-    }
+componentWillReceiveProps(newProps) {
+    this.setData(newProps);
+}
 
   render() {
-
     const { width, height } = Dimensions.get('window');
       const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 

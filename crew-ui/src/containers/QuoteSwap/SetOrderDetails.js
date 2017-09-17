@@ -169,10 +169,10 @@ const styles = {
         alignItems: 'center',
         zIndex: -1
     }
-}
+};
 const mapStateToProps = (state) => {
     return { MyFarmProd: state.dashBoardButtons,
         infoState: state.info
     };
-}
+};
 export default connect(mapStateToProps, { hideInfoButtonClick })(SetOrderDetails);

@@ -26,7 +26,7 @@ class ContractMonthSellList extends Component {
     render(){
         const bidPrice = parseFloat(st(this.props, ['item', 'bidPrice'])).toFixed(4);
         return (
-            <TouchableOpacity disabled={this.props.item.id == this.props.id}onPress={() => this.contractMonthSelect(this.props.item.id, this.props.item.bidPrice, this.props.item.askPrice)}>
+            <TouchableOpacity disabled={this.props.item.id === this.props.id}onPress={() => this.contractMonthSelect(this.props.item.id, this.props.item.bidPrice, this.props.item.askPrice)}>
                 <View style={this.props.item.id === this.props.id ? styles.afterButtonPress : styles.beforeButtonPress}>
                     <Text style={this.props.item.id === this.props.id ?
                         { fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' } :

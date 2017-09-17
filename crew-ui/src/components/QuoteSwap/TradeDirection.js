@@ -42,7 +42,7 @@ const styles = {
         marginTop: 10,
         zIndex: -1
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         selectedProduct: state.selectedProductQuoteSwap

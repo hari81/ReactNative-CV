@@ -50,7 +50,7 @@ class LoginForm extends Component {
     const { saveUser } = this.props.auth;
     this.props.loginUser({ saveUser });
       this.props.accountDetails();
-     // this.props.cropsButtons();
+      this.props.cropsButtons();
 
       this.props.thirdButton();
       this.props.productType();

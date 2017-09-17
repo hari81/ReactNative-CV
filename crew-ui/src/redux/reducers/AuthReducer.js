@@ -29,11 +29,9 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { loading: true, error: '' });
     case LOGIN_SUCCESS:
       return Object.assign({}, state, { loading: false, error: '' });
-
     case LOGIN_FAIL:
       return Object.assign({}, state, {
         error: 'Authentication Failed',
-
         message: AlertIOS.alert('Error', 'Invalid Username or Password'),
         loading: false
       });
@@ -43,11 +41,8 @@ export default (state = INITIAL_STATE, action) => {
       });
     case USER_SWITCH_CHANGED:
       return Object.assign({}, state, { saveUser: action.payload });
-
     case LOG_OUT:
       return Object.assign(({}, state, { logout: action.payload }));
-
-
     default:
       return state;
   }

@@ -167,7 +167,7 @@ class ViewOrders extends Component {
 
         <View style={styles.buttonview}>
           <TouchableHighlight
-            style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? {backgroundColor: 'gray'} : {}]}
+            style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? { backgroundColor: 'gray' } : {}]}
 
             onPress={
               orderState.label !== 'PENDING_CANCEL'

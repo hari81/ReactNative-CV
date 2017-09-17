@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import base64 from 'base-64';
@@ -11,14 +8,21 @@ import {
   SERVER_NORESPONSE
 } from './types';
 import { AUTHENTICATE_URL, X_API_KEY } from '../../ServiceURLS/index';
-
+import { doPostFetch } from '../../Utils/FetchApiCalls';
 
 export const loginUser = ({ saveUser }) => {
+    const url = `${AUTHENTICATE_URL}identities/authenticate`;
 
   return (dispatch, getState) => {
     dispatch({ type: LOGIN_USER });
-    const url = `${AUTHENTICATE_URL}identities/authenticate`;
 
+   /*   const authBody = {
+          domain: 'commodityhedging.com',
+          password: getState().auth.password,
+          username: getState().auth.email
+      };
+      console.log(url, authBody, getState().auth.email, getState().auth.password);
+  doPostFetch(url, authBody, getState().auth.email, getState().auth.password)*/
     return fetch(url, {
       method: 'POST',
       headers: {

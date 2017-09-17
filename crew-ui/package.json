@@ -17,6 +17,7 @@
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
     "fetch": "^1.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.12",

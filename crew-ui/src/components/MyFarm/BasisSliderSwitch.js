@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Slider, Switch } from 'react-native';
 
-
 class BasisSliderSwitch extends Component {
-
-render(){
+render() {
     const { estim, basis } = this.props;
     return (
         <View style={{ flexDirection: 'row' }}>

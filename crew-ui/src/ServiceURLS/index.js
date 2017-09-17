@@ -20,20 +20,16 @@ export const DEV2_CROP_EXTERNAL_TRADE_URL = 'https://rj7hg68va5.execute-api.us-e
 export const DEV_UNUSED_URL = 'https://vtbelr7y02.execute-api.us-east-1.amazonaws.com/DEV/';
 
 //Authentication URL
-export const AUTHENTICATE_URL =
-  `https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/qa/`;
+export const AUTHENTICATE_URL = 'https://1yvo5i7uk3.execute-api.us-east-1.amazonaws.com/qa/';
 //Rest qa service
 export const QA_ACCOUNT_EXTERNALTRADES_FARMDATA = 'https://9itz0yke9l.execute-api.us-east-1.amazonaws.com/qa/';
 
 //x-api-key
-export const X_API_KEY = `rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb`;
-
-
+export const X_API_KEY = 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb';
 
 //WEB links
-export const PRIVACY = `http://go.cargill.com/CargillPriceHedgingPrivacy`;
-export const TERMS = `http://go.cargill.com/CargillPriceHedgingTerms`;
-
+export const PRIVACY = 'http://go.cargill.com/CargillPriceHedgingPrivacy';
+export const TERMS = 'http://go.cargill.com/CargillPriceHedgingTerms';
 
 /*
 

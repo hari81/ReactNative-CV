@@ -16,7 +16,7 @@ export default class AnimShape extends React.Component {
         super(props);
         this.state = {
             path: '',
-        }
+        };
     }
 
     componentWillMount() {
@@ -97,7 +97,6 @@ export default class AnimShape extends React.Component {
                 stroke={this.props.color}
                 fill={this.props.color}
             />
-
         );
     }
 }
