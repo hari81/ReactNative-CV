@@ -20,9 +20,8 @@ export const reqestHeaders = new Headers({
     'User-Agent': 'Crew 0.1.0'
 });
 
- function doGetFetch(url, email, password) {
+function doGetFetch(url, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
-    console.log(url, email, password);
     return fetch(url, {
         method: 'GET',
         headers: reqHeaders
@@ -31,7 +30,6 @@ export const reqestHeaders = new Headers({
 
 function doPutFetch(url, body, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
-    console.log(url, email, password);
     return fetch(url, {
         method: 'PUT',
         headers: reqHeaders,
@@ -41,7 +39,14 @@ function doPutFetch(url, body, email, password) {
 
 function doPostFetch(url, body, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
-    console.log(url, email, password);
+    return fetch(url, {
+        method: 'POST',
+        headers: reqHeaders,
+        body: JSON.stringify(body)
+    });
+}
+
+function doLoginPostFetch(url, body) {
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,
@@ -51,14 +56,13 @@ function doPostFetch(url, body, email, password) {
 
 function doDeleteFetch(url, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
-    console.log(url, email, password);
     return fetch(url, {
         method: 'DELETE',
         headers: reqHeaders
     });
 }
 
-export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, baseAuthentication };
+export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, baseAuthentication, doLoginPostFetch };
 
 /*module.exports = function goFetch (url, options) {
     return fetch(url, options)

@@ -10,8 +10,7 @@ export const cropsButtons = () => {
         const accountNo = getState().account.accountDetails.defaultAccountId;
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}accounts/${accountNo}/crops`;
-        console.log('buttons url', url);
-         doGetFetch(url, getState().auth.email, getState().auth.password)
+       return doGetFetch(url, getState().auth.email, getState().auth.password)
              .then(res => { console.log('fetchApi', res); if (res.status === 200) { return res.json(); } })
             .then(resp => console.log(' final res', resp));
     };

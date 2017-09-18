@@ -22,7 +22,7 @@ class ExternalNumberInput extends React.Component {
                 <TextInput
                     placeholder={placeholder}
                     style={[styles.inputStyle, stylenp]}
-                    value={`${val} `}
+                    value={val+''}
                     onChangeText={onChangeText}
                     editable={edit}
                     onFocus={onfocus}

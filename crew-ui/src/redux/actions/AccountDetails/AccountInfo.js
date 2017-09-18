@@ -7,46 +7,20 @@ export const accountDetails = () => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}accounts`;
-        //console.log(url);
-        //console.log(getState().auth.email, getState().auth.password);
-        doGetFetch(url, getState().auth.email, getState().auth.password)
-        /*return fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization:
-                'Basic ' +
-                base64.encode(getState().auth.email + ':' + getState().auth.password),
-                "x-api-key": X_API_KEY,
-
-            }
-        })*/
-            .then(response => /*console.log(response);*/ response.json())
+       return doGetFetch(url, getState().auth.email, getState().auth.password)
+            .then(response => /*console.log(response);*/ response.json(), rej => Promise.reject(rej))
             .then(AccountData => {
-                console.log('AccountData:', AccountData);
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}accounts/${accountNo}/crops`;
-               // console.log(accountUrl);
-                doGetFetch(accountUrl, getState().auth.email, getState().auth.password)
-                /*return fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        Authorization:
-                        'Basic ' +
-                        base64.encode(getState().auth.email + ':' + getState().auth.password),
-                        "x-api-key": X_API_KEY,
-
-                    }
-                })*/
+                return doGetFetch(accountUrl, getState().auth.email, getState().auth.password)
                     .then(response => response.json())
                     .then(Data => {
-                        //console.log('ButtonsData:', Data);
                         const ButtonsData = [];
                         const commodities = Data.commodities;
                         let index = 0;
                         commodities.map(item => {
-                            //const crops = item.crops ;
-                            item.crops.map(year => {
+                                item.crops.map(year => {
                                 ButtonsData[index] = Object.assign({},
                                     { id: item.commodity + year.cropYear, cropYear: year.cropYear, code: item.commodity, name: item.name });
                                 index++;

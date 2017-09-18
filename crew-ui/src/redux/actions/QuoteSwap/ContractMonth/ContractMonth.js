@@ -6,19 +6,8 @@ export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
         dispatch({ type: 'SPIN_ACTIVE' });
         const url = `${REST_API_URL}api/underlyings?commodity=${code}&cropYear=${year}&sort=contractMonth.month,contractMonth.year`;
-        doGetFetch(url, getState().auth.email, getState().auth.password)
-       /* return fetch(url, {
-            method: 'GET',
-            headers: {
-                'x-api-key': X_API_KEY,
-                Authorization:
-                "Basic " +
-                base64.encode(
-                    getState().auth.email + ":" + getState().auth.password
-                ),
-            }
-        })*/
-           .then(response => response.json(), rej => Promise.reject(rej))
+       return doGetFetch(url, getState().auth.email, getState().auth.password)
+            .then(response => response.json(), rej => Promise.reject(rej))
             .then(quoteSwapUnderlyingItems => {
                 //console.log(quoteSwapUnderlyingItems)
                 const symbols = (quoteSwapUnderlyingItems.map(obj => obj.symbol));
@@ -27,27 +16,9 @@ export const quoteSwapUnderlying = (year, code) => {
                     quoteType: 'mkt',
                     underlyings: symbols
                 };
-                doPostFetch(swapUrl, quoteUnderlying, getState().auth.email, getState().auth.password)
-                /*return fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'x-api-key': X_API_KEY,
-                        "Content-Type": "application/json",
-                        Authorization:
-                        "Basic " +
-                        base64.encode(
-                            getState().auth.email + ':' + getState().auth.password
-                        ),
-                    },
-                    body: JSON.stringify({
-                        quoteType: 'mkt',
-                        underlyings: symbols
-                    })
-
-                })*/
-               .then(response => response.json(), rej => Promise.reject(rej))
+               return doPostFetch(swapUrl, quoteUnderlying, getState().auth.email, getState().auth.password)
+                    .then(response => response.json(), rej => Promise.reject(rej))
                     .then(underlyingQuotes => {
-                        console.log('under', underlyingQuotes);
                         const contractData = quoteSwapUnderlyingItems.map((o, i) => {
                             return {
                                 id: i,
@@ -59,16 +30,14 @@ export const quoteSwapUnderlying = (year, code) => {
                                 cropYear: year
                             };
                         }, rej => Promise.reject(rej));
-                        console.log(contractData);
-                        dispatch(contractMonthData(contractData))
+                        dispatch(contractMonthData(contractData));
                     });
             })
             .catch(error => console.log(error));
     };
 };
 export function contractMonthData(contractData) {
-    //console.log(contractData)
-    return {
+       return {
         type: 'CONTRACT_MONTH_DATA',
         payload: contractData
     };

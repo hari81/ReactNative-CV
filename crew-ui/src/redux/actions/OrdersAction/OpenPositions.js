@@ -9,34 +9,17 @@ export const OpenPositionsData = (crop) => {
       const url = `${REST_API_URL}api/positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
      // console.log(url);
       reqHeaders.append('Authorization', baseAuthentication(getState().auth.email, getState().auth.passwor));
-     // doGetFetch(url, getState().auth.email, getState().auth.password)
-      return fetch(
-          url,
-          {
-              method: 'GET',
-              headers: reqHeaders
-          }
-      )
+     return doGetFetch(url, getState().auth.email, getState().auth.password)
           .then(response => response.json())
           .then(opens => {
-              //dispatch(openPositionsDataSuccess(openPositions))
-              //console.log('Opnes:' + opens);
               if (!Array.isArray(opens)) {
                   dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions:[] });
-                   //return Promise.resolve([]);
                }
               return Promise.all(
                   opens.map(items => {
-                      //console.log(items.lines[0].underlying)
-                      const underlyingURL = `${REST_API_URL}api/underlyings/${items.lines[0].underlying}`;
-                     // doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
-                      return fetch(underlyingURL,
-                          {
-                              method: 'GET',
-                              headers: reqHeaders
-                          }
-                      )
-                          .then(response => response.json());
+                     const underlyingURL = `${REST_API_URL}api/underlyings/${items.lines[0].underlying}`;
+                     return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
+                     .then(response => response.json());
                   })
               )
                   .then(res => {

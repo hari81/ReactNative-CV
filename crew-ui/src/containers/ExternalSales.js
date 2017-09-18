@@ -45,9 +45,7 @@ class ExternalSales extends Component {
     }
 
     removeTransaction(index) {
-        console.log('index', index);
         let newTransaction = this.state.transaction;
-        console.log('flag', this.state.transaction[index].active);
         if (this.state.transaction[index].active) {
             const addItem = this.state.removeTransaction;
             newTransaction[index].active = false;
@@ -69,6 +67,7 @@ class ExternalSales extends Component {
     }
 
     cancelButtonClick() {
+        this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
         this.setState({ transaction: [], removeTransaction: [] });
         setTimeout(() => {
             this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });

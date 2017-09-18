@@ -6,35 +6,19 @@ export const ClosedPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
       const url = `${REST_API_URL}api/positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
-       // console.log(url);
-      reqHeaders.append('Authorization', baseAuthentication(getState().auth.email, getState().auth.passwor));
-    return fetch(url, {
-        method: 'GET',
-        headers: reqHeaders
-      }
-    )
-   // doGetFetch(url, getState().auth.email, getState().auth.password)
+      return doGetFetch(url, getState().auth.email, getState().auth.password)
       .then(response => response.json(), rej => Promise.reject(rej))
       .then(closed => {
-        //console.log(`closed: ${closed}`);
-          if (!Array.isArray(closed)) {
+            if (!Array.isArray(closed)) {
               return Promise.resolve([]);
           }
-          //console.log(closed);
-        return Promise.all(
+          return Promise.all(
           closed.map(items => {
-            //console.log(items.lines[0].underlying);
-              const underlyingURL = `${REST_API_URL}api/underlyings/${items.lines[0].underlying}`;
-            //  doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
-            return fetch(underlyingURL,
-              {
-                method: 'GET',
-                headers: reqHeaders
-              }
-            )
-                .then(response => response.json());
+            const underlyingURL = `${REST_API_URL}api/underlyings/${items.lines[0].underlying}`;
+            return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
+             .then(response => response.json());
           }))
-          .then(res => { //console.log('Underlying res',res);
+          .then(res => {
             return closed.map((item, index) => {
               return Object.assign({}, item, {
                 underlyingObjectData: res[index]

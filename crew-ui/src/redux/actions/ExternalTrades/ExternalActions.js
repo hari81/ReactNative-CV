@@ -12,20 +12,9 @@ export const externalGetTrans = () => {
         const cropYear = cropButData[0].cropYear;
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
-        //  console.log(url);
-        doGetFetch(url, getState().auth.email, getState().auth.password)
-       /* return fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization:
-                'Basic ' +
-                base64.encode(getState().auth.email + ':' + getState().auth.password),
-                'x-api-key': X_API_KEY
-            }
-        })*/
+        return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json())
             .then(tradeValues => {
-                //  console.log('tradeValues', tradeValues);
                 if (tradeValues.trades.length === 0) {
                     tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
                 }
@@ -42,28 +31,13 @@ export const externalGetTrans = () => {
 };
 
 export const externalGetTransDashboard = (commodityCode, cropYear) => {
-
     return (dispatch, getState) => {
-        //const commodityCode = getState().myFar.myFarmCropData.code;
-        //const cropYear = getState().myFar.myFarmCropData.name.slice(-4);
-
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
-        //  console.log(url);
-        doGetFetch(url, getState().auth.email, getState().auth.password)
-       /* return fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization:
-                'Basic ' +
-                base64.encode(getState().auth.email + ':' + getState().auth.password),
-                'x-api-key': X_API_KEY
-            }
-        })*/
+        return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json())
             .then(tradeValues => {
-                // console.log('tradeValues', tradeValues);
                 if (tradeValues.trades.length === 0) {
                     tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
                 }
@@ -102,27 +76,11 @@ export const saveExternalTrades = (newTrades, removedTrades) => {
                     return Object.assign({}, item, tradeSetRemoveData(oldTradeData[0]));
             }
         });
-        //console.log('Trade Data', tradeValues);
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
-        // console.log(url);
-        doPutFetch(url, tradeValues, getState().auth.email, getState().auth.password)
-       /* return fetch(url, {
-            method: 'PUT',
-            headers: {
-                Authorization:
-                'Basic ' +
-                base64.encode(getState().auth.email + ':' + getState().auth.password),
-                'x-api-key': X_API_KEY,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(tradeValues)
-
-        })*/
+        return doPutFetch(url, tradeValues, getState().auth.email, getState().auth.password)
             .then(response => response.json())
             .then(savedTradeValues => {
-                //console.log('savedTradeValues', savedTradeValues);
                 const savedTrades = Object.assign({}, { trades: savedTradeValues });
-                //console.log(savedTrades);
                 dispatch({ type: EXTERNAL_GET_TRANS, payload: savedTrades });
                 Alert.alert('Trade Data Saved Successfully');
             })

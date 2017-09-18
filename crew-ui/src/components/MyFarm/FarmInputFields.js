@@ -41,12 +41,10 @@ class FarmInputFields extends Component {
         switch (refName) {
             case 'profits':
                 if (this.props.pro.slice(-4) === 'acre') {
-                    console.log('hello1');
-                    if (this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 10)).trim().length <= 7) {
+                     if (this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 10)).trim().length <= 7) {
                         this.props.updateProValue(
                            this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 10)).trim());
                     } else {
-                        console.log('hello2');
                         this.props.updateProValue(
                             this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, 8).trim());
                     }
