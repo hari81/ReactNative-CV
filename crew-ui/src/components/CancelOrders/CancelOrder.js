@@ -1,13 +1,8 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import React, { Component } from 'react';
 import {
   Text,
   View,
   Switch,
-  Image,
-  AlertIOS,
   TouchableHighlight,
   StatusBar
 } from 'react-native';
@@ -28,19 +23,16 @@ class CancelOrder extends Component {
 
   onBackToOrders() {
     Actions.orders();
-
   }
   cancelOrder() {
-
     this.props.orderReceipt(this.props.orderId);
-
   }
  /* toggleSwitch = value => {
     this.setState({ switchValue: value });
   };*/
 
   render() {
-    const { width, height } = Dimensions.get('window');
+    const { width } = Dimensions.get('window');
 
     return (
       <View style={styles.containerStyle}>
@@ -172,7 +164,7 @@ class CancelOrder extends Component {
                       ]} */}
                     <Text
 
-                        style = {[styles.textStyle,{color:'white'} ]}
+                        style={[styles.textStyle, { color: 'white' }]}
                     >
                       CANCEL ORDER NOW
                     </Text>
@@ -244,10 +236,7 @@ const styles = {
   }
 };
 
-
-
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({  orderReceipt }, dispatch);
+  return bindActionCreators({ orderReceipt }, dispatch);
 };
-
 export default connect(null, mapDispatchToProps)(CancelOrder);

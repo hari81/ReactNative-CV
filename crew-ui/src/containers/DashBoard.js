@@ -1,5 +1,3 @@
-///*jshint esversion:6 */
-"use strict"
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import Dimensions from 'Dimensions';
@@ -12,17 +10,17 @@ import MyFarmProduction from '../components/DashBoard/MyFarmProduction';
 class DashBoard extends Component {
 
     render() {
-        const { width, height } = Dimensions.get('window');
+        const { width } = Dimensions.get('window');
         return (
             <View >
-                <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20}}/>
+                <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
                 <LogoHomeHeader />
-                <View style={{backgroundColor:'rgb(239,244,247)'}}>
-                    <View style={{ height:83, width:1024,backgroundColor:'rgb(64,78,89)'}}/>
-                    <MyFarmTiles/>
-                    <MyFarmProduction/>
+                <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
+                    <View style={{ height: 83, width: 1024, backgroundColor: 'rgb(64,78,89)' }} />
+                    <MyFarmTiles />
+                    <MyFarmProduction />
                     <ActionBar />
-                    <MyCropButton/>
+                    <MyCropButton />
                 </View>
             </View>
         );

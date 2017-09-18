@@ -1,11 +1,8 @@
 import base64 from 'base-64';
 import { ACCOUNT_INFORMATION , ALL_BUTTONS } from '../types';
-import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA, X_API_KEY} from '../../../ServiceURLS/index';
-
+import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA, X_API_KEY } from '../../../ServiceURLS/index';
 
 //import mockAccountData from '../../../restAPI/get_account.json';
-
-
 export const accountDetails = () => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });

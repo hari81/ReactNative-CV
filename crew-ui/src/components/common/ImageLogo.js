@@ -1,16 +1,14 @@
-/*jshint esversion: 6 */
-'use strict';
 import { Image, View, Text } from 'react-native';
 import React from 'react';
 
 const ImageLogo = () =>
-  <View style={styles.imageContainer}>
+    (<View style={styles.imageContainer}>
     <Image
       source={require('./img/cargillLogoWhite3.png')}
       style={styles.logoStyle}
     />
     <Text style={styles.textStyle}>Price Hedging</Text>
-  </View>;
+  </View>);
 
 const styles = {
   imageContainer: {

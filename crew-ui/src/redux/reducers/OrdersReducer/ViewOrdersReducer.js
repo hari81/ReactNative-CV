@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 import {
   FETCHING_ORDERS_ACTIVITY,
   DROP_DOWN_VALUES,

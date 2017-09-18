@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import base64 from 'base-64';
 import { REST_API_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS } from '../types';
@@ -29,6 +26,7 @@ export const ClosedPositionsData = (crop) => {
           if (!Array.isArray(closed)) {
               return Promise.resolve([]);
           }
+          console.log(closed);
         return Promise.all(
           closed.map(items => {
             //console.log(items.lines[0].underlying);
@@ -47,15 +45,18 @@ export const ClosedPositionsData = (crop) => {
             ).then(response => response.json());
           })
         )
-          .then(res => {
+          .then(res => { //console.log('Underlying res',res);
             return closed.map((item, index) => {
+
               return Object.assign({}, item, {
-                underlyingObjectData: res[index]
+                underlyingObjectData:  res[index]
               });
             });
           })
-          .then(closedPositions =>
-            dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, closedPositions }));
+          .then(closedPositions => {
+          const newClosed = closedPositions.filter(item => Object.keys(item.underlyingObjectData).length !== 0);
+            dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: newClosed });
+          });
       })
       .catch(error => console.log(error));
   };

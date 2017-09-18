@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 export const firstButton = () => {
     return {
         type: '16CORN',
@@ -37,20 +34,20 @@ export const sixthButton = () => {
         payload: require('../../../restAPI/18SOY')
     };
 };
-export const seventh =() => {
+export const seventh = () => {
     return {
         type: '19CORN',
         payload: require('../../../restAPI/19CORN')
     };
 }
-export const eighth =() => {
+export const eighth = () => {
     return {
         type: '19SOY',
         payload: require('../../../restAPI/19SOY')
     };
 }
 
-export const cropsButton=()=>{
+export const cropsButton = ()  =>{
     return {
         type:'CROP_BUTTON',
         payload: require('../../../restAPI/CropsButton')

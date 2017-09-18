@@ -1,7 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
-
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,

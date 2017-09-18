@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -32,9 +30,8 @@ class ViewOrders extends Component {
     const unit = st(underlyingObject, ['commodity', 'unit']);
     const targetPrice = this.props.item.targetPrice || 0;
 
-    let d = new Date(createTime);
-    let strDate =
-      d.getFullYear() +
+    const d = new Date(createTime);
+    const strDate = d.getFullYear() +
       '-' +
       ('0' + (d.getMonth() + 1)).slice(-2) +
       '-' +
@@ -45,8 +42,8 @@ class ViewOrders extends Component {
       ('0' + d.getMinutes()).slice(-2) +
       ':' +
       ('0' + d.getSeconds()).slice(-2);
-    let utcdate = new Date(createTime);
-    let offset = new Date().getTimezoneOffset();
+    const utcdate = new Date(createTime);
+    const offset = new Date().getTimezoneOffset();
     utcdate.setMinutes(utcdate.getMinutes() - offset);
     //let strDate = utcdate.getFullYear()+ '-' +utcdate.getMonth() +'-' +utcdate.getDate()  +' ' + utcdate.toLocaleTimeString();
    // console.log('CST' + utcdate);
@@ -184,7 +181,7 @@ class ViewOrders extends Component {
                     })
                 : () => {}
             }
-            disabled = {orderState.label === 'PENDING_CANCEL'  ? true : false}
+            disabled={orderState.label === 'PENDING_CANCEL'}
 
             underlayColor='#dddddd'
           >

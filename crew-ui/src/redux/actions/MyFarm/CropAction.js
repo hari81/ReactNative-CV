@@ -1,6 +1,3 @@
-/* jshint esversion: 6*/
-'use strict';
-
 import base64 from 'base-64';
 import { MY_FARM_CROP_VALUES, CROP_TYPE_AND_YEAR, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY } from '../types';
 import { DEV_REST_API_URL, X_API_KEY, QA_ACCOUNT_EXTERNALTRADES_FARMDATA,  } from '../../../ServiceURLS/index';
@@ -60,7 +57,7 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
                 {
 
                     return {};
-                }else {
+                } else {
 
                     return response.json();
                 }
@@ -81,8 +78,7 @@ export const cropDataSave = (cropValues) => {
     return (dispatch, getState) => {
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
-      //  console.log(cropValues);
-        // console.log('id', getState().myFar.myFarmCropData.cropYear.id);
+
         const uCost = cropValues.cost.slice(-4) === 'acre' ?
             cropValues.cost.slice(1, (cropValues.cost.length - 10)) : cropValues.cost;
         const uProfitGoal = cropValues.profit.slice(-4) === 'acre' ?
@@ -93,9 +89,7 @@ export const cropDataSave = (cropValues) => {
             cropValues.acres.slice(0, (cropValues.acres.length - 6)) : cropValues.acres;
         //const url = `${DEV_CROP_EXTERNAL_TRADE_URL}cropData/519/${code}/${cropValues.selectedButton.slice(-4)}`;
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}cropData/${accountNo}/${cropButData[0].code}/${cropButData[0].cropYear}`;
-        //console.log('url', url);
-       // console.log('Post Values', aPlanted, uCost, uProfitGoal, eYield);
-        if (getState().myFar.myFarmCropData.cropYear === null) {
+         if (getState().myFar.myFarmCropData.cropYear === null) {
             return fetch(url, {
                 method: 'POST',
                 headers: {
@@ -124,7 +118,7 @@ export const cropDataSave = (cropValues) => {
 
                     if (response.status === 201) {
                        // console.log('Data Saved');
-                        Alert.alert("Data Saved Successfully");
+                        Alert.alert('Data Saved Successfully');
                         return response.json();
                     }
                 })
@@ -180,7 +174,7 @@ export const cropDataSave = (cropValues) => {
 
                     if (response.ok) {
                      //   console.log('Data Saved');
-                        Alert.alert("Data Saved Successfully");
+                        Alert.alert('Data Saved Successfully');
                         return response.json();
                     }
                 })

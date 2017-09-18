@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight, Linking } from 'react-native';
 

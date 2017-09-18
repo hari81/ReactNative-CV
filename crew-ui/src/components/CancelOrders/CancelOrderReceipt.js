@@ -1,8 +1,5 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import React, { Component } from 'react';
-import { Text, View, Image, AlertIOS, StatusBar } from 'react-native';
+import { Text, View, Image, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import { LogoHeader, OrderButton } from '../common/index';
@@ -18,7 +15,7 @@ class CancelOrderReceipt extends Component {
       Actions.orders();
   }
   render() {
-    const { width, height } = Dimensions.get('window');
+    const { width } = Dimensions.get('window');
     return (
       <View style={styles.containerStyle}>
         <StatusBar barStyle='light-content' />
@@ -26,7 +23,7 @@ class CancelOrderReceipt extends Component {
         <View
           style={{
             backgroundColor: 'black',
-            width: width,
+            width,
             height: 20
           }}
         />

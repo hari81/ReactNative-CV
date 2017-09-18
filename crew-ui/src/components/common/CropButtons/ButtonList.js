@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import { myFarmCropValues, myFarmTradeSalesOutSideApp
 } from '../../../redux/actions/MyFarm/CropAction';
 import { firstButton, secondButton,
     thirdButton, fourthButton, fifthButton, sixthButton, seventh, eighth
 } from '../../../redux/actions/Dashboard/DashBoardButtonsAction';
 import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
-import { selectId } from '../../../redux/actions/CropButtons/ButtonAction'
+import { selectId } from '../../../redux/actions/CropButtons/ButtonAction';
+
 class ButtonList extends Component {
 
-    buttonPress(year, code, id, name) {
-        this.props.quoteSwapUnderlying(year,code);
+    buttonPress(year, code, id) {
+        this.props.quoteSwapUnderlying(year, code);
         //contractMonthAction
         // this.props.quoteSwapUnderlying(year,code);
         //LIVE DATA FETCH... No need of switch statement.. Only one fetch...
@@ -22,7 +23,7 @@ class ButtonList extends Component {
         //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`);
 
         //DashboardAction
-        const cropAndYear = `${year}${code}`
+        const cropAndYear = `${year}${code}`;
         switch (cropAndYear) {
             case '2019S':
                 this.props.eighth();
@@ -43,7 +44,6 @@ class ButtonList extends Component {
                 this.props.seventh();
         }
         //myFarmAction
-        // const cropNameAndYear = `${name.toUpperCase()} ${year}`;
         this.props.myFarmCropValues(code, year);
         this.props.myFarmTradeSalesOutSideApp(code, year);
     }
@@ -56,18 +56,22 @@ class ButtonList extends Component {
                         <Text
                             style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
                                 color: 'rgb(82,97,115)',
-                                fontSize: 16
-                            }}>{cropYear}</Text>
+                                fontSize: 16 }}
+                        >
+                            {cropYear}</Text>
                         <Text
                             style={id === this.props.id ? { color: 'white', fontSize: 24 } : {
                                 color: 'rgb(82,97,115)',
                                 fontFamily: 'HelveticaNeue',
                                 fontSize: 24
-                            }}>{name.toUpperCase()}</Text>
-                        <Text style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
+                            }}
+                        >{name.toUpperCase()}</Text>
+                        <Text
+                            style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
                             color: 'rgb(159,169,186)',
                             fontSize: 14
-                        }}>Crop</Text>
+                        }}
+                        >Crop</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -90,11 +94,21 @@ const styles = {
 const mapStateToProps = state => {
     return {
         id: state.cropsButtons.selectedId
-
     };
 }
 const matchDispatchToProps = (dispatch) => {
-    return bindActionCreators({ secondButton, firstButton, thirdButton, fourthButton,
-        fifthButton, sixthButton, seventh, eighth,selectId,myFarmCropValues,myFarmTradeSalesOutSideApp,quoteSwapUnderlying}, dispatch)
-}
+    return bindActionCreators({ secondButton,
+        firstButton,
+        thirdButton,
+        fourthButton,
+        fifthButton,
+        sixthButton,
+        seventh,
+        eighth,
+        selectId,
+        myFarmCropValues,
+        myFarmTradeSalesOutSideApp,
+        quoteSwapUnderlying
+    }, dispatch);
+};
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);

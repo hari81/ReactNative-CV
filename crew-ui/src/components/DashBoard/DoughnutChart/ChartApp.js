@@ -1,17 +1,7 @@
-'use strict';
-
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Text,
-    TouchableWithoutFeedback,
-    View,
-} from 'react-native';
-
-
-import Pie from './Pie';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-
+import Pie from './Pie';
 
 class ChartApp extends Component {
     constructor(props) {
@@ -19,11 +9,10 @@ class ChartApp extends Component {
         this.state = {
             activeIndex: ''
         };
-
     }
 
-    onPieItemSelected(newIndex){
-        this.setState({...this.state, activeIndex: newIndex});
+    onPieItemSelected(newIndex) {
+        this.setState({ ...this.state, activeIndex: newIndex });
     }
 
     render() {
@@ -40,9 +29,9 @@ class ChartApp extends Component {
         );
     }
 }
-const mapStateToProps=(state)=>{
+const mapStateToProps = (state) => {
     return {
-        data:state.dashBoardButtons.openClosed
+        data: state.dashBoardButtons.openClosed
     }
 }
 

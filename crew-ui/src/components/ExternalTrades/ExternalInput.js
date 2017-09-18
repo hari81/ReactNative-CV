@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 
@@ -8,7 +6,7 @@ const ExternalInput = ({
                    value,
                    onChangeText,
                    placeholder,
-                   secureTextEntry, edit ,focus, onblur
+                   secureTextEntry, edit , focus, onblur
                }) => {
     const { inputStyle, containerStyle } = styles;
 
@@ -21,10 +19,10 @@ const ExternalInput = ({
                 style={inputStyle}
                 value={value}
                 onChangeText={onChangeText}
-                autoCorrect = {false}
+                autoCorrect={false}
                 editable={edit}
-                onFocus = {focus}
-                onBlur = {onblur}
+                onFocus={focus}
+                onBlur={onblur}
             />
         </View>
     );

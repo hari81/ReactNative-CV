@@ -8,9 +8,9 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
-import {connect} from 'react-redux';
-import {contractMonthSelect} from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
-class ContractMonthBuyList extends Component{
+import { connect } from 'react-redux';
+import { contractMonthSelect } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
+class ContractMonthBuyList extends Component {
     /*contractMonthSelect(id){
          this.props.contractMonthSelect(id);
      }
@@ -32,39 +32,38 @@ class ContractMonthBuyList extends Component{
              </TouchableOpacity>
          )
      }*/
-    render(){
-        return(
-            <Text style={{fontSize:60}}>{this.props.item.askPrice}</Text>
-        )
+    render() {
+        return (
+            <Text style={{ fontSize: 60 }}>{this.props.item.askPrice}</Text>
+        );
     }
 }
-const styles={
-    beforeButtonPress:{
-        width:80,
-        height:48,
-        backgroundColor:'rgb(147,204,196)',
-        marginLeft:5,
-        marginTop:5,
-        justifyContent:'center',
-        alignItems:'center'
+const styles = {
+    beforeButtonPress: {
+        width: 80,
+        height: 48,
+        backgroundColor: 'rgb(147,204,196)',
+        marginLeft: 5,
+        marginTop: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
 
     },
-    afterButtonPress:{
-        width:80,
-        height:48,
-        backgroundColor:'rgb(39,153,137)',
-        marginLeft:5,
-        marginTop:5,
-        justifyContent:'center',
-        alignItems:'center'
+    afterButtonPress: {
+        width: 80,
+        height: 48,
+        backgroundColor: 'rgb(39,153,137)',
+        marginLeft: 5,
+        marginTop: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
 
     }
 
 }
 const mapStateToProps = state => {
     return {
-        id:state.selectedContractMonth
-
+        id: state.selectedContractMonth
     };
-}
-export default connect(mapStateToProps, {contractMonthSelect})(ContractMonthBuyList);
+};
+export default connect(mapStateToProps, { contractMonthSelect })(ContractMonthBuyList);

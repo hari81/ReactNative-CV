@@ -1,11 +1,7 @@
-/* jshint esversion: 6 */
-'use strict';
-
-import { ALL_BUTTONS, MY_FARM_CROP_VALUES, CROP_TYPE_AND_YEAR, MY_FARM_CROP_VALUES_SUMMARY,SAVE_CROP_DATA_LOCALLY } from '../../actions/types';
+import { ALL_BUTTONS, MY_FARM_CROP_VALUES, CROP_TYPE_AND_YEAR, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY } from '../../actions/types';
 
 const INITIAL_STATE = {
     myFarmCropData: {},
-   // allCropButtons: [],
     cropValuesSummary: {}
 
 };
@@ -18,12 +14,12 @@ export default function (state = INITIAL_STATE, action) {
      //   case ALL_BUTTONS:
      //      return Object.assign({}, state, { allCropButtons: action.payload });
         case MY_FARM_CROP_VALUES_SUMMARY:
-            return Object.assign({},state, {cropValuesSummary: action.payload});
+            return Object.assign({}, state, { cropValuesSummary: action.payload });
         case SAVE_CROP_DATA_LOCALLY:
-            return Object.assign({}, state, myFarmCropData);
+            return Object.assign({}, state, { myFarmCropData: action.payload });
 
         default:
             return state;
     }
-};
+}
 

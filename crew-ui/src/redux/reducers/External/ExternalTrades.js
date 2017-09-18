@@ -1,8 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
-
-
 import { EXTERNAL_GET_TRANS, EXTERNAL_FLAG } from '../../actions/types';
 
 const INITIAL_STATE = {

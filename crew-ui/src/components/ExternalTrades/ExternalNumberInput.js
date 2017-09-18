@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
@@ -25,13 +22,13 @@ class ExternalNumberInput extends React.Component {
                 <TextInput
                     placeholder={placeholder}
                     style={[styles.inputStyle, stylenp]}
-                    value={val+''}
+                    value={val + ''}
                     onChangeText={onChangeText}
                     editable={edit}
-                    onFocus = {onfocus}
-                    onBlur = {onblur}
-                    onChange = {onChange}
-                    keyboardType = 'numeric'
+                    onFocus={onfocus}
+                    onBlur={onblur}
+                    onChange={onChange}
+                    keyboardType='numeric'
                 />
             </View>
         );
@@ -51,7 +48,7 @@ const styles = {
         fontSize: 15,
         lineHeight: 20,
         backgroundColor: 'white',
-        borderRadius:5
+        borderRadius: 5
     },
     labelStyle: {
         fontSize: 15,

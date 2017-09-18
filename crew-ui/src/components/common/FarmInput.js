@@ -1,10 +1,9 @@
-/*jshint esversion: 6 */
-'use strict';
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, Keyboard } from 'react-native';
+//import dismissKeyboard from 'react-native-dismiss-keyboard';
 import PropTypes from 'prop-types';
 
-const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, onfocus}) => {
+const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, onfocus }) => {
   const { inputStyle, containerStyle } = styles;
 
   return (
@@ -15,11 +14,16 @@ const FarmInput = ({ value, onChangeText, placeholder, secureTextEntry, onblur, 
         style={inputStyle}
         value={value}
         onChangeText={onChangeText}
-        onBlur = {onblur}
-        onFocus = {onfocus}
-        keyboardType = 'numeric'
-        placeholderTextColor = 'rgba(61,76,87, .5)'
-
+        onBlur={onblur}
+        onFocus={onfocus}
+        keyboardType='numeric'
+        placeholderTextColor='rgba(61,76,87, .5)'
+        maxLength={100}
+        returnKeyType="done"
+        onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') {
+          Keyboard.dismiss();
+        }
+        }}
       />
     </View>
   );

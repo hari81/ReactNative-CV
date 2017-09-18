@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-'use strict';
-
 import React, { Component } from 'react';
 import { Text, View, Switch, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
