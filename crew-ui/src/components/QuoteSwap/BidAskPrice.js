@@ -39,7 +39,7 @@ const styles = {
         position: 'absolute',
         zIndex: -1
     }
-}
+};
 const mapStateToProps = state => {
     return {
         bidPrice: state.selectedContractMonth.bidprice,

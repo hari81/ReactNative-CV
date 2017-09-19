@@ -55,11 +55,11 @@ const styles = {
         marginTop: 88,
 
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         products: state.products,
         selectedProduct: state.selectedProductQuoteSwap
     };
-}
+};
 export default connect(mapStateToProps, null)(ProductType);

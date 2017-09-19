@@ -27,7 +27,7 @@ class ContractMonth extends Component {
         />);
     }
     componentWillReceiveProps() {
-        this.setState({ timeNow:moment().format('MMM Do YYYY, h:mm a') });
+        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
     }
 
     onUpdate(timeNow) {
@@ -59,11 +59,11 @@ const styles = {
         marginTop: 16,
         zIndex: -1
     }
-}
+};
 const mapStateToProps = state => {
     return {
         contractMonth: state.contractData
 
     };
-}
+};
 export default connect(mapStateToProps, { quoteSwapUnderlying })(ContractMonth);

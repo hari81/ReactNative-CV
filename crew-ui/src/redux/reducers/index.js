@@ -8,8 +8,6 @@ import myFarmButtons from './MyFarm/CropReducer';
 import externalTrades from './External/ExternalTrades';
 import infoButtons from './Dashboard/infobuttonsReducer';
 import accountDetails from './AccountInfo/AccountInfoReducer';
-//import selectId from './Dashboard/SelectId';
-//import cropButton from './Dashboard/CropButtons';
 import productTypes from './QuoteSwap/ProductType/ProductType';
 import selectcontractMonth from './QuoteSwap/ContractMonth/ContractMonthSelect';
 import contractMonth from './QuoteSwap/ContractMonth/ContractMonthData';
@@ -23,9 +21,7 @@ export default combineReducers({
     closedPositions: ClosedPositions,
     dashBoardButtons: allCrops,
     info: infoButtons,
-   // cropButtons: cropButton,
     cropsButtons: cropsButton,
-   // selectedId: selectId,
     myFar: myFarmButtons,
     external: externalTrades,
     products: productTypes,

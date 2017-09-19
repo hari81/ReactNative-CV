@@ -103,7 +103,7 @@ class ActionBar extends Component {
                     <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
                 </View></TouchableOpacity>
             </View>
-        )
+        );
     }
 }
 const styles = {
@@ -141,8 +141,6 @@ const mapStateToProps = state => {
     return {
         Crops: state.dashBoardButtons,
         cropBut: state.cropsButtons
-
-
     };
 };
 

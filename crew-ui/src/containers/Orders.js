@@ -60,7 +60,6 @@ class Orders extends Component {
 
 
     refreshData = () => {
-
         const crop = this.state.Crop;
         switch (this.state.selectedTab) {
             case 'Orders':
@@ -74,9 +73,9 @@ class Orders extends Component {
                 break;
             default:
                 console.log('Something wrong');
-        };
+        }
+    };
 
-    }
   dropDown(cropCode) {
    // console.log(cropCode);
 
@@ -106,12 +105,11 @@ class Orders extends Component {
                 </View>
             );
         }
-
     }
+
     pickerValues() {
         return (this.props.viewOrders.dropDownData || []).map((item) => (
             <Picker.Item label={item.name} value={item.code}  key={item.code} />));
-
     }
 
     selectedTabOrder = (val) => {
@@ -130,6 +128,7 @@ class Orders extends Component {
                 console.log('Select Wrong');
         }
     };
+
   renderFlatList() {
     if (this.props.viewOrders.fetchflag) {
       return (
@@ -295,8 +294,7 @@ class Orders extends Component {
               style={styles.segment}
               values={['Orders', 'Open Positions', 'Closed Positions']}
               selectedIndex={
-                {
-                  'Orders': 0,
+                { 'Orders': 0,
                   'Open Positions': 1,
                   'Closed Positions': 2
                 }[this.state.selectedTab]
@@ -326,8 +324,8 @@ class Orders extends Component {
             <Picker
                 style={{ width: 150, height: 55 }}
                    // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
-               mode = 'dropdown'
-                itemStyle={{height: 48}}
+               mode='dropdown'
+                itemStyle={{ height: 48 }}
               selectedValue={this.state.Crop}
               onValueChange={this.dropDown.bind(this)}
             >
@@ -340,7 +338,7 @@ class Orders extends Component {
           </View>
           </View>
         <View style={{ backgroundColor: 'white', height: 650 }}>
-          <View style={{ backgroundColor: '#3d4c57', height:650, marginLeft: 5, marginRight: 5, marginTop: 10}}>
+          <View style={{ backgroundColor: '#3d4c57', height: 650, marginLeft: 5, marginRight: 5, marginTop: 10 }}>
             {this.renderFlatList()}
           </View>
         </View>

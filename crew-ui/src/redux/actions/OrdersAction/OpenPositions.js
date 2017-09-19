@@ -1,56 +1,25 @@
-import base64 from 'base-64';
 import { REST_API_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS } from '../types';
+import { doGetFetch, reqHeaders, baseAuthentication } from '../../../Utils/FetchApiCalls';
 
 export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
 
-      const url = REST_API_URL + 'api/positions?commodity=' + crop + '&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year';
-      console.log(url);
-      return fetch(
-          url,
-          {
-              method: 'GET',
-              headers: {
-                  Authorization:
-                  'Basic ' +
-                  base64.encode(getState().auth.email + ':' + getState().auth.password),
-                  'x-api-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb'
-              }
-          }
-      )
+      const url = `${REST_API_URL}api/positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
+     // console.log(url);
+      reqHeaders.append('Authorization', baseAuthentication(getState().auth.email, getState().auth.passwor));
+     return doGetFetch(url, getState().auth.email, getState().auth.password)
           .then(response => response.json())
           .then(opens => {
-
-              //dispatch(openPositionsDataSuccess(openPositions))
-
-              //console.log('Opnes:' + opens);
               if (!Array.isArray(opens)) {
                   dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions:[] });
-                   //return Promise.resolve([]);
                }
-
-
               return Promise.all(
                   opens.map(items => {
-                      //console.log(items.lines[0].underlying)
-                      return fetch(
-                          REST_API_URL + 'api/underlyings/' +
-                          items.lines[0].underlying,
-                          {
-                              method: 'GET',
-                              headers: {
-                                  Authorization:
-                                  'Basic ' +
-                                  base64.encode(
-                                      getState().auth.email + ':' + getState().auth.password
-                                  ),
-                                  'x-api-key': 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb'
-                              }
-                          }
-                      )
-                          .then(response => response.json());
+                     const underlyingURL = `${REST_API_URL}api/underlyings/${items.lines[0].underlying}`;
+                     return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
+                     .then(response => response.json());
                   })
               )
                   .then(res => {
@@ -64,10 +33,8 @@ export const OpenPositionsData = (crop) => {
                       dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions }));
           })
           .catch(error => {
-
-              console.error("openposit " + error);
-
+              console.error(`error ${error}`);
           });
-  }
+  };
 };
 
