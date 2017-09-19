@@ -93,7 +93,7 @@ class ActionBar extends Component {
                     </View>
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Trades/Sales</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>(Outside the App)</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>(Outside App)</Text>
                     </View>
 
                 </View>
