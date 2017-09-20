@@ -10,8 +10,11 @@ import MyFarm from './containers/MyFarm';
 import ExternalSales from './containers/ExternalSales';
 import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
 import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
+<<<<<<< .merge_file_DqaA3w
 import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmationOrderReceipt';
 import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
+=======
+>>>>>>> .merge_file_f1XwvL
 import ReviewOrder from './components/Orders/ReviewOrder';
 
 const RouterComponent = () => {
@@ -27,12 +30,19 @@ const RouterComponent = () => {
         <Scene hideNavBar key='openposition' component={OpenPositions} />
         <Scene hideNavBar key='cancelorderreceipt' component={CancelOrderReceipt} />
         <Scene hideNavBar key='myfarm' component={MyFarm} />
+<<<<<<< .merge_file_DqaA3w
         <Scene hideNavBar key='externalsales' component={ExternalSales} />
         <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
         <Scene hideNavBar key="chartApp" component={ChartApp} />
         <Scene hideNavBar key='revieworder' component={ReviewOrder} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
+=======
+          <Scene hideNavBar key='externalsales' component={ExternalSales} />
+          <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
+          <Scene hideNavBar key="chartApp" component={ChartApp} />
+          <Scene hideNavBar key='revieworder' component={ReviewOrder} />
+>>>>>>> .merge_file_f1XwvL
       </Scene>
     </Router>
   );
