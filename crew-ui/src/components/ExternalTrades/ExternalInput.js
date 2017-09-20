@@ -45,7 +45,6 @@ const styles = {
         fontSize: 15,
         paddingBottom: 10,
         color: 'white',
-       // alignSelf: 'stretch',
         alignItems: 'center'
 
     },

@@ -61,7 +61,7 @@ class MyFarmTiles extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-            )
+            );
         }
         //returning tiles when my farm tiles data is present in json
         return(
@@ -132,8 +132,7 @@ class MyFarmTiles extends Component {
                 </View>
 
             </View>
-
-        )
+        );
     }
 }
 const styles = {
@@ -175,7 +174,7 @@ const styles = {
         opacity: 93
 
     }
-}
+};
 const mapStateToProps = state => {
     return {
         Crops: state.dashBoardButtons,
@@ -184,11 +183,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, {showInfoButtonClick, myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp })(MyFarmTiles);
-
-
-
-
-
-
-
+export default connect(mapStateToProps, { showInfoButtonClick, myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp })(MyFarmTiles);

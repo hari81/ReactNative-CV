@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, TextInput, findNodeHandle, Keyboard } from 'react-native';
+import { View, ScrollView, Text, TextInput, Keyboard } from 'react-native';
 import { FarmInput } from '../../components/common';
 
 class FarmInputFields extends Component {
@@ -30,16 +30,9 @@ class FarmInputFields extends Component {
     }
 
     inputFocused(refName) {
-        setTimeout(() => {
-            const scrollResponder = this.refs.scrollView.getScrollResponder();
-            scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
-                findNodeHandle(this.refs[refName]),
-                250, //additionalOffset
-                true
-            );
-        }, 50);
         switch (refName) {
             case 'profits':
+                this.refs.scrollView.scrollTo({ x: 0, y: 140, animated: true });
                 if (this.props.pro.slice(-4) === 'acre') {
                      if (this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 10)).trim().length <= 7) {
                         this.props.updateProValue(
@@ -51,6 +44,7 @@ class FarmInputFields extends Component {
                 }
                 break;
             case 'exyield':
+                this.refs.scrollView.scrollTo({ x: 0, y: 210, animated: true });
                 if (this.props.yie.slice(-7) === 'bushels') {
                     if (this.props.yie.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(0, (this.props.yie.length - 8)).trim().length <= 7) {
                         this.props.updateYieValue(this.props.yie.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(0, (this.props.yie.length - 8)).trim());
@@ -60,6 +54,7 @@ class FarmInputFields extends Component {
                 }
                 break;
             case 'cost':
+                this.refs.scrollView.scrollTo({ x: 0, y: 50, animated: true });
                 if (this.props.cos.slice(-4) === 'acre') {
                     if (this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.cos.length - 10)).trim().length <= 7) {
                         this.props.updateCosValue(this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.cos.length - 10)).trim());
@@ -75,7 +70,9 @@ class FarmInputFields extends Component {
 
     render() {
         const { acr, pro, yie, cos, updateAcrValue, updateProValue, updateCosValue, updateYieValue } = this.props;
-        return (<ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
+        return (
+            <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
+
             <View
                 style={{
                     marginRight: 30,
@@ -144,7 +141,7 @@ class FarmInputFields extends Component {
                         keyboardType='numeric'
                         placeholderTextColor='rgba(61,76,87, .5)'
                         ref='cost'
-                        maxLength={100}
+                        maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
                             if (e.nativeEvent.key === 'Enter') {
@@ -233,7 +230,7 @@ class FarmInputFields extends Component {
                     />
                 </View>
             </View>
-        </ScrollView>);
+         </ScrollView>);
     }
 }
 const styles = {
@@ -242,7 +239,8 @@ const styles = {
         paddingRight: 5,
         paddingLeft: 20,
         fontSize: 16,
-        lineHeight: 25
+        lineHeight: 25,
+        width: 356
     },
 
     containerStyle: {

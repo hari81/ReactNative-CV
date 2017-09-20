@@ -49,38 +49,69 @@ class ButtonList extends Component {
     }
     render() {
         const { id, cropYear, code, name } = this.props.item;
-        return (
-            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
-                    <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
-                        <Text
-                            style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
-                                color: 'rgb(82,97,115)',
-                                fontSize: 16 }}
-                        >
-                            {cropYear}</Text>
-                        <Text
-                            style={id === this.props.id ? { color: 'white', fontSize: 24 } : {
-                                color: 'rgb(82,97,115)',
-                                fontFamily: 'HelveticaNeue',
-                                fontSize: 24
-                            }}
-                        >{name.toUpperCase()}</Text>
-                        <Text
-                            style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
+        return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
+            <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
+                <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
+                    <Text
+                        style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
+                            color: 'rgb(82,97,115)',
+                            fontSize: 16 }}
+                    >
+                        {cropYear}</Text>
+                    <Text
+                        style={id === this.props.id ? { color: 'white', fontSize: 24 } : {
+                            color: 'rgb(82,97,115)',
+                            fontFamily: 'HelveticaNeue',
+                            fontSize: 24
+                        }}
+                    >{name.toUpperCase()}</Text>
+                    <Text
+                        style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
                             color: 'rgb(159,169,186)',
                             fontSize: 14
                         }}
-                        >Crop</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+                    >Crop</Text>
+                </View>
+            </TouchableOpacity>
+        </View>);
 
-        );
+
+
+        /*<View style={{ flexDirection: 'row', marginLeft: 10 }}>
+        <TouchableHighlight
+            style={{
+            flex: 1,
+            alignSelf: 'stretch',
+            borderRadius: 5,
+            borderWidth: 1,
+            backgroundColor: 'rgb(1,172,168)',
+            borderColor: 'rgb(1,172,168)',
+            marginLeft: 5,
+            marginRight: 5,
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}
+            onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}
+        >
+            <Text
+                style={{
+                    alignSelf: 'center',
+                    fontSize: 18,
+                    color: 'white',
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    fontFamily: 'HelveticaNeue-Medium'
+                }}
+            >{name.toUpperCase()}</Text>
+
+        </TouchableHighlight>
+
+        </View>
+    );*/
     }
 }
 const styles = {
-    ButtonStyle: {
+   ButtonStyle: {
         width: 156,
         height: 78,
         borderRadius: 3,
@@ -90,12 +121,12 @@ const styles = {
         alignItems: 'center',
         backgroundColor: 'rgb(255,255,255)',
     }
-}
+};
 const mapStateToProps = state => {
     return {
         id: state.cropsButtons.selectedId
     };
-}
+};
 const matchDispatchToProps = (dispatch) => {
     return bindActionCreators({ secondButton,
         firstButton,

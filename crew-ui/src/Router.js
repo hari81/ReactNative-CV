@@ -10,6 +10,9 @@ import MyFarm from './containers/MyFarm';
 import ExternalSales from './containers/ExternalSales';
 import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
 import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
+import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmationOrderReceipt';
+import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
+
 const RouterComponent = () => {
   return (
     <Router>
@@ -21,16 +24,13 @@ const RouterComponent = () => {
         <Scene hideNavBar key='orders' component={Orders} />
         <Scene hideNavBar key='cancelorder' component={CancelOrder} />
         <Scene hideNavBar key='openposition' component={OpenPositions} />
-        <Scene
-          hideNavBar
-          key='cancelorderreceipt'
-          component={CancelOrderReceipt}
-        />
+        <Scene hideNavBar key='cancelorderreceipt' component={CancelOrderReceipt} />
         <Scene hideNavBar key='myfarm' component={MyFarm} />
-          <Scene hideNavBar key='externalsales' component={ExternalSales} />
-          <Scene hideNavBar key='quoteswap' component={QuoteSwap}/>
-          <Scene hideNavBar key="chartApp" component={ChartApp}  />
-
+        <Scene hideNavBar key='externalsales' component={ExternalSales} />
+        <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
+        <Scene hideNavBar key="chartApp" component={ChartApp} />
+        <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
+          <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
       </Scene>
     </Router>
   );

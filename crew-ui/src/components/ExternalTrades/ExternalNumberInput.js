@@ -16,8 +16,7 @@ class ExternalNumberInput extends React.Component {
         } = this.props;
 
         return (
-
-            <View style={styles.containerStyle}>
+                <View style={styles.containerStyle} >
                 <Text style={styles.labelStyle}> {label}</Text>
                 <TextInput
                     placeholder={placeholder}
@@ -36,7 +35,7 @@ class ExternalNumberInput extends React.Component {
                         }
                     }}
                 />
-            </View>
+                </View>
         );
     }
 }
@@ -60,7 +59,6 @@ const styles = {
         fontSize: 15,
         paddingBottom: 10,
         color: 'white',
-        //alignSelf: 'stretch'
         alignItems: 'center'
 
     },

@@ -38,7 +38,8 @@ const styles = {
     paddingRight: 5,
     paddingLeft: 20,
     fontSize: 16,
-    lineHeight: 25
+    lineHeight: 25,
+    width: 356
   },
 
   containerStyle: {
