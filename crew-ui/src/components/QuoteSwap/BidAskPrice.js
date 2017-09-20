@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import {  bidPriceShow, askPriceShow } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
+import { bidPriceShow, askPriceShow } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
 import { Spinner } from '../common/Spinner';
 import st from '../../Utils/SafeTraverse';
+
 class BidAskPrice extends Component {
     render() {
         const bidPrice = parseFloat(st(this.props, ['bidPrice'])).toFixed(4);
@@ -15,14 +16,14 @@ class BidAskPrice extends Component {
             <View style={styles.container}>
                 <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 40, marginTop: 4 }}>
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>BID PRICE:</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{bidPrice}</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{bidPrice || 0}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 60, marginTop: 4 }}>
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>ASK PRICE:</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{askPrice}</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{askPrice || 0}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 60, marginTop: 4 }}>
-                    <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue',color: 'rgb(231,181,20)' }}>LAST SETTLE:</Text>
+                    <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>LAST SETTLE:</Text>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>N/A</Text>
                 </View>
             </View>
@@ -39,12 +40,12 @@ const styles = {
         position: 'absolute',
         zIndex: -1
     }
-};
+}
 const mapStateToProps = state => {
     return {
         bidPrice: state.selectedContractMonth.bidprice,
         askPrice: state.selectedContractMonth.askprice,
         contractMonth: state.contractData
     };
-};
+}
 export default connect(mapStateToProps, { bidPriceShow, askPriceShow })(BidAskPrice);
