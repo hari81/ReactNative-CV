@@ -10,6 +10,8 @@ import MyFarm from './containers/MyFarm';
 import ExternalSales from './containers/ExternalSales';
 import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
 import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
+import ReviewOrder from './components/Orders/ReviewOrder';
+
 const RouterComponent = () => {
   return (
     <Router>
@@ -28,9 +30,9 @@ const RouterComponent = () => {
         />
         <Scene hideNavBar key='myfarm' component={MyFarm} />
           <Scene hideNavBar key='externalsales' component={ExternalSales} />
-          <Scene hideNavBar key='quoteswap' component={QuoteSwap}/>
-          <Scene hideNavBar key="chartApp" component={ChartApp}  />
-
+          <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
+          <Scene hideNavBar key="chartApp" component={ChartApp} />
+          <Scene hideNavBar key='revieworder' component={ReviewOrder} />
       </Scene>
     </Router>
   );

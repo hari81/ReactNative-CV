@@ -13,6 +13,7 @@ import selectcontractMonth from './QuoteSwap/ContractMonth/ContractMonthSelect';
 import contractMonth from './QuoteSwap/ContractMonth/ContractMonthData';
 import cropsButton from './CropButtons/ButtonReducer';
 import selectedProduct from './QuoteSwap/ProductType/SelectedProduct';
+import reviewOrderGetQuote from './OrdersReducer/ReviewOrder';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -28,6 +29,8 @@ export default combineReducers({
     selectedContractMonth: selectcontractMonth,
     contractData: contractMonth,
     selectedProductQuoteSwap: selectedProduct,
-    account: accountDetails
+    account: accountDetails,
+    reviewQuote: reviewOrderGetQuote
+    
 });
 

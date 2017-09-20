@@ -1,4 +1,4 @@
 {
   "extends": "rallycoding",
-  "rules": { "max-len":"off" }
+  "rules": { "max-len": "off" }
 }
