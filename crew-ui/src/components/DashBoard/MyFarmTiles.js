@@ -258,10 +258,5 @@ const mapDispatchToProps = dispatch => {
         dispatch
     );
 };
-<<<<<<< HEAD
-=======
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyFarmTiles);
->>>>>>> origin/crew-89-3
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyFarmTiles);

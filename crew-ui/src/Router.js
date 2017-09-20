@@ -10,11 +10,8 @@ import MyFarm from './containers/MyFarm';
 import ExternalSales from './containers/ExternalSales';
 import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
 import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
-<<<<<<< HEAD
-=======
 import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmationOrderReceipt';
 import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
->>>>>>> origin/crew-89-3
 import ReviewOrder from './components/Orders/ReviewOrder';
 
 const RouterComponent = () => {
@@ -30,19 +27,12 @@ const RouterComponent = () => {
         <Scene hideNavBar key='openposition' component={OpenPositions} />
         <Scene hideNavBar key='cancelorderreceipt' component={CancelOrderReceipt} />
         <Scene hideNavBar key='myfarm' component={MyFarm} />
-<<<<<<< HEAD
-          <Scene hideNavBar key='externalsales' component={ExternalSales} />
-          <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
-          <Scene hideNavBar key="chartApp" component={ChartApp} />
-          <Scene hideNavBar key='revieworder' component={ReviewOrder} />
-=======
         <Scene hideNavBar key='externalsales' component={ExternalSales} />
         <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
         <Scene hideNavBar key="chartApp" component={ChartApp} />
         <Scene hideNavBar key='revieworder' component={ReviewOrder} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
->>>>>>> origin/crew-89-3
       </Scene>
     </Router>
   );
