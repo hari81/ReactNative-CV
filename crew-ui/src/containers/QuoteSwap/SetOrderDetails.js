@@ -14,7 +14,19 @@ import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrde
 
 class SetOrderDetails extends Component {
     onReviewOrder() {
-        this.props.getReviewOrderQuote();
+        const data = {
+            riskProductId: 107,
+            orderType: 'limit',
+            quoteType: 'new',
+            quantity: 10000,
+            buySell: 'S',
+            underlying: 'SH2018',
+            expirationDate: '2018-10-31',
+            notes: '',
+            targetPrice: 5.0,
+            goodTilDate: '2017-12-31'            
+        }
+        this.props.getReviewOrderQuote(data);
     }
 
     render() {

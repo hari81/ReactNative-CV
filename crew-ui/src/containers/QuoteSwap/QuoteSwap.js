@@ -17,7 +17,7 @@ class QuoteSwap extends Component {
         };
     }
     componentDidMount() {
-        this.props.quoteSwapUnderlying(this.state.cropyear,this.state.cropcode);
+        this.props.quoteSwapUnderlying(this.state.cropyear, this.state.cropcode);
     }
     render() {
         const { width } = Dimensions.get('window');
@@ -32,7 +32,7 @@ class QuoteSwap extends Component {
                     <MyCropButton />
                 </View>
             </View>
-        )
+        );
     }
 }
 const mapStateToProps = state => {

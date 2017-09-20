@@ -3,37 +3,12 @@ import { Actions } from 'react-native-router-flux';
 import { ORDERS_REVIEW_QUOTE, ORDERS_NEW_ORDER } from '../types';
 import { X_API_KEY, REST_API_URL } from '../../../ServiceURLS/index';
 
-export const getReviewOrderQuote = () => {
+export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
         const url = `${REST_API_URL}api/quotes`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
-
-        /*
-        const orderData = JSON.stringify({
-            riskProductId: 107,
-            orderType: 'market',
-            quoteType: 'new',
-            quantity: 10000,
-            buySell: 'B',
-            underlying: 'SH2018',
-            expirationDate: '2018-10-31',
-            notes: ''
-        });
-        */
-
-        const orderData = JSON.stringify({
-            riskProductId: 107,
-            orderType: 'limit',
-            quoteType: 'new',
-            quantity: 10000,
-            buySell: 'S',
-            underlying: 'SH2018',
-            expirationDate: '2018-10-31',
-            notes: '',
-            targetPrice: 5.0,
-            goodTilDate: '2017-12-31'
-        });
+        const data = JSON.stringify(orderData);
 
         return fetch(url, {
             method: 'POST',
@@ -42,7 +17,7 @@ export const getReviewOrderQuote = () => {
                 'Content-Type': 'application/json',
                 Authorization: baseAuthentication
             },
-            body: orderData
+            body: data
         })
             .then((response) => response.json())
             .then((quoteData) => {

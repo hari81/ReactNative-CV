@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
 import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
@@ -24,8 +23,12 @@ class ExternalSales extends Component {
         this.setState({ transaction: [...this.state.transaction, {}] });
     };
 
+    scrollUpdate(index) {
+        this.refs.scrollView.scrollTo({ x: 0, y: index * 210, animated: true });
+    }
+
     valueUpdate(index, val, trans) {
-        // this.refs.scrollView.scrollTo({ x: 0, y: index * 210, animated: true });
+
         const newTransaction = this.state.transaction.map((t, i) => {
             if (i === index) {
                 return Object.assign({}, t, { [trans]: val });
@@ -67,8 +70,8 @@ class ExternalSales extends Component {
     }
 
     cancelButtonClick() {
-        this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
         this.setState({ transaction: [], removeTransaction: [] });
+        this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
         setTimeout(() => {
             this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
         }, 0);
@@ -155,7 +158,6 @@ class ExternalSales extends Component {
                 </View>
 
                 <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView' removeClippedSubviews>
-                    <KeyboardAwareScrollView scrollEnabled={false} resetScrollToCoords={{ x: 0, y: 0 }}>
                         {this.state.transaction
                             .filter(item => item.active === undefined || item.active)
                             .map((item, index) => (<ExternalValues
@@ -165,9 +167,9 @@ class ExternalSales extends Component {
                                     items={item}
                                     placeholdervalues={this.props.extra.tradeData.tradeTemplate}
                                     ref={`ref${index}`}
+                                    scrollchange={this.scrollUpdate.bind(this, index)}
                                 />)
                             )}
-                    </KeyboardAwareScrollView>
                 </ScrollView>
 
                 <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100 }}>
@@ -209,7 +211,7 @@ class ExternalSales extends Component {
                                 alignItems: 'center'
                             }}
                         >
-                            <Text style={{ color: 'white' }}> SAVE </Text>
+                            <Text style={{ color: 'white' }}>SAVE</Text>
                         </View>
                     </TouchableHighlight>
                 </View>

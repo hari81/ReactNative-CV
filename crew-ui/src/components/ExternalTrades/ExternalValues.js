@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, TouchableOpacity, Picker, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, TouchableOpacity, Picker, Keyboard } from 'react-native';
 import { ExternalInput } from './ExternalInput';
 import { ExternalNumberInput } from './ExternalNumberInput';
 import cancel from '../common/img/Cancel-40.png';
@@ -23,6 +23,7 @@ export default class ExternalValues extends Component {
     externalTrans(transtype, value) {
         switch (transtype) {
             case 'quantity':
+                //this.props.scrollup()
                 const re = /^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?$/;
                 if ((re.test(value) || value === '') && value.length <= 10 && value <= 9000000.99) {
                     this.props.onSelectVal(value, transtype);
@@ -137,6 +138,25 @@ export default class ExternalValues extends Component {
         }
         this.props.onSelectVal(this.state.date, 'tradeDate');
     }
+    scrollup() {
+        this.props.scrollchange();
+    }
+    adjustmentonFocus() {
+        this.setState({ adj: this.state.adj.slice(1, this.state.adj.length) });
+        this.props.scrollchange();
+    }
+    quantityonFocus() {
+        this.setState({ quan: this.state.quan.toString().replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });
+        this.props.scrollchange();
+    }
+    futurePriceonFocus() {
+        this.setState({ fuPrice: this.state.fuPrice.slice(1, this.state.fuPrice.length) });
+        this.props.scrollchange();
+    }
+    baisonFocus() {
+        this.setState({ basis: this.state.basis.slice(1, this.state.basis.length) });
+        this.props.scrollchange();
+    }
 
     render() {
         const { removeTrans, items = {}, placeholdervalues } = this.props;
@@ -145,7 +165,6 @@ export default class ExternalValues extends Component {
         const f = Number(items.futuresPrice || 0);
         return (
             <View style={{ backgroundColor: '#3d4c57' }}>
-                {/* <KeyboardAvoidingView  behavior='padding'>*/}
                     <View style={{ marginBottom: 15, height: 5, backgroundColor: 'black' }} />
                     <View style={{ flexDirection: 'row' }}>
 
@@ -196,43 +215,89 @@ export default class ExternalValues extends Component {
                             </View>
                         </View>
 
-                        <ExternalNumberInput
-                            placeholder='Ex: 22,000'
-                            val={typeof items.quantity === 'undefined' ? '' : this.state.quan}
-                            onChangeText={this.externalTrans.bind(this, 'quantity')}
-                            label='Quantity *'
-                            onfocus={() => { this.setState({ quan: this.state.quan.toString().replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') }); }}
-                            onblur={() => {
-                                this.setState({ quan: this.state.quan.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') });
-                            }}
-                        />
-                        <ExternalNumberInput
-                            val={typeof items.futuresPrice === 'undefined' ? '' : this.state.fuPrice}
-                            //val={typeof items.futuresPrice === 'undefined'? '' : items.futuresPrice.toString()}
-                            onChangeText={this.externalTrans.bind(this, 'futuresPrice')}
-                            placeholder=' $3.9550'
-                            label='Futures Price *'
-                            onfocus={() => { this.setState({ fuPrice: this.state.fuPrice.slice(1, this.state.fuPrice.length) }); }}
-                            onblur={() => { this.setState({ fuPrice: this.state.fuPrice === '' ? '' : `$${parseFloat(this.state.fuPrice).toFixed(4)}` }); }}
-                        />
-                        <ExternalNumberInput
-                            val={typeof items.basis === 'undefined' ? '' : this.state.basis}
-                            // val = {items.basis.toFixed(4)}
-                            onChangeText={this.externalTrans.bind(this, 'basis')}
-                            placeholder=' $-0.2500'
-                            label='Basis($-/+)'
-                            onfocus={() => { this.setState({ basis: this.state.basis.slice(1, this.state.basis.length) }); }}
-                            onblur={() => { this.setState({ basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}` }); }}
-                        />
-                        <ExternalNumberInput
-                            val={typeof items.adjustments === 'undefined' ? '' : this.state.adj}
-                            //  val = { items.adjustments.toFixed(4) }
-                            onChangeText={this.externalTrans.bind(this, 'adjustments')}
-                            placeholder=' $-0.0500'
-                            label='Adjustments($-/+)'
-                            onfocus={() => { this.setState({ adj: this.state.adj.slice(1, this.state.adj.length) }); }}
-                            onblur={() => { this.setState({ adj: this.state.adj === '' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}` }); }}
-                        />
+
+                        <View style={styles.containerStyle} >
+                            <Text style={styles.labelStyle}>Quantity *</Text>
+                            <TextInput
+                                placeholder='Ex: 22,000'
+                                style={[styles.inputStyle]}
+                                value={typeof items.quantity === 'undefined' ? '' : this.state.quan}
+                                onChangeText={this.externalTrans.bind(this, 'quantity')}
+
+                                onFocus={this.quantityonFocus.bind(this)}
+                                onBlur={() => {
+                                    this.setState({ quan: this.state.quan.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') });
+                                }}
+
+                                keyboardType='numeric'
+                                returnKeyType='done'
+                                onKeyPress={(e) => {
+                                    if (e.nativeEvent.key === 'Enter') {
+                                        Keyboard.dismiss();
+                                    }
+                                }}
+                            />
+                        </View>
+
+                        <View style={styles.containerStyle} >
+                            <Text style={styles.labelStyle}> Futures Price *</Text>
+                            <TextInput
+                                placeholder=' $3.9550'
+                                style={[styles.inputStyle]}
+                                value={typeof items.futuresPrice === 'undefined' ? '' : this.state.fuPrice}
+                                onChangeText={this.externalTrans.bind(this, 'futuresPrice')}
+                                onFocus={this.futurePriceonFocus.bind(this)}
+                                onBlur={() => { this.setState({ fuPrice: this.state.fuPrice === '' ? '' : `$${parseFloat(this.state.fuPrice).toFixed(4)}` }); }}
+
+                                keyboardType='numeric'
+                                returnKeyType='done'
+                                onKeyPress={(e) => {
+                                    if (e.nativeEvent.key === 'Enter') {
+                                        Keyboard.dismiss();
+                                    }
+                                }}
+                            />
+                        </View>
+
+                        <View style={styles.containerStyle} >
+                            <Text style={styles.labelStyle}>Basis($-/+)</Text>
+                            <TextInput
+                                placeholder=' $-0.2500'
+                                style={[styles.inputStyle]}
+                                value={typeof items.basis === 'undefined' ? '' : this.state.basis}
+                                onChangeText={this.externalTrans.bind(this, 'basis')}
+                                onFocus={this.baisonFocus.bind(this)}
+                                onBlur={() => { this.setState({ basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}` }); }}
+
+                                keyboardType='numeric'
+                                returnKeyType='done'
+                                onKeyPress={(e) => {
+                                    if (e.nativeEvent.key === 'Enter') {
+                                        Keyboard.dismiss();
+                                    }
+                                }}
+                            />
+                        </View>
+
+                          <View style={styles.containerStyle} >
+                            <Text style={styles.labelStyle}> Adjustments($-/+)</Text>
+                            <TextInput
+                                placeholder=' $-0.0500'
+                                style={[styles.inputStyle]}
+                                value={typeof items.adjustments === 'undefined' ? '' : this.state.adj}
+                                onChangeText={this.externalTrans.bind(this, 'adjustments')}
+                                onFocus={this.adjustmentonFocus.bind(this)}
+                                onBlur={() => { this.setState({ adj: this.state.adj === '' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}` }); }}
+
+                                keyboardType='numeric'
+                                returnKeyType='done'
+                                onKeyPress={(e) => {
+                                    if (e.nativeEvent.key === 'Enter') {
+                                        Keyboard.dismiss();
+                                    }
+                                }}
+                            />
+                        </View>
 
                     </View>
                     <View style={{ marginTop: 10, flexDirection: 'row', zIndex: -1 }}>
@@ -245,6 +310,7 @@ export default class ExternalValues extends Component {
                                     multiline
                                     placeholder='Sale to grain elevator in Fort Wayne for October delivery.'
                                     onChangeText={this.externalTrans.bind(this, 'notes')}
+                                    onFocus={this.scrollup.bind(this)}
                                 />
                             </View>
                         </View>
@@ -266,8 +332,35 @@ export default class ExternalValues extends Component {
 
                     </View>
                     <View style={{ marginTop: 15, height: 5, backgroundColor: 'black' }} />
-                    {/* </KeyboardAvoidingView>*/}
+
             </View>
         );
     }
 }
+
+const styles = {
+    containerStyle: {
+        height: 70,
+        alignItems: 'center',
+        width: 145,
+        marginLeft: 5,
+
+    },
+    inputStyle: {
+        width: 132,
+        height: 45,
+        paddingRight: 5,
+        paddingLeft: 5,
+        fontSize: 15,
+        lineHeight: 20,
+        backgroundColor: 'white',
+        borderRadius: 5
+    },
+    labelStyle: {
+        fontSize: 15,
+        paddingBottom: 10,
+        color: 'white',
+        alignItems: 'center'
+
+    },
+};
