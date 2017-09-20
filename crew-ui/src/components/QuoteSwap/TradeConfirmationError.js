@@ -27,10 +27,10 @@ class TradeConfirmationError extends Component {
                             <Text style={styles.textOopsStyle}> Ooops! There was a problem with your order</Text>
                             <Image source={ec} style={styles.imageStyle} />
                             <View style={styles.textMessage}>
-                                <Text style={[styles.textStyle, { paddingTop: 100 }]}>Error Your order was rejected. Mauris non tempor quam,</Text>
-                                <Text style={styles.textStyle}>et lacinia sapien. Mauris accumsan eros eget libero</Text>
-                                <Text style={styles.textStyle}>posuere vulputate. Etiam elit elit, elementum sed varius</Text>
-                                <Text style={styles.textStyle}>&at, adipiscing vitae est.</Text>
+                                <Text style={[styles.textStyle, { paddingTop: 100 }]}>Error Your order was rejected.</Text>
+
+                                <Text style={styles.textStyle}>{this.props.message}</Text>
+
                                 <Text style={[styles.textStyle, { marginTop: 20 }]}>Please contact the trading desk at 1-952-742-7414</Text>
                                 <View style={styles.buttonView} >
                                     <TouchableHighlight

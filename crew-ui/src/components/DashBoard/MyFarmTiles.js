@@ -258,10 +258,5 @@ const mapDispatchToProps = dispatch => {
         dispatch
     );
 };
-<<<<<<< .merge_file_l8IL5D
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyFarmTiles);
-=======
->>>>>>> .merge_file_nk6eCG
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyFarmTiles);
