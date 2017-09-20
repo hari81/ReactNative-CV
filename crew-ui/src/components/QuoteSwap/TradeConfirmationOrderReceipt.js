@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import Dimensions from 'Dimensions';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { LogoHomeHeader } from '../common';
 import MyFarmTiles from '../DashBoard/MyFarmTiles';
 import confirmtick from '../common/img/confirmationSuccess.png';
@@ -13,11 +14,15 @@ class TradeConfirmationOrderReceipt extends Component {
     }
 
     reviewPositionsOrder() {
-        Actions.dashboard();
+        const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
+        console.log('Crop Code:', cropButData[0].code);
+        Actions.orders({ selectedTab: 'Open Positions', Crop: cropButData[0].code });
     }
 
     placeNewOrder() {
-        Actions.tcerror();
+        const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
+        console.log(cropButData[0].code, cropButData[0].year);
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
     }
 
     render() {
@@ -170,6 +175,9 @@ const styles = {
         paddingTop: 20
     }
 };
+const mapStateToProps = (state) => {
+    return { crops: state.cropsButtons };
+};
 
-export default TradeConfirmationOrderReceipt;
+export default connect(mapStateToProps, null)(TradeConfirmationOrderReceipt);
 
