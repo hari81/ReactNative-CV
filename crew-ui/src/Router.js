@@ -12,6 +12,7 @@ import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
 import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
 import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmationOrderReceipt';
 import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
+import ReviewOrder from './components/Orders/ReviewOrder';
 
 const RouterComponent = () => {
   return (
@@ -29,6 +30,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='externalsales' component={ExternalSales} />
         <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
         <Scene hideNavBar key="chartApp" component={ChartApp} />
+        <Scene hideNavBar key='revieworder' component={ReviewOrder} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
       </Scene>

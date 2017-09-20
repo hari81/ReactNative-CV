@@ -1,78 +1,22 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Dimensions from 'Dimensions';
-import cancelimage from '../../components/common/img/Cancel-20.png';
-import {hideInfoButtonClick} from '../../redux/actions/Dashboard/infobuttonsAction';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
 import TradeDirection from '../../components/QuoteSwap/TradeDirection';
 import BushelQuantity from '../../components/QuoteSwap/BushelQuantity';
 import OrderType from '../../components/QuoteSwap/OrderType/OrderType';
 import BidAskPrice from '../../components/QuoteSwap/BidAskPrice';
 import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMonth';
-
 import { Button } from '../../components/common/Button';
-class SetOrderDetails extends Component{
-    showArrow(btnNumber) {
-        switch(btnNumber) {
-            case 1:
-                return <View style={[styles.triangle, { marginLeft: 200 }]} />
-            case 2:
-                return <View style={[styles.triangle, { marginLeft: 360 }]} />
-            case 3:
-                return <View style={[styles.triangle, { marginLeft: 500 }]} />
-            case 4:
-                return <View style={[styles.triangle, { marginLeft: 640 }]} />
-            case 5:
-                return <View style={[styles.triangle, { marginLeft: 790 }]} />;
-        }
-    }
-    //info block display condition
-    showMessage(btnNumber) {
-        switch(btnNumber) {
-            case 1:
-                return this.btnMessage(90, this.props.MyFarmProd.myFarmTiles.breakEvenPrice.info);
-            case 2:
-                return this.btnMessage(240, this.props.MyFarmProd.myFarmTiles.targetPrice.info);
-            case 3:
-                return this.btnMessage(390, this.props.MyFarmProd.myFarmTiles.averagePriceSold.info);
-            case 4:
-                return this.btnMessage(540, this.props.MyFarmProd.myFarmTiles.profitPerAcre.info);
-            case 5:
-                return this.btnMessage(640, this.props.MyFarmProd.myFarmTiles.unhedgedProduction.info);
-            default:
-                return <View style={{ display: 'none' }} />;
+import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 
+class SetOrderDetails extends Component {
+    onReviewOrder() {
+        this.props.getReviewOrderQuote();
+    }
 
-        }
-    }
-    //info block display method
-    btnMessage(num1, message) {
-        return(
-            <View style={[styles.messageBox, { marginLeft: num1 }]}>
-                <TouchableOpacity onPress={this.cancelButton.bind(this)} ><View style={{ marginLeft: 240 }}><Image source={cancelimage} style={{
-                    width: 16,
-                    height: 16
-                }}
-                />
-                </View>
-                </TouchableOpacity>
-                <Text style={{ fontFamily: 'HelveticaNeue-Thin', color: 'rgb(59,74,85)', fontSize: 14 }}>{message}</Text>
-            </View>
-
-        )
-
-    }
-    //on Cancel info button press
-    cancelButton() {
-        this.props.hideInfoButtonClick();
-    }
-    // info block hide method
-    hideMessage() {
-        return (
-            <View style={{ display: 'none' }}>
-            </View>);
-    }
     render() {
         const { width, height } = Dimensions.get('window');
         return (
@@ -97,12 +41,10 @@ class SetOrderDetails extends Component{
                         <BidAskPrice />
                         <View style={{ flexDirection: 'row', marginLeft: 132, position: 'absolute', marginTop: 320 }}>
                             <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                            <Button buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
+                            <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
                         </View>
                     </View>
                 </View>
-                {this.props.infoState.infoEnable ? this.showArrow(this.props.infoState.btnNumber) : this.hideMessage()}
-                {this.props.infoState.infoEnable ? this.showMessage(this.props.infoState.btnNumber) : this.hideMessage()}
             </View>
         );
     }
@@ -175,4 +117,14 @@ const mapStateToProps = (state) => {
         infoState: state.info
     };
 };
-export default connect(mapStateToProps, { hideInfoButtonClick })(SetOrderDetails);
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators(
+        {
+            getReviewOrderQuote
+        },
+        dispatch
+    );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetOrderDetails);
