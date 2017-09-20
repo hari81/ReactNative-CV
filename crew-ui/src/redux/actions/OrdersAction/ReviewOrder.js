@@ -8,7 +8,33 @@ export const getReviewOrderQuote = (orderData) => {
         const url = `${REST_API_URL}api/quotes`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
-        const data = JSON.stringify(orderData);
+
+        let data = null;
+        if (orderData.orderType === 'market') {
+            data = JSON.stringify({
+                riskProductId: orderData.riskProductId,
+                buySell: orderData.buySell,
+                expirationDate: orderData.expirationDate,
+                notes: '',
+                orderType: orderData.orderType,
+                underlying: orderData.underlying,
+                quoteType: 'new',
+                quantity: orderData.quantity
+            });
+        } else {
+            data = JSON.stringify({
+                riskProductId: orderData.riskProductId,
+                buySell: orderData.buySell,
+                expirationDate: orderData.expirationDate,
+                notes: '',
+                orderType: orderData.orderType,
+                underlying: orderData.underlying,
+                quoteType: 'new',
+                quantity: orderData.quantity,
+                goodTilDate: orderData.goodTilDate,
+                targetPrice: orderData.targetPrice
+            });        
+        }
 
         return fetch(url, {
             method: 'POST',
@@ -77,21 +103,23 @@ export const placeOrder = () => {
             body: data
         })
             .then(response => { 
-                if (response.ok) {
+                if (response.status === 201) {
                     return response.json();
-                } 
+                }
                 //redirect to failure screen
-                dispatch({ type: ORDERS_NEW_ORDER, payload: data });
+                Actions.tcerror();                
             })
             .then((orderData) => {
                 console.log('order data is: ', orderData);
-                dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
                 //redirect to success screen here
+                Actions.tcorderreceipt();                                    
+                //dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
             })
             .catch((status, error) => {
                 console.log('error', error);
                 dispatch({ type: ORDERS_NEW_ORDER, payload: data });
-                //redirect to failure screen here
+                //redirect to order failure screen
+                Actions.tcerror();
             });
     };
 };

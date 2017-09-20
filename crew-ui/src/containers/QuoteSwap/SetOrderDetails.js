@@ -29,37 +29,40 @@ class SetOrderDetails extends Component {
         };
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol});
-        this.setState({ expirationDate: nextProps.underlyingSym.lastTradeDate});
-        this.setState({ targetPrice: nextProps.underlyingSym.bidprice});
-        this.setState({ goodTilDate: nextProps.underlyingSym.lastTradeDate})
+        this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol });
+        this.setState({ expirationDate: nextProps.underlyingSym.lastTradeDate });
+        this.setState({ targetPrice: nextProps.underlyingSym.bidprice });
+        this.setState({ goodTilDate: nextProps.underlyingSym.lastTradeDate });
     }
-    tradeDirectionChange=(tradeDirection) => {
-        this.setState({ buySell: tradeDirection });
-    }
+
     onQuantityChange = (quant) => {
         this.setState({ quantity: quant });
     }
     onOrderTypeChange=(type, targetPrice) => {
         this.setState({ orderType: type, targetPrice });
     }
+
     onExpireSelection=(goodTillDate) => {
-        this.setState({ goodTilDate: goodTillDate})
+        this.setState({ goodTilDate: goodTillDate });
     }
     onReviewOrder() {
-        this.props.getReviewOrderQuote();
+        this.props.getReviewOrderQuote(this.state);
     }
+
+    tradeDirectionChange=(tradeDirection) => {
+        this.setState({ buySell: tradeDirection });
+    }
+
     orderDetails = (id) => {
         this.setState({ riskProductId: id });
     }
->>>>>>> origin/quote_A_swap_1
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 630}}>
+                    <View style={{ flexDirection: 'row', marginLeft: 630 }}>
                         <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', textDecorationLine: 'underline', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
                     </View>
                 </View>
@@ -147,24 +150,16 @@ const styles = {
         alignItems: 'center',
         zIndex: -1
     }
-}
+};
+
 const mapStateToProps = (state) => {
     return {
         MyFarmProd: state.dashBoardButtons,
         infoState: state.info,
         underlyingSym: state.selectedContractMonth,
     };
-}
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators(
-        {
-            getReviewOrderQuote
-        },
-        dispatch
-    );
 };
 
-<<<<<<< HEAD
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
@@ -175,6 +170,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetOrderDetails);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(SetOrderDetails);
->>>>>>> origin/quote_A_swap_1
