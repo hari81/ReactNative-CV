@@ -16,3 +16,15 @@ export const askPriceShow = (askprice) => {
         payload: askprice
     };
 };
+export const lastTradeDateShow = (lastTradeDate) => {
+    return {
+        type: 'LAST_TRADE_DATE_SHOW',
+        payload: lastTradeDate
+    };
+};
+export const underlyingYearShow = (underlyingSym) => {
+    return {
+        type: 'UNDERLYING_YEAR_SHOW',
+        payload: underlyingSym
+    };
+};

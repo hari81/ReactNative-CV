@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import ContractMonthSellList from './ContractMonthSellList';
-import ContractMonthBuyList from './ContractMonthBuyList';
-import st from '../../../Utils/SafeTraverse';
 import { Spinner } from '../../common/Spinner';
 import Refresh from '../../common/img/Refresh.png';
 import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
-import moment from 'moment';
+
 class ContractMonth extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             timeNow: moment().format('MMM Do YYYY, h:mm a')
         };
     }
+    componentWillReceiveProps() {
+        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a')});
+    }
+    onUpdate() {
+        const { cropYear, cropCode } = this.props.contractMonth.contract[0]
+        this.props.quoteSwapUnderlying(cropYear, cropCode);
+    }
     contractMonthList() {
-        if (this.props.contractMonth.spinFlag) {
+        if (this.props.contractMonth.spinFlag){
             return <Spinner size='small' />;
         }
         return (<FlatList
@@ -26,20 +32,12 @@ class ContractMonth extends Component {
             renderItem={({ item }) => <ContractMonthSellList item={item} key={item.id} />}
         />);
     }
-    componentWillReceiveProps() {
-        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
-    }
-
-    onUpdate(timeNow) {
-        const { cropYear, cropCode } = this.props.contractMonth.contract[0];
-        this.props.quoteSwapUnderlying(cropYear, cropCode);
-    }
     render() {
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>CONTRACT MONTH</Text>
-                    <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
+                    <TouchableOpacity disabled={!this.props.contractMonth.contract[0]} onPress={this.onUpdate.bind(this, this.state.timeNow)}>
                         <View style={{ flexDirection: 'row' }}>
                             <Image style={{ width: 20, height: 18, marginLeft: 24, marginRight: 4 }} source={Refresh} />
                             <Text style={{ color: 'white', fontSize: 12, marginTop: 4 }}>as of {this.state.timeNow}</Text>
@@ -59,11 +57,11 @@ const styles = {
         marginTop: 16,
         zIndex: -1
     }
-};
+}
 const mapStateToProps = state => {
     return {
         contractMonth: state.contractData
 
     };
-};
+}
 export default connect(mapStateToProps, { quoteSwapUnderlying })(ContractMonth);

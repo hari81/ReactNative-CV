@@ -3,37 +3,38 @@ import { Actions } from 'react-native-router-flux';
 import { ORDERS_REVIEW_QUOTE, ORDERS_NEW_ORDER } from '../types';
 import { X_API_KEY, REST_API_URL } from '../../../ServiceURLS/index';
 
-export const getReviewOrderQuote = () => {
+export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
         const url = `${REST_API_URL}api/quotes`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
 
-        /*
-        const orderData = JSON.stringify({
-            riskProductId: 107,
-            orderType: 'market',
-            quoteType: 'new',
-            quantity: 10000,
-            buySell: 'B',
-            underlying: 'SH2018',
-            expirationDate: '2018-10-31',
-            notes: ''
-        });
-        */
-
-        const orderData = JSON.stringify({
-            riskProductId: 107,
-            orderType: 'limit',
-            quoteType: 'new',
-            quantity: 10000,
-            buySell: 'S',
-            underlying: 'SH2018',
-            expirationDate: '2018-10-31',
-            notes: '',
-            targetPrice: 5.0,
-            goodTilDate: '2017-12-31'
-        });
+        let data = null;
+        if (orderData.orderType === 'market') {
+            data = JSON.stringify({
+                riskProductId: orderData.riskProductId,
+                buySell: orderData.buySell,
+                expirationDate: orderData.expirationDate,
+                notes: '',
+                orderType: orderData.orderType,
+                underlying: orderData.underlying,
+                quoteType: 'new',
+                quantity: orderData.quantity
+            });
+        } else {
+            data = JSON.stringify({
+                riskProductId: orderData.riskProductId,
+                buySell: orderData.buySell,
+                expirationDate: orderData.expirationDate,
+                notes: '',
+                orderType: orderData.orderType,
+                underlying: orderData.underlying,
+                quoteType: 'new',
+                quantity: orderData.quantity,
+                goodTilDate: orderData.goodTilDate,
+                targetPrice: orderData.targetPrice
+            });        
+        }
 
         return fetch(url, {
             method: 'POST',
@@ -42,7 +43,7 @@ export const getReviewOrderQuote = () => {
                 'Content-Type': 'application/json',
                 Authorization: baseAuthentication
             },
-            body: orderData
+            body: data
         })
             .then((response) => response.json())
             .then((quoteData) => {
@@ -102,18 +103,20 @@ export const placeOrder = () => {
             body: data
         })
             .then(response => { 
-                if (response.ok) {
+                if (response.status === 201) {
                     return response.json();
-                } 
+                }
                 //redirect to failure screen
-                dispatch({ type: ORDERS_NEW_ORDER, payload: data });
+                Actions.tcerror();                
             })
             .then((orderData) => {
                 console.log('order data is: ', orderData);
+
                 dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
+                console.log("OrderId", orderData.bodyJson.id);
                 switch (orderData.status) {
                     case 201:
-                        Actions.tcorderreceipt({ orderId: orderData.id, message: orderData.statusMessage });
+                        Actions.tcorderreceipt({ orderId: orderData.bodyJson.id, message: orderData.statusMessage });
                         break;
                     case 500:
                         Actions.tcerror({ message: orderData.statusMessage });
@@ -124,7 +127,8 @@ export const placeOrder = () => {
             .catch((status, error) => {
                 console.log('error', error);
                 dispatch({ type: ORDERS_NEW_ORDER, payload: data });
-                //redirect to failure screen here
+                //redirect to order failure screen
+                Actions.tcerror();
             });
     };
 };

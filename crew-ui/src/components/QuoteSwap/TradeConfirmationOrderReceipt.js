@@ -16,7 +16,7 @@ class TradeConfirmationOrderReceipt extends Component {
     reviewPositionsOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
         console.log('Crop Code:', cropButData[0].code);
-        Actions.orders({ selectedTab: 'Open Positions', Crop: cropButData[0].code });
+        Actions.orders({ Crop: cropButData[0].code });
     }
 
     placeNewOrder() {
@@ -44,7 +44,7 @@ class TradeConfirmationOrderReceipt extends Component {
                         <Image source={confirmtick} style={styles.imageStyle} />
                         <View style={styles.messageView}>
                             <Text style={styles.orderSuccess}> Your order was successfully received. Your order number is:</Text>
-                            <Text style={styles.orderNumber}> {this.props.orderId} {/*2394874598723298*/}</Text>
+                            <Text style={styles.orderNumber}> {this.props.orderId} {this.props.message/*2394874598723298*/}</Text>
                             <Text style={[styles.textStyle, { paddingTop: 20 }]}>Once your order is complete you can view your trade details in the</Text>
                             <Text style={styles.textStyle}>Positions & Orders screen by clicking the button below. The Position</Text>
                             <Text style={styles.textStyle}>& Orders screen allows you to manage your orders and open</Text>

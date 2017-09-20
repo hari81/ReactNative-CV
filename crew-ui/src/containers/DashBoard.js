@@ -8,7 +8,6 @@ import ActionBar from '../components/DashBoard/ActionBar';
 import MyFarmProduction from '../components/DashBoard/MyFarmProduction';
 
 class DashBoard extends Component {
-
     render() {
         const { width } = Dimensions.get('window');
         return (

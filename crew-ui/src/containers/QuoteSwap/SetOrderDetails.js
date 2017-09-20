@@ -13,33 +13,71 @@ import { Button } from '../../components/common/Button';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 
 class SetOrderDetails extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            riskProductId: 107,
+            quoteType: 'new',
+            orderType: 'market',
+            targetPrice: 0,
+            goodTilDate: '',
+            quantity: 0,
+            buySell: 'S',
+            underlying: '',
+            expirationDate: '',
+            notes: ''
+        };
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol });
+        this.setState({ expirationDate: nextProps.underlyingSym.lastTradeDate });
+        this.setState({ targetPrice: nextProps.underlyingSym.bidprice });
+        this.setState({ goodTilDate: nextProps.underlyingSym.lastTradeDate });
+    }
+
+    onQuantityChange = (quant) => {
+        this.setState({ quantity: quant });
+    }
+    onOrderTypeChange=(type, targetPrice) => {
+        this.setState({ orderType: type, targetPrice });
+    }
+
+    onExpireSelection=(goodTillDate) => {
+        this.setState({ goodTilDate: goodTillDate });
+    }
     onReviewOrder() {
-        this.props.getReviewOrderQuote();
+        this.props.getReviewOrderQuote(this.state);
+    }
+
+    tradeDirectionChange=(tradeDirection) => {
+        this.setState({ buySell: tradeDirection });
+    }
+
+    orderDetails = (id) => {
+        this.setState({ riskProductId: id });
     }
 
     render() {
-        const { width, height } = Dimensions.get('window');
         return (
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
-                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21}}>Set Order Details</Text>
+                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
                     <View style={{ flexDirection: 'row', marginLeft: 630 }}>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
+                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', textDecorationLine: 'underline', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'column', marginLeft: 49 }}>
-                        <ProductType />
-                        <TradeDirection />
-
-
+                        <ProductType onProductChange={this.orderDetails} />
+                        <TradeDirection onTradeChange={this.tradeDirectionChange} />
+                        <ContractMonth />
                     </View>
                     <View style={{ height: 364, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
                     <View style={{ flexDirection: 'column', marginLeft: 33 }}>
-                        <BushelQuantity />
-                        <OrderType />
+                        <BushelQuantity onQuantityChange={this.onQuantityChange} />
+                        <OrderType onOrderTypeChange={this.onOrderTypeChange} onExpireSelection={this.onExpireSelection} />
                         <BidAskPrice />
-                        <View style={{ flexDirection: 'row', marginLeft: 132, position: 'absolute', marginTop: 320 }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 132, position: 'absolute', marginTop: 320, zIndex: -1 }}>
                             <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                             <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
                         </View>
@@ -59,6 +97,7 @@ const styles = {
         marginBottom: 7,
         borderColor: 'rgb(190,216,221)',
         borderWidth: 1,
+
     },
     setOrderDetails: {
         flexDirection: 'row',
@@ -112,9 +151,12 @@ const styles = {
         zIndex: -1
     }
 };
+
 const mapStateToProps = (state) => {
-    return { MyFarmProd: state.dashBoardButtons,
-        infoState: state.info
+    return {
+        MyFarmProd: state.dashBoardButtons,
+        infoState: state.info,
+        underlyingSym: state.selectedContractMonth,
     };
 };
 
