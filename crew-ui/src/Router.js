@@ -30,7 +30,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
         <Scene hideNavBar key="chartApp" component={ChartApp} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
-          <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
+        <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
       </Scene>
     </Router>
   );
