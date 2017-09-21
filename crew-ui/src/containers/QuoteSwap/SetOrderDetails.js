@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dimensions from 'Dimensions';
@@ -46,7 +46,11 @@ class SetOrderDetails extends Component {
         this.setState({ goodTilDate: goodTillDate });
     }
     onReviewOrder() {
-        this.props.getReviewOrderQuote(this.state);
+        try {
+            this.props.getReviewOrderQuote(this.state);
+        } catch (error) {
+            Alert.alert(`Unexpected error occurred: ${error}`);
+        }
     }
 
     tradeDirectionChange=(tradeDirection) => {
