@@ -21,19 +21,16 @@ class OrderType extends Component {
         //this.props.onOrderTypeChnage('market');
     }
     onMarketSelection= () => {
-        this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false});
+        this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
         this.props.onOrderTypeChange('market');
     }
-    onLimitSelection=(targetPrice) => {
-        this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true});
-        this.props.onOrderTypeChange('limit', targetPrice);
-    }
-    onExpireSelection=(goodTillDate) => {
-        this.props.onExpireSelection(goodTillDate);
+    onLimitSelection=() => {
+        this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true });
+        this.props.onOrderTypeChange('limit');
     }
     limitOrder() {
         if (this.state.radioBTNEnableLimit) {
-            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} onLimitSelection={this.onLimitSelection} onExpireSelection={this.onExpireSelection} />;
+            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} />;
         }
     }
     render(){

@@ -67,7 +67,7 @@ class ReviewOrder extends Component {
             limitViewPrice = (
             <View style={styles.quoteField}>
                 <Text style={styles.quoteLabel}>Your limit price total is</Text>
-                <Text style={styles.quoteData}>${this.props.data.metadata.targetPrice.toFixed(4)}</Text>
+                <Text style={styles.quoteData}>${this.props.data.metadata.targetPrice}</Text>
             </View>
             );
         }

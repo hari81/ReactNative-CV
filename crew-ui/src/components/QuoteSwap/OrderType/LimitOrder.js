@@ -5,6 +5,7 @@ import moment from 'moment';
 import Minus from '../../common/img/Minus-32.png';
 import Plus from '../../common/img/Plus.png';
 import st from '../../../Utils/SafeTraverse';
+import { onLimitSelection, onExpireSelection } from '../../../redux/actions/QuoteSwap/ProductType/LimitOrderAction';
 
 class LimitOrder extends Component {
     constructor(props) {
@@ -17,6 +18,10 @@ class LimitOrder extends Component {
             date: new Date(st(this.props, ['lastTradeDate']).concat('T00:00:00-06:00')) || ''
         }
         this.timer = null;
+    }
+    componentDidMount() {
+        this.props.onLimitSelection(this.state.limitPrice);
+        this.props.onExpireSelection(this.state.date);
     }
     componentWillReceiveProps(newProps) {
         this.setState({ limitPrice: '$' + parseFloat(newProps.bidPrice).toFixed(4).toString() });
@@ -123,5 +128,5 @@ const mapStateToProps = state => {
         lastTradeDate: state.selectedContractMonth.lastTradeDate
     };
 }
-export default connect(mapStateToProps, null)(LimitOrder);
+export default connect(mapStateToProps, { onExpireSelection, onLimitSelection})(LimitOrder);
 

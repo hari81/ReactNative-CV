@@ -25,8 +25,8 @@ class ActionBar extends Component {
     dashboardToPlaceOrder() {
         const cropcode = this.props.Crops.activeCommodity.code;
         const cropyear = this.props.Crops.activeCropYear;
-       // Actions.quoteswap({ cropcode, cropyear });
-        Actions.tcorderreceipt();
+        Actions.quoteswap({ cropcode, cropyear });
+       // Actions.tcorderreceipt();
     }
     render() {
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a');

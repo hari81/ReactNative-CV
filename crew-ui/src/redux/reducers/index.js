@@ -14,6 +14,7 @@ import contractMonth from './QuoteSwap/ContractMonth/ContractMonthData';
 import cropsButton from './CropButtons/ButtonReducer';
 import selectedProduct from './QuoteSwap/ProductType/SelectedProduct';
 import reviewOrderGetQuote from './OrdersReducer/ReviewOrder';
+import limitorder from './QuoteSwap/ProductType/LimitOrderReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -30,7 +31,7 @@ export default combineReducers({
     contractData: contractMonth,
     selectedProductQuoteSwap: selectedProduct,
     account: accountDetails,
-    reviewQuote: reviewOrderGetQuote
-    
+    reviewQuote: reviewOrderGetQuote,
+    limitOrder: limitorder
 });
 

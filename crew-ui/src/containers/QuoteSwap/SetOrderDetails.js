@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dimensions from 'Dimensions';
@@ -11,6 +11,7 @@ import BidAskPrice from '../../components/QuoteSwap/BidAskPrice';
 import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMonth';
 import { Button } from '../../components/common/Button';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
+import st from '../../Utils/SafeTraverse';
 
 class SetOrderDetails extends Component {
     constructor(props) {
@@ -28,11 +29,12 @@ class SetOrderDetails extends Component {
             notes: ''
         };
     }
+
     componentWillReceiveProps(nextProps) {
-        this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol});
-        this.setState({ expirationDate: nextProps.underlyingSym.lastTradeDate});
-        this.setState({ targetPrice: nextProps.underlyingSym.bidprice});
-        this.setState({ goodTilDate: nextProps.underlyingSym.lastTradeDate})
+        this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol });
+        this.setState({ expirationDate: new Date(nextProps.underlyingSym.lastTradeDate.concat('T00:00:00-06:00')) });
+        this.setState({ targetPrice: nextProps.limitOrderData.limitPrice });
+        this.setState({ goodTilDate: nextProps.limitOrderData.orderExpire });
     }
     tradeDirectionChange=(tradeDirection) => {
         this.setState({ buySell: tradeDirection });
@@ -40,26 +42,23 @@ class SetOrderDetails extends Component {
     onQuantityChange = (quant) => {
         this.setState({ quantity: quant });
     }
-    onOrderTypeChange=(type, targetPrice) => {
-        this.setState({ orderType: type, targetPrice });
-    }
-    onExpireSelection=(goodTillDate) => {
-        this.setState({ goodTilDate: goodTillDate})
+    onOrderTypeChange=(type) => {
+        this.setState({ orderType: type });
     }
     onReviewOrder() {
-        this.props.getReviewOrderQuote();
+        this.props.getReviewOrderQuote(this.state);
     }
     orderDetails = (id) => {
         this.setState({ riskProductId: id });
     }
->>>>>>> origin/quote_A_swap_1
 
     render() {
+        console.log(this.state)
         return (
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 630}}>
+                    <View style={{ flexDirection: 'row', marginLeft: 630 }}>
                         <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', textDecorationLine: 'underline', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
                     </View>
                 </View>
@@ -72,7 +71,7 @@ class SetOrderDetails extends Component {
                     <View style={{ height: 364, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
                     <View style={{ flexDirection: 'column', marginLeft: 33 }}>
                         <BushelQuantity onQuantityChange={this.onQuantityChange} />
-                        <OrderType onOrderTypeChange={this.onOrderTypeChange} onExpireSelection={this.onExpireSelection} />
+                        <OrderType onOrderTypeChange={this.onOrderTypeChange} />
                         <BidAskPrice />
                         <View style={{ flexDirection: 'row', marginLeft: 132, position: 'absolute', marginTop: 320, zIndex: -1 }}>
                             <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
@@ -153,6 +152,7 @@ const mapStateToProps = (state) => {
         MyFarmProd: state.dashBoardButtons,
         infoState: state.info,
         underlyingSym: state.selectedContractMonth,
+        limitOrderData: state.limitOrder
     };
 }
 const mapDispatchToProps = dispatch => {
@@ -164,17 +164,5 @@ const mapDispatchToProps = dispatch => {
     );
 };
 
-<<<<<<< HEAD
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators(
-        {
-            getReviewOrderQuote
-        },
-        dispatch
-    );
-};
+export default connect(mapStateToProps, mapDispatchToProps)(SetOrderDetails);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetOrderDetails);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(SetOrderDetails);
->>>>>>> origin/quote_A_swap_1
