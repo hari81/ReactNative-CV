@@ -13,6 +13,7 @@ import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
 import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmationOrderReceipt';
 import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
 import ReviewOrder from './components/Orders/ReviewOrder';
+import Disclaimer from './containers/Disclaimer';
 
 const RouterComponent = () => {
   return (
@@ -33,6 +34,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='revieworder' component={ReviewOrder} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
+        <Scene hideNavBar key='disclaimer' component={Disclaimer} />
       </Scene>
     </Router>
   );

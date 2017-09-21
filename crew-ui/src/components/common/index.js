@@ -12,5 +12,7 @@ export * from './OrderButton';
 export * from './FarmInput';
 export * from './LogoHomeHeader';
 export * from './Input';
+export * from './InfoPopup.js';
+export * from './PageHeader.js';
 export * from '../ExternalTrades/ExternalInput';
 export * from '../ExternalTrades/ExternalNumberInput';

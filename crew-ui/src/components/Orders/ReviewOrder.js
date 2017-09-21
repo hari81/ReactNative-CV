@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, Switch, StyleSheet, Image } from 'react-native';
+import { View, Text, Alert, TouchableOpacity, Switch, StyleSheet } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
-import cancelimage from '../common/img/Cancel-20.png';
-import { LogoHomeHeader } from '../../components/common';
+import { LogoHomeHeader, InfoPopup } from '../../components/common';
 import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import DisclaimerData from '../../restAPI/disclaimer.json';
@@ -33,24 +32,12 @@ class ReviewOrder extends Component {
     }
 
     showTermsConditions() {
-        const popup = (         
-            <View style={styles.messageContainer}>
-                <View style={styles.messageBox}>
-                    <TouchableOpacity onPress={this.hideTermsConditions.bind(this)} >
-                        <View style={{ marginLeft: 470, marginTop: 5 }}>
-                            <Image source={cancelimage} style={{ width: 20, height: 20 }} />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.messageBoxText}>{DisclaimerData.disclosure}</Text>
-                </View>
-                <View style={styles.triangle} />
-            </View>
-        );
+        const popup = (<InfoPopup popupInfo={termsInfo} onClose={this.hideTermsConditions.bind(this)} />);
         this.setState({ termsConditionsPopup: popup });
     }
 
     hideTermsConditions() {
-        const popup = <View style={{ display: 'none' }} />;
+        const popup = (<View style={{ display: 'none' }} />);
         this.setState({ termsConditionsPopup: popup });
     }
 
@@ -187,6 +174,7 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
+const termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
 
 const styles = StyleSheet.create({
     /* container */
@@ -218,18 +206,7 @@ const styles = StyleSheet.create({
     /* small page header */
     backHeader: { backgroundColor: '#fff', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#bed8dd', borderTopColor: '#e7b514', borderTopWidth: 4, marginTop: 20, marginLeft: 15, marginRight: 15 },
     headerTextBox: { marginTop: 10, marginBottom: 10, borderRightColor: '#e6eaee', borderRightWidth: 2 },
-    headerText: { fontFamily: 'HelveticaNeue-Medium', color: '#007681', fontSize: 20, paddingLeft: 10, paddingRight: 10 },
-
-    /* popup/message style */
-    messageContainer: { position: 'absolute', marginTop: 160, marginLeft: 320 },
-    triangle: { 
-        marginLeft: 240, marginTop: -2, width: 0, height: 0, backgroundColor: 'transparent', borderStyle: 'solid', borderColor: '#fff', borderLeftWidth: 15, borderRightWidth: 15, borderTopWidth: 20, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderBottomColor: '#ddd', shadowColor: '#aaa', shadowOffset: { width: 0, height: 3 }, shadowRadius: 1, shadowOpacity: 0.5
-    },
-    messageBox: { width: 500, borderColor: '#ddd', borderWidth: 1, backgroundColor: '#fff', borderRadius: 3, shadowColor: '#aaa', shadowOffset: { width: 0, height: 3 }, shadowRadius: 3, shadowOpacity: 0.5 },
-    messageBoxText: { 
-        fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 25, paddingTop: 0, paddingRight: 25, paddingBottom: 25 
-    }    
-    
+    headerText: { fontFamily: 'HelveticaNeue-Medium', color: '#007681', fontSize: 20, paddingLeft: 10, paddingRight: 10 }
 });
 
 const mapStateToProps = state => {

@@ -4,7 +4,7 @@ import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
-import { LogoHeader } from '../components/common';
+import { LogoHomeHeader } from '../components/common';
 import DisclaimerData from '../restAPI/disclaimer.json';
 
 class Disclaimer extends Component {
@@ -33,19 +33,18 @@ class Disclaimer extends Component {
         return (
             <View>
                 <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                <LogoHeader phNumber='+1-952-742-7414' subHeaderText='PRICE HEDGING' />
-
+                <LogoHomeHeader />
                 <PageHeader headerText="Terminology You'll See Here" headerInfoText='' />
 
                 <View style={styles.disclaimerMain}>
                     <View style={styles.disclaimerContainer}>
                         <Text style={styles.disclaimerTitle}>To help you get started, let's go over a couple terms we'll use here</Text>
                         <View style={styles.disclaimerTermsContainer}>
-                            <View style={[styles.disclaimerTextBox, { flex: 0.55, marginRight: 20 }]}>
+                            <View style={[styles.disclaimerTextBox, { flex: 0.52, marginRight: 20 }]}>
                                 <Text style={styles.disclaimerSubHead}>Producer Swap</Text>
                                 <Text style={styles.disclaimerText}>{DisclaimerData.description}</Text>
                             </View>
-                            <View style={[styles.disclaimerTextBox, { flex: 0.45 }]}>
+                            <View style={[styles.disclaimerTextBox, { flex: 0.48 }]}>
                                 {this.renderTerms()}
                             </View>
                         </View>
@@ -64,9 +63,9 @@ class Disclaimer extends Component {
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    disclaimerMain: { height: height - 100, backgroundColor: '#eff4f7' },
-    disclaimerContainer: { height: height - 185, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 20, paddingBottom: 50 },
-    disclaimerTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 30, color: '#fff', paddingTop: 10, marginBottom: 20 },
+    disclaimerMain: { height: height - 0, backgroundColor: '#eff4f7' },
+    disclaimerContainer: { height: height - 180, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, paddingLeft: 50, paddingTop: 35, paddingRight: 50, paddingBottom: 50 },
+    disclaimerTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 32, color: '#fff', paddingTop: 10, marginBottom: 20 },
 
     disclaimerTermsContainer: { flexDirection: 'row', backgroundColor: '#404e59' },
     disclaimerTextBox: { backgroundColor: '#fff', padding: 10, paddingLeft: 15, paddingRight: 15, borderRadius: 4 },
