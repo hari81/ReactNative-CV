@@ -14,7 +14,7 @@ class OrderType extends Component {
             tickSizeIncrement: '0'
         };
     }
-    componentDidMount(){
+    componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
         this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement.toString() });

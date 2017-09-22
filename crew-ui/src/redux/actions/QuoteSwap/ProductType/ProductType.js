@@ -4,7 +4,7 @@ import { doGetFetch } from '../../../../Utils/FetchApiCalls';
 export const productType = () => {
     return (dispatch, getState) => {
         const url = `${REST_API_URL}riskproducts`;
-       return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.email, getState().auth.passwor)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(riskProducts =>
                 dispatch(riskProductData(riskProducts))
@@ -20,5 +20,4 @@ export function riskProductData(riskproducts) {
         payload: riskproducts
     };
 }
-
 

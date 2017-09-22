@@ -52,62 +52,11 @@ class ButtonList extends Component {
         return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
             <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
                 <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
-                    <Text
-                        style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
-                            color: 'rgb(82,97,115)',
-                            fontSize: 16 }}
-                    >
-                        {cropYear}</Text>
-                    <Text
-                        style={id === this.props.id ? { color: 'white', fontSize: 24 } : {
-                            color: 'rgb(82,97,115)',
-                            fontFamily: 'HelveticaNeue',
-                            fontSize: 24
-                        }}
-                    >{name.toUpperCase()}</Text>
-                    <Text
-                        style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
-                            color: 'rgb(159,169,186)',
-                            fontSize: 14
-                        }}
-                    >Crop</Text>
+                    <Text style={id === this.props.id ? styles.activeYearTextStyle : styles.inactiveYearTextStyle}>{cropYear}</Text>
+                    <Text style={id === this.props.id ? styles.activeCommodityTextStyle : styles.inactiveCommodityTextStyle}>{name.toUpperCase()}</Text>
                 </View>
             </TouchableOpacity>
         </View>);
-
-
-
-        /*<View style={{ flexDirection: 'row', marginLeft: 10 }}>
-        <TouchableHighlight
-            style={{
-            flex: 1,
-            alignSelf: 'stretch',
-            borderRadius: 5,
-            borderWidth: 1,
-            backgroundColor: 'rgb(1,172,168)',
-            borderColor: 'rgb(1,172,168)',
-            marginLeft: 5,
-            marginRight: 5,
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}
-            onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}
-        >
-            <Text
-                style={{
-                    alignSelf: 'center',
-                    fontSize: 18,
-                    color: 'white',
-                    paddingTop: 10,
-                    paddingBottom: 10,
-                    fontFamily: 'HelveticaNeue-Medium'
-                }}
-            >{name.toUpperCase()}</Text>
-
-        </TouchableHighlight>
-
-        </View>
-    );*/
     }
 }
 const styles = {
@@ -116,11 +65,20 @@ const styles = {
         height: 78,
         borderRadius: 3,
         justifyContent: 'center',
+        paddingTop: 3,
         marginLeft: 4,
         marginTop: 8,
         alignItems: 'center',
-        backgroundColor: 'rgb(255,255,255)',
-    }
+        backgroundColor: '#fff',
+    },
+    activeYearTextStyle: { fontSize: 16, color: '#fff' },
+    inactiveYearTextStyle: { fontSize: 16, color: '#526173' },
+    activeCommodityTextStyle: { color: '#fff', fontSize: 21, maxWidth: 130, textAlign: 'center' },
+    inactiveCommodityTextStyle: { color: '#526173', fontFamily: 'HelveticaNeue', fontSize: 21, maxWidth: 130, textAlign: 'center' },
+    /* currently not used
+    activeCropTextStyle: { color: '#fff', fontSize: 14 },
+    inactiveCropTextStyle: { color: '#9fa9ba', fontSize: 14 }
+    */
 };
 const mapStateToProps = state => {
     return {

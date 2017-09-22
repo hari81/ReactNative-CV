@@ -12,7 +12,6 @@ export const ViewOrdersData = (crop) => {
   return (dispatch, getState) => {
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const url = `${REST_API_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
-    console.log(url)
    return doGetFetch(url, getState().auth.email, getState().auth.password)
       .then(response => response.json())
       .then(items => {

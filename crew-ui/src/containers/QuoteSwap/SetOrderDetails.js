@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
 import TradeDirection from '../../components/QuoteSwap/TradeDirection';
@@ -51,7 +52,11 @@ class SetOrderDetails extends Component {
         this.setState({ goodTilDate: goodTillDate });
     }
     onReviewOrder() {
-        this.props.getReviewOrderQuote(this.state);
+        try {
+            this.props.getReviewOrderQuote(this.state);
+        } catch (error) {
+            Alert.alert(`Unexpected error occurred: ${error}`);
+        }
     }
 
     tradeDirectionChange=(tradeDirection) => {
@@ -96,7 +101,9 @@ class SetOrderDetails extends Component {
                 <View style={styles.setOrderDetails}>
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
                     <View style={{ flexDirection: 'row', marginLeft: 630 }}>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', textDecorationLine: 'underline', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
+                        <TouchableOpacity onPress={() => Actions.disclaimer()}>
+                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 {spinner}

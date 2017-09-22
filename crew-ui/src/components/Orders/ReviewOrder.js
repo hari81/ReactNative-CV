@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, Switch, StyleSheet, Image } from 'react-native';
+import { View, Text, Alert, TouchableOpacity, Switch, StyleSheet } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
-import cancelimage from '../common/img/Cancel-20.png';
-import { LogoHomeHeader } from '../../components/common';
+import { LogoHomeHeader, InfoPopup } from '../../components/common';
 import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import DisclaimerData from '../../restAPI/disclaimer.json';
@@ -33,24 +32,12 @@ class ReviewOrder extends Component {
     }
 
     showTermsConditions() {
-        const popup = (         
-            <View style={styles.messageContainer}>
-                <View style={styles.messageBox}>
-                    <TouchableOpacity onPress={this.hideTermsConditions.bind(this)} >
-                        <View style={{ marginLeft: 398, marginTop: 2 }}>
-                            <Image source={cancelimage} style={{ width: 16, height: 16 }} />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.messageBoxText}>{DisclaimerData.disclosure}</Text>
-                </View>
-                <View style={styles.triangle} />
-            </View>
-        );
+        const popup = (<InfoPopup popupInfo={termsInfo} onClose={this.hideTermsConditions.bind(this)} />);
         this.setState({ termsConditionsPopup: popup });
     }
 
     hideTermsConditions() {
-        const popup = <View style={{ display: 'none' }} />;
+        const popup = (<View style={{ display: 'none' }} />);
         this.setState({ termsConditionsPopup: popup });
     }
 
@@ -144,22 +131,22 @@ class ReviewOrder extends Component {
                                 <View>
                                     <View style={styles.quoteMarketContainer}>
                                         <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
-                                            <Text style={styles.quoteLabel}>Mid Market Mark</Text>
-                                            <Text style={styles.quoteData}>{this.props.calcs.midMarketMarkCents.toFixed(1)} Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                                            <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                <Text style={[styles.quoteData, styles.marketData]}>{this.props.calcs.midMarketMarkCents.toFixed(1)}</Text>
+                                                <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                                            </View>
                                         </View>
                                         <View style={[styles.quoteField, { marginBottom: 0, alignItems: 'center' }]}>
-                                            <Text style={styles.quoteLabel}>Indicative Market Price</Text>
-                                            <Text style={styles.quoteData}>${this.props.data.price.toFixed(4)}</Text>
+                                            <Text style={[styles.quoteLabel, styles.marketLabel]}>INDICATIVE MARKET PRICE</Text>
+                                            <Text style={[styles.quoteData, styles.marketData]}>${this.props.data.price.toFixed(4)}</Text>
                                         </View>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                        <Switch
-                                            style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd'
-                                            onValueChange={(value) => this.setState({ isPlaceOrderEnabled: value })} value={this.state.isPlaceOrderEnabled} 
-                                        />
-                                         <Text>Agree to </Text>
+                                    <View style={styles.termsContainer}>
+                                        <Switch style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd' onValueChange={(value) => this.setState({ isPlaceOrderEnabled: value })} value={this.state.isPlaceOrderEnabled} />
+                                        <Text>Agree to </Text>
                                         <TouchableOpacity onPress={this.showTermsConditions.bind(this)}>
-                                            <Text style={{ color: '#01aca8', textDecorationLine: 'underline' }}>Terms and Conditions</Text>
+                                            <Text style={styles.termsLink}>Terms and Conditions</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -187,49 +174,39 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
+const termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
 
 const styles = StyleSheet.create({
     /* container */
     reviewMain: { height: height - 100, backgroundColor: '#eff4f7' },
-    reviewContainer: { height: height - 250, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 15, paddingBottom: 50 },
-    reviewTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 30, color: '#fff', marginRight: 100, marginBottom: 15 },
-    displayNone: { display: 'none' },
-    displayBlock: { display: 'flex' },
+    reviewContainer: { height: height - 240, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 15, paddingBottom: 50 },
+    reviewTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 32, color: '#fff', marginRight: 100, marginBottom: 15 },
 
     /* quote fields */
-    quoteContainer: { height: height - 370, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 100, paddingRight: 100 },
+    quoteContainer: { height: height - 360, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 120, paddingRight: 120 },
     quoteFields: { flexDirection: 'row', flex: 1 },
     quoteField: { marginBottom: 10 },
-    quoteLabel: { color: '#888', fontSize: 12 },
-    quoteData: { color: '#404e59', fontSize: 16 },
-    quoteMarketContainer: {
-        backgroundColor: '#ebf9f9', borderRadius: 5, flexDirection: 'row', paddingTop: 10, paddingBottom: 10, marginBottom: 10, alignItems: 'center', justifyContent: 'center'
-    },
+    quoteLabel: { fontFamily: 'Helveticaneue-Thin', color: '#3b4a55', fontSize: 14 },
+    quoteData: { color: '#3b4a55', fontSize: 20 },
+    quoteMarketContainer: { backgroundColor: '#ebf9f9', borderRadius: 3, flexDirection: 'row', paddingTop: 10, paddingBottom: 10, marginBottom: 10, alignItems: 'center', justifyContent: 'center' },
+    marketLabel: { fontSize: 10, color: '#606d77' },
+    marketData: { fontSize: 18, color: '#606d77' },
     switchStyle: { backgroundColor: '#ddd', borderRadius: 18, marginLeft: 10, marginRight: 10 },
+    termsContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+    termsLink: { fontSize: 16, color: '#606d77', textDecorationLine: 'underline' },
 
     /* button styles */
     buttonContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-    reviewButtonStyle: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', marginTop: 30, borderRadius: 4, paddingLeft: 20, paddingTop: 10, paddingRight: 20, paddingBottom: 10 },
+    reviewButtonStyle: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', marginTop: 20, borderRadius: 4, paddingTop: 10, paddingBottom: 10, width: 220 },
     reviewButtonTextStyle: { fontFamily: 'HelveticaNeue-Light', color: '#4a4a4a', fontSize: 18 },
-    backButtonStyle: { backgroundColor: '#fff', marginRight: 40 },
+    backButtonStyle: { backgroundColor: '#fff', borderColor: '#9fa9ba', borderWidth: 1, marginRight: 45 },
     reviewButtonStyleEnabled: { backgroundColor: '#279988' },
-    reviewButtonStyleDisabled: { backgroundColor: '#27998835' },
+    reviewButtonStyleDisabled: { backgroundColor: '#27998865' },
     
     /* small page header */
     backHeader: { backgroundColor: '#fff', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#bed8dd', borderTopColor: '#e7b514', borderTopWidth: 4, marginTop: 20, marginLeft: 15, marginRight: 15 },
     headerTextBox: { marginTop: 10, marginBottom: 10, borderRightColor: '#e6eaee', borderRightWidth: 2 },
-    headerText: { fontFamily: 'HelveticaNeue', color: '#007681', fontSize: 18, paddingLeft: 10, paddingRight: 10 },
-
-    /* popup/message style */
-    messageContainer: { position: 'absolute', marginTop: 160, marginLeft: 370 },
-    triangle: { 
-        marginLeft: 200, width: 0, height: 0, backgroundColor: 'transparent', borderStyle: 'solid', borderColor: '#ddd', borderLeftWidth: 8, borderRightWidth: 8, borderTopWidth: 16, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderBottomColor: '#ddd'
-    },
-    messageBox: { width: 420, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3 }, 
-    messageBoxText: { 
-        fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 15, paddingTop: 0, paddingRight: 15, paddingBottom: 15 
-    }    
-    
+    headerText: { fontFamily: 'HelveticaNeue-Medium', color: '#007681', fontSize: 20, paddingLeft: 10, paddingRight: 10 }
 });
 
 const mapStateToProps = state => {
