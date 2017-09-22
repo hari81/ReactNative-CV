@@ -1,6 +1,5 @@
 //Rest API's
 export const REST_API_URL = 'https://ws5ll39bna.execute-api.us-east-1.amazonaws.com/qa/';
-
 //Authentication URL
 export const AUTHENTICATE_URL = 'https://s8f0t8d99j.execute-api.us-east-1.amazonaws.com/qa/';
 //Rest qa service

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, TextInput, Keyboard } from 'react-native';
+import { View, Text, Image, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Minus from '../common/img/Minus-32.png';
 import Plus from '../common/img/Plus.png';
+import * as common from '../../Utils/common';
 
 class BushelQuantity extends Component {
     constructor(props) {
@@ -17,20 +18,39 @@ class BushelQuantity extends Component {
     componentWillReceiveProps(newProps) {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ quantityIncrement: crop[0].quantityIncrement.toString() });
+        this.setState({ quantityIncrement: crop[0].quantityIncrement.toString(), quantity: '' });
+    }
+    onFocusMake = () => {
+        this.setState({ enableClick: false, quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });
+    }
+    onBlurMake = () => {
+        this.setState({ enableClick: true, quantity: common.formatNumberCommas(this.state.quantity) });
+        this.props.onQuantityChange(this.state.quantity);
+    }
+    onChangeQuantity = (text) => {
+        if (/[0-9]+$/.test(text) || text === '') {
+            if (text <= this.props.quantityLimit) {
+                this.setState({ quantity: text });
+            } else {
+                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} bushels`);
+                this.setState({ quantity: this.props.quantityLimit.toString() });
+            }
+        }
     }
     minusButtonPress= () => {
-        if (parseInt (this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
+        if (parseInt(this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
             this.setState({ quantity: (parseInt(this.state.quantity) - parseInt(this.state.quantityIncrement)).toString() });
         }
         this.timer = setTimeout(this.minusButtonPress, 50);
     }
     plusButtonPress= () => {
-        //hard coding max Limit quantity for now,when the service is ready hook up
-        if (parseInt(this.state.quantity) <= 99999999 || this.state.quantity === '') {
+        if (parseInt(this.state.quantity) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || this.state.quantity === '') {
             this.setState({ quantity: ((parseInt(this.state.quantity) || 0) + parseInt(this.state.quantityIncrement)).toString() });
+            this.timer = setTimeout(this.plusButtonPress, 50);
+        } else {
+            Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} bushels`);
+            this.setState({ quantity: this.props.quantityLimit.toString() });
         }
-        this.timer = setTimeout(this.plusButtonPress, 50);
     }
     stopTimer= () => {
         clearTimeout(this.timer);
@@ -44,16 +64,16 @@ class BushelQuantity extends Component {
                         <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
                     </TouchableOpacity>
                     <TextInput
-                        style={{ height: 42, width: 112, borderRadius: 4,backgroundColor: 'rgb(255,255,255)', paddingLeft: 10}}
+                        style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', paddingLeft: 10 }}
                         maxLength={9}
                         keyboardType="decimal-pad"
                         returnKeyType="done"
                         placeholder="0"
-                        onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss()} }}
-                        onChangeText={(text) => { if (/[0-9]+$/.test(text) || text === '') { return this.setState({ quantity: text }); } }}
+                        onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
+                        onChangeText={this.onChangeQuantity}
                         value={this.state.quantity}
-                        onBlur={() => { this.setState({ enableClick: true, quantity: this.state.quantity.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') }); this.props.onQuantityChange(this.state.quantity); }}
-                        onFocus={() => this.setState({ enableClick: false,quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') })}
+                        onBlur={this.onBlurMake}
+                        onFocus={this.onFocusMake}
                         selectTextOnFocus
                     />
                     <TouchableOpacity disabled={this.state.enableClick} onPressIn={this.plusButtonPress} onPressOut={this.stopTimer}>
@@ -61,7 +81,7 @@ class BushelQuantity extends Component {
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>35% HEDGED</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>Your Available Limit is 40,000 bushels</Text>
+                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>Your Available Limit is {common.formatNumberCommas(this.props.quantityLimit)} bushels</Text>
                     </View>
                 </View>
             </View>
@@ -78,7 +98,8 @@ const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         contractMonth: state.contractData,
-        id: state.cropsButtons.selectedId
+        id: state.cropsButtons.selectedId,
+        quantityLimit: Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable)
     };
 }
 export default connect(mapStateToProps, null)(BushelQuantity);

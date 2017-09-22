@@ -26,8 +26,9 @@ export const quoteSwapUnderlying = (year, code) => {
                                 year: o.contractMonth.year.value,
                                 underlying: o.symbol,
                                 lastTradeDate: o.lastTradeDate,
-                                askPrice: underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].askPrice:0,
-                                bidPrice: underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].bidPrice:0,
+                                askPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].askPrice : 0,
+                                bidPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].bidPrice : 0,
+                                settlePrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].settlePrice : 0,
                                 cropCode: code,
                                 cropYear: year
                             };
