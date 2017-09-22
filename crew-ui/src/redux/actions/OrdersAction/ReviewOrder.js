@@ -5,7 +5,7 @@ import { X_API_KEY, REST_API_URL } from '../../../ServiceURLS/index';
 
 export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}api/quotes`;
+        const url = `${REST_API_URL}quotes`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
 
@@ -59,7 +59,7 @@ export const getReviewOrderQuote = (orderData) => {
 
 export const placeOrder = () => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}api/orders`;
+        const url = `${REST_API_URL}orders`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
         const oData = getState().reviewQuote.quoteData;
