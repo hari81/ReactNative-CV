@@ -5,13 +5,13 @@ import moment from 'moment';
 import Minus from '../../common/img/Minus-32.png';
 import Plus from '../../common/img/Plus.png';
 import st from '../../../Utils/SafeTraverse';
-import { onLimitSelection, onExpireSelection } from '../../../redux/actions/QuoteSwap/ProductType/LimitOrderAction';
+import { onLimitSelection, onExpireSelection } from '../../../redux/actions/QuoteSwap/LimitOrderAction';
 
 class LimitOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            limitPrice: '$' + parseFloat(props.bidPrice).toFixed(4).toString() || '',
+            limitPrice: parseFloat(props.bidPrice).toFixed(4).toString() || '',
             tickSizeIncrement: props.tickSizeIncrement,
             enableClick: true,
             showDatePicker: false,
@@ -24,18 +24,31 @@ class LimitOrder extends Component {
         this.props.onExpireSelection(this.state.date);
     }
     componentWillReceiveProps(newProps) {
-        this.setState({ limitPrice: '$' + parseFloat(newProps.bidPrice).toFixed(4).toString() });
+        this.setState({ limitPrice: parseFloat(newProps.bidPrice).toFixed(4).toString() });
         this.setState({ date: new Date(newProps.lastTradeDate.concat('T00:00:00-06:00')) });
+        this.props.onLimitSelection(newProps.bidPrice);
+        this.props.onExpireSelection(newProps.lastTradeDate);
+    }
+    onFocusMake = () => {
+        this.setState({ enableClick: false, limitPrice: (this.state.limitPrice.charAt(0) === '$') ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice });
+    }
+    onBlurMake = () => {
+         this.setState({ enableClick: true, limitPrice: '$' + this.state.limitPrice }); this.props.onLimitSelection(this.state.limitPrice);
+    }
+    onChangeQuantity= (text) => {
+        if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
+            this.setState({ limitPrice: text });
+        }
     }
     minusButtonPress = () => {
         if (parseFloat(this.state.limitPrice) >= parseFloat(this.state.tickSizeIncrement)) {
             this.setState({ limitPrice: ((parseFloat(this.state.limitPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
         }
-        this.timer = setTimeout(this.minusButtonPress, 100);
+        this.timer = setTimeout(this.minusButtonPress, 50);
     }
     plusButtonPress = () => {
         this.setState({ limitPrice: (((parseFloat(this.state.limitPrice)) + parseFloat(this.props.tickSizeIncrement)).toFixed(4)).toString() })
-        this.timer = setTimeout(this.plusButtonPress, 100);
+        this.timer = setTimeout(this.plusButtonPress, 50);
     }
     stopTimer = () => {
         clearTimeout(this.timer);
@@ -85,14 +98,14 @@ class LimitOrder extends Component {
                                     keyboardType='decimal-pad'
                                     returnKeyType="done"
                                     value={this.state.limitPrice}
-                                    onChangeText={(text) => { if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') { return this.setState({ limitPrice: text }); } }}
-                                    onBlur={() => { this.setState({ enableClick: true, limitPrice: '$' + this.state.limitPrice }); this.props.onLimitSelection(this.state.limitPrice); }}
-                                    onFocus={() => this.setState({ enableClick: false, limitPrice: (this.state.limitPrice.charAt(0) === '$') ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice })}
+                                    onChangeText={this.onChangeQuantity}
+                                    onBlur={this.onBlurMake}
+                                    onFocus={this.onFocusMake}
                                     onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
                                     selectTextOnFocus
                                 />
                                 <TouchableOpacity disabled={this.state.enableClick} onPressIn={this.plusButtonPress} onPressOut={this.stopTimer}>
-                                    <Image style={{ width: 32, height: 32, marginLeft: 15,marginTop: 5 }} source={Plus} />
+                                    <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
                                 </TouchableOpacity>
                             </View>
                             {this.warningMessage()}
@@ -123,8 +136,8 @@ const styles = {
 }
 const mapStateToProps = state => {
     return {
-        bidPrice: state.selectedContractMonth.bidprice,
-        askPrice: state.selectedContractMonth.askprice,
+        bidPrice: state.selectedContractMonth.bidPrice,
+        askPrice: state.selectedContractMonth.askPrice,
         lastTradeDate: state.selectedContractMonth.lastTradeDate
     };
 }

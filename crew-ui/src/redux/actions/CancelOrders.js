@@ -5,7 +5,7 @@ import { doDeleteFetch } from '../../Utils/FetchApiCalls';
 
 export const orderReceipt = orderid => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}api/orders/${orderid}`;
+        const url = `${REST_API_URL}orders/${orderid}`;
         return doDeleteFetch(url, getState().auth.email, getState().auth.password)
             .then(response => {
                 if (response.ok) {

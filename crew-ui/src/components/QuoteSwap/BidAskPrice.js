@@ -7,8 +7,9 @@ import st from '../../Utils/SafeTraverse';
 
 class BidAskPrice extends Component {
     render() {
-        const bidPrice = parseFloat(st(this.props, ['bidPrice'])).toFixed(4);
-        const askPrice = parseFloat(st(this.props, ['askPrice'])).toFixed(4);
+        const bidPrice = !this.props.bidPrice || this.props.bidPrice === null || this.props.bidPrice === undefined ? '-' : parseFloat(st(this.props, ['bidPrice'])).toFixed(4);
+        const askPrice = !this.props.askPrice || this.props.askPrice === null || this.props.askPrice === undefined ? '-' : parseFloat(st(this.props, ['askPrice'])).toFixed(4);
+        const settlePrice = !this.props.settlePrice || this.props.settlePrice === null || this.props.settlePrice === undefined ? '-' : parseFloat(st(this.props, ['settlePrice'])).toFixed(4);
         if (this.props.contractMonth.spinFlag) {
             return <Spinner size="small" />;
         }
@@ -24,7 +25,7 @@ class BidAskPrice extends Component {
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 60, marginTop: 4 }}>
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>LAST SETTLE:</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>N/A</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{settlePrice || 0}</Text>
                 </View>
             </View>
         );
@@ -43,8 +44,9 @@ const styles = {
 }
 const mapStateToProps = state => {
     return {
-        bidPrice: state.selectedContractMonth.bidprice,
-        askPrice: state.selectedContractMonth.askprice,
+        bidPrice: state.selectedContractMonth.bidPrice,
+        askPrice: state.selectedContractMonth.askPrice,
+        settlePrice: state.selectedContractMonth.settlePrice,
         contractMonth: state.contractData
     };
 }

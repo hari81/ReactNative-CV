@@ -14,11 +14,10 @@ class OrderType extends Component {
             tickSizeIncrement: '0'
         };
     }
-    componentWillReceiveProps(newProps) {
+    componentDidMount(){
         const code = this.props.id;
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0,(code.length-4)))
+        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
         this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement.toString() });
-        //this.props.onOrderTypeChnage('market');
     }
     onMarketSelection= () => {
         this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
@@ -33,7 +32,7 @@ class OrderType extends Component {
             return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} />;
         }
     }
-    render(){
+    render() {
         return (
             <View style={styles.container}>
                 <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>ORDER TYPE</Text>

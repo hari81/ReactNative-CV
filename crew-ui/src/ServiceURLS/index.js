@@ -3,7 +3,7 @@ const env = 'velo'; //Please change env constant to switch between environments
 
 //Rest API's
 export const REST_API_URL =
-  `https://a7gp732c12.execute-api.us-east-1.amazonaws.com/${env}/extracense/`; //EC_REST_API_URL
+  `https://ws5ll39bna.execute-api.us-east-1.amazonaws.com/qa/`; //EC_REST_API_URL
 
 // Rest Velo service
 export const VELO_REST_API_URL = `https://t6sd119in4.execute-api.us-east-1.amazonaws.com/${env}/`;

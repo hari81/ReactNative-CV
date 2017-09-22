@@ -4,33 +4,36 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
-class ActionBar extends Component {
 
+class ActionBar extends Component {
     dashBoardToOrders() {
         const Crop = this.props.Crops.activeCommodity.code;
         Actions.orders({ Crop });
-
     }
+
     dashBoardToOpenPositions() {
         const Crop = this.props.Crops.activeCommodity.code;
         Actions.orders({ selectedTab: 'Open Positions', Crop });
-
     }
+
     dashBoardToExternalTrades() {
         const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
         console.log('cropData', cropData);
 
         this.props.externalGetTransDashboard(cropData[0].code, cropData[0].cropYear);
     }
+
     dashboardToPlaceOrder() {
         const cropcode = this.props.Crops.activeCommodity.code;
         const cropyear = this.props.Crops.activeCropYear;
         Actions.quoteswap({ cropcode, cropyear });
+
        // Actions.tcorderreceipt();
+
     }
     render() {
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a');
-        return(
+        return (
             <View style={styles.thirdRowStyle}>
                 <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'stretch', width: 182 }}>
                     <Text style={{ fontSize: 17, fontFamily: 'HelveticaNeue', color: 'rgb(131,141,148)' }}> TODAY'S PRICE </Text>

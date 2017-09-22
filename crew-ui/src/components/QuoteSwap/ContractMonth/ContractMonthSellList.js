@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, } from 'react-native';
 import { connect } from 'react-redux';
-import { contractMonthSelect, bidPriceShow, askPriceShow, lastTradeDateShow, underlyingYearShow } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
+import { contractMonthSelect, bidPriceShow, askPriceShow, lastTradeDateShow, underlyingYearShow, bushelQuantityLimit, settlePriceShow } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
 import st from '../../../Utils/SafeTraverse';
 
 class ContractMonthSellList extends Component {
@@ -9,22 +9,24 @@ class ContractMonthSellList extends Component {
         this.props.contractMonthSelect(st(this.props, ['contractMonth', 'contract', 0, 'id']));
         this.props.bidPriceShow(st(this.props, ['contractMonth', 'contract', 0, 'bidPrice']));
         this.props.askPriceShow(st(this.props, ['contractMonth', 'contract', 0, 'askPrice']));
+        this.props.settlePriceShow(st(this.props, ['contractMonth', 'contract', 0, 'settlePrice']));
         this.props.lastTradeDateShow(st(this.props, ['contractMonth', 'contract', 0, 'lastTradeDate']));
         this.props.underlyingYearShow(st(this.props, ['contractMonth', 'contract', 0, 'underlying']));
-
+        this.props.bushelQuantityLimit(st(this.props, ['contractMonth', 'contract', 0, 'underlying']));
     }
-    contractMonthSelect(id, bidprice, askprice, lastTradeDate, underlying) {
-        //this.props.onClick(id);
+    contractMonthSelect(id, bidPrice, askPrice, settlePrice, lastTradeDate, underlying) {
         this.props.contractMonthSelect(id);
-        this.props.bidPriceShow(bidprice);
-        this.props.askPriceShow(askprice);
+        this.props.bidPriceShow(bidPrice);
+        this.props.askPriceShow(askPrice);
+        this.props.settlePriceShow(settlePrice);
         this.props.lastTradeDateShow(lastTradeDate);
         this.props.underlyingYearShow(underlying);
+        this.props.bushelQuantityLimit(underlying);
     }
     render() {
-        const bidPrice = parseFloat(st(this.props, ['item', 'bidPrice'])).toFixed(4);
+        const bidPrice = !this.props.item.bidPrice || this.props.item.bidPrice === null || this.props.item.bidPrice === undefined ? '-' : parseFloat(st(this.props, ['item', 'bidPrice'])).toFixed(4);
         return (
-            <TouchableOpacity disabled={this.props.item.id === this.props.id}onPress={() => this.contractMonthSelect(this.props.item.id, this.props.item.bidPrice, this.props.item.askPrice, this.props.item.lastTradeDate, this.props.item.underlying)}>
+            <TouchableOpacity disabled={this.props.item.id === this.props.id} onPress={() => this.contractMonthSelect(this.props.item.id, this.props.item.bidPrice, this.props.item.askPrice, this.props.item.settlePrice, this.props.item.lastTradeDate, this.props.item.underlying)}>
                 <View style={this.props.item.id === this.props.id ? styles.afterButtonPress : styles.beforeButtonPress}>
                     <Text
                          style={this.props.item.id === this.props.id ?
@@ -74,4 +76,4 @@ const mapStateToProps = state => {
         contractMonth: state.contractData
     };
 }
-export default connect(mapStateToProps, { contractMonthSelect, bidPriceShow, askPriceShow, lastTradeDateShow, underlyingYearShow })(ContractMonthSellList);
+export default connect(mapStateToProps, { contractMonthSelect, bidPriceShow, askPriceShow, lastTradeDateShow, underlyingYearShow, bushelQuantityLimit, settlePriceShow })(ContractMonthSellList);

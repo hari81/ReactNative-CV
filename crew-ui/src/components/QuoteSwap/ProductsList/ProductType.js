@@ -30,15 +30,15 @@ class ProductType extends Component {
         const productInitial = st(this.props, ['products', 0, 'name'])
         return (
             <View>
-                <TouchableWithoutFeedback onPress={() => this.setState({ productListEnable: !this.state.productListEnable })}>
-                    <View style={styles.container}>
+                <View style={styles.container}>
                         <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>PRODUCT</Text>
+                        <TouchableWithoutFeedback onPress={() => this.setState({ productListEnable: !this.state.productListEnable })}>
                         <View style={{ width: 252, height: 50, backgroundColor: 'rgb(255,255,255)', flexDirection: 'row' }}>
                             <View style={{ width: 200, marginTop: 10, marginLeft: 10 }}><Text style={{ color: 'rgb(159,159,159)', fontFamily: 'HelveticaNeue', textAlign: 'auto', fontSize: 16, alignSelf: 'stretch' }}>{this.props.selectedProduct.productName || productInitial}</Text></View>
                             <Image source={expandArrow} style={{ height: 20, width: 20, margin: 10 }} />
                         </View>
+                        </TouchableWithoutFeedback>
                     </View>
-                </TouchableWithoutFeedback>
                 <View style={this.state.productListEnable ? styles.productListContainer:''}>
                     {this.productsList()}
                 </View>
