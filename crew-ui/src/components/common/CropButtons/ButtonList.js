@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { myFarmCropValues, myFarmTradeSalesOutSideApp
+import { myFarmCropValues, myFarmTradeSalesOutSideApp, farmActionFlag
 } from '../../../redux/actions/MyFarm/CropAction';
 import { firstButton, secondButton,
     thirdButton, fourthButton, fifthButton, sixthButton, seventh, eighth
@@ -19,7 +19,7 @@ class ButtonList extends Component {
         //LIVE DATA FETCH... No need of switch statement.. Only one fetch...
         //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`)
         //console.log(id)
-        this.props.selectId(id);
+
         //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`);
 
         //DashboardAction
@@ -41,17 +41,56 @@ class ButtonList extends Component {
                 this.props.sixthButton();
                 break;
             default:
-                this.props.seventh();
+              //  this.props.seventh();
         }
         //myFarmAction
-        this.props.myFarmCropValues(code, year);
-        this.props.myFarmTradeSalesOutSideApp(code, year);
+        if (!this.props.far.farmFlag) {
+            this.props.myFarmCropValues(code, year);
+            this.props.myFarmTradeSalesOutSideApp(code, year);
+            this.props.selectId(id);
+        } else {
+            console.log('farm data');
+            const val = this.props.userflag();
+            console.log('flag', val);
+            if (!val) {
+                this.props.myFarmCropValues(code, year);
+                this.props.myFarmTradeSalesOutSideApp(code, year);
+                this.props.selectId(id);
+            }
+            else {
+               // this.props.selectId(this.props.old[0].id);
+
+                Alert.alert(
+                    'My Farm Data',
+                    'Would you like to save your changes prior to proceeding to the next farm values?',
+                    [
+                        {
+                            text: 'Yes', onPress: () => {
+                            console.log('Yes Pressed');
+                           // console.log(this.props.old[0]);
+                        }, style: 'OK'
+                        },
+                        {
+                            text: 'No', onPress: () => {
+                            console.log('No Pressed');
+                            this.props.myFarmCropValues(code, year);
+                            this.props.myFarmTradeSalesOutSideApp(code, year);
+                            this.props.selectId(id);
+                        }, style: 'cancel'
+                        },
+                    ],
+                    { cancelable: false }
+                );
+            }
+        }
+        //this.props.selectId(id);
     }
     render() {
         const { id, cropYear, code, name } = this.props.item;
         return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
             <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
-                <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
+                <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}
+                >
                     <Text
                         style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
                             color: 'rgb(82,97,115)',
@@ -59,55 +98,20 @@ class ButtonList extends Component {
                     >
                         {cropYear}</Text>
                     <Text
-                        style={id === this.props.id ? { color: 'white', fontSize: 24 } : {
-                            color: 'rgb(82,97,115)',
-                            fontFamily: 'HelveticaNeue',
-                            fontSize: 24
-                        }}
+                        style={[{ color: 'rgb(82,97,115)', fontFamily: 'HelveticaNeue', fontSize: 24 },
+                            id === this.props.id ? { color: 'white' } : {}, name.length >= 10 && name.length <= 13 ? { fontSize: 20 } :
+                            name.length >= 14 && name.length < 20 ? { fontSize: 14 } : name.length >= 20 ? { fontSize: 12 } : { }]}
                     >{name.toUpperCase()}</Text>
-                    <Text
+                     <Text
                         style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
                             color: 'rgb(159,169,186)',
                             fontSize: 14
                         }}
                     >Crop</Text>
+
                 </View>
             </TouchableOpacity>
         </View>);
-
-
-
-        /*<View style={{ flexDirection: 'row', marginLeft: 10 }}>
-        <TouchableHighlight
-            style={{
-            flex: 1,
-            alignSelf: 'stretch',
-            borderRadius: 5,
-            borderWidth: 1,
-            backgroundColor: 'rgb(1,172,168)',
-            borderColor: 'rgb(1,172,168)',
-            marginLeft: 5,
-            marginRight: 5,
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}
-            onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}
-        >
-            <Text
-                style={{
-                    alignSelf: 'center',
-                    fontSize: 18,
-                    color: 'white',
-                    paddingTop: 10,
-                    paddingBottom: 10,
-                    fontFamily: 'HelveticaNeue-Medium'
-                }}
-            >{name.toUpperCase()}</Text>
-
-        </TouchableHighlight>
-
-        </View>
-    );*/
     }
 }
 const styles = {
@@ -124,7 +128,8 @@ const styles = {
 };
 const mapStateToProps = state => {
     return {
-        id: state.cropsButtons.selectedId
+        id: state.cropsButtons.selectedId,
+        far: state.myFar
     };
 };
 const matchDispatchToProps = (dispatch) => {
@@ -139,7 +144,8 @@ const matchDispatchToProps = (dispatch) => {
         selectId,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
-        quoteSwapUnderlying
+        quoteSwapUnderlying,
+        farmActionFlag
     }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);

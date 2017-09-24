@@ -15,7 +15,7 @@ class MyCropButton extends Component {
                     horizontal
                     data={this.props.crops.cropButtons}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <ButtonList item={item} key={item.id} />}
+                    renderItem={({ item }) => <ButtonList item={item} key={item.id} userflag={this.props.uservaluesfalg} old={this.props.olditem}/>}
                 />
             </View>);
         }

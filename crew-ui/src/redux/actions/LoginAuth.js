@@ -36,7 +36,6 @@ export const loginUser = ({ saveUser }) => {
                 AsyncStorage.removeItem('userData');
               }
               dispatch({ type: LOGIN_SUCCESS });
-              Actions.main();
             } else {
               dispatch({ type: LOGIN_FAIL });
             }

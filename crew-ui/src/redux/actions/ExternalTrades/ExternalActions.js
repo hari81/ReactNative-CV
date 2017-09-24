@@ -59,12 +59,21 @@ export const saveExternalTrades = (newTrades, removedTrades) => {
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const commodityCode = cropButData[0].code;
         const cropYear = cropButData[0].cropYear;
+       const removeTrades = getState().external.tradeData.trades.filter(trade => {
+           const ritem = newTrades.filter(item => item.id === trade.id && item.active === undefined);
+           console.log(ritem);
+           if (ritem.length > 0) {
+               return Object.assign({}, trade, { active: false });
+           }
+       });
+       console.log('removeTrades', removeTrades);
         let allTrades;
         if (removedTrades.length > 0) {
             allTrades = newTrades.concat(removedTrades);
         } else {
             allTrades = newTrades;
         }
+        console.log(allTrades);
         const tradeValues = allTrades.map(item => {
             switch (item.active) {
                 case undefined:
@@ -76,7 +85,9 @@ export const saveExternalTrades = (newTrades, removedTrades) => {
                     return Object.assign({}, item, tradeSetRemoveData(oldTradeData[0]));
             }
         });
+        console.log(tradeValues);
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
+        console.log(url);
         return doPutFetch(url, tradeValues, getState().auth.email, getState().auth.password)
             .then(response => response.json())
             .then(savedTradeValues => {
