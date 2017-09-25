@@ -7,9 +7,9 @@ import st from '../../Utils/SafeTraverse';
 
 class BidAskPrice extends Component {
     render() {
-        const bidPrice = !this.props.bidPrice || this.props.bidPrice === null || this.props.bidPrice === undefined ? '-' : parseFloat(st(this.props, ['bidPrice'])).toFixed(4);
-        const askPrice = !this.props.askPrice || this.props.askPrice === null || this.props.askPrice === undefined ? '-' : parseFloat(st(this.props, ['askPrice'])).toFixed(4);
-        const settlePrice = !this.props.settlePrice || this.props.settlePrice === null || this.props.settlePrice === undefined ? '-' : parseFloat(st(this.props, ['settlePrice'])).toFixed(4);
+        const bidPrice = !this.props.bidPrice || this.props.bidPrice === null || this.props.bidPrice === undefined ? '-' : '$ ' + parseFloat(st(this.props, ['bidPrice'])).toFixed(4);
+        const askPrice = !this.props.askPrice || this.props.askPrice === null || this.props.askPrice === undefined ? '-' : '$ ' + parseFloat(st(this.props, ['askPrice'])).toFixed(4);
+        const settlePrice = !this.props.settlePrice || this.props.settlePrice === null || this.props.settlePrice === undefined ? '-' : '$ ' + parseFloat(st(this.props, ['settlePrice'])).toFixed(4);
         if (this.props.contractMonth.spinFlag) {
             return <Spinner size="small" />;
         }
@@ -35,7 +35,7 @@ const styles = {
     container: {
         flexDirection: 'row',
         marginTop: 269,
-        width: 483,
+        width: 480,
         height: 55,
         backgroundColor: 'rgb(93,109,121)',
         position: 'absolute',

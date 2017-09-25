@@ -24,7 +24,7 @@ class ContractMonthSellList extends Component {
         this.props.bushelQuantityLimit(underlying);
     }
     render() {
-        const bidPrice = !this.props.item.bidPrice || this.props.item.bidPrice === null || this.props.item.bidPrice === undefined ? '-' : parseFloat(st(this.props, ['item', 'bidPrice'])).toFixed(4);
+        const bidPrice = !this.props.item.bidPrice || this.props.item.bidPrice === null || this.props.item.bidPrice === undefined ? '-' : '$ ' + parseFloat(st(this.props, ['item', 'bidPrice'])).toFixed(4);
         return (
             <TouchableOpacity disabled={this.props.item.id === this.props.id} onPress={() => this.contractMonthSelect(this.props.item.id, this.props.item.bidPrice, this.props.item.askPrice, this.props.item.settlePrice, this.props.item.lastTradeDate, this.props.item.underlying)}>
                 <View style={this.props.item.id === this.props.id ? styles.afterButtonPress : styles.beforeButtonPress}>
@@ -37,8 +37,8 @@ class ContractMonthSellList extends Component {
                     </Text>
                     <Text
                         style={this.props.item.id === this.props.id ?
-                        { fontSize: 18, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(255,255,255)' } :
-                        { fontSize: 18, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(61,76,87)' }}
+                        { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(255,255,255)' } :
+                        { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(61,76,87)' }}
                     >
                         {bidPrice}
                     </Text>

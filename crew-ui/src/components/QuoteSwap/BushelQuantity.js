@@ -15,7 +15,7 @@ class BushelQuantity extends Component {
         };
         this.timer = null;
     }
-    componentWillReceiveProps(newProps) {
+    componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
         this.setState({ quantityIncrement: crop[0].quantityIncrement.toString(), quantity: '' });
@@ -32,7 +32,7 @@ class BushelQuantity extends Component {
             if (text <= this.props.quantityLimit) {
                 this.setState({ quantity: text });
             } else {
-                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} bushels`);
+                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
         }
@@ -48,7 +48,7 @@ class BushelQuantity extends Component {
             this.setState({ quantity: ((parseInt(this.state.quantity) || 0) + parseInt(this.state.quantityIncrement)).toString() });
             this.timer = setTimeout(this.plusButtonPress, 50);
         } else {
-            Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} bushels`);
+            Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
             this.setState({ quantity: this.props.quantityLimit.toString() });
         }
     }
@@ -81,7 +81,7 @@ class BushelQuantity extends Component {
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>35% HEDGED</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>Your Available Limit is {common.formatNumberCommas(this.props.quantityLimit)} bushels</Text>
+                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>Your Available Limit is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>
                     </View>
                 </View>
             </View>
