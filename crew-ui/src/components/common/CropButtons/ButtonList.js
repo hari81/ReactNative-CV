@@ -59,23 +59,11 @@ class ButtonList extends Component {
             }
             else {
                // this.props.selectId(this.props.old[0].id);
-
                 Alert.alert(
                     'My Farm Data',
-                    'Would you like to save your changes prior to proceeding to the next farm values?',
+                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
                     [
-                        {
-                            text: 'Yes', style: 'OK'
-                        },
-                        {
-                            text: 'No',
-                            onPress: () => {
-                                this.props.myFarmCropValues(code, year);
-                                this.props.myFarmTradeSalesOutSideApp(code, year);
-                                this.props.selectId(id);
-                            },
-                            style: 'cancel'
-                        },
+                        { text: 'Got It!', style: 'OK' }
                     ],
                     { cancelable: false }
                 );

@@ -78,10 +78,9 @@ placeNewOrder() {
     if (changes) {
         Alert.alert(
             'My Farm Data',
-            'Would you like to save your changes prior to proceeding to the next screen?',
+            'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
             [
-                { text: 'Yes', style: 'OK' },
-                { text: 'No', onPress: () => { this.props.farmActionFlag(false); Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year }); }, style: 'cancel' }
+                { text: 'Got It!', style: 'OK' }
            ],
             { cancelable: false }
         );
@@ -123,11 +122,9 @@ externalsales() {
     if (changes) {
         Alert.alert(
             'My Farm Data',
-            'Would you like to save your changes prior to proceeding to the next screen?',
+            'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
             [
-                { text: 'No', onPress: () => { this.props.externalGetTrans(); }, style: 'cancel' },
-                { text: 'Yes', onPress: () => {  /*this.cropDataSave(); this.props.externalGetTrans();*/ }, style: 'OK' }
-
+                { text: 'Got It!', style: 'OK' }
             ],
             { cancelable: false }
         );

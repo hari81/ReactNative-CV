@@ -108,22 +108,11 @@ class ExternalSales extends Component {
             if (this.checkUpdates()) {
                 Alert.alert(
                     'Trade Data',
-                    'Would you like to save your changes prior to proceeding to the next screen?',
+                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
                     [
-                        {
-                            text: 'No', onPress: () => {
-                            console.log('No Pressed');
-                            Actions.dashboard();
-                        }, style: 'cancel'
-                        },
-                        {
-                            text: 'Yes', onPress: () => {
-                            console.log('Yes Pressed');
-                        }, style: 'OK'
-                        }
-
+                        { text: 'Got It!', style: 'OK' }
                     ],
-                    {cancelable: false}
+                    { cancelable: false }
                 );
             } else {
                 Actions.dashboard();
@@ -132,20 +121,9 @@ class ExternalSales extends Component {
             if (this.checkUpdates()) {
                 Alert.alert(
                     'Trade Data',
-                    'Would you like to save your changes prior to proceeding to the next screen?',
+                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
                     [
-                        {
-                            text: 'No', onPress: () => {
-                            console.log('No Pressed');
-                            Actions.myfarm();
-                        }, style: 'cancel'
-                        },
-                        {
-                            text: 'Yes', onPress: () => {
-                            console.log('Yes Pressed');
-                        }, style: 'OK'
-                        }
-
+                        { text: 'Got It!', style: 'OK' }
                     ],
                     { cancelable: false }
                 );
