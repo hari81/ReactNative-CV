@@ -125,4 +125,3 @@ const styles = {
 };
 
 export default TradeConfirmationError;
-

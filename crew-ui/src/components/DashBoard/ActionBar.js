@@ -27,8 +27,8 @@ class ActionBar extends Component {
         const cropcode = this.props.Crops.activeCommodity.code;
         const cropyear = this.props.Crops.activeCropYear;
         Actions.quoteswap({ cropcode, cropyear });
-       // Actions.tcorderreceipt();
     }
+
     render() {
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a');
         return (
@@ -57,7 +57,7 @@ class ActionBar extends Component {
                 <View style={styles.thirdRowBorderStyle} />
 
                 <TouchableOpacity onPress={this.dashBoardToOrders.bind(this)}>
-                    <View style={{ alignItems: 'center', marginLeft: 17, width: 110, marginTop: 16, flexDirection: 'row'}}>
+                    <View style={{ alignItems: 'center', marginLeft: 17, width: 110, marginTop: 16, flexDirection: 'row' }}>
                         <View style={{ width: 50 }}>
                             <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
                                 {this.props.Crops.actionBar.openOrders.totalCount}
@@ -88,7 +88,7 @@ class ActionBar extends Component {
 
                 <View style={styles.thirdRowBorderStyle} />
                 <TouchableOpacity onPress={this.dashBoardToExternalTrades.bind(this)}>
-                <View style={{ alignItems: 'center', marginHorizontal: 12, width: 110, marginTop: 14, flexDirection: 'row'}}>
+                <View style={{ alignItems: 'center', marginHorizontal: 12, width: 110, marginTop: 14, flexDirection: 'row' }}>
 
                     <View style={{ width: 45 }}>
                         <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>{this.props.Crops.actionBar.externalTrades.totalCount}</Text>
@@ -139,7 +139,6 @@ const styles = {
 
 };
 const mapStateToProps = state => {
-
     return {
         Crops: state.dashBoardButtons,
         cropBut: state.cropsButtons

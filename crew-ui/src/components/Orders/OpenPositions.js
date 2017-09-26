@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  TouchableHighlight,
-  View,
-  Image,
-  Linking,
-  Alert
-} from 'react-native';
+import { Text, TouchableHighlight, View, Image, Linking } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import st from '../../Utils/SafeTraverse';
 
 class OpenPositions extends Component {
+  onUnwind() {
+    const sOrder = this.props.item;
+    const sLine = sOrder.lines.find(x => x.type.toLowerCase() === 'new');
+    const uOrder = {
+      riskProductId: sOrder.riskProductId,
+      quoteType: 'rpx', //set type to rpx/Reprice
+      orderType: 'market', //default open positions to market
+      quantity: sLine.quantity,
+      buySell: sLine.buysell === 'S' ? 'B' : 'S', //flip the buysell flag
+      underlying: sOrder.underlyingObjectData.symbol,
+      expirationDate: sLine.expirationDate,
+      notes: '',
+      transId: sOrder.id,
+      activityId: sLine.id
+    };
+    Actions.quoteswap({ selectedOrder: uOrder }); 
+  }
+
   render() {
     const {
       id,
@@ -112,21 +124,11 @@ class OpenPositions extends Component {
           </Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'column',
-            marginLeft: 20,
-            marginTop: 10,
-            width: 135
-          }}
-        >
+        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: 135 }}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE RECEIPT </Text>
             <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
-              <Image
-                style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
-                source={require('../common/img/PDF.png')}
-              />
+              <Image style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }} source={require('../common/img/PDF.png')} />
             </TouchableHighlight>
           </View>
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 25 }}> TRADE ID#</Text>
@@ -159,8 +161,8 @@ class OpenPositions extends Component {
           <TouchableHighlight
             style={[styles.viewbutton, status === 'pendingUnwind' ? { backgroundColor: 'rgba(39,153,137,0.65 )' } : {}]}
             disabled={status === 'pendingUnwind'}
-            onPress={() => Alert.alert('Unwind will be in progress...')}
-            underlayColor='#dddddd'
+            onPress={this.onUnwind.bind(this)}
+            underlayColor='#ddd'
           >
             <Text style={styles.buttonText}>SET ORDER TO CLOSE POSITION</Text>
           </TouchableHighlight>
