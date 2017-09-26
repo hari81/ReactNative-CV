@@ -12,8 +12,7 @@ class ExternalSales extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            transaction: [{}],
-            removeTransaction: []
+            transaction: [{}]
         };
         this.valueUpdate = this.valueUpdate.bind(this);
     }
@@ -50,13 +49,8 @@ class ExternalSales extends Component {
     removeTransaction(index) {
         let newTransaction = this.state.transaction;
         if (this.state.transaction[index].active) {
-            const addItem = this.state.removeTransaction;
-            newTransaction[index].active = false;
-            const removeTrans = this.state.transaction.filter((t, i) => index === i);
-            addItem.push(removeTrans[0]);
             newTransaction = this.state.transaction.filter((t, i) => index !== i);
             setTimeout(() => {
-                this.setState({ removeTransaction: addItem });
                 this.setState({ transaction: [] });
                 this.setState({ transaction: newTransaction });
             }, 0);
@@ -70,10 +64,10 @@ class ExternalSales extends Component {
     }
 
     cancelButtonClick() {
-        this.setState({ transaction: [], removeTransaction: [] });
-        this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
+       this.setState({ transaction: [] });
         setTimeout(() => {
             this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
+            this.refs.scrollView.scrollTo({ y: 0, animated: true });
         }, 0);
     }
 
@@ -97,8 +91,7 @@ class ExternalSales extends Component {
             Alert.alert('No transctions to Save .');
             return;
         }
-        this.props.saveExternalTrades(this.state.transaction, this.state.removeTransaction);
-        this.setState({ removeTransaction: [] });
+        this.props.saveExternalTrades(this.state.transaction);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -112,14 +105,80 @@ class ExternalSales extends Component {
 
     backToDashboardMyfarm = () => {
         if (this.props.extra.exflag) {
-            Actions.dashboard();
+            if (this.checkUpdates()) {
+                Alert.alert(
+                    'Trade Data',
+                    'Would you like to save your changes prior to proceeding to the next screen?',
+                    [
+                        {
+                            text: 'No', onPress: () => {
+                            console.log('No Pressed');
+                            Actions.dashboard();
+                        }, style: 'cancel'
+                        },
+                        {
+                            text: 'Yes', onPress: () => {
+                            console.log('Yes Pressed');
+                        }, style: 'OK'
+                        }
+
+                    ],
+                    {cancelable: false}
+                );
+            } else {
+                Actions.dashboard();
+            }
         } else {
-            const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-            this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
-            this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-            Actions.myfarm();
+            if (this.checkUpdates()) {
+                Alert.alert(
+                    'Trade Data',
+                    'Would you like to save your changes prior to proceeding to the next screen?',
+                    [
+                        {
+                            text: 'No', onPress: () => {
+                            console.log('No Pressed');
+                            Actions.myfarm();
+                        }, style: 'cancel'
+                        },
+                        {
+                            text: 'Yes', onPress: () => {
+                            console.log('Yes Pressed');
+                        }, style: 'OK'
+                        }
+
+                    ],
+                    { cancelable: false }
+                );
+            } else {
+
+                const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+                this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
+                this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
+                Actions.myfarm();
+            }
         }
     };
+
+    checkUpdates() {
+        const userAdded =  this.state.transaction.filter(t => t.active === undefined);
+
+        console.log(this.state.transaction);
+        const tradeData = this.state.transaction.filter(item => item.active === true);
+        console.log(tradeData);
+
+       const resultCheck = tradeData.map(item => {
+           const oldTradeData = this.props.extra.tradeData.trades.filter(trade => trade.id === item.id);
+           console.log('localstate', item);
+           console.log('reduxstate', oldTradeData);
+           return JSON.stringify(item) === JSON.stringify(oldTradeData[0]);
+       });
+
+        const modified = resultCheck.filter(flag => !flag);
+
+        if (userAdded.length > 0 || modified.length > 0 || tradeData.length !== this.props.extra.tradeData.trades.length) {
+            return true;
+        }
+    }
 
     render() {
         // console.log('externnal', this.state.transaction);
@@ -157,9 +216,9 @@ class ExternalSales extends Component {
                     </View>
                 </View>
 
-                <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView' removeClippedSubviews>
+                <ScrollView vertiacl showsVerticalScrollIndicator  ref='scrollView' removeClippedSubviews>
                         {this.state.transaction
-                            .filter(item => item.active === undefined || item.active)
+                           // .filter(item => item.active === undefined || item.active)
                             .map((item, index) => (<ExternalValues
                                     key={index} item={index}
                                     onSelectVal={this.valueUpdate.bind(this, index)}
@@ -172,7 +231,7 @@ class ExternalSales extends Component {
                             )}
                 </ScrollView>
 
-                <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100 }}>
+                <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100, alignItems: 'center' }}>
                     <TouchableHighlight
                         style={{
                             backgroundColor: 'white',

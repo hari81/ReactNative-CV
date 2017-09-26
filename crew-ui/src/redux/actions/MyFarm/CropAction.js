@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY } from '../types';
+import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, MY_FARM_ACTION } from '../types';
 import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
 import { doGetFetch, doPutFetch, doPostFetch } from '../../../Utils/FetchApiCalls';
 
@@ -95,6 +95,12 @@ export const cropDataSave = (cropValues) => {
                     console.log(`error ${error}`);
                 });
         }
+    };
+};
+
+export const farmActionFlag = (flag) => {
+    return {
+        type: MY_FARM_ACTION, payload: flag
     };
 };
 

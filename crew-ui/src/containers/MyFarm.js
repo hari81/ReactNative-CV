@@ -3,17 +3,16 @@ import {
   Text,
   View,
   TouchableHighlight,
-    Alert, Keyboard,
+    Alert, Keyboard
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
-import {
-  LogoHeader,
-} from '../components/common';
+import LogoFarmHeader from '../components/common/LogoFarmHeader';
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
-import { cropDataSave, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
+import { cropDataSave, myFarmCropValues, farmActionFlag } from '../redux/actions/MyFarm/CropAction';
 import BasisSliderSwitch from '../components/MyFarm/BasisSliderSwitch';
 import FarmInputFields from '../components/MyFarm/FarmInputFields';
 
@@ -64,8 +63,77 @@ cropDataSave = () => {
     this.setState({ tradeflag: false });
 };
 
+     cropDataSave1() {
+         if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
+             Alert.alert('Values are missing, Please make sure fill all TextInputs with Numbers');
+             return;
+         }
+         this.props.cropDataSave(this.state);
+         this.setState({ tradeflag: false });
+     }
+
+placeNewOrder() {
+    const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+    const changes = this.userChangesFarmData();
+    if (changes) {
+        Alert.alert(
+            'My Farm Data',
+            'Would you like to save your changes prior to proceeding to the next screen?',
+            [
+                { text: 'Yes', style: 'OK' },
+                { text: 'No', onPress: () => { this.props.farmActionFlag(false); Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year }); }, style: 'cancel' }
+           ],
+            { cancelable: false }
+        );
+    } else {
+        this.props.farmActionFlag(false);
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+    }
+}
+
+userChangesFarmData() {
+    Keyboard.dismiss();
+    const presentData = this.state;
+    const previousData = this.props.far.myFarmCropData.cropYear;
+
+    //console.log('Local Data', presentData);
+   // console.log('Database Data', previousData);
+    if (previousData === null || previousData === undefined) {
+        const localState = this.state;
+        if (localState.estimate === 0 &&
+            localState.acres === '' &&
+            localState.profit === '' &&
+            localState.cost === '' &&
+            localState.yield === '' &&
+            localState.incbasis === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    return (parseFloat(presentData.acres.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.areaPlanted ||
+        parseFloat(presentData.profit.substr(1).replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.unitProfitGoal ||
+        parseFloat(presentData.cost.substr(1).replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.unitCost ||
+        parseFloat(presentData.yield.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.expectedYield ||
+        presentData.estimate !== previousData.basis ||
+        presentData.incbasis !== previousData.includeBasis);
+}
 externalsales() {
- this.props.externalGetTrans();
+    const changes = this.userChangesFarmData();
+    if (changes) {
+        Alert.alert(
+            'My Farm Data',
+            'Would you like to save your changes prior to proceeding to the next screen?',
+            [
+                { text: 'No', onPress: () => { this.props.externalGetTrans(); }, style: 'cancel' },
+                { text: 'Yes', onPress: () => {  /*this.cropDataSave(); this.props.externalGetTrans();*/ }, style: 'OK' }
+
+            ],
+            { cancelable: false }
+        );
+    } else {
+        this.props.externalGetTrans();
+    }
 }
 
 componentWillMount() {
@@ -84,7 +152,8 @@ setData =(props) => {
               yield: '',
               estimate: 0,
               incbasis: false,
-              tradeflag: true
+              tradeflag: true,
+
 
           });
       } else {
@@ -103,6 +172,8 @@ setData =(props) => {
 
 componentWillReceiveProps(newProps) {
     this.setData(newProps);
+  //  this.props.far.userFarm = this.state;
+  //  console.log('user values', this.props.far.userFarm);
 }
 
   render() {
@@ -118,11 +189,11 @@ componentWillReceiveProps(newProps) {
             height: 20
           }}
         />
-        <LogoHeader phNumber='+1-952-742-7414' subHeaderText='Price Hedging' />
+        <LogoFarmHeader phNumber='+1-952-742-7414' subHeaderText='Price Hedging' />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View
-            style={styles.farmSetUp}
+            style={[styles.farmSetUp, { width: width - 30 }]}
           >
             <View
               style={{
@@ -153,7 +224,7 @@ componentWillReceiveProps(newProps) {
               </Text>
             </View>
               <View style={{ width: 235, height: 60, justifyContent: 'center', marginLeft: 30 }}>
-                  <TouchableHighlight >
+                  <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
                       <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }} >
                       <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
                       </View>
@@ -201,7 +272,7 @@ componentWillReceiveProps(newProps) {
                                      sliderVal={val => this.setState({ estimate: val })}
                                     switchVal={val => this.setState({ incbasis: val })}
                   />
-                  <OutSideTradeSales tradeFlag={this.state.tradeflag} />
+                  <OutSideTradeSales tradeFlag={this.state.tradeflag} gotoexternal={this.externalsales.bind(this)} />
                 <View
                   style={{
                     flexDirection: 'row',
@@ -256,7 +327,7 @@ componentWillReceiveProps(newProps) {
           </View>
         </View>
 
-            <MyCropButton />
+            <MyCropButton uservaluesfalg={this.userChangesFarmData.bind(this)} olditem={cropButData} />
         </View>
     );
   }
@@ -273,11 +344,10 @@ const styles = {
          marginTop: 90,
          marginLeft: 15,
          marginRight: 15,
-         justifyContent: 'flex-start',
+         justifyContent: 'space-around',
          flexDirection: 'row',
          alignItems: 'center',
          zIndex: 1
-
      }
 
 };
@@ -287,4 +357,4 @@ const mapStatetoProps = (state) => {
     return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons };
 };
 
-export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues })(MyFarm);
+export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues, farmActionFlag })(MyFarm);

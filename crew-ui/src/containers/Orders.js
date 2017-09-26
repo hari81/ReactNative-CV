@@ -95,17 +95,6 @@ class Orders extends Component {
         default:
     }
   }
-   logOutSection() {
-        if (this.props.auth.logout) {
-            return (
-                <View style={{ marginLeft: 960, with: 100, height: 20, displaySize: 50 }}>
-                    <TouchableHighlight onPress={() => { this.props.logOut(false); Actions.auth() }}>
-                        <Text> LOGOUT</Text>
-                    </TouchableHighlight>
-                </View>
-            );
-        }
-    }
 
     pickerValues() {
         return (this.props.viewOrders.dropDownData || []).map((item) => (
@@ -249,13 +238,17 @@ class Orders extends Component {
       }
     }
   }
+    placeNewOrder() {
+        const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+    }
 
 
   render() {
     const { width } = Dimensions.get('window');
 
     return (
-      <View style={styles.containerStyle}>
+        <View>
         <View
           style={{
             backgroundColor: 'black',
@@ -265,32 +258,53 @@ class Orders extends Component {
         />
         <LogoPhoneHeader refresh={this.refreshData} />
 
-        <View style={{ height: 90, backgroundColor: 'rgb(64,78,89)' }}>
-            {/*this.logOutSection()*/}
+        <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
+
           <View
               style={{
-                  height: 70,
-                  borderTopColor: '#e7b514',
+                  height: 100,
+                  borderTopColor: 'rgb(231,181,20)',
                   borderTopWidth: 3,
                   backgroundColor: 'white',
-                  marginTop: 20,
+                  marginTop: 80,
                   marginLeft: 10,
                   marginRight: 10,
-                  justifyContent: 'flex-start',
-                  flexDirection: 'row'
+                  position: 'absolute',
+                  zIndex: 1,
               }}
           >
 
           <View style={styles.positions}>
-            <Text style={{ fontSize: 18, color: '#01aca8' }}>
+            <Text style={{ fontSize: 20, color: 'rgb(0,118,129)', paddingTop: 10, fontFamily: 'HelveticaNeue-Medium', paddingLeft: 20 }}>
               Positions & Orders
             </Text>
           </View>
+              <View style={{ flexDirection: 'row' }}>
+                  <View
+                      style={{
+                          marginLeft: 20,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          borderRadius: 10
+                      }}
+                  ><Text style={{ paddingTop: 10, fontSize: 10, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(0,118,129)' }}>Select Commodity ▼</Text>
+                      <Picker
+                          style={{ width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)' }}
+                          // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
+                          mode='dropdown'
+                          itemStyle={{ height: 48, borderColor: 'rgb(39,153,137)' }}
+                          selectedValue={this.state.Crop}
+                          onValueChange={this.dropDown.bind(this)}
+                      >
 
-          <View style={{ justifyContent: 'center', marginLeft: 40 }}>
+                          {this.pickerValues()}
+
+                      </Picker>
+                  </View>
+          <View style={{ justifyContent: 'center', marginLeft: 10 }}>
             <SegmentedControlIOS
               alignItems='center'
-              tintColor='#01aca8'
+              tintColor='rgb(39,153,137)'
               style={styles.segment}
               values={['Orders', 'Open Positions', 'Closed Positions']}
               selectedIndex={
@@ -307,42 +321,22 @@ class Orders extends Component {
               onValueChange={this.selectedTabOrder}
             />
           </View>
-
-          <View
-            style={{
-              flex: 1,
-              marginLeft: 60,
-              paddingTop: 18,
-              justifyContent: 'center',
-               // flexDirection: 'row',
-                alignItems: 'center',
-              width: 150,
-              height: 60,
-              borderRadius: 10
-            }}
-          ><Text style={{ fontSize: 10 }}>Select Commodity{/*▼*/}</Text>
-            <Picker
-                style={{ width: 150, height: 55 }}
-                   // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
-               mode='dropdown'
-                itemStyle={{ height: 48 }}
-              selectedValue={this.state.Crop}
-              onValueChange={this.dropDown.bind(this)}
-            >
-
-                {this.pickerValues()}
-
-            </Picker>
-          </View>
-
+                  <View style={{ width: 206, justifyContent: 'center', marginLeft: 45, marginRight: 25 }}>
+                  <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
+                      <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }} >
+                          <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
+                      </View>
+                  </TouchableHighlight>
+              </View>
           </View>
           </View>
-        <View style={{ backgroundColor: 'white', height: 650 }}>
-          <View style={{ backgroundColor: '#3d4c57', height: 650, marginLeft: 5, marginRight: 5, marginTop: 10 }}>
+            <View style={{ backgroundColor: 'rgb(239,244,247)', height: 650 }}>
+                <View style={{ backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10 }} />
+          <View style={{ backgroundColor: '#3d4c57', height: 650, marginLeft: 10, marginRight: 10 }}>
             {this.renderFlatList()}
           </View>
         </View>
-      </View>
+        </View>
     );
   }
 }
@@ -359,7 +353,7 @@ const styles = {
 
   },
   positions: {
-    left: 30,
+
     justifyContent: 'center'
   },
   buttonview: {
@@ -384,21 +378,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center'
   },
-  touchopa: {
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#279989',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 12,
-    marginRight: 12,
-    marginTop: 10,
-    backgroundColor: 'white'
-  }
 };
 const mapStateToProps = state => {
   //  console.log(state)
@@ -406,7 +385,8 @@ const mapStateToProps = state => {
     viewOrders: state.vieworder,
     openPositions: state.openPositions,
     closedPositions: state.closedPositions,
-      auth: state.auth
+    auth: state.auth,
+    cropBut: state.cropsButtons
   };
 };
 

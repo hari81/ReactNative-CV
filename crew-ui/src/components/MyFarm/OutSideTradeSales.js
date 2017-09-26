@@ -5,7 +5,8 @@ import { externalGetTrans } from '../../redux/actions/ExternalTrades/ExternalAct
 class OutSideTradeSales extends Component {
 
     externalsales() {
-        this.props.externalGetTrans();
+        //this.props.externalGetTrans();
+        this.props.gotoexternal();
     }
     render() {
         return (<View style={{ width: 505, height: 168, backgroundColor: 'rgb(89,108,121)', marginTop: 5, alignItems: 'center', justifyContent: 'space-around' }}>

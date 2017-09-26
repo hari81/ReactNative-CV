@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
@@ -13,6 +14,7 @@ import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMont
 import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
+
 
 class SetOrderDetails extends Component {
     constructor(props) {
@@ -45,7 +47,6 @@ class SetOrderDetails extends Component {
     }
     onOrderTypeChange=(type) => {
         this.setState({ orderType: type });
-
     }
 
     onExpireSelection=(goodTillDate) => {
@@ -67,34 +68,35 @@ class SetOrderDetails extends Component {
         this.setState({ riskProductId: id });
     }
 
+
     render() {
         console.log(this.state)
         let spinner = null;
-        let afterSpin = null;
         if (this.props.contractMonth.spinFlag) {
             spinner = (
                 <Spinner size="small" />
             );
-        }
-        if (!this.props.contractMonth.spinFlag) {
-           afterSpin = (<View style={{ flexDirection: 'row' }}>
-                <View style={{ flexDirection: 'column', marginLeft: 49 }}>
-                    <ProductType onProductChange={this.orderDetails} />
-                    <TradeDirection onTradeChange={this.tradeDirectionChange} />
-                    <ContractMonth />
-                </View>
-                <View style={{ height: 364, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
-                <View style={{ flexDirection: 'column', marginLeft: 33 }}>
-                    <BushelQuantity onQuantityChange={this.onQuantityChange} />
-                    <OrderType onOrderTypeChange={this.onOrderTypeChange} />
-                    <BidAskPrice />
-                    <View style={{ flexDirection: 'row', marginLeft: 132, position: 'absolute', marginTop: 320, zIndex: -1 }}>
-                        <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                        <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
+        } else {
+            spinner = (<View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'column', marginLeft: 49 }}>
+                        <ProductType onProductChange={this.orderDetails} />
+                        <TradeDirection onTradeChange={this.tradeDirectionChange} />
+                        <ContractMonth />
+                    </View>
+                    <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
+                    <View style={{ flexDirection: 'column', marginLeft: 30 }}>
+                        <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
+                            <BushelQuantity onQuantityChange={this.onQuantityChange} />
+                            <OrderType onOrderTypeChange={this.onOrderTypeChange} />
+                        </KeyboardAwareScrollView>
+                        <BidAskPrice />
+                        <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
+                            <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                            <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
+                        </View>
                     </View>
                 </View>
-            </View>
-           );
+            );
         }
         return (
             <View style={styles.container}>
@@ -102,12 +104,11 @@ class SetOrderDetails extends Component {
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
                     <View style={{ flexDirection: 'row', marginLeft: 630 }}>
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
+                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)', textDecorationLine: 'underline' }}>Need Help with this Product?</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 {spinner}
-                {afterSpin}
             </View>
         );
     }
@@ -173,7 +174,6 @@ const styles = {
         borderColor: 'rgb(159,169,186)',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: -1
     }
 };
 

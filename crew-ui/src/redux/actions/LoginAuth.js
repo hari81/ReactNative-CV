@@ -1,4 +1,3 @@
-import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import base64 from 'base-64';
 import {
@@ -36,7 +35,6 @@ export const loginUser = ({ saveUser }) => {
                 AsyncStorage.removeItem('userData');
               }
               dispatch({ type: LOGIN_SUCCESS });
-              Actions.main();
             } else {
               dispatch({ type: LOGIN_FAIL });
             }

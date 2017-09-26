@@ -92,7 +92,7 @@ export const placeOrder = () => {
                 orderType: oData.metadata.orderType
             });    
         }
-
+console.log('data', data);
         return fetch(url, {
             method: 'POST',
             headers: {
@@ -102,7 +102,8 @@ export const placeOrder = () => {
             },
             body: data
         })
-            .then(response => { 
+            .then(response => {
+                console.log(response);
                 if (response.status === 201) {
                     return response.json();
                 }
@@ -111,12 +112,16 @@ export const placeOrder = () => {
             })
             .then((orderData) => {
                 console.log('order data is: ', orderData);
-                dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
+                console.log('OrderId', orderData.id);
+                console.log('Order Status', orderData.status);
                 switch (orderData.status) {
+                    case '201':
                     case 201:
                         Actions.tcorderreceipt({ orderId: orderData.id, message: orderData.statusMessage }); break;
+                    case '500':
                     case 500:
                         Actions.tcerror({ message: orderData.statusMessage }); break;
+                    case '400':
                     case 400:
                         Actions.tcerror({ message: orderData.statusMessage }); break;
                     default:

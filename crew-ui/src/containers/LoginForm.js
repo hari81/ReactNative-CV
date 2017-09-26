@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage } from 'react-native';
+import { Text, View, Switch, AsyncStorage, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import {
@@ -49,16 +49,13 @@ class LoginForm extends Component {
   onButtonPress() {
     const { saveUser } = this.props.auth;
     this.props.loginUser({ saveUser });
-      this.props.accountDetails();
-      this.props.cropsButtons();
-
+    this.props.accountDetails();
       this.props.thirdButton();
       this.props.productType();
-
   }
+
   onSaveUserChange(value) {
     this.props.saveUserSwitchChanged({ value });
-
   }
 
   renderButton() {
@@ -139,7 +136,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  return { auth: state.auth };
+  return { auth: state.auth, acc: state.account };
 };
 export default connect(mapStateToProps, {
   emailChanged,

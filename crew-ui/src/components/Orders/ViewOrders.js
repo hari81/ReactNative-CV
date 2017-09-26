@@ -52,18 +52,18 @@ class ViewOrders extends Component {
         <View style={styles.yearStyle}>
           <View
             style={{
-              backgroundColor: '#01aca8',
+              backgroundColor: 'rgb(39,153,137)',
               height: 35,
               justifyContent: 'center'
             }}
           >
-            <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
               {month}
             </Text>
           </View>
           <View
             style={{
-              backgroundColor: '#3d4c57',
+              backgroundColor: 'rgb(61,76,87)',
               height: 55,
               justifyContent: 'center'
             }}
@@ -71,9 +71,9 @@ class ViewOrders extends Component {
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 25,
+                fontSize: 20,
                 color: 'white',
-                fontWeight: 'bold'
+                fontFamily: 'HelveticaNeue-Bold'
               }}
             >
               {year}
@@ -83,14 +83,14 @@ class ViewOrders extends Component {
 
         <View style={{ width: 220 }}>
           <View style={{ margin: 10 }}>
-            <Text>
+            <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}>
               {crop} {riskProductName}
             </Text>
             <View style={{ flexDirection: 'row', marginTop: 20 }}>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: '#01aca8' }}>QUANTITY</Text>
+                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>QUANTITY</Text>
                 <View style={{ width: 150 }}>
-                  <Text>
+                  <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                     {quantity
                       .toString()
                       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') +
@@ -100,8 +100,8 @@ class ViewOrders extends Component {
                 </View>
               </View>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: '#01aca8' }}>DIRECTION</Text>
-                <Text>
+                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>DIRECTION</Text>
+                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   {buySell}
                 </Text>
               </View>
@@ -117,12 +117,12 @@ class ViewOrders extends Component {
             width: 70
           }}
         >
-          <Text style={{ color: '#01aca8' }}>ORDER #</Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>ORDER #</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {orderId}
           </Text>
-          <Text style={{ color: '#01aca8', marginTop: 6 }}> PRICE</Text>
-          <Text> ${targetPrice.toFixed(2)} </Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}> PRICE</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}> ${targetPrice.toFixed(2)} </Text>
         </View>
 
         <View
@@ -133,12 +133,12 @@ class ViewOrders extends Component {
             width: 130
           }}
         >
-          <Text style={{ color: '#01aca8' }}> STATUS </Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> STATUS </Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {' '}{orderState.label}{' '}
           </Text>
-          <Text style={{ color: '#01aca8', marginTop: 6 }}> ORDER TYPE </Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}> ORDER TYPE </Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {' '}{orderType}{' '}
           </Text>
         </View>
@@ -151,14 +151,14 @@ class ViewOrders extends Component {
             width: 175
           }}
         >
-          <Text style={{ color: '#01aca8' }}> ORDER CREATION DATE</Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> ORDER CREATION DATE</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {' '}{strDate}
           </Text>
-          <Text style={{ color: '#01aca8', marginTop: 6 }}>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}>
             {' '}ORDER EXPIRATION DATE{' '}
           </Text>
-          <Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {' '}{expirationDate}{' '}
           </Text>
         </View>
@@ -167,7 +167,7 @@ class ViewOrders extends Component {
 
         <View style={styles.buttonview}>
           <TouchableHighlight
-            style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? { backgroundColor: 'gray' } : {}]}
+            style={[styles.viewbutton, orderState.label === 'PENDING_CANCEL' ? { backgroundColor: 'rgba(39,153,137,0.65)' } : {}]}
 
             onPress={
               orderState.label !== 'PENDING_CANCEL'
@@ -182,8 +182,6 @@ class ViewOrders extends Component {
                 : () => {}
             }
             disabled={orderState.label === 'PENDING_CANCEL'}
-
-            underlayColor='#dddddd'
           >
             <Text style={styles.buttonText}>CANCEL</Text>
           </TouchableHighlight>
@@ -196,7 +194,8 @@ class ViewOrders extends Component {
 const styles = {
   subContainerStyle: {
     flexDirection: 'row',
-    margin: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
     backgroundColor: '#ffffff',
     borderRadius: 4,
     height: 110
@@ -212,30 +211,32 @@ const styles = {
     marginBottom: 14
   },
   buttonview: {
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
-    width: '17%'
+    marginLeft: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '15%'
   },
   buttonText: {
-    color: '#ffffff',
-    fontSize: 16,
+    color: 'rgb(255,255,255)',
+    fontSize: 10,
     textAlign: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'HelveticaNeue'
   },
   viewbutton: {
     height: 35,
-    width: 150,
+    width: 127,
     borderRadius: 5,
-    marginTop: 30,
-    paddingLeft: 8,
-    paddingRight: 8,
-    backgroundColor: '#279989',
+   // marginTop: 30,
+    //paddingLeft: 20,
+   // paddingRight: 8,
+    backgroundColor: 'rgb(39,153,137)',
     justifyContent: 'center',
     alignItems: 'center'
   },
   borderStyle: {
-    borderLeftWidth: 2,
-    borderColor: 'grey',
+    borderLeftWidth: 1,
+    borderColor: 'rgb(159,169,186)',
     marginTop: 16,
     marginBottom: 16,
     marginLeft: 30

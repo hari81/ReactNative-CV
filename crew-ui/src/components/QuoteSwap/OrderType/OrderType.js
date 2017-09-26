@@ -17,7 +17,7 @@ class OrderType extends Component {
     componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement.toString() });
+        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
     }
     onMarketSelection= () => {
         this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
@@ -63,4 +63,3 @@ const mapStateToProps = (state) => {
     };
 }
 export default connect(mapStateToProps, null)(OrderType);
-

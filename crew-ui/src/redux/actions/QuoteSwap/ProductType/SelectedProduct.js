@@ -10,4 +10,3 @@ export const onChangeId = (id) => {
         payload: id
     };
 };
-

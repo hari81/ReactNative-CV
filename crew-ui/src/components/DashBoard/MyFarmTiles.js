@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import cancelimage from '../common/img/Cancel-20.png';
 import Info from '../common/img/Info.png';
 import { showInfoButtonClick, hideInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
-import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp } from '../../redux/actions/MyFarm/CropAction';
+import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 
 class MyFarmTiles extends Component {
     //info button condition check
@@ -86,6 +86,7 @@ class MyFarmTiles extends Component {
      const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
        this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
          this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
+         this.props.farmActionFlag(true);
         Actions.myfarm();
     }
 
@@ -93,8 +94,9 @@ class MyFarmTiles extends Component {
         const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
+       this.props.farmActionFlag(true);
         Actions.myfarm({ tradeflag: true });
-    }
+    };
 
     render() {
         //returning Enter Crop Details when my farm tiles data is absent in json
@@ -253,7 +255,8 @@ const mapDispatchToProps = dispatch => {
             myFarmCropValues, 
             cropButtonPress, 
             myFarmTradeSalesOutSideApp,
-            hideInfoButtonClick
+            hideInfoButtonClick,
+            farmActionFlag
         },
         dispatch
     );
