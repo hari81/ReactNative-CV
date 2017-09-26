@@ -74,9 +74,21 @@ cropDataSave = () => {
 
 placeNewOrder() {
     const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-    this.props.farmActionFlag(false);
-    Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
-
+    const changes = this.userChangesFarmData();
+    if (changes) {
+        Alert.alert(
+            'My Farm Data',
+            'Would you like to save your changes prior to proceeding to the next screen?',
+            [
+                { text: 'Yes', style: 'OK' },
+                { text: 'No', onPress: () => { this.props.farmActionFlag(false); Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year }); }, style: 'cancel' }
+           ],
+            { cancelable: false }
+        );
+    } else {
+        this.props.farmActionFlag(false);
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+    }
 }
 
 userChangesFarmData() {
@@ -84,10 +96,20 @@ userChangesFarmData() {
     const presentData = this.state;
     const previousData = this.props.far.myFarmCropData.cropYear;
 
-    console.log('Local Data', presentData);
-    console.log('Database Data', previousData);
+    //console.log('Local Data', presentData);
+   // console.log('Database Data', previousData);
     if (previousData === null || previousData === undefined) {
-        return false;
+        const localState = this.state;
+        if (localState.estimate === 0 &&
+            localState.acres === '' &&
+            localState.profit === '' &&
+            localState.cost === '' &&
+            localState.yield === '' &&
+            localState.incbasis === false) {
+            return false;
+        } else {
+            return true;
+        }
     }
     return (parseFloat(presentData.acres.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.areaPlanted ||
         parseFloat(presentData.profit.substr(1).replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.unitProfitGoal ||
@@ -103,8 +125,8 @@ externalsales() {
             'My Farm Data',
             'Would you like to save your changes prior to proceeding to the next screen?',
             [
-                { text: 'No', onPress: () => { console.log('No Pressed'); this.props.externalGetTrans(); }, style: 'cancel' },
-                { text: 'Yes', onPress: () => { console.log('Yes Pressed'); /*this.cropDataSave(); this.props.externalGetTrans();*/ }, style: 'OK' }
+                { text: 'No', onPress: () => { this.props.externalGetTrans(); }, style: 'cancel' },
+                { text: 'Yes', onPress: () => {  /*this.cropDataSave(); this.props.externalGetTrans();*/ }, style: 'OK' }
 
             ],
             { cancelable: false }
@@ -171,7 +193,7 @@ componentWillReceiveProps(newProps) {
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View
-            style={styles.farmSetUp}
+            style={[styles.farmSetUp, { width: width - 30 }]}
           >
             <View
               style={{
@@ -322,11 +344,10 @@ const styles = {
          marginTop: 90,
          marginLeft: 15,
          marginRight: 15,
-         justifyContent: 'flex-start',
+         justifyContent: 'space-around',
          flexDirection: 'row',
          alignItems: 'center',
          zIndex: 1
-
      }
 
 };

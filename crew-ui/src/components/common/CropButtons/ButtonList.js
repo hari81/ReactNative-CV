@@ -49,9 +49,9 @@ class ButtonList extends Component {
             this.props.myFarmTradeSalesOutSideApp(code, year);
             this.props.selectId(id);
         } else {
-            console.log('farm data');
+            //.log('farm data');
             const val = this.props.userflag();
-            console.log('flag', val);
+            //console.log('flag', val);
             if (!val) {
                 this.props.myFarmCropValues(code, year);
                 this.props.myFarmTradeSalesOutSideApp(code, year);
@@ -65,18 +65,16 @@ class ButtonList extends Component {
                     'Would you like to save your changes prior to proceeding to the next farm values?',
                     [
                         {
-                            text: 'Yes', onPress: () => {
-                            console.log('Yes Pressed');
-                           // console.log(this.props.old[0]);
-                        }, style: 'OK'
+                            text: 'Yes', style: 'OK'
                         },
                         {
-                            text: 'No', onPress: () => {
-                            console.log('No Pressed');
-                            this.props.myFarmCropValues(code, year);
-                            this.props.myFarmTradeSalesOutSideApp(code, year);
-                            this.props.selectId(id);
-                        }, style: 'cancel'
+                            text: 'No',
+                            onPress: () => {
+                                this.props.myFarmCropValues(code, year);
+                                this.props.myFarmTradeSalesOutSideApp(code, year);
+                                this.props.selectId(id);
+                            },
+                            style: 'cancel'
                         },
                     ],
                     { cancelable: false }
@@ -89,6 +87,7 @@ class ButtonList extends Component {
         const { id, cropYear, code, name } = this.props.item;
         return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
             <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
+
                 <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}
                 >
                     <Text
@@ -120,11 +119,20 @@ const styles = {
         height: 78,
         borderRadius: 3,
         justifyContent: 'center',
+        paddingTop: 3,
         marginLeft: 4,
         marginTop: 8,
         alignItems: 'center',
-        backgroundColor: 'rgb(255,255,255)',
-    }
+        backgroundColor: '#fff',
+    },
+    activeYearTextStyle: { fontSize: 16, color: '#fff' },
+    inactiveYearTextStyle: { fontSize: 16, color: '#526173' },
+    activeCommodityTextStyle: { color: '#fff', fontSize: 21, maxWidth: 130, textAlign: 'center' },
+    inactiveCommodityTextStyle: { color: '#526173', fontFamily: 'HelveticaNeue', fontSize: 21, maxWidth: 130, textAlign: 'center' },
+    /* currently not used
+    activeCropTextStyle: { color: '#fff', fontSize: 14 },
+    inactiveCropTextStyle: { color: '#9fa9ba', fontSize: 14 }
+    */
 };
 const mapStateToProps = state => {
     return {

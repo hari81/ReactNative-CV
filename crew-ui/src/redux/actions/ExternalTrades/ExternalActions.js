@@ -53,38 +53,29 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
     };
 };
 
-export const saveExternalTrades = (newTrades, removedTrades) => {
+export const saveExternalTrades = (newTrades) => {
     return (dispatch, getState) => {
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const commodityCode = cropButData[0].code;
         const cropYear = cropButData[0].cropYear;
-       const removeTrades = getState().external.tradeData.trades.filter(trade => {
-           const ritem = newTrades.filter(item => item.id === trade.id && item.active === undefined);
-           console.log(ritem);
-           if (ritem.length > 0) {
-               return Object.assign({}, trade, { active: false });
-           }
-       });
-       console.log('removeTrades', removeTrades);
-        let allTrades;
-        if (removedTrades.length > 0) {
-            allTrades = newTrades.concat(removedTrades);
-        } else {
-            allTrades = newTrades;
-        }
-        console.log(allTrades);
-        const tradeValues = allTrades.map(item => {
+        //console.log('redux state', getState().external.tradeData.trades);
+        //console.log('local state', newTrades);
+        const reduxState = getState().external.tradeData.trades;
+        const reduxId = reduxState.map(item => item.id);
+       const localId = newTrades.map(item => item.id);
+       const removeId = reduxId.filter(id => localId.indexOf(id) === -1);
+       const removeTrades = removeId.map(id => Object.assign(reduxState.filter(trade => trade.id === id)[0], { active: false }));
+       console.log('remove', removeTrades);
+        const tradeValue = newTrades.map(item => {
             switch (item.active) {
                 case undefined:
                     return Object.assign({}, item, tradeSetData(item), { active: true });
                 case true:
                     return Object.assign({}, item, tradeSetData(item));
-                case false:
-                    const oldTradeData = getState().external.tradeData.trades.filter(trade => trade.id === item.id);
-                    return Object.assign({}, item, tradeSetRemoveData(oldTradeData[0]));
             }
         });
+        const tradeValues = tradeValue.concat(removeTrades);
         console.log(tradeValues);
         const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         console.log(url);
@@ -109,7 +100,7 @@ function tradeSetData(item) {
     });
 }
 
-function tradeSetRemoveData(removeTransData) {
+/*function tradeSetRemoveData(removeTransData) {
     return Object.assign({}, {
         tradeDate: removeTransData.tradeDate,
         quantity: removeTransData.quantity,
@@ -117,5 +108,7 @@ function tradeSetRemoveData(removeTransData) {
         basis: removeTransData.basis,
         adjustments: removeTransData.adjustments
     });
-}
+}*/
+
+
 

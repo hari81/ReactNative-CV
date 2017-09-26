@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
 import TradeDirection from '../../components/QuoteSwap/TradeDirection';
@@ -10,7 +12,9 @@ import OrderType from '../../components/QuoteSwap/OrderType/OrderType';
 import BidAskPrice from '../../components/QuoteSwap/BidAskPrice';
 import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMonth';
 import { Button } from '../../components/common/Button';
+import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
+
 
 class SetOrderDetails extends Component {
     constructor(props) {
@@ -19,9 +23,9 @@ class SetOrderDetails extends Component {
             riskProductId: 107,
             quoteType: 'new',
             orderType: 'market',
-            targetPrice: 0,
-            goodTilDate: '',
-            quantity: 0,
+            targetPrice: props.underlyingSym.bidprice,
+            goodTilDate: props.underlyingSym.lastTradeDate,
+            quantity: '0',
             buySell: 'S',
             underlying: '',
             expirationDate: '',
@@ -31,22 +35,29 @@ class SetOrderDetails extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol });
         this.setState({ expirationDate: nextProps.underlyingSym.lastTradeDate });
-        this.setState({ targetPrice: nextProps.underlyingSym.bidprice });
-        this.setState({ goodTilDate: nextProps.underlyingSym.lastTradeDate });
+        this.setState({ targetPrice: nextProps.limitOrderData.limitPrice });
+        this.setState({ goodTilDate: nextProps.limitOrderData.orderExpire });
+    }
+    tradeDirectionChange=(tradeDirection) => {
+        this.setState({ buySell: tradeDirection });
     }
 
     onQuantityChange = (quant) => {
         this.setState({ quantity: quant });
     }
-    onOrderTypeChange=(type, targetPrice) => {
-        this.setState({ orderType: type, targetPrice });
+    onOrderTypeChange=(type) => {
+        this.setState({ orderType: type });
     }
 
     onExpireSelection=(goodTillDate) => {
         this.setState({ goodTilDate: goodTillDate });
     }
     onReviewOrder() {
-        this.props.getReviewOrderQuote(this.state);
+        try {
+            this.props.getReviewOrderQuote(this.state);
+        } catch (error) {
+            Alert.alert(`Unexpected error occurred: ${error}`);
+        }
     }
 
     tradeDirectionChange=(tradeDirection) => {
@@ -57,32 +68,47 @@ class SetOrderDetails extends Component {
         this.setState({ riskProductId: id });
     }
 
+
     render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.setOrderDetails}>
-                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 630 }}>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', textDecorationLine: 'underline', color: 'rgb(255,255,255)' }}>Need Help with this Product?</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
+        console.log(this.state)
+        let spinner = null;
+        if (this.props.contractMonth.spinFlag) {
+            spinner = (
+                <Spinner size="small" />
+            );
+        } else {
+            spinner = (<View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'column', marginLeft: 49 }}>
                         <ProductType onProductChange={this.orderDetails} />
                         <TradeDirection onTradeChange={this.tradeDirectionChange} />
                         <ContractMonth />
                     </View>
-                    <View style={{ height: 364, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
-                    <View style={{ flexDirection: 'column', marginLeft: 33 }}>
-                        <BushelQuantity onQuantityChange={this.onQuantityChange} />
-                        <OrderType onOrderTypeChange={this.onOrderTypeChange} onExpireSelection={this.onExpireSelection} />
+                    <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
+                    <View style={{ flexDirection: 'column', marginLeft: 30 }}>
+                        <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
+                            <BushelQuantity onQuantityChange={this.onQuantityChange} />
+                            <OrderType onOrderTypeChange={this.onOrderTypeChange} />
+                        </KeyboardAwareScrollView>
                         <BidAskPrice />
-                        <View style={{ flexDirection: 'row', marginLeft: 132, position: 'absolute', marginTop: 320, zIndex: -1 }}>
-                            <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                        <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
+                            <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                             <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
                         </View>
                     </View>
                 </View>
+            );
+        }
+        return (
+            <View style={styles.container}>
+                <View style={styles.setOrderDetails}>
+                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
+                    <View style={{ flexDirection: 'row', marginLeft: 630 }}>
+                        <TouchableOpacity onPress={() => Actions.disclaimer()}>
+                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)', textDecorationLine: 'underline' }}>Need Help with this Product?</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                {spinner}
             </View>
         );
     }
@@ -148,7 +174,6 @@ const styles = {
         borderColor: 'rgb(159,169,186)',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: -1
     }
 };
 
@@ -157,6 +182,8 @@ const mapStateToProps = (state) => {
         MyFarmProd: state.dashBoardButtons,
         infoState: state.info,
         underlyingSym: state.selectedContractMonth,
+        limitOrderData: state.limitOrder,
+        contractMonth: state.contractData
     };
 };
 

@@ -14,29 +14,25 @@ class OrderType extends Component {
             tickSizeIncrement: '0'
         };
     }
-    componentWillReceiveProps(newProps) {
+    componentDidMount() {
         const code = this.props.id;
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0,(code.length-4)))
-        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement.toString() });
-        //this.props.onOrderTypeChnage('market');
+        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
+        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
     }
     onMarketSelection= () => {
-        this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false});
+        this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
         this.props.onOrderTypeChange('market');
     }
-    onLimitSelection=(targetPrice) => {
-        this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true});
-        this.props.onOrderTypeChange('limit', targetPrice);
-    }
-    onExpireSelection=(goodTillDate) => {
-        this.props.onExpireSelection(goodTillDate);
+    onLimitSelection=() => {
+        this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true });
+        this.props.onOrderTypeChange('limit');
     }
     limitOrder() {
         if (this.state.radioBTNEnableLimit) {
-            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} onLimitSelection={this.onLimitSelection} onExpireSelection={this.onExpireSelection} />;
+            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} />;
         }
     }
-    render(){
+    render() {
         return (
             <View style={styles.container}>
                 <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>ORDER TYPE</Text>
@@ -67,4 +63,3 @@ const mapStateToProps = (state) => {
     };
 }
 export default connect(mapStateToProps, null)(OrderType);
-

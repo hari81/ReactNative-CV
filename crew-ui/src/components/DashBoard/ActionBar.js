@@ -27,10 +27,11 @@ class ActionBar extends Component {
         const cropcode = this.props.Crops.activeCommodity.code;
         const cropyear = this.props.Crops.activeCropYear;
         Actions.quoteswap({ cropcode, cropyear });
+       // Actions.tcorderreceipt();
     }
     render() {
         const time = moment.utc(this.props.Crops.actionBar.todaysPrice.priceTimestamp).format('MMMM Do YYYY, h:mm a');
-        return(
+        return (
             <View style={styles.thirdRowStyle}>
                 <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'stretch', width: 182 }}>
                     <Text style={{ fontSize: 17, fontFamily: 'HelveticaNeue', color: 'rgb(131,141,148)' }}> TODAY'S PRICE </Text>
@@ -111,7 +112,7 @@ const styles = {
     thirdRowStyle: {
         flexDirection: 'row',
         height: 79,
-        width: 992,
+       // width: 992,
         marginHorizontal: 16,
         marginVertical: 10,
         backgroundColor: 'rgb(255,255,255)',

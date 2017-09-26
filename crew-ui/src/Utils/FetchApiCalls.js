@@ -23,7 +23,6 @@ function doGetFetch(url, email, password) {
 
 function doPutFetch(url, body, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
-    console.log(JSON.stringify(body));
     return fetch(url, {
         method: 'PUT',
         headers: reqHeaders,

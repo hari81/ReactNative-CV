@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     productName: '',
-    productId: ''
+    productId: '',
 }
 
 export default function (state = INITIAL_STATE, action) {

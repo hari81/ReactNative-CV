@@ -15,14 +15,14 @@ class ContractMonth extends Component {
         };
     }
     componentWillReceiveProps() {
-        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a')});
+        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
     }
     onUpdate() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0]
         this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
     contractMonthList() {
-        if (this.props.contractMonth.spinFlag){
+        if (this.props.contractMonth.spinFlag) {
             return <Spinner size='small' />;
         }
         return (<FlatList
@@ -37,7 +37,7 @@ class ContractMonth extends Component {
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>CONTRACT MONTH</Text>
-                    <TouchableOpacity disabled={!this.props.contractMonth.contract[0]} onPress={this.onUpdate.bind(this, this.state.timeNow)}>
+                    <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
                         <View style={{ flexDirection: 'row' }}>
                             <Image style={{ width: 20, height: 18, marginLeft: 24, marginRight: 4 }} source={Refresh} />
                             <Text style={{ color: 'white', fontSize: 12, marginTop: 4 }}>as of {this.state.timeNow}</Text>

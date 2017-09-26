@@ -5,13 +5,13 @@ import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
         dispatch({ type: 'SPIN_ACTIVE' });
-        const url = `${REST_API_URL}api/underlyings?commodity=${code}&cropYear=${year}&sort=contractMonth.month,contractMonth.year`;
+        const url = `${REST_API_URL}underlyings?commodity=${code}&cropYear=${year}&sort=contractMonth.month,contractMonth.year`;
        return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(quoteSwapUnderlyingItems => {
                 //console.log(quoteSwapUnderlyingItems)
                 const symbols = (quoteSwapUnderlyingItems.map(obj => obj.symbol));
-                const swapUrl = `${REST_API_URL}api/quotes`;
+                const swapUrl = `${REST_API_URL}quotes`;
                 const quoteUnderlying = {
                     quoteType: 'mkt',
                     underlyings: symbols
@@ -26,8 +26,9 @@ export const quoteSwapUnderlying = (year, code) => {
                                 year: o.contractMonth.year.value,
                                 underlying: o.symbol,
                                 lastTradeDate: o.lastTradeDate,
-                                askPrice: underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].askPrice:0,
-                                bidPrice: underlyingQuotes.quotes[i]?underlyingQuotes.quotes[i].bidPrice:0,
+                                askPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].askPrice : 0,
+                                bidPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].bidPrice : 0,
+                                settlePrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].settlePrice : 0,
                                 cropCode: code,
                                 cropYear: year
                             };

@@ -12,8 +12,7 @@ class ExternalSales extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            transaction: [{}],
-            removeTransaction: []
+            transaction: [{}]
         };
         this.valueUpdate = this.valueUpdate.bind(this);
     }
@@ -50,14 +49,8 @@ class ExternalSales extends Component {
     removeTransaction(index) {
         let newTransaction = this.state.transaction;
         if (this.state.transaction[index].active) {
-          //  const addItem = this.state.removeTransaction;
-          //  newTransaction[index].active = false;
-            //const removeTrans = this.state.transaction.filter((t, i) => index === i);
-           // addItem.push(removeTrans[0]);
             newTransaction = this.state.transaction.filter((t, i) => index !== i);
-           // console.log('remove', addItem);
             setTimeout(() => {
-               // this.setState({ removeTransaction: addItem });
                 this.setState({ transaction: [] });
                 this.setState({ transaction: newTransaction });
             }, 0);
@@ -71,11 +64,11 @@ class ExternalSales extends Component {
     }
 
     cancelButtonClick() {
-        this.setState({ transaction: [], removeTransaction: [] });
+       this.setState({ transaction: [] });
         setTimeout(() => {
             this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
+            this.refs.scrollView.scrollTo({ y: 0, animated: true });
         }, 0);
-        this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
     }
 
     saveTransactions() {
@@ -98,8 +91,7 @@ class ExternalSales extends Component {
             Alert.alert('No transctions to Save .');
             return;
         }
-        this.props.saveExternalTrades(this.state.transaction, this.state.removeTransaction);
-        this.setState({ removeTransaction: [] });
+        this.props.saveExternalTrades(this.state.transaction);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -173,6 +165,7 @@ class ExternalSales extends Component {
         console.log(this.state.transaction);
         const tradeData = this.state.transaction.filter(item => item.active === true);
         console.log(tradeData);
+
        const resultCheck = tradeData.map(item => {
            const oldTradeData = this.props.extra.tradeData.trades.filter(trade => trade.id === item.id);
            console.log('localstate', item);
@@ -182,7 +175,7 @@ class ExternalSales extends Component {
 
         const modified = resultCheck.filter(flag => !flag);
 
-        if (this.state.removeTransaction.length > 0 || userAdded.length > 0 || modified.length > 0) {
+        if (userAdded.length > 0 || modified.length > 0 || tradeData.length !== this.props.extra.tradeData.trades.length) {
             return true;
         }
     }
@@ -223,7 +216,7 @@ class ExternalSales extends Component {
                     </View>
                 </View>
 
-                <ScrollView vertiacl showsVerticalScrollIndicator style={{ height: 550 }} ref='scrollView' removeClippedSubviews>
+                <ScrollView vertiacl showsVerticalScrollIndicator  ref='scrollView' removeClippedSubviews>
                         {this.state.transaction
                            // .filter(item => item.active === undefined || item.active)
                             .map((item, index) => (<ExternalValues
@@ -238,7 +231,7 @@ class ExternalSales extends Component {
                             )}
                 </ScrollView>
 
-                <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100 }}>
+                <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100, alignItems: 'center' }}>
                     <TouchableHighlight
                         style={{
                             backgroundColor: 'white',

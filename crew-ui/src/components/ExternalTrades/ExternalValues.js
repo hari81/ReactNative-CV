@@ -14,7 +14,9 @@ export default class ExternalValues extends Component {
             quan: '',
             basis: '',
             adj: '',
-            fuPrice: ''
+            fuPrice: '',
+            contractFlag: false,
+            cMonth: ''
         };
     }
     onDateChange = (date) => {
@@ -118,6 +120,33 @@ export default class ExternalValues extends Component {
         }
     }
 
+    contractMonthVisibility() {
+        if (this.state.contractFlag) {
+            return (<View style={{
+                top: -15,
+                marginLeft: 15,
+                height: 100,
+                width: 100,
+                position: 'absolute',
+                backgroundColor: 'white',
+                zIndex: 1,
+            }}>
+                <Picker
+                    style={{ width: 100, height: 100 }}
+                    mode='dropdown'
+                    itemStyle={{ height: 100 }}
+                    selectedValue={'CU2018'}
+                    onValueChange={val => this.setState({ cMonth: val, contractFlag: false })}
+                >
+                    <Picker.Item label='CZ2018' value='CZ2018' key='CZ2018' />
+                    <Picker.Item label='CU2018' value='CU2018' key='CU2018' />
+                    <Picker.Item label='SU2018' value='SU2018' key='SU2018' />
+                </Picker>
+            </View>);
+        }
+    }
+
+
     componentWillMount() {
         if (Object.keys(this.props.items).length !== 0) {
             this.setState({ date: new Date(this.props.items.tradeDate),
@@ -201,7 +230,15 @@ export default class ExternalValues extends Component {
                                     marginBottom: 10
                                 }}
                             >
-                                <Picker
+                                <TextInput
+                                    value={this.state.cMonth}
+                                    style={{ width: 135, height: 45, paddingLeft: 10, fontSize: 15 }}
+                                   // multiline
+                                    placeholder='ContractMonth'
+                                    //onChangeText={}
+                                    onFocus={() => {this.setState({ contractFlag: true })}}
+                                />
+                                { /* <Picker
                                     style={{ width: 135, height: 45 }}
                                     mode='dropdown'
                                     itemStyle={{ height: 45 }}
@@ -211,7 +248,8 @@ export default class ExternalValues extends Component {
                                     <Picker.Item label='CZ2018' value='CZ2018' key='CZ2018' />
                                     <Picker.Item label='CU2018' value='CU2018' key='CU2018' />
                                     <Picker.Item label='SU2018' value='SU2018' key='SU2018' />
-                                </Picker>
+                                </Picker>*/}
+                                {this.contractMonthVisibility()}
                             </View>
                         </View>
 

@@ -1,13 +1,14 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER } from '../types';
+import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS } from '../types';
 import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import { thirdButton } from '../Dashboard/DashBoardButtonsAction';
-//import { cropsButtons } from '../CropButtons/ButtonAction';
 import { productType } from '../QuoteSwap/ProductType/ProductType';
+
 //import mockAccountData from '../../../restAPI/get_account.json';
 //import BData from '../../../restAPI/get_crops.json';
+
 export const accountDetails = () => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
@@ -15,7 +16,7 @@ export const accountDetails = () => {
        return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => {/*console.log(response);*/
                 if (response.status === 404) {
-                    Alert.alert("No Account found");
+                    Alert.alert('No Account found');
                     return;
                 } else {
                 return response.json();
@@ -28,7 +29,7 @@ export const accountDetails = () => {
                 return doGetFetch(accountUrl, getState().auth.email, getState().auth.password)
                     .then(response => response.json())
                     .then(Data => {
-                        dispatch({ type: 'DEFAULT_ACCOUNT_DETAILS', payload: Data });
+                        dispatch({ type: DEFAULT_ACCOUNT_DETAILS, payload: Data });
                         const ButtonsData = [];
                         const commodities = Data.commodities;
                         let index = 0;
@@ -43,9 +44,9 @@ export const accountDetails = () => {
                         dispatch({ type: ALL_BUTTONS, payload: ButtonsData });
                         dispatch({ type: BUTTONS_SPINNER, payload: false });
                         dispatch({ type: SELECT_ID, payload: ButtonsData[0].id });
-                       accountDetails();
-                        thirdButton();
-                        productType();
+                       // accountDetails();
+                       // thirdButton();
+                       // productType();
                         Actions.main();
                     })
                     .catch(error => console.log(`error ${error}`));

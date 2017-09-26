@@ -5,7 +5,7 @@ import { X_API_KEY, REST_API_URL } from '../../../ServiceURLS/index';
 
 export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}api/quotes`;
+        const url = `${REST_API_URL}quotes`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
 
@@ -59,7 +59,7 @@ export const getReviewOrderQuote = (orderData) => {
 
 export const placeOrder = () => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}api/orders`;
+        const url = `${REST_API_URL}orders`;
         const b64 = base64.encode(`${getState().auth.email}:${getState().auth.password}`);
         const baseAuthentication = `Basic ${b64}`;
         const oData = getState().reviewQuote.quoteData;
@@ -92,7 +92,7 @@ export const placeOrder = () => {
                 orderType: oData.metadata.orderType
             });    
         }
-
+console.log('data', data);
         return fetch(url, {
             method: 'POST',
             headers: {
@@ -102,7 +102,8 @@ export const placeOrder = () => {
             },
             body: data
         })
-            .then(response => { 
+            .then(response => {
+                console.log(response);
                 if (response.status === 201) {
                     return response.json();
                 }
@@ -111,16 +112,16 @@ export const placeOrder = () => {
             })
             .then((orderData) => {
                 console.log('order data is: ', orderData);
-
-                dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
-                console.log("OrderId", orderData.bodyJson.id);
+                //dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
+                console.log('OrderId', orderData.id);
+                console.log('Order Status', orderData.status);
                 switch (orderData.status) {
-                    case 201:
-                        Actions.tcorderreceipt({ orderId: orderData.bodyJson.id, message: orderData.statusMessage });
+                    case '201':
+                        Actions.tcorderreceipt({ orderId: orderData.id, message: orderData.statusMessage });
                         break;
-                    case 500:
+                    case '500':
                         Actions.tcerror({ message: orderData.statusMessage });
-                    case 400:
+                    case '400':
                         Actions.tcerror({ message: orderData.statusMessage });
                 }
             })

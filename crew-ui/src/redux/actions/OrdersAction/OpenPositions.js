@@ -6,7 +6,7 @@ export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
 
-      const url = `${REST_API_URL}api/positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
+      const url = `${REST_API_URL}positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
      // console.log(url);
       reqHeaders.append('Authorization', baseAuthentication(getState().auth.email, getState().auth.passwor));
      return doGetFetch(url, getState().auth.email, getState().auth.password)
@@ -17,7 +17,7 @@ export const OpenPositionsData = (crop) => {
                }
               return Promise.all(
                   opens.map(items => {
-                     const underlyingURL = `${REST_API_URL}api/underlyings/${items.lines[0].underlying}`;
+                     const underlyingURL = `${REST_API_URL}underlyings/${items.lines[0].underlying}`;
                      return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
                      .then(response => { console.log(response); return response.json(); });
                   })
