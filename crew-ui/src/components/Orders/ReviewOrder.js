@@ -13,7 +13,8 @@ import DisclaimerData from '../../restAPI/disclaimer.json';
 class ReviewOrder extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
+            isTermsAccepted: false,
             isPlaceOrderEnabled: false,
             termsConditionsPopup: null
         }; 
@@ -23,9 +24,14 @@ class ReviewOrder extends Component {
         Actions.pop();
     }
 
+    onAcceptTerms() {
+        this.setState({ isTermsAccepted: true, isPlaceOrderEnabled: true });
+    }
+
     onPlaceOrderNow() {
-        if (this.state.isPlaceOrderEnabled === true) {
-            this.props.placeOrder();            
+        if (this.state.isTermsAccepted === true) {
+            this.setState({ isPlaceOrderEnabled: false });
+            this.props.placeOrder(); 
         } else {
             Alert.alert('You must accept the terms and conditions before placing the order.');
         }
@@ -58,6 +64,18 @@ class ReviewOrder extends Component {
             </View>
             );
         }
+        let lMidMarketMark = null;
+        if (!this.props.isRepriceOrder) {
+            lMidMarketMark = (
+            <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
+                <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={[styles.quoteData, styles.marketData]}>{this.props.calcs.midMarketMarkCents.toFixed(1)}</Text>
+                    <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                </View>
+            </View>
+            );
+        }
 
         return (
             <View>
@@ -78,7 +96,7 @@ class ReviewOrder extends Component {
 
                     <View style={styles.reviewMain}>
                         <View style={styles.reviewContainer}>
-                            <Text style={styles.reviewTitle}>Your New Trade details have been set. Let's review it and complete your order.</Text>
+                            <Text style={styles.reviewTitle}>Your {this.props.tradeTitle} details have been set. Let's review it and complete your order.</Text>
                             <View style={styles.quoteContainer}>
                                 {/* quote fields */}
                                 <View style={styles.quoteFields}>
@@ -106,7 +124,7 @@ class ReviewOrder extends Component {
                                             <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.expirationDate, 5)}</Text>
                                         </View>
                                         <View style={styles.quoteField}>
-                                            <Text style={styles.quoteLabel}>Your {common.capitalizeWord(this.props.data.units)} quantity is</Text>
+                                            <Text style={styles.quoteLabel}>Your {this.props.data.units} quantity is</Text>
                                             <Text style={styles.quoteData}>{common.formatNumberCommas(this.props.data.metadata.quantity)}</Text>
                                         </View>
                                         <View style={styles.quoteField}>
@@ -130,20 +148,14 @@ class ReviewOrder extends Component {
                                 {/* market and terms/conditions */}
                                 <View>
                                     <View style={styles.quoteMarketContainer}>
-                                        <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
-                                            <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                                <Text style={[styles.quoteData, styles.marketData]}>{this.props.calcs.midMarketMarkCents.toFixed(1)}</Text>
-                                                <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
-                                            </View>
-                                        </View>
+                                        {lMidMarketMark}
                                         <View style={[styles.quoteField, { marginBottom: 0, alignItems: 'center' }]}>
                                             <Text style={[styles.quoteLabel, styles.marketLabel]}>INDICATIVE MARKET PRICE</Text>
                                             <Text style={[styles.quoteData, styles.marketData]}>${this.props.data.price.toFixed(4)}</Text>
                                         </View>
                                     </View>
                                     <View style={styles.termsContainer}>
-                                        <Switch style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd' onValueChange={(value) => this.setState({ isPlaceOrderEnabled: value })} value={this.state.isPlaceOrderEnabled} />
+                                        <Switch style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd' onValueChange={this.onAcceptTerms.bind(this)} value={this.state.isTermsAccepted} />
                                         <Text>Agree to </Text>
                                         <TouchableOpacity onPress={this.showTermsConditions.bind(this)}>
                                             <Text style={styles.termsLink}>Terms and Conditions</Text>
@@ -210,13 +222,16 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
+    const isReprice = state.reviewQuote.quoteData.metadata.quoteType.toLowerCase() === 'rpx';
+    const isBuy = state.reviewQuote.quoteData.metadata.buySell.toLowerCase() === 'b' || state.reviewQuote.quoteData.metadata.buySell.toLowerCase() === 'buy';
+
     return {
         data: state.reviewQuote.quoteData,
-        buySell: state.reviewQuote.quoteData.metadata.buySell === 'B' ? 'Buy' : 'Sell',
+        buySell: isBuy ? 'Buy' : 'Sell',
         calcs: {
             midMarketMark: Math.abs(state.reviewQuote.quoteData.midMarketMark),
             midMarketMarkCents: state.reviewQuote.quoteData.midMarketMark * 100,
-            totalPrice: state.reviewQuote.quoteData.metadata.buySell === 'B' ?
+            totalPrice: isBuy ?
                 state.reviewQuote.quoteData.price + Math.abs(state.reviewQuote.quoteData.midMarketMark) :
                 state.reviewQuote.quoteData.price - Math.abs(state.reviewQuote.quoteData.midMarketMark),
         },
@@ -226,7 +241,9 @@ const mapStateToProps = state => {
         },
         productDesc: common.translateProductId(state.reviewQuote.quoteData.metadata.riskProductId, state.products),
         underlying: common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying),
-        isLimitOrder: state.reviewQuote.quoteData.metadata.orderType === 'limit'
+        isLimitOrder: state.reviewQuote.quoteData.metadata.orderType === 'limit',
+        isRepriceOrder: isReprice,
+        tradeTitle: isReprice ? 'close position' : 'new trade'
     };
 };
 

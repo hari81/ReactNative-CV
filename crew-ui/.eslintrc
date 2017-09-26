@@ -3,6 +3,8 @@
   "rules": { 
     "max-len": "off",
     "arrow-body-style": "off",
-    "react/require-extension": "off"
+    "react/require-extension": "off",
+    "no-lonely-if": "off",
+    "no-param-reassign": "off"
   }
 }
