@@ -82,7 +82,7 @@ class FarmInputFields extends Component {
                     flexDirection: 'column',
                     justifyContent: 'space-around',
                     //width: 430,
-                    height: height - 400
+                    height: height - 410
                 }}
             >
 
