@@ -111,9 +111,17 @@ export const placeOrder = () => {
             })
             .then((orderData) => {
                 console.log('order data is: ', orderData);
-                //redirect to success screen here
-                Actions.tcorderreceipt();                                    
-                //dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
+                dispatch({ type: ORDERS_NEW_ORDER, payload: orderData });
+                switch (orderData.status) {
+                    case 201:
+                        Actions.tcorderreceipt({ orderId: orderData.id, message: orderData.statusMessage }); break;
+                    case 500:
+                        Actions.tcerror({ message: orderData.statusMessage }); break;
+                    case 400:
+                        Actions.tcerror({ message: orderData.statusMessage }); break;
+                    default:
+                        Actions.tcerror({ message: orderData.statusMessage }); break;
+                }
             })
             .catch((status, error) => {
                 console.log('error', error);
