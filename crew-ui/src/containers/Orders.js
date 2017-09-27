@@ -262,13 +262,13 @@ class Orders extends Component {
 
           <View
               style={{
+                  width: width - 20,
                   height: 100,
                   borderTopColor: 'rgb(231,181,20)',
                   borderTopWidth: 3,
                   backgroundColor: 'white',
                   marginTop: 80,
-                  marginLeft: 10,
-                  marginRight: 10,
+                  marginHorizontal: 10,
                   position: 'absolute',
                   zIndex: 1,
               }}
@@ -279,9 +279,10 @@ class Orders extends Component {
               Positions & Orders
             </Text>
           </View>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                   <View
                       style={{
+                          width: '15%',
                           marginLeft: 20,
                           justifyContent: 'center',
                           alignItems: 'center',
@@ -305,7 +306,7 @@ class Orders extends Component {
             <SegmentedControlIOS
               alignItems='center'
               tintColor='rgb(39,153,137)'
-              style={styles.segment}
+              style={[styles.segment, { width: width / 2 }]}
               values={['Orders', 'Open Positions', 'Closed Positions']}
               selectedIndex={
                 { 'Orders': 0,
@@ -321,7 +322,7 @@ class Orders extends Component {
               onValueChange={this.selectedTabOrder}
             />
           </View>
-                  <View style={{ width: 206, justifyContent: 'center', marginLeft: 45, marginRight: 25 }}>
+                  <View style={{ width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25 }}>
                   <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
                       <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }} >
                           <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
@@ -349,8 +350,6 @@ const styles = {
 
   segment: {
     marginLeft: 50,
-    width: 500,
-
   },
   positions: {
 

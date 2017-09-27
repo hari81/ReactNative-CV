@@ -48,6 +48,7 @@ class ReviewOrder extends Component {
     }
 
     render() {
+        const cropButData = this.props.commodity.cropButtons.filter(item => item.id === this.props.commodity.selectedId);
         let limitViewGTD = null;
         let limitViewPrice = null;
         if (this.props.isLimitOrder) {
@@ -103,7 +104,7 @@ class ReviewOrder extends Component {
                                     <View style={{ flex: 1 }}>
                                         <View style={styles.quoteField}>
                                             <Text style={styles.quoteLabel}>Your crop is</Text>
-                                            <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.commodity.year}</Text>
+                                            <Text style={styles.quoteData}>{cropButData[0].name} {cropButData[0].cropYear}</Text>
                                         </View>
                                         <View style={styles.quoteField}>
                                             <Text style={styles.quoteLabel}>Your product is a</Text>
@@ -235,10 +236,7 @@ const mapStateToProps = state => {
                 state.reviewQuote.quoteData.price + Math.abs(state.reviewQuote.quoteData.midMarketMark) :
                 state.reviewQuote.quoteData.price - Math.abs(state.reviewQuote.quoteData.midMarketMark),
         },
-        commodity: {
-            name: state.dashBoardButtons.activeCommodity.name,
-            year: state.dashBoardButtons.activeCropYear
-        },
+        commodity: state.cropsButtons,
         productDesc: common.translateProductId(state.reviewQuote.quoteData.metadata.riskProductId, state.products),
         underlying: common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying),
         isLimitOrder: state.reviewQuote.quoteData.metadata.orderType === 'limit',

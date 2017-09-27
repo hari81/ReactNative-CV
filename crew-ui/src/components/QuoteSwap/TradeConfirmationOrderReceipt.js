@@ -15,13 +15,13 @@ class TradeConfirmationOrderReceipt extends Component {
 
     reviewPositionsOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
-        console.log('Crop Code:', cropButData[0].code);
+    //    console.log('Crop Code:', cropButData[0].code);
         Actions.orders({ Crop: cropButData[0].code });
     }
 
     placeNewOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
-        console.log(cropButData[0].code, cropButData[0].year);
+     //   console.log(cropButData[0].code, cropButData[0].year);
         Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
     }
 

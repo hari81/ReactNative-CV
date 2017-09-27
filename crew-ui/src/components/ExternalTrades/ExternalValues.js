@@ -236,7 +236,7 @@ export default class ExternalValues extends Component {
                                    // multiline
                                     placeholder='ContractMonth'
                                     //onChangeText={}
-                                    onFocus={() => {this.setState({ contractFlag: true })}}
+                                    onFocus={() => { Keyboard.dismiss(); this.setState({ contractFlag: true }); }}
                                 />
                                 { /* <Picker
                                     style={{ width: 135, height: 45 }}

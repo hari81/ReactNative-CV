@@ -61,9 +61,9 @@ class ButtonList extends Component {
                // this.props.selectId(this.props.old[0].id);
                 Alert.alert(
                     'My Farm Data',
-                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
+                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
                     [
-                        { text: 'Got It!', style: 'OK' }
+                        { text: 'GOT IT!', style: 'OK' }
                     ],
                     { cancelable: false }
                 );

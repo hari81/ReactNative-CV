@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import Dimensions from 'Dimensions';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
 import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
@@ -140,14 +141,14 @@ class ExternalSales extends Component {
     checkUpdates() {
         const userAdded =  this.state.transaction.filter(t => t.active === undefined);
 
-        console.log(this.state.transaction);
+     //   console.log(this.state.transaction);
         const tradeData = this.state.transaction.filter(item => item.active === true);
-        console.log(tradeData);
+      //  console.log(tradeData);
 
        const resultCheck = tradeData.map(item => {
            const oldTradeData = this.props.extra.tradeData.trades.filter(trade => trade.id === item.id);
-           console.log('localstate', item);
-           console.log('reduxstate', oldTradeData);
+   //        console.log('localstate', item);
+   //        console.log('reduxstate', oldTradeData);
            return JSON.stringify(item) === JSON.stringify(oldTradeData[0]);
        });
 
@@ -160,8 +161,9 @@ class ExternalSales extends Component {
 
     render() {
         // console.log('externnal', this.state.transaction);
+        const { width, height } = Dimensions.get('window');
         return (
-            <View style={{ width: 1024, height: 768, backgroundColor: 'rgb(29,37,49)' }}>
+            <View style={{ width, height, backgroundColor: 'rgb(29,37,49)' }}>
                 <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
                     <Text style={{ fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5 }}>Close </Text>
                     <TouchableHighlight onPress={this.backToDashboardMyfarm} >
