@@ -12,6 +12,9 @@ import Refresh from '../../components/common/img/Refresh.png';
 import { Button } from '../../components/common/Button';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import { bidPriceShow, askPriceShow, settlePriceShow } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
+import st from '../../Utils/SafeTraverse';
+
 
 class UpdateOrderDetails extends Component {
     constructor(props) {
@@ -26,17 +29,16 @@ class UpdateOrderDetails extends Component {
             quoteType: sOrder.quoteType,
             orderType: sOrder.orderType,
             quantity: sOrder.quantity,
-            buySell: sOrder.buysell === 'B' ? 'Buy' : 'Sell',
-            isBuy: sOrder.buysell === 'B',
+            buySell: sOrder.buySell.toLowerCase() === 'b' ? 'Buy' : 'Sell',
+            isBuy: sOrder.buySell.toLowerCase() === 'b',
             underlying: sOrder.underlying,
             expirationDate: sOrder.expirationDate,
-            netPremium: sOrder.netPremium,
-            goodTilDate: sOrder.goodTilDate,
-            targetPrice: sOrder.targetPrice,
+            targetPrice: props.underlyingSym.bidprice,
+            goodTilDate: props.underlyingSym.lastTradeDate,
             underlyingObject: uObject,
             notes: '',
             timeNow: moment().format('MMM Do YYYY, h:mm a'),
-            contractBidAskPrice: 0,
+            contractBidAskPrice: '-',
             transId: sOrder.transId,
             activityId: sOrder.activityId
         };
@@ -44,12 +46,42 @@ class UpdateOrderDetails extends Component {
     
     componentDidMount() {
         this.setState({ reviewOrderDisabled: false });
+        this.props.bidPriceShow(st(this.props, ['contractMonth', 'contract', 0, 'bidPrice']));
+        this.props.askPriceShow(st(this.props, ['contractMonth', 'contract', 0, 'askPrice']));        
     }
 
-    componentWillReceiveProps() {
-        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
+    componentWillReceiveProps(nextProps) {
+        //limit data
+        if (nextProps.limitOrderData !== null) {
+            this.setState({ targetPrice: nextProps.limitOrderData.limitPrice });
+            this.setState({ goodTilDate: nextProps.limitOrderData.orderExpire });
+        }
+        //contract month code
+        if (nextProps.contractMonth !== null) {
+            const cMonths = nextProps.contractMonth;
+            if (!cMonths.spinFlag) {
+                this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
+                const sMonth = cMonths.contract.find(x => x.underlying === this.state.underlying);
+                let tPrice = '-';
+                if (this.state.isBuy) {
+                    tPrice = sMonth.askPrice === null ? sMonth.settlePrice : sMonth.askPrice;
+                } else { 
+                    tPrice = sMonth.bidPrice === null ? sMonth.settlePrice : sMonth.bidPrice;
+                }
+                if (tPrice === null) { 
+                    tPrice = '-'; 
+                } else { 
+                    tPrice = tPrice.toFixed(4); 
+                }
+                this.setState({ contractBidAskPrice: tPrice });
+                if (this.props.underlyingSym !== null) {
+                    console.log('nextProps', nextProps);
+                }
+            }
+        }
+        //bid, ask, settle
     }
-        
+
     onOrderTypeChange(type, targetPrice) {
         if (targetPrice !== undefined && (typeof (targetPrice) === typeof (this.state.targetPrice))) {
             this.setState({ orderType: type, targetPrice });
@@ -65,7 +97,6 @@ class UpdateOrderDetails extends Component {
     onRefreshBidAsk() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
-        this.setState({ contractBidAskPrice: 1 });   
     }
 
     onReviewOrder() {
@@ -117,21 +148,14 @@ class UpdateOrderDetails extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            {/*
-                            <View>
-                                <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff' }}>
+                            <View style={styles.disabledContractMonth}>
+                                <Text style={styles.disabledContractMonthYearText}>
                                     {this.state.underlyingObject.underlyingMonthShortDesc } {this.state.underlyingObject.underlyingYear}
                                 </Text>
-                                <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue-Bold', color: '#fff' }}>
-                                    {this.state.contractBidAskPrice}
-                                </Text>
-                            </View>
-                            */}
-                            <View style={styles.disabledDataContainer}>
-                                <Text style={styles.disabledData}>{this.state.underlyingObject.underlyingMonthShortDesc} {this.state.underlyingObject.underlyingYear}</Text>
+                                <Text style={styles.disabledContractBidAskPrice}>${this.state.contractBidAskPrice}</Text>
                             </View>
                         </View>
-                        <View style={{ height: 350, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
+                        <View style={{ height: 350, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: '#7f8fa4' }} />
                         <View style={{ flexDirection: 'column', marginLeft: 33 }}>
                             {/* bushel quantity */}
                             <Text style={styles.disabledLabel}>BUSHEL QUANTITY</Text>
@@ -143,7 +167,7 @@ class UpdateOrderDetails extends Component {
                             {/* bid ask price */}                            
                             <BidAskPrice />
                             {/* buttons */}
-                            <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 312, marginLeft: 130 }}>
+                            <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 312, marginLeft: 130, zIndex: -1 }}>
                                 <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                                 <TouchableOpacity onPress={this.onReviewOrder.bind(this)} style={[styles.buttonStyle, { marginLeft: 28 }, this.state.reviewOrderDisabled ? { backgroundColor: '#27998965' } : { backgroundColor: '#279989' }]}>
                                     <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
@@ -163,6 +187,9 @@ const styles = {
     disabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff60', marginBottom: 8 },
     disabledDataContainer: { marginBottom: 10, backgroundColor: '#ffffff80', borderRadius: 4, height: 40, width: 250, paddingLeft: 15, paddingTop: 10 },
     disabledData: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#00000060' },
+    disabledContractMonth: { width: 80, height: 50, backgroundColor: '#376768', marginLeft: 5, marginTop: 5, justifyContent: 'center', alignItems: 'center' },
+    disabledContractMonthYearText: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#ffffff60' },
+    disabledContractBidAskPrice: { fontSize: 18, fontFamily: 'HelveticaNeue-Bold', color: '#ffffff60' },
     textStyle: { color: '#9fa9ba', fontSize: 18, fontFamily: 'HelveticaNeue' },
     buttonStyle: { marginTop: 24, width: 164, height: 40, backgroundColor: '#fff', borderRadius: 4, borderWidth: 1, borderColor: '#9fa9ba', justifyContent: 'center', alignItems: 'center', zIndex: -1 },
     refreshImage: { width: 18, height: 18, marginLeft: 24, marginRight: 4 },
@@ -176,7 +203,8 @@ const mapStateToProps = (state) => {
         MyFarmProd: state.dashBoardButtons,
         underlyingSym: state.selectedContractMonth,
         products: state.products,
-        contractMonth: state.contractData        
+        contractMonth: state.contractData,
+        limitOrderData: state.limitOrder,        
     };
 };
 
@@ -184,7 +212,10 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
             quoteSwapUnderlying,
-            getReviewOrderQuote
+            getReviewOrderQuote,
+            bidPriceShow,
+            askPriceShow,
+            settlePriceShow
         },
         dispatch
     );

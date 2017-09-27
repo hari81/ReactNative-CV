@@ -1,7 +1,8 @@
 import { Actions } from 'react-native-router-flux';
-import { ORDERS_REVIEW_QUOTE, ORDERS_NEW_ORDER } from '../types';
+import { ORDERS_REVIEW_QUOTE } from '../types';
 import { REST_API_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
+import * as common from '../../../Utils/common';
 
 export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
@@ -16,30 +17,20 @@ export const getReviewOrderQuote = (orderData) => {
                 notes: orderData.notes
             };
         } else {
-            if (orderData.orderType === 'market') {
-                data = {
-                    riskProductId: orderData.riskProductId,
-                    buySell: orderData.buySell,
-                    expirationDate: orderData.expirationDate,
-                    notes: '',
-                    orderType: orderData.orderType,
-                    underlying: orderData.underlying,
-                    quoteType: orderData.quoteType === undefined ? 'new' : orderData.quoteType,
-                    quantity: orderData.quantity
-                };
-            } else {
-                data = {
-                    riskProductId: orderData.riskProductId,
-                    buySell: orderData.buySell,
-                    expirationDate: orderData.expirationDate,
-                    notes: '',
-                    orderType: orderData.orderType,
-                    underlying: orderData.underlying,
-                    quoteType: orderData.quoteType === undefined ? 'new' : orderData.quoteType,
-                    quantity: orderData.quantity,
-                    goodTilDate: orderData.goodTilDate,
-                    targetPrice: orderData.targetPrice
-                };
+            data = {
+                riskProductId: orderData.riskProductId,
+                buySell: orderData.buySell,
+                expirationDate: orderData.expirationDate,
+                notes: '',
+                orderType: orderData.orderType,
+                underlying: orderData.underlying,
+                quoteType: orderData.quoteType === undefined ? 'new' : orderData.quoteType,
+                quantity: orderData.quantity
+            };
+            //add limit quote fields only for non-reprice quotes
+            if (orderData.orderType.toLowerCase() === 'limit') {
+                data.goodTilDate = common.formatDate(orderData.goodTilDate, 6);
+                data.targetPrice = orderData.targetPrice;
             }
         }
 
@@ -53,12 +44,16 @@ export const getReviewOrderQuote = (orderData) => {
             .then(quoteData => {
                 console.log('review quote data is: ', quoteData);
                 //reprice needs some of the initial data for display on the review screen
-                if (quoteData.metadata.quoteType === 'rpx') {
+                if (quoteData.metadata.quoteType.toLowerCase() === 'rpx') {
                     quoteData.metadata.buySell = orderData.buySell;
                     quoteData.metadata.riskProductId = orderData.riskProductId;
                     quoteData.metadata.underlying = orderData.underlying;
                     quoteData.metadata.quantity = orderData.quantity;
                     quoteData.metadata.expirationDate = quoteData.quoteExpiration;
+                    if (quoteData.metadata.orderType.toLowerCase() === 'limit') {
+                        quoteData.metadata.targetPrice = orderData.targetPrice;
+                        quoteData.metadata.goodTilDate = orderData.goodTilDate;
+                    }
                 }
                 dispatch({ type: ORDERS_REVIEW_QUOTE, payload: quoteData });
                 Actions.revieworder();
@@ -74,22 +69,16 @@ export const placeOrder = () => {
         const url = `${REST_API_URL}orders`;
         const oData = getState().reviewQuote.quoteData;
         let data = null;
-        if (oData.metadata.orderType.toLowerCase() === 'limit') {
-            //limit order
+        if (oData.metadata.quoteType.toLowerCase() === 'rpx') {
             data = {
                 quoteId: oData.quoteId,
-                riskProductId: oData.metadata.riskProductId,
-                quoteType: oData.metadata.quoteType,
-                quantity: oData.metadata.quantity,
-                buySell: oData.metadata.buySell,
-                underlying: oData.metadata.underlying,
-                notes: oData.metadata.notes,
+                transId: oData.metadata.transId,
+                activityId: oData.metadata.activityId,
                 orderType: oData.metadata.orderType,
-                targetPrice: oData.metadata.targetPrice,
-                goodTilDate: oData.metadata.goodTilDate
+                quoteType: oData.metadata.quoteType,
+                notes: oData.notes
             };
         } else {
-            //market order
             data = {
                 quoteId: oData.quoteId,
                 riskProductId: oData.metadata.riskProductId,
@@ -100,6 +89,10 @@ export const placeOrder = () => {
                 notes: oData.metadata.notes,
                 orderType: oData.metadata.orderType
             };
+        }
+        //extra fields for limit orders
+        if (oData.metadata.orderType.toLowerCase() === 'limit') {
+            data.targetPrice = oData.metadata.targetPrice;
         }
 
         return doPostFetch(url, data, getState().auth.email, getState().auth.password)
@@ -130,7 +123,6 @@ export const placeOrder = () => {
             })
             .catch((status, error) => {
                 console.log('error', error);
-                dispatch({ type: ORDERS_NEW_ORDER, payload: data });
                 //redirect to order failure screen
                 Actions.tcerror();
             });
