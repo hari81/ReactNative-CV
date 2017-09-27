@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, Keyboard } from 'react-native';
 import Dimensions from 'Dimensions';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 import { FarmInput } from '../../components/common';
 
 class FarmInputFields extends Component {
@@ -146,8 +147,8 @@ class FarmInputFields extends Component {
                         maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
-                            if (e.nativeEvent.key === 'Enter') {
-                            Keyboard.dismiss();
+                            if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
+                            dismissKeyboard();
                         }
                         }}
                     />
@@ -184,7 +185,7 @@ class FarmInputFields extends Component {
                         maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
-                            if (e.nativeEvent.key === 'Enter') {
+                            if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
                             Keyboard.dismiss();
                         }
                         }}
@@ -225,7 +226,7 @@ class FarmInputFields extends Component {
                         maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
-                            if (e.nativeEvent.key === 'Enter') {
+                            if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
                             Keyboard.dismiss();
                         }
                         }}

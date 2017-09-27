@@ -124,7 +124,7 @@ export default class ExternalValues extends Component {
         if (this.state.contractFlag) {
             return (<View style={{
                 top: -15,
-                marginLeft: 15,
+                marginLeft: 150,
                 height: 100,
                 width: 100,
                 position: 'absolute',
@@ -231,9 +231,8 @@ export default class ExternalValues extends Component {
                                 }}
                             >
                                 <TextInput
-                                    value={this.state.cMonth}
+                                    value={this.state.cMonth || 'CU2018'}
                                     style={{ width: 135, height: 45, paddingLeft: 10, fontSize: 15 }}
-                                   // multiline
                                     placeholder='ContractMonth'
                                     //onChangeText={}
                                     onFocus={() => { Keyboard.dismiss(); this.setState({ contractFlag: true }); }}
@@ -399,6 +398,5 @@ const styles = {
         paddingBottom: 10,
         color: 'white',
         alignItems: 'center'
-
     },
 };

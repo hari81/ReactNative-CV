@@ -57,7 +57,7 @@ class ViewOrders extends Component {
               justifyContent: 'center'
             }}
           >
-            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
+            <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
               {month}
             </Text>
           </View>
@@ -83,7 +83,7 @@ class ViewOrders extends Component {
 
         <View style={{ width: 220 }}>
           <View style={{ margin: 10 }}>
-            <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}>
+            <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (crop.length + riskProductName.length) >= 18 ? { fontSize: 16 } : {}]}>
               {crop} {riskProductName}
             </Text>
             <View style={{ flexDirection: 'row', marginTop: 20 }}>
@@ -218,7 +218,7 @@ const styles = {
   },
   buttonText: {
     color: 'rgb(255,255,255)',
-    fontSize: 10,
+    fontSize: 14,
     textAlign: 'center',
     justifyContent: 'center',
     fontFamily: 'HelveticaNeue'

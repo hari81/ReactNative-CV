@@ -33,7 +33,7 @@ export const ViewOrdersData = (crop) => {
 
                 )
               });
-              console.log('final response', finalResponse);
+           //   console.log('final response', finalResponse);
              dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: finalResponse });
             })
         );

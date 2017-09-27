@@ -43,7 +43,7 @@ class Orders extends Component {
   componentDidMount() {
       this.props.dropDownCrop();
     const crop = this.state.Crop;
-    console.log(crop);
+ //   console.log(crop);
       switch (this.state.selectedTab) {
           case 'Orders':
               this.props.ViewOrdersData(crop);
