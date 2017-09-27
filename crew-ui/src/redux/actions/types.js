@@ -37,4 +37,3 @@ export const ACCOUNT_INFORMATION = 'account_information';
 export const DEFAULT_ACCOUNT_DETAILS = 'default_account_information';
 
 export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
-export const ORDERS_NEW_ORDER = 'orders_new_order';

@@ -29,16 +29,19 @@ export function formatDate(date, formatType) {
     
     switch (formatType) {
         case 1: // Month/Day/Year (ex. 3/15/2017)
-            formattedDate = `${newDate.getMonth()}/${newDate.getDate()}/${newDate.getYear()}`;
+            formattedDate = `${newDate.getMonth()}/${newDate.getDate()}/${newDate.getFullYear()}`;
             break;
         case 2: // Month-Day-Year (ex. 3-15-2017)
-            formattedDate = `${newDate.getMonth()}-${newDate.getDate()}-${newDate.getYear()}`;
+            formattedDate = `${newDate.getMonth()}-${newDate.getDate()}-${newDate.getFullYear()}`;
             break;
         case 4: // MONTH NAME, YEAR (ex. March 2017)
             formattedDate = `${monthNames[newDate.getMonth()]}, ${newDate.getFullYear()}`;
             break;
         case 5: // SHORT MONTH NAME DATE, YEAR (ex. Mar 15, 2017, June 7, 2018)
             formattedDate = `${monthNamesShort[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`;
+            break;
+        case 6: // Year-Month-Day (ex. 2017-01-01)
+            formattedDate = `${newDate.getFullYear()}-${newDate.getMonth()}-${newDate.getDate()}`;
             break;
         default:
             formattedDate = date;

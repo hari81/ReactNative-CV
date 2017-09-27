@@ -239,7 +239,7 @@ const mapStateToProps = state => {
         commodity: state.cropsButtons,
         productDesc: common.translateProductId(state.reviewQuote.quoteData.metadata.riskProductId, state.products),
         underlying: common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying),
-        isLimitOrder: state.reviewQuote.quoteData.metadata.orderType === 'limit',
+        isLimitOrder: state.reviewQuote.quoteData.metadata.orderType.toLowerCase() === 'limit',
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade'
     };
