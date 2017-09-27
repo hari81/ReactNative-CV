@@ -24,7 +24,7 @@ export const ViewOrdersData = (crop) => {
               .then(response => { return response.json(); })
             })
           )
-            .then(response => { console.log(response);
+            .then(response => { //console.log(response);
               const finalResponse = Object.assign({}, items, {
                 value: items.value.map((order) => ({
                   ...order,

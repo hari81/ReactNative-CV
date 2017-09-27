@@ -75,7 +75,7 @@ class OpenPositions extends Component {
 
         <View style={{ width: 230 }}>
           <View style={{ margin: 14 }}>
-            <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}>
+            <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
               {crop} {riskProduct}
             </Text>
             <View style={{ flexDirection: 'row', marginTop: 20 }}>
