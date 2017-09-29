@@ -26,12 +26,10 @@ class Pie extends React.Component {
 
 
     createPieChart(index) {
-
         const arcs = shape.pie()
             .value(this.value)
             .startAngle(0)
-            .sort(null)
-            (this.props.data);
+            .sort(null)(this.props.data);
 
         const hightlightedArc = shape.arc()
             .outerRadius(100)
@@ -42,39 +40,25 @@ class Pie extends React.Component {
             .outerRadius(100)
             .padAngle(0.02)
             .innerRadius(50);
-
-
-
         const arcData = arcs[index];
         const path = (this.state.highlightedIndex === index) ? hightlightedArc(arcData) : arc(arcData);
-
         return {
             path,
             color: this.color(index),
         };
     }
-
     onPieItemSelected(index) {
-        this.setState({...this.state, highlightedIndex: index});
+        this.setState({ ...this.state, highlightedIndex: index });
         this.props.onItemSelected(index);
     }
 
     render() {
-
         return (
             <View >
                 <Surface width={250} height={250} >
-                    <Group x={140} y={102}>
-                        {
-                            this.props.data.map((item, index) =>
-                                (
-                                    <AnimShape
-                                        key={'pieshape' + index}
-                                        color={this.color(index)}
-                                        d={() => this.createPieChart(index)}
-                                    />
-
-
+                    <Group x={140} y={102}>{
+                            this.props.data.map((item, index) => (
+                                    <AnimShape key={'pieshape' + index} color={this.color(index)} d={() => this.createPieChart(index)}/>
                                 )
                             )
                         }

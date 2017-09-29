@@ -18,7 +18,7 @@ class BushelQuantity extends Component {
     componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ quantityIncrement: crop[0].quantityIncrement.toString(), quantity: '' });
+        this.setState({ quantityIncrement: crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString(), quantity: '' });
     }
     onFocusMake = () => {
         this.setState({ enableClick: false, quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });

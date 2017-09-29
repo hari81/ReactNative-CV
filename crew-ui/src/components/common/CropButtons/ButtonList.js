@@ -2,48 +2,22 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { myFarmCropValues, myFarmTradeSalesOutSideApp
-} from '../../../redux/actions/MyFarm/CropAction';
-import { firstButton, secondButton,
-    thirdButton, fourthButton, fifthButton, sixthButton, seventh, eighth
-} from '../../../redux/actions/Dashboard/DashBoardButtonsAction';
+import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
 import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
-import { selectId } from '../../../redux/actions/CropButtons/ButtonAction';
+import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
+import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
 
 class ButtonList extends Component {
-
-    buttonPress(year, code, id) {
-        this.props.quoteSwapUnderlying(year, code);
-        //contractMonthAction
-        // this.props.quoteSwapUnderlying(year,code);
-        //LIVE DATA FETCH... No need of switch statement.. Only one fetch...
-        //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`)
-        //console.log(id)
+    buttonPress(year, code, id, name) {
+        //Dashboard data fetch
+        this.props.dashBoardDataFetch(`${year}`, `${code}`);
+        // buttonsSelection
         this.props.selectId(id);
-        //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`);
-
-        //DashboardAction
-        const cropAndYear = `${year}${code}`;
-        switch (cropAndYear) {
-            case '2019S':
-                this.props.eighth();
-                break;
-            case '2017C':
-                this.props.thirdButton();
-                break;
-            case '2017S':
-                this.props.fourthButton();
-                break;
-            case '2018C':
-                this.props.fifthButton();
-                break;
-            case '2018S':
-                this.props.sixthButton();
-                break;
-            default:
-                this.props.seventh();
-        }
+        this.props.selectedCropName(name);
         //myFarmAction
+        // place order contract month data
+        this.props.quoteSwapUnderlying(year, code);
+
         this.props.myFarmCropValues(code, year);
         this.props.myFarmTradeSalesOutSideApp(code, year);
     }
@@ -82,22 +56,17 @@ const styles = {
 };
 const mapStateToProps = state => {
     return {
-        id: state.cropsButtons.selectedId
+        id: state.cropsButtons.selectedId,
     };
 };
 const matchDispatchToProps = (dispatch) => {
-    return bindActionCreators({ secondButton,
-        firstButton,
-        thirdButton,
-        fourthButton,
-        fifthButton,
-        sixthButton,
-        seventh,
-        eighth,
+    return bindActionCreators({
         selectId,
+        selectedCropName,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
-        quoteSwapUnderlying
+        quoteSwapUnderlying,
+        dashBoardDataFetch,
     }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);

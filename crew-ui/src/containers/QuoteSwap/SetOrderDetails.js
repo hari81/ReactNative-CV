@@ -67,9 +67,8 @@ class SetOrderDetails extends Component {
         this.setState({ riskProductId: id });
     }
 
-
     render() {
-        console.log(this.state)
+        //console.log(this.state)
         let spinner = null;
         if (this.props.contractMonth.spinFlag) {
             spinner = (
@@ -84,7 +83,7 @@ class SetOrderDetails extends Component {
                 </View>
                 <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
                 <View style={{ flexDirection: 'column', marginLeft: 30 }}>
-                    <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
+                    <KeyboardAwareScrollView keyboardShouldPersistTaps="always" extraScrollHeight={4}>
                     <BushelQuantity onQuantityChange={this.onQuantityChange} />
                     <OrderType onOrderTypeChange={this.onOrderTypeChange} />
                     </KeyboardAwareScrollView>

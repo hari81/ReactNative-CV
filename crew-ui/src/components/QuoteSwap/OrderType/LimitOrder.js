@@ -70,11 +70,11 @@ class LimitOrder extends Component {
     showInfoPopup(info) {
         switch (info) {
             case 'limitPriceInfo':
-                const limitPricePopup = (<InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup} />);
+                const limitPricePopup = (<InfoPopup popupInfo={[limitPriceInfo, { message: this.props.infoTargetPrice }]} onClose={this.hideInfoPopup} />);
                 this.setState({ infoLimitPricePopup: limitPricePopup });
                 break;
             case 'orderExpiryInfo':
-                const orderExpiryPopup = (<InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup} />);
+                const orderExpiryPopup = (<InfoPopup popupInfo={[orderExpiryInfo, { message: this.props.infoOptionExpirationDate }]} onClose={this.hideInfoPopup} />);
                 this.setState({ infoOrderExpiryPopup: orderExpiryPopup });
                 break;
         }
@@ -164,8 +164,8 @@ class LimitOrder extends Component {
         );
     }
 }
-const limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top', message: DisclaimerData.infoTargetPrice };
-const orderExpiryInfo = { top: 30, left: 280, width: 200, arrowPosition: 'top', message: DisclaimerData.infoOptionExpirationDate };
+const limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top' };
+const orderExpiryInfo = { top: 30, left: 280, width: 200, arrowPosition: 'top' };
 const styles = {
     container: {
         flexDirection: 'row',
@@ -176,7 +176,10 @@ const mapStateToProps = state => {
     return {
         bidPrice: state.selectedContractMonth.bidPrice,
         askPrice: state.selectedContractMonth.askPrice,
-        lastTradeDate: state.selectedContractMonth.lastTradeDate
+        lastTradeDate: state.selectedContractMonth.lastTradeDate,
+        infoTargetPrice: st(state.displayProperties).filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
+        infoOptionExpirationDate: st(state.displayProperties).filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
+
     };
 }
 export default connect(mapStateToProps, { onExpireSelection, onLimitSelection })(LimitOrder);

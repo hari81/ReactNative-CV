@@ -1,35 +1,21 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
-import { createLogger } from 'redux-logger';
-
+import logger from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
+import reducers from './redux/reducers';
 import Router from './Router';
 
-import thunk from 'redux-thunk';
-
-import reducer from './redux/reducers';
-
-const middlewares = [thunk];
-
-const logger = require('redux-logger');
-middlewares.push(logger.createLogger());
-
-const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
-
-const store = createStoreWithMiddleware(reducer);
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, logger));
 class App extends Component {
-  render() {
-    return (
-
-      <Provider store={store}>
-
-        <Router />
-
-      </Provider>
-
-    );
-  }
+    render() {
+        return (
+            <Provider store={store}>
+              <Router />
+            </Provider>
+        );
+    }
 }
 
 export default App;
+

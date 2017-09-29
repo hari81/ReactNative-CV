@@ -17,7 +17,7 @@ class OrderType extends Component {
     componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '200' : crop[0].tickSizeIncrement.toString() });
+        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
     }
     onMarketSelection= () => {
         this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
@@ -38,9 +38,9 @@ class OrderType extends Component {
                 <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>ORDER TYPE</Text>
                 <View>
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <TouchableOpacity onPress={this.onMarketSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableMarket ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
+                        <TouchableOpacity disabled={this.state.radioBTNEnableMarket} onPress={this.onMarketSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableMarket ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)', paddingRight: 45 }}>Market Order</Text>
-                        <TouchableOpacity onPress={this.onLimitSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableLimit ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
+                        <TouchableOpacity disabled={this.state.radioBTNEnableLimit} onPress={this.onLimitSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableLimit ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)' }}>Limit Order</Text>
                     </View>
                 </View>
