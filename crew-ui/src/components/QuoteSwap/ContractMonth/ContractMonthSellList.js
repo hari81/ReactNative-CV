@@ -37,8 +37,8 @@ class ContractMonthSellList extends Component {
                     </Text>
                     <Text
                         style={this.props.item.id === this.props.id ?
-                            { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(255,255,255)' } :
-                            { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(61,76,87)' }}
+                        { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(255,255,255)' } :
+                        { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(61,76,87)' }}
                     >
                         {bidPrice}
                     </Text>

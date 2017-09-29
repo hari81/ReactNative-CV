@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Dimensions from 'Dimensions';
 import { Actions } from 'react-native-router-flux';
 import cancelimage from '../common/img/Cancel-20.png';
 import Info from '../common/img/Info.png';
 import { showInfoButtonClick, hideInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
-import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
+import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp } from '../../redux/actions/MyFarm/CropAction';
+import st from '../../Utils/SafeTraverse';
+import * as common from '../../Utils/common';
 
 class MyFarmTiles extends Component {
     //info button condition check
@@ -27,6 +30,9 @@ class MyFarmTiles extends Component {
             case 'unhedged':
                 this.props.showInfoButtonClick(5);
                 break;
+            case 'basisEstimate':
+                this.props.showInfoButtonClick(6);
+                break;
             default: break;
         }
     }
@@ -36,19 +42,22 @@ class MyFarmTiles extends Component {
         let popup;
         switch (btnNumber) {
             case 1:
-                popup = this.buildMessagePopup(200, 90, this.props.Crops.myFarmTiles.breakEvenPrice.info);
+                popup = this.buildMessagePopup(200, 90, this.props.breakEvenPriceInfo);
                 break;
             case 2:
-                popup = this.buildMessagePopup(360, 240, this.props.Crops.myFarmTiles.targetPrice.info);
+                popup = this.buildMessagePopup(360, 240, this.props.targetPriceInfo);
                 break;
             case 3:
-                popup = this.buildMessagePopup(500, 380, this.props.Crops.myFarmTiles.averagePriceSold.info);
+                popup = this.buildMessagePopup(500, 380, this.props.avgPriceSoldInfo);
                 break;
             case 4:
-                popup = this.buildMessagePopup(630, 510, this.props.Crops.myFarmTiles.profitPerAcre.info);
+                popup = this.buildMessagePopup(630, 510, this.props.profitPerAcreInfo);
                 break;
             case 5:
-                popup = this.buildMessagePopup(770, 640, this.props.Crops.myFarmTiles.unhedgedProduction.info);
+                popup = this.buildMessagePopup(770, 640, this.props.unhedgedProductionInfo);
+                break;
+            case 6:
+                popup = this.buildMessagePopup(880, 700, this.props.basisEstimateInfo);
                 break;
             default:
                 popup = <View style={{ display: 'none' }} />;
@@ -83,7 +92,7 @@ class MyFarmTiles extends Component {
     }    
     
     goToFarm() {
-     const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+     const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
        this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
          this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
          this.props.farmActionFlag(true);
@@ -91,7 +100,7 @@ class MyFarmTiles extends Component {
     }
 
    enterCropDetails = () => {
-        const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
        this.props.farmActionFlag(true);
@@ -100,17 +109,17 @@ class MyFarmTiles extends Component {
 
     render() {
         //returning Enter Crop Details when my farm tiles data is absent in json
-        if (!this.props.Crops.myFarmTiles) {
+        if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
             return (
                 <View style={styles.firstRowStyle}>
                     <View style={{ marginLeft: 23, marginTop: 26 }}>
                         <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
-                        <Text>{this.props.Crops.activeCropYear} {this.props.Crops.activeCommodity.name}</Text>
+                        <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
                     </View>
                     <View style={{ width: 1, marginLeft: 15, marginRight: 7, marginTop: 26, height: 47, backgroundColor: 'rgb(221,221,221)' }} />
                     <View style={{ width: 1, height: 47 }} />
                     <View style={{ justifyContent: 'center', marginLeft: 20, width: 500 }}>
-                        <Text>Enter your current {this.props.Crops.activeCropYear} {this.props.Crops.activeCommodity.name} crop details to receive helpful insights</Text>
+                        <Text>Enter your current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
                     </View>
                     <View style={styles.enterCropButtonStyle}>
                         <TouchableOpacity onPress={this.enterCropDetails}>
@@ -127,8 +136,9 @@ class MyFarmTiles extends Component {
                     <View style={{ marginLeft: 23, marginTop: 26 }}>
 
                         <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
-                        <Text>{this.props.Crops.activeCropYear} {this.props.Crops.activeCommodity.name}</Text>
-
+                        <View style={{ flexDirection: 'row', width: 100 }}>
+                          <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
+                        </View>
                         <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit My Farm Details</Text>
 
                     </View>
@@ -142,7 +152,7 @@ class MyFarmTiles extends Component {
                         <TouchableOpacity onPress={this.infoButton.bind(this, 'breakEven')}><Image style={{ width: 18, height: 18, marginTop: 4 }} source={Info} /></TouchableOpacity>
 
                     </View>
-                    <Text style={[styles.priceStyle, { paddingTop: 6 }]}>${this.props.Crops.myFarmTiles.breakEvenPrice.value.toFixed(2)}</Text>
+                    <Text style={[styles.priceStyle, { paddingTop: 6 }]}>{this.props.breakEvenPrice}</Text>
 
                 </View>
                 <View style={styles.boxStyle}>
@@ -150,7 +160,7 @@ class MyFarmTiles extends Component {
                         <View style={{ width: 100 }}><Text style={{ fontSize: 10, paddingLeft: 7, paddingTop: 10 }}>TARGET PRICE</Text></View>
                         <TouchableOpacity onPress={this.infoButton.bind(this, 'targetPrice')}><Image style={{ width: 18, height: 18, marginTop: 4 }} source={Info} /></TouchableOpacity>
                     </View>
-                    <Text style={[styles.priceStyle, { paddingTop: 6 }]}>${this.props.Crops.myFarmTiles.targetPrice.value.toFixed(2)}</Text>
+                    <Text style={[styles.priceStyle, { paddingTop: 6 }]}>{this.props.targetPrice}</Text>
                 </View>
 
                 <View style={styles.boxStyle}>
@@ -158,7 +168,7 @@ class MyFarmTiles extends Component {
                         <View style={{ width: 100 }}><Text style={{ fontSize: 10, paddingLeft: 7, paddingTop: 4 }}>AVERAGE PRICE SOLD</Text></View>
                         <TouchableOpacity onPress={this.infoButton.bind(this, 'avgPrice')}><Image style={{ width: 18, height: 18, marginTop: 4 }} source={Info} /></TouchableOpacity>
                     </View>
-                    <Text style={styles.priceStyle}>${this.props.Crops.myFarmTiles.averagePriceSold.value.toFixed(2)}</Text>
+                    <Text style={styles.priceStyle}>{this.props.avgPriceSold}</Text>
                 </View>
 
                 <View style={styles.boxStyle}>
@@ -166,7 +176,7 @@ class MyFarmTiles extends Component {
                         <View style={{ width: 100 }}><Text style={{ fontSize: 10, paddingLeft: 7, paddingTop: 10 }}>PROFIT PER ACRE</Text></View>
                         <TouchableOpacity onPress={this.infoButton.bind(this, 'profitPerAcre')}><Image style={{ width: 18, height: 18, marginTop: 4 }} source={Info} /></TouchableOpacity>
                     </View>
-                    <Text style={[styles.priceStyle, { paddingTop: 6 }]}>${this.props.Crops.myFarmTiles.profitPerAcre.value}</Text>
+                    <Text style={[styles.priceStyle, { paddingTop: 6 }]}>{this.props.profitPerAcre}</Text>
                 </View>
 
                 <View style={styles.boxStyle}>
@@ -174,30 +184,31 @@ class MyFarmTiles extends Component {
                         <View style={{ width: 100 }}><Text style={{ fontSize: 10, paddingLeft: 7 }}>UNHEDGED PRODUCTION</Text></View>
                         <TouchableOpacity onPress={this.infoButton.bind(this, 'unhedged')}><Image style={{ width: 18, height: 18, marginTop: 4 }} source={Info} /></TouchableOpacity>
                     </View>
-                    <Text style={styles.priceStyle}>{this.props.Crops.myFarmTiles.unhedgedProduction.value.toString()
-                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
-                    <Text style={{ paddingLeft: 10, fontSize: 10, color: 'rgb(61,76,87)' }}>{this.props.Crops.activeCommodity.unit}s</Text>
+                    <Text style={styles.priceStyle}>{this.props.unhedgedProduction}</Text>
+                    <Text style={{ paddingLeft: 10, fontSize: 10, color: 'rgb(61,76,87)' }}>{this.props.unitOfMeasure}s</Text>
                 </View>
 
                 <View style={styles.boxStyle}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                         <View style={{ width: 80 }}><Text style={{ fontSize: 10, paddingLeft: 7 }}>BASIS ESTIMATE</Text></View>
-                        <View style={{ width: 37, marginTop: 4, justifyContent: 'center', alignItems: 'center', height: 18,borderWidth: 0.5,borderColor: 'rgb(39,153,137)' }}><Text style={{ color: 'rgb(39,153,137)' }}>Edit</Text></View>
+                        <TouchableOpacity onPress={this.infoButton.bind(this, 'basisEstimate')}><Image style={{ width: 18, height: 18, marginTop: 4 }} source={Info} /></TouchableOpacity>
                     </View>
-                    <Text style={[styles.priceStyle, { color: 'rgb(158,42,47)' }]}>${this.props.Crops.myFarmTiles.basisEstimate.value.toFixed(2)}</Text>
-                    <Text style={{ paddingLeft: 10, fontSize: 8, color: 'rgb(61,76,87)' }}>Not included in Calculations</Text>
+                    <Text style={[styles.priceStyle, { color: 'rgb(158,42,47)' }]}>{this.props.basisEstimate}</Text>
+                    <Text style={{ paddingLeft: 10, fontSize: 8, color: 'rgb(61,76,87)' }}>{this.props.basisEstimateEnabled ? 'Included in Calculations' : 'Not Included in Calculations' }</Text>
                 </View>
                 {this.props.infoState.infoEnable ? this.showMessage(this.props.infoState.btnNumber) : this.hideMessage()}
             </View>
         );
     }
 }
+const { height, width } = Dimensions.get('window');
+
 const styles = {
     firstRowStyle: {
         flexDirection: 'row',
         backgroundColor: 'rgb(255,255,255)',
         height: 98,
-        width: 992,
+        width: width - 32,
         marginHorizontal: 16,
         marginTop: 14,
         borderColor: 'rgb(190,216,221)',
@@ -223,7 +234,7 @@ const styles = {
         borderRadius: 5
     },
     priceStyle: {
-        fontSize: 26,
+        fontSize: 24,
         color: 'rgb(61,76,87)',
         paddingLeft: 10,
         fontFamily: 'HelveticaNeue-Medium',
@@ -241,10 +252,35 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        Crops: state.dashBoardButtons,
-        cropBut: state.cropsButtons,
+
+        cropButton: state.cropsButtons,
         myf: state.myFar,
-        infoState: state.info
+        infoState: state.info,
+
+        myFarmTiles: st(state.dashBoardData, ['Data', 'myFarmTiles']),
+
+        unitOfMeasure: st(state.account, ['defaultAccount', 'commodities', 0, 'unitOfMeasure']),
+
+        breakEvenPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice']) === null ? '   -' : '$ ' + parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice'])).toFixed(2),
+        breakEvenPriceInfo: st(state.displayProperties).filter(item => item.propKey === 'breakEvenPrice')[0].propValue,
+
+        targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? '   -' : '$ ' + parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])).toFixed(2),
+        targetPriceInfo: st(state.displayProperties).filter(item => item.propKey === 'targetPrice')[0].propValue,
+
+        avgPriceSold: st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold']) === null ? '   -' : '$ ' + parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold'])).toFixed(2),
+        avgPriceSoldInfo: st(state.displayProperties).filter(item => item.propKey === 'averagePriceSold')[0].propValue,
+
+        profitPerAcre: st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre']) === null ? '   -' : '$ ' + parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre'])).toFixed(2),
+        profitPerAcreInfo: st(state.displayProperties).filter(item => item.propKey === 'profitPerAcre')[0].propValue,
+
+        unhedgedProduction: st(state.dashBoardData, ['Data', 'myFarmTiles', 'unhedgedProduction']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'unhedgedProduction'])).toFixed(0)),
+        unhedgedProductionInfo: st(state.displayProperties).filter(item => item.propKey === 'unhedgedProduction')[0].propValue,
+
+        basisEstimate: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate']) === null ? '   -' : '$ ' + parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate'])).toFixed(2),
+        basisEstimateInfo: st(state.displayProperties).filter(item => item.propKey === 'basisEstimate')[0].propValue,
+        basisEstimateEnabled: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']) === null ? '   -' : st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']),
+
+        underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol)
     };
 };
 

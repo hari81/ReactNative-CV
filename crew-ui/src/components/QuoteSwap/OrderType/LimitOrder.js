@@ -40,8 +40,8 @@ class LimitOrder extends Component {
         this.setState({ enableClick: false, limitPrice: (this.state.limitPrice.charAt(0) === '$') ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice });
     }
     onBlurMake = () => {
-        this.setState({ enableClick: true, limitPrice: '$' + this.state.limitPrice });
-        this.props.onLimitSelection(this.state.limitPrice);
+         this.setState({ enableClick: true, limitPrice: '$' + this.state.limitPrice });
+         this.props.onLimitSelection(this.state.limitPrice);
     }
     onChangeQuantity= (text) => {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
@@ -176,7 +176,10 @@ const mapStateToProps = state => {
     return {
         bidPrice: state.selectedContractMonth.bidPrice,
         askPrice: state.selectedContractMonth.askPrice,
-        lastTradeDate: state.selectedContractMonth.lastTradeDate
+        lastTradeDate: state.selectedContractMonth.lastTradeDate,
+        infoTargetPrice: st(state.displayProperties).filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
+        infoOptionExpirationDate: st(state.displayProperties).filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
+
     };
 }
 export default connect(mapStateToProps, { onExpireSelection, onLimitSelection })(LimitOrder);

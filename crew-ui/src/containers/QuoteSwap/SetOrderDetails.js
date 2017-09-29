@@ -14,6 +14,7 @@ import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMont
 import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 class SetOrderDetails extends Component {
@@ -70,7 +71,7 @@ class SetOrderDetails extends Component {
 
 
     render() {
-        console.log(this.state)
+        //console.log(this.state)
         let spinner = null;
         if (this.props.contractMonth.spinFlag) {
             spinner = (

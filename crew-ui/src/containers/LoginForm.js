@@ -2,23 +2,12 @@ import React, { Component } from 'react';
 import { Text, View, Switch, AsyncStorage, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
-import {
-  emailChanged,
-  passwordChanged,
-  saveUserSwitchChanged
-} from '../redux/actions/index';
-import {
-  Button,
-  Card,
-  CardSection,
-  Input,
-  Spinner
-} from '../components/common/index';
+import { emailChanged, passwordChanged, saveUserSwitchChanged } from '../redux/actions/index';
+import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
 import { loginUser } from '../redux/actions/LoginAuth';
-import { thirdButton, cropsButton } from '../redux/actions/Dashboard/DashBoardButtonsAction';
-import { cropsButtons } from '../redux/actions/CropButtons/ButtonAction';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
+import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
 
 class LoginForm extends Component {
   constructor() {
@@ -47,11 +36,11 @@ class LoginForm extends Component {
   }
 
   onButtonPress() {
-    const { saveUser } = this.props.auth;
-    this.props.loginUser({ saveUser });
-    this.props.accountDetails();
-      this.props.thirdButton();
+      const { saveUser } = this.props.auth;
+      this.props.loginUser({ saveUser });
+      this.props.accountDetails();
       this.props.productType();
+      this.props.displayProperties();
   }
 
   onSaveUserChange(value) {
@@ -139,13 +128,11 @@ const mapStateToProps = state => {
   return { auth: state.auth, acc: state.account };
 };
 export default connect(mapStateToProps, {
-  emailChanged,
-  passwordChanged,
-  loginUser,
-  saveUserSwitchChanged,
-    thirdButton,
-    cropsButton,
+    emailChanged,
+    passwordChanged,
+    loginUser,
+    saveUserSwitchChanged,
     productType,
-    cropsButtons,
-    accountDetails
+    accountDetails,
+    displayProperties
 })(LoginForm);
