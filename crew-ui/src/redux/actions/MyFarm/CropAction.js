@@ -1,13 +1,13 @@
 import { Alert } from 'react-native';
 import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, MY_FARM_ACTION } from '../types';
-import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
+import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch, doPutFetch, doPostFetch } from '../../../Utils/FetchApiCalls';
 
 export const myFarmCropValues = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
-       const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}cropData/${accountNo}/${commodityCode}/${cropYear}`;
+       const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${commodityCode}/${cropYear}`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(cropValues => {
@@ -21,7 +21,7 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
+        const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => {
              if (response.status === 404) {
@@ -49,7 +49,7 @@ export const cropDataSave = (cropValues) => {
             cropValues.yield.slice(0, (cropValues.yield.length - 8)) : cropValues.yield;
         const aPlanted = cropValues.acres.slice(-5) === 'acres' ?
             cropValues.acres.slice(0, (cropValues.acres.length - 6)) : cropValues.acres;
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}cropData/${accountNo}/${cropButData[0].code}/${cropButData[0].cropYear}`;
+        const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${cropButData[0].code}/${cropButData[0].cropYear}`;
         const setCropData = {
             areaPlanted: aPlanted.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'),
             unitCost: uCost.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'),

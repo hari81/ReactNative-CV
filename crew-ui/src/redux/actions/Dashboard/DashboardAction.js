@@ -1,10 +1,10 @@
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
-import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
+import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 
 export const dashBoardDataFetch = (year, code) => {
     return (dispatch, getState) => {
         dispatch({ type: 'DASHBOARD_SPINNER' });
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}dashboard/${getState().account.accountDetails.defaultAccountId}/${code}/${year}`;
+        const url = `${VELO_SERVICES_URL}dashboard/${getState().account.accountDetails.defaultAccountId}/${code}/${year}`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(dashBoardData =>

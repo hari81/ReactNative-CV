@@ -1,11 +1,11 @@
-import { REST_API_URL } from '../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS } from '../types';
 import { doGetFetch, reqHeaders, baseAuthentication } from '../../../Utils/FetchApiCalls';
 
 export const ClosedPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-      const url = `${REST_API_URL}positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
+      const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
       return doGetFetch(url, getState().auth.email, getState().auth.password)
       .then(response => response.json(), rej => Promise.reject(rej))
       .then(closed => {
@@ -14,7 +14,7 @@ export const ClosedPositionsData = (crop) => {
           }
           return Promise.all(
           closed.map(items => {
-            const underlyingURL = `${REST_API_URL}underlyings/${items.lines[0].underlying}`;
+            const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${items.lines[0].underlying}`;
             return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
              .then(response => response.json());
           }))

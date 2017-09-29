@@ -1,4 +1,4 @@
-import { REST_API_URL } from '../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import {
   FETCHING_ORDERS_ACTIVITY,
   DROP_DOWN_VALUES,
@@ -10,7 +10,7 @@ import { doGetFetch } from '../../../Utils/FetchApiCalls';
 export const ViewOrdersData = (crop) => {
   return (dispatch, getState) => {
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-    const url = `${REST_API_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
+    const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
    return doGetFetch(url, getState().auth.email, getState().auth.password)
       .then(response => response.json())
       .then(items => {
@@ -19,7 +19,7 @@ export const ViewOrdersData = (crop) => {
         return (
           Promise.all(
             items.value.map(item => {
-                const underlyingURL = `${REST_API_URL}underlyings/${item.underlying}`;
+                const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${item.underlying}`;
               return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
               .then(response => { return response.json(); })
             })
@@ -44,7 +44,7 @@ export const ViewOrdersData = (crop) => {
 
 export const dropDownCrop = () => {
   return (dispatch, getState) => {
-    const url = `${REST_API_URL}commodities`;
+    const url = `${ORDER_SERVICES_URL}commodities`;
     return doGetFetch(url, getState().auth.email, getState().auth.password)
         .then(response => response.json())
       .then(dropDownData => {

@@ -1,4 +1,4 @@
-import { REST_API_URL } from '../../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 import * as common from '../../../../Utils/common';
 import { bushelLimit } from '../ContractMonth/ContractMonthSelect';
@@ -8,7 +8,7 @@ export const quoteSwapUnderlying = (year, code) => {
         dispatch({ type: 'SPIN_ACTIVE' });
         const cObject = getState().account.defaultAccount.commodities.find(x => x.commodity === code);
         const oSymbols = cObject.crops.find(x => x.cropYear === year).futuresContracts;
-        const swapUrl = `${REST_API_URL}quotes`;
+        const swapUrl = `${ORDER_SERVICES_URL}quotes`;
         //const lswapUrl = 'https://calculon-qa.crm.cargill.com/extracense/api/quotes';
 
         const quoteUnderlying = {
@@ -36,7 +36,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     };
                 }, rej => Promise.reject(rej));
                 console.log('start quote swap underlying db lookup 2', new Date());        
-                return doGetFetch(`${REST_API_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.email, getState().auth.password)
+                return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.email, getState().auth.password)
                 .then(response => response.json(), rej => Promise.reject(rej))
                 .then(limit => {
                     console.log('end quote swap underlying db lookup 2', new Date());        
