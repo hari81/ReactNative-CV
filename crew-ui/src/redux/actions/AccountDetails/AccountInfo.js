@@ -25,7 +25,7 @@ export const accountDetails = () => {
                 return doGetFetch(accountUrl, getState().auth.email, getState().auth.password)
                     .then(response => response.json())
                     .then(Data => {
-                        dispatch({ type: 'DEFAULT_ACCOUNT_DETAILS', payload: Data })
+                        dispatch({ type: DEFAULT_ACCOUNT_DETAILS, payload: Data })
                         const ButtonsData = [];
                         const commodities = Data.commodities;
                         let index = 0;
