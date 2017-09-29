@@ -2,7 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 import { doGetFetch, doPutFetch } from '../../../Utils/FetchApiCalls';
 import { EXTERNAL_GET_TRANS, EXTERNAL_FLAG } from '../types';
-import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
+import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 
 export const externalGetTrans = () => {
     return (dispatch, getState) => {
@@ -11,7 +11,7 @@ export const externalGetTrans = () => {
         const commodityCode = cropButData[0].code;
         const cropYear = cropButData[0].cropYear;
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
+        const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json())
             .then(tradeValues => {
@@ -34,7 +34,7 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
+        const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json())
             .then(tradeValues => {
@@ -77,7 +77,7 @@ export const saveExternalTrades = (newTrades) => {
         });
         const tradeValues = tradeValue.concat(removeTrades);
         console.log(tradeValues);
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
+        const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         console.log(url);
         return doPutFetch(url, tradeValues, getState().auth.email, getState().auth.password)
             .then(response => response.json())

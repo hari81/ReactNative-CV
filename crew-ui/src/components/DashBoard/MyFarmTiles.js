@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import cancelimage from '../common/img/Cancel-20.png';
 import Info from '../common/img/Info.png';
 import { showInfoButtonClick, hideInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
-import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp } from '../../redux/actions/MyFarm/CropAction';
+import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 

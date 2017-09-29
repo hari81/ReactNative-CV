@@ -1,17 +1,16 @@
-import base64 from 'base-64';
-import { REST_API_URL } from '../../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
         dispatch({ type: 'SPIN_ACTIVE' });
-        const url = `${REST_API_URL}underlyings?commodity=${code}&cropYear=${year}&sort=contractMonth.month,contractMonth.year`;
+        const url = `${ORDER_SERVICES_URL}underlyings?commodity=${code}&cropYear=${year}&sort=contractMonth.month,contractMonth.year`;
        return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(quoteSwapUnderlyingItems => {
                 //console.log(quoteSwapUnderlyingItems)
                 const symbols = (quoteSwapUnderlyingItems.map(obj => obj.symbol));
-                const swapUrl = `${REST_API_URL}quotes`;
+                const swapUrl = `${ORDER_SERVICES_URL}quotes`;
                 const quoteUnderlying = {
                     quoteType: 'mkt',
                     underlyings: symbols

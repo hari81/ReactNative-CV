@@ -1,11 +1,11 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { REST_API_URL } from '../../ServiceURLS';
+import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 import { doDeleteFetch } from '../../Utils/FetchApiCalls';
 
 export const orderReceipt = orderid => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}orders/${orderid}`;
+        const url = `${ORDER_SERVICES_URL}orders/${orderid}`;
         return doDeleteFetch(url, getState().auth.email, getState().auth.password)
             .then(response => {
                 if (response.ok) {

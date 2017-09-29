@@ -1,9 +1,9 @@
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
-import { QA_ACCOUNT_EXTERNALTRADES_FARMDATA } from '../../../ServiceURLS/index';
+import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 
 export const displayProperties = () => {
     return (dispatch, getState) => {
-        const url = `${QA_ACCOUNT_EXTERNALTRADES_FARMDATA}dashboard/displayProperties`;
+        const url = `${VELO_SERVICES_URL}dashboard/displayProperties`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(displayProps =>
