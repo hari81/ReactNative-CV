@@ -18,7 +18,7 @@ export const loginUser = ({ saveUser }) => {
           password: getState().auth.password,
           username: getState().auth.email
       };
-      console.log(url, authBody, getState().auth.email, getState().auth.password);
+      //console.log(url, authBody, getState().auth.email, getState().auth.password);
   return doLoginPostFetch(url, authBody, getState().auth.email, getState().auth.password)
       .then(response => {
         if (response.ok) {

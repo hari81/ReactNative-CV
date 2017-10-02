@@ -114,7 +114,7 @@ const styles = {
     cancelTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 30, color: '#fff', marginRight: 150, marginBottom: 15 },
 
     /* order fields */
-    orderContainer: { height: height - 335, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 100, paddingTop: 30, paddingRight: 100 },
+    orderContainer: { height: height - 350, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 100, paddingTop: 30, paddingRight: 100 },
     orderFields: { flexDirection: 'row', flex: 1 },
     orderField: { marginBottom: 10 },
     orderLabel: { color: '#888', fontSize: 12 },
@@ -123,8 +123,8 @@ const styles = {
     /* button styles */
     buttonContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
     orderButtonStyle: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', marginTop: 30, borderRadius: 4, paddingLeft: 20, paddingTop: 10, paddingRight: 20, paddingBottom: 10 },
-    orderButtonTextStyle: { fontFamily: 'HelveticaNeue-Light', color: '#4a4a4a', fontSize: 18 },
-    backButtonStyle: { backgroundColor: '#fff', marginRight: 40 },
+    orderButtonTextStyle: { fontFamily: 'HelveticaNeue', color: '#4a4a4a', fontSize: 20 },
+    backButtonStyle: { backgroundColor: '#fff', marginRight: 40, borderColor: 'rgb(159,169,186)', borderWidth: 1 },
 
     /* small page header */
     backHeader: { backgroundColor: '#fff', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#bed8dd', borderTopColor: '#e7b514', borderTopWidth: 4, marginTop: 20, marginLeft: 15, marginRight: 15 },

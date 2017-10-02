@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage, Alert} from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import {
@@ -66,8 +66,17 @@ class LoginForm extends Component {
     }
   }
 
+  scrollChange() {
+      this.refs.scrollView.scrollTo({ x: 0, y: 50, animated: true });
+  }
+
+  scrollDown() {
+      this.refs.scrollView.scrollToEnd();
+  }
+
   render() {
     return (
+        <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
       <Card>
         <CardSection>
           <Input
@@ -86,7 +95,8 @@ class LoginForm extends Component {
             label='Password'
             onChangeText={this.onPasswordChange.bind(this)}
             value={this.props.auth.password}
-
+            onfocus={this.scrollChange.bind(this)}
+            onblur={this.scrollDown.bind(this)}
           />
         </CardSection>
         <Text style={styles.errorStyle}>
@@ -123,6 +133,7 @@ class LoginForm extends Component {
           cargillpricehedge@cargill.com
         </Text>
       </Card>
+     </ScrollView>
     );
   }
 }

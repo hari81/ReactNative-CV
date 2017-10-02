@@ -37,30 +37,31 @@ class LimitOrder extends Component {
         this.props.onExpireSelection(newProps.lastTradeDate);
     }
     onFocusMake = () => {
+       // this.props.scrollchanged();
         this.setState({ enableClick: false, limitPrice: (this.state.limitPrice.charAt(0) === '$') ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice });
-    }
+    };
     onBlurMake = () => {
         this.setState({ enableClick: true, limitPrice: '$' + this.state.limitPrice });
         this.props.onLimitSelection(this.state.limitPrice);
-    }
+    };
     onChangeQuantity= (text) => {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
             this.setState({ limitPrice: text });
         }
-    }
+    };
     minusButtonPress = () => {
         if (parseFloat(this.state.limitPrice) >= parseFloat(this.state.tickSizeIncrement)) {
             this.setState({ limitPrice: ((parseFloat(this.state.limitPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
         }
         this.timer = setTimeout(this.minusButtonPress, 50);
-    }
+    };
     plusButtonPress = () => {
         this.setState({ limitPrice: (((parseFloat(this.state.limitPrice)) + parseFloat(this.props.tickSizeIncrement)).toFixed(4)).toString() })
         this.timer = setTimeout(this.plusButtonPress, 50);
-    }
+    };
     stopTimer = () => {
         clearTimeout(this.timer);
-    }
+    };
     warningMessage() {
         if (parseFloat(this.state.limitPrice) < (0.8 * parseFloat(this.props.bidPrice)) || parseFloat(this.state.limitPrice) > (1.2 * parseFloat(this.props.bidPrice))) {
             return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
@@ -82,13 +83,13 @@ class LimitOrder extends Component {
     hideInfoPopup = () => {
         const popup = (<View style={{ display: 'none' }} />);
         this.setState({ infoLimitPricePopup: popup, infoOrderExpiryPopup: popup });
-    }
+    };
     datePicker() {
         if (this.state.showDatePicker) {
             return (
                 <View style={{ position: 'absolute', marginTop: 45, marginLeft: 0 }} >
                     <DatePickerIOS
-                        style={{ height: 200, width: 252, borderTopLeftRadius: 4, borderBottomLeftRadius: 4, backgroundColor: 'white', zIndex: 1 }}
+                        style={{ marginTop: -75, height: 200, width: 252, borderTopLeftRadius: 4, borderBottomLeftRadius: 4, backgroundColor: 'white', zIndex: 1 }}
                         date={this.state.date}
                         mode="date"
                         onDateChange={(date) => { this.setState({ date }); this.props.onExpireSelection(date); }}
@@ -101,7 +102,7 @@ class LimitOrder extends Component {
     }
     datePickerClose() {
         if (this.state.showDatePicker) {
-            return (<View style={{ height: 200, width: 20, marginTop: 45, position: 'absolute', marginLeft: 239, borderTopRightRadius: 4, borderBottomRightRadius: 4, backgroundColor: 'white', zIndex: 1 }}>
+            return (<View style={{ marginTop: -30, height: 200, width: 20, position: 'absolute', marginLeft: 239, borderTopRightRadius: 4, borderBottomRightRadius: 4, backgroundColor: 'white', zIndex: 1 }}>
                     <TouchableOpacity onPress={() => { this.setState({ showDatePicker: false }); Keyboard.dismiss(); }}><Image source={cancel} style={{ height: 23, width: 23 }} /></TouchableOpacity>
                 </View>
             );
@@ -171,12 +172,12 @@ const styles = {
         flexDirection: 'row',
         marginTop: 16
     }
-}
+};
 const mapStateToProps = state => {
     return {
         bidPrice: state.selectedContractMonth.bidPrice,
         askPrice: state.selectedContractMonth.askPrice,
         lastTradeDate: state.selectedContractMonth.lastTradeDate
     };
-}
+};
 export default connect(mapStateToProps, { onExpireSelection, onLimitSelection })(LimitOrder);

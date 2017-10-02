@@ -66,7 +66,14 @@ class SetOrderDetails extends Component {
 
     orderDetails = (id) => {
         this.setState({ riskProductId: id });
-    }
+    };
+
+   /* scrollUpdate() {
+        this.refs.scrollView.scrollTo({ x: 0, y: 100, animated: true });
+    };
+    scrollDown() {
+        this.refs.scrollView.scrollToEnd();
+    }*/
 
 
     render() {
@@ -86,8 +93,13 @@ class SetOrderDetails extends Component {
                     <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
+                            {/*<ScrollView vertiacl showsVerticalScrollIndicator  ref='scrollView' removeClippedSubviews>*/}
                             <BushelQuantity onQuantityChange={this.onQuantityChange} />
-                            <OrderType onOrderTypeChange={this.onOrderTypeChange} />
+                            <OrderType onOrderTypeChange={this.onOrderTypeChange}
+                                       //scrollchange={this.scrollUpdate.bind(this)}
+                                      // scrolldow={this.scrollDown.bind(this)}
+                            />
+                            {/*</ScrollView>*/}
                         </KeyboardAwareScrollView>
                         <BidAskPrice />
                         <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>

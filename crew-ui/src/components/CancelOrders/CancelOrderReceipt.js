@@ -15,7 +15,7 @@ class CancelOrderReceipt extends Component {
       Actions.orders();
   }
   render() {
-    const { width } = Dimensions.get('window');
+    const { width, height } = Dimensions.get('window');
     return (
       <View style={styles.containerStyle}>
         <StatusBar barStyle='light-content' />
@@ -30,26 +30,28 @@ class CancelOrderReceipt extends Component {
 
         <LogoHeader subHeaderText='PRICE HEDGING' phNumber='+1-952-742-7414' />
 
-        <View style={{ height: 80, backgroundColor: 'gray' }}>
+        <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View
             style={{
-              height: 60,
+              height: 80,
               borderTopColor: '#e7b514',
               borderTopWidth: 3,
               backgroundColor: 'white',
-              marginTop: 20,
-              marginLeft: 20,
-              marginRight: 20,
-              justifyContent: 'flex-end'
+              marginTop: 83,
+              marginHorizontal: 20,
+              justifyContent: 'center',
+              zIndex: 1,
+              position: 'absolute',
+              width: width - 40
             }}
           >
             <Text style={styles.headerText}>Order Receipt</Text>
           </View>
-        </View>
-        <View style={{ backgroundColor: 'white' }}>
+
+        <View style={{ backgroundColor: 'rgb(239,244,247)', height }}>
           <View style={{ backgroundColor: '#3d4c57', margin: 20 }}>
             <Text style={styles.subHeaderTextStyle}>
-              Your Order has been cancelled{' '}
+              Your Order has been cancelled
             </Text>
             <View
               style={{
@@ -58,7 +60,7 @@ class CancelOrderReceipt extends Component {
                 marginRight: 20,
                 marginLeft: 20,
                 marginBottom: 30,
-                height: 470
+
               }}
             >
               <View style={styles.productContainer}>
@@ -66,19 +68,22 @@ class CancelOrderReceipt extends Component {
                   style={{ justifyContent: 'center', alignItems: 'center' }}
                 >
                   <Image source={confirm} style={{ width: 120, height: 120 }} />
-
-                  <Text style={{ marginTop: 50, fontSize: 20 }}>
-                    Your order was cancelled. Your order number is:{' '}
+                    <View style={{ flexDirection: 'row' }}>
+                  <Text style={{ marginTop: 50, fontSize: 20, fontFamily: 'HelveticaNeue-thin', color: 'rgb(96,109,119)' }}>
+                      Your order was cancelled. Your order number is: </Text>
+                    <Text style={{ marginTop: 50, fontSize: 20, fontFamily: 'HelveticaNeue', color: 'rgb(59,74,85)' }}>
                     {this.props.orderid}
                   </Text>
+                </View>
                 </View>
                 <View
                   style={{
                     flexDirection: 'row',
-                    marginTop: 150,
-                    marginBottom: 20,
-                    marginLeft: 160,
-                    marginRight: 160
+                    //marginTop: 150,
+                    //marginBottom: 50,
+                      marginVertical: 100,
+                    marginHorizontal: 160
+
                   }}
                 >
                   <OrderButton onPress={this.onBackToDashBoard.bind(this)}>
@@ -108,14 +113,13 @@ const styles = {
     paddingTop: 8,
     paddingLeft: 14,
     fontSize: 20,
-    fontWeight: 'bold',
-
-    color: '#01aca8'
+    fontFamily: 'HelveticaNeue-Medium',
+    color: 'rgb(0,116,129)'
   },
   subHeaderTextStyle: {
     justifyContent: 'flex-start',
-
-    fontSize: 30,
+    fontFamily: 'HelveticaNeue-Thin',
+    fontSize: 32,
     color: 'white',
     paddingTop: 8,
 

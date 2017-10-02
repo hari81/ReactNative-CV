@@ -12,7 +12,7 @@ const styles = {
     marginLeft: 50,
     marginRight: 70,
     marginTop: 10,
-    marginBottom: 5
+    marginBottom: 5,
   }
 };
 

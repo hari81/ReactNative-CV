@@ -10,8 +10,10 @@ export const orderReceipt = orderid => {
             .then(response => {
                 if (response.ok) {
                     console.log(response);
-                    Actions.cancelorderreceipt({ orderid: orderid });
+
+                    Actions.cancelorderreceipt({ orderid });
                 } else {
+
                     console.log(response.status);
                     if (response.status === 404) {
                         //dispatch({ type: SERVER_NORESPONSE });
@@ -22,6 +24,9 @@ export const orderReceipt = orderid => {
                         //dispatch({ type: SERVER_NORESPONSE });
                         Alert.alert('Order cannot be canceled as it is cant found.');
                         //console.log('Response failed');
+                    }
+                    if ( response.status === 403) {
+                        Alert.alert('Order cannot be canceled as it is cant found.');
                     }
                     if (response.status === 500) {
                         Alert.alert('Internal Server, Please contact Cargill Hedge desk.');

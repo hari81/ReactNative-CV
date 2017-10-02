@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, TextInput, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import normalRadioBTN from '../../common/img/Radio-BTN-normal.png';
 import selectedRadioBTN from '../../common/img/Radio-BTN-selected.png';
@@ -27,9 +27,20 @@ class OrderType extends Component {
         this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true });
         this.props.onOrderTypeChange('limit');
     }
+    scrollchange1() {
+        this.props.scrollchange();
+    }
+    onBlurMake = () => {
+        this.props.scrolldow();
+    };
+
     limitOrder() {
         if (this.state.radioBTNEnableLimit) {
-            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} />;
+            return (<LimitOrder
+                                tickSizeIncrement={this.state.tickSizeIncrement}
+                               //scrollchanged={this.props.scrollchange()}
+
+            />);
         }
     }
     render() {

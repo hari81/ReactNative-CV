@@ -26,29 +26,31 @@ class TradeConfirmationOrderReceipt extends Component {
     }
 
     render() {
-        const { width } = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         return (
             <View >
                 <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
                 <LogoHomeHeader />
-                <View style={{ backgroundColor: 'rgb(239,244,247)', height: 705 }}>
-                    <View style={{ height: 83, width: 1024, backgroundColor: 'rgb(64,78,89)' }} />
+                <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
+                    <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <View>
                     <View style={styles.orderReceipt}>
 
                         <Text style={styles.textOrderReceipt}> Order Receipt</Text>
                     </View>
-                    <View style={{ backgroundColor: 'rgb(61,76,87)', height: 513, marginHorizontal: 16 }}>
+                    <View style={{ backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16 }}>
                         <Text style={styles.textCongratulations}> Congratulations! Your order has been received!</Text>
                         <Image source={confirmtick} style={styles.imageStyle} />
-                        <View style={styles.messageView}>
+                        <View style={[styles.messageView, { height: height - 392, justifyContent: 'space-around' }]}>
+                            <View>
                             <Text style={styles.orderSuccess}> Your order was successfully received. Your order number is:</Text>
-                            <Text style={styles.orderNumber}> {this.props.orderId} {this.props.message/*2394874598723298*/}</Text>
+                            <Text style={styles.orderNumber}> {this.props.orderId} {this.props.message}</Text>
                             <Text style={[styles.textStyle, { paddingTop: 20 }]}>Once your order is complete you can view your trade details in the</Text>
                             <Text style={styles.textStyle}>Positions & Orders screen by clicking the button below. The Position</Text>
                             <Text style={styles.textStyle}>& Orders screen allows you to manage your orders and open</Text>
                             <Text style={styles.textStyle}>positions.</Text>
+                            </View>
                             <View
                             style={{
                             flexDirection: 'row',
@@ -144,7 +146,7 @@ const styles = {
         fontFamily: 'HelveticaNeue-Thin'
     },
     imageStyle: {
-         height: 109,
+        height: 109,
         width: 109,
         marginTop: 80,
         position: 'absolute',

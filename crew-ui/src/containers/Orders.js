@@ -206,6 +206,7 @@ class Orders extends Component {
                     data={this.props.openPositions}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => <OpenPositions key={item.id} item={item} />}
+                    //onEndReached
                 />
             );
        }
@@ -245,10 +246,10 @@ class Orders extends Component {
 
 
   render() {
-    const { width } = Dimensions.get('window');
-
+    const { width, height } = Dimensions.get('window');
+    //console.log(width, height)
     return (
-        <View>
+        <View style={{ width, height }}>
         <View
           style={{
             backgroundColor: 'black',
@@ -331,11 +332,12 @@ class Orders extends Component {
               </View>
           </View>
           </View>
-            <View style={{ backgroundColor: 'rgb(239,244,247)', height: 650 }}>
+            <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 118 }}>
                 <View style={{ backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10 }} />
-          <View style={{ backgroundColor: '#3d4c57', height: 650, marginLeft: 10, marginRight: 10 }}>
+          <View style={{ backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10 }}>
             {this.renderFlatList()}
           </View>
+
         </View>
         </View>
     );

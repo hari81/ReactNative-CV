@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight, Linking } from 'react-native';
+import Dimensions from 'Dimensions';
 
 class ClosedPositions extends Component {
   render() {
+      const {width, height} = Dimensions.get('window');
     const product = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
       .product;
     const tradeDate = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
@@ -24,39 +26,32 @@ class ClosedPositions extends Component {
     const { id, riskProduct, confirm, underlyingObjectData } = this.props.item;
 
     return (
-      <View style={styles.subContainerStyle}>
-        <View style={styles.yearStyle}>
+      <View style={[styles.subContainerStyle]}>
+        <View style={[styles.yearStyle, { width: '10.74%' }]}>
           <View
             style={{
-              backgroundColor: '#01aca8',
+              backgroundColor: 'rgb(39,153,137)',
               height: 40,
               justifyContent: 'center'
             }}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                color: 'white',
-                textAlign: 'center',
-                marginBottom: 10
-              }}
-            >
+            <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
               {underlyingObjectData.contractMonth.month.name}
             </Text>
           </View>
           <View
             style={{
-              backgroundColor: '#3d4c57',
-              height: 50,
+              backgroundColor: 'rgb(61,76,87)',
+              height: 55,
               justifyContent: 'center'
             }}
           >
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 25,
+                fontSize: 20,
                 color: 'white',
-                fontWeight: 'bold'
+                fontFamily: 'HelveticaNeue-Bold'
               }}
             >
               {underlyingObjectData.contractMonth.year.value}
@@ -64,27 +59,27 @@ class ClosedPositions extends Component {
           </View>
         </View>
 
-        <View style={{ margin: 14, width: 250 }}>
-          <Text>
+        <View style={{ margin: 20, width: '24.41%' }}>
+          <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
             {underlyingObjectData.commodity.name} {riskProduct}
           </Text>
-          <View style={{ flexDirection: 'row', marginTop: 20 }}>
+          <View style={{ flexDirection: 'row', marginTop: 15, justifyContent: 'space-between' }}>
             <View style={{ flexDirection: 'column' }}>
-              <Text style={{ color: '#01aca8' }}>QUANTITY</Text>
-              <View style={{ width: 150, flexDirection: 'row' }}>
-                <Text>
+              <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   {quantity
                     .toString()
                     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                 </Text>
-                <Text>
+                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   {' ' + underlyingObjectData.commodity.unit}s
                 </Text>
               </View>
             </View>
             <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-              <Text style={{ color: '#01aca8' }}>DIRECTION</Text>
-              <Text>
+              <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
+              <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                 {buysell === 'S' ? 'Sell' : 'Buy'}
               </Text>
             </View>
@@ -92,23 +87,23 @@ class ClosedPositions extends Component {
         </View>
 
         <View
-          style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10 }}
+          style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12, width: '20%' }}
         >
-          <Text style={{ color: '#01aca8' }}> PRODUCT</Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>PRODUCT</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {product}
           </Text>
-          <View style={{ flexDirection: 'row', marginTop: 6 }}>
+          <View style={{ flexDirection: 'row', marginTop: 14, justifyContent: 'space-between' }}>
             <View style={{ flexDirection: 'column' }}>
-              <Text style={{ color: '#01aca8' }}> NET PRICE</Text>
-              <Text>
+              <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>NET PRICE</Text>
+              <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                 ${netPrice.toFixed(2)}
               </Text>
             </View>
             <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-              <Text style={{ color: '#01aca8' }}> CLOSED PRICE</Text>
-              <View style={{ width: 100 }}>
-                <Text>
+              <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>CLOSED PRICE</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   ${closedPrice.toFixed(2)}
                 </Text>
               </View>
@@ -117,10 +112,10 @@ class ClosedPositions extends Component {
         </View>
 
         <View
-          style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10 }}
+          style={{ flexDirection: 'column', marginLeft: 30, marginTop: 12, width: '16%' }}
         >
           <View style={{ flexDirection: 'row' }}>
-            <Text style={{ color: '#01aca8' }}> TRADE RECEIPT </Text>
+            <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT </Text>
             <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
               <Image
                 style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
@@ -128,21 +123,21 @@ class ClosedPositions extends Component {
               />
             </TouchableHighlight>
           </View>
-          <Text style={{ color: '#01aca8', marginTop: 16 }}> TRADE ID#</Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, marginTop: 22 }}>TRADE ID#</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {id}
           </Text>
         </View>
 
         <View
-          style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10 }}
+          style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12 }}
         >
-          <Text style={{ color: '#01aca8' }}> TRADE DATE</Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE DATE</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {tradeDate}
           </Text>
-          <Text style={{ color: '#01aca8', marginTop: 6 }}> UNWIND DATE</Text>
-          <Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>UNWIND DATE</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {unwindDate}
           </Text>
         </View>
@@ -153,19 +148,19 @@ class ClosedPositions extends Component {
 const styles = {
   subContainerStyle: {
     flexDirection: 'row',
-    margin: 10,
+    margin: 5,
     backgroundColor: '#ffffff',
     borderRadius: 4,
     height: 110
   },
 
   yearStyle: {
-    marginRight: 10,
+   // marginRight: 10,
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 10,
     width: 100,
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   }
 };
 

@@ -49,7 +49,7 @@ class ViewOrders extends Component {
    // console.log('CST' + utcdate);
     return (
       <View style={styles.subContainerStyle}>
-        <View style={styles.yearStyle}>
+        <View style={[styles.yearStyle, { width: '10.74%' }]}>
           <View
             style={{
               backgroundColor: 'rgb(39,153,137)',
@@ -81,14 +81,14 @@ class ViewOrders extends Component {
           </View>
         </View>
 
-        <View style={{ width: 220 }}>
+        <View style={{ width: '21.48%' }}>
           <View style={{ margin: 10 }}>
             <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (crop.length + riskProductName.length) >= 18 ? { fontSize: 16 } : {}]}>
               {crop} {riskProductName}
             </Text>
-            <View style={{ flexDirection: 'row', marginTop: 20 }}>
+            <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between' }}>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>QUANTITY</Text>
+                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (crop.length + riskProductName.length) >= 18 ? { paddingTop: 8 } : {}]}>QUANTITY</Text>
                 <View style={{ width: 150 }}>
                   <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                     {quantity
@@ -100,7 +100,7 @@ class ViewOrders extends Component {
                 </View>
               </View>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>DIRECTION</Text>
+                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (crop.length + riskProductName.length) >= 18 ? { paddingTop: 8 } : {}]}>DIRECTION</Text>
                 <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   {buySell}
                 </Text>
@@ -112,17 +112,17 @@ class ViewOrders extends Component {
         <View
           style={{
             flexDirection: 'column',
-            marginLeft: 20,
+            marginLeft: 40,
             marginTop: 10,
-            width: 70
+            width: '8%'
           }}
         >
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>ORDER #</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {orderId}
           </Text>
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}> PRICE</Text>
-          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}> ${targetPrice.toFixed(2)} </Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}>PRICE</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>${targetPrice.toFixed(2)}</Text>
         </View>
 
         <View
@@ -130,17 +130,15 @@ class ViewOrders extends Component {
             flexDirection: 'column',
             marginLeft: 20,
             marginTop: 10,
-            width: 130
+            width: '12.69%'
           }}
         >
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> STATUS </Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>STATUS</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-            {' '}{orderState.label}{' '}
+            {orderState.label}
           </Text>
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}> ORDER TYPE </Text>
-          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-            {' '}{orderType}{' '}
-          </Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}>ORDER TYPE</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{orderType}</Text>
         </View>
 
         <View
@@ -148,7 +146,7 @@ class ViewOrders extends Component {
             flexDirection: 'column',
             marginLeft: 20,
             marginTop: 10,
-            width: 175
+            width: '17.08%'
           }}
         >
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> ORDER CREATION DATE</Text>

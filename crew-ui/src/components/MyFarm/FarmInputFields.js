@@ -185,7 +185,7 @@ class FarmInputFields extends Component {
                         maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
-                            if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
+                            if (e.nativeEvent.key === 'Enter') {
                             Keyboard.dismiss();
                         }
                         }}
@@ -226,7 +226,8 @@ class FarmInputFields extends Component {
                         maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
-                            if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
+                           // console.log(e.nativeEvent.key);
+                            if (e.nativeEvent.key === 'Enter') {
                             Keyboard.dismiss();
                         }
                         }}
@@ -252,7 +253,8 @@ const styles = {
         alignItems: 'center',
         backgroundColor: 'white',
         borderRadius: 4,
-        width: 356,
+        flex: 1,
+        //width: 356,
     }
 };
 

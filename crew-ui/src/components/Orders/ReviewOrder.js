@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, Switch, StyleSheet } from 'react-native';
+import { View, Text, Alert, TouchableOpacity, Switch, StyleSheet, Image } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
 import { LogoHomeHeader, InfoPopup } from '../../components/common';
+import Info from '../common/img/Info.png';
 import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import DisclaimerData from '../../restAPI/disclaimer.json';
@@ -39,6 +40,11 @@ class ReviewOrder extends Component {
 
     showTermsConditions() {
         const popup = (<InfoPopup popupInfo={termsInfo} onClose={this.hideTermsConditions.bind(this)} />);
+        this.setState({ termsConditionsPopup: popup });
+    }
+
+    showTermsEstimatedTotalPrice() {
+        const popup = (<InfoPopup popupInfo={estimateTotalInfo} onClose={this.hideTermsConditions.bind(this)} />);
         this.setState({ termsConditionsPopup: popup });
     }
 
@@ -115,13 +121,13 @@ class ReviewOrder extends Component {
                                             <Text style={styles.quoteData}>{this.props.buySell}</Text>
                                         </View>
                                         <View style={styles.quoteField}>
-                                            <Text style={styles.quoteLabel}>Your product details are</Text>
+                                            <Text style={styles.quoteLabel}>Your contract details are</Text>
                                             <Text style={styles.quoteData}>{this.props.underlying.underlyingMonthDesc} {this.props.underlying.underlyingYear}</Text>
                                         </View>
                                     </View>
                                     <View style={{ flex: 1 }}>
                                         <View style={styles.quoteField}>
-                                            <Text style={styles.quoteLabel}>Your product expiry date is</Text>
+                                            <Text style={styles.quoteLabel}>Your contract expiry date is</Text>
                                             <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.expirationDate, 5)}</Text>
                                         </View>
                                         <View style={styles.quoteField}>
@@ -141,7 +147,12 @@ class ReviewOrder extends Component {
                                         </View>
                                         {limitViewPrice}
                                         <View style={styles.quoteField}>
-                                            <Text style={styles.quoteLabel}>Your estimated total price is</Text>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <Text style={styles.quoteLabel}>Your estimated total price is  </Text>
+                                                <TouchableOpacity onPress={this.showTermsEstimatedTotalPrice.bind(this)} >
+                                                <Image source={Info} style={{ width: 16, height: 16 }} />
+                                                </TouchableOpacity>
+                                            </View>
                                             <Text style={styles.quoteData}>${this.props.calcs.totalPrice.toFixed(4)}</Text>
                                         </View>
                                     </View>
@@ -188,6 +199,7 @@ class ReviewOrder extends Component {
 
 const { width, height } = Dimensions.get('window');
 const termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
+const estimateTotalInfo = { top: 40, left: 520, width: 300, arrowPosition: 'bottom', message: DisclaimerData.infoEstimatedNetPrice };
 
 const styles = StyleSheet.create({
     /* container */

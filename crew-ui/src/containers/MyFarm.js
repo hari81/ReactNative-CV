@@ -78,9 +78,9 @@ placeNewOrder() {
     if (changes) {
         Alert.alert(
             'My Farm Data',
-            'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
+            'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
             [
-                { text: 'Got It!', style: 'OK' }
+                { text: 'GOT IT!', style: 'OK' }
            ],
             { cancelable: false }
         );
@@ -225,7 +225,7 @@ componentWillReceiveProps(newProps) {
                   <TouchableHighlight
                       style={{ flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center',
                       borderRadius: 5, alignItems: 'center',
-                          borderColor: '#279989'}} onPress={this.placeNewOrder.bind(this)}>
+                          borderColor: '#279989' }} onPress={this.placeNewOrder.bind(this)} >
 
                       <Text style={{ paddingVertical: 5, paddingHorizontal: 5, fontSize: 16, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue' }}>PLACE NEW ORDER NOW</Text>
 

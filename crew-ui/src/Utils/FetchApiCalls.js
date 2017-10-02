@@ -32,6 +32,7 @@ function doPutFetch(url, body, email, password) {
 
 function doPostFetch(url, body, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
+
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,

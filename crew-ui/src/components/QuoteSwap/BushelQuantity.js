@@ -17,16 +17,16 @@ class BushelQuantity extends Component {
     }
     componentDidMount() {
         const code = this.props.id;
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ quantityIncrement: crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString(), quantity: '' });
+        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)));
+        this.setState({ quantityIncrement: crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement, quantity: '' });
     }
     onFocusMake = () => {
         this.setState({ enableClick: false, quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });
-    }
+    };
     onBlurMake = () => {
         this.setState({ enableClick: true, quantity: common.formatNumberCommas(this.state.quantity) });
         this.props.onQuantityChange(this.state.quantity);
-    }
+    };
     onChangeQuantity = (text) => {
         if (/[0-9]+$/.test(text) || text === '') {
             if (text <= this.props.quantityLimit) {
@@ -36,31 +36,53 @@ class BushelQuantity extends Component {
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
         }
-    }
+    };
     minusButtonPress= () => {
         if (parseInt(this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
             this.setState({ quantity: (parseInt(this.state.quantity) - parseInt(this.state.quantityIncrement)).toString() });
         }
-        this.timer = setTimeout(this.minusButtonPress, 50);
-    }
+        this.timer = setTimeout(this.minusButtonPress, 150);
+    };
+    minusButtonPress1= () => {
+        console.log(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'));
+        if (parseInt(this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
+            this.setState({ quantity: (parseInt(this.state.quantity) - parseInt(this.state.quantityIncrement)).toString() });
+        }
+    };
     plusButtonPress= () => {
         if (parseInt(this.state.quantity) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || this.state.quantity === '') {
             this.setState({ quantity: ((parseInt(this.state.quantity) || 0) + parseInt(this.state.quantityIncrement)).toString() });
-            this.timer = setTimeout(this.plusButtonPress, 50);
+            this.timer = setTimeout(this.plusButtonPress, 150);
         } else {
             Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
             this.setState({ quantity: this.props.quantityLimit.toString() });
         }
-    }
+    };
+    plusButtonPress1= () => { Keyboard.dismiss();
+        console.log(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'));
+        if (parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || this.state.quantity === '') {
+            this.setState({ quantity: ((parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) || 0) + parseInt(this.state.quantityIncrement)).toString() });
+
+        } else {
+            Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
+            this.setState({ quantity: this.props.quantityLimit.toString() });
+        }
+    };
     stopTimer= () => {
         clearTimeout(this.timer);
+    };
+    scrollup() {
+        this.props.scrollchange();
     }
     render() {
         return (
             <View style={styles.container}>
                 <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>BUSHEL QUANTITY</Text>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity disabled={this.state.enableClick} onPressIn={this.minusButtonPress} onPressOut={this.stopTimer} >
+                    <TouchableOpacity
+                        //disabled={this.state.enableClick}
+                        onPress={this.minusButtonPress1}
+                        onPressIn={this.minusButtonPress} onPressOut={this.stopTimer} >
                         <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
                     </TouchableOpacity>
                     <TextInput
@@ -76,7 +98,10 @@ class BushelQuantity extends Component {
                         onFocus={this.onFocusMake}
                         selectTextOnFocus
                     />
-                    <TouchableOpacity disabled={this.state.enableClick} onPressIn={this.plusButtonPress} onPressOut={this.stopTimer}>
+                    <TouchableOpacity
+                        //disabled={this.state.enableClick}
+                        onPress={this.plusButtonPress1}
+                        onPressIn={this.plusButtonPress} onPressOut={this.stopTimer}>
                         <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>

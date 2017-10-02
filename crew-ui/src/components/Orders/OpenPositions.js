@@ -39,7 +39,7 @@ class OpenPositions extends Component {
     const unit = st(underlyingObjectData, ['commodity', 'unit']);
     return (
       <View style={styles.subContainerStyle}>
-        <View style={styles.yearStyle}>
+        <View style={[styles.yearStyle, { width: '10.74%' }]}>
           <View
             style={{
               backgroundColor: 'rgb(39,153,137)',
@@ -48,7 +48,7 @@ class OpenPositions extends Component {
 
             }}
           >
-            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }} >
+            <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }} >
               {month}
             </Text>
           </View>
@@ -73,14 +73,14 @@ class OpenPositions extends Component {
           </View>
         </View>
 
-        <View style={{ width: 230 }}>
+        <View style={{ width: '22.4%' }}>
           <View style={{ margin: 14 }}>
             <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
               {crop} {riskProduct}
             </Text>
-            <View style={{ flexDirection: 'row', marginTop: 20 }}>
+            <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between' }}>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>QUANTITY</Text>
+                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
                 <View
                   style={{
                     width: 130,
@@ -97,7 +97,7 @@ class OpenPositions extends Component {
                 </View>
               </View>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>DIRECTION</Text>
+                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
                 <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   {direction}
                 </Text>
@@ -109,29 +109,29 @@ class OpenPositions extends Component {
         <View
           style={{
             flexDirection: 'column',
-            marginLeft: 5,
+            marginLeft: 20,
             marginTop: 10,
-            width: 165
+            width: '16.11%'
           }}
         >
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>PRODUCT</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {lines[0].product}
           </Text>
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 16 }}> NET PRICE</Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 16 }}>NET PRICE</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             ${lines[0].netPremium.toFixed(2)}
           </Text>
         </View>
 
-        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: 135 }}>
+        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '13.18%' }}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE RECEIPT </Text>
+            <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT</Text>
             <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
               <Image style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }} source={require('../common/img/PDF.png')} />
             </TouchableHighlight>
           </View>
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 25 }}> TRADE ID#</Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 25 }}>TRADE ID#</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {' '}{id}{' '}
           </Text>
@@ -142,14 +142,14 @@ class OpenPositions extends Component {
             flexDirection: 'column',
             marginLeft: 20,
             marginTop: 10,
-            width: 110
+            width: '10.74%'
           }}
         >
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE DATE </Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE DATE</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {lines[0].tradeDate}
           </Text>
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}> STATUS </Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>STATUS</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {status.charAt(0).toUpperCase() + status.substr(1)}
           </Text>
@@ -163,8 +163,8 @@ class OpenPositions extends Component {
             disabled={status === 'pendingUnwind'}
             onPress={this.onUnwind.bind(this)}
             underlayColor='#ddd'
-          >
-            <Text style={styles.buttonText}>SET ORDER TO CLOSE POSITION</Text>
+          ><View>
+              <Text style={styles.buttonText}>SET ORDER TO</Text><Text style={styles.buttonText}>CLOSE POSITION</Text></View>
           </TouchableHighlight>
         </View>
       </View>
@@ -192,11 +192,12 @@ const styles = {
   },
   buttonview: {
     justifyContent: 'flex-start',
+    alignItems: 'center',
     width: '18%'
   },
   buttonText: {
       color: 'rgb(255,255,255)',
-      fontSize: 10,
+      fontSize: 14,
       textAlign: 'center',
       justifyContent: 'center',
       fontFamily: 'HelveticaNeue'
