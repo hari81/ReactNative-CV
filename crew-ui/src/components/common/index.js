@@ -7,8 +7,6 @@ export * from './Spinner';
 export * from './ImageLogo';
 export * from './Header';
 export * from './OrderButton';
-//export * from './LogoPhoneHeader';
-
 export * from './FarmInput';
 export * from './LogoHomeHeader';
 export * from './Input';
