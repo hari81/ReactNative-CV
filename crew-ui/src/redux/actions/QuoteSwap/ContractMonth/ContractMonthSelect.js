@@ -1,4 +1,4 @@
-import { REST_API_URL } from '../../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch } from '../../../../Utils/FetchApiCalls';
 
 export const contractMonthSelect = (id) => {
@@ -45,7 +45,7 @@ export const underlyingYearShow = (underlyingSym) => {
 
 export const bushelQuantityLimit = (underlying) => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}positions/groupLimits?underlying=${underlying}`;
+        const url = `${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(limit =>

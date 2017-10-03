@@ -2,51 +2,21 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { myFarmCropValues, myFarmTradeSalesOutSideApp, farmActionFlag
-} from '../../../redux/actions/MyFarm/CropAction';
-import { firstButton, secondButton,
-    thirdButton, fourthButton, fifthButton, sixthButton, seventh, eighth
-} from '../../../redux/actions/Dashboard/DashBoardButtonsAction';
+import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
 import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
-import { selectId } from '../../../redux/actions/CropButtons/ButtonAction';
+import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
+import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
 
 class ButtonList extends Component {
-
-    buttonPress(year, code, id) {
-        this.props.quoteSwapUnderlying(year, code);
-        //contractMonthAction
-        // this.props.quoteSwapUnderlying(year,code);
-        //LIVE DATA FETCH... No need of switch statement.. Only one fetch...
-        //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`)
-        //console.log(id)
-
-        //this.props.buttonDataFetch(`${this.props.item.cropYear}`, `${this.props.item.commodity.code}`);
-
-        //DashboardAction
-        const cropAndYear = `${year}${code}`;
-        switch (cropAndYear) {
-            case '2019S':
-                this.props.eighth();
-                break;
-            case '2017C':
-                this.props.thirdButton();
-                break;
-            case '2017S':
-                this.props.fourthButton();
-                break;
-            case '2018C':
-                this.props.fifthButton();
-                break;
-            case '2018S':
-                this.props.sixthButton();
-                break;
-            default:
-              //  this.props.seventh();
-        }
+    buttonPress(year, code, id, name) {
+        //Dashboard data fetch
+        this.props.dashBoardDataFetch(`${year}`, `${code}`);
         //myFarmAction
         if (!this.props.far.farmFlag) {
             this.props.myFarmCropValues(code, year);
             this.props.myFarmTradeSalesOutSideApp(code, year);
+            // buttonsSelection
+            this.props.selectedCropName(name);
             this.props.selectId(id);
         } else {
             //.log('farm data');
@@ -69,7 +39,8 @@ class ButtonList extends Component {
                 );
             }
         }
-        //this.props.selectId(id);
+        // place order contract month data
+        this.props.quoteSwapUnderlying(year, code);
     }
     render() {
         const { id, cropYear, code, name } = this.props.item;
@@ -117,10 +88,6 @@ const styles = {
     inactiveYearTextStyle: { fontSize: 16, color: '#526173' },
     activeCommodityTextStyle: { color: '#fff', fontSize: 21, maxWidth: 130, textAlign: 'center' },
     inactiveCommodityTextStyle: { color: '#526173', fontFamily: 'HelveticaNeue', fontSize: 21, maxWidth: 130, textAlign: 'center' },
-    /* currently not used
-    activeCropTextStyle: { color: '#fff', fontSize: 14 },
-    inactiveCropTextStyle: { color: '#9fa9ba', fontSize: 14 }
-    */
 };
 const mapStateToProps = state => {
     return {
@@ -129,19 +96,13 @@ const mapStateToProps = state => {
     };
 };
 const matchDispatchToProps = (dispatch) => {
-    return bindActionCreators({ secondButton,
-        firstButton,
-        thirdButton,
-        fourthButton,
-        fifthButton,
-        sixthButton,
-        seventh,
-        eighth,
+    return bindActionCreators({
         selectId,
+        selectedCropName,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
         quoteSwapUnderlying,
-        farmActionFlag
+        dashBoardDataFetch,
     }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);

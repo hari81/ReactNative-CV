@@ -33,7 +33,7 @@ class TradeDirection extends Component {
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>TRADE DIRECTION</Text>
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                            <TouchableOpacity onPress={this.onSellSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableSell ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
+                            <TouchableOpacity disabled={this.state.radioBTNEnableSell} onPress={this.onSellSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableSell ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
                             <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)', paddingRight: 45 }}>Sell</Text>
                             <TouchableOpacity disabled={this.props.selectedProduct.productId === 107 || this.state.btnBuyStatus} onPress={this.onBuySelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableBuy ? selectedRadioBTN:normalRadioBTN} /></TouchableOpacity>
                             <Text style={this.props.selectedProduct.productId === 107 || this.state.btnBuyStatus ? { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'gray' } : { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)' }}>Buy</Text>

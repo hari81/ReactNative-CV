@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
@@ -9,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { LogoHeader } from '../common/index';
 import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
 import { orderReceipt } from '../../redux/actions/CancelOrders';
+import * as common from '../../Utils/common';
 
 class CancelOrder extends Component {
   onBackToOrders() {
@@ -16,10 +15,12 @@ class CancelOrder extends Component {
   }
 
   cancelOrder() {
-    this.props.orderReceipt(this.props.orderId);
+    this.props.orderReceipt(this.props.item.orderId);
   }
 
   render() {
+      //console.log(this.props.item);
+      const cancelData = this.props.item;
     return (
       <View style={styles.containerStyle}>
         <StatusBar barStyle='light-content' />
@@ -50,37 +51,56 @@ class CancelOrder extends Component {
                 {/* order details */}
                 <View style={styles.orderFields}>
                   <View style={{ flex: 1 }}>
+                      <View style={styles.orderField}>
+                          <Text style={styles.orderLabel}>Your crop is</Text>
+                          <Text style={styles.orderData}>{cancelData.crop} {cancelData.year}</Text>
+                      </View>
+                      <View style={styles.orderField}>
+                          <Text style={styles.orderLabel}>Your order#</Text>
+                          <Text style={styles.orderData}>{cancelData.orderId}</Text>
+                      </View>
+
                     <View style={styles.orderField}>
                       <Text style={styles.orderLabel}>Your trade direction is</Text>
-                      <Text style={styles.orderData}>{this.props.buySell}</Text>
+                      <Text style={styles.orderData}>{cancelData.buySell}</Text>
                     </View>
+
                     <View style={styles.orderField}>
-                      <Text style={styles.orderLabel}>Your crop is</Text>
-                      <Text style={styles.orderData}>{this.props.crop}</Text>
+                      <Text style={styles.orderLabel}>Your contract details are</Text>
+                      <Text style={styles.orderData}>{cancelData.month} {cancelData.year}</Text>
                     </View>
-                    <View style={styles.orderField}>
-                      <Text style={styles.orderLabel}>Your crop year is</Text>
-                      <Text style={styles.orderData}>{this.props.year}</Text>
-                    </View>
-                    <View style={styles.orderField}>
-                      <Text style={styles.orderLabel}>Your contract month is</Text>
-                      <Text style={styles.orderData}>{this.props.month}</Text>
-                    </View> 
+
                   </View>
                   <View style={{ flex: 1 }}>
                     <View style={styles.orderField}>
-                      <Text style={styles.orderLabel}>Your product is</Text>
-                      <Text style={styles.orderData}>{this.props.riskProductName}</Text>
+                      <Text style={styles.orderLabel}>Your contract expiry date is</Text>
+                      <Text style={styles.orderData}>{common.formatDate(cancelData.expirationDate, 5)}</Text>
                     </View>
                     <View style={styles.orderField}>
                       <Text style={styles.orderLabel}>Your bushel quantity is</Text>
-                      <Text style={styles.orderData}>{this.props.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
+                      <Text style={styles.orderData}>{cancelData.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
                     </View>
                     <View style={styles.orderField}>
                       <Text style={styles.orderLabel}>Your order type is</Text>
-                      <Text style={styles.orderData}>{this.props.orderType}</Text>
+                      <Text style={styles.orderData}>{cancelData.orderType.charAt(0) + cancelData.orderType.slice(1, cancelData.orderType.length).toLocaleLowerCase()}</Text>
                     </View>
+                      <View style={styles.orderField}>
+                          <Text style={styles.orderLabel}>Your order will be valid until</Text>
+                          <Text style={styles.orderData}>{common.formatDate(cancelData.goodTilDate, 5)}</Text>
+                      </View>
                   </View>
+                    <View style={{ flex: 1 }}>
+                        <View style={styles.orderField}>
+                            <Text style={styles.orderLabel}>Your order status is</Text>
+                            <Text style={styles.orderData}>{cancelData.orderState.label.charAt(0) + cancelData.orderState.label.slice(1, cancelData.orderState.label.length).toLocaleLowerCase()}</Text>
+                        </View>
+                        <View style={styles.orderField}>
+                            <Text style={styles.orderLabel}>Your price is</Text>
+                            <Text style={styles.orderData}>{cancelData.orderType === 'MARKET' ? 'Market' : '$' + cancelData.targetPrice}</Text>
+                        </View>
+
+                    </View>
+
                 </View>
 
                 {/* buttons */}
@@ -117,8 +137,8 @@ const styles = {
     orderContainer: { height: height - 350, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 100, paddingTop: 30, paddingRight: 100 },
     orderFields: { flexDirection: 'row', flex: 1 },
     orderField: { marginBottom: 10 },
-    orderLabel: { color: '#888', fontSize: 12 },
-    orderData: { color: '#404e59', fontSize: 16 },
+    orderLabel: { color: 'rgb(59,74,85)', fontSize: 14, fontFamily: 'HelveticaNeue-Thin' },
+    orderData: { color: 'rgb(59,74,85)', fontSize: 20, fontFamily: 'HelveticaNeue' },
 
     /* button styles */
     buttonContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },

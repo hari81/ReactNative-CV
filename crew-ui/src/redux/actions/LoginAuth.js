@@ -40,9 +40,11 @@ export const loginUser = ({ saveUser }) => {
             }
           });
         }
+        AsyncStorage.removeItem('userData');
+        dispatch({ type: LOGIN_FAIL });
       })
       .catch((status, error) => {
-       // console.log('error' + error);
+        console.log(`login error ${error}`);
         dispatch({ type: SERVER_NORESPONSE });
       });
   };

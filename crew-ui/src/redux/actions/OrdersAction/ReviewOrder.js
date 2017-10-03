@@ -1,12 +1,12 @@
 import { Actions } from 'react-native-router-flux';
 import { ORDERS_REVIEW_QUOTE } from '../types';
-import { REST_API_URL } from '../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
 
 export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}quotes`;
+        const url = `${ORDER_SERVICES_URL}quotes`;
         let data = null;
         if (orderData.quoteType.toLowerCase() === 'rpx') {
             data = {
@@ -66,7 +66,7 @@ export const getReviewOrderQuote = (orderData) => {
 
 export const placeOrder = () => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}orders`;
+        const url = `${ORDER_SERVICES_URL}orders`;
         const oData = getState().reviewQuote.quoteData;
         let data = null;
         if (oData.metadata.quoteType.toLowerCase() === 'rpx') {

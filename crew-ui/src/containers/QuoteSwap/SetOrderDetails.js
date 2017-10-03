@@ -77,7 +77,7 @@ class SetOrderDetails extends Component {
 
 
     render() {
-        console.log(this.state)
+        //console.log(this.state)
         let spinner = null;
         if (this.props.contractMonth.spinFlag) {
             spinner = (

@@ -120,7 +120,7 @@ class OpenPositions extends Component {
           </Text>
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 16 }}>NET PRICE</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-            ${lines[0].netPremium.toFixed(2)}
+            ${lines[0].netPremium}
           </Text>
         </View>
 

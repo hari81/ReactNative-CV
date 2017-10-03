@@ -35,7 +35,7 @@ class Orders extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: props.selectedTab || 'Orders',
+      selectedTab: props.selectedTab || 'Open Orders',
       Crop: props.Crop || 'C'
     };
 
@@ -45,7 +45,7 @@ class Orders extends Component {
     const crop = this.state.Crop;
  //   console.log(crop);
       switch (this.state.selectedTab) {
-          case 'Orders':
+          case 'Open Orders':
               this.props.ViewOrdersData(crop);
               break;
           case 'Open Positions':
@@ -62,7 +62,7 @@ class Orders extends Component {
     refreshData = () => {
         const crop = this.state.Crop;
         switch (this.state.selectedTab) {
-            case 'Orders':
+            case 'Open Orders':
                 this.props.ViewOrdersData(crop);
                 break;
             case 'Open Positions':
@@ -82,7 +82,7 @@ class Orders extends Component {
     this.setState({ Crop: cropCode });
 
     switch (this.state.selectedTab) {
-        case 'Orders':
+        case 'Open Orders':
         this.props.ViewOrdersData(cropCode);
 
         break;
@@ -104,7 +104,7 @@ class Orders extends Component {
     selectedTabOrder = (val) => {
         this.setState({ selectedTab: val });
         switch (val) {
-            case 'Orders':
+            case 'Open Orders':
                 this.props.ViewOrdersData(this.state.Crop);
                 break;
             case 'Open Positions':
@@ -120,27 +120,72 @@ class Orders extends Component {
 
   renderFlatList() {
     if (this.props.viewOrders.fetchflag) {
-      return (
-        <View
-          style={{ justifyContent: 'center', flexDirection: 'column' }}
-        >
-          <Text
-            style={{
-              marginTop: 30,
-              color: 'white',
-              textAlign: 'center',
-              fontSize: 25,
-                marginBottom: 30
-            }}
-          >
-            Loading orders...
-          </Text>
-          <Spinner size='large' />
-        </View>
-      );
+        switch(this.state.selectedTab) {
+      case 'Open Orders':
+          return (
+              <View
+                  style={{justifyContent: 'center', flexDirection: 'column'}}
+              >
+                  <Text
+                      style={{
+                          marginTop: 30,
+                          color: 'white',
+                          textAlign: 'center',
+                          fontSize: 25,
+                          marginBottom: 30
+                      }}
+                  >
+                      Loading orders...
+                  </Text>
+                  <Spinner size='large' />
+              </View>);
+          break;
+      case
+          'Open Positions'
+      :
+          return (
+              <View
+                  style={{justifyContent: 'center', flexDirection: 'column'}}
+              >
+                  <Text
+                      style={{
+                          marginTop: 30,
+                          color: 'white',
+                          textAlign: 'center',
+                          fontSize: 25,
+                          marginBottom: 30
+                      }}
+                  >
+                      Loading positions...
+                  </Text>
+                  <Spinner size='large' />
+              </View>
+          );
+          break;
+          case 'Closed Positions' :
+
+          return (
+              <View
+                  style={{justifyContent: 'center', flexDirection: 'column'}}
+              >
+                  <Text
+                      style={{
+                          marginTop: 30,
+                          color: 'white',
+                          textAlign: 'center',
+                          fontSize: 25,
+                          marginBottom: 30
+                      }}
+                  >
+                      Loading closed positions...
+                  </Text>
+                  <Spinner size='large' />
+              </View>
+          );
+      }
     }
 
-    if (this.state.selectedTab === 'Orders') {
+    if (this.state.selectedTab === 'Open Orders') {
       //console.log('Orders Button Pressed');
 
       if (!st(this.props, ['viewOrders', 'items', 'value', 'length'])) {
@@ -308,13 +353,11 @@ class Orders extends Component {
               alignItems='center'
               tintColor='rgb(39,153,137)'
               style={[styles.segment, { width: width / 2 }]}
-              values={['Orders', 'Open Positions', 'Closed Positions']}
-              selectedIndex={
-                { 'Orders': 0,
+              values={['Open Orders', 'Open Positions', 'Closed Positions']}
+              selectedIndex={{ 'Open Orders': 0,
                   'Open Positions': 1,
                   'Closed Positions': 2
-                }[this.state.selectedTab]
-              }
+                }[this.state.selectedTab]}
               onChange={event => {
                 this.setState({
                   selectedIndex: event.nativeEvent.selectedSegmentIndex

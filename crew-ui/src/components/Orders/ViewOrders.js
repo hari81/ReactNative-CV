@@ -8,8 +8,7 @@ import st from '../../Utils/SafeTraverse';
 
 class ViewOrders extends Component {
   onCancelPress(item) {
-
-    Actions.cancelorder(item);
+    Actions.cancelorder({ item });
   }
   render() {
     const {
@@ -122,7 +121,7 @@ class ViewOrders extends Component {
             {orderId}
           </Text>
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}>PRICE</Text>
-          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>${targetPrice.toFixed(2)}</Text>
+          <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>${targetPrice}</Text>
         </View>
 
         <View
@@ -149,15 +148,15 @@ class ViewOrders extends Component {
             width: '17.08%'
           }}
         >
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> ORDER CREATION DATE</Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>CREATION DATE</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-            {' '}{strDate}
+            {strDate}
           </Text>
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 14 }}>
-            {' '}ORDER EXPIRATION DATE{' '}
+            VALID UNTIL
           </Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-            {' '}{expirationDate}{' '}
+            {expirationDate}
           </Text>
         </View>
 
@@ -175,7 +174,8 @@ class ViewOrders extends Component {
                       month,
                       year,
                       crop,
-                      orderId
+                      orderId,
+                      targetPrice
                     })
                 : () => {}
             }

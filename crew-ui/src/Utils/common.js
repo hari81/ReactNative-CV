@@ -41,7 +41,7 @@ export function formatDate(date, formatType) {
             formattedDate = `${monthNamesShort[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`;
             break;
         case 6: // Year-Month-Day (ex. 2017-01-01)
-            formattedDate = `${newDate.getFullYear()}-${newDate.getMonth()}-${newDate.getDate()}`;
+            formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
             break;
         default:
             formattedDate = date;

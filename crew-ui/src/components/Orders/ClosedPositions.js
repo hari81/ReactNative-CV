@@ -136,7 +136,7 @@ class ClosedPositions extends Component {
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {tradeDate}
           </Text>
-          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>UNWIND DATE</Text>
+          <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>CLOSE OUT DATE</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
             {unwindDate}
           </Text>

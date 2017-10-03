@@ -51,7 +51,7 @@ class CancelOrderReceipt extends Component {
         <View style={{ backgroundColor: 'rgb(239,244,247)', height }}>
           <View style={{ backgroundColor: '#3d4c57', margin: 20 }}>
             <Text style={styles.subHeaderTextStyle}>
-              Your Order has been cancelled
+              Order cancellation status
             </Text>
             <View
               style={{
@@ -70,10 +70,11 @@ class CancelOrderReceipt extends Component {
                   <Image source={confirm} style={{ width: 120, height: 120 }} />
                     <View style={{ flexDirection: 'row' }}>
                   <Text style={{ marginTop: 50, fontSize: 20, fontFamily: 'HelveticaNeue-thin', color: 'rgb(96,109,119)' }}>
-                      Your order was cancelled. Your order number is: </Text>
+                      {this.props.message}. Your order number is: </Text>
                     <Text style={{ marginTop: 50, fontSize: 20, fontFamily: 'HelveticaNeue', color: 'rgb(59,74,85)' }}>
                     {this.props.orderid}
                   </Text>
+
                 </View>
                 </View>
                 <View
@@ -90,7 +91,7 @@ class CancelOrderReceipt extends Component {
                     BACK TO DASHBOARD
                   </OrderButton>
                   <OrderButton onPress={this.reviewPositions.bind(this)}>
-                    REVIEW POSITIONS & ORDERS
+                    REVIEW ORDERS
                   </OrderButton>
                 </View>
               </View>

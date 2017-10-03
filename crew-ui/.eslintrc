@@ -5,6 +5,7 @@
     "arrow-body-style": "off",
     "react/require-extension": "off",
     "no-lonely-if": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "react/sort-comp": "off"
   }
 }

@@ -88,7 +88,7 @@ class ExternalSales extends Component {
                     }
                 }
             }
-        } else if (this.state.removeTransaction.length === 0) {
+        } else if (this.state.transaction.length === 0 && this.props.extra.tradeData.trades.length === 0) {
             Alert.alert('No transctions to Save .');
             return;
         }
@@ -162,6 +162,8 @@ class ExternalSales extends Component {
     render() {
         // console.log('externnal', this.state.transaction);
         const { width, height } = Dimensions.get('window');
+        const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
+        const fc = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;
         return (
             <View style={{ width, height, backgroundColor: 'rgb(29,37,49)' }}>
                 <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
@@ -207,6 +209,7 @@ class ExternalSales extends Component {
                                     placeholdervalues={this.props.extra.tradeData.tradeTemplate}
                                     ref={`ref${index}`}
                                     scrollchange={this.scrollUpdate.bind(this, index)}
+                                    fcontract={fc}
                                 />)
                             )}
                 </ScrollView>
@@ -259,7 +262,11 @@ class ExternalSales extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return { far: state.myFar, extra: state.external, cropBut: state.cropsButtons };
+    return { far: state.myFar,
+        extra: state.external,
+        cropBut: state.cropsButtons,
+        underlying: state.account.defaultAccount.commodities,
+        id: state.cropsButtons.selectedId };
 };
 
 export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues })(ExternalSales);

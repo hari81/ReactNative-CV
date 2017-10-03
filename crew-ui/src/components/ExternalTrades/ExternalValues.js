@@ -187,10 +187,12 @@ export default class ExternalValues extends Component {
         this.setState({ basis: this.state.basis.slice(1, this.state.basis.length) });
         this.props.scrollchange();
     }
-
+    dropDown(value) {
+        this.setState({ cMonth: value });
+    }
     render() {
         const { width, height } = Dimensions.get('window');
-        const { removeTrans, items = {}, placeholdervalues } = this.props;
+        const { removeTrans, items = {}, fcontract, placeholdervalues } = this.props;
         const a = Number(items.adjustments || 0);
         const b = Number(items.basis || 0);
         const f = Number(items.futuresPrice || 0);
@@ -244,12 +246,11 @@ export default class ExternalValues extends Component {
                                     style={{ width: 135, height: 45 }}
                                     mode='dropdown'
                                     itemStyle={{ height: 45 }}
-                                    selectedValue={'CZ2018'}
-                                    // onValueChange={this.dropDown.bind(this)}
+                                    selectedValue={this.state.cMonth}
+                                    onValueChange={this.dropDown.bind(this)}
                                 >
-                                    <Picker.Item label='CZ2018' value='CZ2018' key='CZ2018' />
-                                    <Picker.Item label='CU2018' value='CU2018' key='CU2018' />
-                                    <Picker.Item label='SU2018' value='SU2018' key='SU2018' />
+                                     {fcontract.map(item =>
+                                     <Picker.Item label={item} value={item}  key={item} />)}
                                 </Picker>
                                 {this.contractMonthVisibility()}
                             </View>

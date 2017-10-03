@@ -3,7 +3,6 @@ import AuthReducer from './AuthReducer';
 import vieworders from './OrdersReducer/ViewOrdersReducer';
 import OpenPositions from './OrdersReducer/OpenPositions';
 import ClosedPositions from './OrdersReducer/ClosedPositions';
-import allCrops from './Dashboard/DashButtonsReducer';
 import myFarmButtons from './MyFarm/CropReducer';
 import externalTrades from './External/ExternalTrades';
 import infoButtons from './Dashboard/infobuttonsReducer';
@@ -15,13 +14,14 @@ import cropsButton from './CropButtons/ButtonReducer';
 import selectedProduct from './QuoteSwap/ProductType/SelectedProduct';
 import reviewOrderGetQuote from './OrdersReducer/ReviewOrder';
 import limitorder from './QuoteSwap/ProductType/LimitOrderReducer';
+import getDashBoardData from './Dashboard/DashboardReducer';
+import getDisplayProps from './Dashboard/DisplayPropertiesReducer';
 
 export default combineReducers({
     auth: AuthReducer,
     vieworder: vieworders,
     openPositions: OpenPositions,
     closedPositions: ClosedPositions,
-    dashBoardButtons: allCrops,
     info: infoButtons,
     cropsButtons: cropsButton,
     myFar: myFarmButtons,
@@ -32,6 +32,8 @@ export default combineReducers({
     selectedProductQuoteSwap: selectedProduct,
     account: accountDetails,
     reviewQuote: reviewOrderGetQuote,
-    limitOrder: limitorder
+    limitOrder: limitorder,
+    dashBoardData: getDashBoardData,
+    displayProperties: getDisplayProps
 });
 
