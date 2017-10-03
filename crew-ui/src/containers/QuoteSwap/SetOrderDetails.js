@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -14,7 +14,6 @@ import ContractMonth from '../../components/QuoteSwap/ContractMonth/ContractMont
 import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
-
 
 class SetOrderDetails extends Component {
     constructor(props) {
@@ -54,7 +53,11 @@ class SetOrderDetails extends Component {
     }
     onReviewOrder() {
         try {
-            this.props.getReviewOrderQuote(this.state);
+            if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
+                Alert.alert('Set Order Details', 'A quantity of 1 or greater must be entered.');
+            } else {
+                this.props.getReviewOrderQuote(this.state);
+            }
         } catch (error) {
             Alert.alert(`Unexpected error occurred: ${error}`);
         }
@@ -122,8 +125,8 @@ const styles = {
         marginHorizontal: 16,
         marginTop: 38,
         marginBottom: 7,
-        borderColor: 'rgb(190,216,221)',
-        borderWidth: 1,
+        borderTopWidth: 4, 
+        borderTopColor: '#e7b514'
     },
     setOrderDetails: {
         flexDirection: 'row',

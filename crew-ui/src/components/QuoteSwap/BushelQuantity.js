@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, TextInput, Keyboard, Alert, Spinner } from 'react-native';
+import { View, Text, Image, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { Spinner } from '../../components/common/Spinner';
 import Minus from '../common/img/Minus-32.png';
 import Plus from '../common/img/Plus.png';
 import * as common from '../../Utils/common';
@@ -36,7 +37,7 @@ class BushelQuantity extends Component {
             if (text <= this.props.quantityLimit) {
                 this.setState({ quantity: text });
             } else {
-                //Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
+                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
             this.calculateHedgePercent(text);
@@ -63,10 +64,11 @@ class BushelQuantity extends Component {
     }
 
     calculateHedgePercent(currQuantity) {
+        const qty = currQuantity === '' ? 0 : parseFloat(currQuantity);
         if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - parseFloat(currQuantity)) / this.props.myFarmProd.estimatedTotalProduction) * 100 });        
+            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - qty) / this.props.myFarmProd.estimatedTotalProduction) * 100 });        
         } else {
-            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + parseFloat(currQuantity)) / this.props.myFarmProd.estimatedTotalProduction) * 100 });        
+            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + qty) / this.props.myFarmProd.estimatedTotalProduction) * 100 });
         }
     }
 
@@ -76,7 +78,7 @@ class BushelQuantity extends Component {
 
     render() {
         let tBushelLimit = null;
-        if (this.props.contractMonth.subSpinFlag) {
+        if (this.props.contractMonth.bushelSpinFlag) {
             tBushelLimit = (<Spinner size="small" />);
         } else {
             tBushelLimit = (<Text style={styles.bushelLimitText}>Your Available Limit is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);

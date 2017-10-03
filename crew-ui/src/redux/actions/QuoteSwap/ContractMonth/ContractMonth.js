@@ -62,13 +62,13 @@ export function contractMonthData(contractData) {
 export const bushelQuantityLimit = (underlying) => {
     console.log('start quote swap underlying db lookup 2', new Date());
     return (dispatch, getState) => {
-        //dispatch({ type: 'SPIN_ACTIVE' });
+        dispatch({ type: 'BUSHEL_SPIN_ACTIVE' });
         return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.email, getState().auth.password)
         .then(response => response.json(), rej => Promise.reject(rej))
         .then(limit => {
             console.log('end quote swap underlying db lookup 2', new Date());
             dispatch(bushelLimitShow(limit));
-            //dispatch({ type: 'SPIN_INACTIVE' });
+            dispatch({ type: 'BUSHEL_SPIN_INACTIVE' });
         });
     };
 };
