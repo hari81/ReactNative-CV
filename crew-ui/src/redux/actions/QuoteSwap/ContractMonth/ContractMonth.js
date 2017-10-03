@@ -1,15 +1,15 @@
 import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 import * as common from '../../../../Utils/common';
-import { bushelLimit } from '../ContractMonth/ContractMonthSelect';
+import { bushelLimitShow } from '../ContractMonth/ContractMonthSelect';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
+        console.log('* * * * * start quote swap underlying * * * * *', new Date());        
         dispatch({ type: 'SPIN_ACTIVE' });
         const cObject = getState().account.defaultAccount.commodities.find(x => x.commodity === code);
         const oSymbols = cObject.crops.find(x => x.cropYear === year).futuresContracts;
         const swapUrl = `${ORDER_SERVICES_URL}quotes`;
-        //const lswapUrl = 'https://calculon-qa.crm.cargill.com/extracense/api/quotes';
 
         const quoteUnderlying = {
             quoteType: 'mkt',
@@ -25,7 +25,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     return {
                         id: i,
                         month: oUnderlying.underlyingMonthDesc,
-                        year: oUnderlying.underlyingYear.value,
+                        year: oUnderlying.underlyingYear,
                         underlying: oUnderlying.underlying,
                         lastTradeDate: '2017-11-01', // o.lastTradeDate,
                         askPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].askPrice : 0,
@@ -41,7 +41,7 @@ export const quoteSwapUnderlying = (year, code) => {
                 .then(limit => {
                     console.log('end quote swap underlying db lookup 2', new Date());        
                     dispatch(contractMonthData(contractData));
-                    dispatch(bushelLimit(limit));
+                    dispatch(bushelLimitShow(limit));
                     console.log('* * * * * end quote swap underlying * * * * *', new Date());                    
                 })
                 .catch((status, error) => {
@@ -58,3 +58,17 @@ export function contractMonthData(contractData) {
         payload: contractData
     };
 }
+
+export const bushelQuantityLimit = (underlying) => {
+    console.log('start quote swap underlying db lookup 2', new Date());
+    return (dispatch, getState) => {
+        //dispatch({ type: 'SPIN_ACTIVE' });
+        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.email, getState().auth.password)
+        .then(response => response.json(), rej => Promise.reject(rej))
+        .then(limit => {
+            console.log('end quote swap underlying db lookup 2', new Date());
+            dispatch(bushelLimitShow(limit));
+            //dispatch({ type: 'SPIN_INACTIVE' });
+        });
+    };
+};

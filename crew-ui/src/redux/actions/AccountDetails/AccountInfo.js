@@ -10,13 +10,13 @@ export const accountDetails = () => {
 
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.email, getState().auth.password)
-            .then(response => {/*console.log(response);*/
+            .then(response => {
+                /*console.log(response);*/
                 if (response.status === 404) {
                     Alert.alert('No Account found');
                     return;
-                } else {
-                return response.json();
                 }
+                return response.json();
             })
             .then(AccountData => {
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
@@ -25,7 +25,7 @@ export const accountDetails = () => {
                 return doGetFetch(accountUrl, getState().auth.email, getState().auth.password)
                     .then(response => response.json())
                     .then(Data => {
-                        dispatch({ type: 'DEFAULT_ACCOUNT_DETAILS', payload: Data })
+                        dispatch({ type: DEFAULT_ACCOUNT_DETAILS, payload: Data });
                         const ButtonsData = [];
                         const commodities = Data.commodities;
                         let index = 0;
@@ -41,8 +41,8 @@ export const accountDetails = () => {
                         dispatch({ type: BUTTONS_SPINNER, payload: false });
                         dispatch({ type: SELECT_ID, payload: ButtonsData[0].id });
                         Actions.main();
-                        dispatch({ type: 'SELECTED_CROP_NAME', payload: ButtonsData[0].name })
-                        dispatch({ type: 'DASHBOARD_SPINNER' })
+                        dispatch({ type: 'SELECTED_CROP_NAME', payload: ButtonsData[0].name });
+                        dispatch({ type: 'DASHBOARD_SPINNER' });
                         const year = Data.commodities[0].crops[0].cropYear;
                         const code = Data.commodities[0].commodity;
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
@@ -56,7 +56,6 @@ export const accountDetails = () => {
                             });
                     })
                     .catch(error => console.log(`error ${error}`));
-
             })
             .catch(error => console.log(`error ${error}`));
     };

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import normalRadioBTN from '../../common/img/Radio-BTN-normal.png';
-import selectedRadioBTN from '../../common/img/Radio-BTN-selected.png';
 import LimitOrder from './LimitOrder';
 
 class OrderType extends Component {
     constructor() {
         super();
         this.state = {
-            radioBTNEnableMarket: true,
-            radioBTNEnableLimit: false,
+            isLimitOrder: false,
             tickSizeIncrement: '0'
         };
     }
@@ -19,17 +16,18 @@ class OrderType extends Component {
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
         this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
     }
-    onMarketSelection= () => {
-        this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
+    onMarketSelection() {
+        this.setState({ isLimitOrder: false });
         this.props.onOrderTypeChange('market');
     }
-    onLimitSelection=() => {
-        this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true });
+
+    onLimitSelection() {
+        this.setState({ isLimitOrder: true });
         this.props.onOrderTypeChange('limit');
     }
     limitOrder() {
-        if (this.state.radioBTNEnableLimit) {
-            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} />;
+        if (this.state.isLimitOrder) {
+            return <LimitOrder buySell={this.props.buySell} tickSizeIncrement={this.state.tickSizeIncrement} />;
         }
     }
     render() {
@@ -38,10 +36,20 @@ class OrderType extends Component {
                 <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>ORDER TYPE</Text>
                 <View>
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <TouchableOpacity disabled={this.state.radioBTNEnableMarket} onPress={this.onMarketSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableMarket ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)', paddingRight: 45 }}>Market Order</Text>
-                        <TouchableOpacity disabled={this.state.radioBTNEnableLimit} onPress={this.onLimitSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableLimit ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)' }}>Limit Order</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                            <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
+                                <View style={styles.radioButtonContainer}>
+                                    {!this.state.isLimitOrder ? <View style={styles.radioButtonSelected} /> : null}
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={styles.radioButtonText}>Market Order</Text>
+                            <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
+                                <View style={[styles.radioButtonContainer, { marginLeft: 20 }]}>
+                                    {this.state.isLimitOrder ? <View style={styles.radioButtonSelected} /> : null}
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={styles.radioButtonText}>Limit Order</Text>
+                        </View>
                     </View>
                 </View>
                 {this.limitOrder()}
@@ -50,16 +58,23 @@ class OrderType extends Component {
     }
 }
 const styles = {
-    container: {
-        flexDirection: 'column',
-        marginTop: 10
-    }
-}
+    container: { flexDirection: 'column', marginTop: 10 },
+    orderLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: '#fff' },
+
+    radioButtonContainer: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' },
+    radioButtonSelected: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#279989' },
+    radioButtonText: { color: '#ffffff', fontSize: 16, marginLeft: 5 },
+    radioButtonContainerDisabled: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#9ea6b1', backgroundColor: '#ffffff80', alignItems: 'center', justifyContent: 'center' },    
+    radioButtonSelectedDisabled: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#376768' },
+    radioButtonTextDisabled: { color: '#ffffff60', fontSize: 16, marginLeft: 5 },    
+};
+
 const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         contractMonth: state.contractData,
         id: state.cropsButtons.selectedId
     };
-}
+};
+
 export default connect(mapStateToProps, null)(OrderType);

@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ORDERS_REVIEW_QUOTE } from '../types';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
@@ -39,24 +40,28 @@ export const getReviewOrderQuote = (orderData) => {
                 if (response.status === 200) {
                     return response.json();
                 }
-                return null;
+                Alert.alert('Review Order', 'There was an issue with quoting this order.\n\nPlease check data and try again.');
             })
             .then(quoteData => {
-                console.log('review quote data is: ', quoteData);
-                //reprice needs some of the initial data for display on the review screen
-                if (quoteData.metadata.quoteType.toLowerCase() === 'rpx') {
-                    quoteData.metadata.buySell = orderData.buySell;
-                    quoteData.metadata.riskProductId = orderData.riskProductId;
-                    quoteData.metadata.underlying = orderData.underlying;
-                    quoteData.metadata.quantity = orderData.quantity;
-                    quoteData.metadata.expirationDate = quoteData.quoteExpiration;
-                    if (quoteData.metadata.orderType.toLowerCase() === 'limit') {
-                        quoteData.metadata.targetPrice = orderData.targetPrice;
-                        quoteData.metadata.goodTilDate = orderData.goodTilDate;
+                if (quoteData === null) {
+                    console.log('There was an issue with the quote.');
+                } else {
+                    console.log('review quote data is: ', quoteData);
+                    //reprice needs some of the initial data for display on the review screen
+                    if (quoteData.metadata.quoteType.toLowerCase() === 'rpx') {
+                        quoteData.metadata.buySell = orderData.buySell;
+                        quoteData.metadata.riskProductId = orderData.riskProductId;
+                        quoteData.metadata.underlying = orderData.underlying;
+                        quoteData.metadata.quantity = orderData.quantity;
+                        quoteData.metadata.expirationDate = quoteData.quoteExpiration;
+                        if (quoteData.metadata.orderType.toLowerCase() === 'limit') {
+                            quoteData.metadata.targetPrice = orderData.targetPrice;
+                            quoteData.metadata.goodTilDate = orderData.goodTilDate;
+                        }
                     }
+                    dispatch({ type: ORDERS_REVIEW_QUOTE, payload: quoteData });
+                    Actions.revieworder();
                 }
-                dispatch({ type: ORDERS_REVIEW_QUOTE, payload: quoteData });
-                Actions.revieworder();
             })
             .catch((status, error) => {
                 console.log('error', error);

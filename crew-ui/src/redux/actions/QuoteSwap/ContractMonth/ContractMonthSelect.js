@@ -40,9 +40,9 @@ export const underlyingYearShow = (underlyingSym) => {
     };
 };
 
-export function bushelLimit(limit) {
+export const bushelLimitShow = (limit) => {
     return {
         type: 'BUSHEL_QUANTITY_LIMIT',
         payload: limit
     };
-}
+};
