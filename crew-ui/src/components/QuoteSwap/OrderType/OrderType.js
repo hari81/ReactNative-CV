@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import LimitOrder from './LimitOrder';
+import * as commonStyles from '../../../Utils/styles';
 
 class OrderType extends Component {
     constructor() {
@@ -38,17 +39,17 @@ class OrderType extends Component {
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                             <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
-                                <View style={styles.radioButtonContainer}>
-                                    {!this.state.isLimitOrder ? <View style={styles.radioButtonSelected} /> : null}
+                                <View style={commonStyles.common.radioButtonContainer}>
+                                    {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
                                 </View>
                             </TouchableOpacity>
-                            <Text style={styles.radioButtonText}>Market Order</Text>
+                            <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
                             <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
-                                <View style={[styles.radioButtonContainer, { marginLeft: 20 }]}>
-                                    {this.state.isLimitOrder ? <View style={styles.radioButtonSelected} /> : null}
+                                <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
+                                    {this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
                                 </View>
                             </TouchableOpacity>
-                            <Text style={styles.radioButtonText}>Limit Order</Text>
+                            <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
                         </View>
                     </View>
                 </View>
@@ -60,13 +61,6 @@ class OrderType extends Component {
 const styles = {
     container: { flexDirection: 'column', marginTop: 10 },
     orderLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: '#fff' },
-
-    radioButtonContainer: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' },
-    radioButtonSelected: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#279989' },
-    radioButtonText: { color: '#ffffff', fontSize: 16, marginLeft: 5 },
-    radioButtonContainerDisabled: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#9ea6b1', backgroundColor: '#ffffff80', alignItems: 'center', justifyContent: 'center' },    
-    radioButtonSelectedDisabled: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#376768' },
-    radioButtonTextDisabled: { color: '#ffffff60', fontSize: 16, marginLeft: 5 },    
 };
 
 const mapStateToProps = (state) => {
