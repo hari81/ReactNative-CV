@@ -245,6 +245,7 @@ const mapStateToProps = state => {
     const isReprice = state.reviewQuote.quoteData.metadata.quoteType.toLowerCase() === 'rpx';
     const isBuy = state.reviewQuote.quoteData.metadata.buySell.toLowerCase() === 'b' || state.reviewQuote.quoteData.metadata.buySell.toLowerCase() === 'buy';
     const isLimit = state.reviewQuote.quoteData.metadata.orderType.toLowerCase() === 'limit';
+    const oUnderlying = common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying);
     let tPrice = 0;
     if (isBuy) {
         tPrice = isLimit ? 
@@ -265,11 +266,11 @@ const mapStateToProps = state => {
             totalPrice: tPrice
         },
         commodity: {
-            name: state.dashBoardButtons.activeCommodity.name,
-            year: state.dashBoardButtons.activeCropYear
+            name: state.cropsButtons.selectedCropName,
+            year: oUnderlying.underlyingYear
         },
         productDesc: common.translateProductId(state.reviewQuote.quoteData.metadata.riskProductId, state.products),
-        underlying: common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying),
+        underlying: oUnderlying,
         isLimitOrder: isLimit,
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade'

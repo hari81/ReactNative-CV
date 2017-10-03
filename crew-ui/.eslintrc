@@ -6,6 +6,8 @@
     "react/require-extension": "off",
     "no-lonely-if": "off",
     "no-param-reassign": "off",
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "radix": "off",
+    "no-mixed-operators": "off"
   }
 }

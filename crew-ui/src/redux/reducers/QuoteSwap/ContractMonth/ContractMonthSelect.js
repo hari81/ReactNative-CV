@@ -6,8 +6,7 @@ const INITIAL_STATE = {
     lastTradeDate: '',
     underlyingSymbol: '',
     bushelQuantity: {},
-
-}
+};
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {

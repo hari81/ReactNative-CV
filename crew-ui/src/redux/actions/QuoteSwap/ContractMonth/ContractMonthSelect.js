@@ -1,6 +1,3 @@
-import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
-import { doGetFetch } from '../../../../Utils/FetchApiCalls';
-
 export const contractMonthSelect = (id) => {
     return {
         type: 'SELECT_CONTRACT_MONTH',
@@ -43,23 +40,9 @@ export const underlyingYearShow = (underlyingSym) => {
     };
 };
 
-export const bushelQuantityLimit = (underlying) => {
-    return (dispatch, getState) => {
-        const url = `${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
-            .then(response => response.json(), rej => Promise.reject(rej))
-            .then(limit =>
-                dispatch(bushelLimit(limit))
-            )
-            .catch((status, error) => {
-                console.log(`error ${error}`);
-            });
-    };
-};
-
-export function bushelLimit(limit) {
+export const bushelLimitShow = (limit) => {
     return {
         type: 'BUSHEL_QUANTITY_LIMIT',
         payload: limit
     };
-}
+};

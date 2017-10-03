@@ -14,13 +14,16 @@ class ContractMonth extends Component {
             timeNow: moment().format('MMM Do YYYY, h:mm a')
         };
     }
+    
     componentWillReceiveProps() {
         this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
     }
+
     onUpdate() {
-        const { cropYear, cropCode } = this.props.contractMonth.contract[0]
+        const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
+
     contractMonthList() {
         if (this.props.contractMonth.spinFlag) {
             return <Spinner size='small' />;
@@ -29,14 +32,15 @@ class ContractMonth extends Component {
             numColumns={4}
             data={this.props.contractMonth.contract}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => <ContractMonthSellList item={item} key={item.id} />}
+            renderItem={({ item }) => <ContractMonthSellList item={item} key={item.id} buySell={this.props.buySell} />}
         />);
     }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>CONTRACT MONTH</Text>
+                    <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>CONTRACT MONTH</Text>
                     <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
                         <View style={{ flexDirection: 'row' }}>
                             <Image style={{ width: 20, height: 18, marginLeft: 24, marginRight: 4 }} source={Refresh} />
@@ -57,11 +61,13 @@ const styles = {
         marginTop: 16,
         zIndex: -1
     }
-}
+};
+
 const mapStateToProps = state => {
     return {
         contractMonth: state.contractData
 
     };
-}
+};
+
 export default connect(mapStateToProps, { quoteSwapUnderlying })(ContractMonth);
