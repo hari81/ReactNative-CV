@@ -72,7 +72,7 @@ class ReviewOrder extends Component {
             );
             limitViewPrice = (
             <View style={styles.quoteField}>
-                <Text style={styles.quoteLabel}>Your limit price total is</Text>
+                <Text style={styles.quoteLabel}>Your limit price is</Text>
                 <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
             </View>
             );
@@ -154,7 +154,7 @@ class ReviewOrder extends Component {
                                         {limitViewPrice}
                                         <View style={styles.quoteField}>
                                             <View style={{ flexDirection: 'row' }}>
-                                                <Text style={styles.quoteLabel}>Your estimated total price is</Text>
+                                                <Text style={styles.quoteLabel}>Your estimated Net price is</Text>
                                                 <TouchableOpacity onPress={this.showPriceInfo.bind(this)}>
                                                     <Image style={{ width: 16, height: 16, marginLeft: 5, marginTop: 2 }} source={Info} />
                                                 </TouchableOpacity>
