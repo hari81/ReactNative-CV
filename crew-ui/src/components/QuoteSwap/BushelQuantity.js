@@ -42,17 +42,20 @@ class BushelQuantity extends Component {
             }
             this.calculateHedgePercent(text);
         }
-        this.props.onQuantityChange(text);        
+        this.props.onQuantityChange(text);
     }
 
     minusButtonPress() {
         try {
-            if (this.state.quantity === '' || parseInt(this.state.quantity) < 1) {
-                this.setState({ quantity: 0 });
+            let q = this.state.quantity;
+            if (q === '' || parseInt(q) < 1) {
+                q = 0;
             }
-            if (parseInt(this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
-                this.setState({ quantity: (parseInt(this.state.quantity) - parseInt(this.state.quantityIncrement)).toString() });
-                this.calculateHedgePercent(this.state.quantity);
+            if (parseInt(q) >= parseInt(this.state.quantityIncrement)) {
+                q = (parseInt(q) - parseInt(this.state.quantityIncrement)).toString();
+                this.calculateHedgePercent(q);
+                this.setState({ quantity: q });
+                this.props.onQuantityChange(q);
             }
             this.timer = setTimeout(this.minusButtonPress, 50);
         } catch (error) {
@@ -62,17 +65,20 @@ class BushelQuantity extends Component {
 
     plusButtonPress() {
         try {
-            if (this.state.quantity === '' || parseInt(this.state.quantity) < 1) {
-                this.setState({ quantity: 0 });
+            let q = this.state.quantity;
+            if (q === '' || parseInt(q) < 1) {
+                q = 0;
             }
-            if (parseInt(this.state.quantity) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || this.state.quantity === '') {
-                this.setState({ quantity: ((parseInt(this.state.quantity) || 0) + parseInt(this.state.quantityIncrement)).toString() });
-                this.timer = setTimeout(this.plusButtonPress, 50);
+            if (parseInt(q) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || q === '') {
+                q = ((parseInt(q) || 0) + parseInt(this.state.quantityIncrement)).toString();
             } else {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
-                this.setState({ quantity: this.props.quantityLimit.toString() });
+                q = parseInt(this.props.quantityLimit.toString());
             }
-            this.calculateHedgePercent(this.state.quantity);
+            this.setState({ quantity: q });
+            this.calculateHedgePercent(q);
+            this.props.onQuantityChange(q);
+            this.timer = setTimeout(this.plusButtonPress, 50);
         } catch (error) {
             console.log(error);
         }

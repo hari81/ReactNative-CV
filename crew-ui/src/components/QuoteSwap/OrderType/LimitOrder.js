@@ -29,9 +29,9 @@ class LimitOrder extends Component {
     getLimitPrice() {
         let tPrice = null;
         if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-            tPrice = this.props.bidPrice === null ? this.props.settlePrice : this.props.bidPrice;
+            tPrice = this.props.askPrice === null ? this.props.settlePrice : this.props.askPrice;
         } else {
-            tPrice = this.props.askPrice === null ? this.props.settlePrice : this.props.askPrice;            
+            tPrice = this.props.bidPrice === null ? this.props.settlePrice : this.props.bidPrice;            
         }
         return tPrice;
     }

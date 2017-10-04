@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import st from '../../Utils/SafeTraverse';
 
 class OpenPositions extends Component {
-  onUnwind() {
+  onUnwind(item) {
     const sOrder = this.props.item;
     const sLine = sOrder.lines.find(x => x.type.toLowerCase() === 'new');
     const uOrder = {
@@ -19,7 +19,10 @@ class OpenPositions extends Component {
       transId: sOrder.id,
       activityId: sLine.id
     };
-    Actions.quoteswap({ selectedOrder: uOrder }); 
+    const year = st(item.underlyingObjectData, ['contractMonth', 'year', 'value']);    
+    const crop = st(item.underlyingObjectData, ['commodity', 'code']);
+
+    Actions.quoteswap({ selectedOrder: uOrder, cropcode: crop, cropyear: year }); 
   }
 
   render() {
@@ -162,7 +165,7 @@ class OpenPositions extends Component {
           <TouchableHighlight
             style={[styles.viewbutton, status === 'pendingUnwind' ? { backgroundColor: 'rgba(39,153,137,0.65 )' } : {}]}
             disabled={status === 'pendingUnwind'}
-            onPress={this.onUnwind.bind(this)}
+            onPress={this.onUnwind.bind(this, this.props.item)}
             underlayColor='#ddd'
           ><View>
               <Text style={styles.buttonText}>SET ORDER TO</Text><Text style={styles.buttonText}>CLOSE POSITION</Text></View>
