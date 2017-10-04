@@ -42,6 +42,7 @@ class BushelQuantity extends Component {
             }
             this.calculateHedgePercent(text);
         }
+        this.props.onQuantityChange(text);        
     }
 
     minusButtonPress() {
