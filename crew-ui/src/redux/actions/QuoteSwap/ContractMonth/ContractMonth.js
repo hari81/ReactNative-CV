@@ -8,7 +8,10 @@ export const quoteSwapUnderlying = (year, code) => {
         console.log('* * * * * start quote swap underlying * * * * *', new Date());        
         dispatch({ type: 'SPIN_ACTIVE' });
         const cObject = getState().account.defaultAccount.commodities.find(x => x.commodity === code);
-        const oSymbols = cObject.crops.find(x => x.cropYear === year).futuresContracts;
+        const oContracts = cObject.crops.find(x => x.cropYear === year).futuresContracts;
+        const oSymbols = oContracts.map(o => {
+            return o.symbol;
+        });
         const swapUrl = `${ORDER_SERVICES_URL}quotes`;
 
         const quoteUnderlying = {
@@ -20,14 +23,14 @@ export const quoteSwapUnderlying = (year, code) => {
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(underlyingQuotes => {
                 console.log('end quote swap underlying db lookup 1', new Date());        
-                const contractData = quoteUnderlying.underlyings.map((o, i) => {
-                    const oUnderlying = common.createUnderlyingObject(o);
+                const contractData = oContracts.map((o, i) => {
+                    const oUnderlying = common.createUnderlyingObject(o.symbol);
                     return {
                         id: i,
                         month: oUnderlying.underlyingMonthDesc,
                         year: oUnderlying.underlyingYear,
                         underlying: oUnderlying.underlying,
-                        lastTradeDate: '2017-11-01', // o.lastTradeDate,
+                        lastTradeDate: common.formatDate(o.lastTradeDate, 6),
                         askPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].askPrice : 0,
                         bidPrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].bidPrice : 0,
                         settlePrice: underlyingQuotes.quotes[i] ? underlyingQuotes.quotes[i].settlePrice : 0,

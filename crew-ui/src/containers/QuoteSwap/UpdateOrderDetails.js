@@ -135,6 +135,7 @@ class UpdateOrderDetails extends Component {
             this.setState({ targetPrice: text });
         }
     }
+
     minusButtonPress() {
         if (parseFloat(this.state.targetPrice) >= parseFloat(this.state.tickSizeIncrement)) {
             this.setState({ targetPrice: ((parseFloat(this.state.targetPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
@@ -271,12 +272,14 @@ class UpdateOrderDetails extends Component {
                         {/* trade direction */}
                         <Text style={styles.disabledLabel}>TRADE DIRECTION</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                            {/* Sell */}
                             <View style={commonStyles.common.radioButtonContainerDisabled}>
-                                {this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
+                                {!this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
                             </View>
                             <Text style={commonStyles.common.radioButtonTextDisabled}>Sell</Text>
+                            {/* Buy */}
                             <View style={[commonStyles.common.radioButtonContainerDisabled, { marginLeft: 40 }]}>
-                                {!this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
+                                {this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
                             </View>
                             <Text style={commonStyles.common.radioButtonTextDisabled}>Buy</Text>
                         </View>

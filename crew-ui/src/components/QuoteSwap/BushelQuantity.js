@@ -10,7 +10,7 @@ class BushelQuantity extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: '',
+            quantity: this.props.quantity,
             quantityIncrement: '0',
             qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity) / this.props.myFarmProd.estimatedTotalProduction) * 100
         };
@@ -20,7 +20,7 @@ class BushelQuantity extends Component {
     componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)));
-        this.setState({ quantityIncrement: crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString(), quantity: '' });
+        this.setState({ quantityIncrement: crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString() });
     }
 
     onFocusMake() {
@@ -45,22 +45,36 @@ class BushelQuantity extends Component {
     }
 
     minusButtonPress() {
-        if (parseInt(this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
-            this.setState({ quantity: (parseInt(this.state.quantity) - parseInt(this.state.quantityIncrement)).toString() });
-            this.calculateHedgePercent(this.state.quantity);
+        try {
+            if (this.state.quantity === '' || parseInt(this.state.quantity) < 1) {
+                this.setState({ quantity: 0 });
+            }
+            if (parseInt(this.state.quantity) >= parseInt(this.state.quantityIncrement)) {
+                this.setState({ quantity: (parseInt(this.state.quantity) - parseInt(this.state.quantityIncrement)).toString() });
+                this.calculateHedgePercent(this.state.quantity);
+            }
+            this.timer = setTimeout(this.minusButtonPress, 50);
+        } catch (error) {
+            console.log(error);
         }
-        this.timer = setTimeout(this.minusButtonPress, 50);
     }
 
     plusButtonPress() {
-        if (parseInt(this.state.quantity) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || this.state.quantity === '') {
-            this.setState({ quantity: ((parseInt(this.state.quantity) || 0) + parseInt(this.state.quantityIncrement)).toString() });
-            this.timer = setTimeout(this.plusButtonPress, 50);
-        } else {
-            Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
-            this.setState({ quantity: this.props.quantityLimit.toString() });
+        try {
+            if (this.state.quantity === '' || parseInt(this.state.quantity) < 1) {
+                this.setState({ quantity: 0 });
+            }
+            if (parseInt(this.state.quantity) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || this.state.quantity === '') {
+                this.setState({ quantity: ((parseInt(this.state.quantity) || 0) + parseInt(this.state.quantityIncrement)).toString() });
+                this.timer = setTimeout(this.plusButtonPress, 50);
+            } else {
+                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
+                this.setState({ quantity: this.props.quantityLimit.toString() });
+            }
+            this.calculateHedgePercent(this.state.quantity);
+        } catch (error) {
+            console.log(error);
         }
-        this.calculateHedgePercent(this.state.quantity);
     }
 
     calculateHedgePercent(currQuantity) {

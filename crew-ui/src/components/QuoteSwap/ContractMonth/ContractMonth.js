@@ -11,7 +11,8 @@ class ContractMonth extends Component {
     constructor() {
         super();
         this.state = {
-            timeNow: moment().format('MMM Do YYYY, h:mm a')
+            timeNow: moment().format('MMM Do YYYY, h:mm a'),
+            selectedMonth: null
         };
     }
     
@@ -20,6 +21,7 @@ class ContractMonth extends Component {
     }
 
     onUpdate() {
+        this.props.onRefreshContracts();
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
