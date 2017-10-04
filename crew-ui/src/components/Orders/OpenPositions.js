@@ -36,6 +36,7 @@ class OpenPositions extends Component {
     const year = st(underlyingObjectData, ['contractMonth', 'year', 'value']);
     const month = st(underlyingObjectData, ['contractMonth', 'month', 'name']);
     const crop = st(underlyingObjectData, ['commodity', 'name']);
+    console.log('crop', crop);
     const unit = st(underlyingObjectData, ['commodity', 'unit']);
     return (
       <View style={styles.subContainerStyle}>

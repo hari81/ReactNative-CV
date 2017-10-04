@@ -51,7 +51,7 @@ class ExternalSales extends Component {
         let newTransaction = this.state.transaction;
         if (this.state.transaction[index].active) {
             newTransaction = this.state.transaction.filter((t, i) => index !== i);
-            console.log(newTransaction);
+           // console.log(newTransaction);
             setTimeout(() => {
                 this.setState({ transaction: [] });
                 this.setState({ transaction: newTransaction });
@@ -82,8 +82,11 @@ class ExternalSales extends Component {
                     if (tradeData[i].tradeDate === undefined || tradeData[i].tradeDate === '') {
                         tradeData[i].tradeDate = new Date();
                     }
-                    if (tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' || tradeData[i].underlyingSymbol === '' ||
-                        tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined || tradeData[i].underlyingSymbol === undefined) {
+                    if (tradeData[i].underlyingSymbol === '' || tradeData[i].underlyingSymbol === undefined) {
+                        tradeData[i].underlyingSymbol = this.props.underlying[0];
+                    }
+                    if (tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' ||
+                        tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined) {
                         Alert.alert('Please fill all mandatory(*) fields before saving the data.');
                         return;
                     }
@@ -141,9 +144,9 @@ class ExternalSales extends Component {
     };
 
     checkUpdates() {
-        const userAdded =  this.state.transaction.filter(t => t.active === undefined);
-
-     //   console.log(this.state.transaction);
+        const userAdded = this.state.transaction.filter(t => t.active === undefined);
+      //  console.log('userAdded', userAdded);
+      //  console.log(this.state.transaction);
         const tradeData = this.state.transaction.filter(item => item.active === true);
       //  console.log(tradeData);
 
@@ -154,6 +157,12 @@ class ExternalSales extends Component {
 
         const modified = resultCheck.filter(flag => !flag);
         console.log(userAdded.length);
+        if (userAdded.length === 1 && Object.keys(userAdded[0]).length === 0 && modified.length === 0) {
+            return false;
+        }
+        if (userAdded.length === 1 && Object.keys(userAdded[0]).length === 1 && modified.length === 0 && Object.keys(userAdded[0])[0] === 'tradeDate') {
+            return false;
+        }
 
         if (userAdded.length > 0 || modified.length > 0 || tradeData.length !== this.props.extra.tradeData.trades.length) {
             return true;
@@ -161,16 +170,20 @@ class ExternalSales extends Component {
     }
 
     render() {
-         console.log('externnal', this.state.transaction);
+         //console.log('externnal', this.state.transaction);
+        // console.log('DataBase trades', this.props.extra.tradeData.trades);
         const { width, height } = Dimensions.get('window');
-        const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
-        const fc = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;
+       // const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
+      //  const fcon = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;
+      //  const fc = fcon.map(item => item.symbol);
+        const fc = this.props.underlying;
+      //  console.log(fc);
         return (
             <View style={{ width, height, backgroundColor: 'rgb(29,37,49)' }}>
-                <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
+                <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row', marginRight: 23 }}>
                     <Text style={{ fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5 }}>Close </Text>
                     <TouchableHighlight onPress={this.backToDashboardMyfarm} >
-                        <Image source={cancel} style={{ width: 32, height: 32, marginRight: 23 }} />
+                        <Image source={cancel} style={{ width: 32, height: 32 }} />
                     </TouchableHighlight>
                 </View>
 
@@ -263,10 +276,13 @@ class ExternalSales extends Component {
     }
 }
 const mapStateToProps = (state) => {
+    const crop = state.account.defaultAccount.commodities.filter(item => item.commodity === state.cropsButtons.selectedId.slice(0, state.cropsButtons.selectedId.length - 4));
+    const fcon = crop[0].crops.filter(item => item.cropYear == state.cropsButtons.selectedId.slice(-4))[0].futuresContracts;
+    const featureContract = fcon.map(item => item.symbol);
     return { far: state.myFar,
         extra: state.external,
         cropBut: state.cropsButtons,
-        underlying: state.account.defaultAccount.commodities,
+        underlying: featureContract,
         id: state.cropsButtons.selectedId };
 };
 
