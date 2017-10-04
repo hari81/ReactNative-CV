@@ -51,6 +51,7 @@ class ExternalSales extends Component {
         let newTransaction = this.state.transaction;
         if (this.state.transaction[index].active) {
             newTransaction = this.state.transaction.filter((t, i) => index !== i);
+            console.log(newTransaction);
             setTimeout(() => {
                 this.setState({ transaction: [] });
                 this.setState({ transaction: newTransaction });
@@ -67,7 +68,7 @@ class ExternalSales extends Component {
     cancelButtonClick() {
        this.setState({ transaction: [] });
         setTimeout(() => {
-            this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades || [{}])) });
+            this.setState({ transaction: JSON.parse(JSON.stringify(this.props.extra.tradeData.trades)) });
             this.refs.scrollView.scrollTo({ y: 0, animated: true });
         }, 0);
     }
@@ -81,8 +82,8 @@ class ExternalSales extends Component {
                     if (tradeData[i].tradeDate === undefined || tradeData[i].tradeDate === '') {
                         tradeData[i].tradeDate = new Date();
                     }
-                    if (tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' ||
-                        tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined) {
+                    if (tradeData[i].quantity === '' || tradeData[i].futuresPrice === '' || tradeData[i].underlyingSymbol === '' ||
+                        tradeData[i].quantity === undefined || tradeData[i].futuresPrice === undefined || tradeData[i].underlyingSymbol === undefined) {
                         Alert.alert('Please fill all mandatory(*) fields before saving the data.');
                         return;
                     }
@@ -92,6 +93,7 @@ class ExternalSales extends Component {
             Alert.alert('No transctions to Save .');
             return;
         }
+        console.log(this.state.transaction, this.props.extra.tradeData.trades);
         this.props.saveExternalTrades(this.state.transaction);
     }
 
@@ -147,12 +149,11 @@ class ExternalSales extends Component {
 
        const resultCheck = tradeData.map(item => {
            const oldTradeData = this.props.extra.tradeData.trades.filter(trade => trade.id === item.id);
-   //        console.log('localstate', item);
-   //        console.log('reduxstate', oldTradeData);
            return JSON.stringify(item) === JSON.stringify(oldTradeData[0]);
        });
 
         const modified = resultCheck.filter(flag => !flag);
+        console.log(userAdded.length);
 
         if (userAdded.length > 0 || modified.length > 0 || tradeData.length !== this.props.extra.tradeData.trades.length) {
             return true;
@@ -160,7 +161,7 @@ class ExternalSales extends Component {
     }
 
     render() {
-        // console.log('externnal', this.state.transaction);
+         console.log('externnal', this.state.transaction);
         const { width, height } = Dimensions.get('window');
         const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
         const fc = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;

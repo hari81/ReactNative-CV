@@ -19,7 +19,7 @@ class ReviewOrder extends Component {
             isPlaceOrderEnabled: false,
             termsConditionsPopup: null,
             priceInfoPopup: null
-        }; 
+        };
     }
 
     onModifyOrder() {
@@ -33,7 +33,7 @@ class ReviewOrder extends Component {
     onPlaceOrderNow() {
         if (this.state.isTermsAccepted === true) {
             this.setState({ isPlaceOrderEnabled: false });
-            this.props.placeOrder(); 
+            this.props.placeOrder();
         } else {
             Alert.alert('You must accept the terms and conditions before placing the order.');
         }
@@ -43,11 +43,6 @@ class ReviewOrder extends Component {
         const popup = (<InfoPopup popupInfo={termsInfo} onClose={this.hideTermsConditions.bind(this)} />);
         this.setState({ termsConditionsPopup: popup });
     }
-
-   /* showTermsEstimatedTotalPrice() {
-        const popup = (<InfoPopup popupInfo={estimateTotalInfo} onClose={this.hideTermsConditions.bind(this)} />);
-        this.setState({ termsConditionsPopup: popup });
-    }*/
 
     hideTermsConditions() {
         const popup = (<View style={{ display: 'none' }} />);
@@ -66,33 +61,32 @@ class ReviewOrder extends Component {
     }
 
     render() {
-        const cropButData = this.props.commodity.cropButtons.filter(item => item.id === this.props.commodity.selectedId);
         let limitViewGTD = null;
         let limitViewPrice = null;
         if (this.props.isLimitOrder) {
             limitViewGTD = (
-            <View style={styles.quoteField}>
-                <Text style={styles.quoteLabel}>Your order will be valid until</Text>
-                <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
-            </View>
+                <View style={styles.quoteField}>
+                    <Text style={styles.quoteLabel}>Your order will be valid until</Text>
+                    <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
+                </View>
             );
             limitViewPrice = (
-            <View style={styles.quoteField}>
-                <Text style={styles.quoteLabel}>Your limit price total is</Text>
-                <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
-            </View>
+                <View style={styles.quoteField}>
+                    <Text style={styles.quoteLabel}>Your limit price is</Text>
+                    <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
+                </View>
             );
         }
         let lMidMarketMark = null;
         if (!this.props.isRepriceOrder) {
             lMidMarketMark = (
-            <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
-                <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[styles.quoteData, styles.marketData]}>{this.props.calcs.midMarketMarkCents.toFixed(1)}</Text>
-                    <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
+                    <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.quoteData, styles.marketData]}>{this.props.calcs.midMarketMarkCents.toFixed(1)}</Text>
+                        <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                    </View>
                 </View>
-            </View>
             );
         }
 
@@ -122,7 +116,7 @@ class ReviewOrder extends Component {
                                     <View style={{ flex: 1 }}>
                                         <View style={styles.quoteField}>
                                             <Text style={styles.quoteLabel}>Your crop is</Text>
-                                            <Text style={styles.quoteData}>{cropButData[0].name} {cropButData[0].cropYear}</Text>
+                                            <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.commodity.year}</Text>
                                         </View>
                                         <View style={styles.quoteField}>
                                             <Text style={styles.quoteLabel}>Your product is a</Text>
@@ -160,7 +154,7 @@ class ReviewOrder extends Component {
                                         {limitViewPrice}
                                         <View style={styles.quoteField}>
                                             <View style={{ flexDirection: 'row' }}>
-                                                <Text style={styles.quoteLabel}>Your estimated total price is</Text>
+                                                <Text style={styles.quoteLabel}>Your estimated Net price is</Text>
                                                 <TouchableOpacity onPress={this.showPriceInfo.bind(this)}>
                                                     <Image style={{ width: 16, height: 16, marginLeft: 5, marginTop: 2 }} source={Info} />
                                                 </TouchableOpacity>
@@ -205,15 +199,15 @@ class ReviewOrder extends Component {
                         {this.state.priceInfoPopup}
                     </View>
                 </View>
-            </View>        
+            </View>
         );
     }
 }
 
 const { width, height } = Dimensions.get('window');
-
 let termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
 let priceInfo = { top: 205, left: 650, width: 300, arrowPosition: 'top', message: DisclaimerData.infoEstimatedNetPrice };
+
 const styles = StyleSheet.create({
     /* container */
     reviewMain: { height: height - 100, backgroundColor: '#eff4f7' },
@@ -240,7 +234,7 @@ const styles = StyleSheet.create({
     backButtonStyle: { backgroundColor: '#fff', borderColor: '#9fa9ba', borderWidth: 1, marginRight: 45 },
     reviewButtonStyleEnabled: { backgroundColor: '#279988' },
     reviewButtonStyleDisabled: { backgroundColor: '#27998865' },
-    
+
     /* small page header */
     backHeader: { backgroundColor: '#fff', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#bed8dd', borderTopColor: '#e7b514', borderTopWidth: 4, marginTop: 20, marginLeft: 15, marginRight: 15 },
     headerTextBox: { marginTop: 10, marginBottom: 10, borderRightColor: '#e6eaee', borderRightWidth: 2 },
@@ -251,14 +245,15 @@ const mapStateToProps = state => {
     const isReprice = state.reviewQuote.quoteData.metadata.quoteType.toLowerCase() === 'rpx';
     const isBuy = state.reviewQuote.quoteData.metadata.buySell.toLowerCase() === 'b' || state.reviewQuote.quoteData.metadata.buySell.toLowerCase() === 'buy';
     const isLimit = state.reviewQuote.quoteData.metadata.orderType.toLowerCase() === 'limit';
+    const oUnderlying = common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying);
     let tPrice = 0;
     if (isBuy) {
-        tPrice = isLimit ? 
-            state.reviewQuote.quoteData.metadata.targetPrice + Math.abs(state.reviewQuote.quoteData.midMarketMark) :                
+        tPrice = isLimit ?
+            state.reviewQuote.quoteData.metadata.targetPrice + Math.abs(state.reviewQuote.quoteData.midMarketMark) :
             state.reviewQuote.quoteData.price + Math.abs(state.reviewQuote.quoteData.midMarketMark);
     } else {
-        tPrice = isLimit ? 
-            state.reviewQuote.quoteData.metadata.targetPrice - Math.abs(state.reviewQuote.quoteData.midMarketMark) :                
+        tPrice = isLimit ?
+            state.reviewQuote.quoteData.metadata.targetPrice - Math.abs(state.reviewQuote.quoteData.midMarketMark) :
             state.reviewQuote.quoteData.price - Math.abs(state.reviewQuote.quoteData.midMarketMark);
     }
 
@@ -270,9 +265,12 @@ const mapStateToProps = state => {
             midMarketMarkCents: state.reviewQuote.quoteData.midMarketMark * 100,
             totalPrice: tPrice
         },
-        commodity: state.cropsButtons,
+        commodity: {
+            name: state.cropsButtons.selectedCropName,
+            year: oUnderlying.underlyingYear
+        },
         productDesc: common.translateProductId(state.reviewQuote.quoteData.metadata.riskProductId, state.products),
-        underlying: common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying),
+        underlying: oUnderlying,
         isLimitOrder: isLimit,
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade'
@@ -280,7 +278,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ 
+    return bindActionCreators({
         getReviewOrderQuote,
         placeOrder
     }, dispatch);

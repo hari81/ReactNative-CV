@@ -26,6 +26,8 @@ export function formatDate(date, formatType) {
     let formattedDate = '';
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const monthNamesShort = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const twoDigitDay = (`0${newDate.getDate()}`).slice(-2);
+    const twoDigitMonth = (`0${newDate.getMonth() + 1}`).slice(-2);
     
     switch (formatType) {
         case 1: // Month/Day/Year (ex. 3/15/2017)
@@ -41,7 +43,7 @@ export function formatDate(date, formatType) {
             formattedDate = `${monthNamesShort[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`;
             break;
         case 6: // Year-Month-Day (ex. 2017-01-01)
-            formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+            formattedDate = `${newDate.getFullYear()}-${twoDigitMonth}-${twoDigitDay}`;
             break;
         default:
             formattedDate = date;

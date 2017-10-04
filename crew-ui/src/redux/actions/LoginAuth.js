@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, AlertIOS } from 'react-native';
 import base64 from 'base-64';
 import {
   LOGIN_USER,
@@ -48,4 +48,21 @@ export const loginUser = ({ saveUser }) => {
         dispatch({ type: SERVER_NORESPONSE });
       });
   };
+};
+
+export const forGetPassword = (userName) => {
+    const url = `${AUTHENTICATE_URL}identities/${userName}/credentials/resetPassword`;
+    return (dispatch) => {
+        return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
+            .then(response => {
+                if (response.ok) {
+                    AlertIOS.alert('Reset Password', `Email will be send to your ${userName}`);
+                } else {
+                    AlertIOS.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
+                }
+            })
+            .catch(error => {
+                console.log(`login error ${error}`);
+            });
+    };
 };

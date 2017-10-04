@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -55,6 +55,7 @@ class SetOrderDetails extends Component {
     onReviewOrder() {
         try {
             this.props.getReviewOrderQuote(this.state);
+            //Actions.revieworder
         } catch (error) {
             Alert.alert(`Unexpected error occurred: ${error}`);
         }
@@ -80,26 +81,21 @@ class SetOrderDetails extends Component {
         //console.log(this.state)
         let spinner = null;
         if (this.props.contractMonth.spinFlag) {
-            spinner = (
-                <Spinner size="small" />
-            );
+            spinner = (<Spinner size="small" />);
         } else {
             spinner = (<View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'column', marginLeft: 49 }}>
                         <ProductType onProductChange={this.orderDetails} />
-                        <TradeDirection onTradeChange={this.tradeDirectionChange} />
-                        <ContractMonth />
+                        <TradeDirection buySell={this.state.buySell} onTradeChange={this.tradeDirectionChange} />
+                        <ContractMonth buySell={this.state.buySell} />
                     </View>
                     <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
-                            {/*<ScrollView vertiacl showsVerticalScrollIndicator  ref='scrollView' removeClippedSubviews>*/}
-                            <BushelQuantity onQuantityChange={this.onQuantityChange} />
-                            <OrderType onOrderTypeChange={this.onOrderTypeChange}
-                                       //scrollchange={this.scrollUpdate.bind(this)}
-                                      // scrolldow={this.scrollDown.bind(this)}
-                            />
-                            {/*</ScrollView>*/}
+
+                            <BushelQuantity buySell={this.state.buySell} onQuantityChange={this.onQuantityChange} />
+                            <OrderType buySell={this.state.buySell} onOrderTypeChange={this.onOrderTypeChange} />
+
                         </KeyboardAwareScrollView>
                         <BidAskPrice />
                         <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
@@ -114,9 +110,12 @@ class SetOrderDetails extends Component {
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 630 }}>
+                    <View style={{ flexDirection: 'row', marginLeft: 610 }}>
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)', textDecorationLine: 'underline' }}>Need Help with this Product?</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={styles.questionIcon}>?</Text>
+                                <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -135,7 +134,6 @@ const styles = {
         marginBottom: 7,
         borderColor: 'rgb(190,216,221)',
         borderWidth: 1,
-
     },
     setOrderDetails: {
         flexDirection: 'row',
@@ -144,32 +142,6 @@ const styles = {
         borderBottomWidth: 1,
         borderColor: 'rgb(231,181,20)',
         alignItems: 'center'
-    },
-    messageBox: {
-        position: 'absolute',
-        marginTop: 14,
-        width: 260,
-        height: 140,
-        borderColor: 'rgb(221,221,221)',
-        borderWidth: 2,
-        backgroundColor: 'rgb(255,255,255)',
-        borderRadius: 3,
-    },
-    triangle: {
-        position: 'absolute',
-        marginTop: 0,
-        width: 0,
-        height: 0,
-        backgroundColor: 'transparent',
-        borderStyle: 'solid',
-        borderColor: 'rgb(221,221,221)',
-        borderLeftWidth: 10,
-        borderRightWidth: 10,
-        borderBottomWidth: 20,
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'rgb(221,221,221)',
-
     },
     textStyle: {
         color: 'rgb(159,169,186)',
@@ -186,7 +158,8 @@ const styles = {
         borderColor: 'rgb(159,169,186)',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 }    
 };
 
 const mapStateToProps = (state) => {

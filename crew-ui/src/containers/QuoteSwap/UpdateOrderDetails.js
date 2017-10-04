@@ -11,6 +11,7 @@ import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+
 import Minus from '../../components/common/img/Minus-32.png';
 import Plus from '../../components/common/img/Plus.png';
 import Info from '../../components/common/img/Info-white.png';
@@ -352,7 +353,7 @@ class UpdateOrderDetails extends Component {
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.questionIcon}>?</Text>
-                                <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', marginLeft: 5 }}>Need Help with this Product?</Text>
+                                <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

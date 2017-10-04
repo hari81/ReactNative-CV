@@ -182,7 +182,7 @@ class FarmInputFields extends Component {
                         keyboardType='numeric'
                         placeholderTextColor='rgba(61,76,87, .5)'
                         ref='profits'
-                        maxLength={356}
+                        //maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
                             if (e.nativeEvent.key === 'Enter') {

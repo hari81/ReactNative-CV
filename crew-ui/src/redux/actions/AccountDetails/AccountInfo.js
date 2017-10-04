@@ -10,13 +10,13 @@ export const accountDetails = () => {
 
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.email, getState().auth.password)
-            .then(response => {/*console.log(response);*/
+            .then(response => {
+                /*console.log(response);*/
                 if (response.status === 404) {
                     Alert.alert('No Account found');
                     return;
-                } else {
-                return response.json();
                 }
+                return response.json();
             })
             .then(AccountData => {
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
@@ -56,7 +56,6 @@ export const accountDetails = () => {
                             });
                     })
                     .catch(error => console.log(`error ${error}`));
-
             })
             .catch(error => console.log(`error ${error}`));
     };
