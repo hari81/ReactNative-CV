@@ -111,8 +111,7 @@ class UpdateOrderDetails extends Component {
 
     onRefreshBidAsk() {
         this.setState({ isRefreshPrices: true });
-        const { cropYear, cropCode } = this.props.contractMonth.contract[0];
-        this.props.quoteSwapUnderlying(cropYear, cropCode);
+        this.props.quoteSwapUnderlying(this.props.cropYear, this.props.cropCode);
     }
 
     onReviewOrder() {
@@ -406,7 +405,7 @@ const mapStateToProps = (state) => {
         products: state.products,
         contractMonth: state.contractData,
         defaultAccountData: state.account.defaultAccount,
-        cropId: state.cropsButtons.selectedId
+        cropId: state.cropsButtons.selectedId,
     };
 };
 
