@@ -7,12 +7,13 @@ import st from '../../../Utils/SafeTraverse';
 
 class ContractMonthSellList extends Component {
     componentDidMount() {
-        this.props.contractMonthSelect(st(this.props, ['contractMonth', 'contract', 0, 'id']));
-        this.props.bidPriceShow(st(this.props, ['contractMonth', 'contract', 0, 'bidPrice']));
-        this.props.askPriceShow(st(this.props, ['contractMonth', 'contract', 0, 'askPrice']));
-        this.props.settlePriceShow(st(this.props, ['contractMonth', 'contract', 0, 'settlePrice']));
-        this.props.lastTradeDateShow(st(this.props, ['contractMonth', 'contract', 0, 'lastTradeDate']));
-        this.props.underlyingYearShow(st(this.props, ['contractMonth', 'contract', 0, 'underlying']));
+        const id = this.props.id === null || this.props.id === '' ? 0 : this.props.id;
+        this.props.contractMonthSelect(st(this.props, ['contractMonth', 'contract', id, 'id']));
+        this.props.bidPriceShow(st(this.props, ['contractMonth', 'contract', id, 'bidPrice']));
+        this.props.askPriceShow(st(this.props, ['contractMonth', 'contract', id, 'askPrice']));
+        this.props.settlePriceShow(st(this.props, ['contractMonth', 'contract', id, 'settlePrice']));
+        this.props.lastTradeDateShow(st(this.props, ['contractMonth', 'contract', id, 'lastTradeDate']));
+        this.props.underlyingYearShow(st(this.props, ['contractMonth', 'contract', id, 'underlying']));
     }
 
     contractMonthSelect(id, bidPrice, askPrice, settlePrice, lastTradeDate, underlying) {
@@ -32,7 +33,7 @@ class ContractMonthSellList extends Component {
         } else { 
             tPrice = this.props.item.bidPrice === null ? this.props.item.settlePrice : this.props.item.bidPrice;
         }
-        tPrice = tPrice === null ? '-' : tPrice.toFixed(4); 
+        tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4); 
 
         return (
             <TouchableOpacity disabled={this.props.item.id === this.props.id} onPress={() => this.contractMonthSelect(this.props.item.id, this.props.item.bidPrice, this.props.item.askPrice, this.props.item.settlePrice, this.props.item.lastTradeDate, this.props.item.underlying)}>
