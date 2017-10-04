@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bidPriceShow, askPriceShow } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect';
 import { Spinner } from '../common/Spinner';
@@ -15,15 +15,15 @@ class BidAskPrice extends Component {
         }
         return (
             <View style={styles.container}>
-                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 40, marginTop: 4 }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: width * 0.039, marginTop: 4 }}>
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>BID PRICE:</Text>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{bidPrice || 0}</Text>
                 </View>
-                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 60, marginTop: 4 }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: width * 0.058, marginTop: 4 }}>
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>ASK PRICE:</Text>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{askPrice || 0}</Text>
                 </View>
-                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: 60, marginTop: 4 }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: width * 0.058, marginTop: 4 }}>
                     <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(231,181,20)' }}>LAST SETTLE:</Text>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue' }}>{settlePrice || 0}</Text>
                 </View>
@@ -31,12 +31,13 @@ class BidAskPrice extends Component {
         );
     }
 }
+const { width, height } = Dimensions.get('window')
 const styles = {
     container: {
         flexDirection: 'row',
-        marginTop: 269,
-        width: 480,
-        height: 55,
+        marginTop: height * 0.35,
+        width: width * 0.468,
+        height: height * 0.0716,
         backgroundColor: 'rgb(93,109,121)',
         position: 'absolute',
         zIndex: -1

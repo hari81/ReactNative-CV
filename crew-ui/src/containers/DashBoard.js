@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import Dimensions from 'Dimensions';
 import { LogoHomeHeader } from '../components/common';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import MyFarmTiles from '../components/DashBoard/MyFarmTiles';
@@ -10,13 +9,13 @@ import MyFarmProduction from '../components/DashBoard/MyFarmProduction';
 
 class DashBoard extends Component {
     render() {
-        const { width } = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         return (
             <View >
-                <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
+                <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: width * 0.026 }} />
                 <LogoHomeHeader />
                 <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
-                    <View style={{ height: 83, width, backgroundColor: 'rgb(64,78,89)' }} />
+                    <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <MyFarmProduction />
                     <ActionBar />
