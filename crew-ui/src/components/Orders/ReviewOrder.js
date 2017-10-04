@@ -83,7 +83,7 @@ class ReviewOrder extends Component {
             <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
                 <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[styles.quoteData, styles.marketData]}>{this.props.calcs.midMarketMarkCents.toFixed(1)}</Text>
+                    <Text style={[styles.quoteData, styles.marketData]}>{parseFloat(this.props.calcs.midMarketMarkCents).toFixed(1)}</Text>
                     <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
                 </View>
             </View>
@@ -149,7 +149,7 @@ class ReviewOrder extends Component {
                                     <View style={{ flex: 1 }}>
                                         <View style={styles.quoteField}>
                                             <Text style={styles.quoteLabel}>Your service fee is</Text>
-                                            <Text style={styles.quoteData}>${this.props.calcs.midMarketMark.toFixed(4)}</Text>
+                                            <Text style={styles.quoteData}>${parseFloat(this.props.calcs.midMarketMark).toFixed(4)}</Text>
                                         </View>
                                         {limitViewPrice}
                                         <View style={styles.quoteField}>
@@ -159,7 +159,7 @@ class ReviewOrder extends Component {
                                                     <Image style={{ width: 16, height: 16, marginLeft: 5, marginTop: 2 }} source={Info} />
                                                 </TouchableOpacity>
                                             </View>
-                                            <Text style={styles.quoteData}>${this.props.calcs.totalPrice.toFixed(4)}</Text>
+                                            <Text style={styles.quoteData}>${parseFloat(this.props.calcs.totalPrice).toFixed(4)}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -169,7 +169,7 @@ class ReviewOrder extends Component {
                                         {lMidMarketMark}
                                         <View style={[styles.quoteField, { marginBottom: 0, alignItems: 'center' }]}>
                                             <Text style={[styles.quoteLabel, styles.marketLabel]}>INDICATIVE MARKET PRICE</Text>
-                                            <Text style={[styles.quoteData, styles.marketData]}>${this.props.data.price.toFixed(4)}</Text>
+                                            <Text style={[styles.quoteData, styles.marketData]}>${parseFloat(this.props.data.price).toFixed(4)}</Text>
                                         </View>
                                     </View>
                                     <View style={styles.termsContainer}>
