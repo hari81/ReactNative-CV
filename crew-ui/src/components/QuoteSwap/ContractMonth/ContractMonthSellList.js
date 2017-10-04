@@ -47,8 +47,8 @@ class ContractMonthSellList extends Component {
     }
 }
 const styles = {
-    beforeButtonPress: { width: 80, height: 48, backgroundColor: 'rgb(147,204,196)', marginLeft: 5, marginTop: 5, justifyContent: 'center', alignItems: 'center' },
-    afterButtonPress: { width: 80, height: 48, backgroundColor: 'rgb(39,153,137)', marginLeft: 5, marginTop: 5, justifyContent: 'center', alignItems: 'center' },
+    beforeButtonPress: { width: 80, height: 48, backgroundColor: 'rgb(147,204,196)', marginTop: 5, marginRight: 5, justifyContent: 'center', alignItems: 'center' },
+    afterButtonPress: { width: 80, height: 48, backgroundColor: 'rgb(39,153,137)', marginTop: 5, marginRight: 5, justifyContent: 'center', alignItems: 'center' },
     contractPrice: { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: '#fff' },
     contractPriceDisabled: { fontSize: 16, fontFamily: 'HelveticaNeue-Bold', color: '#3d4c57' },
     contractMonth: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff' },

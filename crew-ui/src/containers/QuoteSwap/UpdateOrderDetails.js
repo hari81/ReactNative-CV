@@ -11,6 +11,7 @@ import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import * as commonStyles from '../../Utils/styles';
 
 import Minus from '../../components/common/img/Minus-32.png';
 import Plus from '../../components/common/img/Plus.png';
@@ -50,7 +51,8 @@ class UpdateOrderDetails extends Component {
             infoOrderExpiryPopup: null,
             showDatePicker: false,
             tickSizeIncrement: 0,
-            lastTradeDate: null
+            lastTradeDate: null,
+            isRefreshPrices: false
         };
     }
     
@@ -64,7 +66,6 @@ class UpdateOrderDetails extends Component {
         if (nextProps.contractMonth !== null) {
             const cMonths = nextProps.contractMonth;
             if (!cMonths.spinFlag) {
-                console.log('nextProps', nextProps);                
                 this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
                 const sMonth = cMonths.contract.find(x => x.underlying === this.state.underlying);
                 let tPrice = '-';
@@ -80,10 +81,14 @@ class UpdateOrderDetails extends Component {
                     const tAskPrice = sMonth.askPrice === null ? '-' : parseFloat(sMonth.askPrice).toFixed(4);
                     const tSettlePrice = sMonth.settlePrice === null ? '-' : parseFloat(sMonth.settlePrice).toFixed(4);
                     this.setState({ bidPrice: tBidPrice, askPrice: tAskPrice, settlePrice: tSettlePrice });
-                    this.onUpdateTargetPrice();
-                    const tLastTradeDate = sMonth.lastTradeDate;
-                    const tDate = new Date(tLastTradeDate.concat('T00:00:00-06:00')) || '';
-                    this.setState({ lastTradeDate: tLastTradeDate, goodTilDate: tDate });
+                    if (this.state.isRefreshPrices) {
+                        this.setState({ isRefreshPrices: false });
+                    } else {                        
+                        this.onUpdateTargetPrice();
+                        const tLastTradeDate = sMonth.lastTradeDate;
+                        const tDate = new Date(tLastTradeDate.concat('T00:00:00-06:00')) || '';
+                        this.setState({ lastTradeDate: tLastTradeDate, goodTilDate: tDate });
+                    }
                 }
             }
         }
@@ -105,6 +110,7 @@ class UpdateOrderDetails extends Component {
     }
 
     onRefreshBidAsk() {
+        this.setState({ isRefreshPrices: true });
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
@@ -129,6 +135,7 @@ class UpdateOrderDetails extends Component {
             this.setState({ targetPrice: text });
         }
     }
+
     minusButtonPress() {
         if (parseFloat(this.state.targetPrice) >= parseFloat(this.state.tickSizeIncrement)) {
             this.setState({ targetPrice: ((parseFloat(this.state.targetPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
@@ -169,7 +176,7 @@ class UpdateOrderDetails extends Component {
     datePicker() {
         if (this.state.showDatePicker) {
             return (
-                <View style={{ position: 'absolute', marginTop: 68, marginLeft: 229 }} >
+                <View style={{ position: 'absolute', marginTop: -174, marginLeft: 229 }} >
                     <DatePickerIOS
                         style={{ height: 200, width: 250, borderRadius: 4, backgroundColor: '#fff', zIndex: 1 }}
                         date={this.state.goodTilDate}
@@ -265,14 +272,16 @@ class UpdateOrderDetails extends Component {
                         {/* trade direction */}
                         <Text style={styles.disabledLabel}>TRADE DIRECTION</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                            <View style={styles.radioButtonContainerDisabled}>
-                                {this.state.isBuy ? <View style={styles.radioButtonSelectedDisabled} /> : null}
+                            {/* Sell */}
+                            <View style={commonStyles.common.radioButtonContainerDisabled}>
+                                {!this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
                             </View>
-                            <Text style={styles.radioButtonTextDisabled}>Sell</Text>
-                            <View style={[styles.radioButtonContainerDisabled, { marginLeft: 40 }]}>
-                                {!this.state.isBuy ? <View style={styles.radioButtonSelectedDisabled} /> : null}
+                            <Text style={commonStyles.common.radioButtonTextDisabled}>Sell</Text>
+                            {/* Buy */}
+                            <View style={[commonStyles.common.radioButtonContainerDisabled, { marginLeft: 40 }]}>
+                                {this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
                             </View>
-                            <Text style={styles.radioButtonTextDisabled}>Buy</Text>
+                            <Text style={commonStyles.common.radioButtonTextDisabled}>Buy</Text>
                         </View>
                         {/* contract month */}
                         <View style={{ flexDirection: 'row' }}>
@@ -303,17 +312,17 @@ class UpdateOrderDetails extends Component {
                             <Text style={styles.enabledLabel}>ORDER TYPE</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                                 <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
-                                    <View style={styles.radioButtonContainer}>
-                                        {!this.state.isLimitOrder ? <View style={styles.radioButtonSelected} /> : null}
+                                    <View style={commonStyles.common.radioButtonContainer}>
+                                        {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
                                     </View>
                                 </TouchableOpacity>
-                                <Text style={styles.radioButtonText}>Market Order</Text>
+                                <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
                                 <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
-                                    <View style={[styles.radioButtonContainer, { marginLeft: 20 }]}>
-                                        {this.state.isLimitOrder ? <View style={styles.radioButtonSelected} /> : null}
+                                    <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
+                                        {this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
                                     </View>
                                 </TouchableOpacity>
-                                <Text style={styles.radioButtonText}>Limit Order</Text>
+                                <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
                             </View>
                             {limitOrderFields}
                         </View>
@@ -334,7 +343,7 @@ class UpdateOrderDetails extends Component {
                         </View>
                         {/* buttons */}
                         <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 300, marginLeft: 125, zIndex: -1 }}>
-                            <Button buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                            <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                             <TouchableOpacity onPress={this.onReviewOrder.bind(this)} style={[styles.buttonStyle, { marginLeft: 28, backgroundColor: '#279989', borderColor: '#279989' }]}>
                                 <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
                             </TouchableOpacity>
@@ -382,13 +391,6 @@ const styles = {
     buttonStyle: { marginTop: 24, width: 164, height: 40, backgroundColor: '#fff', borderRadius: 4, borderWidth: 1, borderColor: '#fff', justifyContent: 'center', alignItems: 'center', zIndex: -1 },
     refreshImage: { width: 18, height: 18, marginLeft: 12, marginRight: 5, marginTop: 2 },
 
-    radioButtonContainer: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' },
-    radioButtonSelected: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#279989' },
-    radioButtonText: { color: '#ffffff', fontSize: 16, marginLeft: 5 },
-    radioButtonContainerDisabled: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#9ea6b1', backgroundColor: '#ffffff80', alignItems: 'center', justifyContent: 'center' },    
-    radioButtonSelectedDisabled: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#376768' },
-    radioButtonTextDisabled: { color: '#ffffff60', fontSize: 16, marginLeft: 5 },
-    
     pricesContainer: { flexDirection: 'row', width: 480, height: 55, backgroundColor: '#5d6d79', padding: 40, paddingTop: 8, paddingBottom: 8, zIndex: -1 },
     priceContainer: { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: 60 },
     priceLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#e7b514' },

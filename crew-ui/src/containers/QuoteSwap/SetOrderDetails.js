@@ -15,7 +15,6 @@ import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 
-
 class SetOrderDetails extends Component {
     constructor(props) {
         super(props);
@@ -29,17 +28,24 @@ class SetOrderDetails extends Component {
             buySell: 'S',
             underlying: '',
             expirationDate: '',
-            notes: ''
+            notes: '',
+            isRefreshContract: false
         };
     }
     componentWillReceiveProps(nextProps) {
         this.setState({ underlying: nextProps.underlyingSym.underlyingSymbol });
         this.setState({ expirationDate: nextProps.underlyingSym.lastTradeDate });
-        this.setState({ targetPrice: nextProps.limitOrderData.limitPrice });
-        this.setState({ goodTilDate: nextProps.limitOrderData.orderExpire });
+        if (!this.isRefreshContract) {
+            this.setState({ targetPrice: nextProps.limitOrderData.limitPrice });
+            this.setState({ goodTilDate: nextProps.limitOrderData.orderExpire });
+        }
     }
     tradeDirectionChange=(tradeDirection) => {
         this.setState({ buySell: tradeDirection });
+    }
+
+    onRefreshContracts() {
+        this.setState({ isRefreshContract: true });
     }
 
     onQuantityChange = (quant) => {
@@ -54,8 +60,11 @@ class SetOrderDetails extends Component {
     }
     onReviewOrder() {
         try {
-            this.props.getReviewOrderQuote(this.state);
-            //Actions.revieworder
+            if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
+                Alert.alert('Set Order Details', 'A quantity of 1 or greater must be entered.');
+            } else {
+                this.props.getReviewOrderQuote(this.state);
+            }
         } catch (error) {
             Alert.alert(`Unexpected error occurred: ${error}`);
         }
@@ -76,7 +85,6 @@ class SetOrderDetails extends Component {
         this.refs.scrollView.scrollToEnd();
     }*/
 
-
     render() {
         //console.log(this.state)
         let spinner = null;
@@ -87,13 +95,13 @@ class SetOrderDetails extends Component {
                     <View style={{ flexDirection: 'column', marginLeft: 49 }}>
                         <ProductType onProductChange={this.orderDetails} />
                         <TradeDirection buySell={this.state.buySell} onTradeChange={this.tradeDirectionChange} />
-                        <ContractMonth buySell={this.state.buySell} />
+                        <ContractMonth buySell={this.state.buySell} isRefreshContract={this.state.isRefreshContract} onRefreshContracts={this.onRefreshContracts.bind(this)} />
                     </View>
                     <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
+                            <BushelQuantity buySell={this.state.buySell} onQuantityChange={this.onQuantityChange} quantity={this.state.quantity} />
 
-                            <BushelQuantity buySell={this.state.buySell} onQuantityChange={this.onQuantityChange} />
                             <OrderType buySell={this.state.buySell} onOrderTypeChange={this.onOrderTypeChange} />
 
                         </KeyboardAwareScrollView>
@@ -132,8 +140,8 @@ const styles = {
         marginHorizontal: 16,
         marginTop: 38,
         marginBottom: 7,
-        borderColor: 'rgb(190,216,221)',
-        borderWidth: 1,
+        borderTopWidth: 4, 
+        borderTopColor: '#e7b514'
     },
     setOrderDetails: {
         flexDirection: 'row',

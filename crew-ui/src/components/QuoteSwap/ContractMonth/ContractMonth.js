@@ -11,7 +11,8 @@ class ContractMonth extends Component {
     constructor() {
         super();
         this.state = {
-            timeNow: moment().format('MMM Do YYYY, h:mm a')
+            timeNow: moment().format('MMM Do YYYY, h:mm a'),
+            selectedMonth: null
         };
     }
     
@@ -20,6 +21,7 @@ class ContractMonth extends Component {
     }
 
     onUpdate() {
+        this.props.onRefreshContracts();
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
@@ -40,11 +42,11 @@ class ContractMonth extends Component {
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>CONTRACT MONTH</Text>
+                    <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue' }}>CONTRACT MONTH</Text>
                     <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Image style={{ width: 20, height: 18, marginLeft: 24, marginRight: 4 }} source={Refresh} />
-                            <Text style={{ color: 'white', fontSize: 12, marginTop: 4 }}>as of {this.state.timeNow}</Text>
+                            <Image style={{ width: 18, height: 18, marginLeft: 20, marginRight: 4 }} source={Refresh} />
+                            <Text style={{ color: '#fff', fontSize: 11, marginTop: 4 }}>as of {this.state.timeNow}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -58,7 +60,7 @@ class ContractMonth extends Component {
 const styles = {
     container: {
         flexDirection: 'column',
-        marginTop: 16,
+        marginTop: 10,
         zIndex: -1
     }
 };

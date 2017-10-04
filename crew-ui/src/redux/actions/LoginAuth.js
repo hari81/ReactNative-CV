@@ -56,7 +56,7 @@ export const forGetPassword = (userName) => {
         return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
             .then(response => {
                 if (response.ok) {
-                    AlertIOS.alert('Reset Password', `Email will be send to your ${userName}`);
+                    AlertIOS.alert('Reset Password', `Email will be sent to your ${userName}`);
                 } else {
                     AlertIOS.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
                 }
