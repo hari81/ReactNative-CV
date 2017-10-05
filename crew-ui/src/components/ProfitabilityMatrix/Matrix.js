@@ -22,7 +22,7 @@ export default class Matrix extends Component {
             <View>
                 <View style={{ flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={{ marginTop: height * 0.39, width: width * 0.0586 }}><Text style={{ fontSize: 14, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue', transform: [{ rotate: '270deg' }] }}>Price Per Bushel</Text></View>
+                        <View style={{ marginTop: height * 0.50, width: width * 0.0586 }}><Text style={{ fontSize: 14, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue', transform: [{ rotate: '270deg' }] }}>Price Per Bushel</Text></View>
                         <View>
                             <View style={styles.boxStyle}><Text style={styles.textStyle}>${matrix1[0].y.toFixed(2)}</Text></View>
                             <View style={styles.boxStyle}><Text style={styles.textStyle}>${matrix1[12].y.toFixed(2)}</Text ></View>

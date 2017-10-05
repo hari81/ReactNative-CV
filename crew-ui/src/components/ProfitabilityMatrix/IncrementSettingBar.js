@@ -7,7 +7,8 @@ class IncrementSettingBar extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ marginLeft: width * 0.35, justifyContent: 'center', alignItems: 'center' }}>
+
+                <View style={{ marginLeft: width * 0.36, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 18, fontFamily: 'HelveticaNeue' }}>Your Profit Per Goal:</Text>
                 </View>
                 <View style={{ marginLeft: width * 0.003, justifyContent: 'center', alignItems: 'center' }}>
