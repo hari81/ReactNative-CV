@@ -12,21 +12,21 @@ class TradeConfirmationError extends Component {
     }
 
     render() {
-        const { width } = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         return (
             <View >
                 <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
                 <LogoHomeHeader />
-                <View style={{ backgroundColor: 'rgb(239,244,247)', height: 705 }}>
-                    <View style={{ height: 83, width: 1024, backgroundColor: 'rgb(64,78,89)' }} />
+                <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
+                    <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                         <View style={styles.orderReceipt} >
                             <Text style={styles.textOrderReceipt}> Order Receipt</Text>
                         </View>
-                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: 513, marginHorizontal: 16 }}>
+                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16 }}>
                             <Text style={styles.textOopsStyle}> Ooops! There was a problem with your order</Text>
                             <Image source={ec} style={styles.imageStyle} />
-                            <View style={styles.textMessage}>
+                            <View style={[styles.textMessage, { height: height - 392 }]}>
                                 <Text style={[styles.textStyle, { paddingTop: 100 }]}>Error Your order was rejected.</Text>
 
                                 <Text style={styles.textStyle}>{this.props.message}</Text>

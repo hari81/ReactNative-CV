@@ -65,7 +65,7 @@ const styles = {
     containerStyle: {
         height: 70,
         alignItems: 'center',
-        width: 145,
+        width: '14.16%',
         marginLeft: 5,
 
     }

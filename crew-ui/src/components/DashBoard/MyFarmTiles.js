@@ -89,21 +89,21 @@ class MyFarmTiles extends Component {
     //on Cancel info button press
     cancelButton() {
         this.props.hideInfoButtonClick();
-    }    
-    
-    goToFarm() {
-     const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
-       this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
-         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-         this.props.farmActionFlag(true);
-        Actions.myfarm();
     }
 
-   enterCropDetails = () => {
+    goToFarm() {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-       this.props.farmActionFlag(true);
+        this.props.farmActionFlag(true);
+        Actions.myfarm();
+    }
+
+    enterCropDetails = () => {
+        const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
+        this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
+        this.props.farmActionFlag(true);
         Actions.myfarm({ tradeflag: true });
     };
 
@@ -137,7 +137,7 @@ class MyFarmTiles extends Component {
 
                         <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
                         <View style={{ flexDirection: 'row', width: 100 }}>
-                          <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
+                            <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
                         </View>
                         <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit My Farm Details</Text>
 
@@ -241,13 +241,13 @@ const styles = {
         opacity: 93
     },
     messageContainer: { position: 'absolute', marginTop: 75, left: 0 },
-    triangle: { 
+    triangle: {
         width: 0, height: 0, backgroundColor: 'transparent', borderStyle: 'solid', borderColor: '#ddd', borderLeftWidth: 8, borderRightWidth: 8, borderBottomWidth: 16, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderBottomColor: '#ddd'
     },
-    messageBox: { width: 260, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3 }, 
-    messageBoxText: { 
-        fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 15, paddingTop: 0, paddingRight: 15, paddingBottom: 15 
-    }    
+    messageBox: { width: 260, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3 },
+    messageBoxText: {
+        fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 15, paddingTop: 0, paddingRight: 15, paddingBottom: 15
+    }
 };
 
 const mapStateToProps = state => {
@@ -287,9 +287,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
-            showInfoButtonClick, 
-            myFarmCropValues, 
-            cropButtonPress, 
+            showInfoButtonClick,
+            myFarmCropValues,
+            cropButtonPress,
             myFarmTradeSalesOutSideApp,
             hideInfoButtonClick,
             farmActionFlag

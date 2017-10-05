@@ -1,4 +1,4 @@
-import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY,MY_FARM_ACTION } from '../../actions/types';
+import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY, MY_FARM_ACTION } from '../../actions/types';
 
 const INITIAL_STATE = {
     myFarmCropData: {},

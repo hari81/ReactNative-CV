@@ -103,7 +103,7 @@ class BushelQuantity extends Component {
             tBushelLimit = (<Spinner size="small" />);
         } else {
             tBushelLimit = (<Text style={styles.bushelLimitText}>Your Available Limit is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
-        } 
+        }
 
         return (
             <View style={styles.container}>

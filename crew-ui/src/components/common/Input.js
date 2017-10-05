@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, Keyboard } from 'react-native';
 
 const Input = ({
 
   value,
   onChangeText,
   placeholder,
-  secureTextEntry
+  secureTextEntry, onfocus, onblur
 }) => {
   const { inputStyle, containerStyle } = styles;
 
@@ -20,6 +20,14 @@ const Input = ({
         value={value}
         onChangeText={onChangeText}
         autoCorrect={false}
+        returnKeyType='done'
+        onKeyPress={(e) => {
+            if (e.nativeEvent.key === 'Enter') {
+                Keyboard.dismiss();
+            }
+        }}
+        onFocus={onfocus}
+        onBlur={onblur}
       />
     </View>
   );
@@ -33,11 +41,6 @@ const styles = {
     fontSize: 15,
     lineHeight: 20,
     flex: 2
-  },
-  labelStyle: {
-    fontSize: 15,
-    paddingLeft: 20,
-    flex: 1
   },
   containerStyle: {
     height: 50,

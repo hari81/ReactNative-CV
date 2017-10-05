@@ -10,12 +10,12 @@ import MyFarmProduction from '../components/DashBoard/MyFarmProduction';
 
 class DashBoard extends Component {
     render() {
-        const { width } = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         return (
             <View >
                 <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
                 <LogoHomeHeader />
-                <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
+                <View style={{ backgroundColor: 'rgb(239,244,247)', height }}>
                     <View style={{ height: 83, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <MyFarmProduction />

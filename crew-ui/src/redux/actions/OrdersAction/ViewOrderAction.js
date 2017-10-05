@@ -24,7 +24,7 @@ export const ViewOrdersData = (crop) => {
               .then(response => { return response.json(); })
             })
           )
-            .then(response => { console.log(response);
+            .then(response => { //console.log(response);
               const finalResponse = Object.assign({}, items, {
                 value: items.value.map((order) => ({
                   ...order,
@@ -33,7 +33,7 @@ export const ViewOrdersData = (crop) => {
 
                 )
               });
-              console.log('final response', finalResponse);
+           //   console.log('final response', finalResponse);
              dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: finalResponse });
             })
         );

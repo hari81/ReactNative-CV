@@ -76,7 +76,14 @@ class SetOrderDetails extends Component {
 
     orderDetails = (id) => {
         this.setState({ riskProductId: id });
-    }
+    };
+
+   /* scrollUpdate() {
+        this.refs.scrollView.scrollTo({ x: 0, y: 100, animated: true });
+    };
+    scrollDown() {
+        this.refs.scrollView.scrollToEnd();
+    }*/
 
     render() {
         //console.log(this.state)
@@ -94,7 +101,9 @@ class SetOrderDetails extends Component {
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
                             <BushelQuantity buySell={this.state.buySell} onQuantityChange={this.onQuantityChange} quantity={this.state.quantity} />
+
                             <OrderType buySell={this.state.buySell} onOrderTypeChange={this.onOrderTypeChange} />
+
                         </KeyboardAwareScrollView>
                         <BidAskPrice />
                         <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>

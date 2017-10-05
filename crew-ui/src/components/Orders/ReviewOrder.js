@@ -19,7 +19,7 @@ class ReviewOrder extends Component {
             isPlaceOrderEnabled: false,
             termsConditionsPopup: null,
             priceInfoPopup: null
-        }; 
+        };
     }
 
     onModifyOrder() {
@@ -33,7 +33,7 @@ class ReviewOrder extends Component {
     onPlaceOrderNow() {
         if (this.state.isTermsAccepted === true) {
             this.setState({ isPlaceOrderEnabled: false });
-            this.props.placeOrder(); 
+            this.props.placeOrder();
         } else {
             Alert.alert('You must accept the terms and conditions before placing the order.');
         }
@@ -65,28 +65,28 @@ class ReviewOrder extends Component {
         let limitViewPrice = null;
         if (this.props.isLimitOrder) {
             limitViewGTD = (
-            <View style={styles.quoteField}>
-                <Text style={styles.quoteLabel}>Your order will be valid until</Text>
-                <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
-            </View>
+                <View style={styles.quoteField}>
+                    <Text style={styles.quoteLabel}>Your order will be valid until</Text>
+                    <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
+                </View>
             );
             limitViewPrice = (
-            <View style={styles.quoteField}>
-                <Text style={styles.quoteLabel}>Your limit price is</Text>
-                <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
-            </View>
+                <View style={styles.quoteField}>
+                    <Text style={styles.quoteLabel}>Your limit price is</Text>
+                    <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
+                </View>
             );
         }
         let lMidMarketMark = null;
         if (!this.props.isRepriceOrder) {
             lMidMarketMark = (
-            <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
-                <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[styles.quoteData, styles.marketData]}>{parseFloat(this.props.calcs.midMarketMarkCents).toFixed(1)}</Text>
-                    <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
+                    <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={[styles.quoteData, styles.marketData]}>{parseFloat(this.props.calcs.midMarketMarkCents).toFixed(1)}</Text>
+                        <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents per {common.capitalizeWord(this.props.data.units)}</Text>
+                    </View>
                 </View>
-            </View>
             );
         }
 
@@ -199,7 +199,7 @@ class ReviewOrder extends Component {
                         {this.state.priceInfoPopup}
                     </View>
                 </View>
-            </View>        
+            </View>
         );
     }
 }
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     backButtonStyle: { backgroundColor: '#fff', borderColor: '#9fa9ba', borderWidth: 1, marginRight: 45 },
     reviewButtonStyleEnabled: { backgroundColor: '#279988' },
     reviewButtonStyleDisabled: { backgroundColor: '#27998865' },
-    
+
     /* small page header */
     backHeader: { backgroundColor: '#fff', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#bed8dd', borderTopColor: '#e7b514', borderTopWidth: 4, marginTop: 20, marginLeft: 15, marginRight: 15 },
     headerTextBox: { marginTop: 10, marginBottom: 10, borderRightColor: '#e6eaee', borderRightWidth: 2 },
@@ -248,12 +248,12 @@ const mapStateToProps = state => {
     const oUnderlying = common.createUnderlyingObject(state.reviewQuote.quoteData.metadata.underlying);
     let tPrice = 0;
     if (isBuy) {
-        tPrice = isLimit ? 
-            state.reviewQuote.quoteData.metadata.targetPrice + Math.abs(state.reviewQuote.quoteData.midMarketMark) :                
+        tPrice = isLimit ?
+            state.reviewQuote.quoteData.metadata.targetPrice + Math.abs(state.reviewQuote.quoteData.midMarketMark) :
             state.reviewQuote.quoteData.price + Math.abs(state.reviewQuote.quoteData.midMarketMark);
     } else {
-        tPrice = isLimit ? 
-            state.reviewQuote.quoteData.metadata.targetPrice - Math.abs(state.reviewQuote.quoteData.midMarketMark) :                
+        tPrice = isLimit ?
+            state.reviewQuote.quoteData.metadata.targetPrice - Math.abs(state.reviewQuote.quoteData.midMarketMark) :
             state.reviewQuote.quoteData.price - Math.abs(state.reviewQuote.quoteData.midMarketMark);
     }
 
@@ -278,7 +278,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ 
+    return bindActionCreators({
         getReviewOrderQuote,
         placeOrder
     }, dispatch);

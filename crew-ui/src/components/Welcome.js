@@ -21,7 +21,7 @@ export default class App extends React.Component {
         />
         <View
           style={{
-            backgroundColor: '#3d4c57',
+            backgroundColor: 'rgb(61,76,87)',
             width: width - 100,
             height: height - 160,
             marginTop: 30,

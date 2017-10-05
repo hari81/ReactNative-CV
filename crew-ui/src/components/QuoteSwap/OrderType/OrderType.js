@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { View, Text, TouchableOpacity } from 'react-native';
+
 import { connect } from 'react-redux';
 import LimitOrder from './LimitOrder';
 import * as commonStyles from '../../../Utils/styles';
@@ -26,9 +28,18 @@ class OrderType extends Component {
         this.setState({ isLimitOrder: true });
         this.props.onOrderTypeChange('limit');
     }
+    scrollchange1() {
+        this.props.scrollchange();
+    }
+    onBlurMake = () => {
+        this.props.scrolldow();
+    };
+
     limitOrder() {
+
         if (this.state.isLimitOrder) {
             return <LimitOrder buySell={this.props.buySell} tickSizeIncrement={this.state.tickSizeIncrement} />;
+
         }
     }
     render() {

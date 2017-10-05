@@ -19,7 +19,7 @@ export const OpenPositionsData = (crop) => {
                   opens.map(items => {
                      const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${items.lines[0].underlying}`;
                      return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
-                     .then(response => { console.log(response); return response.json(); });
+                     .then(response => { /*console.log(response);*/ return response.json(); });
                   })
               )
                   .then(res => {

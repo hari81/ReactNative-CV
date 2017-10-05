@@ -59,9 +59,10 @@ export const saveExternalTrades = (newTrades) => {
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const commodityCode = cropButData[0].code;
         const cropYear = cropButData[0].cropYear;
-        //console.log('redux state', getState().external.tradeData.trades);
-        //console.log('local state', newTrades);
+        console.log('redux state', getState().external.tradeData.trades);
+        console.log('local state', newTrades);
         const reduxState = getState().external.tradeData.trades;
+        //console.log(reduxState);
         const reduxId = reduxState.map(item => item.id);
        const localId = newTrades.map(item => item.id);
        const removeId = reduxId.filter(id => localId.indexOf(id) === -1);

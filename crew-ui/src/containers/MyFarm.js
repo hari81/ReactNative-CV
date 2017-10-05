@@ -78,10 +78,9 @@ placeNewOrder() {
     if (changes) {
         Alert.alert(
             'My Farm Data',
-            'Would you like to save your changes prior to proceeding to the next screen?',
+            'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
             [
-                { text: 'Yes', style: 'OK' },
-                { text: 'No', onPress: () => { this.props.farmActionFlag(false); Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year }); }, style: 'cancel' }
+                { text: 'GOT IT!', style: 'OK' }
            ],
             { cancelable: false }
         );
@@ -123,11 +122,9 @@ externalsales() {
     if (changes) {
         Alert.alert(
             'My Farm Data',
-            'Would you like to save your changes prior to proceeding to the next screen?',
+            'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
             [
-                { text: 'No', onPress: () => { this.props.externalGetTrans(); }, style: 'cancel' },
-                { text: 'Yes', onPress: () => {  /*this.cropDataSave(); this.props.externalGetTrans();*/ }, style: 'OK' }
-
+                { text: 'Got It!', style: 'OK' }
             ],
             { cancelable: false }
         );
@@ -207,9 +204,10 @@ componentWillReceiveProps(newProps) {
               <Text
                 style={{
                   color: 'rgb(0,118,129)',
-                  fontSize: 25,
+                  fontSize: 20,
                   paddingRight: 30,
-                  paddingLeft: 20
+                  paddingLeft: 20,
+                  fontFamily: 'HelveticaNeue-Medium'
                 }}
               >
                 My Farm Set up
@@ -223,11 +221,14 @@ componentWillReceiveProps(newProps) {
                 used to provide you with insights about your farm in the My Farm section of the application.
               </Text>
             </View>
-              <View style={{ width: 235, height: 60, justifyContent: 'center', marginLeft: 30 }}>
-                  <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
-                      <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }} >
-                      <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
-                      </View>
+              <View style={{ width: '22%', height: 40, justifyContent: 'center', marginHorizontal: 20, alignItems: 'center'}}>
+                  <TouchableHighlight
+                      style={{ flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center',
+                      borderRadius: 5, alignItems: 'center',
+                          borderColor: '#279989' }} onPress={this.placeNewOrder.bind(this)} >
+
+                      <Text style={{ paddingVertical: 5, paddingHorizontal: 5, fontSize: 16, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue' }}>PLACE NEW ORDER NOW</Text>
+
                   </TouchableHighlight>
               </View>
           </View>
