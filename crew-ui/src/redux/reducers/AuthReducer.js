@@ -17,7 +17,8 @@ const INITIAL_STATE = {
   msg: '',
   loading: false,
   saveUser: false,
-  logout: false
+  logout: false,
+  loginSuccess: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -28,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER:
       return Object.assign({}, state, { loading: true, error: '' });
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, { loading: false, error: '' });
+      return Object.assign({}, state, { loading: false, error: '', loginSuccess: true });
     case LOGIN_FAIL:
       return Object.assign({}, state, {
         error: 'Authentication Failed',

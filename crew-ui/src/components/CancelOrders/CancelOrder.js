@@ -11,11 +11,11 @@ import * as common from '../../Utils/common';
 
 class CancelOrder extends Component {
   onBackToOrders() {
-    Actions.orders();
+    Actions.orders({ Crop: this.props.selectedCrop });
   }
 
   cancelOrder() {
-    this.props.orderReceipt(this.props.item.orderId);
+    this.props.orderReceipt(this.props.item.orderId, this.props.selectedCrop);
   }
 
   render() {
@@ -56,7 +56,7 @@ class CancelOrder extends Component {
                           <Text style={styles.orderData}>{cancelData.crop} {cancelData.year}</Text>
                       </View>
                       <View style={styles.orderField}>
-                          <Text style={styles.orderLabel}>Your order#</Text>
+                          <Text style={styles.orderLabel}>Your order# is</Text>
                           <Text style={styles.orderData}>{cancelData.orderId}</Text>
                       </View>
 
@@ -135,7 +135,7 @@ const styles = {
 
     /* order fields */
     orderContainer: { height: height - 350, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 100, paddingTop: 30, paddingRight: 100 },
-    orderFields: { flexDirection: 'row', flex: 1 },
+    orderFields: { flexDirection: 'row', flex: 1, marginLeft: 80 },
     orderField: { marginBottom: 10 },
     orderLabel: { color: 'rgb(59,74,85)', fontSize: 14, fontFamily: 'HelveticaNeue-Thin' },
     orderData: { color: 'rgb(59,74,85)', fontSize: 20, fontFamily: 'HelveticaNeue' },

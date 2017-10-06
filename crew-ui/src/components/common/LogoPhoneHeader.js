@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { logOut } from '../../redux/actions/index';
@@ -37,7 +37,7 @@ class LogoPhoneHeader extends Component {
                     <Text style={{ color: '#ffffff35', fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}> | </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Image style={{ width: 32, height: 32, marginLeft: 20 }} source={User} />
-                        <TouchableOpacity onPress={() => this.props.logOut(true)}>
+                        <TouchableOpacity onPress={() => Alert.alert('Soon...')/*this.props.logOut(true)*/}>
                             <Image source={require('./img/ExpandArrow.png')} style={{ width: 10, height: 10, marginLeft: 10, marginTop: 10, marginRight: 20 }} />
                         </TouchableOpacity>
                     </View>

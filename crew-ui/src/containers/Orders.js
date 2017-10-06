@@ -38,7 +38,6 @@ class Orders extends Component {
       selectedTab: props.selectedTab || 'Open Orders',
       Crop: props.Crop || 'C'
     };
-
   }
   componentDidMount() {
       this.props.dropDownCrop();
@@ -55,6 +54,7 @@ class Orders extends Component {
               this.props.ClosedPositionsData(crop);
               break;
           default:
+
       }
   }
 
@@ -145,7 +145,7 @@ class Orders extends Component {
       :
           return (
               <View
-                  style={{justifyContent: 'center', flexDirection: 'column'}}
+                  style={{ justifyContent: 'center', flexDirection: 'column' }}
               >
                   <Text
                       style={{
@@ -166,7 +166,7 @@ class Orders extends Component {
 
           return (
               <View
-                  style={{justifyContent: 'center', flexDirection: 'column'}}
+                  style={{ justifyContent: 'center', flexDirection: 'column' }}
               >
                   <Text
                       style={{
@@ -216,7 +216,7 @@ class Orders extends Component {
             data={this.props.viewOrders.items.value}
             keyExtractor={item => item.orderId}
             renderItem={({ item }) =>
-              <ViewOrders key={item.orderId} item={item} />}
+              <ViewOrders key={item.orderId} item={item} selected={this.state.Crop} />}
           />
         );
       }

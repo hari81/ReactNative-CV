@@ -35,5 +35,6 @@ export const HIDE_INFO_BUTTON_CLICK = 'hide_info_click';
 
 export const ACCOUNT_INFORMATION = 'account_information';
 export const DEFAULT_ACCOUNT_DETAILS = 'default_account_information';
+export const INVALID_ACCOUNT = 'invalid_account';
 
 export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
