@@ -5,7 +5,6 @@ import moment from 'moment';
 import Minus from '../../common/img/Minus-32.png';
 import Plus from '../../common/img/Plus.png';
 import st from '../../../Utils/SafeTraverse';
-import { onLimitSelection, onExpireSelection } from '../../../redux/actions/QuoteSwap/LimitOrderAction';
 import Info from '../../common/img/Info-white.png';
 import { InfoPopup } from '../../common/InfoPopup';
 import DisclaimerData from '../../../restAPI/disclaimer.json';
@@ -15,10 +14,9 @@ class LimitOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            limitPrice: parseFloat(this.getLimitPrice()).toFixed(4).toString() || '',
-            tickSizeIncrement: props.tickSizeIncrement,
+            limitPrice: this.getLimitPrice(this.props.selectedContractMonth),
+            expDate: this.getExpDate(this.props.selectedContractMonth),
             showDatePicker: false,
-            date: new Date(st(this.props, ['lastTradeDate']).concat('T00:00:00-06:00')) || '',
             infoLimitPricePopup: null,
             infoOrderExpiryPopup: null,
             dateFlag: false
@@ -26,91 +24,134 @@ class LimitOrder extends Component {
         this.timer = null;
     }
 
-    getLimitPrice() {
-        let tPrice = null;
-        if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-            tPrice = this.props.askPrice === null ? this.props.settlePrice : this.props.askPrice;
-        } else {
-            tPrice = this.props.bidPrice === null ? this.props.settlePrice : this.props.bidPrice;            
+    componentWillReceiveProps(nextProps) {
+        //transmits the change in selected contract month
+        if (this.props.selectedContractMonth.id !== nextProps.selectedContractMonth.id) {
+            const tPrice = this.getLimitPrice(nextProps.selectedContractMonth);
+            this.setState({ limitPrice: tPrice });
+            const tDate = this.getExpDate(nextProps.selectedContractMonth);
+            this.setState({ expDate: tDate });
         }
-        return tPrice;
     }
 
-    componentDidMount() {
-        this.props.onLimitSelection(this.state.limitPrice);
-        this.props.onExpireSelection(this.state.date);
+    getLimitPrice(selectedContractMonth) {
+        let tPrice = null;
+        const scm = selectedContractMonth;
+        if (scm !== null) {
+            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
+                tPrice = scm.askPrice === null ? scm.settlePrice : scm.askPrice;
+            } else {
+                tPrice = scm.bidPrice === null ? scm.settlePrice : scm.bidPrice;            
+            }
+            tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
+            return tPrice;
+        }
+        return 0;
     }
 
-    componentWillReceiveProps(newProps) {
-        const tPrice = this.getLimitPrice();
-        this.setState({ limitPrice: parseFloat(tPrice).toFixed(4).toString() });
-        this.setState({ date: new Date(newProps.lastTradeDate.concat('T00:00:00-06:00')) });
-        this.props.onLimitSelection(newProps.bidPrice);
-        this.props.onExpireSelection(newProps.lastTradeDate);
+    getExpDate() {
+        let tDate = null;
+        const scm = this.props.selectedContractMonth;
+        if (scm !== null) {
+            tDate = new Date(scm.lastTradeDate.concat('T00:00:00-06:00')) || '';
+            return tDate;
+        }
+        return null;  
     }
 
-    onFocusMake = () => {
+    onLimitPriceChange(limitPrice) {
+        this.props.onLimitPriceChange(limitPrice);
+    }
+
+    onExpiryDateChange(date) {
+        this.setState({ expDate: date });
+        this.props.onExpiryDateChange(date);
+    }
+
+    onFocusMake() {
         this.setState({ limitPrice: (this.state.limitPrice.charAt(0) === '$') ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice });
     }
-    onBlurMake = () => {
+
+    onBlurMake() {
          this.setState({ limitPrice: `$${this.state.limitPrice}` });
-         this.props.onLimitSelection(this.state.limitPrice);
+         this.onLimitPriceChange(this.state.limitPrice);
     }
-    onChangeQuantity= (text) => {
+
+    onChangeQuantity(text) {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
-            this.setState({ limitPrice: text });
+            this.onLimitPriceChange(text);
         }
     }
-    minusButtonPress = () => {
-        if (parseFloat(this.state.limitPrice) >= parseFloat(this.state.tickSizeIncrement)) {
-            this.setState({ limitPrice: ((parseFloat(this.state.limitPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
+
+    minusButtonPress() {
+        try {
+            if (parseFloat(this.state.limitPrice) >= parseFloat(this.props.tickSizeIncrement)) {
+                const tPrice = ((parseFloat(this.state.limitPrice) - parseFloat(this.props.tickSizeIncrement)).toFixed(4));
+                this.setState({ limitPrice: tPrice });
+                this.onLimitPriceChange(tPrice);
+            }
+            this.timer = setTimeout(this.minusButtonPress, 50);
+        } catch (error) {
+            console.log(error);
         }
-        this.timer = setTimeout(this.minusButtonPress, 50);
     }
-    plusButtonPress = () => {
-        this.setState({ limitPrice: (((parseFloat(this.state.limitPrice)) + parseFloat(this.props.tickSizeIncrement)).toFixed(4)).toString() })
-        this.timer = setTimeout(this.plusButtonPress, 50);
+
+    plusButtonPress() {
+        try {
+            const tPrice = ((parseFloat(this.state.limitPrice) + parseFloat(this.props.tickSizeIncrement)).toFixed(4));
+            this.setState({ limitPrice: tPrice });
+            this.onLimitPriceChange(tPrice);
+            this.timer = setTimeout(this.plusButtonPress, 50);
+        } catch (error) {
+            console.log(error);
+        }
     }
-    stopTimer = () => {
+
+    stopTimer() {
         clearTimeout(this.timer);
     }
+
     warningMessage() {
         if (parseFloat(this.state.limitPrice) < (0.8 * parseFloat(this.props.bidPrice)) || parseFloat(this.state.limitPrice) > (1.2 * parseFloat(this.props.bidPrice))) {
             return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
         }
         return <Text />;
     }
+
     showInfoPopup(info) {
         switch (info) {
             case 'limitPriceInfo':
-                this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup} /> });
+                this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             case 'orderExpiryInfo':
-                this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup} /> });
+                this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             default: break;
         }
     }
-    hideInfoPopup = () => {
+
+    hideInfoPopup() {
         const popup = (<View style={{ display: 'none' }} />);
         this.setState({ infoLimitPricePopup: popup, infoOrderExpiryPopup: popup });
     }
+
     datePicker() {
         if (this.state.showDatePicker) {
             return (
                 <View style={{ position: 'absolute', marginTop: -155, marginLeft: 210 }} >
                     <DatePickerIOS
                         style={{ height: 200, width: 250, borderTopLeftRadius: 4, borderBottomLeftRadius: 4, backgroundColor: 'white', zIndex: 1 }}
-                        date={this.state.date}
+                        date={this.state.expDate}
                         mode="date"
-                        onDateChange={(date) => { this.setState({ date }); this.props.onExpireSelection(date); }}
+                        onDateChange={(date) => { this.onExpiryDateChange(date); }}
                         minimumDate={new Date()}
-                        maximumDate={new Date(this.props.lastTradeDate.concat('T00:00:00-06:00'))}
+                        maximumDate={new Date(this.props.selectedContractMonth.lastTradeDate.concat('T00:00:00-06:00'))}
                     />
                 </View>
             );
         }
     }
+
     datePickerClose() {
         if (this.state.showDatePicker) {
             return (<View style={{ position: 'absolute', height: 200, width: 20, marginTop: -155, marginLeft: 455, borderTopRightRadius: 4, borderBottomRightRadius: 4, backgroundColor: 'white', zIndex: 1 }}>
@@ -126,28 +167,27 @@ class LimitOrder extends Component {
                 <View style={styles.container}>
                     <View style={{ flexDirection: 'column', zIndex: -1 }}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>LIMIT PRICE</Text>
+                            <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>LIMIT PRICE</Text>
                             <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image style={{ width: 20, height: 20, marginLeft: 5 }} source={Info} /></TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: 'column' }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer} >
+                                <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
                                     <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
                                 </TouchableOpacity>
                                 <TextInput
-                                    style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', padding: 2 }}
+                                    style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: '#fff', padding: 2 }}
                                     maxLength={9}
                                     placeholder='0'
                                     keyboardType='decimal-pad'
                                     returnKeyType="done"
                                     value={this.state.limitPrice}
-                                    onChangeText={this.onChangeQuantity}
-                                    onBlur={this.onBlurMake}
-                                    onFocus={this.onFocusMake}
+                                    onChangeText={this.onChangeQuantity.bind(this)}
+                                    onBlur={this.onBlurMake.bind(this)}
                                     onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
                                     selectTextOnFocus
                                 />
-                                <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer}>
+                                <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
                                     <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
                                 </TouchableOpacity>
                             </View>
@@ -163,7 +203,7 @@ class LimitOrder extends Component {
                             style={{ height: 42, width: 220, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', paddingLeft: 2, marginTop: 10 }}
                             placeholder="MM/DD/YYYY"
                             onFocus={() => { Keyboard.dismiss(); this.setState({ showDatePicker: true }); }}
-                            value={moment(this.state.date).format('MMMM Do, YYYY')}
+                            value={moment(this.state.expDate).format('MMMM Do, YYYY')}
                             returnkeyType="done"
                         />
                     </View>
@@ -185,15 +225,9 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        contractMonth: state.selectedContractMonth,
-        bidPrice: state.selectedContractMonth.bidPrice,
-        askPrice: state.selectedContractMonth.askPrice,
-        settlePrice: state.selectedContractMonth.settlePrice,
-        lastTradeDate: state.selectedContractMonth.lastTradeDate,
         infoTargetPrice: st(state.displayProperties).filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
         infoOptionExpirationDate: st(state.displayProperties).filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
-
     };
 };
 
-export default connect(mapStateToProps, { onExpireSelection, onLimitSelection })(LimitOrder);
+export default connect(mapStateToProps, null)(LimitOrder);

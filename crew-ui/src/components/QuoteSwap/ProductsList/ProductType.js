@@ -17,6 +17,7 @@ class ProductType extends Component {
         this.setState({ productListEnable: !this.state.productListEnable });
         this.props.onProductChange(nextProps.selectedProduct.productId);
     }
+
     productsList() {
         if (this.state.productListEnable) {
             return (<FlatList

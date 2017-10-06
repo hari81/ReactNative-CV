@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { onChangeName, onChangeId } from '../../redux/actions/QuoteSwap/ProductType/SelectedProduct';
 import * as commonStyles from '../../Utils/styles';
 
 class TradeDirection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isBuy: false,
-            btnBuyStatus: true
+            isBuy: false
         };
-    }
-    componentWillReceiveProps() {
-        this.setState({ btnBuyStatus: false, isBuy: false });
-        this.props.onTradeChange('S');
     }
 
     onSellSelection() {
@@ -51,7 +45,6 @@ class TradeDirection extends Component {
                         </View>
                     </View>
                 </View>
-
             </View>
         );
     }
@@ -67,4 +60,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { onChangeName, onChangeId })(TradeDirection);
+export default connect(mapStateToProps, null)(TradeDirection);

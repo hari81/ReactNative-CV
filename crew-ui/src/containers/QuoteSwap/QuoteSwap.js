@@ -19,6 +19,7 @@ class QuoteSwap extends Component {
             selectedOrder: props.selectedOrder
         };
     }
+
     componentDidMount() {
         this.props.quoteSwapUnderlying(this.state.cropyear, this.state.cropcode);
     }
