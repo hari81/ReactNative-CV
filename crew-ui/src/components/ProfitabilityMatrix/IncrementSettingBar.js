@@ -25,9 +25,9 @@ class IncrementSettingBar extends Component {
                           {this.blocks(5, 'yield')}
                           {this.blocks(10, 'yield')}
                           <Text style={{ fontSize: 14, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue', paddingLeft: width * 0.059, paddingTop: height * 0.04 }}>Price Increment</Text>
-                          {this.blocks(0.05, 'price')}
-                          {this.blocks(0.10, 'price')}
-                          {this.blocks(0.25, 'price')}
+                          {this.blocks(0.05)}
+                          {this.blocks(0.10)}
+                          {this.blocks(0.25)}
                       </View>
                   );
         }
