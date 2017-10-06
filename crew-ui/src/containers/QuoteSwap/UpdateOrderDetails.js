@@ -55,7 +55,7 @@ class UpdateOrderDetails extends Component {
             isRefreshPrices: false
         };
     }
-    
+
     componentWillMount() {
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === this.props.cropId.slice(0, (this.props.cropId.length - 4)));
         this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
@@ -71,10 +71,10 @@ class UpdateOrderDetails extends Component {
                 let tPrice = '-';
                 if (this.state.isBuy) {
                     tPrice = sMonth.askPrice === null ? sMonth.settlePrice : sMonth.askPrice;
-                } else { 
+                } else {
                     tPrice = sMonth.bidPrice === null ? sMonth.settlePrice : sMonth.bidPrice;
                 }
-                tPrice = tPrice === null ? '-' : tPrice.toFixed(4); 
+                tPrice = tPrice === null ? '-' : tPrice.toFixed(4);
                 this.setState({ contractBidAskPrice: tPrice });
                 if (sMonth !== null) {
                     const tBidPrice = sMonth.bidPrice === null ? '-' : parseFloat(sMonth.bidPrice).toFixed(4);
@@ -83,7 +83,7 @@ class UpdateOrderDetails extends Component {
                     this.setState({ bidPrice: tBidPrice, askPrice: tAskPrice, settlePrice: tSettlePrice });
                     if (this.state.isRefreshPrices) {
                         this.setState({ isRefreshPrices: false });
-                    } else {                        
+                    } else {
                         this.onUpdateTargetPrice();
                         const tLastTradeDate = sMonth.lastTradeDate;
                         const tDate = new Date(tLastTradeDate.concat('T00:00:00-06:00')) || '';
@@ -117,7 +117,7 @@ class UpdateOrderDetails extends Component {
     onReviewOrder() {
         try {
             this.props.getReviewOrderQuote(this.state);
-        } catch (error) {            
+        } catch (error) {
             Alert.alert(`Unexpected error occurred: ${error}`);
         }
     }
@@ -198,60 +198,60 @@ class UpdateOrderDetails extends Component {
             return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
         }
         return <Text />;
-    }    
-    
+    }
+
     render() {
         let limitOrderFields = null;
         if (this.state.isLimitOrder) {
             limitOrderFields = (
-            <View style={{ marginTop: 5, marginBottom: 5 }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flexDirection: 'column', zIndex: -1 }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.enabledLabel}>LIMIT PRICE</Text>
-                            <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image style={styles.infoIcon} source={Info} /></TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'column' }}>
+                <View style={{ marginTop: 5, marginBottom: 5 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'column', zIndex: -1 }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
-                                    <Image style={[styles.tickIncrementIcon, { marginRight: 15 }]} source={Minus} />
-                                </TouchableOpacity>
-                                <TextInput 
-                                    style={{ height: 40, width: 110, borderRadius: 4, backgroundColor: '#fff', padding: 2, paddingLeft: 5 }} 
-                                    maxLength={9} placeholder='0' keyboardType='decimal-pad' returnKeyType="done" 
-                                    value={this.state.targetPrice} 
-                                    onChangeText={this.onChangeQuantity.bind(this)} 
-                                    onBlur={this.onBlurMake.bind(this)} 
-                                    onFocus={this.onFocusMake.bind(this)} 
-                                    onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }} 
-                                    selectTextOnFocus 
-                                />
-                                <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
-                                    <Image style={[styles.tickIncrementIcon, { marginLeft: 15 }]} source={Plus} />
-                                </TouchableOpacity>
+                                <Text style={styles.enabledLabel}>LIMIT PRICE</Text>
+                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image style={styles.infoIcon} source={Info} /></TouchableOpacity>
                             </View>
-                            {this.warningMessage()}
+                            <View style={{ flexDirection: 'column' }}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
+                                        <Image style={[styles.tickIncrementIcon, { marginRight: 15 }]} source={Minus} />
+                                    </TouchableOpacity>
+                                    <TextInput
+                                        style={{ height: 40, width: 110, borderRadius: 4, backgroundColor: '#fff', padding: 2, paddingLeft: 5 }}
+                                        maxLength={9} placeholder='0' keyboardType='decimal-pad' returnKeyType="done"
+                                        value={this.state.targetPrice}
+                                        onChangeText={this.onChangeQuantity.bind(this)}
+                                        onBlur={this.onBlurMake.bind(this)}
+                                        onFocus={this.onFocusMake.bind(this)}
+                                        onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
+                                        selectTextOnFocus
+                                    />
+                                    <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
+                                        <Image style={[styles.tickIncrementIcon, { marginLeft: 15 }]} source={Plus} />
+                                    </TouchableOpacity>
+                                </View>
+                                {this.warningMessage()}
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'column', marginLeft: 25 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={styles.enabledLabel}>ORDER EXPIRATION DATE</Text>
+                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image style={styles.infoIcon} source={Info} /></TouchableOpacity>
+                            </View>
+                            <TextInput
+                                style={{ height: 40, width: 250, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 5 }}
+                                placeholder="MM/DD/YYYY"
+                                onFocus={() => { Keyboard.dismiss(); this.setState({ showDatePicker: true }); }}
+                                value={moment(this.state.goodTilDate).format('MMMM Do, YYYY')}
+                                returnkeyType="done"
+                            />
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'column', marginLeft: 25 }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.enabledLabel}>ORDER EXPIRATION DATE</Text>
-                            <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image style={styles.infoIcon} source={Info} /></TouchableOpacity>
-                        </View>
-                        <TextInput 
-                            style={{ height: 40, width: 250, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 5 }} 
-                            placeholder="MM/DD/YYYY" 
-                            onFocus={() => { Keyboard.dismiss(); this.setState({ showDatePicker: true }); }} 
-                            value={moment(this.state.goodTilDate).format('MMMM Do, YYYY')} 
-                            returnkeyType="done" 
-                        />
-                    </View>
+                    {this.datePicker()}
+                    {this.state.infoLimitPricePopup}
+                    {this.state.infoOrderExpiryPopup}
                 </View>
-                {this.datePicker()}
-                {this.state.infoLimitPricePopup}
-                {this.state.infoOrderExpiryPopup}
-            </View>            
-            );  
+            );
         } else {
             limitOrderFields = <View style={{ display: 'none' }} />;
         }
@@ -262,95 +262,95 @@ class UpdateOrderDetails extends Component {
         } else {
             spinner = (
                 <View style={{ paddingLeft: 50, paddingTop: 15, paddingRight: 50, paddingBottom: 10 }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flexDirection: 'column', width: 340 }}>
-                        {/* product */}
-                        <Text style={styles.disabledLabel}>PRODUCT</Text>
-                        <View style={styles.disabledDataContainer}>
-                            <Text style={styles.disabledData}>{this.state.productName}</Text>
-                        </View>
-                        {/* trade direction */}
-                        <Text style={styles.disabledLabel}>TRADE DIRECTION</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                            {/* Sell */}
-                            <View style={commonStyles.common.radioButtonContainerDisabled}>
-                                {!this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'column', width: 340 }}>
+                            {/* product */}
+                            <Text style={styles.disabledLabel}>PRODUCT</Text>
+                            <View style={styles.disabledDataContainer}>
+                                <Text style={styles.disabledData}>{this.state.productName}</Text>
                             </View>
-                            <Text style={commonStyles.common.radioButtonTextDisabled}>Sell</Text>
-                            {/* Buy */}
-                            <View style={[commonStyles.common.radioButtonContainerDisabled, { marginLeft: 40 }]}>
-                                {this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
-                            </View>
-                            <Text style={commonStyles.common.radioButtonTextDisabled}>Buy</Text>
-                        </View>
-                        {/* contract month */}
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.disabledLabel}>CONTRACT MONTH</Text>
-                            <TouchableOpacity onPress={this.onRefreshBidAsk.bind(this, this.state.timeNow)}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Image style={styles.refreshImage} source={Refresh} />
-                                    <Text style={{ color: 'white', fontSize: 12, marginTop: 3 }}>as of {this.state.timeNow}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.disabledContractMonth}>
-                            <Text style={styles.disabledContractMonthYearText}>
-                                {this.state.underlyingObject.underlyingMonthShortDesc } {this.state.underlyingObject.underlyingYear}
-                            </Text>
-                            <Text style={styles.disabledContractBidAskPrice}>${this.state.contractBidAskPrice}</Text>
-                        </View>
-                    </View>
-                    <View style={{ height: 350, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: '#7f8fa4' }} />
-                    <View style={{ flexDirection: 'column', marginLeft: 33 }}>
-                        {/* bushel quantity */}
-                        <Text style={styles.disabledLabel}>BUSHEL QUANTITY</Text>
-                        <View style={styles.disabledDataContainer}>
-                            <Text style={styles.disabledData}>{common.formatNumberCommas(this.state.quantity)}</Text>
-                        </View>
-                        {/* order type */}
-                        <View>
-                            <Text style={styles.enabledLabel}>ORDER TYPE</Text>
+                            {/* trade direction */}
+                            <Text style={styles.disabledLabel}>TRADE DIRECTION</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                                <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
-                                    <View style={commonStyles.common.radioButtonContainer}>
-                                        {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                {/* Sell */}
+                                <View style={commonStyles.common.radioButtonContainerDisabled}>
+                                    {!this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
+                                </View>
+                                <Text style={commonStyles.common.radioButtonTextDisabled}>Sell</Text>
+                                {/* Buy */}
+                                <View style={[commonStyles.common.radioButtonContainerDisabled, { marginLeft: 40 }]}>
+                                    {this.state.isBuy ? <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
+                                </View>
+                                <Text style={commonStyles.common.radioButtonTextDisabled}>Buy</Text>
+                            </View>
+                            {/* contract month */}
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={styles.disabledLabel}>CONTRACT MONTH</Text>
+                                <TouchableOpacity onPress={this.onRefreshBidAsk.bind(this, this.state.timeNow)}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Image style={styles.refreshImage} source={Refresh} />
+                                        <Text style={{ color: 'white', fontSize: 12, marginTop: 3 }}>as of {this.state.timeNow}</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
-                                <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
-                                    <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
-                                        {this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
-                                    </View>
+                            </View>
+                            <View style={styles.disabledContractMonth}>
+                                <Text style={styles.disabledContractMonthYearText}>
+                                    {this.state.underlyingObject.underlyingMonthShortDesc } {this.state.underlyingObject.underlyingYear}
+                                </Text>
+                                <Text style={styles.disabledContractBidAskPrice}>${this.state.contractBidAskPrice}</Text>
+                            </View>
+                        </View>
+                        <View style={{ height: 350, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: '#7f8fa4' }} />
+                        <View style={{ flexDirection: 'column', marginLeft: 33 }}>
+                            {/* bushel quantity */}
+                            <Text style={styles.disabledLabel}>BUSHEL QUANTITY</Text>
+                            <View style={styles.disabledDataContainer}>
+                                <Text style={styles.disabledData}>{common.formatNumberCommas(this.state.quantity)}</Text>
+                            </View>
+                            {/* order type */}
+                            <View>
+                                <Text style={styles.enabledLabel}>ORDER TYPE</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                                    <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
+                                        <View style={commonStyles.common.radioButtonContainer}>
+                                            {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                        </View>
+                                    </TouchableOpacity>
+                                    <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
+                                    <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
+                                        <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
+                                            {this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                        </View>
+                                    </TouchableOpacity>
+                                    <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
+                                </View>
+                                {limitOrderFields}
+                            </View>
+                            {/* bid ask price */}
+                            <View style={styles.pricesContainer}>
+                                <View style={styles.priceContainer}>
+                                    <Text style={styles.priceLabel}>BID PRICE:</Text>
+                                    <Text style={styles.priceText}>${this.state.bidPrice}</Text>
+                                </View>
+                                <View style={styles.priceContainer}>
+                                    <Text style={styles.priceLabel}>ASK PRICE:</Text>
+                                    <Text style={styles.priceText}>${this.state.askPrice}</Text>
+                                </View>
+                                <View style={styles.priceContainer}>
+                                    <Text style={styles.priceLabel}>LAST SETTLE:</Text>
+                                    <Text style={styles.priceText}>${this.state.settlePrice}</Text>
+                                </View>
+                            </View>
+                            {/* buttons */}
+                            <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 300, marginLeft: 125, zIndex: -1 }}>
+                                <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                                <TouchableOpacity onPress={this.onReviewOrder.bind(this)} style={[styles.buttonStyle, { marginLeft: 28, backgroundColor: '#279989', borderColor: '#279989' }]}>
+                                    <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
                                 </TouchableOpacity>
-                                <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
                             </View>
-                            {limitOrderFields}
-                        </View>
-                        {/* bid ask price */}
-                        <View style={styles.pricesContainer}>
-                            <View style={styles.priceContainer}>
-                                <Text style={styles.priceLabel}>BID PRICE:</Text>
-                                <Text style={styles.priceText}>${this.state.bidPrice}</Text>
-                            </View>
-                            <View style={styles.priceContainer}>
-                                <Text style={styles.priceLabel}>ASK PRICE:</Text>
-                                <Text style={styles.priceText}>${this.state.askPrice}</Text>
-                            </View> 
-                            <View style={styles.priceContainer}>
-                                <Text style={styles.priceLabel}>LAST SETTLE:</Text>
-                                <Text style={styles.priceText}>${this.state.settlePrice}</Text>
-                            </View>
-                        </View>
-                        {/* buttons */}
-                        <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 300, marginLeft: 125, zIndex: -1 }}>
-                            <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                            <TouchableOpacity onPress={this.onReviewOrder.bind(this)} style={[styles.buttonStyle, { marginLeft: 28, backgroundColor: '#279989', borderColor: '#279989' }]}>
-                                <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-            </View>                
             );
         }
 

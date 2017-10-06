@@ -1,52 +1,59 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import ChartApp from './DoughnutChart/ChartApp';
 import matrix from '../common/img/Small-Matrix.png';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Spinner } from '../common/Spinner';
-import Dimensions from 'Dimensions';
 
 class MyFarmProduction extends Component {
+
+    dashBoardToMatrix() {
+        Actions.matrix();
+    }
+    noFarmSetup= () => {
+        Alert.alert('Please Setup your Farm Details');
+    }
     spinner(percent) {
         if (this.props.dashBoardSpinner) {
             return <Spinner size="small" />;
         }
         return (
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ width: 190, flexDirection: 'column', alignItems: 'flex-end' }}>
-                    <Text style={{ fontSize: 15, paddingTop: 28, color: 'rgb(29,37,49)' }}>UNHEDGED PRODUCTION</Text>
+                <View style={{ width: width * 0.185, flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.036, color: 'rgb(29,37,49)' }}>UNHEDGED PRODUCTION</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.unhedgedTotalQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(61,76,87)' }}>{this.props.unhedgedTotalAmount}</Text>
-                    <Text style={{ fontSize: 15, paddingTop: 12, color: 'rgb(29,37,49)' }}>OPEN ORDERS</Text>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.0156, color: 'rgb(29,37,49)' }}>OPEN ORDERS</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.openOrdersQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
                 </View>
 
-                <View style={{ width: 280 }}>
-                    <View style={{ borderRadius: 100, marginTop: 28, marginLeft: 5, width: 16, height: 16, backgroundColor: 'rgb(158,42,47)' }} />
+                <View style={{ width: width * 0.2734 }}>
+                    <View style={{ borderRadius: 100, marginTop: height * 0.036, marginLeft: 5, width: width * 0.0156, height: height * 0.019, backgroundColor: 'rgb(158,42,47)' }} />
                     <ChartApp />
-                    <View style={{ flexDirection: 'column', position: 'absolute', marginLeft: 110, marginTop: 120 }}>
-                        <Text style={{ fontSize: 14, paddingLeft: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(61,76,87)' }} >
+                    <View style={{ flexDirection: 'column', position: 'absolute', marginLeft: width * 0.11, marginTop: height * 0.156 }}>
+                        <Text style={{ fontSize: 14, paddingLeft: width * 0.016, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(61,76,87)' }} >
                             {percent}%
                         </Text>
-                        <Text style={{ fontSize: 15, paddingLeft: 4, fontFamily: 'HelveticaNeue', color: 'rgb(171,178,183)' }}>UNSOLD</Text>
+                        <Text style={{ fontSize: 15, paddingLeft: width * 0.0039, fontFamily: 'HelveticaNeue', color: 'rgb(171,178,183)' }}>UNSOLD</Text>
                     </View>
                 </View>
 
                 <View>
-                    <View style={{ borderRadius: 100, marginTop: 28, marginRight: 5, width: 16, height: 16, backgroundColor: 'rgb(135,136,140)' }} />
-                    <View style={{ borderRadius: 100, marginTop: 115, marginRight: 5, width: 16, height: 16, backgroundColor: 'rgb(218,170,0)' }} />
+                    <View style={{ borderRadius: 100, marginTop: height * 0.036, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(135,136,140)' }} />
+                    <View style={{ borderRadius: 100, marginTop: height * 0.15, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(218,170,0)' }} />
                 </View>
-                <View style={{ width: 190, flexDirection: 'column' }}>
-                    <Text style={{ fontSize: 15, paddingTop: 28, color: 'rgb(29,37,49)' }}>TRADES/SALES</Text>
+                <View style={{ width: width * 0.185, flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.036, color: 'rgb(29,37,49)' }}>TRADES/SALES</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(29,37,49)' }}>(OUTSIDE THE APP)</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.externalTradesQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
                     <Text style={{ fontSize: 26, color: 'rgb(61,76,87)' }}>{this.props.externalTradesAmount}</Text>
-                    <Text style={{ fontSize: 15, paddingTop: 20, color: 'rgb(29,37,49)' }}>OPEN TRADES</Text>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.026, color: 'rgb(29,37,49)' }}>OPEN TRADES</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(29,37,49)' }}>(IN APP)</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.openPositionsQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
@@ -63,7 +70,7 @@ class MyFarmProduction extends Component {
                 <View style={{ flexDirection: 'row' }}>
                     <View style={styles.secondRowFirstColumnStyle}>
                         <View style={styles.productionTitleStyle}>
-                            <View style={{ width: 216, height: 20, marginTop: 15, marginLeft: 34 }}>
+                            <View style={{ width: width * 0.21, height: height * 0.026, marginTop: height * 0.019, marginLeft: width * 0.033 }}>
                                 <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>YOUR FARM PRODUCTION</Text>
                             </View>
                         </View>
@@ -72,14 +79,16 @@ class MyFarmProduction extends Component {
                         </View>
                     </View>
                     <View style={styles.secondRowSecondColumnStyle}>
-                        <View style={[styles.productionTitleStyle, { width: 286 }]}>
-                            <View style={{ marginTop: 15, marginLeft: 34 }}>
+                        <View style={[styles.productionTitleStyle, { width: width * 0.279 }]}>
+                            <View style={{ marginTop: height * 0.019, marginLeft: width * 0.0332 }}>
                                 <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
                             </View>
                         </View>
                         <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize Scenarios to see how your trading decisions affect your profitability</Text>
-                        <View style={{ marginLeft: 30 }}><Image source={matrix} width={223} height={153} /></View>
+                        <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.217} height={height * 0.1999} /></View>
+                        <TouchableOpacity onPress={this.noFarmSetup}>
                         <View style={styles.viewProfitabilityButton}><Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }}>VIEW PROFITABILITY</Text></View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             );
@@ -92,32 +101,36 @@ class MyFarmProduction extends Component {
                         <View style={styles.secondRowFirstColumnStyle}>
 
                             <View style={styles.productionTitleStyle}>
-                                <View style={{ width: 216, height: 20, marginTop: 15, marginLeft: 34 }}>
+                                <View style={{ width: width * 0.21, height: height * 0.026, marginTop: height * 0.019, marginLeft: width * 0.033 }}>
                                     <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>YOUR FARM PRODUCTION</Text>
                                 </View>
-                                <View style={{ marginTop: 19 }}>
-                                    <Text style={{ fontSize: 14, marginLeft: 90, color: 'rgb(127,127,127)' }}>Estimated TotalProduction</Text>
+                                <View style={{ marginTop: height * 0.024 }}>
+                                    <Text style={{ fontSize: 14, marginLeft: width * 0.087, color: 'rgb(127,127,127)' }}>Estimated TotalProduction</Text>
                                 </View>
-                                <View style={{ marginTop: 11, alignSelf: 'stretch' }}>
+                                <View style={{ marginTop: height * 0.014, alignSelf: 'stretch' }}>
                                     <Text style={{ fontSize: 23, fontFamily: 'HelveticaNeue-Bold', marginLeft: 4, color: 'rgb(1,172,168)' }}>
                                         {this.props.estimatedTotalProduction}
                                     </Text>
                                 </View>
-                                <View style={{ marginTop: 21, marginLeft: 6 }}>
+                                <View style={{ marginTop: height * 0.027, marginLeft: width * 0.0058 }}>
                                     <Text style={{ fontSize: 12, color: 'rgb(127,127,127)' }}>{this.props.unitOfMeasure}s</Text>
                                 </View>
                             </View>
                             {this.spinner(percent)}
                         </View>
                         <View style={styles.secondRowSecondColumnStyle}>
-                            <View style={[styles.productionTitleStyle, { width: 286 }]}>
-                                <View style={{ marginTop: 15, marginLeft: 34 }}>
+                            <View style={[styles.productionTitleStyle, { width: width * 0.279 }]}>
+                                <View style={{ marginTop: height * 0.0195, marginLeft: width * 0.033 }}>
                                     <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
                                 </View>
                             </View>
                             <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize Scenarios to see how your trading decisions affect your profitability</Text>
-                            <View style={{ marginLeft: 30 }}><Image source={matrix} width={223} height={153} /></View>
-                            <View style={styles.viewProfitabilityButton}><Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }}>VIEW PROFITABILITY</Text></View>
+                            <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.217} height={height * 0.199} /></View>
+                            <TouchableOpacity onPress={this.dashBoardToMatrix}>
+                                <View style={styles.viewProfitabilityButton}>
+                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }}>VIEW PROFITABILITY</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -129,37 +142,37 @@ const { height, width } = Dimensions.get('window');
 
 const styles = {
     secondRowFirstColumnStyle: {
-        height: 352,
-        width: 689,
+        height: height * 0.458,
+        width: width * 0.672,
         backgroundColor: 'rgb(255,255,255)',
-        marginHorizontal: 16,
-        marginTop: 45,
+        marginHorizontal: width * 0.015,
+        marginTop: height * 0.058,
         borderColor: 'rgb(190,216,221)',
         borderWidth: 1,
     },
     productionTitleStyle: {
         flexDirection: 'row',
-        height: 47,
-        width: 689,
+        height: height * 0.0612,
+        width: width * 0.672,
         borderBottomWidth: 1,
         borderBottomColor: 'rgb(221,221,221)'
     },
     secondRowSecondColumnStyle: {
-        height: 352,
+        height: height * 0.458,
         backgroundColor: 'rgb(255,255,255)',
-        width: 288,
-        marginRight: 16,
-        marginTop: 45,
+        width: width * 0.284,
+        marginRight: width * 0.015,
+        marginTop: height * 0.058,
         borderColor: 'rgb(190,216,221)',
         borderWidth: 1
     },
     viewProfitabilityButton: {
-        width: 141,
-        height: 28,
+        width: width * 0.137,
+        height: height * 0.036,
         borderWidth: 1,
         borderColor: 'rgb(1,172,168)',
-        marginTop: 30,
-        marginLeft: 70,
+        marginTop: height * 0.039,
+        marginLeft: width * 0.068,
         justifyContent: 'center',
         alignItems: 'center'
     }

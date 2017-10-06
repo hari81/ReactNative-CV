@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Alert, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
-import Dimensions from 'Dimensions';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
 import TradeDirection from '../../components/QuoteSwap/TradeDirection';
 import BushelQuantity from '../../components/QuoteSwap/BushelQuantity';
@@ -15,6 +14,8 @@ import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { bushelQuantityLimit } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+
+const { height, width } = Dimensions.get('window');
 
 class SetOrderDetails extends Component {
     constructor(props) {
@@ -139,8 +140,8 @@ class SetOrderDetails extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
-                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 610 }}>
+                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: width * 0.02 }}>Set Order Details</Text>
+                    <View style={{ flexDirection: 'row', marginLeft: width * 0.615 }}>
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.questionIcon}>?</Text>
@@ -155,11 +156,42 @@ class SetOrderDetails extends Component {
     }
 }
 const styles = {
-    container: { height: 452, width: 992, backgroundColor: 'rgb(61,76,87)', marginHorizontal: 16, marginTop: 38, marginBottom: 7, borderTopWidth: 4, borderTopColor: '#e7b514' },
-    setOrderDetails: { flexDirection: 'row', height: 47, width: 990, borderBottomWidth: 1, borderColor: 'rgb(231,181,20)', alignItems: 'center' },
-    textStyle: { color: 'rgb(159,169,186)', fontSize: 18, fontFamily: 'HelveticaNeue' },
-    buttonStyle: { marginTop: 24, width: 164, height: 40, backgroundColor: 'rgb(255,255,255)', borderRadius: 4, borderWidth: 1, borderColor: 'rgb(159,169,186)', justifyContent: 'center', alignItems: 'center', },
-    questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 }    
+    container: {
+        height: height * 0.588,
+        width: width * 0.968,
+        backgroundColor: 'rgb(61,76,87)',
+        marginHorizontal: width * 0.0156,
+        marginTop: height * 0.0494,
+        marginBottom: height * 0.0091,
+        borderColor: 'rgb(190,216,221)',
+        borderWidth: 1,
+
+    },
+    setOrderDetails: {
+        flexDirection: 'row',
+        height: height * 0.0611,
+        width: width * 0.966,
+        borderBottomWidth: 1,
+        borderColor: 'rgb(231,181,20)',
+        alignItems: 'center'
+    },
+    textStyle: {
+        color: 'rgb(159,169,186)',
+        fontSize: 18,
+        fontFamily: 'HelveticaNeue'
+    },
+    buttonStyle: {
+        marginTop: height * 0.03125,
+        width: width * 0.16,
+        height: height * 0.052,
+        backgroundColor: 'rgb(255,255,255)',
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: 'rgb(159,169,186)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 } 
 };
 
 const mapStateToProps = (state) => {
@@ -168,6 +200,7 @@ const mapStateToProps = (state) => {
     const tTick = crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString();
     const tBQL = state.selectedContractMonth.bushelQuantity === null ? 0 : Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable);
     const tQty = crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString();
+    
 
     return {
         MyFarmProd: state.dashBoardButtons,
