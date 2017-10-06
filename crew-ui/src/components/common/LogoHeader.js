@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, TouchableHighlight } from 'react-native';
+import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import Phone from './img/Phone.png';
@@ -24,7 +24,7 @@ const LogoHeader = props => {
           <Text style={{ color: '#ffffff35', fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}> | </Text>
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
               <Image style={{ width: 32, height: 32, marginLeft: 20 }} source={User} />
-              <TouchableHighlight onPress={() => this.props.logOut(true)}>
+              <TouchableHighlight onPress={() => Alert.alert('Soon...')/*this.props.logOut(true)*/}>
                   <Image source={require('./img/ExpandArrow.png')} style={{ width: 10, height: 10, marginLeft: 10, marginTop: 10, marginRight: 20 }} />
               </TouchableHighlight>
           </View>

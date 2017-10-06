@@ -8,7 +8,8 @@ import st from '../../Utils/SafeTraverse';
 
 class ViewOrders extends Component {
   onCancelPress(item) {
-    Actions.cancelorder({ item });
+      console.log(this.props.selected);
+    Actions.cancelorder({ item, selectedCrop: this.props.selected });
   }
   render() {
     const {

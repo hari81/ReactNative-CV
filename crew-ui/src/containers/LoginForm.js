@@ -12,6 +12,7 @@ import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesA
 class LoginForm extends Component {
   constructor() {
     super();
+      this.state = { signIn: false };
     AsyncStorage.getItem('userData')
       .then(data => {
         const userInfo = JSON.parse(data);
@@ -38,9 +39,6 @@ class LoginForm extends Component {
   onButtonPress() {
       const { saveUser } = this.props.auth;
       this.props.loginUser({ saveUser });
-      this.props.accountDetails();
-      this.props.productType();
-      this.props.displayProperties();
   }
 
   onSaveUserChange(value) {
@@ -65,7 +63,14 @@ class LoginForm extends Component {
 
   forGetPass() {
   this.props.forGetPassword(this.props.auth.email); //this.props.auth.email.slice(0, this.props.auth.email.indexOf('@')));
-  //AlertIOS.alert('Reset Password', `Email will be send to your ${this.props.auth.email}`);
+  }
+  componentWillReceiveProps(newProps) {
+      if (newProps.auth.loginSuccess && !this.state.signIn) {
+          this.props.accountDetails();
+          this.props.productType();
+          this.props.displayProperties();
+          this.setState({ signIn: true });
+      }
   }
 
   render() {
@@ -93,7 +98,7 @@ class LoginForm extends Component {
             onblur={this.scrollDown.bind(this)}
           />
         </CardSection>
-           <Text style={{ color: 'white' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
+           <Text style={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
 
         <Text style={styles.errorStyle}>
           {this.props.auth.error}
