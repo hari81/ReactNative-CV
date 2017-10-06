@@ -26,11 +26,6 @@ class QuoteSwap extends Component {
     }
 
     render() {
-<<<<<<< HEAD
-        return (
-            <View >
-                <View style={{ backgroundColor: 'rgb(0,0,0)', height: height * 0.026 }} />
-=======
         const { width } = Dimensions.get('window');
         if (this.state.selectedOrder === undefined) {
             return (
@@ -49,7 +44,6 @@ class QuoteSwap extends Component {
         return (
             <View >
                 <View style={{ backgroundColor: '#000', width, height: 20 }} />
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
                 <LogoHomeHeader />
                 <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
@@ -60,6 +54,7 @@ class QuoteSwap extends Component {
             </View>
         );
     }
+    
 }
 const mapStateToProps = state => {
     return {

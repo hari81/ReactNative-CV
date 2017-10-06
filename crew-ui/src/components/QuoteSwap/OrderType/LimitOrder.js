@@ -125,19 +125,10 @@ class LimitOrder extends Component {
     showInfoPopup(info) {
         switch (info) {
             case 'limitPriceInfo':
-<<<<<<< HEAD
-                const limitPricePopup = (<InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup} />);
-                this.setState({ infoLimitPricePopup: limitPricePopup });
-                break;
-            case 'orderExpiryInfo':
-                const orderExpiryPopup = (<InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup} />);
-                this.setState({ infoOrderExpiryPopup: orderExpiryPopup });
-=======
                 this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             case 'orderExpiryInfo':
                 this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup.bind(this)} /> });
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
                 break;
             default: break;
         }
@@ -234,12 +225,8 @@ class LimitOrder extends Component {
     }
 }
 const limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top', message: DisclaimerData.infoTargetPrice };
-<<<<<<< HEAD
-const orderExpiryInfo = { top: 30, left: 280, width: 200, arrowPosition: 'top', message: DisclaimerData.infoOptionExpirationDate };
-=======
 const orderExpiryInfo = { top: 30, left: 270, width: 200, arrowPosition: 'top', message: DisclaimerData.infoOptionExpirationDate };
 
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
 const styles = {
 
     container: { flexDirection: 'row', marginTop: 16 }
@@ -248,14 +235,8 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-<<<<<<< HEAD
-        bidPrice: state.selectedContractMonth.bidPrice,
-        askPrice: state.selectedContractMonth.askPrice,
-        lastTradeDate: state.selectedContractMonth.lastTradeDate
-=======
         infoTargetPrice: st(state.displayProperties).filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
         infoOptionExpirationDate: st(state.displayProperties).filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
     };
 };
 

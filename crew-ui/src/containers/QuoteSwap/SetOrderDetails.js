@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { View, Text, TouchableOpacity, Image, ScrollView, Alert, Dimensions } from 'react-native';
-=======
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -102,24 +98,6 @@ class SetOrderDetails extends Component {
         if (this.props.contractMonth.spinFlag) {
             spinner = (<Spinner size="small" />);
         } else {
-<<<<<<< HEAD
-           spinner = (<View style={{ flexDirection: 'row' }}>
-                <View style={{ flexDirection: 'column', marginLeft: width * 0.0478 }}>
-                    <ProductType onProductChange={this.orderDetails} />
-                    <TradeDirection onTradeChange={this.tradeDirectionChange} />
-                    <ContractMonth />
-                </View>
-                <View style={{ height: height * 0.355, width: 1, marginLeft: width * 0.029, marginTop: height * 0.026, backgroundColor: 'rgb(127,143,164)' }} />
-                <View style={{ flexDirection: 'column', marginLeft: width * 0.029 }}>
-                    <KeyboardAwareScrollView keyboardShouldPersistTaps="always" extraScrollHeight={4}>
-                    <BushelQuantity onQuantityChange={this.onQuantityChange} />
-                    <OrderType onOrderTypeChange={this.onOrderTypeChange} />
-                    </KeyboardAwareScrollView>
-                    <BidAskPrice />
-                    <View style={{ flexDirection: 'row', marginLeft: width * 0.123, position: 'absolute', marginTop: height * 0.417 }}>
-                        <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                        <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: width * 0.0273 }]} textStyle={[styles.textStyle, { color: 'rgb(255,255,255)' }]}>REVIEW ORDER</Button>
-=======
             spinner = (<View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'column', marginLeft: 49 }}>
                         <ProductType onProductChange={this.orderDetails} />
@@ -154,7 +132,6 @@ class SetOrderDetails extends Component {
                             <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                             <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
                         </View>
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
                     </View>
 
                 </View>
@@ -163,13 +140,8 @@ class SetOrderDetails extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
-<<<<<<< HEAD
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: width * 0.02 }}>Set Order Details</Text>
                     <View style={{ flexDirection: 'row', marginLeft: width * 0.615 }}>
-=======
-                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: 21 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 610 }}>
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.questionIcon}>?</Text>
@@ -184,7 +156,6 @@ class SetOrderDetails extends Component {
     }
 }
 const styles = {
-<<<<<<< HEAD
     container: {
         height: height * 0.588,
         width: width * 0.968,
@@ -219,14 +190,8 @@ const styles = {
         borderColor: 'rgb(159,169,186)',
         justifyContent: 'center',
         alignItems: 'center',
-    }
-=======
-    container: { height: 452, width: 992, backgroundColor: 'rgb(61,76,87)', marginHorizontal: 16, marginTop: 38, marginBottom: 7, borderTopWidth: 4, borderTopColor: '#e7b514' },
-    setOrderDetails: { flexDirection: 'row', height: 47, width: 990, borderBottomWidth: 1, borderColor: 'rgb(231,181,20)', alignItems: 'center' },
-    textStyle: { color: 'rgb(159,169,186)', fontSize: 18, fontFamily: 'HelveticaNeue' },
-    buttonStyle: { marginTop: 24, width: 164, height: 40, backgroundColor: 'rgb(255,255,255)', borderRadius: 4, borderWidth: 1, borderColor: 'rgb(159,169,186)', justifyContent: 'center', alignItems: 'center', },
-    questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 }    
->>>>>>> 4f341e6bec93d3114e61763c2b1b56d6a3965121
+    },
+    questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 } 
 };
 
 const mapStateToProps = (state) => {
@@ -235,6 +200,7 @@ const mapStateToProps = (state) => {
     const tTick = crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString();
     const tBQL = state.selectedContractMonth.bushelQuantity === null ? 0 : Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable);
     const tQty = crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString();
+    
 
     return {
         MyFarmProd: state.dashBoardButtons,
