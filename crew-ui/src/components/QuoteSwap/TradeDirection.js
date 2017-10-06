@@ -1,60 +1,63 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import normalRadioBTN from '../common/img/Radio-BTN-normal.png';
-import selectedRadioBTN from '../common/img/Radio-BTN-selected.png';
-import { onChangeName, onChangeId } from '../../redux/actions/QuoteSwap/ProductType/SelectedProduct';
+import * as commonStyles from '../../Utils/styles';
 
 class TradeDirection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            radioBTNEnableSell: true,
-            radioBTNEnableBuy: false,
-            btnBuyStatus: true
+            isBuy: false
         };
     }
-    componentWillReceiveProps() {
-        this.setState({ btnBuyStatus: false, radioBTNEnableSell: true, radioBTNEnableBuy: false });
+
+    onSellSelection() {
+        this.setState({ isBuy: false });
         this.props.onTradeChange('S');
     }
-    onSellSelection = () => {
-        this.setState({ radioBTNEnableSell: true, radioBTNEnableBuy: false });
-        this.props.onTradeChange('S');
-    }
-    onBuySelection = () => {
-        this.setState({ radioBTNEnableSell: false, radioBTNEnableBuy: true });
+
+    onBuySelection() {
+        this.setState({ isBuy: true });
         this.props.onTradeChange('B');
     }
+
     render() {
         return (
             <View style={{ zIndex: -1 }}>
                 <View style={styles.container}>
-                    <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>TRADE DIRECTION</Text>
+                    <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>TRADE DIRECTION</Text>
                     <View>
-                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                            <TouchableOpacity disabled={this.state.radioBTNEnableSell} onPress={this.onSellSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableSell ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)', paddingRight: 45 }}>Sell</Text>
-                            <TouchableOpacity disabled={this.props.selectedProduct.productId === 107 || this.state.btnBuyStatus} onPress={this.onBuySelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableBuy ? selectedRadioBTN:normalRadioBTN} /></TouchableOpacity>
-                            <Text style={this.props.selectedProduct.productId === 107 || this.state.btnBuyStatus ? { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'gray' } : { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)' }}>Buy</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                            {/* sell */}
+                            <TouchableOpacity onPress={this.onSellSelection.bind(this)}>
+                                <View style={commonStyles.common.radioButtonContainer}>
+                                    {!this.state.isBuy ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={commonStyles.common.radioButtonText}>Sell</Text>
+                            {/* buy */}
+                            <TouchableOpacity disabled onPress={this.onBuySelection.bind(this)}>
+                                <View style={[commonStyles.common.radioButtonContainerDisabled, { marginLeft: 45 }]}>
+                                    {this.state.isBuy ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={commonStyles.common.radioButtonTextDisabled}>Buy</Text>
                         </View>
                     </View>
                 </View>
-
             </View>
         );
     }
 }
+
 const styles = {
-    container: {
-        flexDirection: 'column',
-        marginTop: 10,
-        zIndex: -1
-    }
-}
+    container: { flexDirection: 'column', marginTop: 10, zIndex: -1 },
+};
+
 const mapStateToProps = (state) => {
     return {
         selectedProduct: state.selectedProductQuoteSwap
     };
-}
-export default connect(mapStateToProps, { onChangeName, onChangeId })(TradeDirection);
+};
+
+export default connect(mapStateToProps, null)(TradeDirection);

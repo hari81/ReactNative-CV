@@ -1,8 +1,10 @@
-import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY } from '../../actions/types';
+import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, SAVE_CROP_DATA_LOCALLY, MY_FARM_ACTION } from '../../actions/types';
 
 const INITIAL_STATE = {
     myFarmCropData: {},
-    cropValuesSummary: {}
+    cropValuesSummary: {},
+    farmFlag: false,
+    userFarm: {}
 
 };
 
@@ -15,7 +17,8 @@ export default function (state = INITIAL_STATE, action) {
             return Object.assign({}, state, { cropValuesSummary: action.payload });
         case SAVE_CROP_DATA_LOCALLY:
             return Object.assign({}, state, { myFarmCropData: action.payload });
-
+        case MY_FARM_ACTION:
+            return Object.assign({}, state, { farmFlag: action.payload });
         default:
             return state;
     }

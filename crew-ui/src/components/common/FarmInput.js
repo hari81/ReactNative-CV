@@ -39,7 +39,6 @@ const styles = {
     paddingLeft: 20,
     fontSize: 16,
     lineHeight: 25,
-    width: 356
   },
 
   containerStyle: {
@@ -48,7 +47,8 @@ const styles = {
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: 4,
-    width: 356,
+    flex: 1,
+    //width: 356,
 
   }
 };

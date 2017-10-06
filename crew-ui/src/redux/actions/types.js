@@ -21,6 +21,7 @@ export const CLOSED_POSITIONS_DATA_SUCCESS = 'closed_positions_data_success';
 export const MY_FARM_CROP_VALUES = 'my_farm_crop_values';
 export const MY_FARM_CROP_VALUES_SUMMARY = 'my_farm_crop_values_summary';
 export const SAVE_CROP_DATA_LOCALLY = 'save_crop_data_locally';
+export const MY_FARM_ACTION = 'may_farm_action';
 
 export const ALL_BUTTONS = 'all_buttons';
 export const SELECT_ID = 'select_id';
@@ -33,6 +34,6 @@ export const SHOW_INFO_BUTTON_CLICK = 'info_button';
 export const HIDE_INFO_BUTTON_CLICK = 'hide_info_click';
 
 export const ACCOUNT_INFORMATION = 'account_information';
+export const DEFAULT_ACCOUNT_DETAILS = 'default_account_information';
 
 export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
-export const ORDERS_NEW_ORDER = 'orders_new_order';

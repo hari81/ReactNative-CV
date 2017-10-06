@@ -1,66 +1,107 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+
+import { View, Text, TouchableOpacity } from 'react-native';
+
 import { connect } from 'react-redux';
-import normalRadioBTN from '../../common/img/Radio-BTN-normal.png';
-import selectedRadioBTN from '../../common/img/Radio-BTN-selected.png';
 import LimitOrder from './LimitOrder';
+import * as commonStyles from '../../../Utils/styles';
 
 class OrderType extends Component {
     constructor() {
         super();
         this.state = {
-            radioBTNEnableMarket: true,
-            radioBTNEnableLimit: false,
-            tickSizeIncrement: '0'
+            isLimitOrder: false
         };
     }
-    componentDidMount() {
-        const code = this.props.id;
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
-    }
-    onMarketSelection= () => {
-        this.setState({ radioBTNEnableMarket: true, radioBTNEnableLimit: false });
+
+    onMarketSelection() {
+        this.setState({ isLimitOrder: false });
         this.props.onOrderTypeChange('market');
     }
-    onLimitSelection=() => {
-        this.setState({ radioBTNEnableMarket: false, radioBTNEnableLimit: true });
+
+    onLimitSelection() {
+        this.setState({ isLimitOrder: true });
+        this.props.onLimitPriceChange(this.getLimitPrice(this.props.selectedContractMonth));
+        this.props.onExpiryDateChange(this.getExpDate(this.props.selectedContractMonth));
         this.props.onOrderTypeChange('limit');
     }
-    limitOrder() {
-        if (this.state.radioBTNEnableLimit) {
-            return <LimitOrder tickSizeIncrement={this.state.tickSizeIncrement} />;
-        }
+
+    onLimitPriceChange(limitPrice) {
+        this.props.onLimitPriceChange(limitPrice);
     }
+
+    onExpiryDateChange(date) {
+        this.props.onExpiryDateChange(date);
+    }
+
+    getLimitPrice(selectedContractMonth) {
+        let tPrice = null;
+        const scm = selectedContractMonth;
+        if (scm !== null) {
+            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
+                tPrice = scm.askPrice === null ? scm.settlePrice : scm.askPrice;
+            } else {
+                tPrice = scm.bidPrice === null ? scm.settlePrice : scm.bidPrice;            
+            }
+            tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
+            return tPrice;
+        }
+        return 0;
+    }
+
+    getExpDate() {
+        let tDate = null;
+        const scm = this.props.selectedContractMonth;
+        if (scm !== null) {
+            tDate = new Date(scm.lastTradeDate.concat('T00:00:00-06:00')) || '';
+            return tDate;
+        }
+        return null;  
+    }
+
     render() {
+        let tLimitOrder = null;
+        if (this.state.isLimitOrder) {
+            tLimitOrder = (
+                <LimitOrder 
+                    buySell={this.props.buySell}
+                    tickSizeIncrement={this.props.tickSizeIncrement} 
+                    selectedContractMonth={this.props.selectedContractMonth}
+                    onLimitPriceChange={this.onLimitPriceChange.bind(this)}
+                    onExpiryDateChange={this.onExpiryDateChange.bind(this)}
+                />
+            );
+        }
+
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>ORDER TYPE</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>ORDER TYPE</Text>
                 <View>
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <TouchableOpacity disabled={this.state.radioBTNEnableMarket} onPress={this.onMarketSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableMarket ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)', paddingRight: 45 }}>Market Order</Text>
-                        <TouchableOpacity disabled={this.state.radioBTNEnableLimit} onPress={this.onLimitSelection}><Image style={{ width: 32, height: 32 }} source={this.state.radioBTNEnableLimit ? selectedRadioBTN : normalRadioBTN} /></TouchableOpacity>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: 'rgb(255,255,255)' }}>Limit Order</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                            <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
+                                <View style={commonStyles.common.radioButtonContainer}>
+                                    {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
+                            <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
+                                <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
+                                    {this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
+                        </View>
                     </View>
                 </View>
-                {this.limitOrder()}
+                {tLimitOrder}
             </View>
         );
     }
 }
 const styles = {
-    container: {
-        flexDirection: 'column',
-        marginTop: 10
-    }
-}
-const mapStateToProps = (state) => {
-    return {
-        defaultAccountData: state.account.defaultAccount,
-        contractMonth: state.contractData,
-        id: state.cropsButtons.selectedId
-    };
-}
-export default connect(mapStateToProps, null)(OrderType);
+    container: { flexDirection: 'column', marginTop: 10 },
+    orderLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: '#fff' },
+};
 
+export default connect(null, null)(OrderType);

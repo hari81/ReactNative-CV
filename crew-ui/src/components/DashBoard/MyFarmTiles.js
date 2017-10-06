@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import cancelimage from '../common/img/Cancel-20.png';
 import Info from '../common/img/Info.png';
 import { showInfoButtonClick, hideInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
-import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp } from '../../redux/actions/MyFarm/CropAction';
+import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 
@@ -89,21 +89,23 @@ class MyFarmTiles extends Component {
     //on Cancel info button press
     cancelButton() {
         this.props.hideInfoButtonClick();
-    }    
-    
-    goToFarm() {
-     const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
-       this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
-         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-        Actions.myfarm();
     }
 
-   enterCropDetails = () => {
+    goToFarm() {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-        Actions.myfarm({ tradeflag: true });
+        this.props.farmActionFlag(true);
+        Actions.myfarm();
     }
+
+    enterCropDetails = () => {
+        const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
+        this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
+        this.props.farmActionFlag(true);
+        Actions.myfarm({ tradeflag: true });
+    };
 
     render() {
         //returning Enter Crop Details when my farm tiles data is absent in json
@@ -135,7 +137,7 @@ class MyFarmTiles extends Component {
 
                         <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
                         <View style={{ flexDirection: 'row', width: 100 }}>
-                          <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
+                            <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
                         </View>
                         <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit My Farm Details</Text>
 
@@ -285,11 +287,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
-            showInfoButtonClick, 
-            myFarmCropValues, 
-            cropButtonPress, 
+            showInfoButtonClick,
+            myFarmCropValues,
+            cropButtonPress,
             myFarmTradeSalesOutSideApp,
-            hideInfoButtonClick
+            hideInfoButtonClick,
+            farmActionFlag
         },
         dispatch
     );

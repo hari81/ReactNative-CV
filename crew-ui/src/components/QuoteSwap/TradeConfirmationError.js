@@ -12,25 +12,25 @@ class TradeConfirmationError extends Component {
     }
 
     render() {
-        const { width } = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         return (
             <View >
                 <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
                 <LogoHomeHeader />
-                <View style={{ backgroundColor: 'rgb(239,244,247)', height: 705 }}>
-                    <View style={{ height: 83, width: 1024, backgroundColor: 'rgb(64,78,89)' }} />
+                <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
+                    <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                         <View style={styles.orderReceipt} >
                             <Text style={styles.textOrderReceipt}> Order Receipt</Text>
                         </View>
-                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: 513, marginHorizontal: 16 }}>
+                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16 }}>
                             <Text style={styles.textOopsStyle}> Ooops! There was a problem with your order</Text>
                             <Image source={ec} style={styles.imageStyle} />
-                            <View style={styles.textMessage}>
-                                <Text style={[styles.textStyle, { paddingTop: 100 }]}>Error Your order was rejected. Mauris non tempor quam,</Text>
-                                <Text style={styles.textStyle}>et lacinia sapien. Mauris accumsan eros eget libero</Text>
-                                <Text style={styles.textStyle}>posuere vulputate. Etiam elit elit, elementum sed varius</Text>
-                                <Text style={styles.textStyle}>&at, adipiscing vitae est.</Text>
+                            <View style={[styles.textMessage, { height: height - 392 }]}>
+                                <Text style={[styles.textStyle, { paddingTop: 100 }]}>Error Your order was rejected.</Text>
+
+                                <Text style={styles.textStyle}>{this.props.message}</Text>
+
                                 <Text style={[styles.textStyle, { marginTop: 20 }]}>Please contact the trading desk at 1-952-742-7414</Text>
                                 <View style={styles.buttonView} >
                                     <TouchableHighlight
@@ -125,4 +125,3 @@ const styles = {
 };
 
 export default TradeConfirmationError;
-

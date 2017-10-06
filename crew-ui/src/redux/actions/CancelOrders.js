@@ -1,16 +1,16 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { REST_API_URL } from '../../ServiceURLS';
+import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 import { doDeleteFetch } from '../../Utils/FetchApiCalls';
 
 export const orderReceipt = orderid => {
     return (dispatch, getState) => {
-        const url = `${REST_API_URL}orders/${orderid}`;
+        const url = `${ORDER_SERVICES_URL}orders/${orderid}`;
         return doDeleteFetch(url, getState().auth.email, getState().auth.password)
             .then(response => {
-                if (response.ok) {
-                    console.log(response);
-                    Actions.cancelorderreceipt({ orderid: orderid });
+                if (response.status === 202) {
+                   // console.log(response);
+                    //Actions.cancelorderreceipt({ orderid });
                 } else {
                     console.log(response.status);
                     if (response.status === 404) {
@@ -23,11 +23,23 @@ export const orderReceipt = orderid => {
                         Alert.alert('Order cannot be canceled as it is cant found.');
                         //console.log('Response failed');
                     }
+                    if (response.status === 403) {
+                        Alert.alert('Order cannot be canceled as it is cant found.');
+                    }
                     if (response.status === 500) {
                         Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
                     }
                 }
+                return response.json();
             })
+            .then(cancelResponse => {
+                //console.log(cancelResponse);
+                if (cancelResponse.statusCode === 200 || cancelResponse.statusCode === 202 || cancelResponse.statusCode === 404) {
+                    Actions.cancelorderreceipt({ orderid, message: cancelResponse.message });
+                } else {
+                        Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
+                }
+             })
             .catch((status, error) => console.log(`error ${error}`));
     };
 };

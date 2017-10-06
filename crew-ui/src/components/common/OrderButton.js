@@ -7,14 +7,14 @@ const OrderButton = ({ onPress, children, disabled }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={buttonStyle}
+      style={[buttonStyle, children === 'BACK TO DASHBOARD' ? { backgroundColor: 'white', borderColor: 'rgb(159,169,186)' } : {}]}
       disabled={disabled}
       raised='true'
       theme='dark'
       overrides='true'
       backgroundColor='#3fffff'
     >
-      <Text style={textStyle}>
+      <Text style={[textStyle, children === 'BACK TO DASHBOARD' ? { color: 'rgb(159,169,186)' } : {}]}>
         {children}
       </Text>
     </TouchableOpacity>
@@ -24,10 +24,9 @@ const OrderButton = ({ onPress, children, disabled }) => {
 const styles = {
   textStyle: {
     alignSelf: 'center',
-    //  color: 'black',
     fontSize: 20,
-    fontWeight: '600',
-    color: '#279989',
+    color: 'white',
+    fontFamily: 'HelveticaNeue',
     paddingTop: 10,
     paddingBottom: 10
   },
@@ -37,6 +36,7 @@ const styles = {
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#01aca8',
+    backgroundColor: 'rgb(39,153,137)',
     marginLeft: 5,
     marginRight: 5
   }

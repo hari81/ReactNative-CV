@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage } from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import { emailChanged, passwordChanged, saveUserSwitchChanged } from '../redux/actions/index';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
-import { loginUser } from '../redux/actions/LoginAuth';
+import { loginUser, forGetPassword } from '../redux/actions/LoginAuth';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
@@ -55,8 +55,22 @@ class LoginForm extends Component {
     }
   }
 
+  scrollChange() {
+      this.refs.scrollView.scrollTo({ x: 0, y: 50, animated: true });
+  }
+
+  scrollDown() {
+      this.refs.scrollView.scrollToEnd();
+  }
+
+  forGetPass() {
+  this.props.forGetPassword(this.props.auth.email); //this.props.auth.email.slice(0, this.props.auth.email.indexOf('@')));
+  //AlertIOS.alert('Reset Password', `Email will be send to your ${this.props.auth.email}`);
+  }
+
   render() {
     return (
+        <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
       <Card>
         <CardSection>
           <Input
@@ -75,9 +89,12 @@ class LoginForm extends Component {
             label='Password'
             onChangeText={this.onPasswordChange.bind(this)}
             value={this.props.auth.password}
-
+            onfocus={this.scrollChange.bind(this)}
+            onblur={this.scrollDown.bind(this)}
           />
         </CardSection>
+           <Text style={{ color: 'white' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
+
         <Text style={styles.errorStyle}>
           {this.props.auth.error}
         </Text>
@@ -112,6 +129,7 @@ class LoginForm extends Component {
           cargillpricehedge@cargill.com
         </Text>
       </Card>
+     </ScrollView>
     );
   }
 }
@@ -125,9 +143,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  return {
-      auth: state.auth,
-  };
+  return { auth: state.auth, acc: state.account };
 };
 export default connect(mapStateToProps, {
     emailChanged,
@@ -136,5 +152,6 @@ export default connect(mapStateToProps, {
     saveUserSwitchChanged,
     productType,
     accountDetails,
-    displayProperties
+    displayProperties,
+    forGetPassword
 })(LoginForm);

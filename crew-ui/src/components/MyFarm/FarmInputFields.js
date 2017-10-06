@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, Keyboard } from 'react-native';
+import Dimensions from 'Dimensions';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 import { FarmInput } from '../../components/common';
 
 class FarmInputFields extends Component {
@@ -69,6 +71,7 @@ class FarmInputFields extends Component {
     }
 
     render() {
+        const { width, height } = Dimensions.get('window');
         const { acr, pro, yie, cos, updateAcrValue, updateProValue, updateCosValue, updateYieValue } = this.props;
         return (
             <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
@@ -79,8 +82,8 @@ class FarmInputFields extends Component {
                     paddingLeft: 15,
                     flexDirection: 'column',
                     justifyContent: 'space-around',
-                    width: 430,
-                    height: 350
+                    //width: 430,
+                    height: height - 410
                 }}
             >
 
@@ -144,8 +147,8 @@ class FarmInputFields extends Component {
                         maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
-                            if (e.nativeEvent.key === 'Enter') {
-                            Keyboard.dismiss();
+                            if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
+                            dismissKeyboard();
                         }
                         }}
                     />
@@ -179,7 +182,7 @@ class FarmInputFields extends Component {
                         keyboardType='numeric'
                         placeholderTextColor='rgba(61,76,87, .5)'
                         ref='profits'
-                        maxLength={100}
+                        //maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
                             if (e.nativeEvent.key === 'Enter') {
@@ -220,9 +223,10 @@ class FarmInputFields extends Component {
                         keyboardType='numeric'
                         placeholderTextColor='rgba(61,76,87, .5)'
                         ref='exyield'
-                        maxLength={100}
+                        maxLength={356}
                         returnKeyType='done'
                         onKeyPress={(e) => {
+                           // console.log(e.nativeEvent.key);
                             if (e.nativeEvent.key === 'Enter') {
                             Keyboard.dismiss();
                         }
@@ -249,7 +253,8 @@ const styles = {
         alignItems: 'center',
         backgroundColor: 'white',
         borderRadius: 4,
-        width: 356,
+        flex: 1,
+        //width: 356,
     }
 };
 
