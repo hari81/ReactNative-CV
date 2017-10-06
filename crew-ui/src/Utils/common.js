@@ -104,3 +104,27 @@ export function translateProductId(productId, productData) {
     }
     return productDescTemp;
 }
+
+export function isInt(value) {
+    return !isNaN(value) && 
+           parseInt(Number(value)) === value && 
+           !isNaN(parseInt(value, 10));
+}
+
+export function convertStringToInt(value) {
+    let t = value;
+    if (!isInt(t)) {
+        t = cleanNumericString(t);
+    }
+    return parseInt(t);
+}
+
+export function cleanNumericString(value) {
+    let t = value;
+    //remove commas, dollars, and blanks
+    t = t.replace(',', '');
+    t = t.replace('$', '');
+    t = t.replace(' ', '');
+    if (t === '') { return 0; }
+    return t;
+}

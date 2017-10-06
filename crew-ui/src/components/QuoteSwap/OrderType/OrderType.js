@@ -10,15 +10,10 @@ class OrderType extends Component {
     constructor() {
         super();
         this.state = {
-            isLimitOrder: false,
-            tickSizeIncrement: '0'
+            isLimitOrder: false
         };
     }
-    componentDidMount() {
-        const code = this.props.id;
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
-    }
+
     onMarketSelection() {
         this.setState({ isLimitOrder: false });
         this.props.onOrderTypeChange('market');
@@ -26,26 +21,61 @@ class OrderType extends Component {
 
     onLimitSelection() {
         this.setState({ isLimitOrder: true });
+        this.props.onLimitPriceChange(this.getLimitPrice(this.props.selectedContractMonth));
+        this.props.onExpiryDateChange(this.getExpDate(this.props.selectedContractMonth));
         this.props.onOrderTypeChange('limit');
     }
-    scrollchange1() {
-        this.props.scrollchange();
+
+    onLimitPriceChange(limitPrice) {
+        this.props.onLimitPriceChange(limitPrice);
     }
-    onBlurMake = () => {
-        this.props.scrolldow();
-    };
 
-    limitOrder() {
+    onExpiryDateChange(date) {
+        this.props.onExpiryDateChange(date);
+    }
 
-        if (this.state.isLimitOrder) {
-            return <LimitOrder buySell={this.props.buySell} tickSizeIncrement={this.state.tickSizeIncrement} />;
-
+    getLimitPrice(selectedContractMonth) {
+        let tPrice = null;
+        const scm = selectedContractMonth;
+        if (scm !== null) {
+            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
+                tPrice = scm.askPrice === null ? scm.settlePrice : scm.askPrice;
+            } else {
+                tPrice = scm.bidPrice === null ? scm.settlePrice : scm.bidPrice;            
+            }
+            tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
+            return tPrice;
         }
+        return 0;
     }
+
+    getExpDate() {
+        let tDate = null;
+        const scm = this.props.selectedContractMonth;
+        if (scm !== null) {
+            tDate = new Date(scm.lastTradeDate.concat('T00:00:00-06:00')) || '';
+            return tDate;
+        }
+        return null;  
+    }
+
     render() {
+        let tLimitOrder = null;
+        if (this.state.isLimitOrder) {
+            tLimitOrder = (
+                <LimitOrder 
+                    buySell={this.props.buySell}
+                    tickSizeIncrement={this.props.tickSizeIncrement} 
+                    selectedContractMonth={this.props.selectedContractMonth}
+                    onLimitPriceChange={this.onLimitPriceChange.bind(this)}
+                    onExpiryDateChange={this.onExpiryDateChange.bind(this)}
+                />
+            );
+        }
+
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>ORDER TYPE</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>ORDER TYPE</Text>
                 <View>
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
@@ -64,7 +94,7 @@ class OrderType extends Component {
                         </View>
                     </View>
                 </View>
-                {this.limitOrder()}
+                {tLimitOrder}
             </View>
         );
     }
@@ -74,12 +104,4 @@ const styles = {
     orderLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: '#fff' },
 };
 
-const mapStateToProps = (state) => {
-    return {
-        defaultAccountData: state.account.defaultAccount,
-        contractMonth: state.contractData,
-        id: state.cropsButtons.selectedId
-    };
-};
-
-export default connect(mapStateToProps, null)(OrderType);
+export default connect(null, null)(OrderType);

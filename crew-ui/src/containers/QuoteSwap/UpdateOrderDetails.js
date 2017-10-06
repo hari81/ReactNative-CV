@@ -56,7 +56,7 @@ class UpdateOrderDetails extends Component {
         };
     }
     
-    componentDidMount() {
+    componentWillMount() {
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === this.props.cropId.slice(0, (this.props.cropId.length - 4)));
         this.setState({ tickSizeIncrement: crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString() });
     }
@@ -125,6 +125,7 @@ class UpdateOrderDetails extends Component {
     onFocusMake() {
         this.setState({ targetPrice: (this.state.targetPrice.charAt(0) === '$') ? this.state.targetPrice.slice(1, this.state.targetPrice.length) : this.state.targetPrice });
     }
+
     onBlurMake() {
         this.setState({ targetPrice: `$${this.state.targetPrice}` });
     }
