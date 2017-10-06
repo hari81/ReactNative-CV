@@ -6,7 +6,7 @@ const ExternalInput = ({
                    value,
                    onChangeText,
                    placeholder,
-                   secureTextEntry, edit , focus, onblur
+                   secureTextEntry, edit, focus, onblur
                }) => {
     const { inputStyle, containerStyle } = styles;
 
@@ -51,7 +51,7 @@ const styles = {
     containerStyle: {
         height: 70,
         alignItems: 'center',
-        width: 150,
+        width: '14.6%',
         marginLeft: 10
     }
 };

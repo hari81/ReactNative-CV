@@ -55,7 +55,7 @@ const LogoFarmHeader = props => {
           source={User}
           style={{ marginLeft: 20, width: 35, height: 35 }}
         />
-          <TouchableHighlight>
+          <TouchableHighlight onPress={()=> {}}>
         <Image
           source={require('./img/ExpandArrow.png')}
           style={{ width: 20, height: 20, marginLeft: 10 }}

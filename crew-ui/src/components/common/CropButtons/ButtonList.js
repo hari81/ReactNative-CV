@@ -11,15 +11,36 @@ class ButtonList extends Component {
     buttonPress(year, code, id, name) {
         //Dashboard data fetch
         this.props.dashBoardDataFetch(`${year}`, `${code}`);
-        // buttonsSelection
-        this.props.selectId(id);
-        this.props.selectedCropName(name);
         //myFarmAction
+        if (!this.props.far.farmFlag) {
+            this.props.myFarmCropValues(code, year);
+            this.props.myFarmTradeSalesOutSideApp(code, year);
+            // buttonsSelection
+            this.props.selectedCropName(name);
+            this.props.selectId(id);
+        } else {
+            //.log('farm data');
+            const val = this.props.userflag();
+            //console.log('flag', val);
+            if (!val) {
+                this.props.myFarmCropValues(code, year);
+                this.props.myFarmTradeSalesOutSideApp(code, year);
+                this.props.selectId(id);
+            }
+            else {
+               // this.props.selectId(this.props.old[0].id);
+                Alert.alert(
+                    'My Farm Data',
+                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
+                    [
+                        { text: 'GOT IT!', style: 'OK' }
+                    ],
+                    { cancelable: false }
+                );
+            }
+        }
         // place order contract month data
         this.props.quoteSwapUnderlying(year, code);
-
-        this.props.myFarmCropValues(code, year);
-        this.props.myFarmTradeSalesOutSideApp(code, year);
     }
     render() {
         const { id, cropYear, code, name } = this.props.item;
@@ -67,14 +88,11 @@ const styles = {
     inactiveYearTextStyle: { fontSize: 16, color: '#526173' },
     activeCommodityTextStyle: { color: '#fff', fontSize: 21, maxWidth: 130, textAlign: 'center' },
     inactiveCommodityTextStyle: { color: '#526173', fontFamily: 'HelveticaNeue', fontSize: 21, maxWidth: 130, textAlign: 'center' },
-    /* currently not used
-    activeCropTextStyle: { color: '#fff', fontSize: 14 },
-    inactiveCropTextStyle: { color: '#9fa9ba', fontSize: 14 }
-    */
 };
 const mapStateToProps = state => {
     return {
         id: state.cropsButtons.selectedId,
+        far: state.myFar
     };
 };
 const matchDispatchToProps = (dispatch) => {

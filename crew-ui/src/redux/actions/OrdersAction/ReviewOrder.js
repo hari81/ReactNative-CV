@@ -109,9 +109,9 @@ export const placeOrder = () => {
                 Actions.tcerror();                
             })
             .then((orderData) => {
-                console.log('order data is: ', orderData);
-                console.log('OrderId', orderData.id);
-                console.log('Order Status', orderData.status);
+         //       console.log('order data is: ', orderData);
+         //       console.log('OrderId', orderData.id);
+        //        console.log('Order Status', orderData.status);
                 switch (orderData.status) {
                     case '201':
                     case 201:

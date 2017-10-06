@@ -13,7 +13,7 @@ reqHeaders.append('Accept-Encoding', 'gzip,deflate');
 reqHeaders.append('User-Agent', 'Crew 0.1.0');
 
 function doGetFetch(url, email, password) {
-    console.log(url);
+   // console.log(url);
     reqHeaders.append('Authorization', baseAuthentication(email, password));
     return fetch(url, {
         method: 'GET',
@@ -32,6 +32,7 @@ function doPutFetch(url, body, email, password) {
 
 function doPostFetch(url, body, email, password) {
     reqHeaders.append('Authorization', baseAuthentication(email, password));
+
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,

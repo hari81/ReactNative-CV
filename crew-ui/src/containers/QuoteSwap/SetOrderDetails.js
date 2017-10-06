@@ -82,7 +82,14 @@ class SetOrderDetails extends Component {
 
     orderDetails = (id) => {
         this.setState({ riskProductId: id });
-    }
+    };
+
+   /* scrollUpdate() {
+        this.refs.scrollView.scrollTo({ x: 0, y: 100, animated: true });
+    };
+    scrollDown() {
+        this.refs.scrollView.scrollToEnd();
+    }*/
 
     render() {
         //console.log(this.state)

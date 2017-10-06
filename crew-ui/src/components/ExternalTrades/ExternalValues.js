@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, TouchableOpacity, Picker, Keyboard } from 'react-native';
+import Dimensions from 'Dimensions';
 import { ExternalInput } from './ExternalInput';
 import { ExternalNumberInput } from './ExternalNumberInput';
 import cancel from '../common/img/Cancel-40.png';
@@ -72,7 +73,10 @@ export default class ExternalValues extends Component {
             case 'tradeDate':
                 this.setState({ date: value });
                 this.props.onSelectVal(value, transtype);
-
+                break;
+            case 'underlyingSymbol':
+                this.setState({ cMonth: value });
+                this.props.onSelectVal(value, transtype);
                 break;
             default:
                 this.props.onSelectVal(value, transtype);
@@ -124,7 +128,7 @@ export default class ExternalValues extends Component {
         if (this.state.contractFlag) {
             return (<View style={{
                 top: -15,
-                marginLeft: 15,
+               // marginLeft: 350,
                 height: 100,
                 width: 100,
                 position: 'absolute',
@@ -153,7 +157,8 @@ export default class ExternalValues extends Component {
                 quan: typeof this.props.items.quantity === 'undefined' ? '' : this.props.items.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
                 fuPrice: `$${parseFloat(this.props.items.futuresPrice || 0).toFixed(4)}`,
                 basis: `$${parseFloat(this.props.items.basis || 0).toFixed(4)}`,
-                adj: `$${parseFloat(this.props.items.adjustments || 0).toFixed(4)}`
+                adj: `$${parseFloat(this.props.items.adjustments || 0).toFixed(4)}`,
+                cMonth: this.props.items.underlyingSymbol
             });
         }
     }
@@ -163,7 +168,9 @@ export default class ExternalValues extends Component {
                 fuPrice: `$${parseFloat(this.props.items.futuresPrice || 0).toFixed(4)}`,
                 basis: `$${parseFloat(this.props.items.basis || 0).toFixed(4)}`,
                 adj: `$${parseFloat(this.props.items.adjustments || 0).toFixed(4)}`,
-                quan: typeof this.props.items.quantity === 'undefined' ? '' : this.props.items.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') });
+                quan: typeof this.props.items.quantity === 'undefined' ? '' : this.props.items.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+                cMonth: this.props.items.underlyingSymbol
+            });
         }
         this.props.onSelectVal(this.state.date, 'tradeDate');
     }
@@ -188,12 +195,14 @@ export default class ExternalValues extends Component {
     }
 
     render() {
-        const { removeTrans, items = {}, placeholdervalues } = this.props;
+        const { width } = Dimensions.get('window');
+        const { removeTrans, items = {}, fcontract, placeholdervalues } = this.props;
+       // console.log(items.underlyingSymbol);
         const a = Number(items.adjustments || 0);
         const b = Number(items.basis || 0);
         const f = Number(items.futuresPrice || 0);
         return (
-            <View style={{ backgroundColor: '#3d4c57' }}>
+            <View style={{ backgroundColor: '#3d4c57', width }}>
                     <View style={{ marginBottom: 15, height: 5, backgroundColor: 'black' }} />
                     <View style={{ flexDirection: 'row' }}>
 
@@ -227,28 +236,27 @@ export default class ExternalValues extends Component {
                                     alignItems: 'center',
                                     borderRadius: 5,
                                     backgroundColor: 'white',
-                                    marginBottom: 10
+                                    marginBottom: 10,
+                                    flex: 1
                                 }}
                             >
-                                <TextInput
-                                    value={this.state.cMonth}
+                                {/* <TextInput
+                                    value={this.state.cMonth || 'CU2018'}
                                     style={{ width: 135, height: 45, paddingLeft: 10, fontSize: 15 }}
-                                   // multiline
                                     placeholder='ContractMonth'
                                     //onChangeText={}
-                                    onFocus={() => {this.setState({ contractFlag: true })}}
-                                />
-                                { /* <Picker
+                                    onFocus={() => { Keyboard.dismiss(); this.setState({ contractFlag: true }); }}
+                                />*/}
+                                 <Picker
                                     style={{ width: 135, height: 45 }}
                                     mode='dropdown'
                                     itemStyle={{ height: 45 }}
-                                    selectedValue={'CZ2018'}
-                                    // onValueChange={this.dropDown.bind(this)}
+                                    selectedValue={this.state.cMonth}
+                                    onValueChange={this.externalTrans.bind(this, 'underlyingSymbol')}
                                 >
-                                    <Picker.Item label='CZ2018' value='CZ2018' key='CZ2018' />
-                                    <Picker.Item label='CU2018' value='CU2018' key='CU2018' />
-                                    <Picker.Item label='SU2018' value='SU2018' key='SU2018' />
-                                </Picker>*/}
+                                     {fcontract.map(item =>
+                                     <Picker.Item label={item} value={item}  key={item} />)}
+                                </Picker>
                                 {this.contractMonthVisibility()}
                             </View>
                         </View>
@@ -338,10 +346,10 @@ export default class ExternalValues extends Component {
                         </View>
 
                     </View>
-                    <View style={{ marginTop: 10, flexDirection: 'row', zIndex: -1 }}>
+                    <View style={{ marginTop: 10, flexDirection: 'row', zIndex: -1, width }}>
                         <View style={{ justifyContent: 'space-between', marginRight: 5 }}>
                             <Text style={{ fontSize: 15, color: 'white', paddingLeft: 20, paddingBottom: 10 }}> Notes </Text>
-                            <View style={[{ backgroundColor: 'white', width: 740, height: 50, borderRadius: 5, marginLeft: 20 }]}>
+                            <View style={{ backgroundColor: 'white', height: 50, borderRadius: 5, marginLeft: 20, flex: 1 }}>
                                 <TextInput
                                     value={items.notes}
                                     style={{ width: 740, height: 45, paddingLeft: 20, fontSize: 15 }}
@@ -380,9 +388,8 @@ const styles = {
     containerStyle: {
         height: 70,
         alignItems: 'center',
-        width: 145,
+        width: '14.16%',
         marginLeft: 5,
-
     },
     inputStyle: {
         width: 132,
@@ -399,6 +406,8 @@ const styles = {
         paddingBottom: 10,
         color: 'white',
         alignItems: 'center'
-
     },
+    noteStyle: {
+        width: '72.2%'
+    }
 };

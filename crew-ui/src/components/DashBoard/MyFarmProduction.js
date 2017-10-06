@@ -29,7 +29,7 @@ class MyFarmProduction extends Component {
                     <View style={{ borderRadius: 100, marginTop: 28, marginLeft: 5, width: 16, height: 16, backgroundColor: 'rgb(158,42,47)' }} />
                     <ChartApp />
                     <View style={{ flexDirection: 'column', position: 'absolute', marginLeft: 110, marginTop: 120 }}>
-                        <Text style={{ fontSize: 14, paddingLeft: 2, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(61,76,87)' }} >
+                        <Text style={{ fontSize: 14, paddingLeft: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(61,76,87)' }} >
                             {percent}%
                         </Text>
                         <Text style={{ fontSize: 15, paddingLeft: 4, fontFamily: 'HelveticaNeue', color: 'rgb(171,178,183)' }}>UNSOLD</Text>
@@ -85,7 +85,7 @@ class MyFarmProduction extends Component {
             );
         //returning data when my farm production data is present
         } else {
-            const percent = this.props.myFarmProductionData === null ? '' : (parseFloat((this.props.myFarmProductionData.myFarmProduction.unhedgedProduction.totalQuantity / this.props.myFarmProductionData.myFarmProduction.estimatedTotalProduction) * 100).toFixed(2))
+            const percent = this.props.myFarmProductionData === null ? '' : (parseFloat((this.props.myFarmProductionData.myFarmProduction.unhedgedProduction.totalQuantity / this.props.myFarmProductionData.myFarmProduction.estimatedTotalProduction) * 100).toFixed(0))
             return (
                 <View>
                     <View style={{ flexDirection: 'row' }}>
@@ -177,15 +177,15 @@ const mapStateToProps = (state) => {
         estimatedTotalProduction: st(state.dashBoardData, ['Data', 'myFarmProduction', 'estimatedTotalProduction']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'estimatedTotalProduction']))),
 
         unhedgedTotalQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalQuantity'])).toFixed(0)),
-        unhedgedTotalAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount'])).toFixed(2)),
+        unhedgedTotalAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount'])).toFixed(0)),
 
         openOrdersQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openOrders', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openOrders', 'totalQuantity'])).toFixed(0)),
 
         externalTradesQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalQuantity'])).toFixed(0)),
-        externalTradesAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount'])).toFixed(2)),
+        externalTradesAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount'])).toFixed(0)),
 
         openPositionsQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity'])).toFixed(0)),
-        openPositionsTradeAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])).toFixed(2))
+        openPositionsTradeAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])).toFixed(0))
 
     };
 };

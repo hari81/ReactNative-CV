@@ -41,7 +41,7 @@ class MyCropButton extends Component {
 const styles = {
     buttonStyle: {
         flexDirection: 'column',
-        height: 126,
+        height: '16.4%',
         //width: 1024,
         backgroundColor: 'rgb(61,76,81)'
     },
