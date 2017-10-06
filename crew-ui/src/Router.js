@@ -14,11 +14,12 @@ import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmat
 import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
 import ReviewOrder from './components/Orders/ReviewOrder';
 import Disclaimer from './containers/Disclaimer';
+import ProfitabilityMatrix from './containers/ProfitabilityMatrix';
 
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key='auth' initial>
+      <Scene key='auth' initial >
         <Scene hideNavBar key='app' component={App} initial />
       </Scene>
       <Scene key='main'>
@@ -35,6 +36,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />
+        <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} />
       </Scene>
     </Router>
   );

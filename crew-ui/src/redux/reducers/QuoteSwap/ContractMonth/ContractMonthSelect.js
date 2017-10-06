@@ -11,7 +11,8 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case 'SELECT_CONTRACT_MONTH':
-            return Object.assign({}, state, { contractMonth: action.payload })
+            return Object.assign({}, state, { contractMonth: action.payload });
+    /*
         case 'BID_PRICE_SHOW':
             return Object.assign({}, state, { bidPrice: action.payload });
         case 'ASK_PRICE_SHOW':
@@ -22,6 +23,7 @@ export default function (state = INITIAL_STATE, action) {
             return Object.assign({}, state, { lastTradeDate: action.payload });
         case 'UNDERLYING_YEAR_SHOW':
             return Object.assign({}, state, { underlyingSymbol: action.payload });
+    */
         case 'BUSHEL_QUANTITY_LIMIT':
             return Object.assign({}, state, { bushelQuantity: action.payload });
         default:

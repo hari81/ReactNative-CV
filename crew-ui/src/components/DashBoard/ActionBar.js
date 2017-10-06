@@ -33,14 +33,14 @@ class ActionBar extends Component {
     render() {
         return (
             <View style={styles.thirdRowStyle}>
-                <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'stretch', width: 182 }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'stretch', width: width * 0.178 }}>
                     <Text style={{ fontSize: 17, fontFamily: 'HelveticaNeue', color: 'rgb(131,141,148)' }}> TODAY'S PRICE </Text>
                     <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(135,136,140)' }} >as of {moment().format('MMM Do YYYY, h:mm a')} </Text>
                 </View>
 
                 <View style={styles.thirdRowBorderStyle} />
 
-                <View style={{ justifyContent: 'center', alignItems: 'center', margin: 9, width: 124 }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', margin: 9, width: width * 0.121 }}>
                     <Text style={{ fontFamily: 'HelveticaNeue-Bold', fontSize: 14, color: 'rgb(131,141,148)' }}>
                         {this.props.cropButton.selectedCropName.toUpperCase()}
                     </Text>
@@ -56,13 +56,13 @@ class ActionBar extends Component {
                 <View style={styles.thirdRowBorderStyle} />
 
                 <TouchableOpacity onPress={this.dashBoardToOrders.bind(this)}>
-                    <View style={{ alignItems: 'center', marginLeft: 17, width: 110, marginTop: 16, flexDirection: 'row' }}>
-                        <View style={{ width: 50 }}>
+                    <View style={{ alignItems: 'center', marginLeft: width * 0.0166, width: width * 0.107, marginTop: 16, flexDirection: 'row'}}>
+                        <View style={{ width: width * 0.0488 }}>
                             <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
                                 {this.props.openOrdersCount}
                             </Text>
                         </View>
-                        <View style={{ flexDirection: 'column', marginLeft: 8 }}>
+                        <View style={{ flexDirection: 'column', marginLeft: width * 0.0079 }}>
                             <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Open</Text>
                             <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Orders</Text>
                         </View>
@@ -71,13 +71,13 @@ class ActionBar extends Component {
 
                 <View style={styles.thirdRowBorderStyle} />
                 <TouchableOpacity onPress={this.dashBoardToOpenPositions.bind(this)}>
-                    <View style={{ alignItems: 'center', marginHorizontal: 12, width: 110, marginTop: 14, flexDirection: 'row' }}>
-                        <View style={{ width: 50 }}>
+                    <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 14, flexDirection: 'row' }}>
+                        <View style={{ width: width * 0.0488 }}>
                             <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
                                 {this.props.openPositionsCount}
                             </Text>
                         </View>
-                        <View style={{ flexDirection: 'column', marginLeft: 8 }}>
+                        <View style={{ flexDirection: 'column', marginLeft: width * 0.0079 }}>
                             <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Open</Text>
                             <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Trades</Text>
                             <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>(In App)</Text>
@@ -87,9 +87,9 @@ class ActionBar extends Component {
 
                 <View style={styles.thirdRowBorderStyle} />
                 <TouchableOpacity onPress={this.dashBoardToExternalTrades.bind(this)}>
-                <View style={{ alignItems: 'center', marginHorizontal: 12, width: 110, marginTop: 14, flexDirection: 'row' }}>
+                <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 14, flexDirection: 'row' }}>
 
-                    <View style={{ width: 45 }}>
+                    <View style={{ width: width * 0.044 }}>
                         <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>{this.props.externalTradesCount}</Text>
                     </View>
                     <View style={{ flexDirection: 'column' }}>
@@ -112,29 +112,29 @@ const { height, width } = Dimensions.get('window');
 const styles = {
     thirdRowStyle: {
         flexDirection: 'row',
-        height: 79,
-        width: width - 32,
-        marginHorizontal: 16,
-        marginVertical: 10,
+        height: height * 0.102,
+        width: width * 0.97,
+        marginHorizontal: width * 0.0156,
+        marginVertical: height * 0.013,
         backgroundColor: 'rgb(255,255,255)',
         borderColor: 'rgb(190,216,221)',
         borderWidth: 1
     },
     thirdRowBorderStyle: {
         width: 1,
-        height: 70,
+        height: height * 0.091,
         backgroundColor: 'rgb(221,221,221)',
         marginTop: 4,
     },
     placeOrderButtonStyle: {
-        height: 40,
-        width: 220,
+        height: height * 0.052,
+        width: width * 0.2149,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: height * 0.026,
         backgroundColor: 'rgb(39,153,137)',
         borderRadius: 4,
-        marginLeft: 30
+        marginLeft: width * 0.029
     }
 
 };

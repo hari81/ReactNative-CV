@@ -4,7 +4,7 @@ export const contractMonthSelect = (id) => {
         payload: id
     };
 };
-
+/*
 export const bidPriceShow = (bidprice) => {
     return {
         type: 'BID_PRICE_SHOW',
@@ -39,7 +39,7 @@ export const underlyingYearShow = (underlyingSym) => {
         payload: underlyingSym
     };
 };
-
+*/
 export const bushelLimitShow = (limit) => {
     return {
         type: 'BUSHEL_QUANTITY_LIMIT',

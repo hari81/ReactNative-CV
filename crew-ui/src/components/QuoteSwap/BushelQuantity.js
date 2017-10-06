@@ -11,16 +11,9 @@ class BushelQuantity extends Component {
         super(props);
         this.state = {
             quantity: this.props.quantity,
-            quantityIncrement: '0',
             qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity) / this.props.myFarmProd.estimatedTotalProduction) * 100
         };
         this.timer = null;
-    }
-
-    componentDidMount() {
-        const code = this.props.id;
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)));
-        this.setState({ quantityIncrement: crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString() });
     }
 
     onFocusMake() {
@@ -47,15 +40,17 @@ class BushelQuantity extends Component {
 
     minusButtonPress() {
         try {
-            let q = this.state.quantity;
-            if (q === '' || parseInt(q) < 1) {
+            let q = common.convertStringToInt(this.state.quantity);
+            if (q < 1) {
                 q = 0;
             }
-            if (parseInt(q) >= parseInt(this.state.quantityIncrement)) {
-                q = (parseInt(q) - parseInt(this.state.quantityIncrement)).toString();
+            if (q >= parseInt(this.props.quantityIncrement)) {
+                q -= parseInt(this.props.quantityIncrement);
                 this.calculateHedgePercent(q);
-                this.setState({ quantity: q });
-                this.props.onQuantityChange(q);
+                //convert to string before setting state
+                const sq = common.formatNumberCommas(q);
+                this.setState({ quantity: sq });
+                this.props.onQuantityChange(sq);
             }
             this.timer = setTimeout(this.minusButtonPress, 50);
         } catch (error) {
@@ -65,18 +60,20 @@ class BushelQuantity extends Component {
 
     plusButtonPress() {
         try {
-            let q = this.state.quantity;
-            if (q === '' || parseInt(q) < 1) {
+            let q = common.convertStringToInt(this.state.quantity);
+            if (q < 1) {
                 q = 0;
             }
-            if (parseInt(q) <= (this.props.quantityLimit - parseInt(this.state.quantityIncrement)) || q === '') {
-                q = ((parseInt(q) || 0) + parseInt(this.state.quantityIncrement)).toString();
+            if (q <= (this.props.quantityLimit - parseInt(this.props.quantityIncrement)) || q === 0) {
+                q += parseInt(this.props.quantityIncrement);
             } else {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 q = parseInt(this.props.quantityLimit.toString());
             }
-            this.setState({ quantity: q });
             this.calculateHedgePercent(q);
+            //convert to string before setting state
+            const sq = common.formatNumberCommas(q);
+            this.setState({ quantity: sq });
             this.props.onQuantityChange(q);
             this.timer = setTimeout(this.plusButtonPress, 50);
         } catch (error) {
@@ -147,9 +144,6 @@ const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         contractMonth: state.contractData,
-        id: state.cropsButtons.selectedId,
-        bushelQuantity: state.selectedContractMonth.bushelQuantity,
-        quantityLimit: Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable),
         myFarmProd: state.dashBoardData.Data.myFarmProduction
     };
 };
