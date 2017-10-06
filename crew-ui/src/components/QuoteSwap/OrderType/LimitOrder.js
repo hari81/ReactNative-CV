@@ -9,6 +9,7 @@ import Info from '../../common/img/Info-white.png';
 import { InfoPopup } from '../../common/InfoPopup';
 import DisclaimerData from '../../../restAPI/disclaimer.json';
 import cancel from '../../common/img/Cancel-40.png';
+import * as common from '../../../Utils/common';
 
 class LimitOrder extends Component {
     constructor(props) {
@@ -79,14 +80,16 @@ class LimitOrder extends Component {
 
     onChangeQuantity(text) {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
+            this.setState({ limitPrice: text });
             this.onLimitPriceChange(text);
         }
     }
 
     minusButtonPress() {
         try {
-            if (parseFloat(this.state.limitPrice) >= parseFloat(this.props.tickSizeIncrement)) {
-                const tPrice = ((parseFloat(this.state.limitPrice) - parseFloat(this.props.tickSizeIncrement)).toFixed(4));
+            const lp = common.cleanNumericString(this.state.limitPrice);            
+            if (parseFloat(lp) >= parseFloat(this.props.tickSizeIncrement)) {
+                const tPrice = ((parseFloat(lp) - parseFloat(this.props.tickSizeIncrement)).toFixed(4));
                 this.setState({ limitPrice: tPrice });
                 this.onLimitPriceChange(tPrice);
             }
@@ -98,7 +101,8 @@ class LimitOrder extends Component {
 
     plusButtonPress() {
         try {
-            const tPrice = ((parseFloat(this.state.limitPrice) + parseFloat(this.props.tickSizeIncrement)).toFixed(4));
+            const lp = common.cleanNumericString(this.state.limitPrice);            
+            const tPrice = ((parseFloat(lp) + parseFloat(this.props.tickSizeIncrement)).toFixed(4));
             this.setState({ limitPrice: tPrice });
             this.onLimitPriceChange(tPrice);
             this.timer = setTimeout(this.plusButtonPress, 50);
@@ -184,6 +188,7 @@ class LimitOrder extends Component {
                                     value={this.state.limitPrice}
                                     onChangeText={this.onChangeQuantity.bind(this)}
                                     onBlur={this.onBlurMake.bind(this)}
+                                    onFocus={this.onFocusMake.bind(this)}
                                     onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
                                     selectTextOnFocus
                                 />

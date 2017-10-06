@@ -249,20 +249,20 @@ const mapStateToProps = state => {
     let tPrice = 0;
     if (isBuy) {
         tPrice = isLimit ? 
-            state.reviewQuote.quoteData.metadata.targetPrice + Math.abs(state.reviewQuote.quoteData.midMarketMark) :                
-            state.reviewQuote.quoteData.price + Math.abs(state.reviewQuote.quoteData.midMarketMark);
+            parseFloat(state.reviewQuote.quoteData.metadata.targetPrice + Math.abs(state.reviewQuote.quoteData.midMarketMark)) :
+            parseFloat(state.reviewQuote.quoteData.price + Math.abs(state.reviewQuote.quoteData.midMarketMark));
     } else {
         tPrice = isLimit ? 
-            state.reviewQuote.quoteData.metadata.targetPrice - Math.abs(state.reviewQuote.quoteData.midMarketMark) :                
-            state.reviewQuote.quoteData.price - Math.abs(state.reviewQuote.quoteData.midMarketMark);
+            parseFloat(state.reviewQuote.quoteData.metadata.targetPrice - Math.abs(state.reviewQuote.quoteData.midMarketMark)) :
+            parseFloat(state.reviewQuote.quoteData.price - Math.abs(state.reviewQuote.quoteData.midMarketMark));
     }
 
     return {
         data: state.reviewQuote.quoteData,
         buySell: isBuy ? 'Buy' : 'Sell',
         calcs: {
-            midMarketMark: Math.abs(state.reviewQuote.quoteData.midMarketMark),
-            midMarketMarkCents: state.reviewQuote.quoteData.midMarketMark * 100,
+            midMarketMark: parseFloat(Math.abs(state.reviewQuote.quoteData.midMarketMark)),
+            midMarketMarkCents: parseFloat(state.reviewQuote.quoteData.midMarketMark * 100),
             totalPrice: tPrice
         },
         commodity: {

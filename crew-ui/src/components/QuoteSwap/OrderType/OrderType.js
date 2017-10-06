@@ -20,6 +20,7 @@ class OrderType extends Component {
     onLimitSelection() {
         this.setState({ isLimitOrder: true });
         this.props.onLimitPriceChange(this.getLimitPrice(this.props.selectedContractMonth));
+        this.props.onExpiryDateChange(this.getExpDate(this.props.selectedContractMonth));
         this.props.onOrderTypeChange('limit');
     }
 
@@ -44,6 +45,16 @@ class OrderType extends Component {
             return tPrice;
         }
         return 0;
+    }
+
+    getExpDate() {
+        let tDate = null;
+        const scm = this.props.selectedContractMonth;
+        if (scm !== null) {
+            tDate = new Date(scm.lastTradeDate.concat('T00:00:00-06:00')) || '';
+            return tDate;
+        }
+        return null;  
     }
 
     render() {
