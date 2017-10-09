@@ -8,7 +8,7 @@ import User from './img/User.png';
 
 const LogoHomeHeader = () => {
     return (
-        <View style={{ flexDirection: 'row', height: 43, backgroundColor: 'rgb(35,43,50)' }}>
+        <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)' }}>
             <TouchableHighlight onPress={() => Actions.dashboard()}>
                 <Image source={HomeIcon} style={{ width: 24, height: 24, marginLeft: 20, marginTop: 10 }} />
             </TouchableHighlight>

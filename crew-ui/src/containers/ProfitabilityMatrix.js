@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import Matrix from '../components/ProfitabilityMatrix/Matrix';
-import FooterBar from '../components/ProfitabilityMatrix/FooterBar';
 import { LogoHomeHeader } from '../components/common/LogoHomeHeader';
 import CropHeader from '../components/ProfitabilityMatrix/CropHeader';
 import IncrementSettingBar from '../components/ProfitabilityMatrix/IncrementSettingBar';
+import { profitabilityMatrixData } from '../redux/actions/ProfitabilityMatrixAction';
 
-export default class ProfitabilityMatrix extends Component {
+class ProfitabilityMatrix extends Component {
+    componentDidMount() {
+        this.props.profitabilityMatrixData();
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -15,7 +19,6 @@ export default class ProfitabilityMatrix extends Component {
                 <CropHeader />
                 <Matrix />
                 <IncrementSettingBar />
-                <FooterBar />
             </View>
         );
     }
@@ -26,3 +29,4 @@ const styles = {
         backgroundColor: 'rgb(39,49,66)'
     },
 }
+export default connect(null, { profitabilityMatrixData })(ProfitabilityMatrix);

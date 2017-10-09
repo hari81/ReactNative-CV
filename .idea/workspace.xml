@@ -2,84 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a9916a4-d2e8-4d2e-9c05-0e45e86b4c97" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crew-ui/src/Utils/styles.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/LogOff.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/LogoFarmHeader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/UpdateOrderDetails.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/crew-frontend.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/ProfitabilityMatrixReducer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/.eslintrc" afterPath="$PROJECT_DIR$/crew-ui/.eslintrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/index.ios.js" afterPath="$PROJECT_DIR$/crew-ui/index.ios.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/ios/CargillVeloCli/Info.plist" afterPath="$PROJECT_DIR$/crew-ui/ios/CargillVeloCli/Info.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/App.js" afterPath="$PROJECT_DIR$/crew-ui/src/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js" afterPath="$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/Utils/FetchApiCalls.js" afterPath="$PROJECT_DIR$/crew-ui/src/Utils/FetchApiCalls.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/Utils/common.js" afterPath="$PROJECT_DIR$/crew-ui/src/Utils/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrder.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrder.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrderReceipt.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrderReceipt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmTiles.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmTiles.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalInput.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalInput.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalNumberInput.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalNumberInput.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalValues.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalValues.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/MyFarm/FarmInputFields.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/MyFarm/FarmInputFields.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/MyFarm/OutSideTradeSales.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/MyFarm/OutSideTradeSales.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/Orders/ClosedPositions.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/Orders/ClosedPositions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/Orders/OpenPositions.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/Orders/OpenPositions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/Orders/ReviewOrder.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/Orders/ReviewOrder.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/Orders/ViewOrders.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/Orders/ViewOrders.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BidAskPrice.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BidAskPrice.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BushelQuantity.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BushelQuantity.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonth.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonth.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonthSellList.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonthSellList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/LimitOrder.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/LimitOrder.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/OrderType.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/OrderType.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ProductsList/ProductType.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ProductsList/ProductType.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationError.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationError.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationOrderReceipt.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationOrderReceipt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeDirection.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeDirection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/Welcome.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/Welcome.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/Card.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/Card.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/FarmInput.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/FarmInput.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/Input.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/Input.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/LogoPhoneHeader.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/LogoPhoneHeader.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/OrderButton.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/OrderButton.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/index.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/ExternalSales.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/ExternalSales.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/MyFarm.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/MyFarm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/Orders.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/Orders.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/ChartApp.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/ChartApp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/components/common/LogoHomeHeader.js" afterPath="$PROJECT_DIR$/crew-ui/src/components/common/LogoHomeHeader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/SetOrderDetails.js" afterPath="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/SetOrderDetails.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/AccountInfo.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/AccountInfo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/CancelOrders.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/CancelOrders.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DisplayPropertiesAction.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DisplayPropertiesAction.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/ExternalTrades/ExternalActions.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/ExternalTrades/ExternalActions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/MyFarm/CropAction.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/MyFarm/CropAction.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ClosedPositions.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ClosedPositions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/OpenPositions.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/OpenPositions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ReviewOrder.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ReviewOrder.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ViewOrderAction.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ViewOrderAction.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonth.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonth.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ProductType/ProductType.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ProductType/ProductType.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ProductType/SelectedProduct.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ProductType/SelectedProduct.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/actions/types.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/actions/types.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/reducers/AccountInfo/AccountInfoReducer.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/AccountInfo/AccountInfoReducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/reducers/MyFarm/CropReducer.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/MyFarm/CropReducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/reducers/OrdersReducer/ReviewOrder.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/OrdersReducer/ReviewOrder.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/reducers/QuoteSwap/ContractMonth/ContractMonthData.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/QuoteSwap/ContractMonth/ContractMonthData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/reducers/QuoteSwap/ContractMonth/ContractMonthSelect.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/QuoteSwap/ContractMonth/ContractMonthSelect.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/restAPI/disclaimer.json" afterPath="$PROJECT_DIR$/crew-ui/src/restAPI/disclaimer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js" afterPath="$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -96,118 +30,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BidAskPrice.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BidAskPrice.js">
+      <file leaf-file-name="ProfitabilityMatrixAction.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+            <state relative-caret-position="495">
+              <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
               <folding>
-                <marker date="1507314333000" expanded="false" signature="7:136" ph="..." />
+                <element signature="e#0#56#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BushelQuantity.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BushelQuantity.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2025">
-              <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
-              <folding>
-                <marker date="1507313583000" expanded="false" signature="7:184" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ButtonList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-              <folding>
-                <marker date="1507313583000" expanded="false" signature="7:79" ph="..." />
-                <marker date="1507313583000" expanded="true" signature="4191:4197" ph="{&quot;id&quot;: state.cropsButtons.selectedId...}" />
-                <marker date="1507313583000" expanded="true" signature="4191:4200" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="4245:4461" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="4277:4447" ph="{&quot;selectId&quot;: selectId...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyCropButton.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="40" column="16" lean-forward="false" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-              <folding>
-                <marker date="1507313583000" expanded="false" signature="7:141" ph="..." />
-                <marker date="1507313583000" expanded="true" signature="1695:1754" ph="{&quot;flexDirection&quot;: 'column'...}" />
-                <marker date="1507313583000" expanded="true" signature="1695:1757" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="1792:1850" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="1805:1847" ph="{&quot;crops&quot;: state.cropsButtons...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DashBoard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-              <folding>
-                <marker date="1507314346000" expanded="false" signature="7:453" ph="..." />
-                <marker date="1507314346000" expanded="true" signature="489:1121" ph="{...}" />
-                <marker date="1507314346000" expanded="true" signature="504:1119" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UpdateOrderDetails.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/UpdateOrderDetails.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6030">
-              <caret line="422" column="80" lean-forward="false" selection-start-line="422" selection-start-column="80" selection-end-line="422" selection-end-column="80" />
-              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ContractMonth.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonth.js">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1178">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="499">
+              <caret line="37" column="8" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
               <folding>
-                <marker date="1507313583000" expanded="true" signature="7:387" ph="..." />
-                <marker date="1507313583000" expanded="true" signature="427:4473" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="447:565" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="487:558" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="603:686" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="703:847" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="881:936" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="957:1306" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="1015:1106" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="1112:1204" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="1347:2404" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="1396:1452" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="2419:4471" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="4489:5253" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="5289:5354" ph="{...}" />
-                <marker date="1507313583000" expanded="true" signature="5302:5351" ph="{&quot;contractMonth&quot;: state.contractData...}" />
+                <element signature="e#0#67#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Disclaimer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/Disclaimer.js">
+      <file leaf-file-name="ProfitabilityMatrixReducer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/ProfitabilityMatrixReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Matrix.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="23" column="41" lean-forward="false" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -215,38 +88,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cancel.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/Cancel.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="DashboardReducer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DashboardReducer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="1" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FooterBar.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+            <state relative-caret-position="225">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfitabilityMatrix.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
               <folding>
-                <marker date="1507306278000" expanded="false" signature="7:413" ph="..." />
-                <marker date="1507306278000" expanded="true" signature="449:1156" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="469:642" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="509:609" ph="{&quot;targetPrice&quot;: ''...}" />
-                <marker date="1507306278000" expanded="true" signature="667:1096" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="1191:1523" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="1288:1451" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="1557:1778" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="1801:1842" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="1879:1961" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="1994:2076" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="2111:2194" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="2226:2262" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="2276:7592" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="7661:8114" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="7677:7812" ph="{&quot;backgroundColor&quot;: 'rgb(35,43,50)'...}" />
-                <marker date="1507306278000" expanded="true" signature="7841:8112" ph="{&quot;justifyContent&quot;: 'center'...}" />
-                <marker date="1507306278000" expanded="true" signature="8150:9064" ph="{...}" />
-                <marker date="1507306278000" expanded="true" signature="8163:9061" ph="{&quot;id&quot;: state.cropsButtons.selectedId...}" />
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DashboardAction.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#58#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -273,12 +153,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ClosedPositions.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/CancelOrders.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonth.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/QuoteSwap/ContractMonth/ContractMonthSelect.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/OrdersAction/ViewOrderAction.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ProductType/ProductType.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/restAPI/disclaimer.json" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/QuoteSwap/ContractMonth/ContractMonthData.js" />
@@ -299,7 +173,6 @@
         <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DashboardReducer.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonth.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/ChartApp.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/Colors.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/Pie.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/AnimShape.js" />
@@ -307,23 +180,30 @@
         <option value="$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DisplayProperties.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DisplayPropertiesReducer.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/App.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DisplayPropertiesAction.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmProduction.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/LimitOrder.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmTiles.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/AccountInfo.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/SetOrderDetails.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/CropHeader.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/UpdateOrderDetails.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/ChartApp.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/common/LogoHomeHeader.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/ProfitabilityMatrixAction.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmProduction.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/ProfitabilityMatrixReducer.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js" />
       </list>
     </option>
   </component>
@@ -363,6 +243,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -412,23 +294,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="DashBoard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DashBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="DoughnutChart" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="ExternalTrades" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -571,6 +436,16 @@
               <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="redux" type="462c0819:PsiDirectoryNode" />
+              <item name="actions" type="462c0819:PsiDirectoryNode" />
+              <item name="QuoteSwap" type="462c0819:PsiDirectoryNode" />
+              <item name="ProductType" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="redux" type="462c0819:PsiDirectoryNode" />
               <item name="reducers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -623,6 +498,15 @@
               <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
               <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="redux" type="462c0819:PsiDirectoryNode" />
+              <item name="reducers" type="462c0819:PsiDirectoryNode" />
+              <item name="QuoteSwap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="restAPI" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -643,8 +527,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -667,11 +549,12 @@
     <property name="node.js.detected.package.standard" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/crew-ui/src/redux/actions" />
+      <recent name="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/crew-ui/src/components/common/img" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -727,11 +610,15 @@
       <workItem from="1507301933165" duration="1098000" />
       <workItem from="1507307074013" duration="463000" />
       <workItem from="1507315506249" duration="128000" />
+      <workItem from="1507319385042" duration="4279000" />
+      <workItem from="1507480701513" duration="160000" />
+      <workItem from="1507552752274" duration="84000" />
+      <workItem from="1507557506944" duration="19538000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190799000" />
+    <option name="totallyTimeSpent" value="214860000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -749,12 +636,12 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1761804" sideWeight="0.494302" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.962963" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2863248" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2920228" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1761804" sideWeight="0.505698" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -764,21 +651,21 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.962963" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3105413" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26563552" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2920228" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1761804" sideWeight="0.494302" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1761804" sideWeight="0.505698" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -819,190 +706,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="13" column="46" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DisplayPropertiesAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/ExternalTrades/ExternalActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="36" column="23" lean-forward="true" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="20" column="2" lean-forward="true" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/AccountInfo/AccountInfoReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/CropButtons/ButtonReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DashboardReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DisplayPropertiesReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/infobuttonsReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/MyFarm/CropReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/OrdersReducer/ClosedPositions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/OrdersReducer/OpenPositions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/OrdersReducer/ViewOrdersReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/PageHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/OrderButton.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/LogoPhoneHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/LogoHomeHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/LogoHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmProduction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="16" column="51" lean-forward="false" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="34" column="52" lean-forward="true" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/FetchApiCalls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/AccountInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="517">
           <caret line="59" column="59" lean-forward="true" selection-start-line="59" selection-start-column="59" selection-end-line="59" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/SetOrderDetails.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="82" column="27" lean-forward="false" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1020,66 +732,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/CropHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmTiles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="261" column="8" lean-forward="true" selection-start-line="261" selection-start-column="8" selection-end-line="261" selection-end-column="207" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/Router.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-827">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonthSellList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-113">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/LimitOrder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="122" column="125" lean-forward="true" selection-start-line="122" selection-start-column="125" selection-end-line="122" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationError.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/OrderType.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -1098,82 +754,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <marker date="1507306278000" expanded="false" signature="7:413" ph="..." />
-            <marker date="1507306278000" expanded="true" signature="449:1156" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="469:642" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="509:609" ph="{&quot;targetPrice&quot;: ''...}" />
-            <marker date="1507306278000" expanded="true" signature="667:1096" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="1191:1523" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="1288:1451" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="1557:1778" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="1801:1842" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="1879:1961" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="1994:2076" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="2111:2194" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="2226:2262" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="2276:7592" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="7661:8114" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="7677:7812" ph="{&quot;backgroundColor&quot;: 'rgb(35,43,50)'...}" />
-            <marker date="1507306278000" expanded="true" signature="7841:8112" ph="{&quot;justifyContent&quot;: 'center'...}" />
-            <marker date="1507306278000" expanded="true" signature="8150:9064" ph="{...}" />
-            <marker date="1507306278000" expanded="true" signature="8163:9061" ph="{&quot;id&quot;: state.cropsButtons.selectedId...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BidAskPrice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-          <folding>
-            <marker date="1507314333000" expanded="false" signature="7:136" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BushelQuantity.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2025">
-          <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
-          <folding>
-            <marker date="1507313583000" expanded="false" signature="7:184" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="40" column="16" lean-forward="false" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-          <folding>
-            <marker date="1507313583000" expanded="false" signature="7:141" ph="..." />
-            <marker date="1507313583000" expanded="true" signature="1695:1754" ph="{&quot;flexDirection&quot;: 'column'...}" />
-            <marker date="1507313583000" expanded="true" signature="1695:1757" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="1792:1850" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="1805:1847" ph="{&quot;crops&quot;: state.cropsButtons...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <marker date="1507313583000" expanded="false" signature="7:79" ph="..." />
-            <marker date="1507313583000" expanded="true" signature="4191:4197" ph="{&quot;id&quot;: state.cropsButtons.selectedId...}" />
-            <marker date="1507313583000" expanded="true" signature="4191:4200" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="4245:4461" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="4277:4447" ph="{&quot;selectId&quot;: selectId...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1181,36 +761,112 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js">
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="40" column="16" lean-forward="false" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/ChartApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="34" column="68" lean-forward="false" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="29" column="45" lean-forward="false" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
-          <folding />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/UpdateOrderDetails.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5805">
+          <caret line="407" column="57" lean-forward="true" selection-start-line="407" selection-start-column="57" selection-end-line="407" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonthBuyList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-473">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BushelQuantity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/BidAskPrice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1178">
+        <state relative-caret-position="-1088">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonthSellList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationError.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeConfirmationOrderReceipt.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1507313583000" expanded="true" signature="7:387" ph="..." />
-            <marker date="1507313583000" expanded="true" signature="427:4473" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="447:565" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="487:558" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="603:686" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="703:847" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="881:936" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="957:1306" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="1015:1106" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="1112:1204" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="1347:2404" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="1396:1452" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="2419:4471" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="4489:5253" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="5289:5354" ph="{...}" />
-            <marker date="1507313583000" expanded="true" signature="5302:5351" ph="{&quot;contractMonth&quot;: state.contractData...}" />
+            <element signature="e#0#41#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/TradeDirection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1218,29 +874,255 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/AnimShape.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/ios/CargillVeloCli/Info.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-603">
+          <caret line="41" column="31" lean-forward="false" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/LogoHomeHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="10" column="56" lean-forward="false" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmTiles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="95" column="4" lean-forward="false" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/CropHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/LimitOrder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="122" column="5" lean-forward="true" selection-start-line="122" selection-start-column="5" selection-end-line="122" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/OrderType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="37" column="3" lean-forward="true" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-766">
+          <caret line="30" column="8" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/infobuttonsAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/MyFarm/CropAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#37#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/LimitOrderAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/SetOrderDetails.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2313">
+          <caret line="186" column="44" lean-forward="true" selection-start-line="186" selection-start-column="44" selection-end-line="186" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmProduction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="44" lean-forward="false" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js">
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/FetchApiCalls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="28" column="7" lean-forward="false" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
           <folding>
-            <marker date="1507314346000" expanded="false" signature="7:453" ph="..." />
-            <marker date="1507314346000" expanded="true" signature="489:1121" ph="{...}" />
-            <marker date="1507314346000" expanded="true" signature="504:1119" ph="{...}" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/UpdateOrderDetails.js">
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6030">
-          <caret line="422" column="80" lean-forward="false" selection-start-line="422" selection-start-column="80" selection-end-line="422" selection-end-column="80" />
+        <state relative-caret-position="255">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DashboardReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonthSelect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/ProfitabilityMatrixReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/QuoteSwap/ContractMonth/ContractMonth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="37" column="8" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="41" lean-forward="false" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

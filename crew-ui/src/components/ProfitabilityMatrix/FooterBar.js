@@ -8,8 +8,8 @@ import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 
 class FooterBar extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             targetPrice: '',
             yield: '',
@@ -20,7 +20,10 @@ class FooterBar extends Component {
     componentDidMount() {
         const code = this.props.id;
         const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)))
-        this.setState({ targetPrice: parseFloat(this.props.targetPrice).toFixed(4).toString(), matrixPriceIncrement: crop[0].matrixPriceIncrement === null || crop[0].matrixPriceIncrement === undefined ? '0' : crop[0].matrixPriceIncrement.toString() });
+        this.setState({ targetPrice: parseFloat(this.props.targetPrice).toFixed(4).toString(), matrixPriceIncrement: crop[0].matrixPriceIncrement });
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ matrixPriceIncrement: nextProps.priceIncrement });
     }
     onFocusMake = () => {
         Keyboard.dismiss();
