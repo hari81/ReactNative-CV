@@ -55,7 +55,7 @@ export const getReviewOrderQuote = (orderData) => {
                         quoteData.metadata.quantity = orderData.quantity;
                         quoteData.metadata.expirationDate = quoteData.quoteExpiration;
                         if (quoteData.metadata.orderType.toLowerCase() === 'limit') {
-                            quoteData.metadata.targetPrice = orderData.targetPrice;
+                            quoteData.metadata.targetPrice = common.cleanNumericString(orderData.targetPrice);
                             quoteData.metadata.goodTilDate = orderData.goodTilDate;
                         }
                     }
@@ -98,6 +98,7 @@ export const placeOrder = () => {
         //extra fields for limit orders
         if (oData.metadata.orderType.toLowerCase() === 'limit') {
             data.targetPrice = oData.metadata.targetPrice;
+            data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
 
         return doPostFetch(url, data, getState().auth.email, getState().auth.password)

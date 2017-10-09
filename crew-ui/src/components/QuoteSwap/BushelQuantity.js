@@ -38,7 +38,7 @@ class BushelQuantity extends Component {
         this.props.onQuantityChange(text);
     }
 
-    minusButtonPress() {
+    minusButtonPress = () => {
         try {
             let q = common.convertStringToInt(this.state.quantity);
             if (q < 1) {
@@ -49,16 +49,16 @@ class BushelQuantity extends Component {
                 this.calculateHedgePercent(q);
                 //convert to string before setting state
                 const sq = common.formatNumberCommas(q);
-                this.setState({ quantity: sq });
+                this.setState({ quantity: sq.toString() });
                 this.props.onQuantityChange(sq);
             }
-            this.timer = setTimeout(this.minusButtonPress, 50);
+            this.timer = setTimeout(this.minusButtonPress, 200);
         } catch (error) {
             console.log(error);
         }
     }
 
-    plusButtonPress() {
+    plusButtonPress = () => {
         try {
             let q = common.convertStringToInt(this.state.quantity);
             if (q < 1) {
@@ -75,7 +75,7 @@ class BushelQuantity extends Component {
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
             this.props.onQuantityChange(q);
-            this.timer = setTimeout(this.plusButtonPress, 50);
+            this.timer = setTimeout(this.plusButtonPress, 200);
         } catch (error) {
             console.log(error);
         }
@@ -106,7 +106,7 @@ class BushelQuantity extends Component {
             <View style={styles.container}>
                 <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>BUSHEL QUANTITY</Text>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
+                    <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
                         <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
                     </TouchableOpacity>
                     <TextInput
@@ -122,7 +122,7 @@ class BushelQuantity extends Component {
                         onFocus={this.onFocusMake.bind(this)}
                         selectTextOnFocus
                     />
-                    <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
+                    <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
                         <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>

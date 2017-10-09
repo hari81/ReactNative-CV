@@ -26,7 +26,6 @@ class QuoteSwap extends Component {
     }
 
     render() {
-        const { width } = Dimensions.get('window');
         if (this.state.selectedOrder === undefined) {
             return (
                 <View >
@@ -49,16 +48,16 @@ class QuoteSwap extends Component {
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <UpdateOrderDetails selectedOrder={this.state.selectedOrder} />
-                    <MyCropButton />
                 </View>
             </View>
         );
-    }
-    
+    }   
 }
+
 const mapStateToProps = state => {
     return {
         Crops: state.cropsButtons.cropButtons
     };
 };
+
 export default connect(mapStateToProps, { quoteSwapUnderlying })(QuoteSwap);
