@@ -166,7 +166,7 @@ class FarmInputFields extends Component {
                 <View style={styles.containerStyle}>
                     <TextInput
 
-                        placeholder='Ex: $75 /per acre'
+                        placeholder='Ex: $600 /per acre'
                         style={styles.inputStyle}
                         value={pro}
                         onChangeText={this.onChangeProfit.bind(this)}

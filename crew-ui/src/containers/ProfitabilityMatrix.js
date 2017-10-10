@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions } from 'react-native';
 import Matrix from '../components/ProfitabilityMatrix/Matrix';
 import FooterBar from '../components/ProfitabilityMatrix/FooterBar';
-import { LogoHomeHeader } from '../components/common/LogoHomeHeader';
+import { LogoHomeHeader } from '../components/common';
 import CropHeader from '../components/ProfitabilityMatrix/CropHeader';
 import IncrementSettingBar from '../components/ProfitabilityMatrix/IncrementSettingBar';
 

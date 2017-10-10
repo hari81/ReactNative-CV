@@ -8,6 +8,7 @@ import plus from '../components/common/img/Plus.png';
 import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
 import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
+import { homeScreenDataFetch } from '../redux/actions/Dashboard/DashboardAction';
 
 class ExternalSales extends Component {
     constructor(props) {
@@ -128,6 +129,7 @@ class ExternalSales extends Component {
                     { cancelable: false }
                 );
             } else {
+                this.props.homeScreenDataFetch();
                 Actions.dashboard();
             }
         } else {
@@ -293,5 +295,5 @@ const mapStateToProps = (state) => {
         id: state.cropsButtons.selectedId };
 };
 
-export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues })(ExternalSales);
+export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues, homeScreenDataFetch })(ExternalSales);
 

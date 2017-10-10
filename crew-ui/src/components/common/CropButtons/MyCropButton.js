@@ -6,6 +6,16 @@ import ButtonList from './ButtonList';
 import { Spinner } from '../index';
 
 class MyCropButton extends Component {
+    getItemLayout = (data, index) => (
+        { length: 100, offset: 100 * index, index }
+    );
+
+    componentDidMount() {
+        //console.log(this.props.crops.cropButtons);
+       const buttons = this.props.crops.cropButtons.map(val => val.id);
+        const activeButton = buttons.indexOf(this.props.id);
+        this.flatListRef.scrollToIndex({ animated: true, index: activeButton });
+    }
 
     buttonsAppear() {
         if (this.props.crops.buttonActive) {
@@ -13,6 +23,8 @@ class MyCropButton extends Component {
         } else {
             return (<View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <FlatList
+                    ref={(ref) => { this.flatListRef = ref; }}
+                    getItemLayout={this.getItemLayout}
                     horizontal
                     data={this.props.crops.cropButtons}
                     keyExtractor={item => item.id}
@@ -49,6 +61,7 @@ const styles = {
 const mapStateToProps = state => {
     return {
         crops: state.cropsButtons,
+        id: state.cropsButtons.selectedId
     };
 };
 

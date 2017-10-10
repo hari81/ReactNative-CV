@@ -19,7 +19,7 @@ class CancelOrder extends Component {
   }
 
   render() {
-      //console.log(this.props.item);
+      console.log(this.props.item);
       const cancelData = this.props.item;
     return (
       <View style={styles.containerStyle}>
@@ -86,7 +86,7 @@ class CancelOrder extends Component {
                     </View>
                       <View style={styles.orderField}>
                           <Text style={styles.orderLabel}>Your order will be valid until</Text>
-                          <Text style={styles.orderData}>{common.formatDate(cancelData.goodTilDate, 5)}</Text>
+                          <Text style={styles.orderData}>{cancelData.goodTilDate === undefined ? 'N/A' : common.formatDate(cancelData.goodTilDate, 5)}</Text>
                       </View>
                   </View>
                     <View style={{ flex: 1 }}>
