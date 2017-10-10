@@ -7,6 +7,7 @@ import matrix from '../common/img/Small-Matrix.png';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Spinner } from '../common/Spinner';
+import { Button } from '../common/Button';
 
 class MyFarmProduction extends Component {
 
@@ -14,7 +15,7 @@ class MyFarmProduction extends Component {
         Actions.matrix();
     }
     noFarmSetup= () => {
-        Alert.alert('Please Setup your Farm Details');
+        Alert.alert('Please Setup Your Farm Details');
     }
     spinner(percent) {
         if (this.props.dashBoardSpinner) {
@@ -126,11 +127,9 @@ class MyFarmProduction extends Component {
                             </View>
                             <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize Scenarios to see how your trading decisions affect your profitability</Text>
                             <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.217} height={height * 0.199} /></View>
-                            <TouchableOpacity onPress={this.dashBoardToMatrix}>
-                                <View style={styles.viewProfitabilityButton}>
-                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }}>VIEW PROFITABILITY</Text>
-                                </View>
-                            </TouchableOpacity>
+                            <Button buttonStyle={styles.viewProfitabilityButton} textStyle={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }} onPress={this.dashBoardToMatrix}>
+                                VIEW PROFITABILITY
+                            </Button>
                         </View>
                     </View>
                 </View>
