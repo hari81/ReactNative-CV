@@ -21,10 +21,10 @@ export const ViewOrdersData = (crop) => {
             items.value.map(item => {
                 const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${item.underlying}`;
               return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
-              .then(response => { return response.json(); })
+              .then(response => { return response.json(); });
             })
           )
-            .then(response => { //console.log(response);
+            .then(response => { /*console.log(response);*/
               const finalResponse = Object.assign({}, items, {
                 value: items.value.map((order) => ({
                   ...order,

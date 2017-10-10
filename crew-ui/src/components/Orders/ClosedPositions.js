@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight, Linking } from 'react-native';
 import Dimensions from 'Dimensions';
+import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 
 class ClosedPositions extends Component {
   render() {
@@ -116,7 +117,7 @@ class ClosedPositions extends Component {
         >
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT </Text>
-            <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
+            <TouchableHighlight onPress={() => Linking.openURL(`${ORDER_SERVICES_URL}${confirm.substr(1, confirm.length)}`)}>
               <Image
                 style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
                 source={require('../common/img/PDF.png')}

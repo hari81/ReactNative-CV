@@ -76,4 +76,4 @@ const styles = {
       fontSize: 18,
       fontFamily: 'HelveticaNeue-Bold',
     }
-}
+};

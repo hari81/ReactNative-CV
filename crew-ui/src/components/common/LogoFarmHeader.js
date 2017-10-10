@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import { LogOff } from './index';
 import { farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import User from './img/User.png';
-//import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 
 class LogoFarmHeader extends Component {
     constructor(props) {
@@ -38,6 +38,7 @@ class LogoFarmHeader extends Component {
               >
                   <TouchableHighlight onPress={() => {
                       this.props.farmActionFlag(false);
+                      this.props.homeScreenDataFetch();
                       Actions.dashboard();
                   }}>
                       <Image
@@ -109,4 +110,4 @@ const styles = {
   }
 };
 let closeInfo = { width: 150, arrowPosition: 'top' };
-export default connect(null, { farmActionFlag })(LogoFarmHeader);
+export default connect(null, { farmActionFlag, homeScreenDataFetch })(LogoFarmHeader);

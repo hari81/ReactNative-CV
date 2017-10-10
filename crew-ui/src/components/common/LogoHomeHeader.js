@@ -1,15 +1,17 @@
 import React from 'react';
 import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import Phone from './img/Phone.png';
 import HomeIcon from './img/homeIconMed.png';
 import User from './img/User.png';
 
-const LogoHomeHeader = () => {
+const LogoHomeHeader = (props) => {
     return (
-        <View style={{ flexDirection: 'row', height: 43, backgroundColor: 'rgb(35,43,50)' }}>
-            <TouchableHighlight onPress={() => Actions.dashboard()}>
+        <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)' }}>
+            <TouchableHighlight onPress={() => { props.homeScreenDataFetch(); Actions.dashboard(); }}>
                 <Image source={HomeIcon} style={{ width: 24, height: 24, marginLeft: 20, marginTop: 10 }} />
             </TouchableHighlight>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 35, alignItems: 'center' }}>
@@ -33,4 +35,4 @@ const LogoHomeHeader = () => {
     );
 };
 
-export { LogoHomeHeader };
+export default connect(null, { homeScreenDataFetch })(LogoHomeHeader);
