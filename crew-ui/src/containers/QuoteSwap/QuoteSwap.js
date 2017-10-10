@@ -29,7 +29,7 @@ class QuoteSwap extends Component {
         if (this.state.selectedOrder === undefined) {
             return (
                 <View >
-                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
+                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
                     <LogoHomeHeader />
                     <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                         <View style={{ height: 83, width: 1024, backgroundColor: 'rgb(64,78,89)' }} />

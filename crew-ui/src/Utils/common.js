@@ -128,3 +128,10 @@ export function cleanNumericString(value) {
     if (t === '') { return 0; }
     return t;
 }
+
+export function isValueExists(value) {
+    if (value === null || value === undefined || value === '') {
+        return false;
+    }
+    return true;
+}

@@ -11,7 +11,7 @@ class BushelQuantity extends Component {
         super(props);
         this.state = {
             quantity: this.props.quantity,
-            qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity) / this.props.myFarmProd.estimatedTotalProduction) * 100
+            qPercent: this.calculateHedgePercent(0)
         };
         this.timer = null;
     }
@@ -33,7 +33,8 @@ class BushelQuantity extends Component {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
-            this.calculateHedgePercent(text);
+            const qp = this.calculateHedgePercent(text);
+            this.setState({ qPercent: qp });
         }
         this.props.onQuantityChange(text);
     }
@@ -46,7 +47,8 @@ class BushelQuantity extends Component {
             }
             if (q >= parseInt(this.props.quantityIncrement)) {
                 q -= parseInt(this.props.quantityIncrement);
-                this.calculateHedgePercent(q);
+                const qp = this.calculateHedgePercent(q);
+                this.setState({ qPercent: qp });
                 //convert to string before setting state
                 const sq = common.formatNumberCommas(q);
                 this.setState({ quantity: sq.toString() });
@@ -70,7 +72,8 @@ class BushelQuantity extends Component {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 q = parseInt(this.props.quantityLimit.toString());
             }
-            this.calculateHedgePercent(q);
+            const qp = this.calculateHedgePercent(q);
+            this.setState({ qPercent: qp });            
             //convert to string before setting state
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
@@ -82,12 +85,16 @@ class BushelQuantity extends Component {
     }
 
     calculateHedgePercent(currQuantity) {
-        const qty = currQuantity === '' ? 0 : parseFloat(currQuantity);
-        if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - qty) / this.props.myFarmProd.estimatedTotalProduction) * 100 });        
-        } else {
-            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + qty) / this.props.myFarmProd.estimatedTotalProduction) * 100 });
+        let qp = 0;
+        if (this.props.myFarmProd !== null && common.isValueExists(this.props.myFarmProd.estimatedTotalProduction)) {
+            const qty = currQuantity === '' ? 0 : parseFloat(currQuantity);
+            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
+                qp = ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - qty) / this.props.myFarmProd.estimatedTotalProduction) * 100;
+            } else {
+                qp = ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + qty) / this.props.myFarmProd.estimatedTotalProduction) * 100;
+            }
         }
+        return qp;
     }
 
     stopTimer() {
