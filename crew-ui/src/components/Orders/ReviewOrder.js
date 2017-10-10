@@ -8,8 +8,8 @@ import * as common from '../../Utils/common';
 import { LogoHomeHeader, InfoPopup } from '../../components/common';
 import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
-import DisclaimerData from '../../restAPI/disclaimer.json';
 import Info from '../common/img/Info.png';
+import DisclaimerData from '../../restAPI/disclaimer.json';
 
 class ReviewOrder extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class ReviewOrder extends Component {
             termsConditionsPopup: null,
             priceInfoPopup: null
         };
+        this.priceInfo = { top: 205, left: 650, width: 300, arrowPosition: 'top', message: this.props.infoEstimatedNetPrice };        
     }
 
     onModifyOrder() {
@@ -50,8 +51,8 @@ class ReviewOrder extends Component {
     }
 
     showPriceInfo() {
-        priceInfo.top = this.props.isLimitOrder ? 250 : 200;
-        const popup = (<InfoPopup popupInfo={priceInfo} onClose={this.hidePriceInfo.bind(this)} />);
+        this.priceInfo.top = this.props.isLimitOrder ? 250 : 200;
+        const popup = (<InfoPopup popupInfo={this.priceInfo} onClose={this.hidePriceInfo.bind(this)} />);
         this.setState({ priceInfoPopup: popup });
     }
 
@@ -205,8 +206,7 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
-let termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
-let priceInfo = { top: 205, left: 650, width: 300, arrowPosition: 'top', message: DisclaimerData.infoEstimatedNetPrice };
+const termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
 
 const styles = StyleSheet.create({
     /* container */
@@ -273,7 +273,8 @@ const mapStateToProps = state => {
         underlying: oUnderlying,
         isLimitOrder: isLimit,
         isRepriceOrder: isReprice,
-        tradeTitle: isReprice ? 'close position' : 'new trade'
+        tradeTitle: isReprice ? 'close position' : 'new trade',
+        infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue
     };
 };
 

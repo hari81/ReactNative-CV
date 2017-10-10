@@ -18,7 +18,6 @@ import Plus from '../../components/common/img/Plus.png';
 import Info from '../../components/common/img/Info-white.png';
 import cancel from '../../components/common/img/Cancel-40.png';
 import { InfoPopup } from '../../components/common/InfoPopup';
-import DisclaimerData from '../../restAPI/disclaimer.json';
 
 class UpdateOrderDetails extends Component {
     constructor(props) {
@@ -54,6 +53,8 @@ class UpdateOrderDetails extends Component {
             lastTradeDate: null,
             isRefreshPrices: false
         };
+        this.limitPriceInfo = { top: 22, left: 0, width: 200, arrowPosition: 'top', message: this.props.infoTargetPrice };
+        this.orderExpiryInfo = { top: 22, left: 250, width: 200, arrowPosition: 'top', message: this.props.infoOptionExpirationDate };   
     }
 
     componentWillMount() {
@@ -111,7 +112,9 @@ class UpdateOrderDetails extends Component {
 
     onRefreshBidAsk() {
         this.setState({ isRefreshPrices: true });
-        this.props.quoteSwapUnderlying(this.props.cropYear, this.props.cropCode);
+        const cropYear = common.convertStringToInt(this.props.cropId.substring(this.props.cropId.length - 4));
+        const cropCode = this.props.cropId.substring(0, this.props.cropId.length - 4);
+        this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
 
     onReviewOrder() {
@@ -155,10 +158,10 @@ class UpdateOrderDetails extends Component {
     showInfoPopup(info) {
         switch (info) {
             case 'limitPriceInfo':
-                this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup.bind(this)} /> });
+                this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={this.limitPriceInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             case 'orderExpiryInfo':
-                this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup.bind(this)} /> });
+                this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={this.orderExpiryInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             default: break;
         }
@@ -201,8 +204,8 @@ class UpdateOrderDetails extends Component {
     }
 
     onReturnToOrders() {
-        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === this.props.cropId.slice(0, (this.props.cropId.length - 4)));
-        Actions.orders({ selectedTab: 'Open Positions', crop });
+        const cropCode = this.props.cropId.substring(0, this.props.cropId.length - 4);        
+        Actions.orders({ selectedTab: 'Open Positions', Crop: cropCode });
     }
  
     render() {
@@ -379,8 +382,6 @@ class UpdateOrderDetails extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
-const limitPriceInfo = { top: 22, left: 0, width: 200, arrowPosition: 'top', message: DisclaimerData.infoTargetPrice };
-const orderExpiryInfo = { top: 22, left: 250, width: 200, arrowPosition: 'top', message: DisclaimerData.infoOptionExpirationDate };
 
 const styles = {
     container: { height: height - 200, width: width - 32, backgroundColor: '#3d4c57', marginHorizontal: 16, marginTop: 38, marginBottom: 20, borderColor: '#bed8dd', borderWidth: 0, borderTopWidth: 4, borderTopColor: '#e7b514' },
@@ -413,6 +414,8 @@ const mapStateToProps = (state) => {
         contractMonth: state.contractData,
         defaultAccountData: state.account.defaultAccount,
         cropId: state.cropsButtons.selectedId,
+        infoTargetPrice: state.displayProperties.filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
+        infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
     };
 };
 

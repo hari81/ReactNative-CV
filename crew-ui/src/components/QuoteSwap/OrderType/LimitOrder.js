@@ -7,13 +7,12 @@ import Plus from '../../common/img/Plus.png';
 import st from '../../../Utils/SafeTraverse';
 import Info from '../../common/img/Info-white.png';
 import { InfoPopup } from '../../common/InfoPopup';
-import DisclaimerData from '../../../restAPI/disclaimer.json';
 import cancel from '../../common/img/Cancel-40.png';
 import * as common from '../../../Utils/common';
 
 class LimitOrder extends Component {
     constructor(props) {
-        super(props);
+        super(props);        
         this.state = {
             limitPrice: this.getLimitPrice(this.props.selectedContractMonth),
             expDate: this.getExpDate(this.props.selectedContractMonth),
@@ -23,6 +22,9 @@ class LimitOrder extends Component {
             dateFlag: false
         };
         this.timer = null;
+        this.limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top', message: this.props.infoTargetPrice };
+        this.orderExpiryInfo = { top: 30, left: 270, width: 200, arrowPosition: 'top', message: this.props.infoOptionExpirationDate };
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -124,10 +126,10 @@ class LimitOrder extends Component {
     showInfoPopup(info) {
         switch (info) {
             case 'limitPriceInfo':
-                this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={limitPriceInfo} onClose={this.hideInfoPopup.bind(this)} /> });
+                this.setState({ infoLimitPricePopup: <InfoPopup popupInfo={this.limitPriceInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             case 'orderExpiryInfo':
-                this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={orderExpiryInfo} onClose={this.hideInfoPopup.bind(this)} /> });
+                this.setState({ infoOrderExpiryPopup: <InfoPopup popupInfo={this.orderExpiryInfo} onClose={this.hideInfoPopup.bind(this)} /> });
                 break;
             default: break;
         }
@@ -202,11 +204,11 @@ class LimitOrder extends Component {
                     </View>
                     <View style={{ flexDirection: 'column', marginLeft: 50 }}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>VALID UNTIL</Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>VALID UNTIL</Text>
                             <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image style={{ width: 20, height: 20, marginLeft: 5 }} source={Info} /></TouchableOpacity>
                         </View>
                         <TextInput
-                            style={{ height: 42, width: 220, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', paddingLeft: 2, marginTop: 10 }}
+                            style={{ height: 42, width: 220, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 2, marginTop: 10 }}
                             placeholder="MM/DD/YYYY"
                             onFocus={() => { Keyboard.dismiss(); this.setState({ showDatePicker: true }); }}
                             value={moment(this.state.expDate).format('MMMM Do, YYYY')}
@@ -222,8 +224,6 @@ class LimitOrder extends Component {
         );
     }
 }
-const limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top', message: DisclaimerData.infoTargetPrice };
-const orderExpiryInfo = { top: 30, left: 270, width: 200, arrowPosition: 'top', message: DisclaimerData.infoOptionExpirationDate };
 
 const styles = {
 

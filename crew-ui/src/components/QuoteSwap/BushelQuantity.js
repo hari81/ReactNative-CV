@@ -10,7 +10,7 @@ class BushelQuantity extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: this.props.quantity,
+            quantity: this.props.quantity.toString(),
             qPercent: this.calculateHedgePercent(0)
         };
         this.timer = null;
@@ -49,10 +49,10 @@ class BushelQuantity extends Component {
                 q -= parseInt(this.props.quantityIncrement);
                 const qp = this.calculateHedgePercent(q);
                 this.setState({ qPercent: qp });
-                //convert to string before setting state
+                //convert to string before setting state (but bubble non-formatted string up)
                 const sq = common.formatNumberCommas(q);
                 this.setState({ quantity: sq.toString() });
-                this.props.onQuantityChange(sq);
+                this.props.onQuantityChange(q);
             }
             this.timer = setTimeout(this.minusButtonPress, 200);
         } catch (error) {
@@ -74,7 +74,7 @@ class BushelQuantity extends Component {
             }
             const qp = this.calculateHedgePercent(q);
             this.setState({ qPercent: qp });            
-            //convert to string before setting state
+            //convert to string before setting state (but bubble non-formatted string up)
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
             this.props.onQuantityChange(q);

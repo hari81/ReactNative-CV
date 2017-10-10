@@ -1,9 +1,4 @@
 {
-
-    "infoTargetPrice" : "Set your Target Price.",
-    "infoOptionExpirationDate" : "Set how long the order will be valid.",
-    "infoEstimatedNetPrice": "Price will be based on the market price at the time of execution. On Limit Orders the execution price will be your Limit Price or better. Your Net price will include the execution price and a service fee.",
-
     "disclosure": "CFTC How it Works Disclosures: Producer Swap: Above the swap value, customer pays Cargill. Below the swap value, Cargill pays customer. Consumer Swap: Above the swap value, Cargill pays customer. Below the swap value, customer pays Cargill.\n\nAcceptance of this offer and the subsequent Posted Positions shall constitute an Acknowledgment and Confirmation for this Transaction under applicable law, including the U.S. Dodd-Frank Wall Street Reform and Consumer Protection Act and accompanying regulations.",
     "description": "Producer swaps can be initiated by using either a market order or a limit order. The fixed price of the swap is determined by the underlying commodity market, contract month and year.\n\nThis is how a producer swap works: When the position is closed, if the corresponding market is above the fixed price, a customer pays Cargill the difference between the market and the fixed price. If the corresponding market is below the fixed price, Cargill pays the customer the difference between the fixed price and the market.\n\nBenefit of using a Producer Swap:  A producer swap is a 'show swap' that allows the user to product again declining prices. A producer swap also provides unlimited flexibility and control by allowing the user to protect market prices independently of the cash market; so, basis decisions can be optimized. The user remains in control by deciding when to enter or exit the swap position.",
     "terms": [
