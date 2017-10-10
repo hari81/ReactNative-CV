@@ -136,16 +136,16 @@ class UpdateOrderDetails extends Component {
         }
     }
 
-    minusButtonPress() {
+    minusButtonPress = () => {
         if (parseFloat(this.state.targetPrice) >= parseFloat(this.state.tickSizeIncrement)) {
             this.setState({ targetPrice: ((parseFloat(this.state.targetPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
         }
-        this.timer = setTimeout(this.minusButtonPress, 50);
+        this.timer = setTimeout(this.minusButtonPress, 200);
     }
 
-    plusButtonPress() {
+    plusButtonPress = () => {
         this.setState({ targetPrice: (((parseFloat(this.state.targetPrice)) + parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
-        this.timer = setTimeout(this.plusButtonPress, 50);
+        this.timer = setTimeout(this.plusButtonPress, 200);
     }
 
     stopTimer() {
@@ -200,6 +200,11 @@ class UpdateOrderDetails extends Component {
         return <Text />;
     }
 
+    onReturnToOrders() {
+        const crop = this.props.defaultAccountData.commodities.filter((item) => item.commodity === this.props.cropId.slice(0, (this.props.cropId.length - 4)));
+        Actions.orders({ selectedTab: 'Open Positions', crop });
+    }
+ 
     render() {
         let limitOrderFields = null;
         if (this.state.isLimitOrder) {
@@ -213,7 +218,7 @@ class UpdateOrderDetails extends Component {
                             </View>
                             <View style={{ flexDirection: 'column' }}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
+                                    <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
                                         <Image style={[styles.tickIncrementIcon, { marginRight: 15 }]} source={Minus} />
                                     </TouchableOpacity>
                                     <TextInput
@@ -226,7 +231,7 @@ class UpdateOrderDetails extends Component {
                                         onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
                                         selectTextOnFocus
                                     />
-                                    <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
+                                    <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
                                         <Image style={[styles.tickIncrementIcon, { marginLeft: 15 }]} source={Plus} />
                                     </TouchableOpacity>
                                 </View>
@@ -300,12 +305,12 @@ class UpdateOrderDetails extends Component {
                                 <Text style={styles.disabledContractBidAskPrice}>${this.state.contractBidAskPrice}</Text>
                             </View>
                         </View>
-                        <View style={{ height: 350, width: 1, marginLeft: 40, marginTop: 20, backgroundColor: '#7f8fa4' }} />
+                        <View style={{ height: height - 280, width: 1, marginLeft: 40, backgroundColor: '#7f8fa4' }} />
                         <View style={{ flexDirection: 'column', marginLeft: 33 }}>
                             {/* bushel quantity */}
                             <Text style={styles.disabledLabel}>BUSHEL QUANTITY</Text>
                             <View style={styles.disabledDataContainer}>
-                                <Text style={styles.disabledData}>{common.formatNumberCommas(this.state.quantity)}</Text>
+                                <Text style={styles.disabledData}>{common.formatNumberCommas(this.state.quantity).toString()}</Text>
                             </View>
                             {/* order type */}
                             <View>
@@ -342,8 +347,8 @@ class UpdateOrderDetails extends Component {
                                 </View>
                             </View>
                             {/* buttons */}
-                            <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 300, marginLeft: 125, zIndex: -1 }}>
-                                <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'baseline', zIndex: -1 }}>
+                                <Button onPress={this.onReturnToOrders.bind(this)} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                                 <TouchableOpacity onPress={this.onReviewOrder.bind(this)} style={[styles.buttonStyle, { marginLeft: 28, backgroundColor: '#279989', borderColor: '#279989' }]}>
                                     <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
                                 </TouchableOpacity>
@@ -356,7 +361,7 @@ class UpdateOrderDetails extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.setOrderDetails}>
+                <View style={styles.titleBarOrder}>
                     <Text style={styles.orderTitle}>Close Position</Text>
                     <View style={{ flexDirection: 'row', marginLeft: 630 }}>
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
@@ -373,12 +378,13 @@ class UpdateOrderDetails extends Component {
     }
 }
 
+const { width, height } = Dimensions.get('window');
 const limitPriceInfo = { top: 22, left: 0, width: 200, arrowPosition: 'top', message: DisclaimerData.infoTargetPrice };
 const orderExpiryInfo = { top: 22, left: 250, width: 200, arrowPosition: 'top', message: DisclaimerData.infoOptionExpirationDate };
 
 const styles = {
-    container: { height: 452, width: 992, backgroundColor: '#3d4c57', marginHorizontal: 16, marginTop: 38, marginBottom: 7, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: '#e7b514' },
-    setOrderDetails: { flexDirection: 'row', height: 47, width: 990, borderBottomWidth: 1, borderColor: '#e7b514', alignItems: 'center' },
+    container: { height: height - 200, width: width - 32, backgroundColor: '#3d4c57', marginHorizontal: 16, marginTop: 38, marginBottom: 20, borderColor: '#bed8dd', borderWidth: 0, borderTopWidth: 4, borderTopColor: '#e7b514' },
+    titleBarOrder: { flexDirection: 'row', height: 47, width: 990, borderBottomWidth: 1, borderColor: '#e7b514', alignItems: 'center' },
     orderTitle: { fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: 21 },
     enabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff', marginBottom: 8 },
     disabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff60', marginBottom: 8 },

@@ -50,11 +50,10 @@ class LimitOrder extends Component {
         return 0;
     }
 
-    getExpDate() {
+    getExpDate(contractMonth) {
         let tDate = null;
-        const scm = this.props.selectedContractMonth;
-        if (scm !== null) {
-            tDate = new Date(scm.lastTradeDate.concat('T00:00:00-06:00')) || '';
+        if (contractMonth !== null) {
+            tDate = new Date(contractMonth.lastTradeDate.concat('T00:00:00-06:00')) || '';
             return tDate;
         }
         return null;  
@@ -85,7 +84,7 @@ class LimitOrder extends Component {
         }
     }
 
-    minusButtonPress() {
+    minusButtonPress = () => {
         try {
             const lp = common.cleanNumericString(this.state.limitPrice);            
             if (parseFloat(lp) >= parseFloat(this.props.tickSizeIncrement)) {
@@ -93,19 +92,19 @@ class LimitOrder extends Component {
                 this.setState({ limitPrice: tPrice });
                 this.onLimitPriceChange(tPrice);
             }
-            this.timer = setTimeout(this.minusButtonPress, 50);
+            this.timer = setTimeout(this.minusButtonPress, 200);
         } catch (error) {
             console.log(error);
         }
     }
 
-    plusButtonPress() {
+    plusButtonPress = () => {
         try {
             const lp = common.cleanNumericString(this.state.limitPrice);            
             const tPrice = ((parseFloat(lp) + parseFloat(this.props.tickSizeIncrement)).toFixed(4));
             this.setState({ limitPrice: tPrice });
             this.onLimitPriceChange(tPrice);
-            this.timer = setTimeout(this.plusButtonPress, 50);
+            this.timer = setTimeout(this.plusButtonPress, 200);
         } catch (error) {
             console.log(error);
         }
@@ -159,7 +158,6 @@ class LimitOrder extends Component {
 
     datePickerClose() {
         if (this.state.showDatePicker) {
-
             return (<View style={{ position: 'absolute', height: 200, width: 20, marginTop: -155, marginLeft: 455, borderTopRightRadius: 4, borderBottomRightRadius: 4, backgroundColor: 'white', zIndex: 1 }}>
                     <TouchableOpacity onPress={() => { this.setState({ showDatePicker: false }); Keyboard.dismiss(); }}><Image source={cancel} style={{ height: 20, width: 20, marginTop: 4 }} /></TouchableOpacity>
 
@@ -179,7 +177,7 @@ class LimitOrder extends Component {
                         </View>
                         <View style={{ flexDirection: 'column' }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
+                                <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
                                     <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
                                 </TouchableOpacity>
                                 <TextInput
@@ -195,7 +193,7 @@ class LimitOrder extends Component {
                                     onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
                                     selectTextOnFocus
                                 />
-                                <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
+                                <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
                                     <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
                                 </TouchableOpacity>
                             </View>
