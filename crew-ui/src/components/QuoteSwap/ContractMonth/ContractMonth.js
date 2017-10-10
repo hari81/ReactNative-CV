@@ -38,28 +38,6 @@ class ContractMonth extends Component {
         return tPrice;
     }
 
-    contractMonthList(selectedMonthId) {
-        if (this.props.contractMonth.spinFlag) {
-            return <Spinner size='small' />;
-        }
-        return (<FlatList
-            numColumns={4}
-            data={this.props.contractMonth.contract}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-                <TouchableOpacity disabled={item.id === selectedMonthId} onPress={this.onSelectContractMonth.bind(this, item)}>
-                    <Text>{selectedMonthId}</Text>
-                    <View style={item.id === selectedMonthId ? styles.afterButtonPress : styles.beforeButtonPress}>
-                        <Text style={item.id === selectedMonthId ? styles.contractMonth : styles.contractMonthDisabled}>
-                            { item.month.substr(0, 3)} {item.year}
-                        </Text>
-                        <Text style={item.id === selectedMonthId ? styles.contractPrice : styles.contractPriceDisabled}>${this.getPrice(item)}</Text>
-                    </View>
-                </TouchableOpacity>
-            )}
-        />);
-    }
-
     render() {
         const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;        
         return (

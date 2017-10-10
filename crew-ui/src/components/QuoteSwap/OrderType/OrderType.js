@@ -49,11 +49,10 @@ class OrderType extends Component {
         return 0;
     }
 
-    getExpDate() {
+    getExpDate(contractMonth) {
         let tDate = null;
-        const scm = this.props.selectedContractMonth;
-        if (scm !== null) {
-            tDate = new Date(scm.lastTradeDate.concat('T00:00:00-06:00')) || '';
+        if (contractMonth !== null) {
+            tDate = new Date(contractMonth.lastTradeDate.concat('T00:00:00-06:00')) || '';
             return tDate;
         }
         return null;  
