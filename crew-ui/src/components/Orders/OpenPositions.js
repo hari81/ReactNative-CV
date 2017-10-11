@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, Image, Linking } from 'react-native';
+import { Text, TouchableHighlight, View, Image, Linking, WebView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../ServiceURLS';
@@ -26,6 +26,10 @@ class OpenPositions extends Component {
     const crop = st(item.underlyingObjectData, ['commodity', 'code']);
 
     Actions.quoteswap({ selectedOrder: uOrder, cropcode: crop, cropyear: year }); 
+  }
+
+  openTradeReceipt() {
+
   }
 
   render() {

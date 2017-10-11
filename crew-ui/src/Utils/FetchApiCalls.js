@@ -59,6 +59,7 @@ function doDeleteFetch(url, email, password) {
 function doGetTradeReceiptFetch(url, email, password) {
     // console.log(url);
     reqHeaders.append('Authorization', baseAuthentication(email, password));
+    reqHeaders.append('Accept', 'application/pdf');
     return fetch(url, {
         method: 'GET',
         headers: reqHeaders
