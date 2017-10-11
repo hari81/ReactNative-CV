@@ -94,9 +94,6 @@ userChangesFarmData() {
     Keyboard.dismiss();
     const presentData = this.state;
     const previousData = this.props.far.myFarmCropData.cropYear;
-
-    //console.log('Local Data', presentData);
-   // console.log('Database Data', previousData);
     if (previousData === null || previousData === undefined) {
         const localState = this.state;
         if (localState.estimate === 0 &&
@@ -186,7 +183,7 @@ componentWillReceiveProps(newProps) {
             height: 20
           }}
         />
-        <LogoFarmHeader phNumber='+1-952-742-7414' subHeaderText='Price Hedging' />
+        <LogoFarmHeader phNumber='+1-952-742-7414' subHeaderText='Price Hedging' uservaluesfalg={this.userChangesFarmData.bind(this)} />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View

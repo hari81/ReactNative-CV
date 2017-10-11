@@ -1,15 +1,14 @@
+import { Alert } from 'react-native';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS } from '../types';
-import { doGetFetch, reqHeaders, baseAuthentication } from '../../../Utils/FetchApiCalls';
+import { doGetFetch, doGetTradeReceiptFetch } from '../../../Utils/FetchApiCalls';
 
 export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
 
       const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
-     // console.log(url);
-      reqHeaders.append('Authorization', baseAuthentication(getState().auth.email, getState().auth.passwor));
-     return doGetFetch(url, getState().auth.email, getState().auth.password)
+          return doGetFetch(url, getState().auth.email, getState().auth.password)
           .then(response => response.json())
           .then(opens => {
               if (!Array.isArray(opens)) {
@@ -36,5 +35,20 @@ export const OpenPositionsData = (crop) => {
               console.error(`error ${error}`);
           });
   };
+};
+
+export const tradeReceipt = (relativePath) => {
+    return (dispatch, getState) => {
+        const url = `${ORDER_SERVICES_URL}${relativePath.substr(1, relativePath.length)}`;
+        return doGetTradeReceiptFetch(url, getState().auth.email, getState().auth.password)
+            .then(response => {
+                if (!response.ok) {
+                    Alert.alert('Trade Report Not ready.');
+                }
+            })
+            .catch(error => {
+                console.error(`error ${error}`);
+            });
+    };
 };
 

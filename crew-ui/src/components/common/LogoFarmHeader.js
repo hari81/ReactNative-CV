@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableHighlight } from 'react-native';
+import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
@@ -37,9 +37,24 @@ class LogoFarmHeader extends Component {
                   }}
               >
                   <TouchableHighlight onPress={() => {
-                      this.props.farmActionFlag(false);
-                      this.props.homeScreenDataFetch();
-                      Actions.dashboard();
+                      if (!this.props.uservaluesfalg()) {
+                          this.props.farmActionFlag(false);
+                          this.props.homeScreenDataFetch();
+                          Actions.dashboard();
+                      }
+                      else {
+                          Alert.alert(
+                              'My Farm Data',
+                              'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
+                              [
+                                  { text: 'GOT IT!', style: 'OK' }
+                              ],
+                              { cancelable: false }
+                          );
+                      }
+                      //this.props.farmActionFlag(false);
+                      //this.props.homeScreenDataFetch();
+                      //Actions.dashboard();
                   }}>
                       <Image
                           style={{ width: 30, height: 30 }}
