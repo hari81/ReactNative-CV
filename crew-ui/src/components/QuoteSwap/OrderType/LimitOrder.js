@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, TextInput, Keyboard, DatePickerIOS } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import Minus from '../../common/img/Minus-32.png';
-import Plus from '../../common/img/Plus.png';
-import st from '../../../Utils/SafeTraverse';
 import Info from '../../common/img/Info-white.png';
 import { InfoPopup } from '../../common/InfoPopup';
 import cancel from '../../common/img/Cancel-40.png';
@@ -24,7 +21,6 @@ class LimitOrder extends Component {
         this.timer = null;
         this.limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top', message: this.props.infoTargetPrice };
         this.orderExpiryInfo = { top: 30, left: 270, width: 200, arrowPosition: 'top', message: this.props.infoOptionExpirationDate };
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -71,12 +67,14 @@ class LimitOrder extends Component {
     }
 
     onFocusMake() {
+        this.props.onScrollUpdate();
         this.setState({ limitPrice: (this.state.limitPrice.charAt(0) === '$') ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice });
     }
 
     onBlurMake() {
-         this.setState({ limitPrice: `$${this.state.limitPrice}` });
-         this.onLimitPriceChange(this.state.limitPrice);
+        this.props.onScrollDown();
+        this.setState({ limitPrice: `$${this.state.limitPrice}` });
+        this.onLimitPriceChange(this.state.limitPrice);
     }
 
     onChangeQuantity(text) {
@@ -145,7 +143,6 @@ class LimitOrder extends Component {
             return (
                 <View style={{ position: 'absolute', marginTop: -155, marginLeft: 210 }} >
                     <DatePickerIOS
-
                         style={{ height: 200, width: 250, borderTopLeftRadius: 4, borderBottomLeftRadius: 4, backgroundColor: 'white', zIndex: 1 }}
                         date={this.state.expDate}
                         mode="date"
@@ -162,7 +159,6 @@ class LimitOrder extends Component {
         if (this.state.showDatePicker) {
             return (<View style={{ position: 'absolute', height: 200, width: 20, marginTop: -155, marginLeft: 455, borderTopRightRadius: 4, borderBottomRightRadius: 4, backgroundColor: 'white', zIndex: 1 }}>
                     <TouchableOpacity onPress={() => { this.setState({ showDatePicker: false }); Keyboard.dismiss(); }}><Image source={cancel} style={{ height: 20, width: 20, marginTop: 4 }} /></TouchableOpacity>
-
                 </View>
             );
         }
@@ -180,7 +176,7 @@ class LimitOrder extends Component {
                         <View style={{ flexDirection: 'column' }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
-                                    <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
+                                    <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
                                 </TouchableOpacity>
                                 <TextInput
                                     style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: '#fff', padding: 2 }}
@@ -196,7 +192,7 @@ class LimitOrder extends Component {
                                     selectTextOnFocus
                                 />
                                 <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
-                                    <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
+                                    <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
                                 </TouchableOpacity>
                             </View>
                             {this.warningMessage()}
@@ -226,15 +222,15 @@ class LimitOrder extends Component {
 }
 
 const styles = {
-
-    container: { flexDirection: 'row', marginTop: 16 }
+    container: { flexDirection: 'row', marginTop: 16 },
+    updownIcon: { fontSize: 23, fontFamily: 'HelveticaNeue-Bold', color: '#fff', width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', paddingLeft: 11 }     
 };
 
 
 const mapStateToProps = state => {
     return {
-        infoTargetPrice: st(state.displayProperties).filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
-        infoOptionExpirationDate: st(state.displayProperties).filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
+        infoTargetPrice: state.displayProperties.filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
+        infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
     };
 };
 

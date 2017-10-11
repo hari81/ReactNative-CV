@@ -114,7 +114,7 @@ class BushelQuantity extends Component {
                 <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>BUSHEL QUANTITY</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
-                        <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
+                        <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
                     </TouchableOpacity>
                     <TextInput
                         style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 10 }}
@@ -130,7 +130,7 @@ class BushelQuantity extends Component {
                         selectTextOnFocus
                     />
                     <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
-                        <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
+                        <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>{this.state.qPercent.toFixed(0)}% HEDGED</Text>
@@ -144,7 +144,8 @@ class BushelQuantity extends Component {
 
 const styles = {
     container: { flexDirection: 'column', marginTop: 16 },
-    bushelLimitText: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#e7b514' }
+    bushelLimitText: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#e7b514' },
+    updownIcon: { fontSize: 23, fontFamily: 'HelveticaNeue-Bold', color: '#fff', width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', paddingLeft: 11 }     
 };
 
 const mapStateToProps = (state) => {

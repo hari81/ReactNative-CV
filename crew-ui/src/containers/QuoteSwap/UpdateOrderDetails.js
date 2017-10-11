@@ -13,8 +13,6 @@ import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrde
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import * as commonStyles from '../../Utils/styles';
 
-import Minus from '../../components/common/img/Minus-32.png';
-import Plus from '../../components/common/img/Plus.png';
 import Info from '../../components/common/img/Info-white.png';
 import cancel from '../../components/common/img/Cancel-40.png';
 import { InfoPopup } from '../../components/common/InfoPopup';
@@ -222,7 +220,7 @@ class UpdateOrderDetails extends Component {
                             <View style={{ flexDirection: 'column' }}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
-                                        <Image style={[styles.tickIncrementIcon, { marginRight: 15 }]} source={Minus} />
+                                        <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
                                     </TouchableOpacity>
                                     <TextInput
                                         style={{ height: 40, width: 110, borderRadius: 4, backgroundColor: '#fff', padding: 2, paddingLeft: 5 }}
@@ -235,8 +233,8 @@ class UpdateOrderDetails extends Component {
                                         selectTextOnFocus
                                     />
                                     <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
-                                        <Image style={[styles.tickIncrementIcon, { marginLeft: 15 }]} source={Plus} />
-                                    </TouchableOpacity>
+                                        <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
+                                </TouchableOpacity>
                                 </View>
                                 {this.warningMessage()}
                             </View>
@@ -405,7 +403,7 @@ const styles = {
 
     infoIcon: { height: 16, width: 16, marginLeft: 5, marginTop: 2 },
     questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 },
-    tickIncrementIcon: { width: 32, height: 32, marginTop: 5 }
+    updownIcon: { fontSize: 23, fontFamily: 'HelveticaNeue-Bold', color: '#fff', width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', paddingLeft: 11 }    
 };
 
 const mapStateToProps = (state) => {
