@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View, Image, Linking } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 import st from '../../Utils/SafeTraverse';
 
 class OpenPositions extends Component {
@@ -131,7 +132,7 @@ class OpenPositions extends Component {
         <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '13.18%' }}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT</Text>
-            <TouchableHighlight onPress={() => Linking.openURL(confirm)}>
+            <TouchableHighlight onPress={() => Linking.openURL(`${ORDER_SERVICES_URL}${confirm.substr(1, confirm.length)}`)}>
               <Image style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }} source={require('../common/img/PDF.png')} />
             </TouchableHighlight>
           </View>

@@ -3,6 +3,7 @@ import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { logOut } from '../../redux/actions/index';
+import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import HomeIcon from './img/homeIconMed.png';
 import Phone from './img/Phone.png';
@@ -15,7 +16,7 @@ class LogoPhoneHeader extends Component {
         
         return (
             <View style={{ flexDirection: 'row', height: 43, backgroundColor: 'rgb(35,43,50)' }}>
-                <TouchableOpacity onPress={() => Actions.dashboard()}>
+                <TouchableOpacity onPress={() => { this.props.homeScreenDataFetch(); Actions.dashboard()}}>
                     <Image source={HomeIcon} style={{ width: 24, height: 24, marginLeft: 20, marginTop: 10 }} />
                 </TouchableOpacity>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 35, alignItems: 'center' }}>
@@ -47,4 +48,4 @@ class LogoPhoneHeader extends Component {
     }
 }
 
-export default connect(null, { logOut })(LogoPhoneHeader);
+export default connect(null, { logOut, homeScreenDataFetch })(LogoPhoneHeader);

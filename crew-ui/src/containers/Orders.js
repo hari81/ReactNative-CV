@@ -17,8 +17,7 @@ import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
 import { logOut } from '../redux/actions/index';
-import { Spinner } from '../components/common';
-import LogoPhoneHeader from '../components/common/LogoPhoneHeader';
+import { Spinner, LogoPhoneHeader } from '../components/common';
 import {
   ViewOrdersData,
   dropDownCrop,
