@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Alert, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
 import TradeDirection from '../../components/QuoteSwap/TradeDirection';
@@ -40,22 +39,20 @@ class SetOrderDetails extends Component {
         if (!this.props.contractMonth.spinFlag && this.state.selectedContractMonth === null && nextProps.contractMonth != null && nextProps.contractMonth.contract !== '') {
             const cmonth = nextProps.contractMonth.contract[0];
             this.onSelectContractMonth(cmonth);
-            this.setState({ underlying: cmonth.underlying });
-            this.setState({ expirationDate: cmonth.lastTradeDate });
         } else if (this.state.selectedContractMonth !== null && nextProps.contractMonth !== null) {
            const sm = nextProps.contractMonth.contract.find(x => x.underlying === this.state.selectedContractMonth.underlying);
            //if we can't find a match, a new crop/contract/month has been selected (so set it and forget it)
            if (sm === undefined || sm === null) {
                const cmonth = nextProps.contractMonth.contract[0];
                 this.onSelectContractMonth(cmonth);
-                this.setState({ underlying: cmonth.underlying });
-                this.setState({ expirationDate: cmonth.lastTradeDate });
            }
         }
     }
 
     onSelectContractMonth(contractMonth) {
-        this.setState({ selectedContractMonth: contractMonth });        
+        this.setState({ selectedContractMonth: contractMonth });       
+        this.setState({ underlying: contractMonth.underlying });
+        this.setState({ expirationDate: contractMonth.lastTradeDate });
     }
 
     onQuantityChange(quant) {
@@ -94,12 +91,13 @@ class SetOrderDetails extends Component {
         this.setState({ riskProductId: id });
     };
 
-   /* scrollUpdate() {
-        this.refs.scrollView.scrollTo({ x: 0, y: 100, animated: true });
-    };
-    scrollDown() {
+    onScrollUpdate() {
+        this.refs.scrollView.scrollTo({ x: 0, y: 140, animated: true });
+    }
+
+    onScrollDown() {
         this.refs.scrollView.scrollToEnd();
-    }*/
+    }
 
     render() {
         //console.log(this.state)
@@ -117,8 +115,8 @@ class SetOrderDetails extends Component {
                         />
                     </View>
                     <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4' }} />
-                    <View style={{ flexDirection: 'column', marginLeft: 30 }}>
-                        <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
+                    <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
+                        <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                             <BushelQuantity 
                                 buySell={this.state.buySell} 
                                 onQuantityChange={this.onQuantityChange.bind(this)}
@@ -134,15 +132,16 @@ class SetOrderDetails extends Component {
                                 onLimitPriceChange={this.onLimitPriceChange.bind(this)}
                                 selectedContractMonth={this.state.selectedContractMonth} 
                                 tickSizeIncrement={this.props.tickSizeIncrement}
+                                onScrollUpdate={this.onScrollUpdate.bind(this)}
+                                onScrollDown={this.onScrollDown.bind(this)}
                             />
-                        </KeyboardAwareScrollView>
-                        <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
-                        <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
-                            <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                            <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: '#279989', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
+                            <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
+                            <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
+                                <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                                <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: '#279989', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
+                            </View>
                         </View>
-                    </View>
-
+                    </ScrollView>
                 </View>
             );
         }
@@ -150,7 +149,7 @@ class SetOrderDetails extends Component {
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
                     <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: width * 0.02 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: width * 0.615 }}>
+                    <View style={{ flexDirection: 'row', marginLeft: width * 0.60 }}>
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.questionIcon}>?</Text>
