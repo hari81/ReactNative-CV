@@ -7,6 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
+import { Button } from '../common/Button';
 
 class ActionBar extends Component {
 
@@ -100,9 +101,9 @@ class ActionBar extends Component {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.dashboardToPlaceOrder.bind(this)}><View style={styles.placeOrderButtonStyle}>
-                    <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
-                </View></TouchableOpacity>
+                <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.dashboardToPlaceOrder.bind(this)}>
+                    PLACE NEW ORDER NOW
+                </Button>
             </View>
         );
     }
