@@ -32,7 +32,7 @@ class QuoteSwap extends Component {
                     <View style={{ backgroundColor: '#000', width, height: 20 }} />
                     <LogoHomeHeader />
                     <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
-                        <View style={{ height: 83, width: 1024, backgroundColor: 'rgb(64,78,89)' }} />
+                        <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                         <MyFarmTiles />
                         <SetOrderDetails />
                         <MyCropButton />
@@ -42,7 +42,7 @@ class QuoteSwap extends Component {
         }
         return (
             <View >
-                <View style={{ backgroundColor: '#000', width, height: 20 }} />
+                <View style={{ backgroundColor: '#000', width, height: height * 0.026 }} />
                 <LogoHomeHeader />
                 <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />

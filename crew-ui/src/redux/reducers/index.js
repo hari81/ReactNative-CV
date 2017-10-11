@@ -16,6 +16,7 @@ import reviewOrderGetQuote from './OrdersReducer/ReviewOrder';
 import limitorder from './QuoteSwap/ProductType/LimitOrderReducer';
 import getDashBoardData from './Dashboard/DashboardReducer';
 import getDisplayProps from './Dashboard/DisplayPropertiesReducer';
+import getMatrixData from './ProfitabilityMatrixReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -34,6 +35,7 @@ export default combineReducers({
     reviewQuote: reviewOrderGetQuote,
     limitOrder: limitorder,
     dashBoardData: getDashBoardData,
-    displayProperties: getDisplayProps
+    displayProperties: getDisplayProps,
+    matrixData: getMatrixData
 });
 

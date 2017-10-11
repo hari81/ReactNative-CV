@@ -58,6 +58,14 @@ class OrderType extends Component {
         return null;  
     }
 
+    onScrollUpdate() {
+        this.props.onScrollUpdate();
+    }
+
+    onScrollDown() {
+        this.props.onScrollDown();
+    }
+
     render() {
         let tLimitOrder = null;
         if (this.state.isLimitOrder) {
@@ -68,6 +76,8 @@ class OrderType extends Component {
                     selectedContractMonth={this.props.selectedContractMonth}
                     onLimitPriceChange={this.onLimitPriceChange.bind(this)}
                     onExpiryDateChange={this.onExpiryDateChange.bind(this)}
+                    onScrollUpdate={this.onScrollUpdate.bind(this)}
+                    onScrollDown={this.onScrollDown.bind(this)}
                 />
             );
         }
