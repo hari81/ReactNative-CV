@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput, Dimensions, Keyboard } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Minus from '../common/img/Minus-32.png';
 import Plus from '../common/img/Plus.png';
@@ -72,9 +71,9 @@ class FooterBar extends Component {
     }
 
     reCalculate = () => {
-        //Actions.quoteswap();
         this.props.profitabilityMatrixData(this.state);
     }
+
     render() {
         return (
             <View style={styles.container}>
@@ -87,7 +86,7 @@ class FooterBar extends Component {
                 <TouchableOpacity onPress={this.todayPricePress.bind(this, this.props.todayPrice)}>
                 <View style={{ marginLeft: width * 0.006, justifyContent: 'center', alignItems: 'center', height: height * 0.1, width: width * 0.1, backgroundColor: 'rgba(82,97,115,0.37)' }}>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 11, fontFamily: 'HelveticaNeue' }}>TODAY'S PRICE</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 26, fontFamily: 'HelveticaNeue' }}>${this.props.todayPrice}</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 26, fontFamily: 'HelveticaNeue' }}>${parseFloat(this.props.todayPrice).toFixed(2)}</Text>
                     <Text style={{ color: 'rgb(255,255,255)', fontSize: 13, fontFamily: 'HelveticaNeue' }}>{this.props.underlyingData.underlyingMonthDesc} {this.props.underlyingData.underlyingYear}</Text>
                 </View>
                 </TouchableOpacity>
@@ -135,12 +134,9 @@ class FooterBar extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-                <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.reCalculate}>
+                <Button buttonStyle={{ marginLeft: width * 0.05, justifyContent: 'center', alignItems: 'center', height: height * 0.05, width: width * 0.2, backgroundColor: 'rgba(82,97,115,0.37)' }} textStyle={{ color: 'rgb(255,255,255)', fontSize: 18, fontFamily: 'HelveticaNeue' }} onPress={this.reCalculate}>
                     RECALCULATE
                 </Button>
-
-
             </View>
 
         );
@@ -155,11 +151,11 @@ const styles = {
        alignItems: 'center'
    },
     placeOrderButtonStyle: {
-        height: height * 0.052,
+        height: height * 0.042,
         width: width * 0.214,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: height * 0.026,
+        marginTop: height * 0.01,
         backgroundColor: 'rgb(39,153,137)',
         borderRadius: 4,
         marginLeft: width * 0.019

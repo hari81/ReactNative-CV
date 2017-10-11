@@ -15,7 +15,7 @@ class MyFarmProduction extends Component {
         Actions.matrix();
     }
     noFarmSetup= () => {
-        Alert.alert('Please Setup Your Farm Details');
+        Alert.alert('Please Setup My Farm Details');
     }
     spinner(percent) {
         if (this.props.dashBoardSpinner) {
