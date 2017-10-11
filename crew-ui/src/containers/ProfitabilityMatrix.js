@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import Matrix from '../components/ProfitabilityMatrix/Matrix';
-import { LogoHomeHeader } from '../components/common/LogoHomeHeader';
+import { LogoHomeHeader } from '../components/common';
 import CropHeader from '../components/ProfitabilityMatrix/CropHeader';
 import IncrementSettingBar from '../components/ProfitabilityMatrix/IncrementSettingBar';
 import { profitabilityMatrixData } from '../redux/actions/ProfitabilityMatrixAction';
