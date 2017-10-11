@@ -41,7 +41,16 @@ class SetOrderDetails extends Component {
             const cmonth = nextProps.contractMonth.contract[0];
             this.onSelectContractMonth(cmonth);
             this.setState({ underlying: cmonth.underlying });
-            this.setState({ expirationDate: cmonth.lastTradeDate });            
+            this.setState({ expirationDate: cmonth.lastTradeDate });
+        } else if (this.state.selectedContractMonth !== null && nextProps.contractMonth !== null) {
+           const sm = nextProps.contractMonth.contract.find(x => x.underlying === this.state.selectedContractMonth.underlying);
+           //if we can't find a match, a new crop/contract/month has been selected (so set it and forget it)
+           if (sm === undefined || sm === null) {
+               const cmonth = nextProps.contractMonth.contract[0];
+                this.onSelectContractMonth(cmonth);
+                this.setState({ underlying: cmonth.underlying });
+                this.setState({ expirationDate: cmonth.lastTradeDate });
+           }
         }
     }
 
@@ -107,7 +116,7 @@ class SetOrderDetails extends Component {
                             selectedContractMonth={this.state.selectedContractMonth} 
                         />
                     </View>
-                    <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: 'rgb(127,143,164)' }} />
+                    <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4' }} />
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
                             <BushelQuantity 
@@ -130,7 +139,7 @@ class SetOrderDetails extends Component {
                         <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
                         <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
                             <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                            <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: 'rgb(39,153,137)', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
+                            <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: '#279989', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
                         </View>
                     </View>
 
@@ -140,7 +149,7 @@ class SetOrderDetails extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.setOrderDetails}>
-                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(231,181,20)', paddingLeft: width * 0.02 }}>Set Order Details</Text>
+                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: width * 0.02 }}>Set Order Details</Text>
                     <View style={{ flexDirection: 'row', marginLeft: width * 0.615 }}>
                         <TouchableOpacity onPress={() => Actions.disclaimer()}>
                             <View style={{ flexDirection: 'row' }}>
@@ -156,41 +165,10 @@ class SetOrderDetails extends Component {
     }
 }
 const styles = {
-    container: {
-        height: height * 0.588,
-        width: width * 0.968,
-        backgroundColor: 'rgb(61,76,87)',
-        marginHorizontal: width * 0.0156,
-        marginTop: height * 0.0494,
-        marginBottom: height * 0.0091,
-        borderColor: 'rgb(190,216,221)',
-        borderWidth: 1,
-
-    },
-    setOrderDetails: {
-        flexDirection: 'row',
-        height: height * 0.0611,
-        width: width * 0.966,
-        borderBottomWidth: 1,
-        borderColor: 'rgb(231,181,20)',
-        alignItems: 'center'
-    },
-    textStyle: {
-        color: 'rgb(159,169,186)',
-        fontSize: 18,
-        fontFamily: 'HelveticaNeue'
-    },
-    buttonStyle: {
-        marginTop: height * 0.03125,
-        width: width * 0.16,
-        height: height * 0.052,
-        backgroundColor: 'rgb(255,255,255)',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: 'rgb(159,169,186)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    container: { height: height * 0.588, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, },
+    setOrderDetails: { flexDirection: 'row', height: height * 0.0611, width: width * 0.966, borderBottomWidth: 1, borderColor: '#e7b514', alignItems: 'center' },
+    textStyle: { color: '#9fa9ba', fontSize: 18, fontFamily: 'HelveticaNeue' },
+    buttonStyle: { marginTop: height * 0.03125, width: width * 0.16, height: height * 0.052, backgroundColor: '#fff', borderRadius: 4, borderWidth: 1, borderColor: '#9fa9ba', justifyContent: 'center', alignItems: 'center' },
     questionIcon: { fontSize: 10, fontFamily: 'HelveticaNeue', color: '#fff', width: 16, borderRadius: 8, borderWidth: 1, borderColor: '#fff', paddingLeft: 5.5, paddingTop: 1 } 
 };
 
@@ -201,16 +179,13 @@ const mapStateToProps = (state) => {
     const tBQL = state.selectedContractMonth.bushelQuantity === null ? 0 : Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable);
     const tQty = crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString();
     
-
     return {
         MyFarmProd: state.dashBoardButtons,
-        infoState: state.info,
-        underlyingSym: state.selectedContractMonth,
         limitOrderData: state.limitOrder,
         contractMonth: state.contractData,
         tickSizeIncrement: tTick,
         quantityIncrement: tQty,
-        bushelLimit: tBQL
+        bushelLimit: tBQL    
     };
 };
 
@@ -218,7 +193,7 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
             bushelQuantityLimit,
-            getReviewOrderQuote
+            getReviewOrderQuote,            
         },
         dispatch
     );

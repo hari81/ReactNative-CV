@@ -11,7 +11,7 @@ class BushelQuantity extends Component {
         super(props);
         this.state = {
             quantity: this.props.quantity,
-            qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity) / this.props.myFarmProd.estimatedTotalProduction) * 100
+            qPercent: this.calculateHedgePercent(0)
         };
         this.timer = null;
     }
@@ -33,12 +33,13 @@ class BushelQuantity extends Component {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
-            this.calculateHedgePercent(text);
+            const qp = this.calculateHedgePercent(text);
+            this.setState({ qPercent: qp });
         }
         this.props.onQuantityChange(text);
     }
 
-    minusButtonPress() {
+    minusButtonPress = () => {
         try {
             let q = common.convertStringToInt(this.state.quantity);
             if (q < 1) {
@@ -46,19 +47,20 @@ class BushelQuantity extends Component {
             }
             if (q >= parseInt(this.props.quantityIncrement)) {
                 q -= parseInt(this.props.quantityIncrement);
-                this.calculateHedgePercent(q);
+                const qp = this.calculateHedgePercent(q);
+                this.setState({ qPercent: qp });
                 //convert to string before setting state
                 const sq = common.formatNumberCommas(q);
-                this.setState({ quantity: sq });
+                this.setState({ quantity: sq.toString() });
                 this.props.onQuantityChange(sq);
             }
-            this.timer = setTimeout(this.minusButtonPress, 50);
+            this.timer = setTimeout(this.minusButtonPress, 200);
         } catch (error) {
             console.log(error);
         }
     }
 
-    plusButtonPress() {
+    plusButtonPress = () => {
         try {
             let q = common.convertStringToInt(this.state.quantity);
             if (q < 1) {
@@ -70,24 +72,29 @@ class BushelQuantity extends Component {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 q = parseInt(this.props.quantityLimit.toString());
             }
-            this.calculateHedgePercent(q);
+            const qp = this.calculateHedgePercent(q);
+            this.setState({ qPercent: qp });            
             //convert to string before setting state
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
             this.props.onQuantityChange(q);
-            this.timer = setTimeout(this.plusButtonPress, 50);
+            this.timer = setTimeout(this.plusButtonPress, 200);
         } catch (error) {
             console.log(error);
         }
     }
 
     calculateHedgePercent(currQuantity) {
-        const qty = currQuantity === '' ? 0 : parseFloat(currQuantity);
-        if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - qty) / this.props.myFarmProd.estimatedTotalProduction) * 100 });        
-        } else {
-            this.setState({ qPercent: ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + qty) / this.props.myFarmProd.estimatedTotalProduction) * 100 });
+        let qp = 0;
+        if (this.props.myFarmProd !== null && common.isValueExists(this.props.myFarmProd.estimatedTotalProduction)) {
+            const qty = currQuantity === '' ? 0 : parseFloat(currQuantity);
+            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
+                qp = ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - qty) / this.props.myFarmProd.estimatedTotalProduction) * 100;
+            } else {
+                qp = ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + qty) / this.props.myFarmProd.estimatedTotalProduction) * 100;
+            }
         }
+        return qp;
     }
 
     stopTimer() {
@@ -106,7 +113,7 @@ class BushelQuantity extends Component {
             <View style={styles.container}>
                 <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>BUSHEL QUANTITY</Text>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPressIn={this.minusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)} >
+                    <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
                         <Image style={{ width: 32, height: 32, marginRight: 15, marginTop: 5 }} source={Minus} />
                     </TouchableOpacity>
                     <TextInput
@@ -122,7 +129,7 @@ class BushelQuantity extends Component {
                         onFocus={this.onFocusMake.bind(this)}
                         selectTextOnFocus
                     />
-                    <TouchableOpacity onPressIn={this.plusButtonPress.bind(this)} onPressOut={this.stopTimer.bind(this)}>
+                    <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
                         <Image style={{ width: 32, height: 32, marginLeft: 15, marginTop: 5 }} source={Plus} />
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', marginLeft: 30 }}>

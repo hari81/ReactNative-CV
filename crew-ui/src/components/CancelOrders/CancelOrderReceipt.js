@@ -12,7 +12,7 @@ class CancelOrderReceipt extends Component {
   }
 
   reviewPositions() {
-      Actions.orders();
+      Actions.orders({ Crop: this.props.selectedCrop });
   }
   render() {
     const { width, height } = Dimensions.get('window');

@@ -1,15 +1,17 @@
 import React from 'react';
-import { Text, View, Image, TouchableHighlight } from 'react-native';
+import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import Phone from './img/Phone.png';
 import HomeIcon from './img/homeIconMed.png';
 import User from './img/User.png';
 
-const LogoHomeHeader = () => {
+const LogoHomeHeader = (props) => {
     return (
         <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)' }}>
-            <TouchableHighlight onPress={() => Actions.dashboard()}>
+            <TouchableHighlight onPress={() => { props.homeScreenDataFetch(); Actions.dashboard(); }}>
                 <Image source={HomeIcon} style={{ width: 24, height: 24, marginLeft: 20, marginTop: 10 }} />
             </TouchableHighlight>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 35, alignItems: 'center' }}>
@@ -24,7 +26,7 @@ const LogoHomeHeader = () => {
                 <Text style={{ color: '#ffffff35', fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}> | </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Image style={{ width: 32, height: 32, marginLeft: 20 }} source={User} />
-                    <TouchableHighlight onPress={() => this.props.logOut(true)}>
+                    <TouchableHighlight onPress={() => Alert.alert('Soon...')/*this.props.logOut(true)*/}>
                         <Image source={require('./img/ExpandArrow.png')} style={{ width: 10, height: 10, marginLeft: 10, marginTop: 10, marginRight: 20 }} />
                     </TouchableHighlight>
                 </View>
@@ -33,4 +35,4 @@ const LogoHomeHeader = () => {
     );
 };
 
-export { LogoHomeHeader };
+export default connect(null, { homeScreenDataFetch })(LogoHomeHeader);

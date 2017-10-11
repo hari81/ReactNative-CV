@@ -29,7 +29,7 @@ class QuoteSwap extends Component {
         if (this.state.selectedOrder === undefined) {
             return (
                 <View >
-                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
+                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
                     <LogoHomeHeader />
                     <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                         <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
@@ -48,16 +48,16 @@ class QuoteSwap extends Component {
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <UpdateOrderDetails selectedOrder={this.state.selectedOrder} />
-                    <MyCropButton />
                 </View>
             </View>
         );
-    }
-    
+    }   
 }
+
 const mapStateToProps = state => {
     return {
         Crops: state.cropsButtons.cropButtons
     };
 };
+
 export default connect(mapStateToProps, { quoteSwapUnderlying })(QuoteSwap);

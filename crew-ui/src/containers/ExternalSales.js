@@ -8,6 +8,7 @@ import plus from '../components/common/img/Plus.png';
 import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
 import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
+import { homeScreenDataFetch } from '../redux/actions/Dashboard/DashboardAction';
 
 class ExternalSales extends Component {
     constructor(props) {
@@ -76,6 +77,7 @@ class ExternalSales extends Component {
     saveTransactions() {
         const tradeData = this.state.transaction;
         // console.log(tradeData.length);
+        // console.log(this.props.extra.tradeData.trades);
         if (tradeData.length > 0) {
             for (let i = 0; i < tradeData.length; i++) {
                 if (tradeData[i].active || tradeData[i].active === undefined) {
@@ -96,7 +98,13 @@ class ExternalSales extends Component {
             Alert.alert('No transctions to Save .');
             return;
         }
-        console.log(this.state.transaction, this.props.extra.tradeData.trades);
+       // console.log(this.props.extra.tradeData.trades[0]);
+       // console.log(Object.keys(this.props.extra.tradeData.trades[0])[0]);
+        if (this.state.transaction.length === 0 && this.props.extra.tradeData.trades.length === 1 && Object.keys(this.props.extra.tradeData.trades[0]).length === 0) {
+            Alert.alert('Make Sure add one transaction with values');
+            return;
+        }
+       // console.log(this.state.transaction, this.props.extra.tradeData.trades);
         this.props.saveExternalTrades(this.state.transaction);
     }
 
@@ -121,6 +129,7 @@ class ExternalSales extends Component {
                     { cancelable: false }
                 );
             } else {
+                this.props.homeScreenDataFetch();
                 Actions.dashboard();
             }
         } else {
@@ -156,7 +165,7 @@ class ExternalSales extends Component {
        });
 
         const modified = resultCheck.filter(flag => !flag);
-        console.log(userAdded.length);
+      //  console.log(userAdded.length);
         if (userAdded.length === 1 && Object.keys(userAdded[0]).length === 0 && modified.length === 0) {
             return false;
         }
@@ -286,5 +295,5 @@ const mapStateToProps = (state) => {
         id: state.cropsButtons.selectedId };
 };
 
-export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues })(ExternalSales);
+export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues, homeScreenDataFetch })(ExternalSales);
 

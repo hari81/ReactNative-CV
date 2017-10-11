@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 import { doDeleteFetch } from '../../Utils/FetchApiCalls';
 
-export const orderReceipt = orderid => {
+export const orderReceipt = (orderid, selectedCrop) => {
     return (dispatch, getState) => {
         const url = `${ORDER_SERVICES_URL}orders/${orderid}`;
         return doDeleteFetch(url, getState().auth.email, getState().auth.password)
@@ -35,7 +35,7 @@ export const orderReceipt = orderid => {
             .then(cancelResponse => {
                 //console.log(cancelResponse);
                 if (cancelResponse.statusCode === 200 || cancelResponse.statusCode === 202 || cancelResponse.statusCode === 404) {
-                    Actions.cancelorderreceipt({ orderid, message: cancelResponse.message });
+                    Actions.cancelorderreceipt({ orderid, message: cancelResponse.message, selectedCrop });
                 } else {
                         Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
                 }

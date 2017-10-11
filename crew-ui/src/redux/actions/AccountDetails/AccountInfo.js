@@ -1,24 +1,24 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS } from '../types';
+import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 
 export const accountDetails = () => {
     return (dispatch, getState) => {
-        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.email, getState().auth.password)
             .then(response => {
                 /*console.log(response);*/
                 if (response.status === 404) {
                     Alert.alert('No Account found');
+                    dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
                 return response.json();
             })
             .then(AccountData => {
+                if (AccountData === undefined) { return; }
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
@@ -48,8 +48,8 @@ export const accountDetails = () => {
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.email, getState().auth.password)
                             .then(response => response.json(), rej => Promise.reject(rej))
-                            .then(dashBoardData =>
-                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData })
+                            .then(dashBoardData =>{ console.log(dashBoardData);
+                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData }) }
                             )
                             .catch((status, error) => {
                                 console.log(`error ${error}`);
@@ -60,3 +60,4 @@ export const accountDetails = () => {
             .catch(error => console.log(`error ${error}`));
     };
 };
+

@@ -1,6 +1,7 @@
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS } from '../types';
-import { doGetFetch, reqHeaders, baseAuthentication } from '../../../Utils/FetchApiCalls';
+import { doGetFetch } from '../../../Utils/FetchApiCalls';
+
 
 export const ClosedPositionsData = (crop) => {
   return (dispatch, getState) => {
