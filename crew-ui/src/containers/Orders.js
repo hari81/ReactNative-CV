@@ -17,7 +17,7 @@ import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
 import { logOut } from '../redux/actions/index';
-import { Spinner, LogoHomeHeader } from '../components/common';
+import { Spinner, CommonHeader } from '../components/common';
 import {
   ViewOrdersData,
   dropDownCrop,
@@ -302,7 +302,7 @@ class Orders extends Component {
             height: 20
           }}
         />
-        <LogoHomeHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data" />
+        <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data" />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
 

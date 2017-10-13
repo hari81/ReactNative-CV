@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
-import { LogoHomeHeader, Button } from '../common/index';
+import { CommonHeader, Button } from '../common/index';
 
 import confirm from '../common/img/confirmationSuccess.png';
 
@@ -28,7 +28,7 @@ class CancelOrderReceipt extends Component {
           }}
         />
 
-        <LogoHomeHeader />
+        <CommonHeader />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View

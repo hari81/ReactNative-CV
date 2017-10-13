@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, Keyboard } from 'react-native';
 import Dimensions from 'Dimensions';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import { FarmInput } from '../../components/common';
 
 class FarmInputFields extends Component {
     onChangeAcres(value) {
@@ -92,9 +91,11 @@ class FarmInputFields extends Component {
                 >
                     Acres Planted *
                 </Text>
-                <FarmInput
+                <View style={styles.containerStyle}>
+                <TextInput
                     value={acr.toString()}
-                    onblur={() => { 
+                    style={styles.inputStyle}
+                    onBlur={() => {
                         if (acr !== '') {
                             updateAcrValue(`${acr.toString()
                         .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`); 
@@ -103,7 +104,7 @@ class FarmInputFields extends Component {
                             updateAcrValue(acr);
                         }  
                     }}
-                    onfocus={() => {
+                    onFocus={() => {
                         if (acr.slice(-5) === 'acres') {
                         if (acr.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(0, (acr.length - 6)).trim().length <= 7) {
                             updateAcrValue(acr.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(0, (acr.length - 6)).trim());
@@ -114,7 +115,17 @@ class FarmInputFields extends Component {
                     }}
                     onChangeText={this.onChangeAcres.bind(this)}
                     placeholder='Ex: 2,500 acres'
+                    keyboardType='numeric'
+                    placeholderTextColor='rgba(61,76,87, .5)'
+                    maxLength={356}
+                    returnKeyType='done'
+                    onKeyPress={(e) => {
+                        if (e.nativeEvent.key === 'Enter' || e.nativeEvent.key === 'Done') {
+                            dismissKeyboard();
+                        }
+                    }}
                 />
+                </View>
                 <Text
                     style={{
                         color: 'white',

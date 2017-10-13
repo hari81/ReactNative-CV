@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux';
-import { LogoHomeHeader } from '../common/index';
-import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
+import { CommonHeader } from '../common/index';
+import MyFarmTiles from '../common/MyFarmTiles';
 import { orderReceipt } from '../../redux/actions/CancelOrders';
 import * as common from '../../Utils/common';
 import { Button } from '../common/Button';
@@ -28,7 +28,7 @@ class CancelOrder extends Component {
 
         {/* header stuff */}
         <View style={{ backgroundColor: '#000', width, height: 20 }} />
-        <LogoHomeHeader/>
+        <CommonHeader />
 
         <View style={{ backgroundColor: '#eff4f7' }}>
           <View style={{ height: 83, width, backgroundColor: '#404e59' }} />

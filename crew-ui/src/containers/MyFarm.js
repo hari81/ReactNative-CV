@@ -8,7 +8,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
-import { LogoFarmHeader } from '../components/common';
+import { CommonHeader } from '../components/common';
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
@@ -186,7 +186,7 @@ componentWillReceiveProps(newProps) {
             height: 20
           }}
         />
-        <LogoFarmHeader phNumber='+1-952-742-7414' subHeaderText='Price Hedging' />
+        <CommonHeader uservaluesfalg={this.userChangesFarmData.bind(this)} />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View

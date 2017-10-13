@@ -11,35 +11,35 @@ import { Button } from '../common/Button';
 
 class ActionBar extends Component {
 
-    dashBoardToOrders() {
+    dashBoardToOrders = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
         Actions.orders({ Crop });
     }
 
-    dashBoardToOpenPositions() {
+    dashBoardToOpenPositions = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
         Actions.orders({ selectedTab: 'Open Positions', Crop });
     }
 
-    dashBoardToExternalTrades() {
+    dashBoardToExternalTrades = () => {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
         this.props.externalGetTransDashboard(cropData[0].code, cropData[0].cropYear);
     }
 
-    dashboardToPlaceOrder() {
+    dashboardToPlaceOrder = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
         Actions.quoteswap({ cropcode: Crop[0].code, cropyear: Crop[0].cropYear });
     }
 
     render() {
         return (
-            <View style={styles.thirdRowStyle}>
+            <View style={styles.containerStyle}>
                 <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'stretch', width: width * 0.178 }}>
                     <Text style={{ fontSize: 17, fontFamily: 'HelveticaNeue', color: 'rgb(131,141,148)' }}> TODAY'S PRICE </Text>
                     <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(135,136,140)' }} >as of {moment().format('MMM Do YYYY, h:mm a')} </Text>
                 </View>
 
-                <View style={styles.thirdRowBorderStyle} />
+                <View style={styles.BorderStyle} />
 
                 <View style={{ justifyContent: 'center', alignItems: 'center', margin: 9, width: width * 0.121 }}>
                     <Text style={{ fontFamily: 'HelveticaNeue-Bold', fontSize: 14, color: 'rgb(131,141,148)' }}>
@@ -54,9 +54,9 @@ class ActionBar extends Component {
                     </Text>
                 </View>
 
-                <View style={styles.thirdRowBorderStyle} />
+                <View style={styles.BorderStyle} />
 
-                <TouchableOpacity onPress={this.dashBoardToOrders.bind(this)}>
+                <TouchableOpacity onPress={this.dashBoardToOrders}>
                     <View style={{ alignItems: 'center', marginLeft: width * 0.0166, width: width * 0.107, marginTop: 16, flexDirection: 'row'}}>
                         <View style={{ width: width * 0.0488 }}>
                             <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
@@ -70,8 +70,8 @@ class ActionBar extends Component {
                     </View>
                 </TouchableOpacity>
 
-                <View style={styles.thirdRowBorderStyle} />
-                <TouchableOpacity onPress={this.dashBoardToOpenPositions.bind(this)}>
+                <View style={styles.BorderStyle} />
+                <TouchableOpacity onPress={this.dashBoardToOpenPositions}>
                     <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 14, flexDirection: 'row' }}>
                         <View style={{ width: width * 0.0488 }}>
                             <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
@@ -86,8 +86,8 @@ class ActionBar extends Component {
                     </View>
                 </TouchableOpacity>
 
-                <View style={styles.thirdRowBorderStyle} />
-                <TouchableOpacity onPress={this.dashBoardToExternalTrades.bind(this)}>
+                <View style={styles.BorderStyle} />
+                <TouchableOpacity onPress={this.dashBoardToExternalTrades}>
                 <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 14, flexDirection: 'row' }}>
 
                     <View style={{ width: width * 0.044 }}>
@@ -101,7 +101,7 @@ class ActionBar extends Component {
                 </View>
                 </TouchableOpacity>
 
-                <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.dashboardToPlaceOrder.bind(this)}>
+                <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.dashboardToPlaceOrder}>
                     PLACE NEW ORDER NOW
                 </Button>
             </View>
@@ -111,32 +111,9 @@ class ActionBar extends Component {
 const { height, width } = Dimensions.get('window');
 
 const styles = {
-    thirdRowStyle: {
-        flexDirection: 'row',
-        height: height * 0.102,
-        width: width * 0.97,
-        marginHorizontal: width * 0.0156,
-        marginVertical: height * 0.013,
-        backgroundColor: 'rgb(255,255,255)',
-        borderColor: 'rgb(190,216,221)',
-        borderWidth: 1
-    },
-    thirdRowBorderStyle: {
-        width: 1,
-        height: height * 0.091,
-        backgroundColor: 'rgb(221,221,221)',
-        marginTop: 4,
-    },
-    placeOrderButtonStyle: {
-        height: height * 0.052,
-        width: width * 0.2149,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: height * 0.026,
-        backgroundColor: 'rgb(39,153,137)',
-        borderRadius: 4,
-        marginLeft: width * 0.029
-    }
+    containerStyle: { flexDirection: 'row', height: height * 0.102, width: width * 0.97, marginHorizontal: width * 0.0156, marginVertical: height * 0.013, backgroundColor: 'rgb(255,255,255)', borderColor: 'rgb(190,216,221)', borderWidth: 1 },
+    BorderStyle: { width: 1, height: height * 0.091, backgroundColor: 'rgb(221,221,221)', marginTop: 4 },
+    placeOrderButtonStyle: { height: height * 0.052, width: width * 0.2149, justifyContent: 'center', alignItems: 'center', marginTop: height * 0.026, backgroundColor: 'rgb(39,153,137)', borderRadius: 4, marginLeft: width * 0.029 }
 
 };
 const mapStateToProps = state => {

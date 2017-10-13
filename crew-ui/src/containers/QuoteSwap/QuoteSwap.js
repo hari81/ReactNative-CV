@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { LogoHomeHeader } from '../../components/common/index';
+import { CommonHeader } from '../../components/common/index';
 import MyCropButton from '../../components/common/CropButtons/MyCropButton';
-import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
+import MyFarmTiles from '../../components/common/MyFarmTiles';
 import SetOrderDetails from './SetOrderDetails';
 import UpdateOrderDetails from './UpdateOrderDetails';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
@@ -30,7 +30,7 @@ class QuoteSwap extends Component {
             return (
                 <View >
                     <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                    <LogoHomeHeader />
+                    <CommonHeader />
                     <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                         <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                         <MyFarmTiles />
@@ -43,7 +43,7 @@ class QuoteSwap extends Component {
         return (
             <View >
                 <View style={{ backgroundColor: '#000', width, height: height * 0.026 }} />
-                <LogoHomeHeader />
+                <CommonHeader />
                 <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
