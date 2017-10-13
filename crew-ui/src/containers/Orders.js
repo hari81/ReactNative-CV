@@ -16,7 +16,6 @@ import Dimensions from 'Dimensions';
 import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
-import { logOut } from '../redux/actions/index';
 import { Spinner, LogoPhoneHeader } from '../components/common';
 import {
   ViewOrdersData,
@@ -395,7 +394,6 @@ const mapDispatchToProps = dispatch => {
       OpenPositionsData,
       dropDownCrop,
       selectedCrop,
-        logOut
     },
     dispatch
   );

@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL, POSITONS_TRADE_RECEIPT_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS } from '../types';
 import { doGetFetch, doGetTradeReceiptFetch } from '../../../Utils/FetchApiCalls';
 
@@ -8,7 +8,7 @@ export const OpenPositionsData = (crop) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
 
       const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
-          return doGetFetch(url, getState().auth.email, getState().auth.password)
+          return doGetFetch(url, getState().auth.basicToken)
           .then(response => response.json())
           .then(opens => {
               if (!Array.isArray(opens)) {
@@ -17,7 +17,7 @@ export const OpenPositionsData = (crop) => {
               return Promise.all(
                   opens.map(items => {
                      const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${items.lines[0].underlying}`;
-                     return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
+                     return doGetFetch(underlyingURL, getState().auth.basicToken)
                      .then(response => { /*console.log(response);*/ return response.json(); });
                   })
               )
@@ -39,9 +39,9 @@ export const OpenPositionsData = (crop) => {
 
 export const tradeReceipt = (relativePath) => {
     return (dispatch, getState) => {
-        const url = `${ORDER_SERVICES_URL}${relativePath.substr(1, relativePath.length)}`;
-        return doGetTradeReceiptFetch(url, getState().auth.email, getState().auth.password)
-            .then(response => {
+        const url = `${POSITONS_TRADE_RECEIPT_URL}${relativePath.substr(1, relativePath.length)}`;
+        return doGetTradeReceiptFetch(url, getState().auth.basicToken)
+            .then(response => { console.log(response);
                 if (!response.ok) {
                     Alert.alert('Trade Report Not ready.');
                 }

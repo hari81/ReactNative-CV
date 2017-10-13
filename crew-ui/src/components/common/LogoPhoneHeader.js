@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { logOut } from '../../redux/actions/index';
 import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import cargillLogoWhite from './img/cargillLogoWhite.png';
 import HomeIcon from './img/homeIconMed.png';
@@ -48,4 +47,4 @@ class LogoPhoneHeader extends Component {
     }
 }
 
-export default connect(null, { logOut, homeScreenDataFetch })(LogoPhoneHeader);
+export default connect(null, { homeScreenDataFetch })(LogoPhoneHeader);

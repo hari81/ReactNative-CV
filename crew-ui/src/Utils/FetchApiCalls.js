@@ -1,28 +1,25 @@
-import base64 from 'base-64';
 import { X_API_KEY } from '../ServiceURLS/index';
 //import fetch from 'isomorphic-fetch';
 //const fetch = require('isomorphic-fetch');
 
-function baseAuthentication(email, password) {
-   return `Basic ${base64.encode(`${email}:${password}`)}`;
+function sessionToken(crmSToken) {
+   return `CRM ${crmSToken}`;
 }
 export const reqHeaders = new Headers();
 reqHeaders.append('Content-Type', 'application/json');
 reqHeaders.append('x-api-key', X_API_KEY);
-reqHeaders.append('Accept-Encoding', 'gzip,deflate');
 reqHeaders.append('User-Agent', 'Crew 0.1.0');
 
-function doGetFetch(url, email, password) {
-   // console.log(url);
-    reqHeaders.append('Authorization', baseAuthentication(email, password));
+function doGetFetch(url, token) {
+    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'GET',
         headers: reqHeaders
     });
 }
 
-function doPutFetch(url, body, email, password) {
-    reqHeaders.append('Authorization', baseAuthentication(email, password));
+function doPutFetch(url, body, token) {
+    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'PUT',
         headers: reqHeaders,
@@ -30,9 +27,9 @@ function doPutFetch(url, body, email, password) {
     });
 }
 
-function doPostFetch(url, body, email, password) {
-    reqHeaders.append('Authorization', baseAuthentication(email, password));
-
+function doPostFetch(url, body, token) {
+    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
+    console.log('body', body);
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,
@@ -41,6 +38,7 @@ function doPostFetch(url, body, email, password) {
 }
 
 function doLoginPostFetch(url, body) {
+    reqHeaders.append('Accept-Encoding', 'gzip,deflate');
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,
@@ -48,17 +46,17 @@ function doLoginPostFetch(url, body) {
     });
 }
 
-function doDeleteFetch(url, email, password) {
-    reqHeaders.append('Authorization', baseAuthentication(email, password));
+function doDeleteFetch(url, token) {
+    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'DELETE',
         headers: reqHeaders
     });
 }
 
-function doGetTradeReceiptFetch(url, email, password) {
+function doGetTradeReceiptFetch(url, token) {
     // console.log(url);
-    reqHeaders.append('Authorization', baseAuthentication(email, password));
+    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     reqHeaders.append('Accept', 'application/pdf');
     return fetch(url, {
         method: 'GET',
@@ -66,4 +64,4 @@ function doGetTradeReceiptFetch(url, email, password) {
     });
 }
 
-export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, baseAuthentication, doLoginPostFetch, doGetTradeReceiptFetch };
+export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, doLoginPostFetch, doGetTradeReceiptFetch };

@@ -92,6 +92,7 @@ class ReviewOrder extends Component {
         }
 
         return (
+
             <View>
                 <View style={{ backgroundColor: '#000', width, height: 20 }} />
                 <LogoHomeHeader />

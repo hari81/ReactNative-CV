@@ -7,7 +7,7 @@ import { doGetFetch } from '../../../Utils/FetchApiCalls';
 export const accountDetails = () => {
     return (dispatch, getState) => {
         const url = `${VELO_SERVICES_URL}accounts`;
-       return doGetFetch(url, getState().auth.email, getState().auth.password)
+       return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
                 /*console.log(response);*/
                 if (response.status === 404) {
@@ -22,7 +22,7 @@ export const accountDetails = () => {
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
-                return doGetFetch(accountUrl, getState().auth.email, getState().auth.password)
+                return doGetFetch(accountUrl, getState().auth.crmSToken)
                     .then(response => response.json())
                     .then(Data => {
                         dispatch({ type: DEFAULT_ACCOUNT_DETAILS, payload: Data });
@@ -46,7 +46,7 @@ export const accountDetails = () => {
                         const year = Data.commodities[0].crops[0].cropYear;
                         const code = Data.commodities[0].commodity;
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
-                        return doGetFetch(defaultUrl, getState().auth.email, getState().auth.password)
+                        return doGetFetch(defaultUrl, getState().auth.crmSToken)
                             .then(response => response.json(), rej => Promise.reject(rej))
                             .then(dashBoardData =>{ console.log(dashBoardData);
                                 dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData }) }
