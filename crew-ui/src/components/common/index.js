@@ -1,6 +1,4 @@
 import LogoHomeHeader from './LogoHomeHeader';
-import LogoHeader from './LogoHeader';
-import LogoPhoneHeader from './LogoPhoneHeader';
 import LogoFarmHeader from './LogoFarmHeader';
 
 export * from './Button';
@@ -9,7 +7,6 @@ export * from './CardSection';
 export * from './Spinner';
 export * from './ImageLogo';
 export * from './Header';
-export * from './OrderButton';
 export * from './FarmInput';
 export * from './Input';
 export * from './InfoPopup.js';
@@ -17,4 +14,4 @@ export * from './PageHeader.js';
 export * from '../ExternalTrades/ExternalInput';
 export * from '../ExternalTrades/ExternalNumberInput';
 export * from './LogOff';
-export { LogoHomeHeader, LogoHeader, LogoPhoneHeader, LogoFarmHeader };
+export { LogoHomeHeader, LogoFarmHeader };

@@ -12,7 +12,7 @@ class ProfitabilityMatrix extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            targetPrice: props.targetPrice,
+            targetPrice: props.todayPrice,
             expectedYield: props.expectedYield,
             matrixPriceIncrement: '',
             matrixYieldIncrement: ''
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
 
-        targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])).toFixed(2),
+        todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),
         expectedYield: st(state.dashBoardData, ['Data', 'myFarmProduction', 'expectedYield']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'expectedYield']))
     };
 }

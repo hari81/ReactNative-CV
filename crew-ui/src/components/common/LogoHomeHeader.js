@@ -8,6 +8,7 @@ import Phone from './img/Phone.png';
 import HomeIcon from './img/homeIconMed.png';
 import User from './img/User.png';
 
+
 const LogoHomeHeader = (props) => {
     return (
         <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)' }}>
@@ -17,6 +18,13 @@ const LogoHomeHeader = (props) => {
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 35, alignItems: 'center' }}>
                 <Image style={{ width: 76, height: 34, marginTop: 2, marginRight: 10 }} source={cargillLogoWhite} />
                 <Text style={{ color: '#fefefe', fontFamily: 'HelveticaNeue', fontSize: 10, marginTop: 18 }}>PRICE HEDGING</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                <TouchableHighlight onPress={props.onPress}>
+                    <Image style={{ width: 20, height: 20, marginTop: 5, marginRight: 5 }} source={props.refreshImg} />
+                </TouchableHighlight>
+                <Text style={{ fontFamily: 'HelveticaNeue-Light', color: '#fff', fontSize: 13, marginTop: 5, marginRight: 15 }}>{props.title}</Text>
+                <Text style={{ color: '#ffffff35', fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}> | </Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 15, marginRight: 15 }}>
