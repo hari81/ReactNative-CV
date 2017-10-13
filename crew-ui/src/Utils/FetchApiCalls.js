@@ -56,4 +56,13 @@ function doDeleteFetch(url, email, password) {
     });
 }
 
-export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, baseAuthentication, doLoginPostFetch };
+function doGetTradeReceiptFetch(url, email, password) {
+    // console.log(url);
+    reqHeaders.append('Authorization', baseAuthentication(email, password));
+    return fetch(url, {
+        method: 'GET',
+        headers: reqHeaders
+    });
+}
+
+export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, baseAuthentication, doLoginPostFetch, doGetTradeReceiptFetch };

@@ -98,7 +98,7 @@ class Orders extends Component {
 
     pickerValues() {
         return (this.props.viewOrders.dropDownData || []).map((item) => (
-            <Picker.Item label={item.name} value={item.code}  key={item.code} />));
+            <Picker.Item label={item.name} value={item.code} key={item.code} />));
     }
 
     selectedTabOrder = (val) => {
@@ -120,11 +120,9 @@ class Orders extends Component {
 
   renderFlatList() {
     if (this.props.viewOrders.fetchflag) {
-        switch(this.state.selectedTab) {
-      case 'Open Orders':
           return (
               <View
-                  style={{justifyContent: 'center', flexDirection: 'column'}}
+                  style={{ justifyContent: 'center', flexDirection: 'column' }}
               >
                   <Text
                       style={{
@@ -135,61 +133,17 @@ class Orders extends Component {
                           marginBottom: 30
                       }}
                   >
-                      Loading orders...
+                      { this.state.selectedTab === 'Open Orders' ? 'Loading orders...' : this.state.selectedTab === 'Open Positions' ?
+                      'Loading open positions...' : 'Loading closed positions...' }
+
                   </Text>
                   <Spinner size='large' />
               </View>);
-          break;
-      case
-          'Open Positions'
-      :
-          return (
-              <View
-                  style={{ justifyContent: 'center', flexDirection: 'column' }}
-              >
-                  <Text
-                      style={{
-                          marginTop: 30,
-                          color: 'white',
-                          textAlign: 'center',
-                          fontSize: 25,
-                          marginBottom: 30
-                      }}
-                  >
-                      Loading positions...
-                  </Text>
-                  <Spinner size='large' />
-              </View>
-          );
-          break;
-          case 'Closed Positions' :
-
-          return (
-              <View
-                  style={{ justifyContent: 'center', flexDirection: 'column' }}
-              >
-                  <Text
-                      style={{
-                          marginTop: 30,
-                          color: 'white',
-                          textAlign: 'center',
-                          fontSize: 25,
-                          marginBottom: 30
-                      }}
-                  >
-                      Loading closed positions...
-                  </Text>
-                  <Spinner size='large' />
-              </View>
-          );
-      }
     }
 
     if (this.state.selectedTab === 'Open Orders') {
       //console.log('Orders Button Pressed');
-
       if (!st(this.props, ['viewOrders', 'items', 'value', 'length'])) {
-
         return (
           <View
             style={{

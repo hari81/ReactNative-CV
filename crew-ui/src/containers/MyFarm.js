@@ -94,9 +94,6 @@ userChangesFarmData() {
     Keyboard.dismiss();
     const presentData = this.state;
     const previousData = this.props.far.myFarmCropData.cropYear;
-
-    //console.log('Local Data', presentData);
-   // console.log('Database Data', previousData);
     if (previousData === null || previousData === undefined) {
         const localState = this.state;
         if (localState.estimate === 0 &&
