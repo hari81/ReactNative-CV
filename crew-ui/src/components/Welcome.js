@@ -1,13 +1,12 @@
 import React from 'react';
-import { Text, View, Linking, StatusBar } from 'react-native';
-import Dimensions from 'Dimensions';
+import { Text, View, Linking, StatusBar, Dimensions, Image} from 'react-native';
 import LoginForm from '../containers/LoginForm';
-import { Header, ImageLogo } from './common/index';
 import { PRIVACY, TERMS } from '../ServiceURLS/index';
+
+const { width, height } = Dimensions.get('window');
 
 export default class App extends React.Component {
   render() {
-    const { width, height } = Dimensions.get('window');
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
 
@@ -30,8 +29,11 @@ export default class App extends React.Component {
             marginBottom: 50
           }}
         >
-          <Header headerText='Welcome' />
-
+            <View style={styles.welcomeViewStyle}>
+                <Text style={styles.welcomeTextStyle}>
+                    Welcome
+                </Text>
+            </View>
           <View style={{ alignItems: 'center' }}>
             <Text style={{ color: 'white', fontSize: 15, marginTop: 15 }}>
               Please log in below by entering your username and password
@@ -55,7 +57,13 @@ export default class App extends React.Component {
                 borderColor: 'white'
               }}
             >
-              <ImageLogo />
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={require('../components/common/img/cargillLogoWhite3.png')}
+                        style={styles.logoStyle}
+                    />
+                    <Text style={styles.textStyle}>Price Hedging</Text>
+                </View>
             </View>
             <View style={{ flex: 2 }}>
               <View style={{ alignItems: 'flex-start', marginLeft: 50 }}>
@@ -106,4 +114,39 @@ export default class App extends React.Component {
 
     );
   }
+}
+const styles = {
+    imageContainer: {
+        justifyContent: 'center',
+        marginLeft: 2,
+        marginRight: 20,
+        flexDirection: 'column',
+        paddingBottom: 10
+    },
+
+    logoStyle: {
+        height: 113,
+        width: 250,
+        //paddingLeft: 10,
+        alignItems: 'center'
+    },
+    textStyle: {
+        marginTop: 10,
+        fontSize: 25,
+        color: 'white',
+        textAlign: 'center'
+    },
+    welcomeViewStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 100,
+        paddingTop: 15,
+        shadowColor: '#000',
+        elevation: 2,
+        position: 'relative'
+    },
+    welcomeTextStyle: {
+        fontSize: 50,
+        color: 'white'
+    }
 }

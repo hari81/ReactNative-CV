@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import Dimensions from 'Dimensions';
 import { Actions } from 'react-native-router-flux';
-import { LogoHomeHeader } from '../common';
-import MyFarmTiles from '../DashBoard/MyFarmTiles';
+import { CommonHeader } from '../common';
+import MyFarmTiles from '../common/MyFarmTiles';
 import ec from '../common/img/OrderError.png';
 
 class TradeConfirmationError extends Component {
@@ -16,7 +16,7 @@ class TradeConfirmationError extends Component {
         return (
             <View >
                 <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
-                <LogoHomeHeader />
+                <CommonHeader />
                 <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
                     <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
