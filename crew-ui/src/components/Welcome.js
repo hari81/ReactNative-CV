@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, Linking, StatusBar, Dimensions, Image} from 'react-native';
+import { Text, View, Linking, StatusBar, Dimensions, Image } from 'react-native';
 import LoginForm from '../containers/LoginForm';
-import { PRIVACY, TERMS } from '../ServiceURLS/index';
+import { PRIVACY, TERMS, learnMoreProdUrl } from '../ServiceURLS/index';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,11 +34,6 @@ export default class App extends React.Component {
                     Welcome
                 </Text>
             </View>
-          <View style={{ alignItems: 'center' }}>
-            <Text style={{ color: 'white', fontSize: 15, marginTop: 15 }}>
-              Please log in below by entering your username and password
-            </Text>
-          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -59,10 +54,11 @@ export default class App extends React.Component {
             >
                 <View style={styles.imageContainer}>
                     <Image
-                        source={require('../components/common/img/cargillLogoWhite3.png')}
+                        source={require('../components/common/img/WelcomeLogo.png')}
                         style={styles.logoStyle}
                     />
                     <Text style={styles.textStyle}>Price Hedging</Text>
+                    <Text style={{ color: 'white', textDecorationLine: 'underline', paddingLeft: width * 0.08 }} onPress={() => Linking.openURL(learnMoreProdUrl)}> Learn More </Text>
                 </View>
             </View>
             <View style={{ flex: 2 }}>
@@ -125,8 +121,8 @@ const styles = {
     },
 
     logoStyle: {
-        height: 113,
-        width: 250,
+        height: height * 0.156,
+        width: width * 0.263,
         //paddingLeft: 10,
         alignItems: 'center'
     },
@@ -139,7 +135,7 @@ const styles = {
     welcomeViewStyle: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 100,
+        height: height * 0.134,
         paddingTop: 15,
         shadowColor: '#000',
         elevation: 2,

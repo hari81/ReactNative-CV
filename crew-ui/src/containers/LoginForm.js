@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage, ScrollView } from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView, Dimensions, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import { emailChanged, passwordChanged, saveUserSwitchChanged } from '../redux/actions/index';
@@ -8,6 +8,9 @@ import { loginUser, forGetPassword } from '../redux/actions/LoginAuth';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
+import { signUpNow } from '../ServiceURLS/index';
+
+const { height, width } = Dimensions.get('window')
 
 class LoginForm extends Component {
   constructor() {
@@ -98,8 +101,6 @@ class LoginForm extends Component {
             onblur={this.scrollDown.bind(this)}
           />
         </CardSection>
-           <Text style={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
-
         <Text style={styles.errorStyle}>
           {this.props.auth.error}
         </Text>
@@ -128,8 +129,11 @@ class LoginForm extends Component {
         <CardSection>
           {this.renderButton()}
         </CardSection>
-
-        <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10 }}>
+          <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
+              <Text style={{ color: 'white', textDecorationLine: 'underline', paddingLeft: width * 0.16 }} onPress={() => Linking.openURL(signUpNow)}> Sign Up Now </Text>
+          </View>
+        <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10, paddingTop: 20 }}>
           Having trouble logging in? Please call +1-952-742-7414 or email
           cargillpricehedge@cargill.com
         </Text>
