@@ -1,7 +1,8 @@
-import { Alert } from 'react-native';
-import { ORDER_SERVICES_URL, POSITONS_TRADE_RECEIPT_URL } from '../../../ServiceURLS/index';
+import { Actions } from 'react-native-router-flux';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { ORDER_SERVICES_URL, POSITONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS } from '../types';
-import { doGetFetch, doGetTradeReceiptFetch } from '../../../Utils/FetchApiCalls';
+import { doGetFetch } from '../../../Utils/FetchApiCalls';
 
 export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
@@ -40,14 +41,28 @@ export const OpenPositionsData = (crop) => {
 export const tradeReceipt = (relativePath) => {
     return (dispatch, getState) => {
         const url = `${POSITONS_TRADE_RECEIPT_URL}${relativePath.substr(1, relativePath.length)}`;
-        return doGetTradeReceiptFetch(url, getState().auth.basicToken)
-            .then(response => { console.log(response);
-                if (!response.ok) {
-                    Alert.alert('Trade Report Not ready.');
-                }
+console.log('url', url);
+        RNFetchBlob
+            .config({
+                // add this option that makes response data to be stored as a file.
+                fileCache: true,
+                appendExt: 'pdf',
+                //path: DocumentDir
             })
-            .catch(error => {
-                console.error(`error ${error}`);
+            .fetch('GET', url, {
+                'Content-Type': 'application/json',
+                'x-api-key': X_API_KEY,
+                'User-Agent': 'Crew 0.1.0',
+                Authorization: getState().auth.basicToken,
+                Accept: 'application/pdf',
+                'Cache-Control': 'no-store'
+            })
+            .then((res) => {
+                // the temp file path
+                //this.setState({fileLocation: res.path()});
+                console.log('The file saved to ', res.path());
+                // console.log('The pdf save', res.base64())
+                Actions.pdfview({ path: res.path() });
             });
     };
 };

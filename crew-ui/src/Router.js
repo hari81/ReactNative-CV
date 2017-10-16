@@ -15,6 +15,7 @@ import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationErro
 import ReviewOrder from './components/Orders/ReviewOrder';
 import Disclaimer from './containers/Disclaimer';
 import ProfitabilityMatrix from './containers/ProfitabilityMatrix';
+import TradeReceipt from './components/Orders/TradeReceipt';
 
 const RouterComponent = () => {
   return (
@@ -37,6 +38,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />
         <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} />
+        <Scene hideNavBar key="pdfview" component={TradeReceipt} />
       </Scene>
     </Router>
   );
