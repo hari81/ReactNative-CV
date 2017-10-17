@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
 import { View, Text, TouchableOpacity } from 'react-native';
-
 import { connect } from 'react-redux';
 import LimitOrder from './LimitOrder';
 import * as commonStyles from '../../../Utils/styles';
+import * as common from '../../../Utils/common';
 
 class OrderType extends Component {
     constructor() {
@@ -21,8 +20,8 @@ class OrderType extends Component {
 
     onLimitSelection() {
         this.setState({ isLimitOrder: true });
-        this.props.onLimitPriceChange(this.getLimitPrice(this.props.selectedContractMonth));
-        this.props.onExpiryDateChange(this.getExpDate(this.props.selectedContractMonth));
+        this.props.onLimitPriceChange(common.getLimitPrice(this.props.selectedContractMonth, this.props.buySell));
+        this.props.onExpiryDateChange(common.getExpDate(this.props.selectedContractMonth));
         this.props.onOrderTypeChange('limit');
     }
 
@@ -32,30 +31,6 @@ class OrderType extends Component {
 
     onExpiryDateChange(date) {
         this.props.onExpiryDateChange(date);
-    }
-
-    getLimitPrice(selectedContractMonth) {
-        let tPrice = null;
-        const scm = selectedContractMonth;
-        if (scm !== null) {
-            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-                tPrice = scm.askPrice === null ? scm.settlePrice : scm.askPrice;
-            } else {
-                tPrice = scm.bidPrice === null ? scm.settlePrice : scm.bidPrice;            
-            }
-            tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
-            return tPrice;
-        }
-        return 0;
-    }
-
-    getExpDate(contractMonth) {
-        let tDate = null;
-        if (contractMonth !== null) {
-            tDate = new Date(contractMonth.lastTradeDate.concat('T00:00:00-06:00')) || '';
-            return tDate;
-        }
-        return null;  
     }
 
     onScrollUpdate() {

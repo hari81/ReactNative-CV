@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Alert, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import ProductType from '../../components/QuoteSwap/ProductsList/ProductType';
 import TradeDirection from '../../components/QuoteSwap/TradeDirection';
 import BushelQuantity from '../../components/QuoteSwap/BushelQuantity';
@@ -13,6 +13,7 @@ import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { bushelQuantityLimit } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import * as common from '../../Utils/common';
 
 const { height, width } = Dimensions.get('window');
 
@@ -31,7 +32,8 @@ class SetOrderDetails extends Component {
             expirationDate: '',
             notes: '',
             selectedContractMonth: null,
-            quantityLimit: 0
+            quantityLimit: 0,
+            isRefreshPrices: false
         };
     }
 
@@ -43,16 +45,28 @@ class SetOrderDetails extends Component {
            const sm = nextProps.contractMonth.contract.find(x => x.underlying === this.state.selectedContractMonth.underlying);
            //if we can't find a match, a new crop/contract/month has been selected (so set it and forget it)
            if (sm === undefined || sm === null) {
-               const cmonth = nextProps.contractMonth.contract[0];
-                this.onSelectContractMonth(cmonth);
-           }
+               const cm = nextProps.contractMonth.contract[0];
+               this.onSelectContractMonth(cm);
+               if (cm.cropYear !== this.state.selectedContractMonth.cropYear || cm.cropCode !== this.state.selectedContractMonth.cropCode) {
+                   this.setState({ quantity: 0 });
+               }
+            } else if (this.state.isRefreshPrices) {
+                this.setState({ isRefreshPrices: false });            
+                this.onSelectContractMonth(sm);
+            }
         }
     }
 
     onSelectContractMonth(contractMonth) {
         this.setState({ selectedContractMonth: contractMonth });       
         this.setState({ underlying: contractMonth.underlying });
-        this.setState({ expirationDate: contractMonth.lastTradeDate });
+        this.setState({ expirationDate: common.getExpDate(contractMonth) });
+        this.setState({ targetPrice: common.getLimitPrice(contractMonth, this.state.buySell) });
+        this.setState({ goodTilDate: common.getExpDate(contractMonth) });
+    }
+
+    onRefreshPrices() {
+        this.setState({ isRefreshPrices: true });
     }
 
     onQuantityChange(quant) {
@@ -111,7 +125,8 @@ class SetOrderDetails extends Component {
                         <TradeDirection buySell={this.state.buySell} onTradeChange={this.tradeDirectionChange.bind(this)} />
                         <ContractMonth 
                             onSelectContractMonth={this.onSelectContractMonth.bind(this)} 
-                            selectedContractMonth={this.state.selectedContractMonth} 
+                            onRefreshPrices={this.onRefreshPrices.bind(this)}
+                            selectedContractMonth={this.state.selectedContractMonth}
                         />
                     </View>
                     <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4' }} />
@@ -137,7 +152,7 @@ class SetOrderDetails extends Component {
                             />
                             <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
                             <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
-                                <Button onPress={() => Actions.dashboard()} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                                <Button onPress={() => Actions.dashboard({ type: ActionConst.REPLACE })} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
                                 <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: '#279989', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
                             </View>
                         </View>

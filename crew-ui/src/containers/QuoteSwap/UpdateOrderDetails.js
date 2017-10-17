@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import moment from 'moment';
-import * as common from '../../Utils/common';
 import Refresh from '../../components/common/img/Refresh.png';
 import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import * as commonStyles from '../../Utils/styles';
+import * as common from '../../Utils/common';
 
 import Info from '../../components/common/img/Info-white.png';
 import cancel from '../../components/common/img/Cancel-40.png';
@@ -67,26 +67,28 @@ class UpdateOrderDetails extends Component {
             if (!cMonths.spinFlag) {
                 this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
                 const sMonth = cMonths.contract.find(x => x.underlying === this.state.underlying);
-                let tPrice = '-';
-                if (this.state.isBuy) {
-                    tPrice = sMonth.askPrice === null ? sMonth.settlePrice : sMonth.askPrice;
-                } else {
-                    tPrice = sMonth.bidPrice === null ? sMonth.settlePrice : sMonth.bidPrice;
-                }
-                tPrice = tPrice === null ? '-' : tPrice.toFixed(4);
-                this.setState({ contractBidAskPrice: tPrice });
-                if (sMonth !== null) {
-                    const tBidPrice = sMonth.bidPrice === null ? '-' : parseFloat(sMonth.bidPrice).toFixed(4);
-                    const tAskPrice = sMonth.askPrice === null ? '-' : parseFloat(sMonth.askPrice).toFixed(4);
-                    const tSettlePrice = sMonth.settlePrice === null ? '-' : parseFloat(sMonth.settlePrice).toFixed(4);
-                    this.setState({ bidPrice: tBidPrice, askPrice: tAskPrice, settlePrice: tSettlePrice });
-                    if (this.state.isRefreshPrices) {
-                        this.setState({ isRefreshPrices: false });
+                if (sMonth !== null && sMonth !== undefined) {                    
+                    let tPrice = '-';
+                    if (this.state.isBuy) {
+                        tPrice = sMonth.askPrice === null ? sMonth.settlePrice : sMonth.askPrice;
                     } else {
-                        this.onUpdateTargetPrice();
-                        const tLastTradeDate = sMonth.lastTradeDate;
-                        const tDate = new Date(tLastTradeDate.concat('T00:00:00-06:00')) || '';
-                        this.setState({ lastTradeDate: tLastTradeDate, goodTilDate: tDate });
+                        tPrice = sMonth.bidPrice === null ? sMonth.settlePrice : sMonth.bidPrice;
+                    }
+                    tPrice = tPrice === null ? '-' : tPrice.toFixed(4);
+                    this.setState({ contractBidAskPrice: tPrice });
+                    if (sMonth !== null) {
+                        const tBidPrice = sMonth.bidPrice === null ? '-' : parseFloat(sMonth.bidPrice).toFixed(4);
+                        const tAskPrice = sMonth.askPrice === null ? '-' : parseFloat(sMonth.askPrice).toFixed(4);
+                        const tSettlePrice = sMonth.settlePrice === null ? '-' : parseFloat(sMonth.settlePrice).toFixed(4);
+                        this.setState({ bidPrice: tBidPrice, askPrice: tAskPrice, settlePrice: tSettlePrice });
+                        if (this.state.isRefreshPrices) {
+                            this.setState({ isRefreshPrices: false });
+                        } else {
+                            this.onUpdateTargetPrice();
+                            const tLastTradeDate = sMonth.lastTradeDate;
+                            const tDate = new Date(tLastTradeDate.concat('T00:00:00-06:00')) || '';
+                            this.setState({ lastTradeDate: tLastTradeDate, goodTilDate: tDate });
+                        }
                     }
                 }
             }
@@ -124,11 +126,14 @@ class UpdateOrderDetails extends Component {
     }
 
     onFocusMake() {
+        this.onScrollUpdate();        
         this.setState({ targetPrice: (this.state.targetPrice.charAt(0) === '$') ? this.state.targetPrice.slice(1, this.state.targetPrice.length) : this.state.targetPrice });
     }
 
     onBlurMake() {
-        this.setState({ targetPrice: `$${this.state.targetPrice}` });
+        this.onScrollDown();
+        const tlp = this.state.targetPrice.charAt(0) === '$' ? this.state.targetPrice.slice(1, this.state.targetPrice.length) : this.state.targetPrice;
+        this.setState({ targetPrice: `$${tlp}` });
     }
 
     onChangeQuantity(text) {
@@ -138,15 +143,27 @@ class UpdateOrderDetails extends Component {
     }
 
     minusButtonPress = () => {
-        if (parseFloat(this.state.targetPrice) >= parseFloat(this.state.tickSizeIncrement)) {
-            this.setState({ targetPrice: ((parseFloat(this.state.targetPrice) - parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
+        try {
+            const lp = common.cleanNumericString(this.state.targetPrice);
+            if (parseFloat(lp) >= parseFloat(this.state.tickSizeIncrement)) {
+                const tPrice = ((parseFloat(lp) - parseFloat(this.state.tickSizeIncrement)).toFixed(4));
+                this.setState({ targetPrice: `$${tPrice}` });
+            }
+            this.timer = setTimeout(this.minusButtonPress, 200);    
+        } catch (error) {
+            console.log(error);
         }
-        this.timer = setTimeout(this.minusButtonPress, 200);
     }
 
     plusButtonPress = () => {
-        this.setState({ targetPrice: (((parseFloat(this.state.targetPrice)) + parseFloat(this.state.tickSizeIncrement)).toFixed(4)).toString() });
-        this.timer = setTimeout(this.plusButtonPress, 200);
+        try {
+            const lp = common.cleanNumericString(this.state.targetPrice);            
+            const tPrice = (parseFloat(lp) + parseFloat(this.state.tickSizeIncrement)).toFixed(4);
+            this.setState({ targetPrice: `$${tPrice}` });
+            this.timer = setTimeout(this.plusButtonPress, 200);
+        } catch (error) {
+            console.log(error);
+        }        
     }
 
     stopTimer() {
@@ -177,17 +194,17 @@ class UpdateOrderDetails extends Component {
     datePicker() {
         if (this.state.showDatePicker) {
             return (
-                <View style={{ position: 'absolute', marginTop: -174, marginLeft: 229 }} >
+                <View style={{ position: 'absolute', marginTop: -167, marginLeft: 229, padding: 0 }} >
                     <DatePickerIOS
-                        style={{ height: 200, width: 250, borderRadius: 4, backgroundColor: '#fff', zIndex: 1 }}
+                        style={{ height: 195, width: 250, borderRadius: 4, backgroundColor: '#fff', zIndex: 1 }}
                         date={this.state.goodTilDate}
                         mode="date"
                         onDateChange={(d) => { this.onDateChange(d); }}
                         minimumDate={new Date()}
                         maximumDate={new Date(this.state.lastTradeDate.concat('T00:00:00-06:00'))}
                     />
-                    <View style={{ height: 20, width: 20, marginTop: 3, position: 'absolute', marginLeft: 225, backgroundColor: '#fff', zIndex: 1 }}>
-                        <TouchableOpacity onPress={() => { this.setState({ showDatePicker: false }); Keyboard.dismiss(); }}><Image source={cancel} style={{ height: 23, width: 23 }} /></TouchableOpacity>
+                    <View style={{ height: 20, width: 20, position: 'absolute', marginTop: 3, marginLeft: 225, backgroundColor: '#fff', zIndex: 2 }}>
+                        <TouchableOpacity onPress={() => { this.setState({ showDatePicker: false }); Keyboard.dismiss(); }}><Image source={cancel} style={{ height: 20, width: 20 }} /></TouchableOpacity>
                     </View>
                 </View>
             );
@@ -195,17 +212,26 @@ class UpdateOrderDetails extends Component {
     }
 
     warningMessage() {
-        if (parseFloat(this.state.targetPrice) < (0.8 * parseFloat(this.state.bidPrice)) || parseFloat(this.state.targetPrice) > (1.2 * parseFloat(this.state.bidPrice))) {
-            return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
+        const tPrice = parseFloat(common.cleanNumericString(this.state.targetPrice));
+        if (parseFloat(tPrice) < (0.8 * parseFloat(this.state.bidPrice)) || parseFloat(tPrice) > (1.2 * parseFloat(this.state.bidPrice))) {
+            return <Text style={{ color: 'red', paddingLeft: 45, marginTop: 3 }}>Crossed 20% Limits</Text>;
         }
         return <Text />;
     }
 
     onReturnToOrders() {
         const cropCode = this.props.cropId.substring(0, this.props.cropId.length - 4);        
-        Actions.orders({ selectedTab: 'Open Positions', Crop: cropCode });
+        Actions.orders({ selectedTab: 'Open Positions', Crop: cropCode, type: ActionConst.REPLACE });
     }
  
+    onScrollUpdate() {
+        this.refs.scrollView.scrollTo({ x: 0, y: 140, animated: true });
+    }
+
+    onScrollDown() {
+        this.refs.scrollView.scrollToEnd();
+    }
+
     render() {
         let limitOrderFields = null;
         if (this.state.isLimitOrder) {
@@ -217,7 +243,7 @@ class UpdateOrderDetails extends Component {
                                 <Text style={styles.enabledLabel}>LIMIT PRICE</Text>
                                 <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image style={styles.infoIcon} source={Info} /></TouchableOpacity>
                             </View>
-                            <View style={{ flexDirection: 'column' }}>
+                            <View style={{ flexDirection: 'column', marginBottom: 10 }}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
                                         <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
@@ -241,7 +267,7 @@ class UpdateOrderDetails extends Component {
                         </View>
                         <View style={{ flexDirection: 'column', marginLeft: 25 }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={styles.enabledLabel}>ORDER EXPIRATION DATE</Text>
+                                <Text style={styles.enabledLabel}>VALID UNTIL</Text>
                                 <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image style={styles.infoIcon} source={Info} /></TouchableOpacity>
                             </View>
                             <TextInput
@@ -307,6 +333,7 @@ class UpdateOrderDetails extends Component {
                             </View>
                         </View>
                         <View style={{ height: height - 280, width: 1, marginLeft: 40, backgroundColor: '#7f8fa4' }} />
+                        <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
                         <View style={{ flexDirection: 'column', marginLeft: 33 }}>
                             {/* bushel quantity */}
                             <Text style={styles.disabledLabel}>BUSHEL QUANTITY</Text>
@@ -316,7 +343,7 @@ class UpdateOrderDetails extends Component {
                             {/* order type */}
                             <View>
                                 <Text style={styles.enabledLabel}>ORDER TYPE</Text>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
                                     <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
                                         <View style={commonStyles.common.radioButtonContainer}>
                                             {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
@@ -355,6 +382,7 @@ class UpdateOrderDetails extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
+                        </ScrollView>
                     </View>
                 </View>
             );
@@ -385,9 +413,9 @@ const styles = {
     container: { height: height - 200, width: width - 32, backgroundColor: '#3d4c57', marginHorizontal: 16, marginTop: 38, marginBottom: 20, borderColor: '#bed8dd', borderWidth: 0, borderTopWidth: 4, borderTopColor: '#e7b514' },
     titleBarOrder: { flexDirection: 'row', height: 47, width: 990, borderBottomWidth: 1, borderColor: '#e7b514', alignItems: 'center' },
     orderTitle: { fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: 21 },
-    enabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff', marginBottom: 8 },
-    disabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff60', marginBottom: 8 },
-    disabledDataContainer: { marginBottom: 10, backgroundColor: '#ffffff80', borderRadius: 4, height: 40, width: 250, paddingLeft: 15, paddingTop: 10 },
+    enabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff', marginBottom: 10 },
+    disabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff60', marginBottom: 10 },
+    disabledDataContainer: { marginBottom: 15, backgroundColor: '#ffffff80', borderRadius: 4, height: 40, width: 250, paddingLeft: 15, paddingTop: 10 },
     disabledData: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#00000060' },
     disabledContractMonth: { width: 80, height: 50, backgroundColor: '#376768', marginLeft: 5, marginTop: 5, justifyContent: 'center', alignItems: 'center' },
     disabledContractMonthYearText: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#ffffff60' },
