@@ -162,3 +162,11 @@ export function getExpDate(contractMonth) {
     }
     return null;  
 }
+
+export function minusBeforeDollarSign(num, decimals) {
+    if (num < 0) {
+        const val = (parseFloat(num).toString()).slice(1, num.length);
+        return '-$' + parseFloat(val).toFixed(decimals);
+    }
+    return '$' + parseFloat(num).toFixed(decimals);
+}

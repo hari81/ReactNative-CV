@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
-import { LogoHeader, OrderButton } from '../common/index';
+import { CommonHeader, Button } from '../common/index';
 
 import confirm from '../common/img/confirmationSuccess.png';
 
@@ -28,7 +28,7 @@ class CancelOrderReceipt extends Component {
           }}
         />
 
-        <LogoHeader subHeaderText='PRICE HEDGING' phNumber='+1-952-742-7414' />
+        <CommonHeader />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View
@@ -77,23 +77,15 @@ class CancelOrderReceipt extends Component {
 
                 </View>
                 </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    //marginTop: 150,
-                    //marginBottom: 50,
-                      marginVertical: 100,
-                    marginHorizontal: 160
 
-                  }}
-                >
-                  <OrderButton onPress={this.onBackToDashBoard.bind(this)}>
-                    BACK TO DASHBOARD
-                  </OrderButton>
-                  <OrderButton onPress={this.reviewPositions.bind(this)}>
-                    REVIEW ORDERS
-                  </OrderButton>
-                </View>
+                  <View style={{ flexDirection: 'row', marginVertical: 100, marginHorizontal: 160 }}>
+                      <Button buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]} textStyle={[styles.orderButtonTextStyle, { color: '#9fa9ba' }]} onPress={this.onBackToDashBoard.bind(this)}>
+                          BACK TO DASHBOARD
+                      </Button>
+                      <Button buttonStyle={[styles.orderButtonStyle, { backgroundColor: '#279988' }]} textStyle={[styles.orderButtonTextStyle, { color: '#fff' }]} onPress={this.reviewPositions.bind(this)}>
+                          REVIEW ORDERS
+                      </Button>
+                  </View>
               </View>
             </View>
           </View>
@@ -129,7 +121,10 @@ const styles = {
   productContainer: {
     alignItems: 'center',
     paddingTop: 20
-  }
+  },
+    orderButtonStyle: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', marginTop: 30, borderRadius: 4, paddingLeft: 20, paddingTop: 10, paddingRight: 20, paddingBottom: 10 },
+    orderButtonTextStyle: { fontFamily: 'HelveticaNeue', color: '#4a4a4a', fontSize: 20 },
+    backButtonStyle: { backgroundColor: '#fff', marginRight: 40, borderColor: 'rgb(159,169,186)', borderWidth: 1 },
 };
 
 export default CancelOrderReceipt;

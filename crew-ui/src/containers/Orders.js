@@ -17,7 +17,7 @@ import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
 import { logOut } from '../redux/actions/index';
-import { Spinner, LogoPhoneHeader } from '../components/common';
+import { Spinner, CommonHeader } from '../components/common';
 import {
   ViewOrdersData,
   dropDownCrop,
@@ -26,6 +26,7 @@ import {
 import { OpenPositionsData } from '../redux/actions/OrdersAction/OpenPositions';
 import { ClosedPositionsData } from '../redux/actions/OrdersAction/ClosedPositions';
 import st from '../Utils/SafeTraverse';
+import Refresh from '../components/common/img/Refresh.png';
 
 //const openpositions = require('../restAPI/openpositions.json');
 //const closedpositions = require('../restAPI/closedpositions.json');
@@ -255,7 +256,7 @@ class Orders extends Component {
             height: 20
           }}
         />
-        <LogoPhoneHeader refresh={this.refreshData} />
+        <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data" />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
 

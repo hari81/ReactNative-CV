@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import Dimensions from 'Dimensions';
+import { View, Text, Dimensions } from 'react-native';
 
 const PageHeader = props => {
     return (

@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux';
-import { LogoHeader } from '../common/index';
-import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
+import { CommonHeader } from '../common/index';
+import MyFarmTiles from '../common/MyFarmTiles';
 import { orderReceipt } from '../../redux/actions/CancelOrders';
 import * as common from '../../Utils/common';
+import { Button } from '../common/Button';
 
 class CancelOrder extends Component {
   onBackToOrders() {
@@ -27,7 +28,7 @@ class CancelOrder extends Component {
 
         {/* header stuff */}
         <View style={{ backgroundColor: '#000', width, height: 20 }} />
-        <LogoHeader subHeaderText='PRICE HEDGING' phNumber='+1-952-742-7414' />
+        <CommonHeader />
 
         <View style={{ backgroundColor: '#eff4f7' }}>
           <View style={{ height: 83, width, backgroundColor: '#404e59' }} />
@@ -105,16 +106,12 @@ class CancelOrder extends Component {
 
                 {/* buttons */}
                 <View style={styles.buttonContainer}>
-                  <View style={[styles.orderButtonStyle, styles.backButtonStyle]}>
-                    <TouchableHighlight onPress={this.onBackToOrders.bind(this)}>
-                      <Text style={[styles.orderButtonTextStyle, { color: '#9fa9ba' }]}>BACK TO ORDERS LIST</Text>
-                    </TouchableHighlight>
-                  </View>
-                  <View style={[styles.orderButtonStyle, { backgroundColor: '#279988' }]}>
-                    <TouchableHighlight onPress={this.cancelOrder.bind(this)}>
-                      <Text style={[styles.orderButtonTextStyle, { color: '#fff' }]}>CANCEL ORDER NOW</Text>
-                    </TouchableHighlight>
-                  </View>
+                  <Button buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]} textStyle={[styles.orderButtonTextStyle, { color: '#9fa9ba' }]} onPress={this.onBackToOrders.bind(this)}>
+                      BACK TO ORDERS LIST
+                  </Button>
+                  <Button buttonStyle={[styles.orderButtonStyle, { backgroundColor: '#279988' }]} textStyle={[styles.orderButtonTextStyle, { color: '#fff' }]} onPress={this.cancelOrder.bind(this)}>
+                      CANCEL ORDER NOW
+                  </Button>
                 </View>
               </View>
             </View>
