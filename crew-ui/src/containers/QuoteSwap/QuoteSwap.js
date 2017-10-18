@@ -25,6 +25,10 @@ class QuoteSwap extends Component {
         this.props.quoteSwapUnderlying(this.state.cropyear, this.state.cropcode);
     }
 
+    onQuoteSwapUnderlying(year, code) {
+        this.props.quoteSwapUnderlying(year, code);
+    } 
+
     render() {
         if (this.state.selectedOrder === undefined) {
             return (
@@ -35,7 +39,7 @@ class QuoteSwap extends Component {
                         <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                         <MyFarmTiles />
                         <SetOrderDetails />
-                        <MyCropButton />
+                        <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} />
                     </View>
                 </View>
             );

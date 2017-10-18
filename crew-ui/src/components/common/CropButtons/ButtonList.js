@@ -37,6 +37,7 @@ class ButtonList extends Component {
                 );
             }
         }
+        this.props.onQuoteSwapUnderlying(year, code);
     }
     render() {
         const { id, cropYear, code, name } = this.props.item;
