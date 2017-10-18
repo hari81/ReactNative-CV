@@ -33,7 +33,7 @@ class UpdateOrderDetails extends Component {
             isBuy: sOrder.buySell.toLowerCase() === 'b',
             underlying: sOrder.underlying,
             expirationDate: sOrder.expirationDate,
-            targetPrice: null,
+            targetPrice: 0,
             goodTilDate: null,
             underlyingObject: uObject,
             notes: sOrder.notes,
@@ -76,18 +76,21 @@ class UpdateOrderDetails extends Component {
                     }
                     tPrice = tPrice === null ? '-' : tPrice.toFixed(4);
                     this.setState({ contractBidAskPrice: tPrice });
-                    if (sMonth !== null) {
-                        const tBidPrice = sMonth.bidPrice === null ? '-' : parseFloat(sMonth.bidPrice).toFixed(4);
-                        const tAskPrice = sMonth.askPrice === null ? '-' : parseFloat(sMonth.askPrice).toFixed(4);
-                        const tSettlePrice = sMonth.settlePrice === null ? '-' : parseFloat(sMonth.settlePrice).toFixed(4);
-                        this.setState({ bidPrice: tBidPrice, askPrice: tAskPrice, settlePrice: tSettlePrice });
-                        if (this.state.isRefreshPrices) {
-                            this.setState({ isRefreshPrices: false });
-                        } else {
-                            this.onUpdateTargetPrice();
-                            const tLastTradeDate = sMonth.lastTradeDate;
+                    const tBidPrice = sMonth.bidPrice === null ? '-' : parseFloat(sMonth.bidPrice).toFixed(4);
+                    const tAskPrice = sMonth.askPrice === null ? '-' : parseFloat(sMonth.askPrice).toFixed(4);
+                    const tSettlePrice = sMonth.settlePrice === null ? '-' : parseFloat(sMonth.settlePrice).toFixed(4);
+                    this.setState({ bidPrice: tBidPrice, askPrice: tAskPrice, settlePrice: tSettlePrice });
+                    if (this.state.isRefreshPrices) {
+                        this.setState({ isRefreshPrices: false });
+                    } else {
+                        this.onUpdateTargetPrice();
+                        const tLastTradeDate = sMonth.lastTradeDate;
+                        if (common.isValueExists(tLastTradeDate)) {
                             const tDate = new Date(tLastTradeDate.concat('T00:00:00-06:00')) || '';
-                            this.setState({ lastTradeDate: tLastTradeDate, goodTilDate: tDate });
+                            this.setState({ lastTradeDate: tLastTradeDate, goodTilDate: tDate });    
+                        } else {
+                            const tDate = new Date();
+                            this.setState({ lastTradeDate: tDate, goodTilDate: tDate });
                         }
                     }
                 }
@@ -119,7 +122,17 @@ class UpdateOrderDetails extends Component {
 
     onReviewOrder() {
         try {
-            this.props.getReviewOrderQuote(this.state);
+            if (this.state.orderType.toLowerCase() === 'limit') {
+                if (this.state.targetPrice === null || this.state.targetPrice === undefined || this.state.targetPrice === 0) {
+                    Alert.alert('Update Order Details', 'A non-zero value must be entered for the Limit Price.');
+                } else if (this.state.goodTilDate === null || this.state.goodTilDate === undefined) {
+                    Alert.alert('Update Order Details', 'Please select a Valid Until date.');
+                } else {
+                    this.props.getReviewOrderQuote(this.state);
+                }
+            } else {
+                this.props.getReviewOrderQuote(this.state);
+            }
         } catch (error) {
             Alert.alert(`Unexpected error occurred: ${error}`);
         }
@@ -132,7 +145,8 @@ class UpdateOrderDetails extends Component {
 
     onBlurMake() {
         this.onScrollDown();
-        const tlp = this.state.targetPrice.charAt(0) === '$' ? this.state.targetPrice.slice(1, this.state.targetPrice.length) : this.state.targetPrice;
+        let tlp = this.state.targetPrice.charAt(0) === '$' ? this.state.targetPrice.slice(1, this.state.targetPrice.length) : this.state.targetPrice;
+        tlp = parseFloat(tlp).toFixed(4);        
         this.setState({ targetPrice: `$${tlp}` });
     }
 
@@ -144,7 +158,8 @@ class UpdateOrderDetails extends Component {
 
     minusButtonPress = () => {
         try {
-            const lp = common.cleanNumericString(this.state.targetPrice);
+            let lp = common.cleanNumericString(this.state.targetPrice);
+            lp = lp === '' ? 0 : lp;
             if (parseFloat(lp) >= parseFloat(this.state.tickSizeIncrement)) {
                 const tPrice = ((parseFloat(lp) - parseFloat(this.state.tickSizeIncrement)).toFixed(4));
                 this.setState({ targetPrice: `$${tPrice}` });
@@ -157,7 +172,8 @@ class UpdateOrderDetails extends Component {
 
     plusButtonPress = () => {
         try {
-            const lp = common.cleanNumericString(this.state.targetPrice);            
+            let lp = common.cleanNumericString(this.state.targetPrice);
+            lp = lp === '' ? 0 : lp;
             const tPrice = (parseFloat(lp) + parseFloat(this.state.tickSizeIncrement)).toFixed(4);
             this.setState({ targetPrice: `$${tPrice}` });
             this.timer = setTimeout(this.plusButtonPress, 200);
@@ -193,15 +209,23 @@ class UpdateOrderDetails extends Component {
 
     datePicker() {
         if (this.state.showDatePicker) {
+            let tDate = new Date();
+            let gDate = new Date();
+            if (common.isValueExists(this.state.lastTradeDate)) {
+                tDate = new Date(this.state.lastTradeDate.concat('T00:00:00-06:00'));
+            }
+            if (common.isValueExists(this.state.goodTilDate)) {
+                gDate = this.state.goodTilDate;
+            }
             return (
                 <View style={{ position: 'absolute', marginTop: -167, marginLeft: 229, padding: 0 }} >
                     <DatePickerIOS
                         style={{ height: 195, width: 250, borderRadius: 4, backgroundColor: '#fff', zIndex: 1 }}
-                        date={this.state.goodTilDate}
+                        date={gDate}
                         mode="date"
                         onDateChange={(d) => { this.onDateChange(d); }}
                         minimumDate={new Date()}
-                        maximumDate={new Date(this.state.lastTradeDate.concat('T00:00:00-06:00'))}
+                        maximumDate={tDate}
                     />
                     <View style={{ height: 20, width: 20, position: 'absolute', marginTop: 3, marginLeft: 225, backgroundColor: '#fff', zIndex: 2 }}>
                         <TouchableOpacity onPress={() => { this.setState({ showDatePicker: false }); Keyboard.dismiss(); }}><Image source={cancel} style={{ height: 20, width: 20 }} /></TouchableOpacity>
@@ -234,6 +258,10 @@ class UpdateOrderDetails extends Component {
 
     render() {
         let limitOrderFields = null;
+        let fgdt = '';
+        if (common.isValueExists(this.state.goodTilDate)) {
+            fgdt = moment(this.state.goodTilDate).format('MMMM Do, YYYY');
+        }
         if (this.state.isLimitOrder) {
             limitOrderFields = (
                 <View style={{ marginTop: 5, marginBottom: 5 }}>
@@ -274,7 +302,7 @@ class UpdateOrderDetails extends Component {
                                 style={{ height: 40, width: 250, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 5 }}
                                 placeholder="MM/DD/YYYY"
                                 onFocus={() => { Keyboard.dismiss(); this.setState({ showDatePicker: true }); }}
-                                value={moment(this.state.goodTilDate).format('MMMM Do, YYYY')}
+                                value={fgdt}
                                 returnkeyType="done"
                             />
                         </View>

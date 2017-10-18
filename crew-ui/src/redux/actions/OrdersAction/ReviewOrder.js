@@ -99,7 +99,7 @@ export const placeOrder = () => {
         }
         //extra fields for limit orders
         if (oData.metadata.orderType.toLowerCase() === 'limit') {
-            data.targetPrice = common.cleanNumericString(oData.metadata.targetPrice);
+            data.targetPrice = common.cleanNumericString(oData.metadata.targetPrice.toString());
             data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
 

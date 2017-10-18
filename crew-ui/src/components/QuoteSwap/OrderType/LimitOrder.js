@@ -49,7 +49,8 @@ class LimitOrder extends Component {
 
     onBlurMake() {
         this.props.onScrollDown();
-        const tlp = this.state.limitPrice.charAt(0) === '$' ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice;
+        let tlp = this.state.limitPrice.charAt(0) === '$' ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice;
+        tlp = parseFloat(tlp).toFixed(4);
         this.setState({ limitPrice: `$${tlp}` });
         this.onLimitPriceChange(this.state.limitPrice);
     }
@@ -92,7 +93,8 @@ class LimitOrder extends Component {
     }
 
     warningMessage() {
-        if (parseFloat(this.state.limitPrice) < (0.8 * parseFloat(this.props.bidPrice)) || parseFloat(this.state.limitPrice) > (1.2 * parseFloat(this.props.bidPrice))) {
+        const lp = common.cleanNumericString(this.state.limitPrice);
+        if (parseFloat(lp) < (0.8 * parseFloat(this.props.selectedContractMonth.bidPrice)) || parseFloat(lp) > (1.2 * parseFloat(this.props.selectedContractMonth.bidPrice))) {
             return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
         }
         return <Text />;
