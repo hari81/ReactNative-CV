@@ -9,6 +9,7 @@ import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/M
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
 import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
 import { homeScreenDataFetch } from '../redux/actions/Dashboard/DashboardAction';
+import bugsnag from '../components/common/BugSnag';
 
 class ExternalSales extends Component {
     constructor(props) {
@@ -179,51 +180,66 @@ class ExternalSales extends Component {
     }
 
     render() {
-         //console.log('externnal', this.state.transaction);
-        // console.log('DataBase trades', this.props.extra.tradeData.trades);
-        const { width, height } = Dimensions.get('window');
-       // const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
-      //  const fcon = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;
-      //  const fc = fcon.map(item => item.symbol);
-        const fc = this.props.underlying;
-      //  console.log(fc);
-        return (
-            <View style={{ width, height, backgroundColor: 'rgb(29,37,49)' }}>
-                <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row', marginRight: 23 }}>
-                    <Text style={{ fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5 }}>Close </Text>
-                    <TouchableHighlight onPress={this.backToDashboardMyfarm} >
-                        <Image source={cancel} style={{ width: 32, height: 32 }} />
-                    </TouchableHighlight>
-                </View>
+        try {
+            //console.log('externnal', this.state.transaction);
+            // console.log('DataBase trades', this.props.extra.tradeData.trades);
+            const {width, height} = Dimensions.get('window');
+            // const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
+            //  const fcon = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;
+            //  const fc = fcon.map(item => item.symbol);
+            const fc = this.props.underlying;
+            //  console.log(fc);
+            return (
+                <View style={{width, height, backgroundColor: 'rgb(29,37,49)'}}>
+                    <View style={{
+                        height: 52,
+                        justifyContent: 'flex-end',
+                        alignItems: 'flex-end',
+                        flexDirection: 'row',
+                        marginRight: 23
+                    }}>
+                        <Text style={{fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5}}>Close </Text>
+                        <TouchableHighlight onPress={this.backToDashboardMyfarm}>
+                            <Image source={cancel} style={{width: 32, height: 32}}/>
+                        </TouchableHighlight>
+                    </View>
 
-                <View style={{ height: 100, justifyContent: 'space-between', alignItems: 'center', marginTop: 20, marginBottom: 20 }}>
-                    <Text style={{ fontSize: 24, color: 'white', paddingBottom: 20 }}>{this.externalCropYearName()}  Trades / Sales Outside the App</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
-                                Below you can enter transactions that were completed outside of the application.
-                                This information is
-                            </Text>
-                            <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
-                                used to calculate your total marketed production, as well as your average marketed price, value of sold
-                            </Text>
-                            <Text style={{ fontSize: 17, color: 'white', paddingLeft: 82 }}>
-                                production and the break even on unsold production.
-                            </Text>
-                        </View>
-                        <View style={{ width: 144, justifyContent: 'center', alignItems: 'center', marginLeft: 25 }}>
-                            <TouchableHighlight onPress={this.addNewTransaction}>
-                                <Image source={plus} style={{ width: 32, height: 32 }} />
-                            </TouchableHighlight>
-                            <Text style={{ color: 'white', fontSize: 10 }}>Add</Text>
-                            <Text style={{ color: 'white', fontSize: 10 }}>Transaction</Text>
+                    <View style={{
+                        height: 100,
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginTop: 20,
+                        marginBottom: 20
+                    }}>
+                        <Text style={{fontSize: 24, color: 'white', paddingBottom: 20}}>{this.externalCropYearName()}
+                            Trades / Sales Outside the App</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>
+                                    Below you can enter transactions that were completed outside of the application.
+                                    This information is
+                                </Text>
+                                <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>
+                                    used to calculate your total marketed production, as well as your average marketed
+                                    price, value of sold
+                                </Text>
+                                <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>
+                                    production and the break even on unsold production.
+                                </Text>
+                            </View>
+                            <View style={{width: 144, justifyContent: 'center', alignItems: 'center', marginLeft: 25}}>
+                                <TouchableHighlight onPress={this.addNewTransaction}>
+                                    <Image source={plus} style={{width: 32, height: 32}}/>
+                                </TouchableHighlight>
+                                <Text style={{color: 'white', fontSize: 10}}>Add</Text>
+                                <Text style={{color: 'white', fontSize: 10}}>Transaction</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
 
-                <ScrollView vertiacl showsVerticalScrollIndicator  ref='scrollView' removeClippedSubviews>
+                    <ScrollView vertiacl showsVerticalScrollIndicator ref='scrollView' removeClippedSubviews>
                         {this.state.transaction
-                           // .filter(item => item.active === undefined || item.active)
+                        // .filter(item => item.active === undefined || item.active)
                             .map((item, index) => (<ExternalValues
                                     key={index} item={index}
                                     onSelectVal={this.valueUpdate.bind(this, index)}
@@ -235,53 +251,62 @@ class ExternalSales extends Component {
                                     fcontract={fc}
                                 />)
                             )}
-                </ScrollView>
+                    </ScrollView>
 
-                <View style={{ flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100, alignItems: 'center' }}>
-                    <TouchableHighlight
-                        style={{
-                            backgroundColor: 'white',
-                            borderRadius: 5,
-                            height: 40,
-                            width: 150
-                        }}
-                        onPress={this.cancelButtonClick.bind(this)}
-                    >
-                        <View
+                    <View style={{
+                        flexDirection: 'row',
+                        height: 100,
+                        justifyContent: 'flex-end',
+                        marginRight: 100,
+                        alignItems: 'center'
+                    }}>
+                        <TouchableHighlight
                             style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center'
+                                backgroundColor: 'white',
+                                borderRadius: 5,
+                                height: 40,
+                                width: 150
                             }}
+                            onPress={this.cancelButtonClick.bind(this)}
                         >
-                            <Text style={{ textAlign: 'center' }}>CANCEL</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style={{
-                            marginLeft: 20,
-                            backgroundColor: '#279989',
-                            borderRadius: 5,
-                            height: 40,
-                            width: 150
-                        }}
-                        onPress={this.saveTransactions.bind(this)}
-                    >
-                        <View
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <Text style={{textAlign: 'center'}}>CANCEL</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
                             style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center'
+                                marginLeft: 20,
+                                backgroundColor: '#279989',
+                                borderRadius: 5,
+                                height: 40,
+                                width: 150
                             }}
+                            onPress={this.saveTransactions.bind(this)}
                         >
-                            <Text style={{ color: 'white' }}>SAVE</Text>
-                        </View>
-                    </TouchableHighlight>
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <Text style={{color: 'white'}}>SAVE</Text>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
                 </View>
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const mapStateToProps = (state) => {

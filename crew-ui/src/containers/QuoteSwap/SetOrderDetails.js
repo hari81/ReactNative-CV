@@ -14,6 +14,7 @@ import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { bushelQuantityLimit } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import * as common from '../../Utils/common';
+import bugsnag from '../.././components/common/BugSnag';
 
 const { height, width } = Dimensions.get('window');
 
@@ -114,68 +115,97 @@ class SetOrderDetails extends Component {
     }
 
     render() {
-        //console.log(this.state)
-        let spinner = null;
-        if (this.props.contractMonth.spinFlag) {
-            spinner = (<Spinner size="small" />);
-        } else {
-            spinner = (<View style={{ flexDirection: 'row' }}>
-                    <View style={{ flexDirection: 'column', marginLeft: 49 }}>
-                        <ProductType onProductChange={this.orderDetails} />
-                        <TradeDirection buySell={this.state.buySell} onTradeChange={this.tradeDirectionChange.bind(this)} />
-                        <ContractMonth 
-                            onSelectContractMonth={this.onSelectContractMonth.bind(this)} 
-                            onRefreshPrices={this.onRefreshPrices.bind(this)}
-                            selectedContractMonth={this.state.selectedContractMonth}
-                        />
-                    </View>
-                    <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4' }} />
-                    <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
-                        <View style={{ flexDirection: 'column', marginLeft: 30 }}>
-                            <BushelQuantity 
-                                buySell={this.state.buySell} 
-                                onQuantityChange={this.onQuantityChange.bind(this)}
-                                quantity={this.state.quantity}
-                                quantityIncrement={this.props.quantityIncrement}
-                                quantityLimit={this.props.bushelLimit}
+        try {
+            //console.log(this.state)
+            let spinner = null;
+            if (this.props.contractMonth.spinFlag) {
+                spinner = (<Spinner size="small"/>);
+            } else {
+                spinner = (<View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'column', marginLeft: 49}}>
+                            <ProductType onProductChange={this.orderDetails}/>
+                            <TradeDirection buySell={this.state.buySell}
+                                            onTradeChange={this.tradeDirectionChange.bind(this)}/>
+                            <ContractMonth
+                                onSelectContractMonth={this.onSelectContractMonth.bind(this)}
+                                onRefreshPrices={this.onRefreshPrices.bind(this)}
+                                selectedContractMonth={this.state.selectedContractMonth}
                             />
-                            <OrderType 
-                                buySell={this.state.buySell} 
-                                limitPrice={this.state.targetPrice}
-                                onOrderTypeChange={this.onOrderTypeChange.bind(this)} 
-                                onExpiryDateChange={this.onExpiryDateChange.bind(this)}
-                                onLimitPriceChange={this.onLimitPriceChange.bind(this)}
-                                selectedContractMonth={this.state.selectedContractMonth} 
-                                tickSizeIncrement={this.props.tickSizeIncrement}
-                                onScrollUpdate={this.onScrollUpdate.bind(this)}
-                                onScrollDown={this.onScrollDown.bind(this)}
-                            />
-                            <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
-                            <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
-                                <Button onPress={() => Actions.dashboard({ type: ActionConst.REPLACE })} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
-                                <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: '#279989', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
-                            </View>
                         </View>
-                    </ScrollView>
+                        <View
+                            style={{height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4'}}/>
+                        <ScrollView ref='scrollView' keyboardDismissMode='interactive'
+                                    keyboardShouldPersistTaps='never'>
+                            <View style={{flexDirection: 'column', marginLeft: 30}}>
+                                <BushelQuantity
+                                    buySell={this.state.buySell}
+                                    onQuantityChange={this.onQuantityChange.bind(this)}
+                                    quantity={this.state.quantity}
+                                    quantityIncrement={this.props.quantityIncrement}
+                                    quantityLimit={this.props.bushelLimit}
+                                />
+                                <OrderType
+                                    buySell={this.state.buySell}
+                                    limitPrice={this.state.targetPrice}
+                                    onOrderTypeChange={this.onOrderTypeChange.bind(this)}
+                                    onExpiryDateChange={this.onExpiryDateChange.bind(this)}
+                                    onLimitPriceChange={this.onLimitPriceChange.bind(this)}
+                                    selectedContractMonth={this.state.selectedContractMonth}
+                                    tickSizeIncrement={this.props.tickSizeIncrement}
+                                    onScrollUpdate={this.onScrollUpdate.bind(this)}
+                                    onScrollDown={this.onScrollDown.bind(this)}
+                                />
+                                <BidAskPrice contractData={this.props.contractMonth}
+                                             selectedContractMonth={this.state.selectedContractMonth}/>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    marginLeft: 126,
+                                    position: 'absolute',
+                                    marginTop: 320
+                                }}>
+                                    <Button onPress={() => Actions.dashboard({type: ActionConst.REPLACE})}
+                                            buttonStyle={styles.buttonStyle}
+                                            textStyle={styles.textStyle}>CANCEL</Button>
+                                    <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, {
+                                        backgroundColor: '#279989',
+                                        marginLeft: 28
+                                    }]} textStyle={[styles.textStyle, {color: '#fff'}]}>REVIEW ORDER</Button>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </View>
+                );
+            }
+            return (
+                <View style={styles.container}>
+                    <View style={styles.setOrderDetails}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: 'HelveticaNeue-Medium',
+                            color: '#e7b514',
+                            paddingLeft: width * 0.02
+                        }}>Set Order Details</Text>
+                        <View style={{flexDirection: 'row', marginLeft: width * 0.60}}>
+                            <TouchableOpacity onPress={() => Actions.disclaimer()}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Text style={styles.questionIcon}>?</Text>
+                                    <Text style={{
+                                        fontSize: 12,
+                                        fontFamily: 'HelveticaNeue',
+                                        color: '#fff',
+                                        textDecorationLine: 'underline',
+                                        marginLeft: 5
+                                    }}>Need Help with this Product?</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    {spinner}
                 </View>
             );
+        } catch (error) {
+            bugsnag.notify(error);
         }
-        return (
-            <View style={styles.container}>
-                <View style={styles.setOrderDetails}>
-                    <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: width * 0.02 }}>Set Order Details</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: width * 0.60 }}>
-                        <TouchableOpacity onPress={() => Actions.disclaimer()}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={styles.questionIcon}>?</Text>
-                                <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                {spinner}
-            </View>
-        );
     }
 }
 const styles = {

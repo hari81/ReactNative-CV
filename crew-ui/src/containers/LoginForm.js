@@ -7,6 +7,7 @@ import { loginUser, forGetPassword } from '../redux/actions/LoginAuth';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
+import bugsnag from '../components/common/BugSnag';
 
 class LoginForm extends Component {
   constructor() {
@@ -73,66 +74,73 @@ class LoginForm extends Component {
   }
 
   render() {
-    return (
-        <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
-      <Card>
-        <CardSection>
-          <Input
-            placeholder='Email'
-            label='Email'
-            onChangeText={this.onEmailChange.bind(this)}
-            value={this.state.email}
+      try {
+          return (
+              <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
+                  <Card>
+                      <CardSection>
+                          <Input
+                              placeholder='Email'
+                              label='Email'
+                              onChangeText={this.onEmailChange.bind(this)}
+                              value={this.state.email}
 
-          />
-        </CardSection>
+                          />
+                      </CardSection>
 
-        <CardSection>
-          <Input
-            secureTextEntry
-            placeholder='Password'
-            label='Password'
-            onChangeText={this.onPasswordChange.bind(this)}
-            value={this.state.password}
-            onfocus={this.scrollChange.bind(this)}
-            onblur={this.scrollDown.bind(this)}
-          />
-        </CardSection>
-           <Text style={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
+                      <CardSection>
+                          <Input
+                              secureTextEntry
+                              placeholder='Password'
+                              label='Password'
+                              onChangeText={this.onPasswordChange.bind(this)}
+                              value={this.state.password}
+                              onfocus={this.scrollChange.bind(this)}
+                              onblur={this.scrollDown.bind(this)}
+                          />
+                      </CardSection>
+                      <Text style={{color: 'white', textDecorationLine: 'underline'}}
+                            onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
 
 
-        <CardSection>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginLeft: 10,
-              marginTop: 20
-            }}
-          >
-            <Switch
-              style={{ backgroundColor: '#3d4c57' }}
-              onTintColor='#01aca8'
-              onValueChange={this.onSaveUserChange.bind(this)}
-              value={this.state.saveUser}
-            />
+                      <CardSection>
+                          <View
+                              style={{
+                                  flex: 1,
+                                  flexDirection: 'row',
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'center',
+                                  marginLeft: 10,
+                                  marginTop: 20
+                              }}
+                          >
+                              <Switch
+                                  style={{backgroundColor: '#3d4c57'}}
+                                  onTintColor='#01aca8'
+                                  onValueChange={this.onSaveUserChange.bind(this)}
+                                  value={this.state.saveUser}
+                              />
 
-            <Text style={{ fontSize: 15, paddingLeft: 15, color: '#ffffff' }}>
-              Save Username
-            </Text>
-          </View>
-        </CardSection>
+                              <Text style={{fontSize: 15, paddingLeft: 15, color: '#ffffff'}}>
+                                  Save Username
+                              </Text>
+                          </View>
+                      </CardSection>
 
-        <CardSection>
-          {this.renderButton()}
-        </CardSection>
+                      <CardSection>
+                          {this.renderButton()}
+                      </CardSection>
 
-        <Text style={{ fontSize: 12, color: '#fff', paddingLeft: 10 }}>Having trouble logging in? Please call +1-952-742-7414 or email </Text>
-        <Text style={{ fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline' }} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>cargillpricehedge@cargill.com</Text>
-      </Card>
-     </ScrollView>
-    );
+                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10}}>Having trouble logging in? Please
+                          call +1-952-742-7414 or email </Text>
+                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline'}}
+                            onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>cargillpricehedge@cargill.com</Text>
+                  </Card>
+              </ScrollView>
+          );
+      } catch (error) {
+          bugsnag.notify(error);
+      }
   }
 }
 

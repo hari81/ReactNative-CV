@@ -15,6 +15,7 @@ import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalAction
 import { cropDataSave, myFarmCropValues, farmActionFlag } from '../redux/actions/MyFarm/CropAction';
 import BasisSliderSwitch from '../components/MyFarm/BasisSliderSwitch';
 import FarmInputFields from '../components/MyFarm/FarmInputFields';
+import bugsnag from '../components/common/BugSnag';
 
  class MyFarm extends Component {
   constructor(props) {
@@ -170,163 +171,185 @@ componentWillReceiveProps(newProps) {
 }
 
   render() {
-    const { width, height } = Dimensions.get('window');
-      const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+    try {
+        const {width, height} = Dimensions.get('window');
+        const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 
-    return (
-        <View>
-        <View
-          style={{
-            backgroundColor: 'black',
-            width,
-            height: 20
-          }}
-        />
-        <CommonHeader uservaluesfalg={this.userChangesFarmData.bind(this)} />
-
-        <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
-          <View
-            style={[styles.farmSetUp, { width: width - 30 }]}
-          >
-            <View
-              style={{
-                height: 50,
-                justifyContent: 'center',
-                borderRightColor: 'rgb(230,234,238)',
-                borderRightWidth: 3,
-
-              }}
-            >
-              <Text
-                style={{
-                  color: 'rgb(0,118,129)',
-                  fontSize: 20,
-                  paddingRight: 30,
-                  paddingLeft: 20,
-                  fontFamily: 'HelveticaNeue-Medium'
-                }}
-              >
-                My Farm Set up
-              </Text>
-            </View>
-            <View
-              style={{ justifyContent: 'center', height: 50, marginLeft: 30, width: 470 }}
-            >
-              <Text style={{ fontSize: 12, color: 'rgb(159,169,186)' }}>
-                Please complete the fields below. This information will be
-                used to provide you with insights about your farm in the My Farm section of the application.
-              </Text>
-            </View>
-              <View style={{ width: '22%', height: 40, justifyContent: 'center', marginHorizontal: 20, alignItems: 'center'}}>
-                  <TouchableHighlight
-                      style={{ flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center',
-                      borderRadius: 5, alignItems: 'center',
-                          borderColor: '#279989' }} onPress={this.placeNewOrder.bind(this)} >
-
-                      <Text style={{ paddingVertical: 5, paddingHorizontal: 5, fontSize: 16, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue' }}>PLACE NEW ORDER NOW</Text>
-
-                  </TouchableHighlight>
-              </View>
-          </View>
-
-        <View style={{ height: height - 275, backgroundColor: 'rgb(239,244,247)' }}>
-
-          <View
-            style={{
-              height: height - 315,
-              backgroundColor: '#3d4c57',
-             marginHorizontal: 16,
-             marginTop: 20
-            }}
-          >
-            <Text
-              style={{
-                color: 'white',
-                textAlign: 'center',
-                marginTop: 20,
-                fontSize: 20
-              }}
-            >
-                {`My ${cropButData[0].name.toUpperCase()} ${cropButData[0].cropYear} Crop`}
-            </Text>
-
-            <View style={{ flexDirection: 'row', marginTop: 20 }}>
-
-                <FarmInputFields acr={this.state.acres} pro={this.state.profit} yie={this.state.yield} cos={this.state.cost}
-                                 updateAcrValue={(val) => this.setState({ acres: val })}
-                                 updateProValue={(val) => this.setState({ profit: val })}
-                                 updateCosValue={(val) => this.setState({ cost: val })}
-                                 updateYieValue={(val) => this.setState({ yield: val })}
-                />
-
-
-              <View style={{ marginRight: 20,
-                    borderLeftWidth: 1,
-                    paddingLeft: 45,
-                   borderLeftColor: 'rgb(230,234,280)' }}
-              >
-                  <BasisSliderSwitch estim={this.state.estimate} basis={this.state.incbasis}
-                                     sliderVal={val => this.setState({ estimate: val })}
-                                    switchVal={val => this.setState({ incbasis: val })}
-                  />
-                  <OutSideTradeSales tradeFlag={this.state.tradeflag} gotoexternal={this.externalsales.bind(this)} />
+        return (
+            <View>
                 <View
-                  style={{
-                    flexDirection: 'row',
-                    marginLeft: 100,
-                    marginTop: 20
-                  }}
-                >
-                  <TouchableHighlight
                     style={{
-                      backgroundColor: 'white',
-                      borderRadius: 5,
-                      height: 40,
-                      width: 150
+                        backgroundColor: 'black',
+                        width,
+                        height: 20
                     }}
-                    onPress={this.cancelMyFarm}
-                  >
-                    <View
-                      style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}
-                    >
-                      <Text style={{ textAlign: 'center' }}>CANCEL</Text>
-                    </View>
-                  </TouchableHighlight>
-                  <TouchableHighlight
-                    style={{
-                      marginLeft: 20,
-                      backgroundColor: '#279989',
-                      borderRadius: 5,
-                      height: 40,
-                      width: 150
-                    }}
-                    onPress={this.cropDataSave}
-                  >
-                    <View
-                      style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}
-                    >
-                      <Text style={{ color: 'white' }}> SAVE </Text>
-                    </View>
-                  </TouchableHighlight>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+                />
+                <CommonHeader uservaluesfalg={this.userChangesFarmData.bind(this)}/>
 
-            <MyCropButton uservaluesfalg={this.userChangesFarmData.bind(this)} olditem={cropButData} />
-        </View>
-    );
+                <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
+                <View
+                    style={[styles.farmSetUp, {width: width - 30}]}
+                >
+                    <View
+                        style={{
+                            height: 50,
+                            justifyContent: 'center',
+                            borderRightColor: 'rgb(230,234,238)',
+                            borderRightWidth: 3,
+
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'rgb(0,118,129)',
+                                fontSize: 20,
+                                paddingRight: 30,
+                                paddingLeft: 20,
+                                fontFamily: 'HelveticaNeue-Medium'
+                            }}
+                        >
+                            My Farm Set up
+                        </Text>
+                    </View>
+                    <View
+                        style={{justifyContent: 'center', height: 50, marginLeft: 30, width: 470}}
+                    >
+                        <Text style={{fontSize: 12, color: 'rgb(159,169,186)'}}>
+                            Please complete the fields below. This information will be
+                            used to provide you with insights about your farm in the My Farm section of the application.
+                        </Text>
+                    </View>
+                    <View style={{
+                        width: '22%',
+                        height: 40,
+                        justifyContent: 'center',
+                        marginHorizontal: 20,
+                        alignItems: 'center'
+                    }}>
+                        <TouchableHighlight
+                            style={{
+                                flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center',
+                                borderRadius: 5, alignItems: 'center',
+                                borderColor: '#279989'
+                            }} onPress={this.placeNewOrder.bind(this)}>
+
+                            <Text style={{
+                                paddingVertical: 5,
+                                paddingHorizontal: 5,
+                                fontSize: 16,
+                                color: 'rgb(255,255,255)',
+                                fontFamily: 'HelveticaNeue'
+                            }}>PLACE NEW ORDER NOW</Text>
+
+                        </TouchableHighlight>
+                    </View>
+                </View>
+
+                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)'}}>
+
+                    <View
+                        style={{
+                            height: height - 315,
+                            backgroundColor: '#3d4c57',
+                            marginHorizontal: 16,
+                            marginTop: 20
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'white',
+                                textAlign: 'center',
+                                marginTop: 20,
+                                fontSize: 20
+                            }}
+                        >
+                            {`My ${cropButData[0].name.toUpperCase()} ${cropButData[0].cropYear} Crop`}
+                        </Text>
+
+                        <View style={{flexDirection: 'row', marginTop: 20}}>
+
+                            <FarmInputFields acr={this.state.acres} pro={this.state.profit} yie={this.state.yield}
+                                             cos={this.state.cost}
+                                             updateAcrValue={(val) => this.setState({acres: val})}
+                                             updateProValue={(val) => this.setState({profit: val})}
+                                             updateCosValue={(val) => this.setState({cost: val})}
+                                             updateYieValue={(val) => this.setState({yield: val})}
+                            />
+
+
+                            <View style={{
+                                marginRight: 20,
+                                borderLeftWidth: 1,
+                                paddingLeft: 45,
+                                borderLeftColor: 'rgb(230,234,280)'
+                            }}
+                            >
+                                <BasisSliderSwitch estim={this.state.estimate} basis={this.state.incbasis}
+                                                   sliderVal={val => this.setState({estimate: val})}
+                                                   switchVal={val => this.setState({incbasis: val})}
+                                />
+                                <OutSideTradeSales tradeFlag={this.state.tradeflag}
+                                                   gotoexternal={this.externalsales.bind(this)}/>
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        marginLeft: 100,
+                                        marginTop: 20
+                                    }}
+                                >
+                                    <TouchableHighlight
+                                        style={{
+                                            backgroundColor: 'white',
+                                            borderRadius: 5,
+                                            height: 40,
+                                            width: 150
+                                        }}
+                                        onPress={this.cancelMyFarm}
+                                    >
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                flexDirection: 'row',
+                                                justifyContent: 'center',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            <Text style={{textAlign: 'center'}}>CANCEL</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight
+                                        style={{
+                                            marginLeft: 20,
+                                            backgroundColor: '#279989',
+                                            borderRadius: 5,
+                                            height: 40,
+                                            width: 150
+                                        }}
+                                        onPress={this.cropDataSave}
+                                    >
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                flexDirection: 'row',
+                                                justifyContent: 'center',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            <Text style={{color: 'white'}}> SAVE </Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+
+                <MyCropButton uservaluesfalg={this.userChangesFarmData.bind(this)} olditem={cropButData}/>
+            </View>
+        );
+    } catch (error) {
+        bugsnag.notify(error);
+    }
   }
 }
 const styles = {
