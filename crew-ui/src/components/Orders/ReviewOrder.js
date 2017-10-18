@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
-import { LogoHomeHeader, InfoPopup } from '../../components/common';
-import MyFarmTiles from '../../components/DashBoard/MyFarmTiles';
+import { CommonHeader, InfoPopup } from '../../components/common';
+import MyFarmTiles from '../common/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import Info from '../common/img/Info.png';
 import DisclaimerData from '../../restAPI/disclaimer.json';
@@ -95,7 +95,7 @@ class ReviewOrder extends Component {
 
             <View>
                 <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                <LogoHomeHeader />
+                <CommonHeader />
                 <View style={{ backgroundColor: '#eff4f7' }}>
                     <View style={{ height: 83, width, backgroundColor: '#404e59' }} />
 

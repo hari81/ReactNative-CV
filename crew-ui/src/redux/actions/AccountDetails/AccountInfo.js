@@ -3,6 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const accountDetails = () => {
     return (dispatch, getState) => {
@@ -55,7 +56,7 @@ export const accountDetails = () => {
                                 console.log(`error ${error}`);
                             });
                     })
-                    .catch(error => console.log(`error ${error}`));
+                    .catch(/*error => console.log(`error ${error}`)); */ bugsnag.notify);
             })
             .catch(error => console.log(`error ${error}`));
     };

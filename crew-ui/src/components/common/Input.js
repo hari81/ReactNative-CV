@@ -3,7 +3,6 @@ import React from 'react';
 import { TextInput, View, Keyboard } from 'react-native';
 
 const Input = ({
-
   value,
   onChangeText,
   placeholder,

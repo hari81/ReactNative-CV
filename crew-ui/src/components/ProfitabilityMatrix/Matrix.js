@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import matrix1 from '../../restAPI/Matrix1.json';
 import { Spinner } from '../common/Spinner';
 import st from '../../Utils/SafeTraverse';
+import * as common from '../../Utils/common';
 
 class Matrix extends Component {
     rows() {
@@ -12,10 +13,11 @@ class Matrix extends Component {
                 data={this.props.matrix.Data}
                 numColumns={11}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) =>
+                renderItem={({ item }) => (
                     <View style={item.value <= 0 ? [styles.boxStyle, { backgroundColor: 'rgb(158,42,47)', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderWidth: item.id === 60 ? 3 : 1 }] : [styles.boxStyle, { backgroundColor: 'rgb(1,172,168)', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderWidth: item.id === 60 ? 3 : 1  }]}>
-                        <Text style={styles.textStyle}>${item.value.toFixed(0)}</Text >
-                    </View>}
+                        <Text style={styles.textStyle}>{common.minusBeforeDollarSign(item.value, 0)}</Text >
+                    </View>
+                )}
             />
         );
     }
@@ -28,17 +30,17 @@ class Matrix extends Component {
                <View style={{ flexDirection: 'row' }}>
                    <View style={{ marginTop: height * 0.50, width: width * 0.0586 }}><Text style={{ fontSize: 14, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue', transform: [{ rotate: '270deg' }] }}>Price Per Bushel</Text></View>
                    <View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 0, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 12, 'price'])).toFixed(2)}</Text ></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 23, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 34, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 45, 'price'])).toFixed(2)}</Text ></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 56, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 67, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 78, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 89, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 100, 'price'])).toFixed(2)}</Text></View>
-                       <View style={styles.boxStyle}><Text style={styles.textStyle}>${parseFloat(st(this.props, ['matrix', 'Data', 111, 'price'])).toFixed(2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 0, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 12, 'price']), 2)}</Text ></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 23, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 34, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 45, 'price']), 2)}</Text ></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 56, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 67, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 78, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 89, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 100, 'price']), 2)}</Text></View>
+                       <View style={styles.boxStyle}><Text style={styles.textStyle}>{common.minusBeforeDollarSign(st(this.props, ['matrix', 'Data', 112, 'price']), 2)}</Text></View>
                    </View>
                    <View>
                        {this.rows()}
