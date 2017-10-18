@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableHighlight, Alert, Dimensions, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableHighlight, Alert, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
@@ -8,7 +8,7 @@ import Phone from './img/Phone.png';
 import HomeIcon from './img/homeIcon.png';
 import User from './img/User.png';
 import { farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
-import cancelimage from './img/Cancel-20.png';
+import SideMenuBar from './SideMenuBar';
 
 const { height, width } = Dimensions.get('window')
 
@@ -19,9 +19,18 @@ class CommonHeader extends Component {
             sideMenuBarShow: false,
         };
     }
+    logOffPress =() => {
+        this.setState({ sideMenuBarShow: !this.state.sideMenuBarShow });
+    }
+    sideMenuShow() {
+        if (this.state.sideMenuBarShow) {
+            return <SideMenuBar hideSideMenu={this.logOffPress} />;
+        }
+
+    }
     render() {
         return (
-            <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)' }}>
+            <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)', zIndex: 1 }}>
                 <TouchableHighlight
                     onPress={() => {
                         if (this.props.farmFlag) {
@@ -71,23 +80,17 @@ class CommonHeader extends Component {
                     <Text style={{ color: '#ffffff35', fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}> | </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Image style={{ width: width * 0.031, height: height * 0.0416, marginLeft: 20 }} source={User} />
-                        <TouchableHighlight >
+                        <TouchableHighlight onPress={this.logOffPress}>
                             <Image source={require('./img/ExpandArrow.png')} style={{ width: 10, height: 10, marginLeft: 10, marginTop: 10, marginRight: 20 }} />
                         </TouchableHighlight>
                     </View>
                 </View>
+                {this.sideMenuShow()}
             </View>
         );
     }
 }
-const resetPassword = { top: 10, left: 700, width: 200, arrowPosition: 'top', message: 'Reset Password' };
-const logOut = { top: 30, left: 270, width: 200, arrowPosition: 'top', message: 'Log Out' };
 
-const styles = {
-    messageContainer: { position: 'absolute', marginTop: height * 0.0976, left: 0 },
-    triangle: { width: 0, height: 0, backgroundColor: 'transparent', borderStyle: 'solid', borderColor: '#ddd', borderLeftWidth: 8, borderRightWidth: 8, borderBottomWidth: 16, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderBottomColor: '#ddd' },
-    messageBox: { width: width * 0.253, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3 },
-}
 const mapStateToProps = (state) => {
     return {
         farmFlag: state.myFar.farmFlag

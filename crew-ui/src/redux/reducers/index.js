@@ -18,7 +18,7 @@ import getDashBoardData from './Dashboard/DashboardReducer';
 import getDisplayProps from './Dashboard/DisplayPropertiesReducer';
 import getMatrixData from './ProfitabilityMatrixReducer';
 
-export default combineReducers({
+const appReducer = combineReducers({
     auth: AuthReducer,
     vieworder: vieworders,
     openPositions: OpenPositions,
@@ -38,4 +38,10 @@ export default combineReducers({
     displayProperties: getDisplayProps,
     matrixData: getMatrixData
 });
-
+const rootReducer = (state, action) => {
+    if (action.type === 'INVALIDATE_SESSION') {
+        state = undefined;
+    }
+    return appReducer(state, action);
+}
+export { rootReducer };

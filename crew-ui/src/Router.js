@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, ActionConst } from 'react-native-router-flux';
 import App from './components/Welcome';
 import Orders from './containers/Orders';
 import CancelOrder from './components/CancelOrders/CancelOrder';
@@ -19,8 +19,8 @@ import ProfitabilityMatrix from './containers/ProfitabilityMatrix';
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key='auth' initial >
-        <Scene hideNavBar key='app' component={App} initial />
+      <Scene key='auth' type={ActionConst.RESET} initial >
+        <Scene hideNavBar key='app' type={ActionConst.RESET} component={App} initial />
       </Scene>
       <Scene key='main'>
         <Scene hideNavBar key='dashboard' component={DashBoard} />

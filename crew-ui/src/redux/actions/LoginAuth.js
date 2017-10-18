@@ -1,4 +1,4 @@
-import { AsyncStorage, AlertIOS } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import base64 from 'base-64';
 import {
   LOGIN_USER,
@@ -6,8 +6,8 @@ import {
   LOGIN_FAIL,
   SERVER_NORESPONSE
 } from './types';
-import { AUTHENTICATE_URL } from '../../ServiceURLS/index';
-import { doLoginPostFetch } from '../../Utils/FetchApiCalls';
+import { AUTHENTICATE_URL, ORDER_SERVICES_URL, V } from '../../ServiceURLS/index';
+import { doLoginPostFetch, doGetFetch } from '../../Utils/FetchApiCalls';
 
 export const loginUser = ({ saveUser }) => {
     const url = `${AUTHENTICATE_URL}identities/authenticate`;
@@ -34,7 +34,9 @@ export const loginUser = ({ saveUser }) => {
               } else {
                 AsyncStorage.removeItem('userData');
               }
-              dispatch({ type: LOGIN_SUCCESS });
+
+                dispatch({ type: LOGIN_SUCCESS });
+
             } else {
               dispatch({ type: LOGIN_FAIL });
             }
@@ -56,9 +58,9 @@ export const forGetPassword = (userName) => {
         return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
             .then(response => {
                 if (response.ok) {
-                    AlertIOS.alert('Reset Password', `Email will be sent to your ${userName}`);
+                    Alert.alert('Reset Password', `Email will be sent to your ${userName}`);
                 } else {
-                    AlertIOS.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
+                    Alert.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
                 }
             })
             .catch(error => {

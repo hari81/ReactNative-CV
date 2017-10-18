@@ -18,6 +18,3 @@ export const signUpNow = 'https://cargillrm.force.com/account';
 
 export const learnMoreTempUrl = 'http://dev-cargill-price-hedging.pantheonsite.io/';
 export const learnMoreProdUrl = 'http://www.cargillpricehedging.com';
-
-
-

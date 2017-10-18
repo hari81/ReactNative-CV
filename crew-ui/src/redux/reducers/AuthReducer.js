@@ -44,6 +44,8 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { saveUser: action.payload });
     case LOG_OUT:
       return Object.assign(({}, state, { logout: action.payload }));
+      case 'INVALIDATE_SESSION':
+        return Object.assign({}, state, { loginSuccess: false, password: '' })
     default:
       return state;
   }
