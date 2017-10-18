@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
-import { doDeleteFetch } from '../../Utils/FetchApiCalls';
-import { AUTHENTICATE_URL } from '../../ServiceURLS/index';
+import { doDeleteFetch } from '../../../Utils/FetchApiCalls';
+import { AUTHENTICATE_URL } from '../../../ServiceURLS/index';
 
 export const invalidateSession = () => {
     return (dispatch, getState) => {

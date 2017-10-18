@@ -1,4 +1,4 @@
-import { AlertIOS } from 'react-native';
+import { Alert } from 'react-native';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -18,7 +18,9 @@ const INITIAL_STATE = {
   loading: false,
   saveUser: false,
   logout: false,
-  loginSuccess: false,
+    loginSuccess: false,
+    passwordUpdateMessage: '',
+    DidUpdateFail: ''
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -33,7 +35,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_FAIL:
       return Object.assign({}, state, {
         error: 'Authentication Failed',
-        message: AlertIOS.alert('Error', 'Invalid Username or Password'),
+        message: Alert.alert('Error', 'Invalid Username or Password'),
         loading: false
       });
     case SERVER_NORESPONSE:
@@ -45,7 +47,11 @@ export default (state = INITIAL_STATE, action) => {
     case LOG_OUT:
       return Object.assign(({}, state, { logout: action.payload }));
       case 'INVALIDATE_SESSION':
-        return Object.assign({}, state, { loginSuccess: false, password: '' })
+        return Object.assign({}, state, { loginSuccess: false, password: '' });
+      case 'PASSWORD_UPDATE_SUCCESS':
+          return Object.assign({}, state, { passwordUpdateMessage: Alert.alert('Alert', action.payload) });
+      case 'PASSWORD_UPDATE_FAILED':
+          return Object.assign({}, state, { passwordUpdateMessage: Alert.alert('Alert', action.payload) });
     default:
       return state;
   }

@@ -130,8 +130,8 @@ class LoginForm extends Component {
           {this.renderButton()}
         </CardSection>
           <View style={{ flexDirection: 'row' }}>
-              <Text style={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
-              <Text style={{ color: 'white', textDecorationLine: 'underline', paddingLeft: width * 0.16 }} onPress={() => Linking.openURL(signUpNow)}> Sign Up Now </Text>
+              <Button buttonStyle={{}} textStyle={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
+              <Button buttonStyle={{ marginLeft: width * 0.16 }} textStyle={{ color: 'white', textDecorationLine: 'underline' }} onPress={() => Linking.openURL(signUpNow)}> Sign Up Now </Button>
           </View>
         <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10, paddingTop: 20 }}>
           Having trouble logging in? Please call +1-952-742-7414 or email
