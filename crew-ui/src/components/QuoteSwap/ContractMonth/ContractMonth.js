@@ -20,6 +20,7 @@ class ContractMonth extends Component {
 
     onUpdate() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
+        this.props.onRefreshPrices();
         this.props.quoteSwapUnderlying(cropYear, cropCode);
     }
 

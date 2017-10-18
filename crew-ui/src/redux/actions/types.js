@@ -1,8 +1,3 @@
-export const EMAIL_CHANGED = 'email_changed';
-export const PASSWORD_CHANGED = 'password_changed';
-export const USER_SWITCH_CHANGED = 'user_switch_changed';
-export const LOG_OUT = 'log_out';
-
 export const LOGIN_USER = 'login_user';
 export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAIL = 'login_fail';

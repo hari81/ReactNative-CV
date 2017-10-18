@@ -6,20 +6,21 @@ import {
   LOGIN_FAIL,
   SERVER_NORESPONSE
 } from './types';
-import { AUTHENTICATE_URL, ORDER_SERVICES_URL, V } from '../../ServiceURLS/index';
-import { doLoginPostFetch, doGetFetch } from '../../Utils/FetchApiCalls';
+import { AUTHENTICATE_URL } from '../../ServiceURLS/index';
+import { doPostFetch, doLoginPostFetch } from '../../Utils/FetchApiCalls';
 
-export const loginUser = ({ saveUser }) => {
+export const loginUser = (saveUser, email, pword) => {
     const url = `${AUTHENTICATE_URL}identities/authenticate`;
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({ type: LOGIN_USER });
       const authBody = {
           domain: 'commodityhedging.com',
-          password: getState().auth.password,
-          username: getState().auth.email
+          password: pword,
+          username: email
       };
       //console.log(url, authBody, getState().auth.email, getState().auth.password);
-  return doLoginPostFetch(url, authBody, getState().auth.email, getState().auth.password)
+      const basicToken = `Basic ${base64.encode(`${email}:${pword}`)}`;
+  return doPostFetch(url, authBody, basicToken)
       .then(response => {
         if (response.ok) {
           return response.json().then(responseJson => {
@@ -27,16 +28,14 @@ export const loginUser = ({ saveUser }) => {
               let userInfo;
               if (saveUser) {
                 userInfo = JSON.stringify({
-                  email: base64.encode(getState().auth.email),
-                  password: base64.encode(getState().auth.password)
+                  email: base64.encode(email),
+                  password: base64.encode(pword)
                 });
                 AsyncStorage.setItem('userData', userInfo);
               } else {
                 AsyncStorage.removeItem('userData');
               }
-
-                dispatch({ type: LOGIN_SUCCESS });
-
+              dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken });
             } else {
               dispatch({ type: LOGIN_FAIL });
             }

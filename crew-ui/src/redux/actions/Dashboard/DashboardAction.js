@@ -5,7 +5,7 @@ export const dashBoardDataFetch = (year, code) => {
     return (dispatch, getState) => {
         dispatch({ type: 'DASHBOARD_SPINNER' });
         const url = `${VELO_SERVICES_URL}dashboard/${getState().account.accountDetails.defaultAccountId}/${code}/${year}`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(dashBoardData =>
                 dispatch(dashboardData(dashBoardData))
@@ -29,7 +29,7 @@ export const homeScreenDataFetch = () => {
             const code = codeYear.slice(0, codeYear.length - year.length);
         dispatch({ type: 'DASHBOARD_SPINNER' });
         const url = `${VELO_SERVICES_URL}dashboard/${getState().account.accountDetails.defaultAccountId}/${code}/${year}`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(dashBoardData =>
                 dispatch(dashboardData(dashBoardData))

@@ -8,6 +8,7 @@ import SetOrderDetails from './SetOrderDetails';
 import UpdateOrderDetails from './UpdateOrderDetails';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import st from '../../Utils/SafeTraverse';
+import bugsnag from '../.././components/common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
 
@@ -25,33 +26,41 @@ class QuoteSwap extends Component {
         this.props.quoteSwapUnderlying(this.state.cropyear, this.state.cropcode);
     }
 
+    onQuoteSwapUnderlying(year, code) {
+        this.props.quoteSwapUnderlying(year, code);
+    }
+
     render() {
-        if (this.state.selectedOrder === undefined) {
+        try {
+            if (this.state.selectedOrder === undefined) {
+                return (
+                    <View>
+                        <View style={{backgroundColor: '#000', width, height: 20}}/>
+                        <CommonHeader/>
+                        <View style={{backgroundColor: 'rgb(239,244,247)'}}>
+                            <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
+                            <MyFarmTiles/>
+                            <SetOrderDetails/>
+                            <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)}/>
+                        </View>
+                    </View>
+                );
+            }
             return (
-                <View >
-                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                    <CommonHeader />
-                    <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
-                        <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
-                        <MyFarmTiles />
-                        <SetOrderDetails />
-                        <MyCropButton />
+                <View>
+                    <View style={{backgroundColor: '#000', width, height: height * 0.026}}/>
+                    <CommonHeader/>
+                    <View style={{backgroundColor: 'rgb(239,244,247)'}}>
+                        <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
+                        <MyFarmTiles/>
+                        <UpdateOrderDetails selectedOrder={this.state.selectedOrder}/>
                     </View>
                 </View>
             );
+        } catch (error) {
+            bugsnag.notify(error);
         }
-        return (
-            <View >
-                <View style={{ backgroundColor: '#000', width, height: height * 0.026 }} />
-                <CommonHeader />
-                <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
-                    <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
-                    <MyFarmTiles />
-                    <UpdateOrderDetails selectedOrder={this.state.selectedOrder} />
-                </View>
-            </View>
-        );
-    }   
+    }
 }
 
 const mapStateToProps = state => {

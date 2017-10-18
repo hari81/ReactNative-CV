@@ -6,7 +6,7 @@ import { doDeleteFetch } from '../../Utils/FetchApiCalls';
 export const orderReceipt = (orderid, selectedCrop) => {
     return (dispatch, getState) => {
         const url = `${ORDER_SERVICES_URL}orders/${orderid}`;
-        return doDeleteFetch(url, getState().auth.email, getState().auth.password)
+        return doDeleteFetch(url, getState().auth.basicToken)
             .then(response => {
                 if (response.status === 202) {
                    // console.log(response);

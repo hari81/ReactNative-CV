@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage, ScrollView, Dimensions, Linking } from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
-import { emailChanged, passwordChanged, saveUserSwitchChanged } from '../redux/actions/index';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
 import { loginUser, forGetPassword } from '../redux/actions/LoginAuth';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
@@ -11,19 +10,17 @@ import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesA
 import { signUpNow } from '../ServiceURLS/index';
 
 const { height, width } = Dimensions.get('window')
+import bugsnag from '../components/common/BugSnag';
 
 class LoginForm extends Component {
   constructor() {
     super();
-      this.state = { signIn: false };
+      this.state = { email: '', password: '', signIn: false, saveUser: false };
     AsyncStorage.getItem('userData')
       .then(data => {
         const userInfo = JSON.parse(data);
         if (userInfo) {
-          this.props.emailChanged(
-            userInfo.email ? base64.decode(userInfo.email) : ''
-          );
-          this.props.saveUserSwitchChanged({ value: true });
+            this.setState({ email: userInfo.email ? base64.decode(userInfo.email) : '', saveUser: true });
         }
       })
       .catch(error => {
@@ -32,20 +29,19 @@ class LoginForm extends Component {
   }
 
   onEmailChange(text) {
-    this.props.emailChanged(text);
+      this.setState({ email: text });
   }
 
   onPasswordChange(text) {
-    this.props.passwordChanged(text);
+      this.setState({ password: text });
   }
 
   onButtonPress() {
-      const { saveUser } = this.props.auth;
-      this.props.loginUser({ saveUser });
+      this.props.loginUser(this.state.saveUser, this.state.email, this.state.password);
   }
 
   onSaveUserChange(value) {
-    this.props.saveUserSwitchChanged({ value });
+      this.setState({ saveUser: value });
   }
 
   renderButton() {
@@ -65,14 +61,18 @@ class LoginForm extends Component {
   }
 
   forGetPass() {
-  this.props.forGetPassword(this.props.auth.email); //this.props.auth.email.slice(0, this.props.auth.email.indexOf('@')));
+  this.props.forGetPassword(this.state.email);
   }
+
   componentWillReceiveProps(newProps) {
       if (newProps.auth.loginSuccess && !this.state.signIn) {
           this.props.accountDetails();
           this.props.productType();
           this.props.displayProperties();
           this.setState({ signIn: true });
+      }
+      if (newProps.auth.error) {
+          AlertIOS.alert('Error', newProps.auth.msg);
       }
   }
 
@@ -155,10 +155,7 @@ const mapStateToProps = state => {
   return { auth: state.auth, acc: state.account };
 };
 export default connect(mapStateToProps, {
-    emailChanged,
-    passwordChanged,
     loginUser,
-    saveUserSwitchChanged,
     productType,
     accountDetails,
     displayProperties,

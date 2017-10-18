@@ -7,7 +7,7 @@ export const ClosedPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
       const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
-      return doGetFetch(url, getState().auth.email, getState().auth.password)
+      return doGetFetch(url, getState().auth.basicToken)
       .then(response => response.json(), rej => Promise.reject(rej))
       .then(closed => {
             if (!Array.isArray(closed)) {
@@ -16,7 +16,7 @@ export const ClosedPositionsData = (crop) => {
           return Promise.all(
           closed.map(items => {
             const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${items.lines[0].underlying}`;
-            return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
+            return doGetFetch(underlyingURL, getState().auth.basicToken)
              .then(response => response.json());
           }))
           .then(res => {

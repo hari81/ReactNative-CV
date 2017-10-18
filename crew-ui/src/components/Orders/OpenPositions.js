@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, Image, Linking } from 'react-native';
+import { Text, TouchableHighlight, View, Image, Linking, WebView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ORDER_SERVICES_URL } from '../../ServiceURLS';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { POSITONS_TRADE_RECEIPT_URL } from '../../ServiceURLS';
+//import TradeReceipt from './TradeReceipt';
 import st from '../../Utils/SafeTraverse';
 import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
 
 class OpenPositions extends Component {
+    constructor() {
+        super();
+        this.state = { fileLocation: '' };
+    }
   onUnwind(item) {
     const sOrder = this.props.item;
     const sLine = sOrder.lines.find(x => x.type.toLowerCase() === 'new');
@@ -26,6 +32,49 @@ class OpenPositions extends Component {
     const crop = st(item.underlyingObjectData, ['commodity', 'code']);
 
     Actions.quoteswap({ selectedOrder: uOrder, cropcode: crop, cropyear: year }); 
+  }
+
+  openTradeReceipt() {
+        this.props.tradeReceipt(this.props.item.confirm);
+
+     /* RNFetchBlob
+          .config({
+                // add this option that makes response data to be stored as a file.
+              fileCache: true,
+              appendExt: 'pdf',
+                //path: DocumentDir
+          })
+          .fetch('GET', POSITONS_TRADE_RECEIPT_URL + this.props.item.confirm.substr(1, this.props.item.confirm.length), {
+              "Content-Type": "application/json",
+              "x-api-key": "rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb",
+              "User-Agent": "Crew 0.1.0",
+              "Authorization": "Basic anBqckBjb21tb2RpdHloZWRnaW5nLmNvbTp0ZXN0MTIzNA==",
+              "Accept": "application/pdf",
+             // 'Cache-Control': 'no-store'
+          })
+          .then((res) => {
+                // the temp file path
+              this.setState({fileLocation: res.path()});
+              console.log('The file saved to ', res.path());
+              console.log('order confirm', this.props.item.confirm);
+             // console.log('The pdf save', res.base64())
+              Actions.pdfview({ path: res.path() });
+          });
+      /*const source =
+      return(
+      <Pdf ref={(pdf)=>{this.pdf = pdf;}}
+                          source={this.state.fileLocation}
+                          page={1}
+                          scale={1}
+                          horizontal={false} />);*/
+      /*return(<PDFView
+          ref={(pdf)=>{this.pdfView = pdf;}}
+          src={this.state.fileLocation}
+        //  style={styles.pdf}
+      />)*/
+
+     // Linking.openURL('file:///Users/crmdev1/Library/Developer/CoreSimulator/Devices/CDBCF598-F243-4C52-AABB-ECFB8E970EC1/data/Containers/Data/Application/BB96C590-A015-430F-A248-A2903B0E3CCB/Documents/RNFetchBlob_tmp/RNFetchBlobTmp_mhjnv9srplefgiejz6edh9.pdf');
+     // Linking.openURL('file://' + this.state.fileLocation);
   }
 
   render() {
@@ -134,7 +183,7 @@ class OpenPositions extends Component {
         <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '13.18%' }}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT</Text>
-            <TouchableHighlight onPress={() => {this.props.tradeReceipt(confirm); Linking.openURL(`${ORDER_SERVICES_URL}${confirm.substr(1, confirm.length)}`); }}>
+            <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
               <Image style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }} source={require('../common/img/PDF.png')} />
             </TouchableHighlight>
           </View>

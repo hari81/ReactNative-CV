@@ -3,9 +3,9 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
-import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
 import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
+import bugsnag from '../BugSnag';
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
@@ -26,8 +26,7 @@ class ButtonList extends Component {
                 this.props.myFarmCropValues(code, year);
                 this.props.myFarmTradeSalesOutSideApp(code, year);
                 this.props.selectId(id);
-            }
-            else {
+            } else {
                // this.props.selectId(this.props.old[0].id);
                 Alert.alert(
                     'My Farm Data',
@@ -39,16 +38,15 @@ class ButtonList extends Component {
                 );
             }
         }
-        // place order contract month data
-        this.props.quoteSwapUnderlying(year, code);
+        this.props.onQuoteSwapUnderlying(year, code);
     }
     render() {
-        const { id, cropYear, code, name } = this.props.item;
-        return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
-            <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
-
-                <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}
-                >
+        try {
+            const {id, cropYear, code, name} = this.props.item;
+            return (<View style={{flexDirection: 'row', marginLeft: 10}}>
+                <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)}
+                                  disabled={id === this.props.id}>
+                <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
                     <Text
                         style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
                             color: 'rgb(82,97,115)',
@@ -60,16 +58,18 @@ class ButtonList extends Component {
                             id === this.props.id ? { color: 'white' } : {}, name.length >= 10 && name.length <= 13 ? { fontSize: 20 } :
                             name.length >= 14 && name.length < 20 ? { fontSize: 14 } : name.length >= 20 ? { fontSize: 12 } : { }]}
                     >{name.toUpperCase()}</Text>
-                     <Text
+                    <Text
                         style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
                             color: 'rgb(159,169,186)',
                             fontSize: 14
                         }}
                     >Crop</Text>
-
                 </View>
             </TouchableOpacity>
         </View>);
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {
@@ -101,7 +101,6 @@ const matchDispatchToProps = (dispatch) => {
         selectedCropName,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
-        quoteSwapUnderlying,
         dashBoardDataFetch,
     }, dispatch);
 };

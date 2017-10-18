@@ -82,7 +82,7 @@ class CancelOrderReceipt extends Component {
                       <Button buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]} textStyle={[styles.orderButtonTextStyle, { color: '#9fa9ba' }]} onPress={this.onBackToDashBoard.bind(this)}>
                           BACK TO DASHBOARD
                       </Button>
-                      <Button buttonStyle={[styles.orderButtonStyle, { backgroundColor: '#279988' }]} textStyle={[styles.orderButtonTextStyle, { color: '#fff' }]} onPress={this.reviewPositions.bind(this)}>
+                      <Button buttonStyle={[styles.orderButtonStyle, { backgroundColor: '#279988' }]} textStyle={[styles.orderButtonTextStyle, { color: '#fff', paddingHorizontal: 30 }]} onPress={this.reviewPositions.bind(this)}>
                           REVIEW ORDERS
                       </Button>
                   </View>

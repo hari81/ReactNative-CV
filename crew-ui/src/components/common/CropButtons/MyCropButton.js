@@ -20,17 +20,31 @@ class MyCropButton extends Component {
     buttonsAppear() {
         if (this.props.crops.buttonActive) {
             return <Spinner />;
-        } else {
-            return (<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        }
+        return (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <FlatList
                     ref={(ref) => { this.flatListRef = ref; }}
                     getItemLayout={this.getItemLayout}
                     horizontal
                     data={this.props.crops.cropButtons}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <ButtonList item={item} key={item.id} userflag={this.props.uservaluesfalg} old={this.props.olditem} />}
+                    renderItem={({ item }) => (
+                        <ButtonList 
+                            item={item} 
+                            key={item.id} 
+                            userflag={this.props.uservaluesfalg} 
+                            old={this.props.olditem} 
+                            onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} 
+                        />)
+                    }
                 />
             </View>);
+    }
+
+    onQuoteSwapUnderlying(year, code) {
+        if (this.props.onQuoteSwapUnderlying !== undefined) {
+            this.props.onQuoteSwapUnderlying(year, code);            
         }
     }
 

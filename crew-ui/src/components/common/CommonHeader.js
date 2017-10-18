@@ -10,7 +10,7 @@ import User from './img/User.png';
 import { farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import SideMenuBar from './SideMenuBar';
 
-const { height, width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window');
 
 class CommonHeader extends Component {
     constructor() {

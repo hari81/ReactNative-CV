@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
 import { CommonHeader } from '../components/common';
 import DisclaimerData from '../restAPI/disclaimer.json';
+import bugsnag from '../components/common/BugSnag';
 
 class Disclaimer extends Component {
     onGetStarted() {
@@ -30,33 +31,38 @@ class Disclaimer extends Component {
     }
 
     render() {
-        return (
-            <View>
-                <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                <CommonHeader />
-                <PageHeader headerText="Terminology You'll See Here" headerInfoText='' />
+        try {
+            return (
+                <View>
+                    <View style={{backgroundColor: '#000', width, height: 20}}/>
+                    <CommonHeader/>
+                    <PageHeader headerText="Terminology You'll See Here" headerInfoText=''/>
 
-                <View style={styles.disclaimerMain}>
-                    <View style={styles.disclaimerContainer}>
-                        <Text style={styles.disclaimerTitle}>To help you get started, let's go over a couple terms we'll use here</Text>
-                        <View style={styles.disclaimerTermsContainer}>
-                            <View style={[styles.disclaimerTextBox, { flex: 0.52, marginRight: 20 }]}>
-                                <Text style={styles.disclaimerSubHead}>Producer Swap</Text>
-                                <Text style={styles.disclaimerText}>{DisclaimerData.description}</Text>
+                    <View style={styles.disclaimerMain}>
+                        <View style={styles.disclaimerContainer}>
+                            <Text style={styles.disclaimerTitle}>To help you get started, let's go over a couple terms
+                                we'll use here</Text>
+                            <View style={styles.disclaimerTermsContainer}>
+                                <View style={[styles.disclaimerTextBox, {flex: 0.52, marginRight: 20}]}>
+                                    <Text style={styles.disclaimerSubHead}>Producer Swap</Text>
+                                    <Text style={styles.disclaimerText}>{DisclaimerData.description}</Text>
+                                </View>
+                                <View style={[styles.disclaimerTextBox, {flex: 0.48}]}>
+                                    {this.renderTerms()}
+                                </View>
                             </View>
-                            <View style={[styles.disclaimerTextBox, { flex: 0.48 }]}>
-                                {this.renderTerms()}
+                            <View style={styles.disclaimerButtonStyle}>
+                                <TouchableOpacity onPress={this.onGetStarted.bind()}>
+                                    <Text style={styles.disclaimerButtonTextStyle}>LET'S GET STARTED!</Text>
+                                </TouchableOpacity>
                             </View>
-                        </View>
-                        <View style={styles.disclaimerButtonStyle}>
-                            <TouchableOpacity onPress={this.onGetStarted.bind()}>
-                                <Text style={styles.disclaimerButtonTextStyle}>LET'S GET STARTED!</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 

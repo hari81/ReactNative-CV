@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
   FlatList,
@@ -16,7 +15,6 @@ import Dimensions from 'Dimensions';
 import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
-import { logOut } from '../redux/actions/index';
 import { Spinner, CommonHeader } from '../components/common';
 import {
   ViewOrdersData,
@@ -27,6 +25,7 @@ import { OpenPositionsData } from '../redux/actions/OrdersAction/OpenPositions';
 import { ClosedPositionsData } from '../redux/actions/OrdersAction/ClosedPositions';
 import st from '../Utils/SafeTraverse';
 import Refresh from '../components/common/img/Refresh.png';
+import bugsnag from '../components/common/BugSnag';
 
 //const openpositions = require('../restAPI/openpositions.json');
 //const closedpositions = require('../restAPI/closedpositions.json');
@@ -245,99 +244,122 @@ class Orders extends Component {
 
 
   render() {
-    const { width, height } = Dimensions.get('window');
-    //console.log(width, height)
-    return (
-        <View style={{ width, height }}>
-        <View
-          style={{
-            backgroundColor: 'black',
-            width,
-            height: 20
-          }}
-        />
-        <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data" />
-
-        <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
-
-          <View
-              style={{
-                  width: width - 20,
-                  height: 100,
-                  borderTopColor: 'rgb(231,181,20)',
-                  borderTopWidth: 3,
-                  backgroundColor: 'white',
-                  marginTop: 80,
-                  marginHorizontal: 10,
-                  position: 'absolute',
-                  zIndex: 0
-              }}
-          >
-
-          <View style={styles.positions}>
-            <Text style={{ fontSize: 20, color: 'rgb(0,118,129)', paddingTop: 10, fontFamily: 'HelveticaNeue-Medium', paddingLeft: 20 }}>
-              Positions & Orders
-            </Text>
-          </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+      try {
+          const {width, height} = Dimensions.get('window');
+          //console.log(width, height)
+          return (
+              <View style={{width, height}}>
                   <View
                       style={{
-                          width: '15%',
-                          marginLeft: 20,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          borderRadius: 10
+                          backgroundColor: 'black',
+                          width,
+                          height: 20
                       }}
-                  ><Text style={{ paddingTop: 10, fontSize: 10, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(0,118,129)' }}>Select Commodity ▼</Text>
-                      <Picker
-                          style={{ width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)' }}
-                          // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
-                          mode='dropdown'
-                          itemStyle={{ height: 48, borderColor: 'rgb(39,153,137)' }}
-                          selectedValue={this.state.Crop}
-                          onValueChange={this.dropDown.bind(this)}
-                      >
+                  />
+                  <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data"/>
 
-                          {this.pickerValues()}
+                  <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
 
-                      </Picker>
-                  </View>
-          <View style={{ justifyContent: 'center', marginLeft: 10 }}>
-            <SegmentedControlIOS
-              alignItems='center'
-              tintColor='rgb(39,153,137)'
-              style={[styles.segment, { width: width / 2 }]}
-              values={['Open Orders', 'Open Positions', 'Closed Positions']}
-              selectedIndex={{ 'Open Orders': 0,
-                  'Open Positions': 1,
-                  'Closed Positions': 2
-                }[this.state.selectedTab]}
-              onChange={event => {
-                this.setState({
-                  selectedIndex: event.nativeEvent.selectedSegmentIndex
-                });
-              }}
-              onValueChange={this.selectedTabOrder}
-            />
-          </View>
-                  <View style={{ width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25 }}>
-                  <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
-                      <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }} >
-                          <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
+                  <View
+                      style={{
+                          width: width - 20,
+                          height: 100,
+                          borderTopColor: 'rgb(231,181,20)',
+                          borderTopWidth: 3,
+                          backgroundColor: 'white',
+                          marginTop: 80,
+                          marginHorizontal: 10,
+                          position: 'absolute',
+                          zIndex: 0,
+                      }}
+                  >
+
+                      <View style={styles.positions}>
+                          <Text style={{
+                              fontSize: 20,
+                              color: 'rgb(0,118,129)',
+                              paddingTop: 10,
+                              fontFamily: 'HelveticaNeue-Medium',
+                              paddingLeft: 20
+                          }}>
+                              Positions & Orders
+                          </Text>
                       </View>
-                  </TouchableHighlight>
-              </View>
-          </View>
-          </View>
-            <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1 }}>
-                <View style={{ backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10 }} />
-          <View style={{ backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10 }}>
-            {this.renderFlatList()}
-          </View>
+                      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                          <View
+                              style={{
+                                  width: '15%',
+                                  marginLeft: 20,
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  borderRadius: 10
+                              }}
+                          ><Text style={{
+                              paddingTop: 10,
+                              fontSize: 10,
+                              fontFamily: 'HelveticaNeue-Medium',
+                              color: 'rgb(0,118,129)'
+                          }}>Select Commodity ▼</Text>
+                              <Picker
+                                  style={{width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)'}}
+                                  // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
+                                  mode='dropdown'
+                                  itemStyle={{height: 48, borderColor: 'rgb(39,153,137)'}}
+                                  selectedValue={this.state.Crop}
+                                  onValueChange={this.dropDown.bind(this)}
+                              >
 
-        </View>
-        </View>
-    );
+                                  {this.pickerValues()}
+
+                              </Picker>
+                          </View>
+                          <View style={{justifyContent: 'center', marginLeft: 10}}>
+                              <SegmentedControlIOS
+                                  alignItems='center'
+                                  tintColor='rgb(39,153,137)'
+                                  style={[styles.segment, {width: width / 2}]}
+                                  values={['Open Orders', 'Open Positions', 'Closed Positions']}
+                                  selectedIndex={{
+                                      'Open Orders': 0,
+                                      'Open Positions': 1,
+                                      'Closed Positions': 2
+                                  }[this.state.selectedTab]}
+                                  onChange={event => {
+                                      this.setState({
+                                          selectedIndex: event.nativeEvent.selectedSegmentIndex
+                                      });
+                                  }}
+                                  onValueChange={this.selectedTabOrder}
+                              />
+                          </View>
+                          <View style={{width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25}}>
+                              <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
+                                  <View style={{
+                                      width: 206,
+                                      height: 32,
+                                      borderRadius: 5,
+                                      backgroundColor: 'rgb(39,153,137)',
+                                      justifyContent: 'center',
+                                      alignItems: 'center'
+                                  }}>
+                                      <Text style={{fontSize: 16, color: 'rgb(255,255,255)'}}>PLACE NEW ORDER NOW</Text>
+                                  </View>
+                              </TouchableHighlight>
+                          </View>
+                      </View>
+                  </View>
+                  <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1}}>
+                      <View style={{backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10}}/>
+                      <View style={{backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10}}>
+                          {this.renderFlatList()}
+                      </View>
+
+                  </View>
+              </View>
+          );
+      } catch (error) {
+          bugsnag.notify(error);
+      }
   }
 }
 
@@ -396,7 +418,6 @@ const mapDispatchToProps = dispatch => {
       OpenPositionsData,
       dropDownCrop,
       selectedCrop,
-        logOut
     },
     dispatch
   );
