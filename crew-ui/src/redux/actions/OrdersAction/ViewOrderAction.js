@@ -11,7 +11,7 @@ export const ViewOrdersData = (crop) => {
   return (dispatch, getState) => {
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
-   return doGetFetch(url, getState().auth.email, getState().auth.password)
+   return doGetFetch(url, getState().auth.basicToken)
       .then(response => response.json())
       .then(items => {
           const values = items.value.map(item => item.underlying);
@@ -20,7 +20,7 @@ export const ViewOrdersData = (crop) => {
           Promise.all(
             items.value.map(item => {
                 const underlyingURL = `${ORDER_SERVICES_URL}underlyings/${item.underlying}`;
-              return doGetFetch(underlyingURL, getState().auth.email, getState().auth.password)
+              return doGetFetch(underlyingURL, getState().auth.basicToken)
               .then(response => { return response.json(); });
             })
           )
@@ -45,7 +45,7 @@ export const ViewOrdersData = (crop) => {
 export const dropDownCrop = () => {
   return (dispatch, getState) => {
     const url = `${ORDER_SERVICES_URL}commodities`;
-    return doGetFetch(url, getState().auth.email, getState().auth.password)
+    return doGetFetch(url, getState().auth.basicToken)
         .then(response => response.json())
       .then(dropDownData => {
         //  console.log(dropDownData);

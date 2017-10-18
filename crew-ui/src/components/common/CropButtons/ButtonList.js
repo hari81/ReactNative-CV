@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
 import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
 import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
+import bugsnag from '../BugSnag';
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
@@ -40,10 +41,11 @@ class ButtonList extends Component {
         this.props.onQuoteSwapUnderlying(year, code);
     }
     render() {
-        const { id, cropYear, code, name } = this.props.item;
-        return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
-            <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
-
+        try {
+            const {id, cropYear, code, name} = this.props.item;
+            return (<View style={{flexDirection: 'row', marginLeft: 10}}>
+                <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)}
+                                  disabled={id === this.props.id}>
                 <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
                     <Text
                         style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
@@ -65,6 +67,9 @@ class ButtonList extends Component {
                 </View>
             </TouchableOpacity>
         </View>);
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {

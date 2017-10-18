@@ -8,7 +8,7 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
        const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${commodityCode}/${cropYear}`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(cropValues => {
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
@@ -22,7 +22,7 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
              if (response.status === 404) {
                     return {};
@@ -61,7 +61,7 @@ export const cropDataSave = (cropValues) => {
              setCropData.active = true;
              setCropData.areaUnit = 'acre';
              const values = { cropYear: setCropData };
-            return doPostFetch(url, values, getState().auth.email, getState().auth.password)
+            return doPostFetch(url, values, getState().auth.crmSToken)
                 .then(response => {
                     if (response.status === 201) {
                        // console.log('Data Saved');
@@ -81,7 +81,7 @@ export const cropDataSave = (cropValues) => {
              setCropData.active = getState().myFar.myFarmCropData.cropYear.active;
              setCropData.areaUnit = getState().myFar.myFarmCropData.cropYear.areaUnit;
              const putValues = { cropYear: setCropData };
-         return doPutFetch(url, putValues, getState().auth.email, getState().auth.password)
+         return doPutFetch(url, putValues, getState().auth.crmSToken)
                 .then(response => { //console.log(response);
                     if (response.ok) {
                         Alert.alert('Data Saved Successfully');

@@ -19,7 +19,7 @@ export const quoteSwapUnderlying = (year, code) => {
             underlyings: oSymbols
         };
         console.log('start quote swap underlying db lookup 1', new Date());        
-        return doPostFetch(swapUrl, quoteUnderlying, getState().auth.email, getState().auth.password)
+        return doPostFetch(swapUrl, quoteUnderlying, getState().auth.basicToken)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(underlyingQuotes => {
                 console.log('end quote swap underlying db lookup 1', new Date());        
@@ -39,7 +39,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     };
                 }, rej => Promise.reject(rej));
                 console.log('start quote swap underlying db lookup 2', new Date());        
-                return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.email, getState().auth.password)
+                return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.basicToken)
                 .then(response => response.json(), rej => Promise.reject(rej))
                 .then(limit => {
                     console.log('end quote swap underlying db lookup 2', new Date());        
@@ -66,7 +66,7 @@ export const bushelQuantityLimit = (underlying) => {
     console.log('start quote swap underlying db lookup 2', new Date());
     return (dispatch, getState) => {
         dispatch({ type: 'BUSHEL_SPIN_ACTIVE' });
-        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.email, getState().auth.password)
+        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.basicToken)
         .then(response => response.json(), rej => Promise.reject(rej))
         .then(limit => {
             console.log('end quote swap underlying db lookup 2', new Date());

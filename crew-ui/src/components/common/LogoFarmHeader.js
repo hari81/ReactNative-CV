@@ -52,9 +52,6 @@ class LogoFarmHeader extends Component {
                               { cancelable: false }
                           );
                       }
-                      //this.props.farmActionFlag(false);
-                      //this.props.homeScreenDataFetch();
-                      //Actions.dashboard();
                   }}>
                       <Image
                           style={{ width: 30, height: 30 }}

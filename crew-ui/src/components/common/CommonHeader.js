@@ -9,7 +9,7 @@ import HomeIcon from './img/homeIcon.png';
 import User from './img/User.png';
 import { farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 
-const { height, width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window');
 
 const CommonHeader = (props) => {
     return (
