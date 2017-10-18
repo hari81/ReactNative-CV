@@ -28,7 +28,7 @@ class QuoteSwap extends Component {
 
     onQuoteSwapUnderlying(year, code) {
         this.props.quoteSwapUnderlying(year, code);
-    } 
+    }
 
     render() {
         try {
@@ -41,27 +41,26 @@ class QuoteSwap extends Component {
                             <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
                             <MyFarmTiles/>
                             <SetOrderDetails/>
-                            <MyCropButton/>
+                            <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)}/>
                         </View>
                     </View>
                 );
             }
             return (
-                <View >
-                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                    <CommonHeader />
-                    <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
-                        <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
-                        <MyFarmTiles />
-                        <SetOrderDetails />
-                        <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} />
+                <View>
+                    <View style={{backgroundColor: '#000', width, height: height * 0.026}}/>
+                    <CommonHeader/>
+                    <View style={{backgroundColor: 'rgb(239,244,247)'}}>
+                        <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
+                        <MyFarmTiles/>
+                        <UpdateOrderDetails selectedOrder={this.state.selectedOrder}/>
                     </View>
                 </View>
             );
         } catch (error) {
             bugsnag.notify(error);
         }
-    }   
+    }
 }
 
 const mapStateToProps = state => {

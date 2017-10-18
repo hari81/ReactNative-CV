@@ -83,7 +83,7 @@ export const placeOrder = () => {
                 orderType: oData.metadata.orderType,
                 quoteType: oData.metadata.quoteType,
                 notes: oData.notes,
-                expirationDate: oData.metadata.expirationDate
+                expirationDate: common.formatDate(oData.metadata.expirationDate, 6)
             };
         } else {
             data = {
@@ -95,7 +95,7 @@ export const placeOrder = () => {
                 underlying: oData.metadata.underlying,
                 notes: oData.metadata.notes,
                 orderType: oData.metadata.orderType,
-                expirationDate: oData.metadata.expirationDate
+                expirationDate: common.formatDate(oData.metadata.expirationDate, 6)
             };
         }
         //extra fields for limit orders
