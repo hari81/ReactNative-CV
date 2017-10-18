@@ -240,7 +240,9 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-		3DCED0AF1F97BB7E001C24B5 /* PBXContainerItemProxy */ = {
+
+		3DC5ADF51F9672C00057945C /* PBXContainerItemProxy */ = {
+
 			isa = PBXContainerItemProxy;
 			containerPortal = EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */;
 			proxyType = 2;
@@ -543,10 +545,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3DCED0AC1F97BB7E001C24B5 /* Products */ = {
+
+		3DC5ADF21F9672C00057945C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DCED0B01F97BB7E001C24B5 /* libRNFetchBlob.a */,
+				3DC5ADF61F9672C00057945C /* libRNFetchBlob.a */,
+
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -801,7 +805,9 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 3DCED0AC1F97BB7E001C24B5 /* Products */;
+
+					ProductGroup = 3DC5ADF21F9672C00057945C /* Products */;
+
 					ProjectRef = EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */;
 				},
 				{
@@ -1002,11 +1008,13 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3DCED0B01F97BB7E001C24B5 /* libRNFetchBlob.a */ = {
+
+		3DC5ADF61F9672C00057945C /* libRNFetchBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNFetchBlob.a;
-			remoteRef = 3DCED0AF1F97BB7E001C24B5 /* PBXContainerItemProxy */;
+			remoteRef = 3DC5ADF51F9672C00057945C /* PBXContainerItemProxy */;
+
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DE9E7351F1AC07F005363D7 /* libthird-party.a */ = {

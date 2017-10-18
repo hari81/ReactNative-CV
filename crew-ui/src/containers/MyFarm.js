@@ -5,10 +5,10 @@ import {
   TouchableHighlight,
     Alert, Keyboard
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
-import { LogoFarmHeader } from '../components/common';
+import { CommonHeader } from '../components/common';
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalActions';
@@ -86,7 +86,7 @@ placeNewOrder() {
         );
     } else {
         this.props.farmActionFlag(false);
-        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year, type: ActionConst.REPLACE });
     }
 }
 
@@ -103,9 +103,8 @@ userChangesFarmData() {
             localState.yield === '' &&
             localState.incbasis === false) {
             return false;
-        } else {
-            return true;
-        }
+        } 
+        return true;
     }
     return (parseFloat(presentData.acres.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.areaPlanted ||
         parseFloat(presentData.profit.substr(1).replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.unitProfitGoal ||
@@ -183,7 +182,7 @@ componentWillReceiveProps(newProps) {
             height: 20
           }}
         />
-        <LogoFarmHeader phNumber='+1-952-742-7414' subHeaderText='Price Hedging' uservaluesfalg={this.userChangesFarmData.bind(this)} />
+        <CommonHeader uservaluesfalg={this.userChangesFarmData.bind(this)} />
 
         <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
           <View

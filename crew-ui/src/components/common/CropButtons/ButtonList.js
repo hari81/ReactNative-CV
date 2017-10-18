@@ -6,6 +6,7 @@ import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/act
 import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
 import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
+import bugsnag from '../BugSnag';
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
@@ -43,33 +44,40 @@ class ButtonList extends Component {
         this.props.quoteSwapUnderlying(year, code);
     }
     render() {
-        const { id, cropYear, code, name } = this.props.item;
-        return (<View style={{ flexDirection: 'row', marginLeft: 10 }}>
-            <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
+        try {
+            const {id, cropYear, code, name} = this.props.item;
+            return (<View style={{flexDirection: 'row', marginLeft: 10}}>
+                <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)}
+                                  disabled={id === this.props.id}>
 
-                <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}
-                >
-                    <Text
-                        style={id === this.props.id ? { color: 'white', fontSize: 16 } : {
-                            color: 'rgb(82,97,115)',
-                            fontSize: 16 }}
+                    <View
+                        style={[styles.ButtonStyle, id === this.props.id ? {backgroundColor: 'rgb(39,153,137)'} : {backgroundColor: 'rgb(255,255,255)'}]}
                     >
-                        {cropYear}</Text>
-                    <Text
-                        style={[{ color: 'rgb(82,97,115)', fontFamily: 'HelveticaNeue', fontSize: 24 },
-                            id === this.props.id ? { color: 'white' } : {}, name.length >= 10 && name.length <= 13 ? { fontSize: 20 } :
-                            name.length >= 14 && name.length < 20 ? { fontSize: 14 } : name.length >= 20 ? { fontSize: 12 } : { }]}
-                    >{name.toUpperCase()}</Text>
-                     <Text
-                        style={id === this.props.id ? { color: 'white', fontSize: 14 } : {
-                            color: 'rgb(159,169,186)',
-                            fontSize: 14
-                        }}
-                    >Crop</Text>
+                        <Text
+                            style={id === this.props.id ? {color: 'white', fontSize: 16} : {
+                                color: 'rgb(82,97,115)',
+                                fontSize: 16
+                            }}
+                        >
+                            {cropYear}</Text>
+                        <Text
+                            style={[{color: 'rgb(82,97,115)', fontFamily: 'HelveticaNeue', fontSize: 24},
+                                id === this.props.id ? {color: 'white'} : {}, name.length >= 10 && name.length <= 13 ? {fontSize: 20} :
+                                    name.length >= 14 && name.length < 20 ? {fontSize: 14} : name.length >= 20 ? {fontSize: 12} : {}]}
+                        >{name.toUpperCase()}</Text>
+                        <Text
+                            style={id === this.props.id ? {color: 'white', fontSize: 14} : {
+                                color: 'rgb(159,169,186)',
+                                fontSize: 14
+                            }}
+                        >Crop</Text>
 
-                </View>
-            </TouchableOpacity>
-        </View>);
+                    </View>
+                </TouchableOpacity>
+            </View>);
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {

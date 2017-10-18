@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Spinner } from '../../components/common/Spinner';
-import Minus from '../common/img/Minus-32.png';
-import Plus from '../common/img/Plus.png';
 import * as common from '../../Utils/common';
 
 class BushelQuantity extends Component {
@@ -16,13 +14,20 @@ class BushelQuantity extends Component {
         this.timer = null;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.quantity !== null && nextProps.quantity !== undefined) {
+            this.setState({ quantity: nextProps.quantity.toString() });
+        }
+    }
+        
     onFocusMake() {
         this.setState({ quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });
     }
 
     onBlurMake() {
-        this.setState({ quantity: common.formatNumberCommas(this.state.quantity) });
-        this.props.onQuantityChange(this.state.quantity);
+        const sq = common.formatNumberCommas(this.state.quantity);
+        this.setState({ quantity: sq });
+        this.props.onQuantityChange(sq);
     }
 
     onChangeQuantity(text) {
@@ -52,7 +57,7 @@ class BushelQuantity extends Component {
                 //convert to string before setting state (but bubble non-formatted string up)
                 const sq = common.formatNumberCommas(q);
                 this.setState({ quantity: sq.toString() });
-                this.props.onQuantityChange(q);
+                this.props.onQuantityChange(sq);
             }
             this.timer = setTimeout(this.minusButtonPress, 200);
         } catch (error) {
@@ -77,7 +82,7 @@ class BushelQuantity extends Component {
             //convert to string before setting state (but bubble non-formatted string up)
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
-            this.props.onQuantityChange(q);
+            this.props.onQuantityChange(sq);
             this.timer = setTimeout(this.plusButtonPress, 200);
         } catch (error) {
             console.log(error);

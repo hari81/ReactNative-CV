@@ -4,7 +4,7 @@ import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
-import { LogoHomeHeader } from '../components/common';
+import { CommonHeader } from '../components/common';
 import DisclaimerData from '../restAPI/disclaimer.json';
 
 class Disclaimer extends Component {
@@ -33,7 +33,7 @@ class Disclaimer extends Component {
         return (
             <View>
                 <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                <LogoHomeHeader />
+                <CommonHeader />
                 <PageHeader headerText="Terminology You'll See Here" headerInfoText='' />
 
                 <View style={styles.disclaimerMain}>

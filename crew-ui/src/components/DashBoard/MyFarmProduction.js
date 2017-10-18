@@ -11,7 +11,7 @@ import { Button } from '../common/Button';
 
 class MyFarmProduction extends Component {
 
-    dashBoardToMatrix() {
+    dashBoardToMatrix = () => {
         Actions.matrix();
     }
     noFarmSetup= () => {
@@ -69,7 +69,7 @@ class MyFarmProduction extends Component {
         if (st(this.props, ['myFarmProductionData', 'myFarmProduction', 'estimatedTotalProduction']) === null) {
             return (
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={styles.secondRowFirstColumnStyle}>
+                    <View style={styles.containerStyle}>
                         <View style={styles.productionTitleStyle}>
                             <View style={{ width: width * 0.21, height: height * 0.026, marginTop: height * 0.019, marginLeft: width * 0.033 }}>
                                 <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>YOUR FARM PRODUCTION</Text>
@@ -79,7 +79,7 @@ class MyFarmProduction extends Component {
                             <Text style={{ fontSize: 30, color: 'rgb(131,141,148)' }}>No Data</Text>
                         </View>
                     </View>
-                    <View style={styles.secondRowSecondColumnStyle}>
+                    <View style={styles.secondContainerStyle}>
                         <View style={[styles.productionTitleStyle, { width: width * 0.279 }]}>
                             <View style={{ marginTop: height * 0.019, marginLeft: width * 0.0332 }}>
                                 <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
@@ -99,7 +99,7 @@ class MyFarmProduction extends Component {
             return (
                 <View>
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.secondRowFirstColumnStyle}>
+                        <View style={styles.containerStyle}>
 
                             <View style={styles.productionTitleStyle}>
                                 <View style={{ width: width * 0.21, height: height * 0.026, marginTop: height * 0.019, marginLeft: width * 0.033 }}>
@@ -119,7 +119,7 @@ class MyFarmProduction extends Component {
                             </View>
                             {this.spinner(percent)}
                         </View>
-                        <View style={styles.secondRowSecondColumnStyle}>
+                        <View style={styles.secondContainerStyle}>
                             <View style={[styles.productionTitleStyle, { width: width * 0.279 }]}>
                                 <View style={{ marginTop: height * 0.0195, marginLeft: width * 0.033 }}>
                                     <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
@@ -140,41 +140,10 @@ class MyFarmProduction extends Component {
 const { height, width } = Dimensions.get('window');
 
 const styles = {
-    secondRowFirstColumnStyle: {
-        height: height * 0.458,
-        width: width * 0.672,
-        backgroundColor: 'rgb(255,255,255)',
-        marginHorizontal: width * 0.015,
-        marginTop: height * 0.058,
-        borderColor: 'rgb(190,216,221)',
-        borderWidth: 1,
-    },
-    productionTitleStyle: {
-        flexDirection: 'row',
-        height: height * 0.0612,
-        width: width * 0.672,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgb(221,221,221)'
-    },
-    secondRowSecondColumnStyle: {
-        height: height * 0.458,
-        backgroundColor: 'rgb(255,255,255)',
-        width: width * 0.284,
-        marginRight: width * 0.015,
-        marginTop: height * 0.058,
-        borderColor: 'rgb(190,216,221)',
-        borderWidth: 1
-    },
-    viewProfitabilityButton: {
-        width: width * 0.137,
-        height: height * 0.036,
-        borderWidth: 1,
-        borderColor: 'rgb(1,172,168)',
-        marginTop: height * 0.039,
-        marginLeft: width * 0.068,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+    containerStyle: { height: height * 0.458, width: width * 0.672, backgroundColor: 'rgb(255,255,255)', marginHorizontal: width * 0.015, marginTop: height * 0.058, borderColor: 'rgb(190,216,221)', borderWidth: 1 },
+    productionTitleStyle: { flexDirection: 'row', height: height * 0.0612, width: width * 0.672, borderBottomWidth: 1, borderBottomColor: 'rgb(221,221,221)' },
+    secondContainerStyle: { height: height * 0.458, backgroundColor: 'rgb(255,255,255)', width: width * 0.284, marginRight: width * 0.015, marginTop: height * 0.058, borderColor: 'rgb(190,216,221)', borderWidth: 1 },
+    viewProfitabilityButton: { width: width * 0.137, height: height * 0.036, borderWidth: 1, borderColor: 'rgb(1,172,168)', marginTop: height * 0.039, marginLeft: width * 0.068, justifyContent: 'center', alignItems: 'center' }
 };
 
 const mapStateToProps = (state) => {

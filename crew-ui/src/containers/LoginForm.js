@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS } from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
@@ -128,10 +128,8 @@ class LoginForm extends Component {
           {this.renderButton()}
         </CardSection>
 
-        <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10 }}>
-          Having trouble logging in? Please call +1-952-742-7414 or email
-          cargillpricehedge@cargill.com
-        </Text>
+        <Text style={{ fontSize: 12, color: '#fff', paddingLeft: 10 }}>Having trouble logging in? Please call +1-952-742-7414 or email </Text>
+        <Text style={{ fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline' }} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>cargillpricehedge@cargill.com</Text>
       </Card>
      </ScrollView>
     );
