@@ -5,7 +5,7 @@ import {
   TouchableHighlight,
     Alert, Keyboard
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
 import { CommonHeader } from '../components/common';
@@ -86,7 +86,7 @@ placeNewOrder() {
         );
     } else {
         this.props.farmActionFlag(false);
-        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year, type: ActionConst.REPLACE });
     }
 }
 
@@ -103,9 +103,8 @@ userChangesFarmData() {
             localState.yield === '' &&
             localState.incbasis === false) {
             return false;
-        } else {
-            return true;
-        }
+        } 
+        return true;
     }
     return (parseFloat(presentData.acres.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.areaPlanted ||
         parseFloat(presentData.profit.substr(1).replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) !== previousData.unitProfitGoal ||

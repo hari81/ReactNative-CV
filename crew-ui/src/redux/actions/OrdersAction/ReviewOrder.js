@@ -21,17 +21,17 @@ export const getReviewOrderQuote = (orderData) => {
             data = {
                 riskProductId: orderData.riskProductId,
                 buySell: orderData.buySell,
-                expirationDate: orderData.expirationDate,
+                expirationDate: common.formatDate(orderData.expirationDate, 6),
                 notes: '',
                 orderType: orderData.orderType,
                 underlying: orderData.underlying,
                 quoteType: orderData.quoteType === undefined ? 'new' : orderData.quoteType,
-                quantity: orderData.quantity
+                quantity: common.cleanNumericString(orderData.quantity)
             };
             //add limit quote fields only for non-reprice quotes
             if (orderData.orderType.toLowerCase() === 'limit') {
                 data.goodTilDate = common.formatDate(orderData.goodTilDate, 6);
-                data.targetPrice = orderData.targetPrice;
+                data.targetPrice = parseFloat(orderData.targetPrice);
             }
         }
 
@@ -43,7 +43,7 @@ export const getReviewOrderQuote = (orderData) => {
                 Alert.alert('Review Order', 'There was an issue with quoting this order.\n\nPlease check data and try again.');
             })
             .then(quoteData => {
-                if (quoteData === null) {
+                if (quoteData === null || quoteData === undefined) {
                     console.log('There was an issue with the quote.');
                 } else {
                     console.log('review quote data is: ', quoteData);
@@ -53,11 +53,11 @@ export const getReviewOrderQuote = (orderData) => {
                         quoteData.metadata.buySell = orderData.buySell;
                         quoteData.metadata.riskProductId = orderData.riskProductId;
                         quoteData.metadata.underlying = orderData.underlying;
-                        quoteData.metadata.quantity = orderData.quantity;
-                        quoteData.metadata.expirationDate = orderData.lastTradeDate;
+                        quoteData.metadata.quantity = common.cleanNumericString(orderData.quantity.toString());
+                        quoteData.metadata.expirationDate = common.formatDate(quoteData.quoteExpiration, 6);
                         if (quoteData.metadata.orderType.toLowerCase() === 'limit') {
-                            quoteData.metadata.targetPrice = common.cleanNumericString(orderData.targetPrice);
-                            quoteData.metadata.goodTilDate = orderData.goodTilDate;
+                            quoteData.metadata.targetPrice = common.cleanNumericString(orderData.targetPrice.toString());
+                            quoteData.metadata.goodTilDate = common.formatDate(orderData.goodTilDate, 6);
                         }
                     }
                     dispatch({ type: ORDERS_REVIEW_QUOTE, payload: quoteData });
@@ -90,7 +90,7 @@ export const placeOrder = () => {
                 quoteId: oData.quoteId,
                 riskProductId: oData.metadata.riskProductId,
                 quoteType: oData.metadata.quoteType,
-                quantity: oData.metadata.quantity,
+                quantity: common.cleanNumericString(oData.metadata.quantity),
                 buySell: oData.metadata.buySell,
                 underlying: oData.metadata.underlying,
                 notes: oData.metadata.notes,
@@ -100,7 +100,7 @@ export const placeOrder = () => {
         }
         //extra fields for limit orders
         if (oData.metadata.orderType.toLowerCase() === 'limit') {
-            data.targetPrice = oData.metadata.targetPrice;
+            data.targetPrice = common.cleanNumericString(oData.metadata.targetPrice.toString());
             data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
         console.log('placeing Data', data);

@@ -120,6 +120,9 @@ export function convertStringToInt(value) {
 }
 
 export function cleanNumericString(value) {
+    if (value === undefined || value === null) {
+        return '';
+    }
     let t = value;
     //remove commas, dollars, and blanks
     t = t.replace(',', '');
@@ -134,6 +137,30 @@ export function isValueExists(value) {
         return false;
     }
     return true;
+}
+
+export function getLimitPrice(selectedContractMonth, buySell) {
+    let tPrice = null;
+    const scm = selectedContractMonth;
+    if (scm !== null) {
+        if (buySell.toLowerCase() === 'b' || buySell.toLowerCase() === 'buy') {
+            tPrice = scm.askPrice === null ? scm.settlePrice : scm.askPrice;
+        } else {
+            tPrice = scm.bidPrice === null ? scm.settlePrice : scm.bidPrice;            
+        }
+        tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
+        return tPrice;
+    }
+    return 0;
+}
+
+export function getExpDate(contractMonth) {
+    let tDate = null;
+    if (contractMonth !== null) {
+        tDate = new Date(contractMonth.lastTradeDate.concat('T00:00:00-06:00')) || '';
+        return tDate;
+    }
+    return null;  
 }
 
 export function minusBeforeDollarSign(num, decimals) {
