@@ -11,8 +11,8 @@ class LimitOrder extends Component {
     constructor(props) {
         super(props);        
         this.state = {
-            limitPrice: this.getLimitPrice(this.props.selectedContractMonth),
-            expDate: this.getExpDate(this.props.selectedContractMonth),
+            limitPrice: common.getLimitPrice(this.props.selectedContractMonth, this.props.buySell),
+            expDate: common.getExpDate(this.props.selectedContractMonth),
             showDatePicker: false,
             infoLimitPricePopup: null,
             infoOrderExpiryPopup: null,
@@ -26,35 +26,11 @@ class LimitOrder extends Component {
     componentWillReceiveProps(nextProps) {
         //transmits the change in selected contract month
         if (this.props.selectedContractMonth.id !== nextProps.selectedContractMonth.id) {
-            const tPrice = this.getLimitPrice(nextProps.selectedContractMonth);
+            const tPrice = common.getLimitPrice(nextProps.selectedContractMonth, this.props.buySell);
             this.setState({ limitPrice: tPrice });
-            const tDate = this.getExpDate(nextProps.selectedContractMonth);
+            const tDate = common.getExpDate(nextProps.selectedContractMonth);
             this.setState({ expDate: tDate });
         }
-    }
-
-    getLimitPrice(selectedContractMonth) {
-        let tPrice = null;
-        const scm = selectedContractMonth;
-        if (scm !== null) {
-            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
-                tPrice = scm.askPrice === null ? scm.settlePrice : scm.askPrice;
-            } else {
-                tPrice = scm.bidPrice === null ? scm.settlePrice : scm.bidPrice;            
-            }
-            tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
-            return tPrice;
-        }
-        return 0;
-    }
-
-    getExpDate(contractMonth) {
-        let tDate = null;
-        if (contractMonth !== null) {
-            tDate = new Date(contractMonth.lastTradeDate.concat('T00:00:00-06:00')) || '';
-            return tDate;
-        }
-        return null;  
     }
 
     onLimitPriceChange(limitPrice) {
@@ -73,7 +49,9 @@ class LimitOrder extends Component {
 
     onBlurMake() {
         this.props.onScrollDown();
-        this.setState({ limitPrice: `$${this.state.limitPrice}` });
+        let tlp = this.state.limitPrice.charAt(0) === '$' ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice;
+        tlp = parseFloat(tlp).toFixed(4);
+        this.setState({ limitPrice: `$${tlp}` });
         this.onLimitPriceChange(this.state.limitPrice);
     }
 
@@ -89,7 +67,7 @@ class LimitOrder extends Component {
             const lp = common.cleanNumericString(this.state.limitPrice);            
             if (parseFloat(lp) >= parseFloat(this.props.tickSizeIncrement)) {
                 const tPrice = ((parseFloat(lp) - parseFloat(this.props.tickSizeIncrement)).toFixed(4));
-                this.setState({ limitPrice: tPrice });
+                this.setState({ limitPrice: `$${tPrice}` });
                 this.onLimitPriceChange(tPrice);
             }
             this.timer = setTimeout(this.minusButtonPress, 200);
@@ -102,7 +80,7 @@ class LimitOrder extends Component {
         try {
             const lp = common.cleanNumericString(this.state.limitPrice);            
             const tPrice = ((parseFloat(lp) + parseFloat(this.props.tickSizeIncrement)).toFixed(4));
-            this.setState({ limitPrice: tPrice });
+            this.setState({ limitPrice: `$${tPrice}` });
             this.onLimitPriceChange(tPrice);
             this.timer = setTimeout(this.plusButtonPress, 200);
         } catch (error) {
@@ -115,7 +93,8 @@ class LimitOrder extends Component {
     }
 
     warningMessage() {
-        if (parseFloat(this.state.limitPrice) < (0.8 * parseFloat(this.props.bidPrice)) || parseFloat(this.state.limitPrice) > (1.2 * parseFloat(this.props.bidPrice))) {
+        const lp = common.cleanNumericString(this.state.limitPrice);
+        if (parseFloat(lp) < (0.8 * parseFloat(this.props.selectedContractMonth.bidPrice)) || parseFloat(lp) > (1.2 * parseFloat(this.props.selectedContractMonth.bidPrice))) {
             return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
         }
         return <Text />;
