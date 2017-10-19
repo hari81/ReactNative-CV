@@ -37,7 +37,7 @@ class ClosedPositions extends Component {
             }}
           >
             <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
-              {underlyingObjectData.contractMonth.month.name}
+              {underlyingObjectData.month}
             </Text>
           </View>
           <View
@@ -55,31 +55,29 @@ class ClosedPositions extends Component {
                 fontFamily: 'HelveticaNeue-Bold'
               }}
             >
-              {underlyingObjectData.contractMonth.year.value}
+              {underlyingObjectData.year}
             </Text>
           </View>
         </View>
 
         <View style={{ margin: 20, width: '24.41%' }}>
-          <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
-            {underlyingObjectData.commodity.name} {riskProduct}
+          <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
+            {underlyingObjectData.crop} {riskProduct}
           </Text>
           <View style={{ flexDirection: 'row', marginTop: 15, justifyContent: 'space-between' }}>
             <View style={{ flexDirection: 'column' }}>
-              <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
+              <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                   {quantity
                     .toString()
                     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                 </Text>
-                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                  {' ' + underlyingObjectData.commodity.unit}s
-                </Text>
+                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{`  ${underlyingObjectData.unit}s`}</Text>
               </View>
             </View>
             <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-              <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
+              <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
               <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                 {buysell === 'S' ? 'Sell' : 'Buy'}
               </Text>

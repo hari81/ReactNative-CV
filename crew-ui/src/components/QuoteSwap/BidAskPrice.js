@@ -33,7 +33,7 @@ class BidAskPrice extends Component {
 }
 
 const styles = {
-    pricesContainer: { flexDirection: 'row', position: 'absolute', marginTop: 269, width: 480, height: 55, backgroundColor: '#5d6d79', padding: 40, paddingTop: 8, paddingBottom: 8, zIndex: -1 },
+    pricesContainer: { flexDirection: 'row', position: 'absolute', marginTop: 280, width: 480, height: 55, backgroundColor: '#5d6d79', padding: 40, paddingTop: 8, paddingBottom: 8, zIndex: -1 },
     priceContainer: { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: 60 },
     priceLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#e7b514' },
     priceText: { color: '#fff', fontSize: 18, fontFamily: 'HelveticaNeue' }

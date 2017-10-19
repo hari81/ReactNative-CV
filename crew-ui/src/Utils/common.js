@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+
 /* puts numbers in a number value (ex. 1000 -> 1,000 1234567.23 -> 1,234,567.23) */
 export function formatNumberCommas(number) {
     number += '';
@@ -169,4 +171,21 @@ export function minusBeforeDollarSign(num, decimals) {
         return '-$' + parseFloat(val).toFixed(decimals);
     }
     return '$' + parseFloat(num).toFixed(decimals);
+}
+
+/*  used to show a consistent alert message to the user for unexpected errors
+    if possible, show the messages returned from the server in the oError object
+*/
+export function createAlertErrorMessage(oError, initialMessage = '') {
+    let msg = `\n${initialMessage}`;
+    if (oError !== null && oError !== undefined && oError.length > 0) {
+        if (isValueExists(oError[0].internalMessage)) {
+            msg += `\n\n ${capitalizeWord(oError[0].internalMessage)}`;
+        }
+        if (isValueExists(oError[0].message)) {
+            msg += `\n\n ${capitalizeWord(oError[0].message)}`;
+        }
+    }
+    msg += '\n\n Please contact the trading desk at 1-952-742-7414';
+    Alert.alert('Cargill Price Hedging', msg);
 }
