@@ -1,5 +1,6 @@
 import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch } from '../../../../Utils/FetchApiCalls';
+import bugsnag from '../../../../components/common/BugSnag';
 
 export const productType = () => {
     return (dispatch, getState) => {
@@ -9,9 +10,9 @@ export const productType = () => {
             .then(riskProducts =>
                 dispatch(riskProductData(riskProducts))
             )
-            .catch((status, error) => {
+            .catch(/*(status, error) => {
                 console.log(`error ${error}`);
-            });
+            }*/bugsnag.notify);
     };
 };
 export function riskProductData(riskproducts) {

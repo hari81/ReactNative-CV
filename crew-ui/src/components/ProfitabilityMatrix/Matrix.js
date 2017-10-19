@@ -5,6 +5,7 @@ import matrix1 from '../../restAPI/Matrix1.json';
 import { Spinner } from '../common/Spinner';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
+import bugsnag from '../../components/common/BugSnag';
 
 class Matrix extends Component {
     rows() {
@@ -64,12 +65,21 @@ class Matrix extends Component {
        );
     }
     render() {
-        return (
-            <View style={{ height: height * 0.63 }}>
-                {this.spinner()}
-                <Text style={{ color: 'rgb(255,255,255)', fontSize: 14, paddingLeft: width * 0.0586, fontFamily: 'HelveticaNeue' }}>Yield Bushels Per Acre</Text>
-            </View>
-        );
+        try {
+            return (
+                <View style={{height: height * 0.63}}>
+                    {this.spinner()}
+                    <Text style={{
+                        color: 'rgb(255,255,255)',
+                        fontSize: 14,
+                        paddingLeft: width * 0.0586,
+                        fontFamily: 'HelveticaNeue'
+                    }}>Yield Bushels Per Acre</Text>
+                </View>
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const { width, height } = Dimensions.get('window');

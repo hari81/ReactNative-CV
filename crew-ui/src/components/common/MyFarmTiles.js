@@ -9,6 +9,7 @@ import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActi
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from './Button';
+import bugsnag from '../common/BugSnag';
 
 class MyFarmTiles extends Component {
     //info button condition check
@@ -118,67 +119,99 @@ class MyFarmTiles extends Component {
     }
 
     render() {
-        //returning Enter Crop Details when my farm tiles data is absent in json
-        if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
-            return (
-                <View style={styles.containerStyle}>
-                    <View style={{ marginLeft: width * 0.0224, marginTop: height * 0.0338 }}>
-                        <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
-                        <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
-                    </View>
-                    <View style={{ width: 1, marginLeft: width * 0.0146, marginRight: width * 0.00683, marginTop: height * 0.033, height: height * 0.0611, backgroundColor: 'rgb(221,221,221)' }} />
-                    <View style={{ width: 1, height: height * 0.0611 }} />
-                    <View style={{ justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488 }}>
-                        <Text>Enter your current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
-                    </View>
-                        <Button onPress={this.enterCropDetails} textStyle={{ color: 'white' }} buttonStyle={styles.enterCropButtonStyle}>
+        try {
+            //returning Enter Crop Details when my farm tiles data is absent in json
+            if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
+                return (
+                    <View style={styles.containerStyle}>
+                        <View style={{marginLeft: width * 0.0224, marginTop: height * 0.0338}}>
+                            <Text style={{fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium'}}>My
+                                Farm </Text>
+                            <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
+                        </View>
+                        <View style={{
+                            width: 1,
+                            marginLeft: width * 0.0146,
+                            marginRight: width * 0.00683,
+                            marginTop: height * 0.033,
+                            height: height * 0.0611,
+                            backgroundColor: 'rgb(221,221,221)'
+                        }}/>
+                        <View style={{width: 1, height: height * 0.0611}}/>
+                        <View style={{justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488}}>
+                            <Text>Enter your
+                                current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}
+                                crop details to receive helpful insights</Text>
+                        </View>
+                        <Button onPress={this.enterCropDetails} textStyle={{color: 'white'}}
+                                buttonStyle={styles.enterCropButtonStyle}>
                             Enter Crop Details
                         </Button>
+                    </View>
+                );
+            }
+            //returning tiles when my farm tiles data is present in json
+            return (
+                <View style={styles.containerStyle}>
+                    <TouchableOpacity onPress={this.goToFarm.bind(this)}>
+                        <View style={{marginLeft: 23, marginTop: 26}}>
+
+                            <Text style={{fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium'}}>My
+                                Farm </Text>
+                            <View style={{flexDirection: 'row', width: 100}}>
+                                <Text style={{fontSize: 12}}>{this.props.underlyingData.underlyingYear}</Text><Text
+                                style={{fontSize: 12}}> {this.props.cropButton.selectedCropName}</Text>
+                            </View>
+                            <Text style={{fontSize: 10, color: 'rgb(39,153,137)'}}>Edit My Farm Details</Text>
+
+                        </View>
+                    </TouchableOpacity>
+
+                    <View style={{
+                        width: 1,
+                        marginLeft: 15,
+                        marginRight: 7,
+                        marginTop: 26,
+                        height: 47,
+                        backgroundColor: 'rgb(221,221,221)'
+                    }}/>
+
+                    {this.boxes('BREAKEVEN PRICE', this.props.breakEvenPrice)}
+                    {this.boxes('TARGET PRICE', this.props.targetPrice)}
+                    {this.boxes('AVERAGE PRICE SOLD', this.props.avgPriceSold)}
+                    {this.boxes('PROFIT PER ACRE', this.props.profitPerAcre)}
+
+                    <View style={styles.boxStyle}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                            <View style={{width: 100}}><Text style={{fontSize: 10, paddingLeft: 7}}>UNHEDGED
+                                PRODUCTION</Text></View>
+                            <Button onPress={this.infoButton.bind(this, 'unhedged')} textStyle={styles.infoIcon}
+                                    buttonStyle={{}}>i</Button>
+                        </View>
+                        <Text style={styles.priceStyle}>{this.props.unhedgedProduction}</Text>
+                        <Text style={{paddingLeft: 10, fontSize: 10, color: 'rgb(61,76,87)'}}>{this.props.unitOfMeasure}s</Text>
+                    </View>
+
+                    <View style={styles.boxStyle}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                            <View style={{width: 80}}><Text style={{fontSize: 10, paddingLeft: 7}}>BASIS ESTIMATE</Text></View>
+                            <Button onPress={this.infoButton.bind(this, 'basisEstimate')} textStyle={styles.infoIcon}
+                                    buttonStyle={{}}>i</Button>
+                        </View>
+                        <Text
+                            style={[styles.priceStyle, {color: 'rgb(158,42,47)'}]}>{common.minusBeforeDollarSign(this.props.basisEstimate, 2)}</Text>
+                        <Text style={{
+                            paddingLeft: 10,
+                            fontSize: 8,
+                            color: 'rgb(61,76,87)'
+                        }}>{this.props.basisEstimateEnabled ? 'Included in Calculations' : 'Not Included in Calculations'}</Text>
+                    </View>
+                    {this.props.infoState.infoEnable ? this.showMessage(this.props.infoState.btnNumber) : this.hideMessage()}
                 </View>
             );
+        } catch (error) {
+            bugsnag.notify(error);
         }
-        //returning tiles when my farm tiles data is present in json
-        return (
-            <View style={styles.containerStyle}>
-                <TouchableOpacity onPress={this.goToFarm.bind(this)}>
-                    <View style={{ marginLeft: 23, marginTop: 26 }}>
-
-                        <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
-                        <View style={{ flexDirection: 'row', width: 100 }}>
-                            <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
-                        </View>
-                        <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit My Farm Details</Text>
-
-                    </View>
-                </TouchableOpacity>
-
-                <View style={{ width: 1, marginLeft: 15, marginRight: 7, marginTop: 26, height: 47, backgroundColor: 'rgb(221,221,221)' }} />
-
-                {this.boxes('BREAKEVEN PRICE', this.props.breakEvenPrice)}
-                {this.boxes('TARGET PRICE', this.props.targetPrice)}
-                {this.boxes('AVERAGE PRICE SOLD', this.props.avgPriceSold)}
-                {this.boxes('PROFIT PER ACRE', this.props.profitPerAcre)}
-
-                <View style={styles.boxStyle}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                        <View style={{ width: 100 }}><Text style={{ fontSize: 10, paddingLeft: 7 }}>UNHEDGED PRODUCTION</Text></View>
-                        <Button onPress={this.infoButton.bind(this, 'unhedged')} textStyle={styles.infoIcon} buttonStyle={{}}>i</Button>
-                    </View>
-                    <Text style={styles.priceStyle}>{this.props.unhedgedProduction}</Text>
-                    <Text style={{ paddingLeft: 10, fontSize: 10, color: 'rgb(61,76,87)' }}>{this.props.unitOfMeasure}s</Text>
-                </View>
-
-                <View style={styles.boxStyle}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                        <View style={{ width: 80 }}><Text style={{ fontSize: 10, paddingLeft: 7 }}>BASIS ESTIMATE</Text></View>
-                        <Button onPress={this.infoButton.bind(this, 'basisEstimate')} textStyle={styles.infoIcon} buttonStyle={{}}>i</Button>
-                    </View>
-                    <Text style={[styles.priceStyle, { color: 'rgb(158,42,47)' }]}>{common.minusBeforeDollarSign(this.props.basisEstimate, 2)}</Text>
-                    <Text style={{ paddingLeft: 10, fontSize: 8, color: 'rgb(61,76,87)' }}>{this.props.basisEstimateEnabled ? 'Included in Calculations' : 'Not Included in Calculations' }</Text>
-                </View>
-                {this.props.infoState.infoEnable ? this.showMessage(this.props.infoState.btnNumber) : this.hideMessage()}
-            </View>
-        );
     }
 }
 const { height, width } = Dimensions.get('window');

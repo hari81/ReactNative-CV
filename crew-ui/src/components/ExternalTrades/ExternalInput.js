@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
+import bugsnag from '../common/BugSnag';
 
 const ExternalInput = ({
                     label,
@@ -8,24 +9,28 @@ const ExternalInput = ({
                    placeholder,
                    secureTextEntry, edit, focus, onblur
                }) => {
-    const { inputStyle, containerStyle } = styles;
+    try {
+        const {inputStyle, containerStyle} = styles;
 
-    return (
-        <View style={containerStyle}>
-            <Text style={styles.labelStyle}> {label}</Text>
-            <TextInput
-                secureTextEntry={secureTextEntry}
-                placeholder={placeholder}
-                style={inputStyle}
-                value={value}
-                onChangeText={onChangeText}
-                autoCorrect={false}
-                editable={edit}
-                onFocus={focus}
-                onBlur={onblur}
-            />
-        </View>
-    );
+        return (
+            <View style={containerStyle}>
+                <Text style={styles.labelStyle}> {label}</Text>
+                <TextInput
+                    secureTextEntry={secureTextEntry}
+                    placeholder={placeholder}
+                    style={inputStyle}
+                    value={value}
+                    onChangeText={onChangeText}
+                    autoCorrect={false}
+                    editable={edit}
+                    onFocus={focus}
+                    onBlur={onblur}
+                />
+            </View>
+        );
+    } catch (error) {
+        bugsnag.notify(error);
+    }
 };
 
 

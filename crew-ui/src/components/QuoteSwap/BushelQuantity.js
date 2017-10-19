@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-
 import { connect } from 'react-redux';
 import { Spinner } from '../../components/common/Spinner';
 import * as common from '../../Utils/common';
+import bugsnag from '../../components/common/BugSnag';
 
 class BushelQuantity extends Component {
     constructor(props) {
@@ -107,43 +108,57 @@ class BushelQuantity extends Component {
     }
 
     render() {
-        let tBushelLimit = null;
-        if (this.props.contractMonth.bushelSpinFlag) {
-            tBushelLimit = (<Spinner size="small" />);
-        } else {
-            tBushelLimit = (<Text style={styles.bushelLimitText}>Your Available Limit is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
-        }
+        try {
+            let tBushelLimit = null;
+            if (this.props.contractMonth.bushelSpinFlag) {
+                tBushelLimit = (<Spinner size="small"/>);
+            } else {
+                tBushelLimit = (<Text style={styles.bushelLimitText}>Your Available Limit
+                    is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
+            }
 
-        return (
-            <View style={styles.container}>
-                <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>BUSHEL QUANTITY</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
-                        <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
-                    </TouchableOpacity>
-                    <TextInput
-                        style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 10 }}
-                        maxLength={9}
-                        keyboardType="decimal-pad"
-                        returnKeyType="done"
-                        placeholder="0"
-                        onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
-                        onChangeText={this.onChangeQuantity.bind(this)}
-                        value={this.state.quantity}
-                        onBlur={this.onBlurMake.bind(this)}
-                        onFocus={this.onFocusMake.bind(this)}
-                        selectTextOnFocus
-                    />
-                    <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
-                        <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'column', marginLeft: 30 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>{this.state.qPercent.toFixed(0)}% HEDGED</Text>
-                        {tBushelLimit}
+            return (
+                <View style={styles.container}>
+                    <Text style={{color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10}}>BUSHEL
+                        QUANTITY</Text>
+                    <View style={{flexDirection: 'row'}}>
+                        <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)}>
+                            <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                        </TouchableOpacity>
+                        <TextInput
+                            style={{height: 42, width: 112, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 10}}
+                            maxLength={9}
+                            keyboardType="decimal-pad"
+                            returnKeyType="done"
+                            placeholder="0"
+                            onKeyPress={(e) => {
+                                if (e.nativeEvent.key === 'Enter') {
+                                    Keyboard.dismiss();
+                                }
+                            }}
+                            onChangeText={this.onChangeQuantity.bind(this)}
+                            value={this.state.quantity}
+                            onBlur={this.onBlurMake.bind(this)}
+                            onFocus={this.onFocusMake.bind(this)}
+                            selectTextOnFocus
+                        />
+                        <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
+                            <Text style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
+                        </TouchableOpacity>
+                        <View style={{flexDirection: 'column', marginLeft: 30}}>
+                            <Text style={{
+                                fontSize: 16,
+                                fontFamily: 'HelveticaNeue',
+                                color: '#fff'
+                            }}>{this.state.qPercent.toFixed(0)}% HEDGED</Text>
+                            {tBushelLimit}
+                        </View>
                     </View>
                 </View>
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 

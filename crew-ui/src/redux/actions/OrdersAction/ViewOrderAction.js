@@ -6,6 +6,7 @@ import {
 } from '../types';
 
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const ViewOrdersData = (crop) => {
   return (dispatch, getState) => {
@@ -38,7 +39,7 @@ export const ViewOrdersData = (crop) => {
             })
         );
         })
-            .catch(error => console.log(`error ${error}`));
+            .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
     };
 };
 
@@ -51,7 +52,7 @@ export const dropDownCrop = () => {
         //  console.log(dropDownData);
         dispatch({ type: DROP_DOWN_VALUES, payload: dropDownData });
       })
-      .catch(error => console.log(`error ${error}`));
+      .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
   };
 };
 

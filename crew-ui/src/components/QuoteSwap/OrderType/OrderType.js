@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LimitOrder from './LimitOrder';
 import * as commonStyles from '../../../Utils/styles';
 import * as common from '../../../Utils/common';
+import bugsnag from '../../common/BugSnag';
 
 class OrderType extends Component {
     constructor() {
@@ -42,45 +43,51 @@ class OrderType extends Component {
     }
 
     render() {
-        let tLimitOrder = null;
-        if (this.state.isLimitOrder) {
-            tLimitOrder = (
-                <LimitOrder 
-                    buySell={this.props.buySell}
-                    tickSizeIncrement={this.props.tickSizeIncrement} 
-                    selectedContractMonth={this.props.selectedContractMonth}
-                    onLimitPriceChange={this.onLimitPriceChange.bind(this)}
-                    onExpiryDateChange={this.onExpiryDateChange.bind(this)}
-                    onScrollUpdate={this.onScrollUpdate.bind(this)}
-                    onScrollDown={this.onScrollDown.bind(this)}
-                />
-            );
-        }
+        try {
+            let tLimitOrder = null;
+            if (this.state.isLimitOrder) {
+                tLimitOrder = (
+                    <LimitOrder
+                        buySell={this.props.buySell}
+                        tickSizeIncrement={this.props.tickSizeIncrement}
+                        selectedContractMonth={this.props.selectedContractMonth}
+                        onLimitPriceChange={this.onLimitPriceChange.bind(this)}
+                        onExpiryDateChange={this.onExpiryDateChange.bind(this)}
+                        onScrollUpdate={this.onScrollUpdate.bind(this)}
+                        onScrollDown={this.onScrollDown.bind(this)}
+                    />
+                );
+            }
 
-        return (
-            <View style={styles.container}>
-                <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>ORDER TYPE</Text>
-                <View>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                            <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
-                                <View style={commonStyles.common.radioButtonContainer}>
-                                    {!this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
-                                </View>
-                            </TouchableOpacity>
-                            <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
-                            <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
-                                <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
-                                    {this.state.isLimitOrder ? <View style={commonStyles.common.radioButtonSelected} /> : null}
-                                </View>
-                            </TouchableOpacity>
-                            <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
+            return (
+                <View style={styles.container}>
+                    <Text style={{fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff'}}>ORDER TYPE</Text>
+                    <View>
+                        <View style={{flexDirection: 'row', marginTop: 10}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
+                                <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
+                                    <View style={commonStyles.common.radioButtonContainer}>
+                                        {!this.state.isLimitOrder ?
+                                            <View style={commonStyles.common.radioButtonSelected}/> : null}
+                                    </View>
+                                </TouchableOpacity>
+                                <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
+                                <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
+                                    <View style={[commonStyles.common.radioButtonContainer, {marginLeft: 20}]}>
+                                        {this.state.isLimitOrder ?
+                                            <View style={commonStyles.common.radioButtonSelected}/> : null}
+                                    </View>
+                                </TouchableOpacity>
+                                <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
+                            </View>
                         </View>
                     </View>
+                    {tLimitOrder}
                 </View>
-                {tLimitOrder}
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {

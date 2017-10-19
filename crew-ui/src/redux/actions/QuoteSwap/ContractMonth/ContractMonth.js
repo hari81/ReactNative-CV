@@ -2,6 +2,7 @@ import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 import * as common from '../../../../Utils/common';
 import { bushelLimitShow } from '../ContractMonth/ContractMonthSelect';
+import bugsnag from '../../../../components/common/BugSnag';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
@@ -47,11 +48,11 @@ export const quoteSwapUnderlying = (year, code) => {
                     dispatch(bushelLimitShow(limit));
                     console.log('* * * * * end quote swap underlying * * * * *', new Date());                    
                 })
-                .catch((status, error) => {
+                .catch(/*(status, error) => {
                     console.log(`error ${error}`);
-                });
+                }*/bugsnag.notify);
             })
-        .catch(error => console.log(error));
+        .catch(/*error => console.log(error)*/bugsnag.notify);
     };
 };
 

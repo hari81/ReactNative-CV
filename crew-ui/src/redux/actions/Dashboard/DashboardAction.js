@@ -1,5 +1,6 @@
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const dashBoardDataFetch = (year, code) => {
     return (dispatch, getState) => {
@@ -10,9 +11,9 @@ export const dashBoardDataFetch = (year, code) => {
             .then(dashBoardData =>
                 dispatch(dashboardData(dashBoardData))
             )
-            .catch((status, error) => {
+            .catch(/*(status, error) => {
                 console.log(`error ${error}`);
-            });
+            }*/bugsnag.notify);
     };
 };
 export function dashboardData(dashBoardData) {
@@ -34,8 +35,8 @@ export const homeScreenDataFetch = () => {
             .then(dashBoardData =>
                 dispatch(dashboardData(dashBoardData))
             )
-            .catch((status, error) => {
+            .catch(/*(status, error) => {
                 console.log(`error ${error}`);
-            });
+            }*/bugsnag.notify);
     };
 };

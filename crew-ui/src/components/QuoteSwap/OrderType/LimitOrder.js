@@ -6,6 +6,7 @@ import Info from '../../common/img/Info-white.png';
 import { InfoPopup } from '../../common/InfoPopup';
 import cancel from '../../common/img/Cancel-40.png';
 import * as common from '../../../Utils/common';
+import bugsnag from '../../common/BugSnag';
 
 class LimitOrder extends Component {
     constructor(props) {
@@ -144,59 +145,94 @@ class LimitOrder extends Component {
     }
 
     render() {
-        return (
-            <View>
-                <View style={styles.container}>
-                    <View style={{ flexDirection: 'column', zIndex: -1 }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>LIMIT PRICE</Text>
-                            <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image style={{ width: 20, height: 20, marginLeft: 5 }} source={Info} /></TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'column' }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)} >
-                                    <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
-                                </TouchableOpacity>
-                                <TextInput
-                                    style={{ height: 42, width: 112, borderRadius: 4, backgroundColor: '#fff', padding: 2 }}
-                                    maxLength={9}
-                                    placeholder='0'
-                                    keyboardType='decimal-pad'
-                                    returnKeyType="done"
-                                    value={this.state.limitPrice}
-                                    onChangeText={this.onChangeQuantity.bind(this)}
-                                    onBlur={this.onBlurMake.bind(this)}
-                                    onFocus={this.onFocusMake.bind(this)}
-                                    onKeyPress={(e) => { if (e.nativeEvent.key === 'Enter') { Keyboard.dismiss(); } }}
-                                    selectTextOnFocus
-                                />
-                                <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
-                                    <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
-                                </TouchableOpacity>
+        try {
+            return (
+                <View>
+                    <View style={styles.container}>
+                        <View style={{flexDirection: 'column', zIndex: -1}}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{
+                                    color: '#fff',
+                                    fontSize: 16,
+                                    fontFamily: 'HelveticaNeue',
+                                    paddingBottom: 10
+                                }}>LIMIT PRICE</Text>
+                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image
+                                    style={{width: 20, height: 20, marginLeft: 5}} source={Info}/></TouchableOpacity>
                             </View>
-                            {this.warningMessage()}
+                            <View style={{flexDirection: 'column'}}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <TouchableOpacity onPressIn={this.minusButtonPress}
+                                                      onPressOut={this.stopTimer.bind(this)}>
+                                        <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                                    </TouchableOpacity>
+                                    <TextInput
+                                        style={{
+                                            height: 42,
+                                            width: 112,
+                                            borderRadius: 4,
+                                            backgroundColor: '#fff',
+                                            padding: 2
+                                        }}
+                                        maxLength={9}
+                                        placeholder='0'
+                                        keyboardType='decimal-pad'
+                                        returnKeyType="done"
+                                        value={this.state.limitPrice}
+                                        onChangeText={this.onChangeQuantity.bind(this)}
+                                        onBlur={this.onBlurMake.bind(this)}
+                                        onFocus={this.onFocusMake.bind(this)}
+                                        onKeyPress={(e) => {
+                                            if (e.nativeEvent.key === 'Enter') {
+                                                Keyboard.dismiss();
+                                            }
+                                        }}
+                                        selectTextOnFocus
+                                    />
+                                    <TouchableOpacity onPressIn={this.plusButtonPress}
+                                                      onPressOut={this.stopTimer.bind(this)}>
+                                        <Text
+                                            style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                {this.warningMessage()}
+                            </View>
+                        </View>
+                        <View style={{flexDirection: 'column', marginLeft: 50}}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff'}}>VALID
+                                    UNTIL</Text>
+                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image
+                                    style={{width: 20, height: 20, marginLeft: 5}} source={Info}/></TouchableOpacity>
+                            </View>
+                            <TextInput
+                                style={{
+                                    height: 42,
+                                    width: 220,
+                                    borderRadius: 4,
+                                    backgroundColor: '#fff',
+                                    paddingLeft: 2,
+                                    marginTop: 10
+                                }}
+                                placeholder="MM/DD/YYYY"
+                                onFocus={() => {
+                                    Keyboard.dismiss();
+                                    this.setState({showDatePicker: true});
+                                }}
+                                value={moment(this.state.expDate).format('MMMM Do, YYYY')}
+                                returnkeyType="done"
+                            />
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'column', marginLeft: 50 }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>VALID UNTIL</Text>
-                            <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image style={{ width: 20, height: 20, marginLeft: 5 }} source={Info} /></TouchableOpacity>
-                        </View>
-                        <TextInput
-                            style={{ height: 42, width: 220, borderRadius: 4, backgroundColor: '#fff', paddingLeft: 2, marginTop: 10 }}
-                            placeholder="MM/DD/YYYY"
-                            onFocus={() => { Keyboard.dismiss(); this.setState({ showDatePicker: true }); }}
-                            value={moment(this.state.expDate).format('MMMM Do, YYYY')}
-                            returnkeyType="done"
-                        />
-                    </View>
+                    {this.datePicker()}
+                    {this.datePickerClose()}
+                    {this.state.infoLimitPricePopup}
+                    {this.state.infoOrderExpiryPopup}
                 </View>
-                {this.datePicker()}
-                {this.datePickerClose()}
-                {this.state.infoLimitPricePopup}
-                {this.state.infoOrderExpiryPopup}
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 

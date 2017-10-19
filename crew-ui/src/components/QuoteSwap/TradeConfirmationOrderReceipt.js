@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { CommonHeader } from '../common';
 import MyFarmTiles from '../common/MyFarmTiles';
 import confirmtick from '../common/img/confirmationSuccess.png';
+import bugsnag from '../../components/common/BugSnag';
 
 class TradeConfirmationOrderReceipt extends Component {
 
@@ -26,78 +27,95 @@ class TradeConfirmationOrderReceipt extends Component {
     }
 
     render() {
-        const { width, height } = Dimensions.get('window');
-        return (
-            <View >
-                <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
-                <CommonHeader />
-                <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
-                    <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
-                    <MyFarmTiles />
-                    <View>
-                    <View style={styles.orderReceipt}>
+        try {
+            const {width, height} = Dimensions.get('window');
+            return (
+                <View>
+                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: 20}}/>
+                    <CommonHeader/>
+                    <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 63}}>
+                        <View style={{height: 83, backgroundColor: 'rgb(64,78,89)'}}/>
+                        <MyFarmTiles/>
+                        <View>
+                            <View style={styles.orderReceipt}>
 
-                        <Text style={styles.textOrderReceipt}> Order Receipt</Text>
-                    </View>
-                    <View style={{ backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16 }}>
-                        <Text style={styles.textCongratulations}> Congratulations! Your order has been received!</Text>
-                        <Image source={confirmtick} style={styles.imageStyle} />
-                        <View style={[styles.messageView, { height: height - 392, justifyContent: 'space-around' }]}>
-                            <View>
-                            <Text style={styles.orderSuccess}> Your order was successfully received. Your order number is:</Text>
-                            <Text style={styles.orderNumber}> {this.props.orderId} {this.props.message}</Text>
-                            <Text style={[styles.textStyle, { paddingTop: 20 }]}>Once your order is complete you can view your trade details in the</Text>
-                            <Text style={styles.textStyle}>Positions & Orders screen by clicking the button below. The Position</Text>
-                            <Text style={styles.textStyle}>& Orders screen allows you to manage your orders and open</Text>
-                            <Text style={styles.textStyle}>positions.</Text>
+                                <Text style={styles.textOrderReceipt}> Order Receipt</Text>
                             </View>
                             <View
-                            style={{
-                            flexDirection: 'row',
-                            marginTop: 30,
-                            marginBottom: 10,
-                            marginHorizontal: 50,
-                           justifyContent: 'space-between'
-                        }}
-                            >
-                                <TouchableHighlight
-                                    style={[styles.buttonStyle, { borderColor: 'rgb(159,169,186)', backgroundColor: 'white' }]}
-                                    onPress={this.onBackToOrders.bind(this)}
-                                >
-                                    <Text
-                                        style={[styles.buttonTextStyle, { color: 'rgb(159,169,186)' }]}
+                                style={{backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16}}>
+                                <Text style={styles.textCongratulations}> Congratulations! Your order has been
+                                    received!</Text>
+                                <Image source={confirmtick} style={styles.imageStyle}/>
+                                <View style={[styles.messageView, {
+                                    height: height - 392,
+                                    justifyContent: 'space-around'
+                                }]}>
+                                    <View>
+                                        <Text style={styles.orderSuccess}> Your order was successfully received. Your
+                                            order number is:</Text>
+                                        <Text
+                                            style={styles.orderNumber}> {this.props.orderId} {this.props.message}</Text>
+                                        <Text style={[styles.textStyle, {paddingTop: 20}]}>Once your order is complete
+                                            you can view your trade details in the</Text>
+                                        <Text style={styles.textStyle}>Positions & Orders screen by clicking the button
+                                            below. The Position</Text>
+                                        <Text style={styles.textStyle}>& Orders screen allows you to manage your orders
+                                            and open</Text>
+                                        <Text style={styles.textStyle}>positions.</Text>
+                                    </View>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            marginTop: 30,
+                                            marginBottom: 10,
+                                            marginHorizontal: 50,
+                                            justifyContent: 'space-between'
+                                        }}
                                     >
-                                        BACK TO DASHBOARD
-                                    </Text>
-                                </TouchableHighlight>
+                                        <TouchableHighlight
+                                            style={[styles.buttonStyle, {
+                                                borderColor: 'rgb(159,169,186)',
+                                                backgroundColor: 'white'
+                                            }]}
+                                            onPress={this.onBackToOrders.bind(this)}
+                                        >
+                                            <Text
+                                                style={[styles.buttonTextStyle, {color: 'rgb(159,169,186)'}]}
+                                            >
+                                                BACK TO DASHBOARD
+                                            </Text>
+                                        </TouchableHighlight>
 
-                            <TouchableHighlight
-                                style={styles.buttonStyle}
-                                onPress={this.reviewPositionsOrder.bind(this)}
-                            >
-                                <Text
-                                    style={styles.buttonTextStyle}
-                                >
-                                    REVIEW POSITIONS & ORDERS
-                                </Text>
-                            </TouchableHighlight>
-                                <TouchableHighlight
-                                    style={styles.buttonStyle}
-                                    onPress={this.placeNewOrder.bind(this)}
-                                >
-                                    <Text
-                                        style={styles.buttonTextStyle}
-                                    >
-                                        PLACE NEW ORDER NOW
-                                    </Text>
-                                </TouchableHighlight>
+                                        <TouchableHighlight
+                                            style={styles.buttonStyle}
+                                            onPress={this.reviewPositionsOrder.bind(this)}
+                                        >
+                                            <Text
+                                                style={styles.buttonTextStyle}
+                                            >
+                                                REVIEW POSITIONS & ORDERS
+                                            </Text>
+                                        </TouchableHighlight>
+                                        <TouchableHighlight
+                                            style={styles.buttonStyle}
+                                            onPress={this.placeNewOrder.bind(this)}
+                                        >
+                                            <Text
+                                                style={styles.buttonTextStyle}
+                                            >
+                                                PLACE NEW ORDER NOW
+                                            </Text>
+                                        </TouchableHighlight>
+                                    </View>
+                                </View>
                             </View>
                         </View>
                     </View>
-                    </View>
                 </View>
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 

@@ -3,6 +3,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import { ORDER_SERVICES_URL, POSITONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
@@ -32,9 +33,9 @@ export const OpenPositionsData = (crop) => {
                   .then(openPositions =>
                       dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions }));
           })
-          .catch(error => {
+          .catch(/*error => {
               console.error(`error ${error}`);
-          });
+          }*/ bugsnag.notify);
   };
 };
 
@@ -60,10 +61,11 @@ console.log('url', url);
             .then((res) => {
                 // the temp file path
                 //this.setState({fileLocation: res.path()});
-                console.log('The file saved to ', res.path());
+               // console.log('The file saved to ', res.path());
                 // console.log('The pdf save', res.base64())
                 Actions.pdfview({ path: res.path() });
-            });
+            })
+            .catch(bugsnag.notify);
     };
 };
 

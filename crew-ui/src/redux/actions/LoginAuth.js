@@ -8,6 +8,7 @@ import {
 } from './types';
 import { AUTHENTICATE_URL } from '../../ServiceURLS/index';
 import { doPostFetch, doLoginPostFetch } from '../../Utils/FetchApiCalls';
+import bugsnag from '../../components/common/BugSnag';
 
 export const loginUser = (saveUser, email, pword) => {
     const url = `${AUTHENTICATE_URL}identities/authenticate`;
@@ -35,7 +36,7 @@ export const loginUser = (saveUser, email, pword) => {
               } else {
                 AsyncStorage.removeItem('userData');
               }
-              dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken });
+              dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken, email });
             } else {
               dispatch({ type: LOGIN_FAIL });
             }
@@ -62,8 +63,8 @@ export const forGetPassword = (userName) => {
                     AlertIOS.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
                 }
             })
-            .catch(error => {
+            .catch(/*error => {
                 console.log(`login error ${error}`);
-            });
+            }*/bugsnag.notify);
     };
 };

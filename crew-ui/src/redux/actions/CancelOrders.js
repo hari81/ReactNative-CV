@@ -2,6 +2,7 @@ import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 import { doDeleteFetch } from '../../Utils/FetchApiCalls';
+import bugsnag from '../.././components/common/BugSnag';
 
 export const orderReceipt = (orderid, selectedCrop) => {
     return (dispatch, getState) => {
@@ -40,6 +41,6 @@ export const orderReceipt = (orderid, selectedCrop) => {
                         Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
                 }
              })
-            .catch((status, error) => console.log(`error ${error}`));
+            .catch(/*(status, error) => console.log(`error ${error}`)*/bugsnag.notify);
     };
 };

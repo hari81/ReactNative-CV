@@ -6,6 +6,7 @@ import * as common from '../../Utils/common';
 import { profitabilityMatrixData } from '../../redux/actions/ProfitabilityMatrixAction';
 import { Button } from '../../components/common';
 import { Actions } from 'react-native-router-flux';
+import bugsnag from '../../components/common/BugSnag';
 
 class FooterBar extends Component {
     constructor(props) {
@@ -79,71 +80,150 @@ class FooterBar extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <TouchableOpacity onPressIn={this.breakEvenPricePress.bind(this, this.props.breakEvenPrice)} onPressOut={this.reCalculate} >
-                <View style={{ marginLeft: width * 0.01, justifyContent: 'center', alignItems: 'center', height: height * 0.1, width: width * 0.1, backgroundColor: 'rgba(82,97,115,0.37)' }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 12, fontFamily: 'HelveticaNeue' }}>BREAK EVEN</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 30, fontFamily: 'HelveticaNeue' }}>${this.props.breakEvenPrice.toFixed(2)}</Text>
-                </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPressIn={this.todayPricePress.bind(this, this.props.todayPrice)} onPressOut={this.reCalculate}>
-                <View style={{ marginLeft: width * 0.006, justifyContent: 'center', alignItems: 'center', height: height * 0.1, width: width * 0.1, backgroundColor: 'rgba(82,97,115,0.37)' }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 11, fontFamily: 'HelveticaNeue' }}>TODAY'S PRICE</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 26, fontFamily: 'HelveticaNeue' }}>${this.props.todayPrice.toFixed(2)}</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 13, fontFamily: 'HelveticaNeue' }}>{this.props.underlyingData.underlyingMonthDesc} {this.props.underlyingData.underlyingYear}</Text>
-                </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPressIn={this.targetPricePress.bind(this, this.props.targetPrice)} onPressOut={this.reCalculate}>
-                <View style={{ marginLeft: width * 0.006, justifyContent: 'center', alignItems: 'center', height: height * 0.1, width: width * 0.1, backgroundColor: 'rgba(82,97,115,0.37)' }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 12, fontFamily: 'HelveticaNeue' }}>TARGET PRICE</Text>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 30, fontFamily: 'HelveticaNeue' }}>${this.props.targetPrice.toFixed(2)}</Text>
-                </View>
-                </TouchableOpacity>
-                <View style={{ flexDirection: 'column', marginLeft: width * 0.0195 }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.039, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>TARGET PRICE($)</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                      <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'price')} onPressOut={this.reCalculate} >
-                          <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
-                      </TouchableOpacity>
-                      <TextInput
-                        style={{ height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', padding: 2 }}
-                        maxLength={9}
-                        placeholder='0'
-                        value={parseFloat(this.state.targetPrice).toFixed(2)}
-                        onFocus={this.onFocusMake}
-                      />
-                      <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'price')} onPressOut={this.reCalculate}>
-                          <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
-                      </TouchableOpacity>
+        try {
+            return (
+                <View style={styles.container}>
+                    <TouchableOpacity onPressIn={this.breakEvenPricePress.bind(this, this.props.breakEvenPrice)}
+                                      onPressOut={this.reCalculate}>
+                        <View style={{
+                            marginLeft: width * 0.01,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: height * 0.1,
+                            width: width * 0.1,
+                            backgroundColor: 'rgba(82,97,115,0.37)'
+                        }}>
+                            <Text style={{color: 'rgb(255,255,255)', fontSize: 12, fontFamily: 'HelveticaNeue'}}>BREAK
+                                EVEN</Text>
+                            <Text style={{
+                                color: 'rgb(255,255,255)',
+                                fontSize: 30,
+                                fontFamily: 'HelveticaNeue'
+                            }}>${this.props.breakEvenPrice.toFixed(2)}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPressIn={this.todayPricePress.bind(this, this.props.todayPrice)}
+                                      onPressOut={this.reCalculate}>
+                        <View style={{
+                            marginLeft: width * 0.006,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: height * 0.1,
+                            width: width * 0.1,
+                            backgroundColor: 'rgba(82,97,115,0.37)'
+                        }}>
+                            <Text style={{color: 'rgb(255,255,255)', fontSize: 11, fontFamily: 'HelveticaNeue'}}>TODAY'S
+                                PRICE</Text>
+                            <Text style={{
+                                color: 'rgb(255,255,255)',
+                                fontSize: 26,
+                                fontFamily: 'HelveticaNeue'
+                            }}>${this.props.todayPrice.toFixed(2)}</Text>
+                            <Text style={{
+                                color: 'rgb(255,255,255)',
+                                fontSize: 13,
+                                fontFamily: 'HelveticaNeue'
+                            }}>{this.props.underlyingData.underlyingMonthDesc} {this.props.underlyingData.underlyingYear}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPressIn={this.targetPricePress.bind(this, this.props.targetPrice)}
+                                      onPressOut={this.reCalculate}>
+                        <View style={{
+                            marginLeft: width * 0.006,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: height * 0.1,
+                            width: width * 0.1,
+                            backgroundColor: 'rgba(82,97,115,0.37)'
+                        }}>
+                            <Text style={{color: 'rgb(255,255,255)', fontSize: 12, fontFamily: 'HelveticaNeue'}}>TARGET
+                                PRICE</Text>
+                            <Text style={{
+                                color: 'rgb(255,255,255)',
+                                fontSize: 30,
+                                fontFamily: 'HelveticaNeue'
+                            }}>${this.props.targetPrice.toFixed(2)}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{flexDirection: 'column', marginLeft: width * 0.0195}}>
+                        <Text style={{
+                            color: 'rgb(255,255,255)',
+                            fontSize: 16,
+                            paddingLeft: width * 0.039,
+                            fontFamily: 'HelveticaNeue',
+                            paddingBottom: 10
+                        }}>TARGET PRICE($)</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'price')}
+                                              onPressOut={this.reCalculate}>
+                                <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                            </TouchableOpacity>
+                            <TextInput
+                                style={{
+                                    height: height * 0.054,
+                                    width: width * 0.09,
+                                    borderRadius: 4,
+                                    backgroundColor: 'rgb(255,255,255)',
+                                    padding: 2
+                                }}
+                                maxLength={9}
+                                placeholder='0'
+                                value={parseFloat(this.state.targetPrice).toFixed(2)}
+                                onFocus={this.onFocusMake}
+                            />
+                            <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'price')}
+                                              onPressOut={this.reCalculate}>
+                                <Text
+                                    style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
 
-                <View style={{ flexDirection: 'column', marginLeft: width * 0.0195 }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.039, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>EXPECTED YIELD</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate} >
-                            <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
-                        </TouchableOpacity>
-                        <TextInput
-                            style={{ height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', paddingLeft: width * 0.0097 }}
-                            maxLength={9}
-                            placeholder="0"
-                            value={this.state.expectedYield}
-                            onFocus={this.onFocusMake}
-                        />
-                        <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate}>
-                            <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
-                        </TouchableOpacity>
+                    <View style={{flexDirection: 'column', marginLeft: width * 0.0195}}>
+                        <Text style={{
+                            color: 'rgb(255,255,255)',
+                            fontSize: 16,
+                            paddingLeft: width * 0.039,
+                            fontFamily: 'HelveticaNeue',
+                            paddingBottom: 10
+                        }}>EXPECTED YIELD</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'yield')}
+                                              onPressOut={this.reCalculate}>
+                                <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                            </TouchableOpacity>
+                            <TextInput
+                                style={{
+                                    height: height * 0.054,
+                                    width: width * 0.09,
+                                    borderRadius: 4,
+                                    backgroundColor: 'rgb(255,255,255)',
+                                    paddingLeft: width * 0.0097
+                                }}
+                                maxLength={9}
+                                placeholder="0"
+                                value={this.state.expectedYield}
+                                onFocus={this.onFocusMake}
+                            />
+                            <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'yield')}
+                                              onPressOut={this.reCalculate}>
+                                <Text
+                                    style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
+
+                    <Button buttonStyle={styles.placeOrderButtonStyle}
+                            textStyle={{fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)'}}
+                            onPress={this.matrixToPlaceOrder}>
+                        PLACE NEW ORDER NOW
+                    </Button>
                 </View>
 
-                <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.matrixToPlaceOrder}>
-                    PLACE NEW ORDER NOW
-                </Button>
-            </View>
-
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const { height, width } = Dimensions.get('window')

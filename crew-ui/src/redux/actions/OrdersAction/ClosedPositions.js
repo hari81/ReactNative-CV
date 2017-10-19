@@ -1,6 +1,7 @@
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
+import bugsnag from '../../../components/common/BugSnag';
 
 
 export const ClosedPositionsData = (crop) => {
@@ -31,7 +32,7 @@ export const ClosedPositionsData = (crop) => {
             dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: newClosed });
           });
       })
-      .catch(error => console.log(error));
+      .catch(/*error => console.log(error)*/bugsnag.notify);
   };
 };
 

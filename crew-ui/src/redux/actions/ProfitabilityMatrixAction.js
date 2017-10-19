@@ -1,5 +1,6 @@
 import { doPostFetch } from '../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../ServiceURLS/index';
+import bugsnag from '../../components/common/BugSnag';
 
 export const profitabilityMatrixData = (obj) => {
     return (dispatch, getState) => {
@@ -36,9 +37,9 @@ export const profitabilityMatrixData = (obj) => {
     }
 
             )
-            .catch((status, error) => {
+            .catch(/*(status, error) => {
                 console.log(`error ${error}`);
-            });
+            }*/bugsnag.notify);
     };
 };
 export function profitabilityMatrix(matrixData) {

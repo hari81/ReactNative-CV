@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, View, Text, Keyboard } from 'react-native';
+import bugsnag from '../common/BugSnag';
 import PropTypes from 'prop-types';
 
 class ExternalNumberInput extends React.Component {
@@ -7,36 +8,40 @@ class ExternalNumberInput extends React.Component {
         super(props);
     }
     render() {
-        const {
-            label,
-            val,
-            onChangeText,
-            placeholder,
-            edit, onfocus, onblur, stylenp, onChange
-        } = this.props;
+        try {
+            const {
+                label,
+                val,
+                onChangeText,
+                placeholder,
+                edit, onfocus, onblur, stylenp, onChange
+            } = this.props;
 
-        return (
-                <View style={styles.containerStyle} >
-                <Text style={styles.labelStyle}> {label}</Text>
-                <TextInput
-                    placeholder={placeholder}
-                    style={[styles.inputStyle, stylenp]}
-                    value={val+''}
-                    onChangeText={onChangeText}
-                    editable={edit}
-                    onFocus={onfocus}
-                    onBlur={onblur}
-                    onChange={onChange}
-                    keyboardType='numeric'
-                    returnKeyType='done'
-                    onKeyPress={(e) => {
-                        if (e.nativeEvent.key === 'Enter') {
-                            Keyboard.dismiss();
-                        }
-                    }}
-                />
+            return (
+                <View style={styles.containerStyle}>
+                    <Text style={styles.labelStyle}> {label}</Text>
+                    <TextInput
+                        placeholder={placeholder}
+                        style={[styles.inputStyle, stylenp]}
+                        value={val + ''}
+                        onChangeText={onChangeText}
+                        editable={edit}
+                        onFocus={onfocus}
+                        onBlur={onblur}
+                        onChange={onChange}
+                        keyboardType='numeric'
+                        returnKeyType='done'
+                        onKeyPress={(e) => {
+                            if (e.nativeEvent.key === 'Enter') {
+                                Keyboard.dismiss();
+                            }
+                        }}
+                    />
                 </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 ExternalNumberInput.defaultProps = {

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Spinner } from '../../common/Spinner';
 import Refresh from '../../common/img/Refresh.png';
 import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import bugsnag from '../../common/BugSnag';
 
 class ContractMonth extends Component {
     constructor() {
@@ -40,38 +41,47 @@ class ContractMonth extends Component {
     }
 
     render() {
-        const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;        
-        return (
-            <View style={styles.container}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue' }}>CONTRACT MONTH</Text>
-                    <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Image style={{ width: 18, height: 18, marginLeft: 20, marginRight: 4 }} source={Refresh} />
-                            <Text style={{ color: '#fff', fontSize: 11, marginTop: 4 }}>as of {this.state.timeNow}</Text>
-                        </View>
-                    </TouchableOpacity>
+        try {
+            const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;
+            return (
+                <View style={styles.container}>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={{color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue'}}>CONTRACT MONTH</Text>
+                        <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Image style={{width: 18, height: 18, marginLeft: 20, marginRight: 4}}
+                                       source={Refresh}/>
+                                <Text style={{color: '#fff', fontSize: 11, marginTop: 4}}>as
+                                    of {this.state.timeNow}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{width: 340, height: 110}}>
+                        <FlatList
+                            numColumns={4}
+                            data={this.props.contractMonth.contract}
+                            keyExtractor={item => item.id}
+                            extraData={this.props.selectedContractMonth}
+                            renderItem={({item}) => (
+                                <TouchableOpacity disabled={item.id === tId}
+                                                  onPress={this.onSelectContractMonth.bind(this, item)}>
+                                    <View style={item.id === tId ? styles.afterButtonPress : styles.beforeButtonPress}>
+                                        <Text
+                                            style={item.id === tId ? styles.contractMonth : styles.contractMonthDisabled}>
+                                            {item.month.substr(0, 3)} {item.year}
+                                        </Text>
+                                        <Text
+                                            style={item.id === tId ? styles.contractPrice : styles.contractPriceDisabled}>${this.getPrice(item)}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
                 </View>
-                <View style={{ width: 340, height: 110 }}>
-                    <FlatList
-                        numColumns={4}
-                        data={this.props.contractMonth.contract}
-                        keyExtractor={item => item.id}
-                        extraData={this.props.selectedContractMonth}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity disabled={item.id === tId} onPress={this.onSelectContractMonth.bind(this, item)}>
-                                <View style={item.id === tId ? styles.afterButtonPress : styles.beforeButtonPress}>
-                                    <Text style={item.id === tId ? styles.contractMonth : styles.contractMonthDisabled}>
-                                        { item.month.substr(0, 3)} {item.year}
-                                    </Text>
-                                    <Text style={item.id === tId ? styles.contractPrice : styles.contractPriceDisabled}>${this.getPrice(item)}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                    />
-                </View>
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {

@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { doGetFetch, doPutFetch } from '../../../Utils/FetchApiCalls';
 import { EXTERNAL_GET_TRANS, EXTERNAL_FLAG } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const externalGetTrans = () => {
     return (dispatch, getState) => {
@@ -26,7 +27,7 @@ export const externalGetTrans = () => {
                 dispatch({ type: EXTERNAL_FLAG, payload: false });
                 Actions.externalsales();
             })
-            .catch(error => console.log(`error ${error}`));
+            .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
     };
 };
 
@@ -49,7 +50,7 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
                 dispatch({ type: EXTERNAL_FLAG, payload: true });
                 Actions.externalsales();
             })
-            .catch(error => console.log(`error ${error}`));
+            .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
     };
 };
 
@@ -87,7 +88,7 @@ export const saveExternalTrades = (newTrades) => {
                 dispatch({ type: EXTERNAL_GET_TRANS, payload: savedTrades });
                 Alert.alert('Trade Data Saved Successfully');
             })
-            .catch(error => console.log(`error ${error}`));
+            .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
     };
 };
 

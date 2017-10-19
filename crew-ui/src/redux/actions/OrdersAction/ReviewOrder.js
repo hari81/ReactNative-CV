@@ -4,6 +4,7 @@ import { ORDERS_REVIEW_QUOTE } from '../types';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
@@ -64,9 +65,9 @@ export const getReviewOrderQuote = (orderData) => {
                     Actions.revieworder();
                 }
             })
-            .catch((status, error) => {
+            .catch(/*(status, error) => {
                 console.log('error', error);
-            });
+            }*/bugsnag.notify);
     };
 };
 
