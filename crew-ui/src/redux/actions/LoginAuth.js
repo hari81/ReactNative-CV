@@ -1,4 +1,4 @@
-import { AsyncStorage, AlertIOS } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import base64 from 'base-64';
 import {
   LOGIN_USER,
@@ -7,19 +7,20 @@ import {
   SERVER_NORESPONSE
 } from './types';
 import { AUTHENTICATE_URL } from '../../ServiceURLS/index';
-import { doLoginPostFetch } from '../../Utils/FetchApiCalls';
+import { doPostFetch, doLoginPostFetch } from '../../Utils/FetchApiCalls';
 
-export const loginUser = ({ saveUser }) => {
+export const loginUser = (saveUser, email, pword) => {
     const url = `${AUTHENTICATE_URL}identities/authenticate`;
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({ type: LOGIN_USER });
       const authBody = {
           domain: 'commodityhedging.com',
-          password: getState().auth.password,
-          username: getState().auth.email
+          password: pword,
+          username: email
       };
       //console.log(url, authBody, getState().auth.email, getState().auth.password);
-  return doLoginPostFetch(url, authBody, getState().auth.email, getState().auth.password)
+      const basicToken = `Basic ${base64.encode(`${email}:${pword}`)}`;
+  return doPostFetch(url, authBody, basicToken)
       .then(response => {
         if (response.ok) {
           return response.json().then(responseJson => {
@@ -27,14 +28,14 @@ export const loginUser = ({ saveUser }) => {
               let userInfo;
               if (saveUser) {
                 userInfo = JSON.stringify({
-                  email: base64.encode(getState().auth.email),
-                  password: base64.encode(getState().auth.password)
+                  email: base64.encode(email),
+                  password: base64.encode(pword)
                 });
                 AsyncStorage.setItem('userData', userInfo);
               } else {
                 AsyncStorage.removeItem('userData');
               }
-              dispatch({ type: LOGIN_SUCCESS });
+              dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken, email });
             } else {
               dispatch({ type: LOGIN_FAIL });
             }
@@ -56,9 +57,9 @@ export const forGetPassword = (userName) => {
         return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
             .then(response => {
                 if (response.ok) {
-                    AlertIOS.alert('Reset Password', `Email will be sent to your ${userName}`);
+                    Alert.alert('Reset Password', `Email will be sent to your ${userName}`);
                 } else {
-                    AlertIOS.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
+                    Alert.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
                 }
             })
             .catch(error => {

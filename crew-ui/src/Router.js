@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, ActionConst } from 'react-native-router-flux';
 import App from './components/Welcome';
 import Orders from './containers/Orders';
 import CancelOrder from './components/CancelOrders/CancelOrder';
@@ -15,12 +15,13 @@ import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationErro
 import ReviewOrder from './components/Orders/ReviewOrder';
 import Disclaimer from './containers/Disclaimer';
 import ProfitabilityMatrix from './containers/ProfitabilityMatrix';
+import TradeReceipt from './components/Orders/TradeReceipt';
 
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key='auth' initial >
-        <Scene hideNavBar key='app' component={App} initial />
+      <Scene key='auth' type={ActionConst.RESET} initial >
+        <Scene hideNavBar key='app' type={ActionConst.RESET} component={App} initial />
       </Scene>
       <Scene key='main'>
         <Scene hideNavBar key='dashboard' component={DashBoard} />
@@ -37,6 +38,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />
         <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} />
+        <Scene hideNavBar key="pdfview" component={TradeReceipt} />
       </Scene>
     </Router>
   );

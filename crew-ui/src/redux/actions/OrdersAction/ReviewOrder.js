@@ -37,7 +37,7 @@ export const getReviewOrderQuote = (orderData) => {
         }
         
 
-        return doPostFetch(url, data, getState().auth.email, getState().auth.password)
+        return doPostFetch(url, data, getState().auth.basicToken)
             .then(response => { 
                 if (response.status === 200) {
                     return response.json();
@@ -49,6 +49,7 @@ export const getReviewOrderQuote = (orderData) => {
                     console.log('There was an issue with the quote.');
                 } else {
                     console.log('review quote data is: ', quoteData);
+                    console.log('Order Data is', orderData);
                     //reprice needs some of the initial data for display on the review screen
                     if (quoteData.metadata.quoteType.toLowerCase() === 'rpx') {
                         quoteData.metadata.buySell = orderData.buySell;
@@ -84,7 +85,7 @@ export const placeOrder = () => {
                 orderType: oData.metadata.orderType,
                 quoteType: oData.metadata.quoteType,
                 notes: oData.notes,
-                expirationDate: common.formatDate(oData.quoteExpiration, 6)
+                expirationDate: common.formatDate(oData.metadata.expirationDate, 6)
             };
         } else {
             data = {
@@ -96,7 +97,7 @@ export const placeOrder = () => {
                 underlying: oData.metadata.underlying,
                 notes: oData.metadata.notes,
                 orderType: oData.metadata.orderType,
-                expirationDate: common.formatDate(oData.quoteExpiration, 6)
+                expirationDate: common.formatDate(oData.metadata.expirationDate, 6)
             };
         }
         //extra fields for limit orders
@@ -104,9 +105,9 @@ export const placeOrder = () => {
             data.targetPrice = common.cleanNumericString(oData.metadata.targetPrice.toString());
             data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
-
-        return doPostFetch(url, data, getState().auth.email, getState().auth.password)
-            .then(response => { 
+        console.log('placeing Data', data);
+        return doPostFetch(url, data, getState().auth.basicToken)
+            .then(response => { console.log(response);
                 if (response.status === 200 || response.status === 201) {
                     return response.json();
                 }

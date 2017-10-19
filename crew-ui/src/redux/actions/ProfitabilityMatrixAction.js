@@ -21,7 +21,7 @@ export const profitabilityMatrixData = (obj) => {
             expectedYield: obj.expectedYield,
             yieldIncrement: obj.matrixYieldIncrement
         }
-        return doPostFetch(url, body, getState().auth.email, getState().auth.password)
+        return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(matrixData => {
                 const Data = matrixData.map((o, i) => {

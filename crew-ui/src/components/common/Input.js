@@ -3,12 +3,13 @@ import React from 'react';
 import { TextInput, View, Keyboard } from 'react-native';
 
 const Input = ({
-  value,
-  onChangeText,
-  placeholder,
-  secureTextEntry, onfocus, onblur
+    containerStyle = styles.containerStyle,
+    inputStyle = styles.inputStyle,
+    value,
+    onChangeText,
+    placeholder,
+    secureTextEntry, onfocus, onblur
 }) => {
-  const { inputStyle, containerStyle } = styles;
 
   return (
     <View style={containerStyle}>

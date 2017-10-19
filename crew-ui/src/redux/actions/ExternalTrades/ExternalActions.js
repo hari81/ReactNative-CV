@@ -12,7 +12,7 @@ export const externalGetTrans = () => {
         const cropYear = cropButData[0].cropYear;
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => response.json())
             .then(tradeValues => {
                 if (tradeValues.trades.length === 0) {
@@ -35,7 +35,7 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => response.json())
             .then(tradeValues => {
                 if (tradeValues.trades.length === 0) {
@@ -80,7 +80,7 @@ export const saveExternalTrades = (newTrades) => {
       //  console.log(tradeValues);
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
      //   console.log(url);
-        return doPutFetch(url, tradeValues, getState().auth.email, getState().auth.password)
+        return doPutFetch(url, tradeValues, getState().auth.crmSToken)
             .then(response => response.json())
             .then(savedTradeValues => {
                 const savedTrades = Object.assign({}, { trades: savedTradeValues });
