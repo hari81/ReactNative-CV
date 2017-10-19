@@ -101,7 +101,7 @@ class FooterBar extends Component {
                 </View>
                 </TouchableOpacity>
                 <View style={{ flexDirection: 'column', marginLeft: width * 0.0195 }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.039, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>TARGET PRICE($)</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.059, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>PRICE($)</Text>
                     <View style={{ flexDirection: 'row' }}>
                       <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'price')} onPressOut={this.reCalculate} >
                           <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
@@ -120,7 +120,7 @@ class FooterBar extends Component {
                 </View>
 
                 <View style={{ flexDirection: 'column', marginLeft: width * 0.0195 }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.039, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>EXPECTED YIELD</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.069, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>YIELD</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate} >
                             <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>

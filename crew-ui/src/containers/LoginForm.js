@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS, Linking } from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS, Linking, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
@@ -85,7 +85,7 @@ class LoginForm extends Component {
             placeholder='Email'
             label='Email'
             onChangeText={this.onEmailChange.bind(this)}
-            value={this.props.auth.email}
+            value={this.state.email}
 
           />
         </CardSection>
@@ -96,7 +96,7 @@ class LoginForm extends Component {
             placeholder='Password'
             label='Password'
             onChangeText={this.onPasswordChange.bind(this)}
-            value={this.props.auth.password}
+            value={this.state.password}
             onfocus={this.scrollChange.bind(this)}
             onblur={this.scrollDown.bind(this)}
           />
@@ -117,7 +117,7 @@ class LoginForm extends Component {
               style={{ backgroundColor: '#3d4c57', marginLeft: 10 }}
               onTintColor='#01aca8'
               onValueChange={this.onSaveUserChange.bind(this)}
-              value={this.props.auth.saveUser}
+              value={this.state.saveUser}
             />
 
             <Text style={{ fontSize: 15, marginLeft: 15, color: '#ffffff' }}>
@@ -133,10 +133,8 @@ class LoginForm extends Component {
               <Button buttonStyle={{}} textStyle={{ color: 'white', textDecorationLine: 'underline' }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
               <Button buttonStyle={{ marginLeft: width * 0.16 }} textStyle={{ color: 'white', textDecorationLine: 'underline' }} onPress={() => Linking.openURL(signUpNow)}> Sign Up Now </Button>
           </View>
-        <Text style={{ fontSize: 12, color: 'white', paddingLeft: 10, paddingTop: 20 }}>
-          Having trouble logging in? Please call +1-952-742-7414 or email
-          cargillpricehedge@cargill.com
-        </Text>
+          <Text style={{ fontSize: 12, color: '#fff', paddingLeft: 10, paddingTop: 20 }}>Having trouble logging in? Pleasecall +1-952-742-7414 or email </Text>
+          <Button textStyle={{ fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline' }} buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')} >cargillpricehedge@cargill.com</Button>
       </Card>
      </ScrollView>
     );

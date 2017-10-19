@@ -6,7 +6,7 @@ import { Button } from './Button';
 import { Input } from './Input';
 import { invalidateSession } from '../../redux/actions/LogOutMenuBar/InvalidateSessionAction';
 import { changePassword } from '../../redux/actions/LogOutMenuBar/ChangePasswordAction';
-
+import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get('window');
 class SideMenuBar extends Component {
@@ -25,6 +25,7 @@ class SideMenuBar extends Component {
     }
     logOutButtonPress = () => {
         this.props.invalidateSession();
+        Actions.auth();
     }
     oldPasswordTextChange = (text) => {
         this.setState({ oldPassword: text });

@@ -35,7 +35,7 @@ export const loginUser = (saveUser, email, pword) => {
               } else {
                 AsyncStorage.removeItem('userData');
               }
-              dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken });
+              dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken, email });
             } else {
               dispatch({ type: LOGIN_FAIL });
             }
