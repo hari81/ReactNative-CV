@@ -8,12 +8,12 @@
  */
 
 #import "AppDelegate.h"
-#import "/Users/crmdev1/Desktop/CargillReactProjBackup/crew-frontend17:10/crew-ui/node_modules/react-native/React/Base/RCTBundleURLProvider.h"
-//#import <React/RCTBundleURLProvider.h>
-#import "/Users/crmdev1/Desktop/CargillReactProjBackup/crew-frontend17:10/crew-ui/node_modules/react-native/React/Base/RCTRootView.h"
-//#import <React/RCTRootView.h>
-//#import <BugsnagReactNative/BugsnagReactNative.h>
-#import "/Users/crmdev1/Desktop/CargillReactProjBackup/crew-frontend17:10/crew-ui/node_modules/bugsnag-react-native/cocoa/BugsnagReactNative.h"
+
+#import <React/RCTBundleURLProvider.h>
+
+#import <React/RCTRootView.h>
+#import <BugsnagReactNative/BugsnagReactNative.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

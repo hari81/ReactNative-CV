@@ -40,9 +40,9 @@ class CancelOrderReceipt extends Component {
               marginTop: 83,
               marginHorizontal: 20,
               justifyContent: 'center',
-              zIndex: 1,
+              zIndex: 0,
               position: 'absolute',
-              width: width - 40
+              width: width - 40,
             }}
           >
             <Text style={styles.headerText}>Order Receipt</Text>
@@ -107,7 +107,8 @@ const styles = {
     paddingLeft: 14,
     fontSize: 20,
     fontFamily: 'HelveticaNeue-Medium',
-    color: 'rgb(0,116,129)'
+    color: 'rgb(0,116,129)',
+
   },
   subHeaderTextStyle: {
     justifyContent: 'flex-start',

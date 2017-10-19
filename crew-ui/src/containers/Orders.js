@@ -270,7 +270,7 @@ class Orders extends Component {
                           marginTop: 80,
                           marginHorizontal: 10,
                           position: 'absolute',
-                          zIndex: 1,
+                          zIndex: 0,
                       }}
                   >
 
@@ -348,7 +348,7 @@ class Orders extends Component {
                           </View>
                       </View>
                   </View>
-                  <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 118}}>
+                  <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1}}>
                       <View style={{backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10}}/>
                       <View style={{backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10}}>
                           {this.renderFlatList()}

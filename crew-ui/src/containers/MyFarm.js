@@ -188,7 +188,7 @@ componentWillReceiveProps(newProps) {
 
                 <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
                 <View
-                    style={[styles.farmSetUp, {width: width - 30}]}
+                    style={[styles.farmSetUp, {width: width - 30, zIndex: 0}]}
                 >
                     <View
                         style={{
@@ -245,7 +245,7 @@ componentWillReceiveProps(newProps) {
                     </View>
                 </View>
 
-                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)'}}>
+                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)', zIndex:-1 }}>
 
                     <View
                         style={{
