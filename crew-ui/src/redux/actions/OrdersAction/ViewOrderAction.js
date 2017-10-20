@@ -10,6 +10,8 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const ViewOrdersData = (crop) => {
   return (dispatch, getState) => {
+      const user = getState().account.accountDetails;
+      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
    return doGetFetch(url, getState().auth.basicToken)
@@ -45,6 +47,8 @@ export const ViewOrdersData = (crop) => {
 
 export const dropDownCrop = () => {
   return (dispatch, getState) => {
+      const user = getState().account.accountDetails;
+      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     const url = `${ORDER_SERVICES_URL}commodities`;
     return doGetFetch(url, getState().auth.basicToken)
         .then(response => response.json())

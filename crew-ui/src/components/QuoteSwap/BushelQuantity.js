@@ -109,6 +109,8 @@ class BushelQuantity extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let tBushelLimit = null;
             if (this.props.contractMonth.bushelSpinFlag) {
                 tBushelLimit = (<Spinner size="small"/>);
@@ -172,7 +174,8 @@ const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         contractMonth: state.contractData,
-        myFarmProd: state.dashBoardData.Data.myFarmProduction
+        myFarmProd: state.dashBoardData.Data.myFarmProduction,
+        acc: state.account
     };
 };
 

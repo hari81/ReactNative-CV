@@ -28,6 +28,8 @@ class TradeConfirmationOrderReceipt extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             return (
                 <View>
@@ -196,7 +198,7 @@ const styles = {
     }
 };
 const mapStateToProps = (state) => {
-    return { crops: state.cropsButtons };
+    return { crops: state.cropsButtons, acc: state.account };
 };
 
 export default connect(mapStateToProps, null)(TradeConfirmationOrderReceipt);

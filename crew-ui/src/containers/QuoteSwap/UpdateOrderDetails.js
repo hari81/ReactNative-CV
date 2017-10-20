@@ -259,6 +259,8 @@ class UpdateOrderDetails extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let limitOrderFields = null;
             let fgdt = '';
             if (common.isValueExists(this.state.goodTilDate)) {
@@ -530,7 +532,8 @@ const mapStateToProps = (state) => {
         defaultAccountData: state.account.defaultAccount,
         cropId: state.cropsButtons.selectedId,
         infoTargetPrice: state.displayProperties.filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
-        infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
+        infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue,
+        acc: state.account
     };
 };
 

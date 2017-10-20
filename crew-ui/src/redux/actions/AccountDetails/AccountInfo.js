@@ -7,6 +7,7 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const accountDetails = () => {
     return (dispatch, getState) => {
+
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {

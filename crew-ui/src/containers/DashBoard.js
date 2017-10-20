@@ -11,6 +11,8 @@ import bugsnag from '../components/common/BugSnag';
 class DashBoard extends Component {
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             return (
                 <View>
@@ -30,4 +32,7 @@ class DashBoard extends Component {
         }
     }
 }
-export default connect(null, null)(DashBoard);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+}
+export default connect(mapStateToProps, null)(DashBoard);

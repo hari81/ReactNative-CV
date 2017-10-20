@@ -8,7 +8,8 @@ import bugsnag from '../../../components/common/BugSnag';
 export const OpenPositionsData = (crop) => {
   return (dispatch, getState) => {
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-
+      const user = getState().account.accountDetails;
+      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
       const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
           return doGetFetch(url, getState().auth.basicToken)
           .then(response => response.json())
@@ -41,6 +42,8 @@ export const OpenPositionsData = (crop) => {
 
 export const tradeReceipt = (relativePath) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${POSITONS_TRADE_RECEIPT_URL}${relativePath.substr(1, relativePath.length)}`;
 console.log('url', url);
         RNFetchBlob

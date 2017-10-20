@@ -12,6 +12,8 @@ class OutSideTradeSales extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             return (<View style={{
                     flex: 1,
@@ -79,7 +81,7 @@ class OutSideTradeSales extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return { far: state.myFar };
+    return { far: state.myFar, acc: state.account };
 };
 
 export default connect(mapStateToProps, { externalGetTrans })(OutSideTradeSales);

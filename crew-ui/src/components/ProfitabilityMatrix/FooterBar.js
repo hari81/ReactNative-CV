@@ -81,6 +81,8 @@ class FooterBar extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={styles.container}>
                     <TouchableOpacity onPressIn={this.breakEvenPricePress.bind(this, this.props.breakEvenPrice)}
@@ -179,46 +181,29 @@ class FooterBar extends Component {
                         </View>
                     </View>
 
-                    <View style={{flexDirection: 'column', marginLeft: width * 0.0195}}>
-                        <Text style={{
-                            color: 'rgb(255,255,255)',
-                            fontSize: 16,
-                            paddingLeft: width * 0.039,
-                            fontFamily: 'HelveticaNeue',
-                            paddingBottom: 10
-                        }}>EXPECTED YIELD</Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'yield')}
-                                              onPressOut={this.reCalculate}>
-                                <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
-                            </TouchableOpacity>
-                            <TextInput
-                                style={{
-                                    height: height * 0.054,
-                                    width: width * 0.09,
-                                    borderRadius: 4,
-                                    backgroundColor: 'rgb(255,255,255)',
-                                    paddingLeft: width * 0.0097
-                                }}
-                                maxLength={9}
-                                placeholder="0"
-                                value={this.state.expectedYield}
-                                onFocus={this.onFocusMake}
-                            />
-                            <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'yield')}
-                                              onPressOut={this.reCalculate}>
-                                <Text
-                                    style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
-                            </TouchableOpacity>
-                        </View>
+                <View style={{ flexDirection: 'column', marginLeft: width * 0.0195 }}>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.069, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>YIELD</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate} >
+                            <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
+                        </TouchableOpacity>
+                        <TextInput
+                            style={{ height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', paddingLeft: width * 0.0097 }}
+                            maxLength={9}
+                            placeholder="0"
+                            value={this.state.expectedYield}
+                            onFocus={this.onFocusMake}
+                        />
+                        <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate}>
+                            <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
+                        </TouchableOpacity>
                     </View>
-
-                    <Button buttonStyle={styles.placeOrderButtonStyle}
-                            textStyle={{fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)'}}
-                            onPress={this.matrixToPlaceOrder}>
-                        PLACE NEW ORDER NOW
-                    </Button>
                 </View>
+
+                <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.matrixToPlaceOrder}>
+                    PLACE NEW ORDER NOW
+                </Button>
+            </View>
 
             );
         } catch (error) {
@@ -251,7 +236,7 @@ const mapStateToProps = (state) => {
 
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
-
+        acc: state.account,
         targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])),
         todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),
         breakEvenPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice'])),

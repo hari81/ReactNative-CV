@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet } from 'react-native';
-import Dimensions from 'Dimensions';
-import { connect } from 'react-redux';
+import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
@@ -9,7 +7,7 @@ import { CommonHeader, InfoPopup } from '../../components/common';
 import MyFarmTiles from '../common/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import Info from '../common/img/Info.png';
-import bugsnag from  '../common/BugSnag';
+import bugsnag from '../common/BugSnag';
 import DisclaimerData from '../../restAPI/disclaimer.json';
 
 class ReviewOrder extends Component {
@@ -64,6 +62,8 @@ class ReviewOrder extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let limitViewGTD = null;
             let limitViewPrice = null;
             if (this.props.isLimitOrder) {
@@ -288,6 +288,7 @@ const mapStateToProps = state => {
     }
 
     return {
+        acc: state.account,
         data: state.reviewQuote.quoteData,
         buySell: isBuy ? 'Buy' : 'Sell',
         calcs: {

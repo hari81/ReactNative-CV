@@ -4,6 +4,8 @@ import bugsnag from '../../components/common/BugSnag';
 
 export const profitabilityMatrixData = (obj) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         dispatch({ type: 'MATRIX_SPINNER' });
         const url = `${VELO_SERVICES_URL}dashboard/profitabilityMatrix`;
         const body = {

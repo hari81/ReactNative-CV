@@ -116,6 +116,8 @@ class SetOrderDetails extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             //console.log(this.state)
             let spinner = null;
             if (this.props.contractMonth.spinFlag) {
@@ -229,7 +231,8 @@ const mapStateToProps = (state) => {
         contractMonth: state.contractData,
         tickSizeIncrement: tTick,
         quantityIncrement: tQty,
-        bushelLimit: tBQL    
+        bushelLimit: tBQL,
+        acc: state.account
     };
 };
 

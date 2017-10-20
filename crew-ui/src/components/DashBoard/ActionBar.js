@@ -33,6 +33,8 @@ class ActionBar extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={styles.containerStyle}>
                     <View style={{
@@ -154,6 +156,7 @@ const styles = {
 };
 const mapStateToProps = state => {
     return {
+        acc: state.account,
         cropButton: state.cropsButtons,
         openOrdersCount: st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount']),
         openPositionsCount: st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount']),

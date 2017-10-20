@@ -8,6 +8,8 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${ORDER_SERVICES_URL}quotes`;
         let data = null;
         if (orderData.quoteType.toLowerCase() === 'rpx') {
@@ -73,6 +75,8 @@ export const getReviewOrderQuote = (orderData) => {
 
 export const placeOrder = () => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${ORDER_SERVICES_URL}orders`;
         const oData = getState().reviewQuote.quoteData;
         let data = null;

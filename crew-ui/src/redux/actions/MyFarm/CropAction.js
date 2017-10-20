@@ -7,6 +7,8 @@ import bugsnag from '../../../components/common/BugSnag';
 export const myFarmCropValues = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
        const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${commodityCode}/${cropYear}`;
         return doGetFetch(url, getState().auth.crmSToken)
@@ -21,6 +23,8 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
 export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
         return doGetFetch(url, getState().auth.crmSToken)
@@ -40,6 +44,8 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
 
 export const cropDataSave = (cropValues) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const uCost = cropValues.cost.slice(-4) === 'acre' ?

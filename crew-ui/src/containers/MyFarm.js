@@ -3,11 +3,10 @@ import {
   Text,
   View,
   TouchableHighlight,
-    Alert, Keyboard
+    Alert, Keyboard, Dimensions
 } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import Dimensions from 'Dimensions';
 import { CommonHeader } from '../components/common';
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
@@ -121,7 +120,7 @@ externalsales() {
             'My Farm Data',
             'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
             [
-                { text: 'Got It!', style: 'OK' }
+                { text: 'GOT IT!', style: 'OK' }
             ],
             { cancelable: false }
         );
@@ -172,6 +171,8 @@ componentWillReceiveProps(newProps) {
 
   render() {
     try {
+        const { userId, firstName, email } = this.props.acc.accountDetails;
+        bugsnag.setUser(`User Id: ${userId}`, firstName, email);
         const {width, height} = Dimensions.get('window');
         const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 
@@ -188,7 +189,7 @@ componentWillReceiveProps(newProps) {
 
                 <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
                 <View
-                    style={[styles.farmSetUp, {width: width - 30}]}
+                    style={[styles.farmSetUp, {width: width - 30, zIndex: 0}]}
                 >
                     <View
                         style={{
@@ -245,7 +246,7 @@ componentWillReceiveProps(newProps) {
                     </View>
                 </View>
 
-                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)'}}>
+                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)', zIndex:-1 }}>
 
                     <View
                         style={{
@@ -374,7 +375,7 @@ const styles = {
 
 const mapStatetoProps = (state) => {
   //  console.log(state.myFar);
-    return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons };
+    return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons, acc: state.account };
 };
 
 export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues, farmActionFlag })(MyFarm);

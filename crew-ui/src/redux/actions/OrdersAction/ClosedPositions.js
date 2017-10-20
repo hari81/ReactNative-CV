@@ -6,6 +6,8 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const ClosedPositionsData = (crop) => {
   return (dispatch, getState) => {
+      const user = getState().account.accountDetails;
+      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
       dispatch({ type: FETCHING_ORDERS_ACTIVITY });
       const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
       return doGetFetch(url, getState().auth.basicToken)

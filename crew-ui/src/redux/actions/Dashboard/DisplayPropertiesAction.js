@@ -4,6 +4,8 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const displayProperties = () => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${VELO_SERVICES_URL}dashboard/displayProperties`;
         return doGetFetch(url, getState().auth.crmSToken)
             .then(response => response.json(), rej => Promise.reject(rej))

@@ -44,6 +44,8 @@ class OrderType extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let tLimitOrder = null;
             if (this.state.isLimitOrder) {
                 tLimitOrder = (
@@ -95,4 +97,8 @@ const styles = {
     orderLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', paddingTop: 8, paddingLeft: 6, color: '#fff' },
 };
 
-export default connect(null, null)(OrderType);
+const mapStateToProps = state => {
+    return { acc: state.account };
+}
+
+export default connect(mapStateToProps, null)(OrderType);

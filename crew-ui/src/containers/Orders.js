@@ -5,13 +5,12 @@ import {
   SegmentedControlIOS,
   Text,
   TouchableHighlight,
-  Picker
+  Picker, Dimensions,
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import Dimensions from 'Dimensions';
 import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
@@ -245,6 +244,8 @@ class Orders extends Component {
 
   render() {
       try {
+          const { userId, firstName, email } = this.props.acc.accountDetails;
+          bugsnag.setUser(`User Id: ${userId}`, firstName, email);
           const {width, height} = Dimensions.get('window');
           //console.log(width, height)
           return (
@@ -270,7 +271,7 @@ class Orders extends Component {
                           marginTop: 80,
                           marginHorizontal: 10,
                           position: 'absolute',
-                          zIndex: 1,
+                          zIndex: 0,
                       }}
                   >
 
@@ -348,7 +349,7 @@ class Orders extends Component {
                           </View>
                       </View>
                   </View>
-                  <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 118}}>
+                  <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1}}>
                       <View style={{backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10}}/>
                       <View style={{backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10}}>
                           {this.renderFlatList()}
@@ -406,7 +407,8 @@ const mapStateToProps = state => {
     openPositions: state.openPositions,
     closedPositions: state.closedPositions,
     auth: state.auth,
-    cropBut: state.cropsButtons
+    cropBut: state.cropsButtons,
+    acc: state.account
   };
 };
 

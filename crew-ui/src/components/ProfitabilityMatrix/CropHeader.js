@@ -17,6 +17,8 @@ class CropHeader extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={styles.container}>
                     <TouchableOpacity onPress={this.matrixToMyFarm}>
@@ -99,7 +101,8 @@ const mapStateToProps = (state) => {
         cropButton: state.cropsButtons,
         basisEstimate: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate']) === null ? '   -' : st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate']),
         basisEstimateEnabled: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']) === null ? '   -' : st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']),
-        underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol)
+        underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol),
+        acc: state.account
     };
 }
 export default connect(mapStateToProps, { myFarmCropValues, myFarmTradeSalesOutSideApp, farmActionFlag })(CropHeader);

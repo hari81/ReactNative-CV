@@ -1,4 +1,4 @@
-import { AsyncStorage, AlertIOS } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import base64 from 'base-64';
 import {
   LOGIN_USER,
@@ -36,6 +36,7 @@ export const loginUser = (saveUser, email, pword) => {
               } else {
                 AsyncStorage.removeItem('userData');
               }
+                bugsnag.setUser(`User Id: ${email}`, email, email);
               dispatch({ type: LOGIN_SUCCESS, crm: responseJson.crmSessionToken, basic: basicToken, email });
             } else {
               dispatch({ type: LOGIN_FAIL });
@@ -58,9 +59,9 @@ export const forGetPassword = (userName) => {
         return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
             .then(response => {
                 if (response.ok) {
-                    AlertIOS.alert('Reset Password', `Email will be sent to your ${userName}`);
+                    Alert.alert('Reset Password', `Email will be sent to your ${userName}`);
                 } else {
-                    AlertIOS.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
+                    Alert.alert('Reset Password', 'Wrong Email! Contact Cargill Desk.');
                 }
             })
             .catch(/*error => {

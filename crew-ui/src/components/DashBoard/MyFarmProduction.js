@@ -67,6 +67,8 @@ class MyFarmProduction extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             //returning no data when my farm production data is absent
             if (st(this.props, ['myFarmProductionData', 'myFarmProduction', 'estimatedTotalProduction']) === null) {
                 return (
@@ -192,6 +194,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return {
+        acc: state.account,
+
         infoState: state.info,
 
         dashBoardSpinner: state.dashBoardData.dashBoardSpinner,

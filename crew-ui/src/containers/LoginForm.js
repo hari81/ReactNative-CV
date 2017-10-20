@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS, Linking } from 'react-native';
+import { Text, View, Switch, AsyncStorage, ScrollView, AlertIOS, Linking, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import base64 from 'base-64';
 import { Button, Card, CardSection, Input, Spinner } from '../components/common/index';
@@ -7,6 +7,9 @@ import { loginUser, forGetPassword } from '../redux/actions/LoginAuth';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
+import { signUpNow } from '../ServiceURLS/index';
+
+const { height, width } = Dimensions.get('window');
 import bugsnag from '../components/common/BugSnag';
 
 class LoginForm extends Component {
@@ -75,6 +78,7 @@ class LoginForm extends Component {
 
   render() {
       try {
+          bugsnag.setUser('1234', this.state.email, this.state.email);
           return (
               <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
                   <Card>
@@ -99,9 +103,6 @@ class LoginForm extends Component {
                               onblur={this.scrollDown.bind(this)}
                           />
                       </CardSection>
-                      <Text style={{color: 'white', textDecorationLine: 'underline'}}
-                            onPress={this.forGetPass.bind(this)}> Forgot Password? </Text>
-
 
                       <CardSection>
                           <View
@@ -110,18 +111,17 @@ class LoginForm extends Component {
                                   flexDirection: 'row',
                                   justifyContent: 'flex-start',
                                   alignItems: 'center',
-                                  marginLeft: 10,
                                   marginTop: 20
                               }}
                           >
                               <Switch
-                                  style={{backgroundColor: '#3d4c57'}}
+                                  style={{backgroundColor: '#3d4c57', marginLeft: 10}}
                                   onTintColor='#01aca8'
                                   onValueChange={this.onSaveUserChange.bind(this)}
                                   value={this.state.saveUser}
                               />
 
-                              <Text style={{fontSize: 15, paddingLeft: 15, color: '#ffffff'}}>
+                              <Text style={{fontSize: 15, marginLeft: 15, color: '#ffffff'}}>
                                   Save Username
                               </Text>
                           </View>
@@ -130,11 +130,18 @@ class LoginForm extends Component {
                       <CardSection>
                           {this.renderButton()}
                       </CardSection>
-
-                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10}}>Having trouble logging in? Please
-                          call +1-952-742-7414 or email </Text>
-                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline'}}
-                            onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>cargillpricehedge@cargill.com</Text>
+                      <View style={{flexDirection: 'row'}}>
+                          <Button buttonStyle={{}} textStyle={{color: 'white', textDecorationLine: 'underline'}}
+                                  onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
+                          <Button buttonStyle={{marginLeft: width * 0.16}}
+                                  textStyle={{color: 'white', textDecorationLine: 'underline'}}
+                                  onPress={() => Linking.openURL(signUpNow)}> Sign Up Now </Button>
+                      </View>
+                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, paddingTop: 20}}>Having trouble
+                          logging in? Pleasecall +1-952-742-7414 or email </Text>
+                      <Button
+                          textStyle={{fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline'}}
+                          buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>cargillpricehedge@cargill.com</Button>
                   </Card>
               </ScrollView>
           );
@@ -144,13 +151,13 @@ class LoginForm extends Component {
   }
 }
 
-const styles = {
+/*const styles = {
   errorStyle: {
     color: 'white',
     marginLeft: 100,
     fontSize: 20
   }
-};
+};*/
 
 const mapStateToProps = state => {
   return { auth: state.auth, acc: state.account };

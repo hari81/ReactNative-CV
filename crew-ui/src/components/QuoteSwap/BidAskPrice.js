@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import bugsnag from '../../components/common/BugSnag';
 
 class BidAskPrice extends Component {
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let bidPrice = '-';
             let askPrice = '-';
             let settlePrice = '-';
@@ -44,4 +46,7 @@ const styles = {
     priceText: { color: '#fff', fontSize: 18, fontFamily: 'HelveticaNeue' }
 };
 
-export default connect(null, null)(BidAskPrice);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+};
+export default connect(mapStateToProps, null)(BidAskPrice);

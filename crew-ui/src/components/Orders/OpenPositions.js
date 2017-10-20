@@ -39,6 +39,8 @@ class OpenPositions extends Component {
 
   render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {
                 id,
                 status,
@@ -216,7 +218,7 @@ class OpenPositions extends Component {
                             onPress={this.onUnwind.bind(this, this.props.item)}
                             underlayColor='#ddd'
                         ><View>
-                            <Text style={styles.buttonText}>SET ORDER TO</Text><Text style={styles.buttonText}>CLOSE
+                            <Text style={styles.buttonText}>ENTER DETAILS TO</Text><Text style={styles.buttonText}>CLOSE
                             POSITION</Text></View>
                         </TouchableHighlight>
                     </View>
@@ -285,4 +287,9 @@ const styles = {
   }
 };
 
-export default connect(null, { tradeReceipt })(OpenPositions);
+const mapStateToProps = state => {
+    return {
+        acc: state.account
+    };
+};
+export default connect(mapStateToProps, { tradeReceipt })(OpenPositions);

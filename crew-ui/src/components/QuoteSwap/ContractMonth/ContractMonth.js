@@ -42,6 +42,8 @@ class ContractMonth extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;
             return (
                 <View style={styles.container}>
@@ -98,7 +100,8 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        contractMonth: state.contractData
+        contractMonth: state.contractData,
+        acc: state.account
     };
 };
 

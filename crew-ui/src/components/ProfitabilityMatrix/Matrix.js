@@ -66,6 +66,8 @@ class Matrix extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={{height: height * 0.63}}>
                     {this.spinner()}
@@ -101,8 +103,8 @@ const styles = {
 }
 const mapStateToProps = (state) => {
     return {
-        matrix: state.matrixData
-
+        matrix: state.matrixData,
+        acc: state.account
     };
 }
  export default connect(mapStateToProps, null)(Matrix);

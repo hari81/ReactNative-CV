@@ -6,6 +6,8 @@ import bugsnag from '../../../../components/common/BugSnag';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         console.log('* * * * * start quote swap underlying * * * * *', new Date());        
         dispatch({ type: 'SPIN_ACTIVE' });
         const cObject = getState().account.defaultAccount.commodities.find(x => x.commodity === code);
@@ -66,6 +68,8 @@ export function contractMonthData(contractData) {
 export const bushelQuantityLimit = (underlying) => {
     console.log('start quote swap underlying db lookup 2', new Date());
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         dispatch({ type: 'BUSHEL_SPIN_ACTIVE' });
         return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.basicToken)
         .then(response => response.json(), rej => Promise.reject(rej))

@@ -32,6 +32,8 @@ class QuoteSwap extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             if (this.state.selectedOrder === undefined) {
                 return (
                     <View>
@@ -65,7 +67,8 @@ class QuoteSwap extends Component {
 
 const mapStateToProps = state => {
     return {
-        Crops: state.cropsButtons.cropButtons
+        Crops: state.cropsButtons.cropButtons,
+        acc: state.account
     };
 };
 

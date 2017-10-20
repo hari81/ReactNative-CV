@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import st from '../../Utils/SafeTraverse';
 import bugsnag from '../../components/common/BugSnag';
 
@@ -13,16 +14,19 @@ class ViewOrders extends Component {
   }
   render() {
       try {
+          const { userId, firstName, email } = this.props.acc.accountDetails;
+          bugsnag.setUser(`User Id: ${userId}`, firstName, email);
           const {
               quantity,
               orderId,
               createTime,
-              expirationDate,
+              //expirationDate,
               buySell,
               orderState,
               orderType,
               riskProductName,
-              underlyingObject
+              underlyingObject,
+              goodTilDate
           } = this.props.item;
           //console.log(this.props.item);
           const year = st(underlyingObject, ['contractMonth', 'year', 'value']);
@@ -175,7 +179,7 @@ class ViewOrders extends Component {
                           VALID UNTIL
                       </Text>
                       <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
-                          {expirationDate}
+                          {goodTilDate === undefined ? 'N/A' : goodTilDate}
                       </Text>
                   </View>
 
@@ -272,4 +276,8 @@ const styles = {
   }
 };
 
-export default ViewOrders;
+const mapStateToProps = state => {
+    return { acc: state.account }
+}
+
+export default connect(mapStateToProps, null)(ViewOrders);

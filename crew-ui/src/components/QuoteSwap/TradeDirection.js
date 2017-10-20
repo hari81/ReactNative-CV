@@ -24,6 +24,8 @@ class TradeDirection extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={{zIndex: -1}}>
                     <View style={styles.container}>
@@ -63,7 +65,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return {
-        selectedProduct: state.selectedProductQuoteSwap
+        selectedProduct: state.selectedProductQuoteSwap,
+        acc: state.account
     };
 };
 

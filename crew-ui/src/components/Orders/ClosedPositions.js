@@ -10,6 +10,8 @@ class ClosedPositions extends Component {
     }
   render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             const product = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
                 .product;
@@ -201,4 +203,10 @@ const styles = {
   }
 };
 
-export default connect(null, { tradeReceipt })(ClosedPositions);
+const mapStateToProps = state => {
+    return {
+        acc: state.account
+    };
+};
+
+export default connect(mapStateToProps, { tradeReceipt })(ClosedPositions);

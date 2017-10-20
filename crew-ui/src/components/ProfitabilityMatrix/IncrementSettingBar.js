@@ -68,6 +68,8 @@ class IncrementSettingBar extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
                     <View style={styles.container}>
@@ -106,7 +108,7 @@ class IncrementSettingBar extends Component {
         }
     }
 }
-const { height, width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window');
 const styles = {
     container: {
         height: height * 0.07,
@@ -114,13 +116,13 @@ const styles = {
         flexDirection: 'row',
 
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
-
+        acc: state.account,
         unitProfitGoal: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unitProfitGoal']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unitProfitGoal']))
     };
-}
+};
 export default connect(mapStateToProps, null)(IncrementSettingBar);

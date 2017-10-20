@@ -21,94 +21,78 @@ class CancelOrderReceipt extends Component {
               <View style={styles.containerStyle}>
                   <StatusBar barStyle='light-content'/>
 
-                  <View
-                      style={{
-                          backgroundColor: 'black',
-                          width,
-                          height: 20
-                      }}
-                  />
+        <View
+          style={{
+            backgroundColor: 'black',
+            width,
+            height: 20
+          }}
+        />
 
-                  <CommonHeader/>
+        <CommonHeader />
 
-                  <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
-                  <View
-                      style={{
-                          height: 80,
-                          borderTopColor: '#e7b514',
-                          borderTopWidth: 3,
-                          backgroundColor: 'white',
-                          marginTop: 83,
-                          marginHorizontal: 20,
-                          justifyContent: 'center',
-                          zIndex: 1,
-                          position: 'absolute',
-                          width: width - 40
-                      }}
-                  >
-                      <Text style={styles.headerText}>Order Receipt</Text>
-                  </View>
+        <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
+          <View
+            style={{
+              height: 80,
+              borderTopColor: '#e7b514',
+              borderTopWidth: 3,
+              backgroundColor: 'white',
+              marginTop: 83,
+              marginHorizontal: 20,
+              justifyContent: 'center',
+              zIndex: 0,
+              position: 'absolute',
+              width: width - 40,
+            }}
+          >
+            <Text style={styles.headerText}>Order Receipt</Text>
+          </View>
 
-                  <View style={{backgroundColor: 'rgb(239,244,247)', height}}>
-                      <View style={{backgroundColor: '#3d4c57', margin: 20}}>
-                          <Text style={styles.subHeaderTextStyle}>
-                              Order cancellation status
-                          </Text>
-                          <View
-                              style={{
-                                  backgroundColor: 'white',
-                                  marginTop: 30,
-                                  marginRight: 20,
-                                  marginLeft: 20,
-                                  marginBottom: 30,
+        <View style={{ backgroundColor: 'rgb(239,244,247)', height }}>
+          <View style={{ backgroundColor: '#3d4c57', margin: 20 }}>
+            <Text style={styles.subHeaderTextStyle}>
+              Order cancellation status
+            </Text>
+            <View
+              style={{
+                backgroundColor: 'white',
+                marginTop: 30,
+                marginRight: 20,
+                marginLeft: 20,
+                marginBottom: 30,
 
-                              }}
-                          >
-                              <View style={styles.productContainer}>
-                                  <View
-                                      style={{justifyContent: 'center', alignItems: 'center'}}
-                                  >
-                                      <Image source={confirm} style={{width: 120, height: 120}}/>
-                                      <View style={{flexDirection: 'row'}}>
-                                          <Text style={{
-                                              marginTop: 50,
-                                              fontSize: 20,
-                                              fontFamily: 'HelveticaNeue-thin',
-                                              color: 'rgb(96,109,119)'
-                                          }}>
-                                              {this.props.message}. Your order number is: </Text>
-                                          <Text style={{
-                                              marginTop: 50,
-                                              fontSize: 20,
-                                              fontFamily: 'HelveticaNeue',
-                                              color: 'rgb(59,74,85)'
-                                          }}>
-                                              {this.props.orderid}
-                                          </Text>
+              }}
+            >
+              <View style={styles.productContainer}>
+                <View
+                  style={{ justifyContent: 'center', alignItems: 'center' }}
+                >
+                  <Image source={confirm} style={{ width: 120, height: 120 }} />
+                    <View style={{ flexDirection: 'row' }}>
+                  <Text style={{ marginTop: 50, fontSize: 20, fontFamily: 'HelveticaNeue-thin', color: 'rgb(96,109,119)' }}>
+                      {this.props.message}. Your order number is: </Text>
+                    <Text style={{ marginTop: 50, fontSize: 20, fontFamily: 'HelveticaNeue', color: 'rgb(59,74,85)' }}>
+                    {this.props.orderid}
+                  </Text>
 
-                                      </View>
-                                  </View>
+                </View>
+                </View>
 
-                                  <View style={{flexDirection: 'row', marginVertical: 100, marginHorizontal: 160}}>
-                                      <Button buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]}
-                                              textStyle={[styles.orderButtonTextStyle, {color: '#9fa9ba'}]}
-                                              onPress={this.onBackToDashBoard.bind(this)}>
-                                          BACK TO DASHBOARD
-                                      </Button>
-                                      <Button buttonStyle={[styles.orderButtonStyle, {backgroundColor: '#279988'}]}
-                                              textStyle={[styles.orderButtonTextStyle, {
-                                                  color: '#fff',
-                                                  paddingHorizontal: 30
-                                              }]} onPress={this.reviewPositions.bind(this)}>
-                                          REVIEW ORDERS
-                                      </Button>
-                                  </View>
-                              </View>
-                          </View>
-                      </View>
+                  <View style={{ flexDirection: 'row', marginVertical: 100, marginHorizontal: 160 }}>
+                      <Button buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]} textStyle={[styles.orderButtonTextStyle, { color: '#9fa9ba' }]} onPress={this.onBackToDashBoard.bind(this)}>
+                          BACK TO DASHBOARD
+                      </Button>
+                      <Button buttonStyle={[styles.orderButtonStyle, { backgroundColor: '#279988' }]} textStyle={[styles.orderButtonTextStyle, { color: '#fff', paddingHorizontal: 30 }]} onPress={this.reviewPositions.bind(this)}>
+                          REVIEW ORDERS
+                      </Button>
                   </View>
               </View>
-          );
+            </View>
+          </View>
+        </View>
+      </View>
+    );
       } catch (error) {
           bugsnag.notify(error);
       }
@@ -127,7 +111,8 @@ const styles = {
     paddingLeft: 14,
     fontSize: 20,
     fontFamily: 'HelveticaNeue-Medium',
-    color: 'rgb(0,116,129)'
+    color: 'rgb(0,116,129)',
+
   },
   subHeaderTextStyle: {
     justifyContent: 'flex-start',

@@ -146,6 +146,8 @@ class LimitOrder extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
                     <View style={styles.container}>
@@ -245,7 +247,8 @@ const styles = {
 const mapStateToProps = state => {
     return {
         infoTargetPrice: state.displayProperties.filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
-        infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue
+        infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue,
+        acc: state.account
     };
 };
 

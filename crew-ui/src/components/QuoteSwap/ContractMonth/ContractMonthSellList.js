@@ -12,6 +12,8 @@ class ContractMonthSellList extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let tPrice = '-';
             const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;
             if (this.props.isBuy) {
@@ -47,4 +49,8 @@ const styles = {
     contractMonthDisabled: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#3d4c57' },
 };
 
-export default connect(null, { bushelQuantityLimit })(ContractMonthSellList);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+};
+
+export default connect(mapStateToProps, { bushelQuantityLimit })(ContractMonthSellList);

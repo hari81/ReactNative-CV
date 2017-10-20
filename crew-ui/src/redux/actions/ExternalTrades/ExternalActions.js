@@ -7,6 +7,8 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const externalGetTrans = () => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const commodityCode = cropButData[0].code;
@@ -34,6 +36,8 @@ export const externalGetTrans = () => {
 export const externalGetTransDashboard = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         return doGetFetch(url, getState().auth.crmSToken)
@@ -56,6 +60,8 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
 
 export const saveExternalTrades = (newTrades) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const commodityCode = cropButData[0].code;
