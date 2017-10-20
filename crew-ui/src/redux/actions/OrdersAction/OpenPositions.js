@@ -11,33 +11,40 @@ export const OpenPositionsData = (crop) => {
         const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
         const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
         return doGetFetch(url, getState().auth.email, getState().auth.password)
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                common.createAlertErrorMessage(response, 'There was an issue in retrieving the open positions.');
+            })
             .then(opens => {
                 if (!Array.isArray(opens)) {
                     dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
+                } else {
+                    return Promise.all(              
+                        opens.map((item) => {
+                            const oUnderlying = common.createUnderlyingObject(item.lines[0].underlying);                   
+                            const uod = {
+                                //year needs to be a int value instead of a string for later compares/equality tests
+                                year: common.convertStringToInt(oUnderlying.underlyingYear),
+                                crop: oCrop.name,
+                                cropCode: oCrop.commodity,
+                                month: oUnderlying.underlyingMonthDesc,
+                                unit: oCrop.unitOfMeasure
+                            };
+                            return Object.assign({}, item, { underlyingObjectData: uod });
+                        })
+                    )
+                    .then(openPositions => 
+                        dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions })
+                    );
                 }
-                return Promise.all(              
-                    opens.map((item) => {
-                        const oUnderlying = common.createUnderlyingObject(item.lines[0].underlying);                   
-                        const uod = {
-                            //year needs to be a int value instead of a string for later compares/equality tests
-                            year: common.convertStringToInt(oUnderlying.underlyingYear),
-                            crop: oCrop.name,
-                            cropCode: oCrop.commodity,
-                            month: oUnderlying.underlyingMonthDesc,
-                            unit: oCrop.unitOfMeasure
-                        };
-                        return Object.assign({}, item, { underlyingObjectData: uod });
-                    })
-                )
-                .then(openPositions => 
-                    dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions })
-                );
-          })
-          .catch(error => {
-              console.error(`error ${error}`);
-          });
-  };
+            })
+        .catch(error => {
+            common.createAlertErrorMessage(error, 'There was an issue in retrieving the open positions.');
+            console.error(`error ${error}`);
+        });
+    };
 };
 
 export const tradeReceipt = (relativePath) => {

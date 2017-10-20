@@ -142,7 +142,7 @@ class Orders extends Component {
 
     if (this.state.selectedTab === 'Open Orders') {
       //console.log('Orders Button Pressed');
-      if (!st(this.props, ['viewOrders', 'items', 'value', 'length'])) {
+      if (!st(this.props, ['viewOrders', 'items', 'length'])) {
         return (
           <View
             style={{
@@ -159,14 +159,14 @@ class Orders extends Component {
                 fontSize: 25
               }}
             >
-               No Orders Available!.
+               No Orders Available.
             </Text>
           </View>
         );
       }
       return (
         <FlatList
-          data={this.props.viewOrders.items.value}
+          data={this.props.viewOrders.items}
           keyExtractor={item => item.orderId}
           renderItem={({ item }) =>
             <ViewOrders key={item.orderId} item={item} selected={this.state.Crop} />}
@@ -176,7 +176,6 @@ class Orders extends Component {
     if (this.state.selectedTab === 'Open Positions') {
         //console.log('Open Positions Pressed');
         if (!st(this.props, ['openPositions', 'length'])) {
-
             return (
                 <View
                     style={{
@@ -193,7 +192,7 @@ class Orders extends Component {
                             fontSize: 25
                         }}
                     >
-                        No Open Positions Available!.
+                        No Open Positions Available.
                     </Text>
                 </View>
             );
