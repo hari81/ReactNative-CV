@@ -59,7 +59,7 @@ class BushelQuantity extends Component {
                 this.setState({ quantity: sq.toString() });
                 this.props.onQuantityChange(sq);
             }
-            this.timer = setTimeout(this.minusButtonPress, 200);
+            this.timer = setTimeout(this.minusButtonPress, 100);
         } catch (error) {
             console.log(error);
         }
@@ -83,7 +83,7 @@ class BushelQuantity extends Component {
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
             this.props.onQuantityChange(sq);
-            this.timer = setTimeout(this.plusButtonPress, 200);
+            this.timer = setTimeout(this.plusButtonPress, 100);
         } catch (error) {
             console.log(error);
         }

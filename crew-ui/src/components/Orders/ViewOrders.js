@@ -21,13 +21,13 @@ class ViewOrders extends Component {
       orderState,
       orderType,
       riskProductName,
-      underlyingObject
+      underlyingObjectData
     } = this.props.item;
-    //console.log(this.props.item);
-    const year = st(underlyingObject, ['contractMonth', 'year', 'value']);
-    const month = st(underlyingObject, ['contractMonth', 'month', 'name']);
-    const crop = st(underlyingObject, ['commodity', 'name']);
-    const unit = st(underlyingObject, ['commodity', 'unit']);
+
+    const year = underlyingObjectData.year;
+    const month = underlyingObjectData.month;
+    const crop = underlyingObjectData.crop;
+    const unit = underlyingObjectData.unit;    
     const targetPrice = this.props.item.targetPrice || 0;
 
     const d = new Date(createTime);
