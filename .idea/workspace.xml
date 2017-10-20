@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d1080c1-e044-46d6-a3c2-fc77b5e3290a" name="Default" comment="" />
+    <list default="true" id="9d1080c1-e044-46d6-a3c2-fc77b5e3290a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -14,57 +16,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SideMenuBar.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SideMenuBar.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/SideMenuBar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-713">
-              <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state relative-caret-position="285">
+              <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
               <folding>
-                <marker date="1508363330000" expanded="true" signature="7:466" ph="..." />
-                <marker date="1508363330000" expanded="true" signature="557:4704" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="577:756" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="617:749" ph="{&quot;oldPassword&quot;: ''...}" />
-                <marker date="1508363330000" expanded="true" signature="796:866" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="897:944" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="983:1036" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1075:1128" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1171:1232" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1260:1601" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1411:1509" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1515:1595" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1627:1669" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1702:3728" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1739:3722" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1777:3697" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="1842:2012" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="2033:3081" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="2106:2403" ph="&lt;Input/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="2427:2724" ph="&lt;Input/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="2748:3053" ph="&lt;Input/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="3102:3674" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="3742:4702" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="3773:4685" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="3909:4620" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="3994:4314" ph="&lt;TouchableOpacity/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="4066:4274" ph="&lt;View/&gt;" />
-                <marker date="1508363330000" expanded="true" signature="4720:5611" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvalidateSessionAction.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/InvalidateSessionAction.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <marker date="1508363330000" expanded="false" signature="7:176" ph="..." />
-                <marker date="1508363330000" expanded="true" signature="217:1269" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="254:1266" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="989:1156" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1022:1140" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="1196:1258" ph="{...}" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,106 +31,10 @@
       <file leaf-file-name="ChangePasswordAction.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/ChangePasswordAction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="26" lean-forward="false" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+            <state relative-caret-position="255">
+              <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
               <folding>
-                <marker date="1508363330000" expanded="true" signature="7:122" ph="..." />
-                <marker date="1508363330000" expanded="true" signature="170:1065" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="207:1062" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="335:435" ph="{&quot;oldPassword&quot;: oldP...}" />
-                <marker date="1508363330000" expanded="true" signature="623:952" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="673:783" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="807:938" ph="{...}" />
-                <marker date="1508363330000" expanded="true" signature="992:1054" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Input.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/Input.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="41" column="19" lean-forward="false" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
-              <folding>
-                <marker date="1508262576000" expanded="false" signature="8:85" ph="..." />
-                <marker date="1508262576000" expanded="true" signature="273:772" ph="{...}" />
-                <marker date="1508262576000" expanded="true" signature="291:765" ph="&lt;View/&gt;" />
-                <marker date="1508262576000" expanded="true" signature="327:753" ph="&lt;TextInput/&gt;" />
-                <marker date="1508262576000" expanded="true" signature="583:693" ph="{...}" />
-                <marker date="1508262576000" expanded="true" signature="632:683" ph="{...}" />
-                <marker date="1508262576000" expanded="true" signature="790:1058" ph="{...}" />
-                <marker date="1508262576000" expanded="true" signature="806:921" ph="{&quot;color&quot;: '##000'...}" />
-                <marker date="1508262576000" expanded="true" signature="941:1056" ph="{&quot;flexDirection&quot;: 'row'...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginForm.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="134" column="2" lean-forward="false" selection-start-line="134" selection-start-column="2" selection-end-line="134" selection-end-column="2" />
-              <folding>
-                <marker date="1508364322000" expanded="true" signature="7:97" ph="..." />
-                <marker date="1508364322000" expanded="true" signature="4860:4942" ph="{&quot;emailChanged&quot;: emailChanged...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Welcome.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/Welcome.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="73" column="4" lean-forward="false" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="4" />
-              <folding>
-                <marker date="1508362918000" expanded="true" signature="7:272" ph="..." />
-                <marker date="1508362918000" expanded="true" signature="376:3264" ph="{...}" />
-                <marker date="1508362918000" expanded="true" signature="389:3262" ph="{...}" />
-                <marker date="1508362918000" expanded="true" signature="410:3250" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="518:648" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="541:636" ph="{&quot;backgroundColor&quot;: 'black'...}" />
-                <marker date="1508362918000" expanded="true" signature="657:2482" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="680:918" ph="{&quot;backgroundColor&quot;: 'rgb(61,76,87)'...}" />
-                <marker date="1508362918000" expanded="true" signature="942:1107" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="997:1087" ph="&lt;Text/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="1118:2466" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="1143:1320" ph="{&quot;flexDirection&quot;: 'row'...}" />
-                <marker date="1508362918000" expanded="true" signature="1346:2145" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="1373:1571" ph="{&quot;justifyContent&quot;: 'center'...}" />
-                <marker date="1508362918000" expanded="true" signature="1603:2125" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="1660:1823" ph="&lt;Image/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="2158:2448" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="2199:2398" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="2275:2376" ph="&lt;Text/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="2492:3235" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="2616:3074" ph="&lt;View/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="3086:3219" ph="&lt;Text/&gt;" />
-                <marker date="1508362918000" expanded="true" signature="3280:4023" ph="{...}" />
-                <marker date="1508362918000" expanded="true" signature="3302:3450" ph="{&quot;justifyContent&quot;: 'center'...}" />
-                <marker date="1508362918000" expanded="true" signature="3468:3593" ph="{&quot;alignItems&quot;: 'center'...}" />
-                <marker date="1508362918000" expanded="true" signature="3610:3714" ph="{&quot;color&quot;: 'white'...}" />
-                <marker date="1508362918000" expanded="true" signature="3738:3945" ph="{&quot;justifyContent&quot;: 'center'...}" />
-                <marker date="1508362918000" expanded="true" signature="3969:4021" ph="{&quot;color&quot;: 'white'...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyFarm.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/MyFarm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-355">
-              <caret line="185" column="0" lean-forward="false" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
-              <folding>
-                <marker date="1508365363000" expanded="false" signature="7:148" ph="..." />
-                <marker date="1508365363000" expanded="true" signature="14999:15003" ph="{...}" />
-                <marker date="1508365363000" expanded="true" signature="14999:15005" ph="{...}" />
-                <marker date="1508365363000" expanded="true" signature="15021:15486" ph="{...}" />
-                <marker date="1508365363000" expanded="true" signature="15039:15483" ph="{&quot;position&quot;: 'absolute'...}" />
-                <marker date="1508365363000" expanded="true" signature="15524:15642" ph="{...}" />
+                <element signature="e#0#59#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -181,28 +43,68 @@
       <file leaf-file-name="AuthReducer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/AuthReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+            <state relative-caret-position="465">
+              <caret line="37" column="103" lean-forward="false" selection-start-line="37" selection-start-column="103" selection-end-line="37" selection-end-column="103" />
               <folding>
-                <marker date="1508365536000" expanded="true" signature="2024:2061" ph="{...}" />
-                <marker date="1508365536000" expanded="true" signature="2024:2063" ph="{...}" />
-                <marker date="1508365536000" expanded="true" signature="2037:2057" ph="..." />
+                <marker date="1508430592000" expanded="true" signature="1283:1320" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js">
+      <file leaf-file-name="LoginForm.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+            <state relative-caret-position="1890">
+              <caret line="135" column="37" lean-forward="false" selection-start-line="135" selection-start-column="37" selection-end-line="135" selection-end-column="37" />
               <folding>
-                <marker date="1508287591000" expanded="false" signature="7:1152" ph="..." />
-                <marker date="1508287591000" expanded="true" signature="1189:1782" ph="{&quot;auth&quot;: AuthReducer...}" />
-                <marker date="1508287591000" expanded="true" signature="1824:1946" ph="{...}" />
-                <marker date="1508287591000" expanded="true" signature="1872:1906" ph="{...}" />
+                <marker date="1508514069000" expanded="true" signature="7:97" ph="..." />
+                <marker date="1508514069000" expanded="true" signature="5085:5167" ph="{&quot;emailChanged&quot;: emailChanged...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Welcome.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/Welcome.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DashBoard.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="23" column="87" lean-forward="false" selection-start-line="23" selection-start-column="87" selection-end-line="23" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommonHeader.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CommonHeader.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Router.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/crew-ui/src/Router.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="97" lean-forward="true" selection-start-line="12" selection-start-column="97" selection-end-line="12" selection-end-column="97" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -223,6 +125,7 @@
       <find>thirdRow</find>
       <find>logOut</find>
       <find>auth.mess</find>
+      <find>homeScreenDataFetch</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -231,10 +134,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/LogoPhoneHeader.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/LogoHomeHeader.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/LogoHeader.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/OrderButton.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/ImageLogo.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/TouchableOpacity.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/Utils/common.js" />
@@ -242,9 +141,7 @@
         <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/IncrementSettingBar.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/Matrix.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/CropHeader.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/Disclaimer.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrder.js" />
@@ -255,29 +152,39 @@
         <option value="$PROJECT_DIR$/crew-ui/src/components/MyFarm/FarmInputFields.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/PageHeader.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/index.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmProduction.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/InfoPopup.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/logOff.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrderReceipt.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/Input.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/CommonHeader.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/common/LogOff.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/ServiceURLS/index.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/App.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/InvalidateSessionAction.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/MyFarmTiles.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/Router.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/Orders.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/ChangePasswordAction.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/components/common/SideMenuBar.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/containers/MyFarm.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/ChangePasswordAction.js" />
+        <option value="$PROJECT_DIR$/crew-ui/ios/CargillVeloCli/Info.plist" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/InvalidateSessionAction.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/AuthReducer.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/common/MyFarmTiles.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/types.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/common/CommonHeader.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/containers/ExternalSales.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/Router.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js" />
         <option value="$PROJECT_DIR$/crew-ui/src/components/Welcome.js" />
-        <option value="$PROJECT_DIR$/crew-ui/src/containers/MyFarm.js" />
+        <option value="$PROJECT_DIR$/crew-ui/src/components/common/SideMenuBar.js" />
       </list>
     </option>
   </component>
@@ -318,6 +225,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -358,6 +267,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="CropButtons" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -525,6 +443,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="redux" type="462c0819:PsiDirectoryNode" />
               <item name="reducers" type="462c0819:PsiDirectoryNode" />
+              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="crew-frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="crew-frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="crew-ui" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="redux" type="462c0819:PsiDirectoryNode" />
+              <item name="reducers" type="462c0819:PsiDirectoryNode" />
               <item name="MyFarm" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -545,8 +472,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -611,24 +536,27 @@
       <workItem from="1508284889598" duration="8541000" />
       <workItem from="1508296497677" duration="139000" />
       <workItem from="1508335219931" duration="16908000" />
+      <workItem from="1508425035233" duration="14251000" />
+      <workItem from="1508508063176" duration="5337000" />
+      <workItem from="1508517851650" duration="124000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122824000" />
+    <option name="totallyTimeSpent" value="142536000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2015504" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23326287" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.65384614" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50427353" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -664,150 +592,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/LogoWelcome.jpg" />
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/User.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/logo-2.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/Logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/cargillLogoWhite2.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/cargillLogoWhite3.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/img/WelcomeLogo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/Orders/ReviewOrder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="55" column="49" lean-forward="false" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/LimitOrder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2085">
-          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="7" lean-forward="true" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/OrderType/OrderType.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-508">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/CancelOrders/CancelOrderReceipt.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="23" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/DoughnutChart/Colors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/PageHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="60" lean-forward="true" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CommonHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/Button.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="26" column="8" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="27" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/SafeTraverse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/styles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/FetchApiCalls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/InfoPopup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -815,13 +604,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/index.js" />
     <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DisplayPropertiesAction.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -836,42 +619,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/AccountInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/MyFarmTiles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3465">
-          <caret line="241" column="16" lean-forward="false" selection-start-line="241" selection-start-column="16" selection-end-line="241" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="39" column="12" lean-forward="false" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/Router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="12" column="83" lean-forward="false" selection-start-line="12" selection-start-column="83" selection-end-line="12" selection-end-column="83" />
           <folding />
         </state>
       </provider>
@@ -888,7 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1372">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -896,7 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -916,43 +665,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="38" column="27" lean-forward="true" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/components/QuoteSwap/ContractMonth/ContractMonth.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-33">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="117" column="2" lean-forward="false" selection-start-line="117" selection-start-column="2" selection-end-line="117" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/ProfitabilityMatrixReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -960,37 +676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="70" lean-forward="true" selection-start-line="14" selection-start-column="70" selection-end-line="14" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding>
-            <marker date="1508287591000" expanded="false" signature="7:1152" ph="..." />
-            <marker date="1508287591000" expanded="true" signature="1189:1782" ph="{&quot;auth&quot;: AuthReducer...}" />
-            <marker date="1508287591000" expanded="true" signature="1824:1946" ph="{...}" />
-            <marker date="1508287591000" expanded="true" signature="1872:1906" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/ChangePasswordAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="26" lean-forward="false" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-          <folding>
-            <marker date="1508363330000" expanded="true" signature="7:122" ph="..." />
-            <marker date="1508363330000" expanded="true" signature="170:1065" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="207:1062" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="335:435" ph="{&quot;oldPassword&quot;: oldP...}" />
-            <marker date="1508363330000" expanded="true" signature="623:952" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="673:783" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="807:938" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="992:1054" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -998,74 +683,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="41" column="19" lean-forward="false" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
-          <folding>
-            <marker date="1508262576000" expanded="false" signature="8:85" ph="..." />
-            <marker date="1508262576000" expanded="true" signature="273:772" ph="{...}" />
-            <marker date="1508262576000" expanded="true" signature="291:765" ph="&lt;View/&gt;" />
-            <marker date="1508262576000" expanded="true" signature="327:753" ph="&lt;TextInput/&gt;" />
-            <marker date="1508262576000" expanded="true" signature="583:693" ph="{...}" />
-            <marker date="1508262576000" expanded="true" signature="632:683" ph="{...}" />
-            <marker date="1508262576000" expanded="true" signature="790:1058" ph="{...}" />
-            <marker date="1508262576000" expanded="true" signature="806:921" ph="{&quot;color&quot;: '##000'...}" />
-            <marker date="1508262576000" expanded="true" signature="941:1056" ph="{&quot;flexDirection&quot;: 'row'...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="134" column="2" lean-forward="false" selection-start-line="134" selection-start-column="2" selection-end-line="134" selection-end-column="2" />
-          <folding>
-            <marker date="1508364322000" expanded="true" signature="7:97" ph="..." />
-            <marker date="1508364322000" expanded="true" signature="4860:4942" ph="{&quot;emailChanged&quot;: emailChanged...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/Welcome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="73" column="4" lean-forward="false" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="4" />
-          <folding>
-            <marker date="1508362918000" expanded="true" signature="7:272" ph="..." />
-            <marker date="1508362918000" expanded="true" signature="376:3264" ph="{...}" />
-            <marker date="1508362918000" expanded="true" signature="389:3262" ph="{...}" />
-            <marker date="1508362918000" expanded="true" signature="410:3250" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="518:648" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="541:636" ph="{&quot;backgroundColor&quot;: 'black'...}" />
-            <marker date="1508362918000" expanded="true" signature="657:2482" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="680:918" ph="{&quot;backgroundColor&quot;: 'rgb(61,76,87)'...}" />
-            <marker date="1508362918000" expanded="true" signature="942:1107" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="997:1087" ph="&lt;Text/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="1118:2466" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="1143:1320" ph="{&quot;flexDirection&quot;: 'row'...}" />
-            <marker date="1508362918000" expanded="true" signature="1346:2145" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="1373:1571" ph="{&quot;justifyContent&quot;: 'center'...}" />
-            <marker date="1508362918000" expanded="true" signature="1603:2125" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="1660:1823" ph="&lt;Image/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="2158:2448" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="2199:2398" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="2275:2376" ph="&lt;Text/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="2492:3235" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="2616:3074" ph="&lt;View/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="3086:3219" ph="&lt;Text/&gt;" />
-            <marker date="1508362918000" expanded="true" signature="3280:4023" ph="{...}" />
-            <marker date="1508362918000" expanded="true" signature="3302:3450" ph="{&quot;justifyContent&quot;: 'center'...}" />
-            <marker date="1508362918000" expanded="true" signature="3468:3593" ph="{&quot;alignItems&quot;: 'center'...}" />
-            <marker date="1508362918000" expanded="true" signature="3610:3714" ph="{&quot;color&quot;: 'white'...}" />
-            <marker date="1508362918000" expanded="true" signature="3738:3945" ph="{&quot;justifyContent&quot;: 'center'...}" />
-            <marker date="1508362918000" expanded="true" signature="3969:4021" ph="{&quot;color&quot;: 'white'...}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/MyFarm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-355">
+        <state relative-caret-position="2520">
           <caret line="185" column="0" lean-forward="false" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
           <folding>
             <marker date="1508365363000" expanded="false" signature="7:148" ph="..." />
+            <marker date="1508365363000" expanded="false" signature="7:848" ph="..." />
+            <marker date="1508365363000" expanded="true" signature="882:1407" ph="{...}" />
+            <marker date="1508365363000" expanded="true" signature="905:1106" ph="{...}" />
+            <marker date="1508365363000" expanded="true" signature="942:1101" ph="{&quot;acres&quot;: ''...}" />
+            <marker date="1508365363000" expanded="true" signature="6261:6361" ph="//..." />
             <marker date="1508365363000" expanded="true" signature="14999:15003" ph="{...}" />
             <marker date="1508365363000" expanded="true" signature="14999:15005" ph="{...}" />
             <marker date="1508365363000" expanded="true" signature="15021:15486" ph="{...}" />
@@ -1075,67 +706,294 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/Utils/FetchApiCalls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/ios/CargillVeloCli/Info.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ProfitabilityMatrix/FooterBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="103" column="101" lean-forward="false" selection-start-line="103" selection-start-column="101" selection-end-line="103" selection-end-column="101" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LoginAuth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="37" column="100" lean-forward="false" selection-start-line="37" selection-start-column="100" selection-end-line="37" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/MyFarmProduction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/InvalidateSessionAction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="4" column="40" lean-forward="true" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
           <folding>
-            <marker date="1508363330000" expanded="false" signature="7:176" ph="..." />
-            <marker date="1508363330000" expanded="true" signature="217:1269" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="254:1266" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="989:1156" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1022:1140" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1196:1258" ph="{...}" />
+            <element signature="e#0#51#0" expanded="true" />
+            <marker date="1508429906000" expanded="true" signature="498:629" ph="{...}" />
+            <marker date="1508429906000" expanded="true" signature="669:731" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/infobuttonsReducer.js" />
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/infobuttonsAction.js" />
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/ProfitabilityMatrixAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/ProfitabilityMatrix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="34" lean-forward="true" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DisplayPropertiesReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/ProfitabilityMatrixReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="17" column="57" lean-forward="true" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/types.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="27" lean-forward="true" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/AccountDetails/AccountInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="0" column="7" lean-forward="true" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/CancelOrders.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#37#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/Dashboard/DashboardReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/Dashboard/DashboardAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="6" lean-forward="true" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/LogoFarmHeader.js" />
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/BugSnag.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/Button.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="27" column="26" lean-forward="false" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/MyCropButton.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="52" column="56" lean-forward="true" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/QuoteSwap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/QuoteSwap/UpdateOrderDetails.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/MyFarmTiles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2790">
+          <caret line="186" column="19" lean-forward="true" selection-start-line="186" selection-start-column="19" selection-end-line="186" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/ExternalTrades/ExternalValues.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CropButtons/ButtonList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="26" column="66" lean-forward="false" selection-start-line="26" selection-start-column="66" selection-end-line="26" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/ExternalSales.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="23" column="72" lean-forward="false" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/DashBoard/ActionBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="93" lean-forward="false" selection-start-line="19" selection-start-column="93" selection-end-line="19" selection-end-column="93" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/CommonHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/DashBoard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="23" column="87" lean-forward="false" selection-start-line="23" selection-start-column="87" selection-end-line="23" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/components/Welcome.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/containers/LoginForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="135" column="37" lean-forward="false" selection-start-line="135" selection-start-column="37" selection-end-line="135" selection-end-column="37" />
+          <folding>
+            <marker date="1508514069000" expanded="true" signature="7:97" ph="..." />
+            <marker date="1508514069000" expanded="true" signature="5085:5167" ph="{&quot;emailChanged&quot;: emailChanged...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/actions/LogOutMenuBar/ChangePasswordAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/redux/reducers/AuthReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        <state relative-caret-position="465">
+          <caret line="37" column="103" lean-forward="false" selection-start-line="37" selection-start-column="103" selection-end-line="37" selection-end-column="103" />
           <folding>
-            <marker date="1508365536000" expanded="true" signature="2024:2061" ph="{...}" />
-            <marker date="1508365536000" expanded="true" signature="2024:2063" ph="{...}" />
-            <marker date="1508365536000" expanded="true" signature="2037:2057" ph="..." />
+            <marker date="1508430592000" expanded="true" signature="1283:1320" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crew-ui/src/components/common/SideMenuBar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-713">
-          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        <state relative-caret-position="285">
+          <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
           <folding>
-            <marker date="1508363330000" expanded="true" signature="7:466" ph="..." />
-            <marker date="1508363330000" expanded="true" signature="557:4704" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="577:756" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="617:749" ph="{&quot;oldPassword&quot;: ''...}" />
-            <marker date="1508363330000" expanded="true" signature="796:866" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="897:944" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="983:1036" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1075:1128" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1171:1232" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1260:1601" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1411:1509" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1515:1595" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1627:1669" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1702:3728" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1739:3722" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="1777:3697" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="1842:2012" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="2033:3081" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="2106:2403" ph="&lt;Input/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="2427:2724" ph="&lt;Input/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="2748:3053" ph="&lt;Input/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="3102:3674" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="3742:4702" ph="{...}" />
-            <marker date="1508363330000" expanded="true" signature="3773:4685" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="3909:4620" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="3994:4314" ph="&lt;TouchableOpacity/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="4066:4274" ph="&lt;View/&gt;" />
-            <marker date="1508363330000" expanded="true" signature="4720:5611" ph="{...}" />
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crew-ui/src/Router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="97" lean-forward="true" selection-start-line="12" selection-start-column="97" selection-end-line="12" selection-end-column="97" />
+          <folding />
         </state>
       </provider>
     </entry>
