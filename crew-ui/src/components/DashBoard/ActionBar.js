@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import Dimensions from 'Dimensions';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
@@ -18,7 +17,7 @@ class ActionBar extends Component {
 
     dashBoardToOpenPositions = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
-        Actions.orders({ selectedTab: 'Open Positions', Crop });
+        Actions.orders({ selectedTab: 'Open Positions', Crop }, { type: ActionConst.RESET });
     }
 
     dashBoardToExternalTrades = () => {

@@ -25,9 +25,6 @@ export const BUTTONS_SPINNER = 'buttons_spinner';
 export const EXTERNAL_GET_TRANS = 'external_get_trans';
 export const EXTERNAL_FLAG = 'external_flag';
 
-export const SHOW_INFO_BUTTON_CLICK = 'info_button';
-export const HIDE_INFO_BUTTON_CLICK = 'hide_info_click';
-
 export const ACCOUNT_INFORMATION = 'account_information';
 export const DEFAULT_ACCOUNT_DETAILS = 'default_account_information';
 export const INVALID_ACCOUNT = 'invalid_account';
