@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { POSITONS_TRADE_RECEIPT_URL } from '../../ServiceURLS';
 //import TradeReceipt from './TradeReceipt';
-import st from '../../Utils/SafeTraverse';
 import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
 
 class OpenPositions extends Component {
@@ -22,16 +21,13 @@ class OpenPositions extends Component {
       orderType: 'market', //default open positions to market
       quantity: sLine.quantity,
       buySell: sLine.buysell === 'S' ? 'B' : 'S', //flip the buysell flag
-      underlying: sOrder.underlyingObjectData.symbol,
+      underlying: sLine.underlying,
       expirationDate: sLine.expirationDate,
       notes: '',
       transId: sOrder.id,
       activityId: sLine.id
     };
-    const year = st(item.underlyingObjectData, ['contractMonth', 'year', 'value']);    
-    const crop = st(item.underlyingObjectData, ['commodity', 'code']);
-
-    Actions.quoteswap({ selectedOrder: uOrder, cropcode: crop, cropyear: year }); 
+    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.year }); 
   }
 
   openTradeReceipt() {
@@ -86,13 +82,13 @@ class OpenPositions extends Component {
       lines,
       underlyingObjectData
     } = this.props.item;
-    //console.log(this.props.item.buysell);
+
     const direction = lines[0].buysell === 'B' ? 'Buy' : 'Sell';
-    const year = st(underlyingObjectData, ['contractMonth', 'year', 'value']);
-    const month = st(underlyingObjectData, ['contractMonth', 'month', 'name']);
-    const crop = st(underlyingObjectData, ['commodity', 'name']);
-    console.log('crop', crop);
-    const unit = st(underlyingObjectData, ['commodity', 'unit']);
+    const year = underlyingObjectData.year;
+    const month = underlyingObjectData.month;
+    const crop = underlyingObjectData.crop;
+    const unit = underlyingObjectData.unit;
+
     return (
       <View style={styles.subContainerStyle}>
         <View style={[styles.yearStyle, { width: '10.74%' }]}>
@@ -101,7 +97,6 @@ class OpenPositions extends Component {
               backgroundColor: 'rgb(39,153,137)',
               height: 40,
               justifyContent: 'center',
-
             }}
           >
             <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }} >
