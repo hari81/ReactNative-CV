@@ -23,22 +23,22 @@ const RouterComponent = () => {
       <Scene key='auth' type={ActionConst.RESET} initial >
         <Scene hideNavBar key='app' type={ActionConst.RESET} component={App} initial />
       </Scene>
-      <Scene key='main'>
-        <Scene hideNavBar key='dashboard' component={DashBoard} />
-        <Scene hideNavBar key='orders' component={Orders} />
-        <Scene hideNavBar key='cancelorder' component={CancelOrder} />
-        <Scene hideNavBar key='openposition' component={OpenPositions} />
-        <Scene hideNavBar key='cancelorderreceipt' component={CancelOrderReceipt} />
-        <Scene hideNavBar key='myfarm' component={MyFarm} />
-        <Scene hideNavBar key='externalsales' component={ExternalSales} />
-        <Scene hideNavBar key='quoteswap' component={QuoteSwap} />
-        <Scene hideNavBar key="chartApp" component={ChartApp} />
-        <Scene hideNavBar key='revieworder' component={ReviewOrder} />
-        <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} />
-        <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
-        <Scene hideNavBar key='disclaimer' component={Disclaimer} />
-        <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} />
-        <Scene hideNavBar key="pdfview" component={TradeReceipt} />
+      <Scene key='main' type={ActionConst.RESET}>
+        <Scene hideNavBar key='dashboard' component={DashBoard} type={ActionConst.RESET} />
+        <Scene hideNavBar key='orders' component={Orders} type={ActionConst.RESET} />
+        <Scene hideNavBar key='cancelorder' component={CancelOrder} type={ActionConst.RESET} />
+        <Scene hideNavBar key='openposition' component={OpenPositions} type={ActionConst.RESET} />
+        <Scene hideNavBar key='cancelorderreceipt' component={CancelOrderReceipt} type={ActionConst.RESET} />
+        <Scene hideNavBar key='myfarm' component={MyFarm} type={ActionConst.RESET} />
+        <Scene hideNavBar key='externalsales' component={ExternalSales} type={ActionConst.RESET} />
+        <Scene hideNavBar key='quoteswap' component={QuoteSwap} type={ActionConst.RESET} />
+        <Scene hideNavBar key="chartApp" component={ChartApp} type={ActionConst.RESET} />
+        <Scene hideNavBar key='revieworder' component={ReviewOrder} type={ActionConst.RESET} />
+        <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} type={ActionConst.RESET} />
+        <Scene hideNavBar key='tcerror' component={TradeConfirmationError} type={ActionConst.RESET} />
+        <Scene hideNavBar key='disclaimer' component={Disclaimer} type={ActionConst.RESET} />
+        <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} type={ActionConst.RESET} />
+        <Scene hideNavBar key="pdfview" component={TradeReceipt} type={ActionConst.RESET} />
       </Scene>
     </Router>
   );

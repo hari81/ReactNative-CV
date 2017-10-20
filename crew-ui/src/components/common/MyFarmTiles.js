@@ -4,42 +4,49 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import cancelimage from './img/Cancel-20.png';
-import { showInfoButtonClick, hideInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
 import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from './Button';
 
 class MyFarmTiles extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            infoButtonStatus: false,
+            buttonNumber: ''
+        };
+    }
     //info button condition check
     infoButton(str) {
         switch (str) {
             case 'BREAKEVEN PRICE':
-                this.props.showInfoButtonClick(1);
+                this.setState({ infoButtonStatus: true, buttonNumber: 1 });
                 break;
             case 'TARGET PRICE':
-                this.props.showInfoButtonClick(2);
+                this.setState({ infoButtonStatus: true, buttonNumber: 2 });
                 break;
             case 'AVERAGE PRICE SOLD':
-                this.props.showInfoButtonClick(3);
+                this.setState({ infoButtonStatus: true, buttonNumber: 3 });
                 break;
             case 'PROFIT PER ACRE':
-                this.props.showInfoButtonClick(4);
+                this.setState({ infoButtonStatus: true, buttonNumber: 4 });
                 break;
             case 'unhedged':
-                this.props.showInfoButtonClick(5);
+                this.setState({ infoButtonStatus: true, buttonNumber: 5 });
                 break;
             case 'basisEstimate':
-                this.props.showInfoButtonClick(6);
+                this.setState({ infoButtonStatus: true, buttonNumber: 6 });
                 break;
             default: break;
         }
     }
 
     //info block display condition
-    showMessage(btnNumber) {
+    showMessage() {
         let popup;
-        switch (btnNumber) {
+        switch (this.state.buttonNumber) {
             case 1:
                 popup = this.buildMessagePopup(width * 0.195, width * 0.087, this.props.breakEvenPriceInfo);
                 break;
@@ -87,7 +94,7 @@ class MyFarmTiles extends Component {
 
     //on Cancel info button press
     cancelButton() {
-        this.props.hideInfoButtonClick();
+        this.setState({ infoButtonStatus: false });
     }
 
     goToFarm = () => {
@@ -176,7 +183,7 @@ class MyFarmTiles extends Component {
                     <Text style={[styles.priceStyle, { color: 'rgb(158,42,47)' }]}>{common.minusBeforeDollarSign(this.props.basisEstimate, 2)}</Text>
                     <Text style={{ paddingLeft: 10, fontSize: 8, color: 'rgb(61,76,87)' }}>{this.props.basisEstimateEnabled ? 'Included in Calculations' : 'Not Included in Calculations' }</Text>
                 </View>
-                {this.props.infoState.infoEnable ? this.showMessage(this.props.infoState.btnNumber) : this.hideMessage()}
+                {this.state.infoButtonStatus ? this.showMessage() : this.hideMessage()}
             </View>
         );
     }
@@ -232,11 +239,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
-            showInfoButtonClick,
             myFarmCropValues,
             cropButtonPress,
             myFarmTradeSalesOutSideApp,
-            hideInfoButtonClick,
             farmActionFlag
         },
         dispatch

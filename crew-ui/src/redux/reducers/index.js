@@ -5,7 +5,6 @@ import OpenPositions from './OrdersReducer/OpenPositions';
 import ClosedPositions from './OrdersReducer/ClosedPositions';
 import myFarmButtons from './MyFarm/CropReducer';
 import externalTrades from './External/ExternalTrades';
-import infoButtons from './Dashboard/infobuttonsReducer';
 import accountDetails from './AccountInfo/AccountInfoReducer';
 import productTypes from './QuoteSwap/ProductType/ProductType';
 import selectcontractMonth from './QuoteSwap/ContractMonth/ContractMonthSelect';
@@ -23,7 +22,6 @@ const appReducer = combineReducers({
     vieworder: vieworders,
     openPositions: OpenPositions,
     closedPositions: ClosedPositions,
-    info: infoButtons,
     cropsButtons: cropsButton,
     myFar: myFarmButtons,
     external: externalTrades,

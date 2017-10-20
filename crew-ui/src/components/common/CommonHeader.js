@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight, Alert, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { homeScreenDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
+import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import Logo from './img/logo-2.png';
 import Phone from './img/Phone.png';
 import HomeIcon from './img/homeIcon.png';
@@ -26,34 +26,33 @@ class CommonHeader extends Component {
         if (this.state.sideMenuBarShow) {
             return <SideMenuBar hideSideMenu={this.logOffPress} />;
         }
+    }
 
+    homeButtonPress =()=> {
+        const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        if (this.props.farmFlag) {
+                if (!this.props.uservaluesfalg()) {
+                    this.props.farmActionFlag(false);
+                    this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
+                    Actions.dashboard();
+                } else {
+                    Alert.alert(
+                        'My Farm Data',
+                        'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
+                        [{ text: 'GOT IT!', style: 'OK' }],
+                        { cancelable: false }
+                    );
+                }
+            } else {
+                this.props.farmActionFlag(false);
+                this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
+                Actions.dashboard();
+            }
     }
     render() {
         return (
             <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)', zIndex: 1 }}>
-                <TouchableHighlight
-                    onPress={() => {
-                        if (this.props.farmFlag) {
-                            if (!this.props.uservaluesfalg()) {
-                                this.props.farmActionFlag(false);
-                                this.props.homeScreenDataFetch();
-                                Actions.dashboard();
-                            } else {
-                                Alert.alert(
-                                    'My Farm Data',
-                                    'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',
-                                    [{ text: 'GOT IT!', style: 'OK' }],
-                                    { cancelable: false }
-                                );
-                            }
-                        } else {
-                            this.props.farmActionFlag(false);
-                            this.props.homeScreenDataFetch();
-                            Actions.dashboard();
-                        }
-                    }
-                    }
-                >
+                <TouchableHighlight onPress={this.homeButtonPress}>
                     <View style={{ width: width * 0.073 }}>
                         <Image source={HomeIcon} style={{ width: width * 0.033, height: height * 0.042, marginLeft: width * 0.023, marginTop: 8 }} />
                     </View>
@@ -93,8 +92,10 @@ class CommonHeader extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        farmFlag: state.myFar.farmFlag
+        farmFlag: state.myFar.farmFlag,
+        cropButton: state.cropsButtons,
+
     };
 }
 
-export default connect(mapStateToProps, { farmActionFlag, homeScreenDataFetch })(CommonHeader);
+export default connect(mapStateToProps, { farmActionFlag, dashBoardDataFetch })(CommonHeader);
