@@ -1,16 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { FlatList, View, SegmentedControlIOS, Text, TouchableHighlight, Picker, Dimensions } from 'react-native';
-=======
-import {
-  FlatList,
-  View,
-  SegmentedControlIOS,
-  Text,
-  TouchableHighlight,
-  Picker, Dimensions,
-} from 'react-native';
->>>>>>> b626d13661b51db2c990abd8702dcd55c75bd189
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';

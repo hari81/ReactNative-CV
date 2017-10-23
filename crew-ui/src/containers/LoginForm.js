@@ -76,69 +76,6 @@ class LoginForm extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    return (
-        <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
-      <Card>
-        <CardSection>
-          <Input
-            placeholder='Email'
-            label='Email'
-            onChangeText={this.onEmailChange.bind(this)}
-            value={this.state.email}
-
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            secureTextEntry
-            placeholder='Password'
-            label='Password'
-            onChangeText={this.onPasswordChange.bind(this)}
-            value={this.state.password}
-            onfocus={this.scrollChange.bind(this)}
-            onblur={this.scrollDown.bind(this)}
-          />
-        </CardSection>
-        <Text style={styles.errorStyle}>
-          {this.props.auth.error}
-        </Text>
-        <CardSection>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center'
-            }}
-          >
-            <Switch
-              style={{ backgroundColor: '#3d4c57', marginLeft: 10 }}
-              onTintColor='#01aca8'
-              onValueChange={this.onSaveUserChange.bind(this)}
-              value={this.state.saveUser}
-            />
-
-            <Text style={{ fontSize: 15, marginLeft: 15, color: '#ffffff' }}>
-              Save Username
-            </Text>
-          </View>
-        </CardSection>
-
-        <CardSection>
-          {this.renderButton()}
-        </CardSection>
-          <View style={{ flexDirection: 'row' }}>
-              <Button buttonStyle={{}} textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
-              <Button buttonStyle={{ marginLeft: width * 0.02 }} textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(signUpNow)}> Not Registered? Sign Up Now! </Button>
-          </View>
-          <Text style={{ fontSize: 13, color: '#fff', paddingLeft: 10, paddingTop: 20 }}>Having trouble logging in? Please call +1-952-742-7414 or </Text>
-          <Button textStyle={{ fontSize: 14, color: '#fff', paddingLeft: 5, textDecorationLine: 'underline' }} buttonStyle={{ flex: 1, alignSelf: 'stretch' }} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')} > email: cargillpricehedge@cargill.com</Button>
-      </Card>
-     </ScrollView>
-    );
-=======
       try {
           bugsnag.setUser(`User Id: ${this.state.email}`, this.state.email, this.state.email);
           bugsnag.leaveBreadcrumb('Navigated to Scene [LoginForm]', {
@@ -216,7 +153,6 @@ class LoginForm extends Component {
       } catch (error) {
           bugsnag.notify(error);
       }
->>>>>>> b626d13661b51db2c990abd8702dcd55c75bd189
   }
 }
 

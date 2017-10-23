@@ -48,11 +48,7 @@ export const quoteSwapUnderlying = (year, code) => {
                             cropYear: year
                         };
                     }, rej => Promise.reject(rej));
-<<<<<<< HEAD
-                    console.log('start quote swap underlying db lookup 2', new Date());        
-=======
                     console.log('start quote swap underlying db lookup 2', new Date());
->>>>>>> b626d13661b51db2c990abd8702dcd55c75bd189
                     return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.basicToken)
                     .then(response => response.json(), rej => Promise.reject(rej))
                     .then(limit => {

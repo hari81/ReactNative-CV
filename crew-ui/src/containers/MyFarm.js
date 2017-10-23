@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { Text, View, TouchableHighlight, Alert, Keyboard, Dimensions } from 'react-native';
-=======
-import {
-  Text,
-  View,
-  TouchableHighlight,
-    Alert, Keyboard, Dimensions
-} from 'react-native';
->>>>>>> b626d13661b51db2c990abd8702dcd55c75bd189
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../components/common';
