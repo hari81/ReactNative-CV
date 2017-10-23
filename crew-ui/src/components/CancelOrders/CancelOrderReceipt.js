@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StatusBar, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { CommonHeader, Button } from '../common/index';
 import bugsnag from '../common/BugSnag';
 
@@ -16,6 +17,8 @@ class CancelOrderReceipt extends Component {
   }
   render() {
       try {
+          const { userId, firstName, email } = this.props.acc.accountDetails;
+          bugsnag.setUser(`User Id: ${userId}`, firstName, email);
           const {width, height} = Dimensions.get('window');
           return (
               <View style={styles.containerStyle}>
@@ -132,4 +135,7 @@ const styles = {
     backButtonStyle: { backgroundColor: '#fff', marginRight: 40, borderColor: 'rgb(159,169,186)', borderWidth: 1 },
 };
 
-export default CancelOrderReceipt;
+const mapStateToProps = state => {
+    return { acc: state.account };
+};
+export default connect(mapStateToProps, null)(CancelOrderReceipt);

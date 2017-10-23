@@ -153,6 +153,7 @@ class UpdateOrderDetails extends Component {
 
     onChangeQuantity(text) {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
+            if (text === '') { text = '0'; }
             this.setState({ targetPrice: text });
         }
     }
@@ -165,7 +166,7 @@ class UpdateOrderDetails extends Component {
                 const tPrice = ((parseFloat(lp) - parseFloat(this.state.tickSizeIncrement)).toFixed(4));
                 this.setState({ targetPrice: `$${tPrice}` });
             }
-            this.timer = setTimeout(this.minusButtonPress, 200);    
+            this.timer = setTimeout(this.minusButtonPress, 100);    
         } catch (error) {
             console.log(error);
         }
@@ -177,7 +178,7 @@ class UpdateOrderDetails extends Component {
             lp = lp === '' ? 0 : lp;
             const tPrice = (parseFloat(lp) + parseFloat(this.state.tickSizeIncrement)).toFixed(4);
             this.setState({ targetPrice: `$${tPrice}` });
-            this.timer = setTimeout(this.plusButtonPress, 200);
+            this.timer = setTimeout(this.plusButtonPress, 100);
         } catch (error) {
             console.log(error);
         }        
@@ -239,7 +240,7 @@ class UpdateOrderDetails extends Component {
     warningMessage() {
         const tPrice = parseFloat(common.cleanNumericString(this.state.targetPrice));
         if (parseFloat(tPrice) < (0.8 * parseFloat(this.state.bidPrice)) || parseFloat(tPrice) > (1.2 * parseFloat(this.state.bidPrice))) {
-            return <Text style={{ color: 'red', paddingLeft: 45, marginTop: 3 }}>Crossed 20% Limits</Text>;
+            return <Text style={{ color: '#e7b514', paddingLeft: 45, marginTop: 2 }}>+/- 20% from Market</Text>;
         }
         return <Text />;
     }

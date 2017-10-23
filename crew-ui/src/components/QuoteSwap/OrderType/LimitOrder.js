@@ -58,6 +58,7 @@ class LimitOrder extends Component {
 
     onChangeQuantity(text) {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
+            if (text === '') { text = '0'; }
             this.setState({ limitPrice: text });
             this.onLimitPriceChange(text);
         }
@@ -71,7 +72,7 @@ class LimitOrder extends Component {
                 this.setState({ limitPrice: `$${tPrice}` });
                 this.onLimitPriceChange(tPrice);
             }
-            this.timer = setTimeout(this.minusButtonPress, 200);
+            this.timer = setTimeout(this.minusButtonPress, 100);
         } catch (error) {
             console.log(error);
         }
@@ -83,7 +84,7 @@ class LimitOrder extends Component {
             const tPrice = ((parseFloat(lp) + parseFloat(this.props.tickSizeIncrement)).toFixed(4));
             this.setState({ limitPrice: `$${tPrice}` });
             this.onLimitPriceChange(tPrice);
-            this.timer = setTimeout(this.plusButtonPress, 200);
+            this.timer = setTimeout(this.plusButtonPress, 100);
         } catch (error) {
             console.log(error);
         }
@@ -96,7 +97,7 @@ class LimitOrder extends Component {
     warningMessage() {
         const lp = common.cleanNumericString(this.state.limitPrice);
         if (parseFloat(lp) < (0.8 * parseFloat(this.props.selectedContractMonth.bidPrice)) || parseFloat(lp) > (1.2 * parseFloat(this.props.selectedContractMonth.bidPrice))) {
-            return <Text style={{ color: 'red', paddingLeft: 50 }}>Crossed 20% Limits</Text>;
+            return <Text style={{ color: '#e7b514', paddingLeft: 45, marginTop: 2, marginBottom: 5 }}>+/- 20% from Market</Text>;
         }
         return <Text />;
     }

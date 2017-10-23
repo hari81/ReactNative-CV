@@ -61,7 +61,7 @@ export default class App extends React.Component {
                         style={styles.logoStyle}
                     />
                     <Text style={styles.textStyle}>Price Hedging</Text>
-                    <Button buttonStyle={{ marginLeft: width * 0.08 }} textStyle={{ color: 'white', textDecorationLine: 'underline' }} onPress={() => Linking.openURL(learnMoreProdUrl)}> Learn More</Button>
+                    <Button buttonStyle={{}} textStyle={{ paddingLeft: width * 0.08, paddingTop: 12, paddingBottom: 10,  color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(learnMoreProdUrl)}> Learn More</Button>
                 </View>
             </View>
             <View style={{ flex: 2 }}>
@@ -79,9 +79,10 @@ export default class App extends React.Component {
 
         <View style={{ width, height: 60, backgroundColor: '#3d4c57', alignItems: 'center', justifyContent: 'center' }} >
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Text style={{ color: 'white', fontSize: 12 }}>Cargill Website |</Text>
-            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12 }} onPress={() => Linking.openURL(PRIVACY)}>Privacy |</Button>
-            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12 }} onPress={() => Linking.openURL(TERMS)}>Terms & Conditions</Button>
+            <Text style={{ color: 'white', fontSize: 12 }}>Cargill Website |  </Text>
+            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(PRIVACY)}>Privacy</Button>
+              <Text style={{ color: 'white', fontSize: 12 }}> |  </Text>
+            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(TERMS)}>Terms & Conditions</Button>
           </View>
 
           <Text style={{ color: 'white', fontSize: 12 }}>
@@ -92,7 +93,7 @@ export default class App extends React.Component {
       </View>
 
           );
-      }catch (error) {
+      } catch (error) {
           bugsnag.notify(error);
       }
   }
@@ -114,7 +115,7 @@ const styles = {
     },
     textStyle: {
         marginTop: 10,
-        fontSize: 25,
+        fontSize: 29,
         color: 'white',
         textAlign: 'center'
     },

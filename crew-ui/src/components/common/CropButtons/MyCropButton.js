@@ -35,7 +35,7 @@ class MyCropButton extends Component {
                             key={item.id} 
                             userflag={this.props.uservaluesfalg} 
                             old={this.props.olditem} 
-                            onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} 
+                            onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)}
                         />)
                     }
                 />
@@ -50,6 +50,8 @@ class MyCropButton extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width} = Dimensions.get('window');
             return (
 
@@ -92,7 +94,8 @@ const styles = {
 const mapStateToProps = state => {
     return {
         crops: state.cropsButtons,
-        id: state.cropsButtons.selectedId
+        id: state.cropsButtons.selectedId,
+        acc: state.account
     };
 };
 

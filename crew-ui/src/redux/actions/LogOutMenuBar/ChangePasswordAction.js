@@ -4,7 +4,7 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const changePassword = (oldP, newP) => {
     return (dispatch, getState) => {
-        const user = getState().account.accountDetails();
+        const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${AUTHENTICATE_URL}identities/${getState().auth.email}/credentials/changePassword`;
         const body = {

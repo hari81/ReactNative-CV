@@ -15,6 +15,7 @@ export const getReviewOrderQuote = (orderData) => {
         if (orderData.quoteType.toLowerCase() === 'rpx') {
             data = {
                 transId: orderData.transId,
+                expirationDate: common.formatDate(orderData.expirationDate, 6),
                 activityId: orderData.activityId,
                 orderType: orderData.orderType,
                 quoteType: orderData.quoteType,
@@ -37,6 +38,7 @@ export const getReviewOrderQuote = (orderData) => {
                 data.targetPrice = parseFloat(orderData.targetPrice);
             }
         }
+        
 
         return doPostFetch(url, data, getState().auth.basicToken)
             .then(response => { 
@@ -57,7 +59,7 @@ export const getReviewOrderQuote = (orderData) => {
                         quoteData.metadata.riskProductId = orderData.riskProductId;
                         quoteData.metadata.underlying = orderData.underlying;
                         quoteData.metadata.quantity = common.cleanNumericString(orderData.quantity.toString());
-                        quoteData.metadata.expirationDate = common.formatDate(quoteData.quoteExpiration, 6);
+                        quoteData.metadata.expirationDate = common.formatDate(quoteData.metadata.expirationDate, 6);
                         if (quoteData.metadata.orderType.toLowerCase() === 'limit') {
                             quoteData.metadata.targetPrice = common.cleanNumericString(orderData.targetPrice.toString());
                             quoteData.metadata.goodTilDate = common.formatDate(orderData.goodTilDate, 6);

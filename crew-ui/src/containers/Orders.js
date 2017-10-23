@@ -7,7 +7,6 @@ import {
   TouchableHighlight,
   Picker, Dimensions,
 } from 'react-native';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -141,7 +140,7 @@ class Orders extends Component {
 
     if (this.state.selectedTab === 'Open Orders') {
       //console.log('Orders Button Pressed');
-      if (!st(this.props, ['viewOrders', 'items', 'value', 'length'])) {
+      if (!st(this.props, ['viewOrders', 'items', 'length'])) {
         return (
           <View
             style={{
@@ -158,25 +157,23 @@ class Orders extends Component {
                 fontSize: 25
               }}
             >
-               No Orders Available!.
+               No Orders Available.
             </Text>
           </View>
         );
-      } else {
-        return (
-          <FlatList
-            data={this.props.viewOrders.items.value}
-            keyExtractor={item => item.orderId}
-            renderItem={({ item }) =>
-              <ViewOrders key={item.orderId} item={item} selected={this.state.Crop} />}
-          />
-        );
       }
+      return (
+        <FlatList
+          data={this.props.viewOrders.items}
+          keyExtractor={item => item.orderId}
+          renderItem={({ item }) =>
+            <ViewOrders key={item.orderId} item={item} selected={this.state.Crop} />}
+        />
+      );
     }
     if (this.state.selectedTab === 'Open Positions') {
         //console.log('Open Positions Pressed');
         if (!st(this.props, ['openPositions', 'length'])) {
-
             return (
                 <View
                     style={{
@@ -193,20 +190,18 @@ class Orders extends Component {
                             fontSize: 25
                         }}
                     >
-                        No Open Positions Available!.
+                        No Open Positions Available.
                     </Text>
                 </View>
             );
-        } else {
-            return (
-                <FlatList
-                    data={this.props.openPositions}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => <OpenPositions key={item.id} item={item} />}
-                    //onEndReached
-                />
-            );
-       }
+        } 
+        return (
+            <FlatList
+                data={this.props.openPositions}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <OpenPositions key={item.id} item={item} />}
+            />
+        );
     }
     if (this.state.selectedTab === 'Closed Positions') {
       // console.log('Closed Positions Pressed');
@@ -224,16 +219,15 @@ class Orders extends Component {
             No Closed Positions.
           </Text>
         );
-      } else {
-        return (
-          <FlatList
-            data={this.props.closedPositions}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) =>
-              <ClosedPositions key={item.id} item={item} />}
-          />
-        );
       }
+      return (
+        <FlatList
+          data={this.props.closedPositions}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) =>
+            <ClosedPositions key={item.id} item={item} />}
+        />
+      );
     }
   }
     placeNewOrder() {
@@ -404,7 +398,7 @@ const mapStateToProps = state => {
   //  console.log(state)
   return {
     viewOrders: state.vieworder,
-    openPositions: state.openPositions,
+    openPositions: state.openPositions.openPstns,
     closedPositions: state.closedPositions,
     auth: state.auth,
     cropBut: state.cropsButtons,
@@ -426,4 +420,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
-

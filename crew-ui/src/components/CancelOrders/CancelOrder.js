@@ -20,8 +20,10 @@ class CancelOrder extends Component {
   }
 
   render() {
+      const { userId, firstName, email } = this.props.acc.accountDetails;
+      bugsnag.setUser(`User Id: ${userId}`, firstName, email);
       try {
-          console.log(this.props.item);
+         // console.log(this.props.item);
           const cancelData = this.props.item;
           return (
               <View style={styles.containerStyle}>
@@ -167,4 +169,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ orderReceipt }, dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(CancelOrder);
+const mapStateToProps = state => {
+    return { acc: state.account };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CancelOrder);

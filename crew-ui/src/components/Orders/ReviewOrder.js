@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';

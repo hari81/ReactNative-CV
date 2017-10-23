@@ -8,10 +8,9 @@ import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType'
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
 import { signUpNow } from '../ServiceURLS/index';
-
-const { height, width } = Dimensions.get('window');
 import bugsnag from '../components/common/BugSnag';
 
+const { height, width } = Dimensions.get('window');
 class LoginForm extends Component {
   constructor() {
     super();
@@ -23,9 +22,9 @@ class LoginForm extends Component {
             this.setState({ email: userInfo.email ? base64.decode(userInfo.email) : '', saveUser: true });
         }
       })
-      .catch(error => {
+      .catch(/*error => {
         throw new Error(error);
-      });
+      }*/bugsnag.notify);
   }
 
   onEmailChange(text) {
@@ -78,7 +77,12 @@ class LoginForm extends Component {
 
   render() {
       try {
-          bugsnag.setUser('1234', this.state.email, this.state.email);
+          bugsnag.setUser(`User Id: ${this.state.email}`, this.state.email, this.state.email);
+          bugsnag.leaveBreadcrumb('Navigated to Scene [LoginForm]', {
+              type: 'navigation',
+              component: '<LoginForm />',
+              previousScene: 'Main',
+          });
           return (
               <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
                   <Card>
@@ -131,17 +135,18 @@ class LoginForm extends Component {
                           {this.renderButton()}
                       </CardSection>
                       <View style={{flexDirection: 'row'}}>
-                          <Button buttonStyle={{}} textStyle={{color: 'white', textDecorationLine: 'underline'}}
+                          <Button buttonStyle={{}}
+                                  textStyle={{color: 'white', textDecorationLine: 'underline', fontSize: 16}}
                                   onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
-                          <Button buttonStyle={{marginLeft: width * 0.16}}
-                                  textStyle={{color: 'white', textDecorationLine: 'underline'}}
-                                  onPress={() => Linking.openURL(signUpNow)}> Sign Up Now </Button>
+                          <Button buttonStyle={{marginLeft: width * 0.02}}
+                                  textStyle={{color: 'white', textDecorationLine: 'underline', fontSize: 16}}
+                                  onPress={() => Linking.openURL(signUpNow)}> Not Registered? Sign Up Now! </Button>
                       </View>
-                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, paddingTop: 20}}>Having trouble
-                          logging in? Pleasecall +1-952-742-7414 or email </Text>
-                      <Button
-                          textStyle={{fontSize: 12, color: '#fff', paddingLeft: 10, textDecorationLine: 'underline'}}
-                          buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>cargillpricehedge@cargill.com</Button>
+                      <Text style={{fontSize: 14, color: '#fff', paddingLeft: 10, paddingTop: 20}}>Having trouble
+                          logging in? Pleasecall +1-952-742-7414 or </Text>
+                      <Button textStyle={{fontSize: 16, color: '#fff', paddingLeft: 5, textDecorationLine: 'underline'}}
+                              buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>
+                          email :cargillpricehedge@cargill.com</Button>
                   </Card>
               </ScrollView>
           );
@@ -150,14 +155,6 @@ class LoginForm extends Component {
       }
   }
 }
-
-/*const styles = {
-  errorStyle: {
-    color: 'white',
-    marginLeft: 100,
-    fontSize: 20
-  }
-};*/
 
 const mapStateToProps = state => {
   return { auth: state.auth, acc: state.account };

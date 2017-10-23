@@ -196,6 +196,7 @@ export default class ExternalValues extends Component {
 
     render() {
         try {
+
             const {width} = Dimensions.get('window');
             const {removeTrans, items = {}, fcontract, placeholdervalues} = this.props;
             // console.log(items.underlyingSymbol);

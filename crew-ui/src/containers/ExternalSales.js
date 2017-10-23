@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView, TouchableHighlight, Alert } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableHighlight, Alert, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import Dimensions from 'Dimensions';
 import cancel from '../components/common/img/Cancel.png';
 import plus from '../components/common/img/Plus.png';
 import { myFarmTradeSalesOutSideApp, myFarmCropValues } from '../redux/actions/MyFarm/CropAction';
 import ExternalValues from '../components/ExternalTrades/ExternalValues';
 import { externalGetTrans, saveExternalTrades } from '../redux/actions/ExternalTrades/ExternalActions';
-import { homeScreenDataFetch } from '../redux/actions/Dashboard/DashboardAction';
+import { dashBoardDataFetch } from '../redux/actions/Dashboard/DashboardAction';
 import bugsnag from '../components/common/BugSnag';
 
 class ExternalSales extends Component {
@@ -130,7 +129,8 @@ class ExternalSales extends Component {
                     { cancelable: false }
                 );
             } else {
-                this.props.homeScreenDataFetch();
+                const cropData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+                this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
                 Actions.dashboard();
             }
         } else {
@@ -324,5 +324,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues, homeScreenDataFetch })(ExternalSales);
+export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues, dashBoardDataFetch })(ExternalSales);
 

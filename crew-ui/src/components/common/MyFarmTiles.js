@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import cancelimage from './img/Cancel-20.png';
-import { showInfoButtonClick, hideInfoButtonClick } from '../../redux/actions/Dashboard/infobuttonsAction';
 import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
@@ -12,35 +11,43 @@ import { Button } from './Button';
 import bugsnag from '../common/BugSnag';
 
 class MyFarmTiles extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            infoButtonStatus: false,
+            buttonNumber: ''
+        };
+    }
     //info button condition check
     infoButton(str) {
         switch (str) {
             case 'BREAKEVEN PRICE':
-                this.props.showInfoButtonClick(1);
+                this.setState({ infoButtonStatus: true, buttonNumber: 1 });
                 break;
             case 'TARGET PRICE':
-                this.props.showInfoButtonClick(2);
+                this.setState({ infoButtonStatus: true, buttonNumber: 2 });
                 break;
             case 'AVERAGE PRICE SOLD':
-                this.props.showInfoButtonClick(3);
+                this.setState({ infoButtonStatus: true, buttonNumber: 3 });
                 break;
             case 'PROFIT PER ACRE':
-                this.props.showInfoButtonClick(4);
+                this.setState({ infoButtonStatus: true, buttonNumber: 4 });
                 break;
             case 'unhedged':
-                this.props.showInfoButtonClick(5);
+                this.setState({ infoButtonStatus: true, buttonNumber: 5 });
                 break;
             case 'basisEstimate':
-                this.props.showInfoButtonClick(6);
+                this.setState({ infoButtonStatus: true, buttonNumber: 6 });
                 break;
             default: break;
         }
     }
 
     //info block display condition
-    showMessage(btnNumber) {
+    showMessage() {
         let popup;
-        switch (btnNumber) {
+        switch (this.state.buttonNumber) {
             case 1:
                 popup = this.buildMessagePopup(width * 0.195, width * 0.087, this.props.breakEvenPriceInfo);
                 break;
@@ -88,7 +95,7 @@ class MyFarmTiles extends Component {
 
     //on Cancel info button press
     cancelButton() {
-        this.props.hideInfoButtonClick();
+        this.setState({ infoButtonStatus: false });
     }
 
     goToFarm = () => {
@@ -120,6 +127,8 @@ class MyFarmTiles extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             //returning Enter Crop Details when my farm tiles data is absent in json
             if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
                 return (
@@ -147,68 +156,51 @@ class MyFarmTiles extends Component {
                                 buttonStyle={styles.enterCropButtonStyle}>
                             Enter Crop Details
                         </Button>
-                    </View>
-                );
-            }
-            //returning tiles when my farm tiles data is present in json
-            return (
-                <View style={styles.containerStyle}>
-                    <TouchableOpacity onPress={this.goToFarm.bind(this)}>
-                        <View style={{marginLeft: 23, marginTop: 26}}>
-
-                            <Text style={{fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium'}}>My
-                                Farm </Text>
-                            <View style={{flexDirection: 'row', width: 100}}>
-                                <Text style={{fontSize: 12}}>{this.props.underlyingData.underlyingYear}</Text><Text
-                                style={{fontSize: 12}}> {this.props.cropButton.selectedCropName}</Text>
-                            </View>
-                            <Text style={{fontSize: 10, color: 'rgb(39,153,137)'}}>Edit My Farm Details</Text>
-
-                        </View>
-                    </TouchableOpacity>
-
-                    <View style={{
-                        width: 1,
-                        marginLeft: 15,
-                        marginRight: 7,
-                        marginTop: 26,
-                        height: 47,
-                        backgroundColor: 'rgb(221,221,221)'
-                    }}/>
-
-                    {this.boxes('BREAKEVEN PRICE', this.props.breakEvenPrice)}
-                    {this.boxes('TARGET PRICE', this.props.targetPrice)}
-                    {this.boxes('AVERAGE PRICE SOLD', this.props.avgPriceSold)}
-                    {this.boxes('PROFIT PER ACRE', this.props.profitPerAcre)}
-
-                    <View style={styles.boxStyle}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                            <View style={{width: 100}}><Text style={{fontSize: 10, paddingLeft: 7}}>UNHEDGED
-                                PRODUCTION</Text></View>
-                            <Button onPress={this.infoButton.bind(this, 'unhedged')} textStyle={styles.infoIcon}
-                                    buttonStyle={{}}>i</Button>
-                        </View>
-                        <Text style={styles.priceStyle}>{this.props.unhedgedProduction}</Text>
-                        <Text style={{paddingLeft: 10, fontSize: 10, color: 'rgb(61,76,87)'}}>{this.props.unitOfMeasure}s</Text>
-                    </View>
-
-                    <View style={styles.boxStyle}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                            <View style={{width: 80}}><Text style={{fontSize: 10, paddingLeft: 7}}>BASIS ESTIMATE</Text></View>
-                            <Button onPress={this.infoButton.bind(this, 'basisEstimate')} textStyle={styles.infoIcon}
-                                    buttonStyle={{}}>i</Button>
-                        </View>
-                        <Text
-                            style={[styles.priceStyle, {color: 'rgb(158,42,47)'}]}>{common.minusBeforeDollarSign(this.props.basisEstimate, 2)}</Text>
-                        <Text style={{
-                            paddingLeft: 10,
-                            fontSize: 8,
-                            color: 'rgb(61,76,87)'
-                        }}>{this.props.basisEstimateEnabled ? 'Included in Calculations' : 'Not Included in Calculations'}</Text>
-                    </View>
-                    {this.props.infoState.infoEnable ? this.showMessage(this.props.infoState.btnNumber) : this.hideMessage()}
                 </View>
             );
+        }
+        //returning tiles when my farm tiles data is present in json
+        return (
+            <View style={styles.containerStyle}>
+                <TouchableOpacity onPress={this.goToFarm.bind(this)}>
+                    <View style={{ marginLeft: 23, marginTop: 26 }}>
+
+                        <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
+                        <View style={{ flexDirection: 'row', width: 100 }}>
+                            <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
+                        </View>
+                        <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit My Farm Details</Text>
+
+                    </View>
+                </TouchableOpacity>
+
+                <View style={{ width: 1, marginLeft: 15, marginRight: 7, marginTop: 26, height: 47, backgroundColor: 'rgb(221,221,221)' }} />
+
+                {this.boxes('BREAKEVEN PRICE', this.props.breakEvenPrice)}
+                {this.boxes('TARGET PRICE', this.props.targetPrice)}
+                {this.boxes('AVERAGE PRICE SOLD', this.props.avgPriceSold)}
+                {this.boxes('PROFIT PER ACRE', this.props.profitPerAcre)}
+
+                <View style={styles.boxStyle}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                        <View style={{ width: 100 }}><Text style={{ fontSize: 10, paddingLeft: 7 }}>UNHEDGED PRODUCTION</Text></View>
+                        <Button onPress={this.infoButton.bind(this, 'unhedged')} textStyle={styles.infoIcon} buttonStyle={{}}>i</Button>
+                    </View>
+                    <Text style={styles.priceStyle}>{this.props.unhedgedProduction}</Text>
+                    <Text style={{ paddingLeft: 10, fontSize: 10, color: 'rgb(61,76,87)' }}>{this.props.unitOfMeasure}s</Text>
+                </View>
+
+                <View style={styles.boxStyle}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                        <View style={{ width: 80 }}><Text style={{ fontSize: 10, paddingLeft: 7 }}>BASIS ESTIMATE</Text></View>
+                        <Button onPress={this.infoButton.bind(this, 'basisEstimate')} textStyle={styles.infoIcon} buttonStyle={{}}>i</Button>
+                    </View>
+                    <Text style={[styles.priceStyle, { color: 'rgb(158,42,47)' }]}>{common.minusBeforeDollarSign(this.props.basisEstimate, 2)}</Text>
+                    <Text style={{ paddingLeft: 10, fontSize: 8, color: 'rgb(61,76,87)' }}>{this.props.basisEstimateEnabled ? 'Included in Calculations' : 'Not Included in Calculations' }</Text>
+                </View>
+                {this.state.infoButtonStatus ? this.showMessage() : this.hideMessage()}
+            </View>
+        );
         } catch (error) {
             bugsnag.notify(error);
         }
@@ -230,7 +222,7 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-
+        acc: state.account,
         cropButton: state.cropsButtons,
         myf: state.myFar,
         infoState: state.info,
@@ -265,11 +257,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
-            showInfoButtonClick,
             myFarmCropValues,
             cropButtonPress,
             myFarmTradeSalesOutSideApp,
-            hideInfoButtonClick,
             farmActionFlag
         },
         dispatch

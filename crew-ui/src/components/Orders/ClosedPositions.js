@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableHighlight, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
+import { Actions } from 'react-native-router-flux';
 import bugsnag from '../../components/common/BugSnag';
 
 class ClosedPositions extends Component {
     openTradeReceipt() {
-        this.props.tradeReceipt(this.props.item.confirm);
+        Actions.pdfview({ orderId: this.props.item.id, confirm: this.props.item.confirm });
     }
   render() {
         try {
-            const { userId, firstName, email } = this.props.acc.accountDetails;
+            const {userId, firstName, email} = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             const product = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
@@ -31,7 +31,7 @@ class ClosedPositions extends Component {
             const buysell = this.props.item.lines.filter(obj => obj.type === 'REPRICE')[0]
                 .buysell;
 
-            const {id, riskProduct, confirm, underlyingObjectData} = this.props.item;
+            const {id, riskProduct, underlyingObjectData} = this.props.item;
 
             return (
                 <View style={[styles.subContainerStyle]}>
@@ -49,7 +49,7 @@ class ClosedPositions extends Component {
                                 textAlign: 'center',
                                 fontFamily: 'HelveticaNeue'
                             }}>
-                                {underlyingObjectData.contractMonth.month.name}
+                                {underlyingObjectData.month}
                             </Text>
                         </View>
                         <View
@@ -67,7 +67,7 @@ class ClosedPositions extends Component {
                                     fontFamily: 'HelveticaNeue-Bold'
                                 }}
                             >
-                                {underlyingObjectData.contractMonth.year.value}
+                                {underlyingObjectData.year}
                             </Text>
                         </View>
                     </View>
@@ -76,8 +76,8 @@ class ClosedPositions extends Component {
                         <Text style={[{
                             fontFamily: 'HelveticaNeue-Thin',
                             fontSize: 20
-                        }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? {fontSize: 14} : {}]}>
-                            {underlyingObjectData.commodity.name} {riskProduct}
+                        }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {fontSize: 14} : {}]}>
+                            {underlyingObjectData.crop} {riskProduct}
                         </Text>
                         <View style={{flexDirection: 'row', marginTop: 15, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'column'}}>
@@ -85,16 +85,17 @@ class ClosedPositions extends Component {
                                     color: 'rgb(1,172,168)',
                                     fontFamily: 'HelveticaNeue',
                                     fontSize: 12
-                                }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>QUANTITY</Text>
+                                }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>QUANTITY</Text>
                                 <View style={{flex: 1, flexDirection: 'row'}}>
                                     <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
                                         {quantity
                                             .toString()
                                             .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                                     </Text>
-                                    <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
-                                        {' ' + underlyingObjectData.commodity.unit}s
-                                    </Text>
+                                    <Text style={{
+                                        fontFamily: 'HelveticaNeue-Thin',
+                                        fontSize: 14
+                                    }}>{`  ${underlyingObjectData.unit}s`}</Text>
                                 </View>
                             </View>
                             <View style={{flexDirection: 'column', marginLeft: 20}}>
@@ -102,7 +103,7 @@ class ClosedPositions extends Component {
                                     color: 'rgb(1,172,168)',
                                     fontFamily: 'HelveticaNeue',
                                     fontSize: 12
-                                }, (underlyingObjectData.commodity.name.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>DIRECTION</Text>
+                                }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>DIRECTION</Text>
                                 <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
                                     {buysell === 'S' ? 'Sell' : 'Buy'}
                                 </Text>
@@ -144,7 +145,8 @@ class ClosedPositions extends Component {
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12}}>TRADE
                                 RECEIPT </Text>
-                            <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
+                            <TouchableHighlight
+                                onPress={this.openTradeReceipt.bind(this)}>
                                 <Image
                                     style={{width: 20, height: 20, marginLeft: 2, marginTop: 4}}
                                     source={require('../common/img/PDF.png')}
@@ -209,4 +211,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { tradeReceipt })(ClosedPositions);
+export default connect(mapStateToProps, null)(ClosedPositions);
