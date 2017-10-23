@@ -33,7 +33,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='externalsales' component={ExternalSales} type={ActionConst.RESET} />
         <Scene hideNavBar key='quoteswap' component={QuoteSwap} type={ActionConst.RESET} />
         <Scene hideNavBar key="chartApp" component={ChartApp} type={ActionConst.RESET} />
-        <Scene hideNavBar key='revieworder' component={ReviewOrder} type={ActionConst.RESET} />
+        <Scene hideNavBar key='revieworder' component={ReviewOrder} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} type={ActionConst.RESET} />
         <Scene hideNavBar key='tcerror' component={TradeConfirmationError} type={ActionConst.RESET} />
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />

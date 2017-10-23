@@ -12,7 +12,7 @@ export const OpenPositionsData = (crop) => {
         dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
         const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=open,pendingUnwind&sort=product.contractMonth.month,product.contractMonth.year`;
-        return doGetFetch(url, getState().auth.email, getState().auth.password)
+        return doGetFetch(url, getState().auth.basicToken)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
