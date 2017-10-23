@@ -155,7 +155,7 @@ class FooterBar extends Component {
                             paddingLeft: width * 0.039,
                             fontFamily: 'HelveticaNeue',
                             paddingBottom: 10
-                        }}>TARGET PRICE($)</Text>
+                        }}>PRICE</Text>
                         <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'price')}
                                               onPressOut={this.reCalculate}>

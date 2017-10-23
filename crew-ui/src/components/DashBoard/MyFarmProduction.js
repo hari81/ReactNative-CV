@@ -99,7 +99,7 @@ class MyFarmProduction extends Component {
                                 fontFamily: 'HelveticaNeue-Thin',
                                 padding: 20,
                                 color: 'rgb(29,37,49)'
-                            }}>Customize Scenarios to see how your trading decisions affect your profitability</Text>
+                            }}>Customize scenarios to see how your trading decisions affect your profitability</Text>
                             <View style={{marginLeft: width * 0.029}}><Image source={matrix} width={width * 0.217}
                                                                              height={height * 0.1999}/></View>
                             <TouchableOpacity onPress={this.noFarmSetup}>
@@ -133,7 +133,7 @@ class MyFarmProduction extends Component {
                                             fontSize: 14,
                                             marginLeft: width * 0.087,
                                             color: 'rgb(127,127,127)'
-                                        }}>Estimated TotalProduction</Text>
+                                        }}>Estimated Total Production</Text>
                                     </View>
                                     <View style={{marginTop: height * 0.014, alignSelf: 'stretch'}}>
                                         <Text style={{
@@ -164,7 +164,7 @@ class MyFarmProduction extends Component {
                                     fontFamily: 'HelveticaNeue-Thin',
                                     padding: 20,
                                     color: 'rgb(29,37,49)'
-                                }}>Customize Scenarios to see how your trading decisions affect your
+                                }}>Customize scenarios to see how your trading decisions affect your
                                     profitability</Text>
                                 <View style={{marginLeft: width * 0.029}}><Image source={matrix} width={width * 0.217}
                                                                                  height={height * 0.199}/></View>
