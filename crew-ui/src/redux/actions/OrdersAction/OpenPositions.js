@@ -69,12 +69,9 @@ export const tradeReceipt = (relativePath) => {
                 Accept: 'application/pdf',
                 'Cache-Control': 'no-store'
             })
+        //doGetTradeReceiptFetch(url, getState().auth.basicToken)
             .then((res) => {
-                // the temp file path
-                //console.log('The file saved to ', res.path());
-                // console.log('The pdf save', res.base64())
                 dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: res.path() });
-               // Actions.pdfview({ path: res.path() });
             })
             .catch(bugsnag.notify);
     };
