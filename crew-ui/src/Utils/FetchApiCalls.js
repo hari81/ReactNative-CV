@@ -1,3 +1,4 @@
+import RNFetchBlob from 'react-native-fetch-blob';
 import { X_API_KEY } from '../ServiceURLS/index';
 //import fetch from 'isomorphic-fetch';
 //const fetch = require('isomorphic-fetch');
@@ -58,10 +59,16 @@ function doGetTradeReceiptFetch(url, token) {
     // console.log(url);
     token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     reqHeaders.append('Accept', 'application/pdf');
-    return fetch(url, {
-        method: 'GET',
-        headers: reqHeaders
-    });
+    reqHeaders.append('Cache-Control', 'no-store');
+     RNFetchBlob
+        .config({
+            // add this option that makes response data to be stored as a file.
+            fileCache: true,
+            appendExt: 'pdf',
+            //path: DocumentDir
+        })
+        .fetch('GET', url, reqHeaders);
+
 }
 
 export { doGetFetch, doPostFetch, doPutFetch, doDeleteFetch, doLoginPostFetch, doGetTradeReceiptFetch };

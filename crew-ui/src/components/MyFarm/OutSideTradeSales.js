@@ -24,7 +24,7 @@ class OutSideTradeSales extends Component {
                     justifyContent: 'space-around'
                 }}>
                     <Text style={{color: 'white', fontSize: 19}}>
-                        Trades / Sales Outside the App
+                        Trades Outside the App
                     </Text>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'space-between', alignItems: 'flex-end'}}>
@@ -44,8 +44,7 @@ class OutSideTradeSales extends Component {
                                     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels
                             </Text>
                             <Text style={{color: 'white', fontSize: 19}}>
-                                ${this.props.far.cropValuesSummary.averagePrice === undefined ? 0 : this.props.far.cropValuesSummary.averagePrice.toFixed(2)}
-                                per bushel
+                                ${this.props.far.cropValuesSummary.averagePrice === undefined ? 0 : this.props.far.cropValuesSummary.averagePrice.toFixed(2)} per bushel
                             </Text>
                         </View>
                     </View>
@@ -69,7 +68,7 @@ class OutSideTradeSales extends Component {
                             }}
                         >
                             <Text style={{color: 'white'}}>
-                                ADD / MODIFY TRADES / SALES
+                                ADD & MODIFY TRADES
                             </Text>
                         </View>
                     </TouchableHighlight>

@@ -8,8 +8,8 @@
  */
 
 #import "AppDelegate.h"
-#import "/Users/crmdev1/Desktop/crew-frontend/crew-ui/node_modules/react-native/React/Base/RCTBundleURLProvider.h"
-//#import <React/RCTBundleURLProvider.h>
+//#import "/Users/crmdev1/Desktop/crew-frontend/crew-ui/node_modules/react-native/React/Base/RCTBundleURLProvider.h"
+#import <React/RCTBundleURLProvider.h>
 #import "/Users/crmdev1/Desktop/crew-frontend/crew-ui/node_modules/react-native/React/Base/RCTRootView.h"
 //import <React/RCTRootView.h>
 //#import <BugsnagReactNative/BugsnagReactNative.h>
