@@ -75,7 +75,7 @@ class ActionBar extends Component {
                             flexDirection: 'row'
                         }}>
                             <View style={{width: width * 0.0488}}>
-                                <Text style={{color: 'rgb(1,172,168)', fontSize: 36}}>
+                                <Text style={{color: 'rgb(1,172,168)', fontSize: 36, textDecorationLine: 'underline'}}>
                                     {this.props.openOrdersCount}
                                 </Text>
                             </View>
@@ -96,7 +96,7 @@ class ActionBar extends Component {
                             flexDirection: 'row'
                         }}>
                             <View style={{width: width * 0.0488}}>
-                                <Text style={{color: 'rgb(1,172,168)', fontSize: 36}}>
+                                <Text style={{color: 'rgb(1,172,168)', fontSize: 36, textDecorationLine: 'underline' }}>
                                     {this.props.openPositionsCount}
                                 </Text>
                             </View>
@@ -115,18 +115,19 @@ class ActionBar extends Component {
                             alignItems: 'center',
                             marginHorizontal: width * 0.011,
                             width: width * 0.107,
-                            marginTop: 14,
+                            marginTop: 18,
                             flexDirection: 'row'
                         }}>
 
                             <View style={{width: width * 0.044}}>
                                 <Text style={{
                                     color: 'rgb(1,172,168)',
-                                    fontSize: 36
+                                    fontSize: 36,
+                                    textDecorationLine: 'underline'
                                 }}>{this.props.externalTradesCount}</Text>
                             </View>
                             <View style={{flexDirection: 'column'}}>
-                                <Text style={{fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)'}}>Trades/Sales</Text>
+                                <Text style={{fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)'}}>Trades</Text>
                                 <Text style={{fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)'}}>(Outside
                                     App)</Text>
                             </View>
