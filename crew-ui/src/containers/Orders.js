@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  FlatList,
-  View,
-  SegmentedControlIOS,
-  Text,
-  TouchableHighlight,
-  Picker, Dimensions,
-} from 'react-native';
+import { FlatList, View, SegmentedControlIOS, Text, TouchableHighlight, Picker, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -14,19 +7,12 @@ import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
 import { Spinner, CommonHeader } from '../components/common';
-import {
-  ViewOrdersData,
-  dropDownCrop,
-  selectedCrop
-} from '../redux/actions/OrdersAction/ViewOrderAction';
+import { ViewOrdersData, dropDownCrop, selectedCrop } from '../redux/actions/OrdersAction/ViewOrderAction';
 import { OpenPositionsData } from '../redux/actions/OrdersAction/OpenPositions';
 import { ClosedPositionsData } from '../redux/actions/OrdersAction/ClosedPositions';
 import st from '../Utils/SafeTraverse';
 import Refresh from '../components/common/img/Refresh.png';
 import bugsnag from '../components/common/BugSnag';
-
-//const openpositions = require('../restAPI/openpositions.json');
-//const closedpositions = require('../restAPI/closedpositions.json');
 
 class Orders extends Component {
   constructor(props) {
@@ -38,8 +24,7 @@ class Orders extends Component {
   }
   componentDidMount() {
       this.props.dropDownCrop();
-    const crop = this.state.Crop;
- //   console.log(crop);
+      const crop = this.state.Crop;
       switch (this.state.selectedTab) {
           case 'Open Orders':
               this.props.ViewOrdersData(crop);
@@ -51,11 +36,8 @@ class Orders extends Component {
               this.props.ClosedPositionsData(crop);
               break;
           default:
-
       }
   }
-
-
     refreshData = () => {
         const crop = this.state.Crop;
         switch (this.state.selectedTab) {
@@ -74,9 +56,7 @@ class Orders extends Component {
     };
 
   dropDown(cropCode) {
-   // console.log(cropCode);
-
-    this.setState({ Crop: cropCode });
+      this.setState({ Crop: cropCode });
 
     switch (this.state.selectedTab) {
         case 'Open Orders':

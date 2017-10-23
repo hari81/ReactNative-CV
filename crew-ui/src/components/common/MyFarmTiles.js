@@ -149,8 +149,7 @@ class MyFarmTiles extends Component {
                         <View style={{width: 1, height: height * 0.0611}}/>
                         <View style={{justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488}}>
                             <Text>Enter your
-                                current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}
-                                crop details to receive helpful insights</Text>
+                                current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
                         </View>
                         <Button onPress={this.enterCropDetails} textStyle={{color: 'white'}}
                                 buttonStyle={styles.enterCropButtonStyle}>
