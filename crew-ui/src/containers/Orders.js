@@ -5,13 +5,11 @@ import {
   SegmentedControlIOS,
   Text,
   TouchableHighlight,
-  Picker
+  Picker, Dimensions,
 } from 'react-native';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import Dimensions from 'Dimensions';
 import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
@@ -240,6 +238,8 @@ class Orders extends Component {
 
   render() {
       try {
+          const { userId, firstName, email } = this.props.acc.accountDetails;
+          bugsnag.setUser(`User Id: ${userId}`, firstName, email);
           const {width, height} = Dimensions.get('window');
           //console.log(width, height)
           return (
@@ -398,10 +398,11 @@ const mapStateToProps = state => {
   //  console.log(state)
   return {
     viewOrders: state.vieworder,
-    openPositions: state.openPositions,
+    openPositions: state.openPositions.openPstns,
     closedPositions: state.closedPositions,
     auth: state.auth,
-    cropBut: state.cropsButtons
+    cropBut: state.cropsButtons,
+    acc: state.account
   };
 };
 

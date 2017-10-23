@@ -5,11 +5,12 @@ import { bindActionCreators } from 'redux';
 import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
 import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
 import bugsnag from '../BugSnag';
+import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
         //Dashboard data fetch
-        this.props.onDashBoardDataFetch(year, code);
+        this.props.dashBoardDataFetch(year, code);
         this.props.onQuoteSwapUnderlying(year, code);
         //myFarmAction
         if (!this.props.far.farmFlag) {
@@ -42,6 +43,8 @@ class ButtonList extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const { id, cropYear, code, name } = this.props.item;
             return (<View style={{ flexDirection: 'row', marginLeft: 10}}>
                 <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
@@ -91,7 +94,8 @@ const styles = {
 const mapStateToProps = state => {
     return {
         id: state.cropsButtons.selectedId,
-        far: state.myFar
+        far: state.myFar,
+        acc: state.account
     };
 };
 const matchDispatchToProps = (dispatch) => {
@@ -100,6 +104,7 @@ const matchDispatchToProps = (dispatch) => {
         selectedCropName,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
+        dashBoardDataFetch
     }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);

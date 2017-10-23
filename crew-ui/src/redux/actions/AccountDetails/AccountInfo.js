@@ -7,6 +7,7 @@ import bugsnag from '../../../components/common/BugSnag';
 
 export const accountDetails = () => {
     return (dispatch, getState) => {
+
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
@@ -52,13 +53,13 @@ export const accountDetails = () => {
                             .then(dashBoardData =>{ console.log(dashBoardData);
                                 dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData }) }
                             )
-                            .catch((status, error) => {
+                            .catch(/*(status, error) => {
                                 console.log(`error ${error}`);
-                            });
+                            }*/bugsnag.notify);
                     })
                     .catch(/*error => console.log(`error ${error}`)); */ bugsnag.notify);
             })
-            .catch(error => console.log(`error ${error}`));
+            .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
     };
 };
 

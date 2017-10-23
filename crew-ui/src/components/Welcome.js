@@ -3,13 +3,15 @@ import { Text, View, Linking, StatusBar, Dimensions, Image } from 'react-native'
 import LoginForm from '../containers/LoginForm';
 import { PRIVACY, TERMS, learnMoreProdUrl } from '../ServiceURLS/index';
 import { Button } from './common/Button';
+import bugsnag from '.././components/common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
 
 export default class App extends React.Component {
   render() {
-    return (
-      <View style={{ flex: 1, flexDirection: 'column' }}>
+      try {
+          return (
+              <View style={{flex: 1, flexDirection: 'column'}}>
 
         <StatusBar barStyle='light-content' />
         <View
@@ -90,7 +92,10 @@ export default class App extends React.Component {
 
       </View>
 
-    );
+          );
+      } catch (error) {
+          bugsnag.notify(error);
+      }
   }
 }
 const styles = {

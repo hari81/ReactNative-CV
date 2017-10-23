@@ -7,7 +7,7 @@ import { Button } from './Button';
 import { Input } from './Input';
 import { invalidateSession } from '../../redux/actions/LogOutMenuBar/InvalidateSessionAction';
 import { changePassword } from '../../redux/actions/LogOutMenuBar/ChangePasswordAction';
-
+import bugsnag from '../common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
 class SideMenuBar extends Component {
@@ -20,9 +20,7 @@ class SideMenuBar extends Component {
             confirmPassword: ''
         };
     }
-    componentWillReceiveProps() {
-        this.setState({ popUpAlert: false });
-    }
+
     changePasswordButtonPress = () => {
         this.setState({ popUpAlert: !this.state.popUpAlert });
     }
@@ -82,21 +80,29 @@ class SideMenuBar extends Component {
         }
     }
     render() {
-        return (
-            <View style={styles.messageContainer}>
-                <View style={[styles.triangle, { marginLeft: width * 0.96 }]} />
-                <View style={[styles.messageBox, { marginLeft: width * 0.74 }]}>
-                    <TouchableOpacity onPress={this.cancelButton} >
-                        <View style={{ marginLeft: width * 0.2324, marginTop: 2 }}>
-                            <Image source={cancelimage} style={{ width: width * 0.0156, height: width * 0.0156 }} />
-                        </View>
-                    </TouchableOpacity>
-                    <Button onPress={this.changePasswordButtonPress} buttonStyle={{}} textStyle={styles.messageBoxText}>{'Change Password'}</Button>
-                    <Button onPress={this.logOutButtonPress} buttonStyle={{}} textStyle={styles.messageBoxText}>{'Log Out'}</Button>
+        try {
+            const {userId, firstName, email} = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+            return (
+                <View style={styles.messageContainer}>
+                    <View style={[styles.triangle, {marginLeft: width * 0.96}]}/>
+                    <View style={[styles.messageBox, {marginLeft: width * 0.74}]}>
+                        <TouchableOpacity onPress={this.cancelButton}>
+                            <View style={{marginLeft: width * 0.2324, marginTop: 2}}>
+                                <Image source={cancelimage} style={{width: width * 0.0156, height: width * 0.0156}}/>
+                            </View>
+                        </TouchableOpacity>
+                        <Button onPress={this.changePasswordButtonPress} buttonStyle={{}}
+                                textStyle={styles.messageBoxText}>{'Change Password'}</Button>
+                        <Button onPress={this.logOutButtonPress} buttonStyle={{}}
+                                textStyle={styles.messageBoxText}>{'Log Out'}</Button>
+                    </View>
+                    {this.changePasswordAlert()}
                 </View>
-                {this.changePasswordAlert()}
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {
@@ -105,10 +111,10 @@ const styles = {
     messageBox: { width: width * 0.253, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3, zIndex: 10 },
     messageBoxText: { fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 15, paddingTop: 0, paddingRight: 15, paddingBottom: 15 },
     resetPasswordContainer: { zIndex: 15, position: 'absolute', marginTop: height * 0.16, marginLeft: width * 0.29, width: width * 0.4, backgroundColor: 'rgb(64,78,89)', borderColor: '#ddd', borderWidth: 2, borderRadius: 3 }
+};
+
+const mapStateToProps = state => {
+    return { acc: state.account };
 }
-const mapStateToProps = (state) => {
-    return {
-        passwordUpdateAlert: state.auth.passwordUpdateMessage
-    };
-}
+
 export default connect(mapStateToProps, { invalidateSession, changePassword })(SideMenuBar);

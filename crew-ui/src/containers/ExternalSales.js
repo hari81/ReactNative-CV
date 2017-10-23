@@ -181,6 +181,8 @@ class ExternalSales extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             //console.log('externnal', this.state.transaction);
             // console.log('DataBase trades', this.props.extra.tradeData.trades);
             const {width, height} = Dimensions.get('window');
@@ -317,7 +319,9 @@ const mapStateToProps = (state) => {
         extra: state.external,
         cropBut: state.cropsButtons,
         underlying: featureContract,
-        id: state.cropsButtons.selectedId };
+        id: state.cropsButtons.selectedId,
+        acc: state.account
+    };
 };
 
 export default connect(mapStateToProps, { externalGetTrans, saveExternalTrades, myFarmTradeSalesOutSideApp, myFarmCropValues, dashBoardDataFetch })(ExternalSales);

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import Dimensions from 'Dimensions';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
@@ -32,6 +31,8 @@ class Disclaimer extends Component {
 
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
                     <View style={{backgroundColor: '#000', width, height: 20}}/>
@@ -84,4 +85,8 @@ const styles = StyleSheet.create({
     disclaimerButtonTextStyle: { fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: '#fff' }
 });
 
-export default connect(null, null)(Disclaimer);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+};
+
+export default connect(mapStateToProps, null)(Disclaimer);

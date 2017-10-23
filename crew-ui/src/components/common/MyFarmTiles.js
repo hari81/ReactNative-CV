@@ -8,6 +8,7 @@ import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActi
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from './Button';
+import bugsnag from '../common/BugSnag';
 
 class MyFarmTiles extends Component {
 
@@ -125,20 +126,34 @@ class MyFarmTiles extends Component {
     }
 
     render() {
-        //returning Enter Crop Details when my farm tiles data is absent in json
-        if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
-            return (
-                <View style={styles.containerStyle}>
-                    <View style={{ marginLeft: width * 0.0224, marginTop: height * 0.0338 }}>
-                        <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
-                        <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
-                    </View>
-                    <View style={{ width: 1, marginLeft: width * 0.0146, marginRight: width * 0.00683, marginTop: height * 0.033, height: height * 0.0611, backgroundColor: 'rgb(221,221,221)' }} />
-                    <View style={{ width: 1, height: height * 0.0611 }} />
-                    <View style={{ justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488 }}>
-                        <Text>Enter your current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
-                    </View>
-                        <Button onPress={this.enterCropDetails} textStyle={{ color: 'white' }} buttonStyle={styles.enterCropButtonStyle}>
+        try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+            //returning Enter Crop Details when my farm tiles data is absent in json
+            if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
+                return (
+                    <View style={styles.containerStyle}>
+                        <View style={{marginLeft: width * 0.0224, marginTop: height * 0.0338}}>
+                            <Text style={{fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium'}}>My
+                                Farm </Text>
+                            <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
+                        </View>
+                        <View style={{
+                            width: 1,
+                            marginLeft: width * 0.0146,
+                            marginRight: width * 0.00683,
+                            marginTop: height * 0.033,
+                            height: height * 0.0611,
+                            backgroundColor: 'rgb(221,221,221)'
+                        }}/>
+                        <View style={{width: 1, height: height * 0.0611}}/>
+                        <View style={{justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488}}>
+                            <Text>Enter your
+                                current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}
+                                crop details to receive helpful insights</Text>
+                        </View>
+                        <Button onPress={this.enterCropDetails} textStyle={{color: 'white'}}
+                                buttonStyle={styles.enterCropButtonStyle}>
                             Enter Crop Details
                         </Button>
                 </View>
@@ -186,6 +201,9 @@ class MyFarmTiles extends Component {
                 {this.state.infoButtonStatus ? this.showMessage() : this.hideMessage()}
             </View>
         );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const { height, width } = Dimensions.get('window');
@@ -204,7 +222,7 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-
+        acc: state.account,
         cropButton: state.cropsButtons,
         myf: state.myFar,
         infoState: state.info,

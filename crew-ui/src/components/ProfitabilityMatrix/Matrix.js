@@ -5,6 +5,7 @@ import matrix1 from '../../restAPI/Matrix1.json';
 import { Spinner } from '../common/Spinner';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
+import bugsnag from '../../components/common/BugSnag';
 
 class Matrix extends Component {
     rows() {
@@ -64,12 +65,23 @@ class Matrix extends Component {
        );
     }
     render() {
-        return (
-            <View style={{ height: height * 0.63 }}>
-                {this.spinner()}
-                <Text style={{ color: 'rgb(255,255,255)', fontSize: 14, paddingLeft: width * 0.0586, fontFamily: 'HelveticaNeue' }}>Yield Bushels Per Acre</Text>
-            </View>
-        );
+        try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+            return (
+                <View style={{height: height * 0.63}}>
+                    {this.spinner()}
+                    <Text style={{
+                        color: 'rgb(255,255,255)',
+                        fontSize: 14,
+                        paddingLeft: width * 0.0586,
+                        fontFamily: 'HelveticaNeue'
+                    }}>Yield Bushels Per Acre</Text>
+                </View>
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const { width, height } = Dimensions.get('window');
@@ -91,8 +103,8 @@ const styles = {
 }
 const mapStateToProps = (state) => {
     return {
-        matrix: state.matrixData
-
+        matrix: state.matrixData,
+        acc: state.account
     };
 }
  export default connect(mapStateToProps, null)(Matrix);

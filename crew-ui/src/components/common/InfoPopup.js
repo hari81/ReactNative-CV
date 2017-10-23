@@ -1,44 +1,49 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import cancelimage from '../common/img/Cancel-20.png';
+import bugsnag from '../common/BugSnag';
 
 const InfoPopup = ({ popupInfo, onClose }) => {
-    const top = popupInfo.top;
-    const left = popupInfo.left;
-    const boxwidth = popupInfo.width;
-    const arrowleft = (boxwidth / 2) - 10;
-    const arrowPosition = popupInfo.arrowPosition;
-    const boxmessage = popupInfo.message;
+    try {
+        const top = popupInfo.top;
+        const left = popupInfo.left;
+        const boxwidth = popupInfo.width;
+        const arrowleft = (boxwidth / 2) - 10;
+        const arrowPosition = popupInfo.arrowPosition;
+        const boxmessage = popupInfo.message;
 
-    let popup = (    
-        <View style={{ position: 'absolute', marginTop: top, marginLeft: left }}>
-            <View style={[styles.triangle, styles.triangleTop, { marginLeft: arrowleft }]} />
-            <View style={[styles.messageBox, { width: boxwidth }]}>
-                <TouchableOpacity onPress={onClose} >
-                    <View style={{ marginLeft: boxwidth - 25, marginTop: 5 }}>
-                        <Image source={cancelimage} style={{ width: 20, height: 20 }} />
-                    </View>
-                </TouchableOpacity>
-                <Text style={styles.messageBoxText}>{boxmessage}</Text>
-            </View>
-        </View>
-    );
-    if (arrowPosition === 'bottom') {
-        popup = (
-            <View style={{ position: 'absolute', marginTop: top, marginLeft: left }}>
-                <View style={[styles.messageBox, { width: boxwidth }]}>
-                    <TouchableOpacity onPress={onClose} >
-                        <View style={{ marginLeft: boxwidth - 25, marginTop: 5 }}>
-                            <Image source={cancelimage} style={{ width: 20, height: 20 }} />
+        let popup = (
+            <View style={{position: 'absolute', marginTop: top, marginLeft: left}}>
+                <View style={[styles.triangle, styles.triangleTop, {marginLeft: arrowleft}]}/>
+                <View style={[styles.messageBox, {width: boxwidth}]}>
+                    <TouchableOpacity onPress={onClose}>
+                        <View style={{marginLeft: boxwidth - 25, marginTop: 5}}>
+                            <Image source={cancelimage} style={{width: 20, height: 20}}/>
                         </View>
                     </TouchableOpacity>
                     <Text style={styles.messageBoxText}>{boxmessage}</Text>
                 </View>
-                <View style={[styles.triangle, styles.triangleBottom, { marginLeft: arrowleft }]} />
             </View>
         );
+        if (arrowPosition === 'bottom') {
+            popup = (
+                <View style={{position: 'absolute', marginTop: top, marginLeft: left}}>
+                    <View style={[styles.messageBox, {width: boxwidth}]}>
+                        <TouchableOpacity onPress={onClose}>
+                            <View style={{marginLeft: boxwidth - 25, marginTop: 5}}>
+                                <Image source={cancelimage} style={{width: 20, height: 20}}/>
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={styles.messageBoxText}>{boxmessage}</Text>
+                    </View>
+                    <View style={[styles.triangle, styles.triangleBottom, {marginLeft: arrowleft}]}/>
+                </View>
+            );
+        }
+        return popup;
+    } catch (error) {
+        bugsnag.notify(error);
     }
-    return popup;
 };
     
 const styles = {

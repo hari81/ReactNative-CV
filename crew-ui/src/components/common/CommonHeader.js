@@ -9,6 +9,7 @@ import HomeIcon from './img/homeIcon.png';
 import User from './img/User.png';
 import { farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
 import SideMenuBar from './SideMenuBar';
+import bugsnag from '../common/BugSnag';
 
 const { height, width } = Dimensions.get('window');
 
@@ -50,6 +51,9 @@ class CommonHeader extends Component {
             }
     }
     render() {
+        try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
         return (
             <View style={{ flexDirection: 'row', height: '6%', backgroundColor: 'rgb(35,43,50)', zIndex: 1 }}>
                 <TouchableHighlight onPress={this.homeButtonPress}>
@@ -87,6 +91,9 @@ class CommonHeader extends Component {
                 {this.sideMenuShow()}
             </View>
         );
+    } catch (error) {
+        bugsnag.notify(error);
+    }
     }
 }
 
@@ -94,7 +101,7 @@ const mapStateToProps = (state) => {
     return {
         farmFlag: state.myFar.farmFlag,
         cropButton: state.cropsButtons,
-
+        acc: state.account
     };
 }
 

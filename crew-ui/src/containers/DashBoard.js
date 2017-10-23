@@ -7,14 +7,12 @@ import MyFarmTiles from '../components/common/MyFarmTiles';
 import ActionBar from '../components/DashBoard/ActionBar';
 import MyFarmProduction from '../components/DashBoard/MyFarmProduction';
 import bugsnag from '../components/common/BugSnag';
-import { dashBoardDataFetch } from '../redux/actions/Dashboard/DashboardAction';
 
 class DashBoard extends Component {
-    onDashBoardDataFetch(year, code) {
-        this.props.dashBoardDataFetch(year, code);
-    }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             return (
                 <View>
@@ -25,7 +23,7 @@ class DashBoard extends Component {
                         <MyFarmTiles/>
                         <MyFarmProduction/>
                         <ActionBar/>
-                        <MyCropButton onDashBoardDataFetch={this.onDashBoardDataFetch.bind(this)}/>
+                        <MyCropButton/>
                     </View>
                 </View>
             );
@@ -34,4 +32,7 @@ class DashBoard extends Component {
         }
     }
 }
-export default connect(null, { dashBoardDataFetch })(DashBoard);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+}
+export default connect(mapStateToProps, null)(DashBoard);

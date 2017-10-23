@@ -2,10 +2,13 @@ import { Alert } from 'react-native';
 import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, MY_FARM_ACTION } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch, doPutFetch, doPostFetch } from '../../../Utils/FetchApiCalls';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const myFarmCropValues = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
        // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
        const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${commodityCode}/${cropYear}`;
         return doGetFetch(url, getState().auth.crmSToken)
@@ -13,13 +16,15 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
             .then(cropValues => {
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
             })
-            .catch(error => console.log('error ', error));
+            .catch(/*error => console.log('error ', error)*/bugsnag.notify);
     };
 };
 
 export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
         return doGetFetch(url, getState().auth.crmSToken)
@@ -33,12 +38,14 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
             .then(cropValuesSummary => {
                 dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary });
             })
-            .catch(error => { console.log(`error ${error}`); });
+            .catch(/*error => { console.log(`error ${error}`); }*/bugsnag.notify);
     };
 };
 
 export const cropDataSave = (cropValues) => {
     return (dispatch, getState) => {
+        const user = getState().account.accountDetails;
+        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const uCost = cropValues.cost.slice(-4) === 'acre' ?
@@ -73,9 +80,9 @@ export const cropDataSave = (cropValues) => {
                     //const cropValuesCodeName = Object.assign({}, postResponse);
                     dispatch({ type: MY_FARM_CROP_VALUES, payload: postResponse });
                 })
-                .catch((status, error) => {
+                .catch(/*(status, error) => {
                     console.log(`error ${error}`);
-                });
+                }*/bugsnag.notify);
         } else {
              setCropData.id = getState().myFar.myFarmCropData.cropYear.id;
              setCropData.active = getState().myFar.myFarmCropData.cropYear.active;
@@ -91,9 +98,9 @@ export const cropDataSave = (cropValues) => {
                 .then(putResponse => {
                     dispatch({ type: MY_FARM_CROP_VALUES, payload: putResponse });
                 })
-                .catch((status, error) => {
+                .catch(/*(status, error) => {
                     console.log(`error ${error}`);
-                });
+                }*/bugsnag.notify);
         }
     };
 };
