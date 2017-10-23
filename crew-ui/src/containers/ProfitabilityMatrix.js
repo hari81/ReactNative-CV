@@ -31,11 +31,11 @@ class ProfitabilityMatrix extends Component {
         try {
             return (
                 <View style={styles.container}>
-                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: height * 0.026}}/>
-                    <CommonHeader/>
-                    <CropHeader/>
-                    <Matrix/>
-                    <IncrementSettingBar/>
+                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: height * 0.026 }} />
+                    <CommonHeader />
+                    <CropHeader />
+                    <Matrix />
+                    <IncrementSettingBar />
                 </View>
             );
         } catch (error) {

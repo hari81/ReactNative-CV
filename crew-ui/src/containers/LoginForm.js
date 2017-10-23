@@ -133,8 +133,8 @@ class LoginForm extends Component {
               <Button buttonStyle={{}} textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
               <Button buttonStyle={{ marginLeft: width * 0.02 }} textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(signUpNow)}> Not Registered? Sign Up Now! </Button>
           </View>
-          <Text style={{ fontSize: 14, color: '#fff', paddingLeft: 10, paddingTop: 20 }}>Having trouble logging in? Pleasecall +1-952-742-7414 or </Text>
-          <Button textStyle={{ fontSize: 16, color: '#fff', paddingLeft: 5, textDecorationLine: 'underline' }} buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')} > email :cargillpricehedge@cargill.com</Button>
+          <Text style={{ fontSize: 13, color: '#fff', paddingLeft: 10, paddingTop: 20 }}>Having trouble logging in? Please call +1-952-742-7414 or </Text>
+          <Button textStyle={{ fontSize: 14, color: '#fff', paddingLeft: 5, textDecorationLine: 'underline' }} buttonStyle={{ flex: 1, alignSelf: 'stretch' }} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')} > email: cargillpricehedge@cargill.com</Button>
       </Card>
      </ScrollView>
     );

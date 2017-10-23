@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StatusBar } from 'react-native';
+import { Text, View, Image, StatusBar, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Dimensions from 'Dimensions';
 import { CommonHeader, Button } from '../common/index';
 
 import confirm from '../common/img/confirmationSuccess.png';

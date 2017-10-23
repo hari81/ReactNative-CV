@@ -75,7 +75,8 @@ class FooterBar extends Component {
         this.props.profitabilityMatrixData(this.state);
     }
     matrixToPlaceOrder = () => {
-        Actions.quoteswap();
+        const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        Actions.quoteswap({ cropcode: Crop[0].code, cropyear: Crop[0].cropYear });
     }
 
     render() {
@@ -101,7 +102,7 @@ class FooterBar extends Component {
                 </View>
                 </TouchableOpacity>
                 <View style={{ flexDirection: 'column', marginLeft: width * 0.0195 }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.059, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>PRICE($)</Text>
+                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 16, paddingLeft: width * 0.059, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>PRICE</Text>
                     <View style={{ flexDirection: 'row' }}>
                       <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'price')} onPressOut={this.reCalculate} >
                           <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
@@ -171,6 +172,7 @@ const mapStateToProps = (state) => {
 
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
+        cropButton: state.cropsButtons,
 
         targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])),
         todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),

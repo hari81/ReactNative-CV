@@ -36,7 +36,6 @@ class MyCropButton extends Component {
                             userflag={this.props.uservaluesfalg} 
                             old={this.props.olditem} 
                             onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)}
-                            onDashBoardDataFetch={this.onDashBoardDataFetch.bind(this)}
                         />)
                     }
                 />
@@ -46,11 +45,6 @@ class MyCropButton extends Component {
     onQuoteSwapUnderlying(year, code) {
         if (this.props.onQuoteSwapUnderlying !== undefined) {
             this.props.onQuoteSwapUnderlying(year, code);            
-        }
-    }
-    onDashBoardDataFetch(year, code) {
-        if (this.props.onDashBoardDataFetch !== undefined) {
-            this.props.onDashBoardDataFetch(year, code);
         }
     }
 

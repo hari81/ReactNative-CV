@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  TouchableHighlight,
-    Alert, Keyboard
-} from 'react-native';
+import { Text, View, TouchableHighlight, Alert, Keyboard, Dimensions } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import Dimensions from 'Dimensions';
 import { CommonHeader } from '../components/common';
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';

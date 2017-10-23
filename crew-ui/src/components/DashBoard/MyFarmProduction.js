@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity, Dimensions, Alert } from 'react-na
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import ChartApp from './DoughnutChart/ChartApp';
-import matrix from '../common/img/Small-Matrix.png';
+import matrix from '../common/img/Matrixx.jpg';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Spinner } from '../common/Spinner';
@@ -49,7 +49,7 @@ class MyFarmProduction extends Component {
                     <View style={{ borderRadius: 100, marginTop: height * 0.15, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(218,170,0)' }} />
                 </View>
                 <View style={{ width: width * 0.185, flexDirection: 'column' }}>
-                    <Text style={{ fontSize: 15, paddingTop: height * 0.036, color: 'rgb(29,37,49)' }}>TRADES/SALES</Text>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.036, color: 'rgb(29,37,49)' }}>TRADES</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(29,37,49)' }}>(OUTSIDE THE APP)</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.externalTradesQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
@@ -85,10 +85,10 @@ class MyFarmProduction extends Component {
                                 <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
                             </View>
                         </View>
-                        <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize Scenarios to see how your trading decisions affect your profitability</Text>
-                        <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.217} height={height * 0.1999} /></View>
+                        <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability</Text>
+                        <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.1} height={height * 0.1} /></View>
                         <TouchableOpacity onPress={this.noFarmSetup}>
-                        <View style={styles.viewProfitabilityButton}><Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }}>VIEW PROFITABILITY</Text></View>
+                        <Button buttonStyle={styles.viewProfitabilityButton} textStyle={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }}>VIEW PROFITABILITY</Button>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -106,7 +106,7 @@ class MyFarmProduction extends Component {
                                     <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>YOUR FARM PRODUCTION</Text>
                                 </View>
                                 <View style={{ marginTop: height * 0.024 }}>
-                                    <Text style={{ fontSize: 14, marginLeft: width * 0.087, color: 'rgb(127,127,127)' }}>Estimated TotalProduction</Text>
+                                    <Text style={{ fontSize: 14, marginLeft: width * 0.087, color: 'rgb(127,127,127)' }}>Estimated Total Production</Text>
                                 </View>
                                 <View style={{ marginTop: height * 0.014, alignSelf: 'stretch' }}>
                                     <Text style={{ fontSize: 23, fontFamily: 'HelveticaNeue-Bold', marginLeft: 4, color: 'rgb(1,172,168)' }}>
@@ -125,8 +125,8 @@ class MyFarmProduction extends Component {
                                     <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
                                 </View>
                             </View>
-                            <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize Scenarios to see how your trading decisions affect your profitability</Text>
-                            <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.217} height={height * 0.199} /></View>
+                            <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability</Text>
+                            <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.1} height={height * 0.1} /></View>
                             <Button buttonStyle={styles.viewProfitabilityButton} textStyle={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: 'rgb(39,49,67)' }} onPress={this.dashBoardToMatrix}>
                                 VIEW PROFITABILITY
                             </Button>

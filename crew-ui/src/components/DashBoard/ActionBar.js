@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
@@ -17,7 +17,7 @@ class ActionBar extends Component {
 
     dashBoardToOpenPositions = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
-        Actions.orders({ selectedTab: 'Open Positions', Crop }, { type: ActionConst.RESET });
+        Actions.orders({ selectedTab: 'Open Positions', Crop });
     }
 
     dashBoardToExternalTrades = () => {
@@ -56,9 +56,9 @@ class ActionBar extends Component {
                 <View style={styles.BorderStyle} />
 
                 <TouchableOpacity onPress={this.dashBoardToOrders}>
-                    <View style={{ alignItems: 'center', marginLeft: width * 0.0166, width: width * 0.107, marginTop: 16, flexDirection: 'row'}}>
+                    <View style={{ alignItems: 'center', marginLeft: width * 0.0166, width: width * 0.107, marginTop: 18, flexDirection: 'row'}}>
                         <View style={{ width: width * 0.0488 }}>
-                            <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
+                            <Text style={{ color: 'rgb(1,172,168)', fontSize: 36, textDecorationLine: 'underline' }}>
                                 {this.props.openOrdersCount}
                             </Text>
                         </View>
@@ -73,7 +73,7 @@ class ActionBar extends Component {
                 <TouchableOpacity onPress={this.dashBoardToOpenPositions}>
                     <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 14, flexDirection: 'row' }}>
                         <View style={{ width: width * 0.0488 }}>
-                            <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>
+                            <Text style={{ color: 'rgb(1,172,168)', fontSize: 36, textDecorationLine: 'underline' }}>
                                 {this.props.openPositionsCount}
                             </Text>
                         </View>
@@ -87,13 +87,13 @@ class ActionBar extends Component {
 
                 <View style={styles.BorderStyle} />
                 <TouchableOpacity onPress={this.dashBoardToExternalTrades}>
-                <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 14, flexDirection: 'row' }}>
+                <View style={{ alignItems: 'center', marginHorizontal: width * 0.011, width: width * 0.107, marginTop: 18, flexDirection: 'row' }}>
 
                     <View style={{ width: width * 0.044 }}>
-                        <Text style={{ color: 'rgb(1,172,168)', fontSize: 36 }}>{this.props.externalTradesCount}</Text>
+                        <Text style={{ color: 'rgb(1,172,168)', fontSize: 36, textDecorationLine: 'underline' }}>{this.props.externalTradesCount}</Text>
                     </View>
                     <View style={{ flexDirection: 'column' }}>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Trades/Sales</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>Trades</Text>
                         <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 14, color: 'rgb(61,76,87)' }}>(Outside App)</Text>
                     </View>
 

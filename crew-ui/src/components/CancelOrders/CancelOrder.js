@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, StatusBar } from 'react-native';
+import { Text, View, TouchableHighlight, StatusBar, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux';
 import { CommonHeader } from '../common/index';
 import MyFarmTiles from '../common/MyFarmTiles';

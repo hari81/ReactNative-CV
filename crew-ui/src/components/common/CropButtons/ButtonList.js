@@ -5,11 +5,12 @@ import { bindActionCreators } from 'redux';
 import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
 import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
 import bugsnag from '../BugSnag';
+import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
         //Dashboard data fetch
-        this.props.onDashBoardDataFetch(year, code);
+        this.props.dashBoardDataFetch(year, code);
         this.props.onQuoteSwapUnderlying(year, code);
         //myFarmAction
         if (!this.props.far.farmFlag) {
@@ -100,6 +101,7 @@ const matchDispatchToProps = (dispatch) => {
         selectedCropName,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
+        dashBoardDataFetch
     }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);
