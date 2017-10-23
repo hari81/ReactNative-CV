@@ -9,20 +9,21 @@ import MyFarmProduction from '../components/DashBoard/MyFarmProduction';
 import bugsnag from '../components/common/BugSnag';
 
 class DashBoard extends Component {
-
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width, height} = Dimensions.get('window');
             return (
                 <View>
-                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: width * 0.026 }} />
-                    <CommonHeader />
-                    <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
-                        <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
-                        <MyFarmTiles />
-                        <MyFarmProduction />
-                        <ActionBar />
-                        <MyCropButton />
+                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: width * 0.026}}/>
+                    <CommonHeader/>
+                    <View style={{backgroundColor: 'rgb(239,244,247)'}}>
+                        <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
+                        <MyFarmTiles/>
+                        <MyFarmProduction/>
+                        <ActionBar/>
+                        <MyCropButton/>
                     </View>
                 </View>
             );
@@ -31,4 +32,7 @@ class DashBoard extends Component {
         }
     }
 }
-export default connect(null, null)(DashBoard);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+}
+export default connect(mapStateToProps, null)(DashBoard);

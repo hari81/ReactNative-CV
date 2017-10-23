@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Text, View, TouchableHighlight, Alert, Keyboard, Dimensions } from 'react-native';
+=======
+import {
+  Text,
+  View,
+  TouchableHighlight,
+    Alert, Keyboard, Dimensions
+} from 'react-native';
+>>>>>>> b626d13661b51db2c990abd8702dcd55c75bd189
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../components/common';
@@ -115,7 +124,7 @@ externalsales() {
             'My Farm Data',
             'Please CANCEL or SAVE your changes prior to proceeding to the next screen?',
             [
-                { text: 'Got It!', style: 'OK' }
+                { text: 'GOT IT!', style: 'OK' }
             ],
             { cancelable: false }
         );
@@ -166,6 +175,8 @@ componentWillReceiveProps(newProps) {
 
   render() {
     try {
+        const { userId, firstName, email } = this.props.acc.accountDetails;
+        bugsnag.setUser(`User Id: ${userId}`, firstName, email);
         const {width, height} = Dimensions.get('window');
         const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 
@@ -368,7 +379,7 @@ const styles = {
 
 const mapStatetoProps = (state) => {
   //  console.log(state.myFar);
-    return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons };
+    return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons, acc: state.account };
 };
 
 export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues, farmActionFlag })(MyFarm);

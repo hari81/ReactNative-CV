@@ -12,6 +12,7 @@ export const SERVER_NORESPONSE = 'server_noresponse';
 export const ITEMS_FETCH_DATA_SUCCESS = 'items_fetch_data_success';
 export const OPEN_POSITIONS_DATA_SUCCESS = 'open_positions_data_success';
 export const CLOSED_POSITIONS_DATA_SUCCESS = 'closed_positions_data_success';
+export const TRADE_RECEIPT_PDFVIEW = 'trade_receipt_pdfview';
 
 export const MY_FARM_CROP_VALUES = 'my_farm_crop_values';
 export const MY_FARM_CROP_VALUES_SUMMARY = 'my_farm_crop_values_summary';

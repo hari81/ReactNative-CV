@@ -3,6 +3,7 @@ import { Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import st from '../../Utils/SafeTraverse';
+import bugsnag from '../../components/common/BugSnag';
 
 //const underlying = require('../../restAPI/underlying.json');
 
@@ -12,22 +13,26 @@ class ViewOrders extends Component {
     Actions.cancelorder({ item, selectedCrop: this.props.selected });
   }
   render() {
-    const {
+      try {
+          const { userId, firstName, email } = this.props.acc.accountDetails;
+          bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+      const {
       quantity,
       orderId,
       createTime,
-      expirationDate,
+      //expirationDate,
       buySell,
       orderState,
       orderType,
       riskProductName,
-      underlyingObjectData
+      underlyingObjectData,
+      goodTilDate
     } = this.props.item;
 
     const year = underlyingObjectData.year;
     const month = underlyingObjectData.month;
     const crop = underlyingObjectData.crop;
-    const unit = underlyingObjectData.unit;    
+    const unit = underlyingObjectData.unit;
     const targetPrice = this.props.item.targetPrice || 0;
 
     const d = new Date(createTime);
@@ -157,7 +162,7 @@ class ViewOrders extends Component {
             VALID UNTIL
           </Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-            {expirationDate}
+            {goodTilDate === undefined ? 'N/A' : goodTilDate}
           </Text>
         </View>
 
@@ -187,6 +192,9 @@ class ViewOrders extends Component {
         </View>
       </View>
     );
+  } catch (error) {
+      bugsnag.notify(error);
+  }
   }
 }
 
@@ -250,4 +258,8 @@ const styles = {
   }
 };
 
-export default ViewOrders;
+const mapStateToProps = state => {
+    return { acc: state.account };
+}
+
+export default connect(mapStateToProps, null)(ViewOrders);

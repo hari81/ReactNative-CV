@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { FlatList, View, SegmentedControlIOS, Text, TouchableHighlight, Picker, Dimensions } from 'react-native';
+=======
+import {
+  FlatList,
+  View,
+  SegmentedControlIOS,
+  Text,
+  TouchableHighlight,
+  Picker, Dimensions,
+} from 'react-native';
+>>>>>>> b626d13661b51db2c990abd8702dcd55c75bd189
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -218,6 +229,8 @@ class Orders extends Component {
 
   render() {
       try {
+          const { userId, firstName, email } = this.props.acc.accountDetails;
+          bugsnag.setUser(`User Id: ${userId}`, firstName, email);
           const {width, height} = Dimensions.get('window');
           //console.log(width, height)
           return (
@@ -376,10 +389,11 @@ const mapStateToProps = state => {
   //  console.log(state)
   return {
     viewOrders: state.vieworder,
-    openPositions: state.openPositions,
+    openPositions: state.openPositions.openPstns,
     closedPositions: state.closedPositions,
     auth: state.auth,
-    cropBut: state.cropsButtons
+    cropBut: state.cropsButtons,
+    acc: state.account
   };
 };
 

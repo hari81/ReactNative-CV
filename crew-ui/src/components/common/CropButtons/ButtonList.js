@@ -43,6 +43,8 @@ class ButtonList extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const { id, cropYear, code, name } = this.props.item;
             return (<View style={{ flexDirection: 'row', marginLeft: 10}}>
                 <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
@@ -92,7 +94,8 @@ const styles = {
 const mapStateToProps = state => {
     return {
         id: state.cropsButtons.selectedId,
-        far: state.myFar
+        far: state.myFar,
+        acc: state.account
     };
 };
 const matchDispatchToProps = (dispatch) => {

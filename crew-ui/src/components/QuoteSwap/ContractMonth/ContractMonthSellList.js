@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, } from 'react-native';
 import { connect } from 'react-redux';
 import { bushelQuantityLimit } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import bugsnag from '../../common/BugSnag';
 
 class ContractMonthSellList extends Component {
     contractMonthSelect(item) {
@@ -10,25 +11,33 @@ class ContractMonthSellList extends Component {
     }
 
     render() {
-        let tPrice = '-';
-        const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;
-        if (this.props.isBuy) {
-            tPrice = this.props.item.askPrice === null ? this.props.item.settlePrice : this.props.item.askPrice;
-        } else { 
-            tPrice = this.props.item.bidPrice === null ? this.props.item.settlePrice : this.props.item.bidPrice;
-        }
-        tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4); 
+        try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+            let tPrice = '-';
+            const tId = this.props.selectedContractMonth === null ? -1 : this.props.selectedContractMonth.id;
+            if (this.props.isBuy) {
+                tPrice = this.props.item.askPrice === null ? this.props.item.settlePrice : this.props.item.askPrice;
+            } else {
+                tPrice = this.props.item.bidPrice === null ? this.props.item.settlePrice : this.props.item.bidPrice;
+            }
+            tPrice = tPrice === null ? '-' : parseFloat(tPrice).toFixed(4);
 
-        return (
-            <TouchableOpacity disabled={this.props.item.id === tId} onPress={this.contractMonthSelect.bind(this, this.props.item)}>
-                <View style={this.props.item.id === tId ? styles.afterButtonPress : styles.beforeButtonPress}>
-                    <Text style={this.props.item.id === tId ? styles.contractMonth : styles.contractMonthDisabled}>
-                        { this.props.item.month.substr(0, 3)} {this.props.item.year}
-                    </Text>
-                    <Text style={this.props.item.id === tId ? styles.contractPrice : styles.contractPriceDisabled}>${tPrice}</Text>
-                </View>
-            </TouchableOpacity>
-        );
+            return (
+                <TouchableOpacity disabled={this.props.item.id === tId}
+                                  onPress={this.contractMonthSelect.bind(this, this.props.item)}>
+                    <View style={this.props.item.id === tId ? styles.afterButtonPress : styles.beforeButtonPress}>
+                        <Text style={this.props.item.id === tId ? styles.contractMonth : styles.contractMonthDisabled}>
+                            {this.props.item.month.substr(0, 3)} {this.props.item.year}
+                        </Text>
+                        <Text
+                            style={this.props.item.id === tId ? styles.contractPrice : styles.contractPriceDisabled}>${tPrice}</Text>
+                    </View>
+                </TouchableOpacity>
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {
@@ -40,4 +49,8 @@ const styles = {
     contractMonthDisabled: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#3d4c57' },
 };
 
-export default connect(null, { bushelQuantityLimit })(ContractMonthSellList);
+const mapStateToProps = (state) => {
+    return { acc: state.account };
+};
+
+export default connect(mapStateToProps, { bushelQuantityLimit })(ContractMonthSellList);

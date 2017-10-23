@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, TouchableOpacity, Picker, Keyboard } from 'react-native';
-import Dimensions from 'Dimensions';
+import { View, TextInput, TouchableHighlight, Image, Text, DatePickerIOS, TouchableOpacity, Picker, Keyboard, Dimensions } from 'react-native';
 import { ExternalInput } from './ExternalInput';
 import { ExternalNumberInput } from './ExternalNumberInput';
 import cancel from '../common/img/Cancel-40.png';
 import minus from '../common/img/Minus.png';
+import bugsnag from '../common/BugSnag';
 
 export default class ExternalValues extends Component {
     constructor(props) {
@@ -195,19 +195,24 @@ export default class ExternalValues extends Component {
     }
 
     render() {
-        const { width } = Dimensions.get('window');
-        const { removeTrans, items = {}, fcontract, placeholdervalues } = this.props;
-       // console.log(items.underlyingSymbol);
-        const a = Number(items.adjustments || 0);
-        const b = Number(items.basis || 0);
-        const f = Number(items.futuresPrice || 0);
-        return (
-            <View style={{ backgroundColor: '#3d4c57', width }}>
-                    <View style={{ marginBottom: 15, height: 5, backgroundColor: 'black' }} />
-                    <View style={{ flexDirection: 'row' }}>
+        try {
+
+            const {width} = Dimensions.get('window');
+            const {removeTrans, items = {}, fcontract, placeholdervalues} = this.props;
+            // console.log(items.underlyingSymbol);
+            const a = Number(items.adjustments || 0);
+            const b = Number(items.basis || 0);
+            const f = Number(items.futuresPrice || 0);
+            return (
+                <View style={{backgroundColor: '#3d4c57', width}}>
+                    <View style={{marginBottom: 15, height: 5, backgroundColor: 'black'}}/>
+                    <View style={{flexDirection: 'row'}}>
 
                         <ExternalInput
-                            focus={() => { Keyboard.dismiss(); this.setState({ show: true }); }}
+                            focus={() => {
+                                Keyboard.dismiss();
+                                this.setState({show: true});
+                            }}
                             //onblur = {() => { this.setState({ show: false }); }}
                             placeholder={'MM/DD/YYYY'}
                             label='Trade Date *'
@@ -229,7 +234,8 @@ export default class ExternalValues extends Component {
 
                             }}
                         >
-                            <Text style={{ fontSize: 15, color: 'white', paddingBottom: 10, alignItems: 'center' }}>Contract Month *</Text>
+                            <Text style={{fontSize: 15, color: 'white', paddingBottom: 10, alignItems: 'center'}}>Contract
+                                Month *</Text>
                             <View
                                 style={{
                                     justifyContent: 'flex-end',
@@ -247,22 +253,22 @@ export default class ExternalValues extends Component {
                                     //onChangeText={}
                                     onFocus={() => { Keyboard.dismiss(); this.setState({ contractFlag: true }); }}
                                 />*/}
-                                 <Picker
-                                    style={{ width: 135, height: 45 }}
+                                <Picker
+                                    style={{width: 135, height: 45}}
                                     mode='dropdown'
-                                    itemStyle={{ height: 45 }}
+                                    itemStyle={{height: 45}}
                                     selectedValue={this.state.cMonth}
                                     onValueChange={this.externalTrans.bind(this, 'underlyingSymbol')}
                                 >
-                                     {fcontract.map(item =>
-                                     <Picker.Item label={item} value={item}  key={item} />)}
+                                    {fcontract.map(item =>
+                                        <Picker.Item label={item} value={item} key={item}/>)}
                                 </Picker>
                                 {this.contractMonthVisibility()}
                             </View>
                         </View>
 
 
-                        <View style={styles.containerStyle} >
+                        <View style={styles.containerStyle}>
                             <Text style={styles.labelStyle}>Quantity *</Text>
                             <TextInput
                                 placeholder='Ex: 22,000'
@@ -272,7 +278,7 @@ export default class ExternalValues extends Component {
 
                                 onFocus={this.quantityonFocus.bind(this)}
                                 onBlur={() => {
-                                    this.setState({ quan: this.state.quan.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') });
+                                    this.setState({quan: this.state.quan.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')});
                                 }}
 
                                 keyboardType='numeric'
@@ -285,7 +291,7 @@ export default class ExternalValues extends Component {
                             />
                         </View>
 
-                        <View style={styles.containerStyle} >
+                        <View style={styles.containerStyle}>
                             <Text style={styles.labelStyle}> Futures Price *</Text>
                             <TextInput
                                 placeholder=' $3.9550'
@@ -293,7 +299,9 @@ export default class ExternalValues extends Component {
                                 value={typeof items.futuresPrice === 'undefined' ? '' : this.state.fuPrice}
                                 onChangeText={this.externalTrans.bind(this, 'futuresPrice')}
                                 onFocus={this.futurePriceonFocus.bind(this)}
-                                onBlur={() => { this.setState({ fuPrice: this.state.fuPrice === '' ? '' : `$${parseFloat(this.state.fuPrice).toFixed(4)}` }); }}
+                                onBlur={() => {
+                                    this.setState({fuPrice: this.state.fuPrice === '' ? '' : `$${parseFloat(this.state.fuPrice).toFixed(4)}`});
+                                }}
 
                                 keyboardType='numeric'
                                 returnKeyType='done'
@@ -305,7 +313,7 @@ export default class ExternalValues extends Component {
                             />
                         </View>
 
-                        <View style={styles.containerStyle} >
+                        <View style={styles.containerStyle}>
                             <Text style={styles.labelStyle}>Basis($-/+)</Text>
                             <TextInput
                                 placeholder=' $-0.2500'
@@ -313,7 +321,9 @@ export default class ExternalValues extends Component {
                                 value={typeof items.basis === 'undefined' ? '' : this.state.basis}
                                 onChangeText={this.externalTrans.bind(this, 'basis')}
                                 onFocus={this.baisonFocus.bind(this)}
-                                onBlur={() => { this.setState({ basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}` }); }}
+                                onBlur={() => {
+                                    this.setState({basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}`});
+                                }}
 
                                 keyboardType='numeric'
                                 returnKeyType='done'
@@ -325,7 +335,7 @@ export default class ExternalValues extends Component {
                             />
                         </View>
 
-                          <View style={styles.containerStyle} >
+                        <View style={styles.containerStyle}>
                             <Text style={styles.labelStyle}> Adjustments($-/+)</Text>
                             <TextInput
                                 placeholder=' $-0.0500'
@@ -333,7 +343,9 @@ export default class ExternalValues extends Component {
                                 value={typeof items.adjustments === 'undefined' ? '' : this.state.adj}
                                 onChangeText={this.externalTrans.bind(this, 'adjustments')}
                                 onFocus={this.adjustmentonFocus.bind(this)}
-                                onBlur={() => { this.setState({ adj: this.state.adj === '' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}` }); }}
+                                onBlur={() => {
+                                    this.setState({adj: this.state.adj === '' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}`});
+                                }}
 
                                 keyboardType='numeric'
                                 returnKeyType='done'
@@ -346,13 +358,20 @@ export default class ExternalValues extends Component {
                         </View>
 
                     </View>
-                    <View style={{ marginTop: 10, flexDirection: 'row', zIndex: -1, width }}>
-                        <View style={{ justifyContent: 'space-between', marginRight: 5 }}>
-                            <Text style={{ fontSize: 15, color: 'white', paddingLeft: 20, paddingBottom: 10 }}> Notes </Text>
-                            <View style={{ backgroundColor: 'white', height: 50, borderRadius: 5, marginLeft: 20, flex: 1 }}>
+                    <View style={{marginTop: 10, flexDirection: 'row', zIndex: -1, width}}>
+                        <View style={{justifyContent: 'space-between', marginRight: 5}}>
+                            <Text style={{fontSize: 15, color: 'white', paddingLeft: 20, paddingBottom: 10}}>
+                                Notes </Text>
+                            <View style={{
+                                backgroundColor: 'white',
+                                height: 50,
+                                borderRadius: 5,
+                                marginLeft: 20,
+                                flex: 1
+                            }}>
                                 <TextInput
                                     value={items.notes}
-                                    style={{ width: 740, height: 45, paddingLeft: 20, fontSize: 15 }}
+                                    style={{width: 740, height: 45, paddingLeft: 20, fontSize: 15}}
                                     multiline
                                     placeholder='Sale to grain elevator in Fort Wayne for October delivery.'
                                     onChangeText={this.externalTrans.bind(this, 'notes')}
@@ -366,21 +385,24 @@ export default class ExternalValues extends Component {
                             label='NET Contract ($)'
                             placeholder=' $3.6550'
                             edit={false}
-                            stylenp={{ borderWidth: 2, borderColor: (a + b + f).toFixed(4) < 0 ? 'red' : 'green' }}
+                            stylenp={{borderWidth: 2, borderColor: (a + b + f).toFixed(4) < 0 ? 'red' : 'green'}}
                         />
-                        <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', marginLeft: 20 }}>
+                        <View style={{height: 50, justifyContent: 'center', alignItems: 'center', marginLeft: 20}}>
                             <TouchableHighlight onPress={removeTrans}>
-                                <Image source={minus} style={{ width: 32, height: 32 }} />
+                                <Image source={minus} style={{width: 32, height: 32}}/>
                             </TouchableHighlight>
-                            <Text style={{ color: 'white', fontSize: 10 }}>Remove</Text>
-                            <Text style={{ color: 'white', fontSize: 10 }}>Transaction</Text>
+                            <Text style={{color: 'white', fontSize: 10}}>Remove</Text>
+                            <Text style={{color: 'white', fontSize: 10}}>Transaction</Text>
                         </View>
 
                     </View>
-                    <View style={{ marginTop: 15, height: 5, backgroundColor: 'black' }} />
+                    <View style={{marginTop: 15, height: 5, backgroundColor: 'black'}}/>
 
-            </View>
-        );
+                </View>
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 

@@ -6,6 +6,7 @@ import FooterBar from './FooterBar';
 import st from '../../Utils/SafeTraverse';
 import { Button } from '../common/Button';
 import * as common from '../../Utils/common';
+import bugsnag from '../../components/common/BugSnag';
 
 class IncrementSettingBar extends Component {
     constructor() {
@@ -66,28 +67,48 @@ class IncrementSettingBar extends Component {
         );
     }
     render() {
-        return (
-            <View>
-            <View style={styles.container}>
+        try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+            return (
+                <View>
+                    <View style={styles.container}>
 
-                <View style={{ marginLeft: width * 0.36, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 18, fontFamily: 'HelveticaNeue' }}>Your Profit Goal:</Text>
-                </View>
-                <View style={{ marginLeft: width * 0.003, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: 'rgb(255,255,255)', fontSize: 28, fontFamily: 'HelveticaNeue' }}>{common.minusBeforeDollarSign(this.props.unitProfitGoal, 0)}</Text>
-                </View>
-                    <Button buttonStyle={{ marginLeft: width * 0.28, height: height * 0.044, width: width * 0.156, backgroundColor: 'rgba(82,97,115,0.37)', justifyContent: 'center', alignItems: 'center' }} textStyle={{ color: 'rgb(255,255,255)', fontSize: 14, fontFamily: 'HelveticaNeue' }}  onPress={() => this.setState({ showBlock: !this.state.showBlock })}>
-                     Increment Settings
-                    </Button>
-                {this.showIncrementSettingsBlock()}
+                        <View style={{marginLeft: width * 0.36, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{color: 'rgb(255,255,255)', fontSize: 18, fontFamily: 'HelveticaNeue'}}>Your
+                                Profit Goal:</Text>
+                        </View>
+                        <View style={{marginLeft: width * 0.003, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{
+                                color: 'rgb(255,255,255)',
+                                fontSize: 28,
+                                fontFamily: 'HelveticaNeue'
+                            }}>{common.minusBeforeDollarSign(this.props.unitProfitGoal, 0)}</Text>
+                        </View>
+                        <Button buttonStyle={{
+                            marginLeft: width * 0.28,
+                            height: height * 0.044,
+                            width: width * 0.156,
+                            backgroundColor: 'rgba(82,97,115,0.37)',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }} textStyle={{color: 'rgb(255,255,255)', fontSize: 14, fontFamily: 'HelveticaNeue'}}
+                                onPress={() => this.setState({showBlock: !this.state.showBlock})}>
+                            Increment Settings
+                        </Button>
+                        {this.showIncrementSettingsBlock()}
 
-            </View>
-                <FooterBar yieldIncrement={this.state.selectedYieldIncrement} priceIncrement={this.state.selectedPriceIncrement} />
-            </View>
-        );
+                    </View>
+                    <FooterBar yieldIncrement={this.state.selectedYieldIncrement}
+                               priceIncrement={this.state.selectedPriceIncrement}/>
+                </View>
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
-const { height, width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window');
 const styles = {
     container: {
         height: height * 0.07,
@@ -95,13 +116,13 @@ const styles = {
         flexDirection: 'row',
 
     }
-}
+};
 const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
-
+        acc: state.account,
         unitProfitGoal: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unitProfitGoal']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unitProfitGoal']))
     };
-}
+};
 export default connect(mapStateToProps, null)(IncrementSettingBar);

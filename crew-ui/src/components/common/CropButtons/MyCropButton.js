@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import Dimensions from 'Dimensions';
 import ButtonList from './ButtonList';
 import { Spinner } from '../index';
+import bugsnag from '../BugSnag';
 
 class MyCropButton extends Component {
     getItemLayout = (data, index) => (
@@ -49,19 +49,38 @@ class MyCropButton extends Component {
     }
 
     render() {
-        const { width } = Dimensions.get('window');
-        return (
+        try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+            const {width} = Dimensions.get('window');
+            return (
 
-            <View style={styles.buttonStyle}>
-                <View style={{ flexDirection: 'column' }}>
-                    <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 20 }}>
-                        <Text style={{ color: 'rgb(255,255,255)', height: 18, alignSelf: 'stretch', fontFamily: 'HelveticaNeue', fontSize: 16 }}>MY CROPS</Text>
-                        <View style={{ height: 1, marginLeft: 22, marginTop: 9, marginRight: 22, width: width - 170, backgroundColor: 'rgb(245,131,51)' }} />
+                <View style={styles.buttonStyle}>
+                    <View style={{flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'row', marginTop: 10, marginLeft: 20}}>
+                            <Text style={{
+                                color: 'rgb(255,255,255)',
+                                height: 18,
+                                alignSelf: 'stretch',
+                                fontFamily: 'HelveticaNeue',
+                                fontSize: 16
+                            }}>MY CROPS</Text>
+                            <View style={{
+                                height: 1,
+                                marginLeft: 22,
+                                marginTop: 9,
+                                marginRight: 22,
+                                width: width - 170,
+                                backgroundColor: 'rgb(245,131,51)'
+                            }}/>
+                        </View>
                     </View>
+                    {this.buttonsAppear()}
                 </View>
-                {this.buttonsAppear()}
-            </View>
-        );
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
     }
 }
 const styles = {
@@ -75,7 +94,8 @@ const styles = {
 const mapStateToProps = state => {
     return {
         crops: state.cropsButtons,
-        id: state.cropsButtons.selectedId
+        id: state.cropsButtons.selectedId,
+        acc: state.account
     };
 };
 

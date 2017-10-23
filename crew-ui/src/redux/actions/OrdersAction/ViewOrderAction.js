@@ -2,9 +2,12 @@ import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, DROP_DOWN_VALUES, ITEMS_FETCH_DATA_SUCCESS } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
+import bugsnag from '../../../components/common/BugSnag';
 
 export const ViewOrdersData = (crop) => {
   return (dispatch, getState) => {
+      const user = getState().account.accountDetails;
+      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
     const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
@@ -22,10 +25,10 @@ export const ViewOrdersData = (crop) => {
             } else {
                 return Promise.all(
                   oOrders.map((item) => {
-                    const oUnderlying = common.createUnderlyingObject(item.underlying);                   
+                    const oUnderlying = common.createUnderlyingObject(item.underlying);
                     const uod = {
                       //year needs to be a int value instead of a string for later compares/equality tests
-                      year: common.convertStringToInt(oUnderlying.underlyingYear), 
+                      year: common.convertStringToInt(oUnderlying.underlyingYear),
                       crop: oCrop.name,
                       cropCode: oCrop.commodity,
                       month: oUnderlying.underlyingMonthDesc,
@@ -39,14 +42,14 @@ export const ViewOrdersData = (crop) => {
                 });
             }
       })
-      .catch(error => {
-          console.error(`error ${error}`);
-      });
+      .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
   };
 };
 
 export const dropDownCrop = () => {
   return (dispatch, getState) => {
+      const user = getState().account.accountDetails;
+      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     const url = `${ORDER_SERVICES_URL}commodities`;
     return doGetFetch(url, getState().auth.basicToken)
         .then(response => response.json())
@@ -54,7 +57,7 @@ export const dropDownCrop = () => {
         //  console.log(dropDownData);
         dispatch({ type: DROP_DOWN_VALUES, payload: dropDownData });
       })
-      .catch(error => console.log(`error ${error}`));
+      .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
   };
 };
 

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, Image, Linking, WebView } from 'react-native';
+import { Text, TouchableHighlight, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import RNFetchBlob from 'react-native-fetch-blob';
-import { POSITONS_TRADE_RECEIPT_URL } from '../../ServiceURLS';
-//import TradeReceipt from './TradeReceipt';
-import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
+import bugsnag from '../../components/common/BugSnag';
+import st from '../../Utils/SafeTraverse';
+
 
 class OpenPositions extends Component {
     constructor() {
         super();
-        this.state = { fileLocation: '' };
     }
   onUnwind(item) {
     const sOrder = this.props.item;
@@ -27,53 +25,18 @@ class OpenPositions extends Component {
       transId: sOrder.id,
       activityId: sLine.id
     };
-    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.year }); 
+    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.year });
   }
 
   openTradeReceipt() {
-        this.props.tradeReceipt(this.props.item.confirm);
-
-     /* RNFetchBlob
-          .config({
-                // add this option that makes response data to be stored as a file.
-              fileCache: true,
-              appendExt: 'pdf',
-                //path: DocumentDir
-          })
-          .fetch('GET', POSITONS_TRADE_RECEIPT_URL + this.props.item.confirm.substr(1, this.props.item.confirm.length), {
-              "Content-Type": "application/json",
-              "x-api-key": "rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb",
-              "User-Agent": "Crew 0.1.0",
-              "Authorization": "Basic anBqckBjb21tb2RpdHloZWRnaW5nLmNvbTp0ZXN0MTIzNA==",
-              "Accept": "application/pdf",
-             // 'Cache-Control': 'no-store'
-          })
-          .then((res) => {
-                // the temp file path
-              this.setState({fileLocation: res.path()});
-              console.log('The file saved to ', res.path());
-              console.log('order confirm', this.props.item.confirm);
-             // console.log('The pdf save', res.base64())
-              Actions.pdfview({ path: res.path() });
-          });
-      /*const source =
-      return(
-      <Pdf ref={(pdf)=>{this.pdf = pdf;}}
-                          source={this.state.fileLocation}
-                          page={1}
-                          scale={1}
-                          horizontal={false} />);*/
-      /*return(<PDFView
-          ref={(pdf)=>{this.pdfView = pdf;}}
-          src={this.state.fileLocation}
-        //  style={styles.pdf}
-      />)*/
-
-     // Linking.openURL('file:///Users/crmdev1/Library/Developer/CoreSimulator/Devices/CDBCF598-F243-4C52-AABB-ECFB8E970EC1/data/Containers/Data/Application/BB96C590-A015-430F-A248-A2903B0E3CCB/Documents/RNFetchBlob_tmp/RNFetchBlobTmp_mhjnv9srplefgiejz6edh9.pdf');
-     // Linking.openURL('file://' + this.state.fileLocation);
+        Actions.pdfview({ orderId: this.props.item.id, confirm: this.props.item.confirm });
+        //this.props.tradeReceipt(this.props.item.confirm);
   }
 
   render() {
+        try {
+            const {userId, firstName, email} = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
     const {
       id,
       status,
@@ -208,18 +171,22 @@ class OpenPositions extends Component {
 
         <View style={styles.borderStyle} />
 
-        <View style={styles.buttonview}>
-          <TouchableHighlight
-            style={[styles.viewbutton, status === 'pendingUnwind' ? { backgroundColor: 'rgba(39,153,137,0.65 )' } : {}]}
-            disabled={status === 'pendingUnwind'}
-            onPress={this.onUnwind.bind(this, this.props.item)}
-            underlayColor='#ddd'
-          ><View>
-              <Text style={styles.buttonText}>SET ORDER TO</Text><Text style={styles.buttonText}>CLOSE POSITION</Text></View>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
+                    <View style={styles.buttonview}>
+                        <TouchableHighlight
+                            style={[styles.viewbutton, status === 'pendingUnwind' ? {backgroundColor: 'rgba(39,153,137,0.65 )'} : {}]}
+                            disabled={status === 'pendingUnwind'}
+                            onPress={this.onUnwind.bind(this, this.props.item)}
+                            underlayColor='#ddd'
+                        ><View>
+                            <Text style={styles.buttonText}>ENTER DETAILS TO</Text><Text style={styles.buttonText}>CLOSE
+                            POSITION</Text></View>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            );
+        } catch (error) {
+            bugsnag.notify(error);
+        }
   }
 }
 const styles = {
@@ -280,4 +247,9 @@ const styles = {
   }
 };
 
-export default connect(null, { tradeReceipt })(OpenPositions);
+const mapStateToProps = state => {
+    return {
+        acc: state.account
+    };
+};
+export default connect(mapStateToProps, null)(OpenPositions);

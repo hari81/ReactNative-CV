@@ -29,6 +29,8 @@ class ProfitabilityMatrix extends Component {
     }
     render() {
         try {
+            const { userId, firstName, email } = this.props.acc.accountDetails;
+            bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={styles.container}>
                     <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: height * 0.026 }} />
@@ -53,7 +55,7 @@ const mapStateToProps = (state) => {
     return {
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
-
+        acc: state.account,
         todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),
         expectedYield: st(state.dashBoardData, ['Data', 'myFarmProduction', 'expectedYield']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'expectedYield']))
     };

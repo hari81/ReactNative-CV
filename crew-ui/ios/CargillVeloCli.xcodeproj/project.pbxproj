@@ -128,6 +128,13 @@
 			remoteGlobalIDString = 323A12871E5F266B004975B8;
 			remoteInfo = "ART-tvOS";
 		};
+		3D5C515A1F9825DF00D13CF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 83CBBA2D1A601D0E00E9B192;
+			remoteInfo = React;
+		};
 		3D73FC631F881D44005BADA0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4334335E7A6D494CB98D337B /* BugsnagReactNative.xcodeproj */;
@@ -240,9 +247,7 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-
 		3DC5ADF51F9672C00057945C /* PBXContainerItemProxy */ = {
-
 			isa = PBXContainerItemProxy;
 			containerPortal = EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */;
 			proxyType = 2;
@@ -545,12 +550,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-
 		3DC5ADF21F9672C00057945C /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				3DC5ADF61F9672C00057945C /* libRNFetchBlob.a */,
-
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -586,7 +589,6 @@
 			children = (
 				3D5B9F041F534A950030956B /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
-				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
 				00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */,
@@ -615,6 +617,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* CargillVeloCli */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CargillVeloCliTests */,
@@ -670,6 +673,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3D5C515B1F9825DF00D13CF8 /* PBXTargetDependency */,
 			);
 			name = CargillVeloCli;
 			productName = "Hello World";
@@ -805,9 +809,7 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-
 					ProductGroup = 3DC5ADF21F9672C00057945C /* Products */;
-
 					ProjectRef = EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */;
 				},
 				{
@@ -1008,13 +1010,11 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-
 		3DC5ADF61F9672C00057945C /* libRNFetchBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNFetchBlob.a;
 			remoteRef = 3DC5ADF51F9672C00057945C /* PBXContainerItemProxy */;
-
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DE9E7351F1AC07F005363D7 /* libthird-party.a */ = {
@@ -1187,6 +1187,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* CargillVeloCli-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		3D5C515B1F9825DF00D13CF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = React;
+			targetProxy = 3D5C515A1F9825DF00D13CF8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
