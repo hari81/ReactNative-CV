@@ -238,6 +238,7 @@ const mapStateToProps = (state) => {
         defaultAccountData: state.account.defaultAccount,
         id: state.cropsButtons.selectedId,
         cropButton: state.cropsButtons,
+        acc: state.account,
 
         targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])),
         todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),
