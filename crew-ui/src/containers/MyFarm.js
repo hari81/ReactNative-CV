@@ -224,11 +224,11 @@ componentWillReceiveProps(newProps) {
                     </View>
                 </View>
 
-                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)', zIndex: -1 }}>
+                <View style={{height: height - 270, backgroundColor: 'rgb(239,244,247)', zIndex: -1 }}>
 
                     <View
                         style={{
-                            height: height - 315,
+                            height: height - 310,
                             backgroundColor: '#3d4c57',
                             marginHorizontal: 16,
                             marginTop: 20

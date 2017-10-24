@@ -12,7 +12,7 @@ reqHeaders.append('x-api-key', X_API_KEY);
 reqHeaders.append('User-Agent', 'Crew 0.1.0');
 
 function doGetFetch(url, token) {
-    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
+    token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'GET',
         headers: reqHeaders
@@ -20,7 +20,7 @@ function doGetFetch(url, token) {
 }
 
 function doPutFetch(url, body, token) {
-    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
+    token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'PUT',
         headers: reqHeaders,
@@ -29,7 +29,7 @@ function doPutFetch(url, body, token) {
 }
 
 function doPostFetch(url, body, token) {
-    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
+    token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     console.log('body', body);
     return fetch(url, {
         method: 'POST',
@@ -48,7 +48,7 @@ function doLoginPostFetch(url, body) {
 }
 
 function doDeleteFetch(url, token) {
-    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
+    token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'DELETE',
         headers: reqHeaders
@@ -57,7 +57,7 @@ function doDeleteFetch(url, token) {
 
 function doGetTradeReceiptFetch(url, token) {
     // console.log(url);
-    token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
+    token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     reqHeaders.append('Accept', 'application/pdf');
     reqHeaders.append('Cache-Control', 'no-store');
      RNFetchBlob

@@ -146,7 +146,7 @@ class LoginForm extends Component {
                           logging in? Please call +1-952-742-7414 or </Text>
                       <Button textStyle={{fontSize: 13, color: '#fff', paddingLeft: 8, textDecorationLine: 'underline'}}
                               buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>
-                          email :cargillpricehedge@cargill.com</Button>
+                          email: cargillpricehedge@cargill.com</Button>
                   </Card>
               </ScrollView>
           );
