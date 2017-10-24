@@ -213,8 +213,7 @@ class ExternalSales extends Component {
                         marginTop: 20,
                         marginBottom: 20
                     }}>
-                        <Text style={{fontSize: 24, color: 'white', paddingBottom: 20}}>{this.externalCropYearName()}
-                            Trades / Sales Outside the App</Text>
+                        <Text style={{fontSize: 24, color: 'white', paddingBottom: 20}}>{this.externalCropYearName()} Trades Outside the App</Text>
                         <View style={{flexDirection: 'row'}}>
                             <View style={{alignItems: 'center'}}>
                                 <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>

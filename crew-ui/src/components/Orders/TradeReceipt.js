@@ -34,7 +34,7 @@ class TradeReceipt extends Component {
                         marginBottom: 30
                     }}
                 >
-                    Loading trade receipt for Order id: {this.props.orderId}
+                    Loading trade receipt for Trade id: {this.props.orderId}
 
                 </Text>
                 <Spinner size='large' />
@@ -61,7 +61,7 @@ class TradeReceipt extends Component {
                         }}
                     />
                     <CommonHeader/>
-                    <Button color='#01aca8' title='<<Back to Positions' onPress={() => Actions.pop()} />
+                    <Button color='white' title='<<Back to Positions' onPress={() => Actions.pop()} />
                     {this.renderPdfView()}
                 </View>);
         } catch (error) {

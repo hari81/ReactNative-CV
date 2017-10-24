@@ -20,7 +20,6 @@ class SideMenuBar extends Component {
             confirmPassword: ''
         };
     }
-
     changePasswordButtonPress = () => {
         this.setState({ popUpAlert: !this.state.popUpAlert });
     }
