@@ -9,6 +9,7 @@ import { externalGetTrans } from '../redux/actions/ExternalTrades/ExternalAction
 import { cropDataSave, myFarmCropValues, farmActionFlag } from '../redux/actions/MyFarm/CropAction';
 import BasisSliderSwitch from '../components/MyFarm/BasisSliderSwitch';
 import FarmInputFields from '../components/MyFarm/FarmInputFields';
+import { dashBoardDataFetch } from '../redux/actions/Dashboard/DashboardAction';
 import bugsnag from '../components/common/BugSnag';
 
  class MyFarm extends Component {
@@ -81,7 +82,8 @@ placeNewOrder() {
         );
     } else {
         this.props.farmActionFlag(false);
-        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year, type: ActionConst.REPLACE });
+        this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code);
+        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
     }
 }
 
@@ -215,33 +217,14 @@ componentWillReceiveProps(newProps) {
                             used to provide you with insights about your farm in the My Farm section of the application.
                         </Text>
                     </View>
-                    <View style={{
-                        width: '22%',
-                        height: 40,
-                        justifyContent: 'center',
-                        marginHorizontal: 20,
-                        alignItems: 'center'
-                    }}>
-                        <TouchableHighlight
-                            style={{
-                                flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center',
-                                borderRadius: 5, alignItems: 'center',
-                                borderColor: '#279989'
-                            }} onPress={this.placeNewOrder.bind(this)}>
-
-                            <Text style={{
-                                paddingVertical: 5,
-                                paddingHorizontal: 5,
-                                fontSize: 16,
-                                color: 'rgb(255,255,255)',
-                                fontFamily: 'HelveticaNeue'
-                            }}>PLACE NEW ORDER NOW</Text>
-
+                    <View style={{ width: '22%', height: 40, justifyContent: 'center', marginHorizontal: 20, alignItems: 'center' }}>
+                        <TouchableHighlight style={{ flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center', borderRadius: 5, alignItems: 'center', borderColor: '#279989' }} onPress={this.placeNewOrder.bind(this)}>
+                            <Text style={{ paddingVertical: 5, paddingHorizontal: 5, fontSize: 16, color: '#fff', fontFamily: 'HelveticaNeue' }}>PLACE NEW ORDER NOW</Text>
                         </TouchableHighlight>
                     </View>
                 </View>
 
-                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)', zIndex:-1 }}>
+                <View style={{height: height - 275, backgroundColor: 'rgb(239,244,247)', zIndex: -1 }}>
 
                     <View
                         style={{
@@ -373,4 +356,4 @@ const mapStatetoProps = (state) => {
     return { far: state.myFar, ext: state.external, cropBut: state.cropsButtons, acc: state.account };
 };
 
-export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues, farmActionFlag })(MyFarm);
+export default connect(mapStatetoProps, { cropDataSave, externalGetTrans, myFarmCropValues, farmActionFlag, dashBoardDataFetch })(MyFarm);

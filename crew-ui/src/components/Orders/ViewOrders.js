@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import st from '../../Utils/SafeTraverse';
 import bugsnag from '../../components/common/BugSnag';
-
-//const underlying = require('../../restAPI/underlying.json');
 
 class ViewOrders extends Component {
   onCancelPress(item) {
@@ -20,7 +17,6 @@ class ViewOrders extends Component {
       quantity,
       orderId,
       createTime,
-      //expirationDate,
       buySell,
       orderState,
       orderType,
@@ -96,11 +92,7 @@ class ViewOrders extends Component {
                 <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (crop.length + riskProductName.length) >= 18 ? { paddingTop: 8 } : {}]}>QUANTITY</Text>
                 <View style={{ width: 150 }}>
                   <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                    {quantity
-                      .toString()
-                      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') +
-                      ' ' +
-                      unit}s
+                    {quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + unit}s
                   </Text>
                 </View>
               </View>
@@ -234,9 +226,6 @@ const styles = {
     height: 35,
     width: 127,
     borderRadius: 5,
-   // marginTop: 30,
-    //paddingLeft: 20,
-   // paddingRight: 8,
     backgroundColor: 'rgb(39,153,137)',
     justifyContent: 'center',
     alignItems: 'center'
@@ -260,6 +249,6 @@ const styles = {
 
 const mapStateToProps = state => {
     return { acc: state.account };
-}
+};
 
 export default connect(mapStateToProps, null)(ViewOrders);

@@ -31,151 +31,93 @@ class ClosedPositions extends Component {
             const buysell = this.props.item.lines.filter(obj => obj.type === 'REPRICE')[0]
                 .buysell;
 
-            const {id, riskProduct, underlyingObjectData} = this.props.item;
+            const { id, riskProduct, underlyingObjectData } = this.props.item;
 
             return (
                 <View style={[styles.subContainerStyle]}>
-                    <View style={[styles.yearStyle, {width: '10.74%'}]}>
-                        <View
-                            style={{
-                                backgroundColor: 'rgb(39,153,137)',
-                                height: 40,
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Text style={{
-                                fontSize: 14,
-                                color: 'white',
-                                textAlign: 'center',
-                                fontFamily: 'HelveticaNeue'
-                            }}>
+                    <View style={[styles.yearStyle, { width: '10.74%' }]}>
+                        <View style={{ backgroundColor: 'rgb(39,153,137)', height: 40, justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
                                 {underlyingObjectData.month}
                             </Text>
                         </View>
-                        <View
-                            style={{
-                                backgroundColor: 'rgb(61,76,87)',
-                                height: 55,
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    textAlign: 'center',
-                                    fontSize: 20,
-                                    color: 'white',
-                                    fontFamily: 'HelveticaNeue-Bold'
-                                }}
-                            >
+                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: 55, justifyContent: 'center' }}>
+                            <Text style={{ textAlign: 'center', fontSize: 20, color: 'white', fontFamily: 'HelveticaNeue-Bold' }}>
                                 {underlyingObjectData.year}
                             </Text>
                         </View>
                     </View>
 
-                    <View style={{margin: 20, width: '24.41%'}}>
-                        <Text style={[{
-                            fontFamily: 'HelveticaNeue-Thin',
-                            fontSize: 20
-                        }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {fontSize: 14} : {}]}>
+                    <View style={{ margin: 20, width: '24.41%' }}>
+                        <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {fontSize: 14} : {}]}>
                             {underlyingObjectData.crop} {riskProduct}
                         </Text>
-                        <View style={{flexDirection: 'row', marginTop: 15, justifyContent: 'space-between'}}>
-                            <View style={{flexDirection: 'column'}}>
-                                <Text style={[{
-                                    color: 'rgb(1,172,168)',
-                                    fontFamily: 'HelveticaNeue',
-                                    fontSize: 12
-                                }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>QUANTITY</Text>
-                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                    <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
-                                        {quantity
-                                            .toString()
-                                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                        <View style={{ flexDirection: 'row', marginTop: 15, justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'column'}}>
+                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>QUANTITY</Text>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
+                                        {quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                                     </Text>
-                                    <Text style={{
-                                        fontFamily: 'HelveticaNeue-Thin',
-                                        fontSize: 14
-                                    }}>{`  ${underlyingObjectData.unit}s`}</Text>
+                                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{`  ${underlyingObjectData.unit}s`}</Text>
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'column', marginLeft: 20}}>
-                                <Text style={[{
-                                    color: 'rgb(1,172,168)',
-                                    fontFamily: 'HelveticaNeue',
-                                    fontSize: 12
-                                }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>DIRECTION</Text>
-                                <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
+                            <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>DIRECTION</Text>
+                                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                                     {buysell === 'S' ? 'Sell' : 'Buy'}
                                 </Text>
                             </View>
                         </View>
                     </View>
 
-                    <View
-                        style={{flexDirection: 'column', marginLeft: 20, marginTop: 12, width: '20%'}}
-                    >
-                        <Text
-                            style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12}}>PRODUCT</Text>
-                        <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
+                    <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12, width: '20%' }}>
+                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>PRODUCT</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                             {product}
                         </Text>
-                        <View style={{flexDirection: 'row', marginTop: 14, justifyContent: 'space-between'}}>
-                            <View style={{flexDirection: 'column'}}>
-                                <Text style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12}}>NET
-                                    PRICE</Text>
-                                <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
-                                    ${netPrice.toFixed(2)}
+                        <View style={{ flexDirection: 'row', marginTop: 14, justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>NET PRICE</Text>
+                                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
+                                    ${netPrice.toFixed(4)}
                                 </Text>
                             </View>
-                            <View style={{flexDirection: 'column', marginLeft: 20}}>
-                                <Text style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12}}>CLOSED
-                                    PRICE</Text>
-                                <View style={{flex: 1}}>
-                                    <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
-                                        ${closedPrice.toFixed(2)}
+                            <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>CLOSED PRICE</Text>
+                                <View style={{ flex: 1 }}>
+                                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
+                                        ${closedPrice.toFixed(4)}
                                     </Text>
                                 </View>
                             </View>
                         </View>
                     </View>
 
-                    <View
-                        style={{flexDirection: 'column', marginLeft: 30, marginTop: 12, width: '16%'}}
-                    >
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12}}>TRADE
-                                RECEIPT </Text>
-                            <TouchableHighlight
-                                onPress={this.openTradeReceipt.bind(this)}>
+                    <View style={{ flexDirection: 'column', marginLeft: 30, marginTop: 12, width: '16%' }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT </Text>
+                            <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
                                 <Image
-                                    style={{width: 20, height: 20, marginLeft: 2, marginTop: 4}}
+                                    style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
                                     source={require('../common/img/PDF.png')}
                                 />
                             </TouchableHighlight>
                         </View>
-                        <Text
-                            style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, marginTop: 22}}>TRADE
-                            ID#</Text>
-                        <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
+                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, marginTop: 22 }}>TRADE ID#</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                             {id}
                         </Text>
                     </View>
 
-                    <View
-                        style={{flexDirection: 'column', marginLeft: 20, marginTop: 12}}
-                    >
-                        <Text style={{color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12}}> TRADE
+                    <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12 }}>
+                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE
                             DATE</Text>
-                        <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                             {tradeDate}
                         </Text>
-                        <Text style={{
-                            color: 'rgb(1,172,168)',
-                            fontFamily: 'HelveticaNeue',
-                            fontSize: 12,
-                            paddingTop: 18
-                        }}>CLOSE OUT DATE</Text>
-                        <Text style={{fontFamily: 'HelveticaNeue-Thin', fontSize: 14}}>
+                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>CLOSE OUT DATE</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                             {unwindDate}
                         </Text>
                     </View>
