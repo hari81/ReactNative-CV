@@ -24,6 +24,9 @@ class SideMenuBar extends Component {
         this.setState({ popUpAlert: !this.state.popUpAlert });
     }
     logOutButtonPress = () => {
+        Alert.alert('Alert', 'Are you sure want to logout?', [{ text: 'Cancel', onPress: () => this.cancelButton() }, { text: 'Yes', onPress: () => this.logout() }]);
+    }
+    logout =() => {
         this.props.invalidateSession();
         Actions.auth();
     }
@@ -71,8 +74,8 @@ class SideMenuBar extends Component {
                        />
                     </View>
                     <View style={{ flexDirection: 'row', marginHorizontal: 20, marginVertical: 10 }}>
-                       <Button onPress={this.submitPassword} buttonStyle={{ flex: 1, backgroundColor: '#01aca8', borderRadius: 5, borderWidth: 1, borderColor: '#01aca8', marginRight: 10 }}>Submit</Button>
                        <Button onPress={this.cancelButton} textStyle={{ alignSelf: 'center', color: 'white', fontSize: 20, paddingTop: 10, paddingBottom: 10 }} buttonStyle={{ flex: 1, borderRadius: 5, borderWidth: 1, borderColor: '#01aca8' }}>Cancel</Button>
+                        <Button onPress={this.submitPassword} buttonStyle={{ flex: 1, backgroundColor: '#01aca8', borderRadius: 5, borderWidth: 1, borderColor: '#01aca8', marginLeft: 10 }}>Submit</Button>
                     </View>
                </View>
             );

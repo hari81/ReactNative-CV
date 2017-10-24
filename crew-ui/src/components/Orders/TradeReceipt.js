@@ -34,7 +34,7 @@ class TradeReceipt extends Component {
                         marginBottom: 30
                     }}
                 >
-                    Loading trade receipt for Trade id: {this.props.orderId}
+                    Loading trade receipt for id: {this.props.orderId}
 
                 </Text>
                 <Spinner size='large' />
