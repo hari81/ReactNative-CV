@@ -51,6 +51,7 @@ class LimitOrder extends Component {
     onBlurMake() {
         this.props.onScrollDown();
         let tlp = this.state.limitPrice.charAt(0) === '$' ? this.state.limitPrice.slice(1, this.state.limitPrice.length) : this.state.limitPrice;
+        if (tlp === '') { tlp = 0; }
         tlp = parseFloat(tlp).toFixed(4);
         this.setState({ limitPrice: `$${tlp}` });
         this.onLimitPriceChange(this.state.limitPrice);
@@ -58,7 +59,6 @@ class LimitOrder extends Component {
 
     onChangeQuantity(text) {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
-            if (text === '') { text = '0'; }
             this.setState({ limitPrice: text });
             this.onLimitPriceChange(text);
         }
@@ -152,22 +152,17 @@ class LimitOrder extends Component {
             return (
                 <View>
                     <View style={styles.container}>
-                        <View style={{flexDirection: 'column', zIndex: -1}}>
-                            <View style={{flexDirection: 'row'}}>
-                                <Text style={{
-                                    color: '#fff',
-                                    fontSize: 16,
-                                    fontFamily: 'HelveticaNeue',
-                                    paddingBottom: 10
-                                }}>LIMIT PRICE</Text>
-                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image
-                                    style={{width: 20, height: 20, marginLeft: 5}} source={Info}/></TouchableOpacity>
+                        <View style={{ flexDirection: 'column', zIndex: -1 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>LIMIT PRICE</Text>
+                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}>
+                                    <Image style={{ width: 20, height: 20, marginLeft: 5 }} source={Info} />
+                                </TouchableOpacity>
                             </View>
-                            <View style={{flexDirection: 'column'}}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity onPressIn={this.minusButtonPress}
-                                                      onPressOut={this.stopTimer.bind(this)}>
-                                        <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                            <View style={{ flexDirection: 'column' }}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)}>
+                                        <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
                                     </TouchableOpacity>
                                     <TextInput
                                         style={{
@@ -192,21 +187,19 @@ class LimitOrder extends Component {
                                         }}
                                         selectTextOnFocus
                                     />
-                                    <TouchableOpacity onPressIn={this.plusButtonPress}
-                                                      onPressOut={this.stopTimer.bind(this)}>
-                                        <Text
-                                            style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
+                                    <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
+                                        <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
                                     </TouchableOpacity>
                                 </View>
                                 {this.warningMessage()}
                             </View>
                         </View>
-                        <View style={{flexDirection: 'column', marginLeft: 50}}>
-                            <View style={{flexDirection: 'row'}}>
-                                <Text style={{fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff'}}>VALID
-                                    UNTIL</Text>
-                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image
-                                    style={{width: 20, height: 20, marginLeft: 5}} source={Info}/></TouchableOpacity>
+                        <View style={{ flexDirection: 'column', marginLeft: 50 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>VALID UNTIL</Text>
+                                <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}>
+                                    <Image style={{ width: 20, height: 20, marginLeft: 5 }} source={Info} />
+                                </TouchableOpacity>
                             </View>
                             <TextInput
                                 style={{
@@ -217,10 +210,10 @@ class LimitOrder extends Component {
                                     paddingLeft: 2,
                                     marginTop: 10
                                 }}
-                                placeholder="MM/DD/YYYY"
-                                onFocus={() => {
-                                    Keyboard.dismiss();
-                                    this.setState({showDatePicker: true});
+                                placeholder="MM/DD/YYYY" 
+                                onFocus={() => { 
+                                    Keyboard.dismiss(); 
+                                    this.setState({ showDatePicker: true });
                                 }}
                                 value={moment(this.state.expDate).format('MMMM Do, YYYY')}
                                 returnkeyType="done"

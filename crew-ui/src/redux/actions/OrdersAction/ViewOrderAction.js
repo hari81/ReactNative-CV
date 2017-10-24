@@ -42,7 +42,10 @@ export const ViewOrdersData = (crop) => {
                 });
             }
       })
-      .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
+      .catch(error => {
+        common.createAlertErrorMessage(error, 'There was an issue in retrieving the orders.');
+        dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: [] });
+    });
   };
 };
 

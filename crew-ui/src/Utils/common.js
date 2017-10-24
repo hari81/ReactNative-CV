@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import bugsnag from '../components/common/BugSnag';
 
 /* puts numbers in a number value (ex. 1000 -> 1,000 1234567.23 -> 1,234,567.23) */
 export function formatNumberCommas(number) {
@@ -178,14 +179,20 @@ export function minusBeforeDollarSign(num, decimals) {
 */
 export function createAlertErrorMessage(oError, initialMessage = '') {
     let msg = `\n${initialMessage}`;
-    if (oError !== null && oError !== undefined && oError.length > 0) {
-        if (isValueExists(oError[0].internalMessage)) {
-            msg += `\n\n ${capitalizeWord(oError[0].internalMessage)}`;
+    if (oError !== null && oError !== undefined) {
+        if (oError.length > 0) {
+            if (isValueExists(oError[0].internalMessage)) {
+                msg += `\n\n ${capitalizeWord(oError[0].internalMessage)}`;
+            }
+            if (isValueExists(oError[0].message)) {
+                msg += `\n\n ${capitalizeWord(oError[0].message)}`;
+            }
         }
-        if (isValueExists(oError[0].message)) {
-            msg += `\n\n ${capitalizeWord(oError[0].message)}`;
+        if (isValueExists(oError.message)) {
+            msg += `\n\n ${capitalizeWord(oError.message)}`;            
         }
     }
     msg += '\n\n Please contact the trading desk at 1-952-742-7414';
     Alert.alert('Cargill Price Hedging', msg);
+    bugsnag.notify(oError);
 }

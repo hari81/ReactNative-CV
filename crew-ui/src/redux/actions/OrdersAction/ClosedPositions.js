@@ -43,7 +43,10 @@ export const ClosedPositionsData = (crop) => {
                 });
             }
       })
-      .catch(/*error => console.log(error)*/bugsnag.notify);
+      .catch(error => {
+        common.createAlertErrorMessage(error, 'There was an issue in retrieving the closed positions.');
+        dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: [] });
+    });
   };
 };
 
