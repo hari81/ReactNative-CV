@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import Dimensions from 'Dimensions';
 import moment from 'moment';
 import Refresh from '../../components/common/img/Refresh.png';
 import { Button } from '../../components/common/Button';
@@ -147,13 +146,13 @@ class UpdateOrderDetails extends Component {
     onBlurMake() {
         this.onScrollDown();
         let tlp = this.state.targetPrice.charAt(0) === '$' ? this.state.targetPrice.slice(1, this.state.targetPrice.length) : this.state.targetPrice;
+        if (tlp === '') { tlp = '0'; }
         tlp = parseFloat(tlp).toFixed(4);        
         this.setState({ targetPrice: `$${tlp}` });
     }
 
     onChangeQuantity(text) {
         if (/^\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(text) || text === '') {
-            if (text === '') { text = '0'; }
             this.setState({ targetPrice: text });
         }
     }
@@ -269,29 +268,22 @@ class UpdateOrderDetails extends Component {
             }
             if (this.state.isLimitOrder) {
                 limitOrderFields = (
-                    <View style={{marginTop: 5, marginBottom: 5}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{flexDirection: 'column', zIndex: -1}}>
-                                <View style={{flexDirection: 'row'}}>
+                    <View style={{ marginTop: 5, marginBottom: 5 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ flexDirection: 'column', zIndex: -1 }}>
+                                <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.enabledLabel}>LIMIT PRICE</Text>
-                                    <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}><Image
-                                        style={styles.infoIcon} source={Info}/></TouchableOpacity>
+                                    <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'limitPriceInfo')}>
+                                        <Image style={styles.infoIcon} source={Info} />
+                                    </TouchableOpacity>
                                 </View>
-                                <View style={{flexDirection: 'column', marginBottom: 10}}>
-                                    <View style={{flexDirection: 'row'}}>
-                                        <TouchableOpacity onPressIn={this.minusButtonPress}
-                                                          onPressOut={this.stopTimer.bind(this)}>
-                                            <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                                <View style={{ flexDirection: 'column', marginBottom: 10 }}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)}>
+                                            <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
                                         </TouchableOpacity>
                                         <TextInput
-                                            style={{
-                                                height: 40,
-                                                width: 110,
-                                                borderRadius: 4,
-                                                backgroundColor: '#fff',
-                                                padding: 2,
-                                                paddingLeft: 5
-                                            }}
+                                            style={{ height: 40, width: 110, borderRadius: 4, backgroundColor: '#fff', padding: 2, paddingLeft: 5 }}
                                             maxLength={9} placeholder='0' keyboardType='decimal-pad'
                                             returnKeyType="done"
                                             value={this.state.targetPrice}
@@ -305,23 +297,19 @@ class UpdateOrderDetails extends Component {
                                             }}
                                             selectTextOnFocus
                                         />
-                                        <TouchableOpacity onPressIn={this.plusButtonPress}
-                                                          onPressOut={this.stopTimer.bind(this)}>
-                                            <Text style={[styles.updownIcon, {
-                                                marginTop: 5,
-                                                marginLeft: 15,
-                                                paddingLeft: 9
-                                            }]}>+</Text>
+                                        <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
+                                            <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
                                         </TouchableOpacity>
                                     </View>
                                     {this.warningMessage()}
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'column', marginLeft: 25}}>
-                                <View style={{flexDirection: 'row'}}>
+                            <View style={{ flexDirection: 'column', marginLeft: 25 }}>
+                                <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.enabledLabel}>VALID UNTIL</Text>
-                                    <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}><Image
-                                        style={styles.infoIcon} source={Info}/></TouchableOpacity>
+                                    <TouchableOpacity onPress={this.showInfoPopup.bind(this, 'orderExpiryInfo')}>
+                                        <Image style={styles.infoIcon} source={Info} />
+                                    </TouchableOpacity>
                                 </View>
                                 <TextInput
                                     style={{
@@ -334,7 +322,7 @@ class UpdateOrderDetails extends Component {
                                     placeholder="MM/DD/YYYY"
                                     onFocus={() => {
                                         Keyboard.dismiss();
-                                        this.setState({showDatePicker: true});
+                                        this.setState({ showDatePicker: true });
                                     }}
                                     value={fgdt}
                                     returnkeyType="done"
@@ -347,17 +335,17 @@ class UpdateOrderDetails extends Component {
                     </View>
                 );
             } else {
-                limitOrderFields = <View style={{display: 'none'}}/>;
+                limitOrderFields = <View style={{ display: 'none' }} />;
             }
 
             let spinner = null;
             if (this.props.contractMonth.spinFlag) {
-                spinner = <Spinner size="small"/>;
+                spinner = <Spinner size="small" />;
             } else {
                 spinner = (
-                    <View style={{paddingLeft: 50, paddingTop: 15, paddingRight: 50, paddingBottom: 10}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{flexDirection: 'column', width: 340}}>
+                    <View style={{ paddingLeft: 50, paddingTop: 15, paddingRight: 50, paddingBottom: 10 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ flexDirection: 'column', width: 340 }}>
                                 {/* product */}
                                 <Text style={styles.disabledLabel}>PRODUCT</Text>
                                 <View style={styles.disabledDataContainer}>
@@ -365,28 +353,27 @@ class UpdateOrderDetails extends Component {
                                 </View>
                                 {/* trade direction */}
                                 <Text style={styles.disabledLabel}>TRADE DIRECTION</Text>
-                                <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                                     {/* Sell */}
                                     <View style={commonStyles.common.radioButtonContainerDisabled}>
                                         {!this.state.isBuy ?
-                                            <View style={commonStyles.common.radioButtonSelectedDisabled}/> : null}
+                                            <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
                                     </View>
                                     <Text style={commonStyles.common.radioButtonTextDisabled}>Sell</Text>
                                     {/* Buy */}
-                                    <View style={[commonStyles.common.radioButtonContainerDisabled, {marginLeft: 40}]}>
+                                    <View style={[commonStyles.common.radioButtonContainerDisabled, { marginLeft: 40 }]}>
                                         {this.state.isBuy ?
-                                            <View style={commonStyles.common.radioButtonSelectedDisabled}/> : null}
+                                            <View style={commonStyles.common.radioButtonSelectedDisabled} /> : null}
                                     </View>
                                     <Text style={commonStyles.common.radioButtonTextDisabled}>Buy</Text>
                                 </View>
                                 {/* contract month */}
-                                <View style={{flexDirection: 'row'}}>
+                                <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.disabledLabel}>CONTRACT MONTH</Text>
                                     <TouchableOpacity onPress={this.onRefreshBidAsk.bind(this, this.state.timeNow)}>
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Image style={styles.refreshImage} source={Refresh}/>
-                                            <Text style={{color: 'white', fontSize: 12, marginTop: 3}}>as
-                                                of {this.state.timeNow}</Text>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Image style={styles.refreshImage} source={Refresh} />
+                                            <Text style={{ color: '#fff', fontSize: 12, marginTop: 3 }}>as of {this.state.timeNow}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -394,36 +381,32 @@ class UpdateOrderDetails extends Component {
                                     <Text style={styles.disabledContractMonthYearText}>
                                         {this.state.underlyingObject.underlyingMonthShortDesc} {this.state.underlyingObject.underlyingYear}
                                     </Text>
-                                    <Text
-                                        style={styles.disabledContractBidAskPrice}>${this.state.contractBidAskPrice}</Text>
+                                    <Text style={styles.disabledContractBidAskPrice}>${this.state.contractBidAskPrice}</Text>
                                 </View>
                             </View>
-                            <View style={{height: height - 280, width: 1, marginLeft: 40, backgroundColor: '#7f8fa4'}}/>
-                            <ScrollView ref='scrollView' keyboardDismissMode='interactive'
-                                        keyboardShouldPersistTaps='never'>
-                                <View style={{flexDirection: 'column', marginLeft: 33}}>
+                            <View style={{ height: height - 280, width: 1, marginLeft: 40, backgroundColor: '#7f8fa4' }} />
+                            <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
+                                <View style={{ flexDirection: 'column', marginLeft: 33 }}>
                                     {/* bushel quantity */}
                                     <Text style={styles.disabledLabel}>BUSHEL QUANTITY</Text>
                                     <View style={styles.disabledDataContainer}>
-                                        <Text
-                                            style={styles.disabledData}>{common.formatNumberCommas(this.state.quantity).toString()}</Text>
+                                        <Text style={styles.disabledData}>{common.formatNumberCommas(this.state.quantity).toString()}</Text>
                                     </View>
                                     {/* order type */}
                                     <View>
                                         <Text style={styles.enabledLabel}>ORDER TYPE</Text>
-                                        <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
                                             <TouchableOpacity onPress={this.onMarketSelection.bind(this)}>
                                                 <View style={commonStyles.common.radioButtonContainer}>
                                                     {!this.state.isLimitOrder ?
-                                                        <View style={commonStyles.common.radioButtonSelected}/> : null}
+                                                        <View style={commonStyles.common.radioButtonSelected} /> : null}
                                                 </View>
                                             </TouchableOpacity>
                                             <Text style={commonStyles.common.radioButtonText}>Market Order</Text>
                                             <TouchableOpacity onPress={this.onLimitSelection.bind(this)}>
-                                                <View
-                                                    style={[commonStyles.common.radioButtonContainer, {marginLeft: 20}]}>
+                                                <View style={[commonStyles.common.radioButtonContainer, { marginLeft: 20 }]}>
                                                     {this.state.isLimitOrder ?
-                                                        <View style={commonStyles.common.radioButtonSelected}/> : null}
+                                                        <View style={commonStyles.common.radioButtonSelected} /> : null}
                                                 </View>
                                             </TouchableOpacity>
                                             <Text style={commonStyles.common.radioButtonText}>Limit Order</Text>
@@ -446,22 +429,13 @@ class UpdateOrderDetails extends Component {
                                         </View>
                                     </View>
                                     {/* buttons */}
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-end',
-                                        alignItems: 'baseline',
-                                        zIndex: -1
-                                    }}>
-                                        <Button onPress={this.onReturnToOrders.bind(this)}
-                                                buttonStyle={styles.buttonStyle}
-                                                textStyle={styles.textStyle}>CANCEL</Button>
-                                        <TouchableOpacity onPress={this.onReviewOrder.bind(this)}
-                                                          style={[styles.buttonStyle, {
-                                                              marginLeft: 28,
-                                                              backgroundColor: '#279989',
-                                                              borderColor: '#279989'
-                                                          }]}>
-                                            <Text style={[styles.textStyle, {color: '#fff'}]}>REVIEW ORDER</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'baseline', zIndex: -1 }}>
+                                        <Button onPress={this.onReturnToOrders.bind(this)} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                                        <TouchableOpacity 
+                                            onPress={this.onReviewOrder.bind(this)}
+                                            style={[styles.buttonStyle, { marginLeft: 28, backgroundColor: '#279989', borderColor: '#279989' }]}
+                                        >
+                                            <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -475,17 +449,11 @@ class UpdateOrderDetails extends Component {
                 <View style={styles.container}>
                     <View style={styles.titleBarOrder}>
                         <Text style={styles.orderTitle}>Close Position</Text>
-                        <View style={{flexDirection: 'row', marginLeft: 630}}>
+                        <View style={{ flexDirection: 'row', marginLeft: 630 }}>
                             <TouchableOpacity onPress={() => Actions.disclaimer()}>
-                                <View style={{flexDirection: 'row'}}>
+                                <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.questionIcon}>?</Text>
-                                    <Text style={{
-                                        fontSize: 12,
-                                        fontFamily: 'HelveticaNeue',
-                                        color: '#fff',
-                                        textDecorationLine: 'underline',
-                                        marginLeft: 5
-                                    }}>Need Help with this Product?</Text>
+                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

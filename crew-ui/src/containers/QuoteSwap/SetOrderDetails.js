@@ -121,24 +121,21 @@ class SetOrderDetails extends Component {
             //console.log(this.state)
             let spinner = null;
             if (this.props.contractMonth.spinFlag) {
-                spinner = (<Spinner size="small"/>);
+                spinner = (<Spinner size="small" />);
             } else {
-                spinner = (<View style={{flexDirection: 'row'}}>
-                        <View style={{flexDirection: 'column', marginLeft: 49}}>
-                            <ProductType onProductChange={this.orderDetails}/>
-                            <TradeDirection buySell={this.state.buySell}
-                                            onTradeChange={this.tradeDirectionChange.bind(this)}/>
+                spinner = (<View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'column', marginLeft: 49 }}>
+                            <ProductType onProductChange={this.orderDetails} />
+                            <TradeDirection buySell={this.state.buySell} onTradeChange={this.tradeDirectionChange.bind(this)} />
                             <ContractMonth
                                 onSelectContractMonth={this.onSelectContractMonth.bind(this)}
                                 onRefreshPrices={this.onRefreshPrices.bind(this)}
                                 selectedContractMonth={this.state.selectedContractMonth}
                             />
                         </View>
-                        <View
-                            style={{height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4'}}/>
-                        <ScrollView ref='scrollView' keyboardDismissMode='interactive'
-                                    keyboardShouldPersistTaps='never'>
-                            <View style={{flexDirection: 'column', marginLeft: 30}}>
+                        <View style={{ height: 364, width: 1, marginLeft: 30, marginTop: 20, backgroundColor: '#7f8fa4' }} />
+                        <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
+                            <View style={{ flexDirection: 'column', marginLeft: 30 }}>
                                 <BushelQuantity
                                     buySell={this.state.buySell}
                                     onQuantityChange={this.onQuantityChange.bind(this)}
@@ -157,21 +154,14 @@ class SetOrderDetails extends Component {
                                     onScrollUpdate={this.onScrollUpdate.bind(this)}
                                     onScrollDown={this.onScrollDown.bind(this)}
                                 />
-                                <BidAskPrice contractData={this.props.contractMonth}
-                                             selectedContractMonth={this.state.selectedContractMonth}/>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    marginLeft: 126,
-                                    position: 'absolute',
-                                    marginTop: 320
-                                }}>
-                                    <Button onPress={() => Actions.dashboard({type: ActionConst.REPLACE})}
-                                            buttonStyle={styles.buttonStyle}
-                                            textStyle={styles.textStyle}>CANCEL</Button>
-                                    <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, {
-                                        backgroundColor: '#279989',
-                                        marginLeft: 28
-                                    }]} textStyle={[styles.textStyle, {color: '#fff'}]}>REVIEW ORDER</Button>
+                                <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
+                                <View style={{ flexDirection: 'row', marginLeft: 126, position: 'absolute', marginTop: 320 }}>
+                                    <Button 
+                                        onPress={() => Actions.dashboard({ type: ActionConst.REPLACE })}
+                                        buttonStyle={styles.buttonStyle}
+                                        textStyle={styles.textStyle}
+                                    >CANCEL</Button>
+                                    <Button onPress={this.onReviewOrder.bind(this)} buttonStyle={[styles.buttonStyle, { backgroundColor: '#279989', marginLeft: 28 }]} textStyle={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Button>
                                 </View>
                             </View>
                         </ScrollView>
@@ -181,23 +171,12 @@ class SetOrderDetails extends Component {
             return (
                 <View style={styles.container}>
                     <View style={styles.setOrderDetails}>
-                        <Text style={{
-                            fontSize: 20,
-                            fontFamily: 'HelveticaNeue-Medium',
-                            color: '#e7b514',
-                            paddingLeft: width * 0.02
-                        }}>Set Order Details</Text>
-                        <View style={{flexDirection: 'row', marginLeft: width * 0.60}}>
+                        <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: width * 0.02 }}>Set Order Details</Text>
+                        <View style={{ flexDirection: 'row', marginLeft: width * 0.60 }}>
                             <TouchableOpacity onPress={() => Actions.disclaimer()}>
-                                <View style={{flexDirection: 'row'}}>
+                                <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.questionIcon}>?</Text>
-                                    <Text style={{
-                                        fontSize: 12,
-                                        fontFamily: 'HelveticaNeue',
-                                        color: '#fff',
-                                        textDecorationLine: 'underline',
-                                        marginLeft: 5
-                                    }}>Need Help with this Product?</Text>
+                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -222,7 +201,7 @@ const mapStateToProps = (state) => {
     const code = state.cropsButtons.selectedId;
     const crop = state.account.defaultAccount.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)));
     const tTick = crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString();
-    const tBQL = state.selectedContractMonth.bushelQuantity === null ? 0 : Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable);
+    const tBQL = (state.selectedContractMonth.bushelQuantity === null || !common.isValueExists(state.selectedContractMonth.bushelQuantity.shortLimitAvailable)) ? 0 : Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable);
     const tQty = crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString();
     
     return {

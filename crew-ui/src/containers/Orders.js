@@ -51,10 +51,8 @@ class Orders extends Component {
               this.props.ClosedPositionsData(crop);
               break;
           default:
-
       }
   }
-
 
     refreshData = () => {
         const crop = this.state.Crop;
@@ -216,7 +214,7 @@ class Orders extends Component {
               fontSize: 25
             }}
           >
-            No Closed Positions.
+            No Closed Positions Available.
           </Text>
         );
       }
@@ -240,10 +238,10 @@ class Orders extends Component {
       try {
           const { userId, firstName, email } = this.props.acc.accountDetails;
           bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-          const {width, height} = Dimensions.get('window');
+          const { width, height } = Dimensions.get('window');
           //console.log(width, height)
           return (
-              <View style={{width, height}}>
+              <View style={{ width, height }}>
                   <View
                       style={{
                           backgroundColor: 'black',
@@ -251,9 +249,9 @@ class Orders extends Component {
                           height: 20
                       }}
                   />
-                  <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data"/>
+                  <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data" />
 
-                  <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
+                  <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
 
                   <View
                       style={{
@@ -270,17 +268,11 @@ class Orders extends Component {
                   >
 
                       <View style={styles.positions}>
-                          <Text style={{
-                              fontSize: 20,
-                              color: 'rgb(0,118,129)',
-                              paddingTop: 10,
-                              fontFamily: 'HelveticaNeue-Medium',
-                              paddingLeft: 20
-                          }}>
+                          <Text style={{ fontSize: 20, color: 'rgb(0,118,129)', paddingTop: 10, fontFamily: 'HelveticaNeue-Medium', paddingLeft: 20 }}>
                               Positions & Orders
                           </Text>
                       </View>
-                      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                           <View
                               style={{
                                   width: '15%',
@@ -289,17 +281,12 @@ class Orders extends Component {
                                   alignItems: 'center',
                                   borderRadius: 10
                               }}
-                          ><Text style={{
-                              paddingTop: 10,
-                              fontSize: 10,
-                              fontFamily: 'HelveticaNeue-Medium',
-                              color: 'rgb(0,118,129)'
-                          }}>Select Commodity ▼</Text>
+                          ><Text style={{ paddingTop: 10, fontSize: 10, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(0,118,129)' }}>Select Commodity ▼</Text>
                               <Picker
-                                  style={{width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)'}}
+                                  style={{ width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)' }}
                                   // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
                                   mode='dropdown'
-                                  itemStyle={{height: 48, borderColor: 'rgb(39,153,137)'}}
+                                  itemStyle={{ height: 48, borderColor: 'rgb(39,153,137)' }}
                                   selectedValue={this.state.Crop}
                                   onValueChange={this.dropDown.bind(this)}
                               >
@@ -308,11 +295,11 @@ class Orders extends Component {
 
                               </Picker>
                           </View>
-                          <View style={{justifyContent: 'center', marginLeft: 10}}>
+                          <View style={{ justifyContent: 'center', marginLeft: 10 }}>
                               <SegmentedControlIOS
                                   alignItems='center'
                                   tintColor='rgb(39,153,137)'
-                                  style={[styles.segment, {width: width / 2}]}
+                                  style={[styles.segment, { width: width / 2 }]}
                                   values={['Open Orders', 'Open Positions', 'Closed Positions']}
                                   selectedIndex={{
                                       'Open Orders': 0,
@@ -327,25 +314,20 @@ class Orders extends Component {
                                   onValueChange={this.selectedTabOrder}
                               />
                           </View>
-                          <View style={{width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25}}>
+                          <View style={{ width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25 }}>
+                            {/*
                               <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
-                                  <View style={{
-                                      width: 206,
-                                      height: 32,
-                                      borderRadius: 5,
-                                      backgroundColor: 'rgb(39,153,137)',
-                                      justifyContent: 'center',
-                                      alignItems: 'center'
-                                  }}>
-                                      <Text style={{fontSize: 16, color: 'rgb(255,255,255)'}}>PLACE NEW ORDER NOW</Text>
+                                  <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }}>
+                                      <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
                                   </View>
                               </TouchableHighlight>
+                            */}
                           </View>
                       </View>
                   </View>
-                  <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1}}>
-                      <View style={{backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10}}/>
-                      <View style={{backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10}}>
+                  <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1 }}>
+                      <View style={{ backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10 }} />
+                      <View style={{ backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10 }}>
                           {this.renderFlatList()}
                       </View>
 

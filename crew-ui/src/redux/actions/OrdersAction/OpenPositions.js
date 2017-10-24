@@ -42,9 +42,10 @@ export const OpenPositionsData = (crop) => {
                     );
                 }
             })
-            .catch(/*error => {
-              console.error(`error ${error}`);
-          }*/ bugsnag.notify);
+            .catch(error => {
+                common.createAlertErrorMessage(error, 'There was an issue in retrieving the open positions.');
+                dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
+            });
     };
 };
 
