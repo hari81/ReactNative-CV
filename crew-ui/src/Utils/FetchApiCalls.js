@@ -12,6 +12,7 @@ reqHeaders.append('x-api-key', X_API_KEY);
 reqHeaders.append('User-Agent', 'Crew 0.1.0');
 
 function doGetFetch(url, token) {
+    reqHeaders.delete('Authorization');
     token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'GET',
@@ -20,6 +21,7 @@ function doGetFetch(url, token) {
 }
 
 function doPutFetch(url, body, token) {
+    reqHeaders.delete('Authorization');
     token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'PUT',
@@ -29,6 +31,7 @@ function doPutFetch(url, body, token) {
 }
 
 function doPostFetch(url, body, token) {
+    reqHeaders.delete('Authorization');
     token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     console.log('body', body);
     return fetch(url, {
@@ -48,6 +51,7 @@ function doLoginPostFetch(url, body) {
 }
 
 function doDeleteFetch(url, token) {
+    reqHeaders.delete('Authorization');
     token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     return fetch(url, {
         method: 'DELETE',
@@ -56,6 +60,7 @@ function doDeleteFetch(url, token) {
 }
 
 function doGetTradeReceiptFetch(url, token) {
+    reqHeaders.delete('Authorization');
     // console.log(url);
     token.length >= 100 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
     reqHeaders.append('Accept', 'application/pdf');
