@@ -23,8 +23,7 @@ export const ViewOrdersData = (crop) => {
             if (!Array.isArray(oOrders)) {
                 dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: [] });
             } else {
-                return Promise.all(
-                  oOrders.map((item) => {
+                const orders = oOrders.map((item) => {
                     const oUnderlying = common.createUnderlyingObject(item.underlying);
                     const uod = {
                       //year needs to be a int value instead of a string for later compares/equality tests
@@ -35,11 +34,8 @@ export const ViewOrdersData = (crop) => {
                       unit: oCrop.unitOfMeasure
                     };
                     return Object.assign({}, item, { underlyingObjectData: uod });
-                  })
-                )
-                .then(orders => {
+                  });
                     dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: orders });
-                });
             }
       })
       .catch(error => {

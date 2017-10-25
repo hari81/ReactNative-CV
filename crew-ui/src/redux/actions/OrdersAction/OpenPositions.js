@@ -23,8 +23,8 @@ export const OpenPositionsData = (crop) => {
                 if (!Array.isArray(opens)) {
                     dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
                 } else {
-                    return Promise.all(
-                        opens.map((item) => {
+                    //return Promise.all(
+                  const openPositions = opens.map((item) => {
                             const oUnderlying = common.createUnderlyingObject(item.lines[0].underlying);
                             const uod = {
                                 //year needs to be a int value instead of a string for later compares/equality tests
@@ -36,10 +36,10 @@ export const OpenPositionsData = (crop) => {
                             };
                             return Object.assign({}, item, { underlyingObjectData: uod });
                         })
-                    )
-                    .then(openPositions =>
+                    //)
+                    //.then(openPositions =>
                         dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions })
-                    );
+                    //);
                 }
             })
             .catch(error => {
