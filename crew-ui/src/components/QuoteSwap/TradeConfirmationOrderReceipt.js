@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight } from 'react-native';
-import Dimensions from 'Dimensions';
+import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../common';
 import MyFarmTiles from '../common/MyFarmTiles';
 import confirmtick from '../common/img/confirmationSuccess.png';
+import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import bugsnag from '../../components/common/BugSnag';
 
 class TradeConfirmationOrderReceipt extends Component {
 
     onBackToOrders() {
+        const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
+        this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code);
         Actions.dashboard();
     }
 
@@ -201,4 +203,4 @@ const mapStateToProps = (state) => {
     return { crops: state.cropsButtons, acc: state.account };
 };
 
-export default connect(mapStateToProps, null)(TradeConfirmationOrderReceipt);
+export default connect(mapStateToProps, { dashBoardDataFetch })(TradeConfirmationOrderReceipt);
