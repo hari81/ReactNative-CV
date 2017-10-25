@@ -3,13 +3,16 @@ import { Text, View, Image, StatusBar, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader, Button } from '../common/index';
+import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import bugsnag from '../common/BugSnag';
 
 import confirm from '../common/img/confirmationSuccess.png';
 
 class CancelOrderReceipt extends Component {
   onBackToDashBoard() {
-    Actions.dashboard();
+      const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
+      this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code);
+      Actions.dashboard();
   }
 
   reviewPositions() {
@@ -136,6 +139,6 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-    return { acc: state.account };
+    return { crops: state.cropsButtons, acc: state.account };
 };
-export default connect(mapStateToProps, null)(CancelOrderReceipt);
+export default connect(mapStateToProps, { dashBoardDataFetch })(CancelOrderReceipt);

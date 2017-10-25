@@ -23,8 +23,7 @@ export const ClosedPositionsData = (crop) => {
             if (!Array.isArray(closed)) {
                 dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: [] });
             } else {
-                return Promise.all(
-                    closed.map((item) => {
+                  const closedPositions = closed.map((item) => {
                         const oUnderlying = common.createUnderlyingObject(item.lines[0].underlying);
                         const uod = {
                             //year needs to be a int value instead of a string for later compares/equality tests
@@ -35,12 +34,9 @@ export const ClosedPositionsData = (crop) => {
                             unit: oCrop.unitOfMeasure
                         };
                         return Object.assign({}, item, { underlyingObjectData: uod });
-                    })
-                )
-                .then(closedPositions => {
+                    });
                     const newClosed = closedPositions.filter(item => Object.keys(item.underlyingObjectData).length !== 0);
                     dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: newClosed });
-                });
             }
       })
       .catch(error => {
