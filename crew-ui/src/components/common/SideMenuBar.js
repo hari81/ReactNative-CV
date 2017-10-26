@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Image, Alert, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import cancelimage from './img/Cancel-20.png';
@@ -24,8 +24,11 @@ class SideMenuBar extends Component {
         this.setState({ popUpAlert: !this.state.popUpAlert });
     }
     logOutButtonPress = () => {
-        this.props.invalidateSession();
-        Actions.auth();
+        Alert.alert('Alert', TextInput, [{ text: 'Cancel', onPress: () => this.cancelButton() }, { text: 'Yes', onPress: () => this.logout() }]);
+    }
+    logout =() => {
+            this.props.invalidateSession();
+            Actions.auth();
     }
     oldPasswordTextChange = (text) => {
         this.setState({ oldPassword: text });
@@ -71,8 +74,8 @@ class SideMenuBar extends Component {
                        />
                     </View>
                     <View style={{ flexDirection: 'row', marginHorizontal: 20, marginVertical: 10 }}>
-                       <Button onPress={this.submitPassword} buttonStyle={{ flex: 1, backgroundColor: '#01aca8', borderRadius: 5, borderWidth: 1, borderColor: '#01aca8', marginRight: 10 }}>Submit</Button>
                        <Button onPress={this.cancelButton} textStyle={{ alignSelf: 'center', color: 'white', fontSize: 20, paddingTop: 10, paddingBottom: 10 }} buttonStyle={{ flex: 1, borderRadius: 5, borderWidth: 1, borderColor: '#01aca8' }}>Cancel</Button>
+                        <Button onPress={this.submitPassword} buttonStyle={{ flex: 1, backgroundColor: '#01aca8', borderRadius: 5, borderWidth: 1, borderColor: '#01aca8', marginLeft: 10 }}>Submit</Button>
                     </View>
                </View>
             );

@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk';
 import { rootReducer } from './redux/reducers';
 import Router from './Router';
 
-const store = createStore(rootReducer, {}, applyMiddleware(ReduxThunk, logger));
+const store = createStore(rootReducer, {}, applyMiddleware(ReduxThunk));
 
 class App extends Component {
     render() {

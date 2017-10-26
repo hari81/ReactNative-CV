@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import matrix1 from '../../restAPI/Matrix1.json';
 import { Spinner } from '../common/Spinner';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';

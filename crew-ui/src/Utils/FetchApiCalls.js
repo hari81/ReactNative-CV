@@ -30,7 +30,6 @@ function doPutFetch(url, body, token) {
 
 function doPostFetch(url, body, token) {
     token.length >= 60 ? reqHeaders.append('Authorization', sessionToken(token)) : reqHeaders.append('Authorization', token);
-    console.log('body', body);
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,

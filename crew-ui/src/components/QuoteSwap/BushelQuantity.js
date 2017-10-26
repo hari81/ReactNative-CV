@@ -74,6 +74,7 @@ class BushelQuantity extends Component {
             }
             if (q <= (this.props.quantityLimit - parseInt(this.props.quantityIncrement)) || q === 0) {
                 q += parseInt(this.props.quantityIncrement);
+                this.timer = setTimeout(this.plusButtonPress, 100);
             } else {
                 Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 q = parseInt(this.props.quantityLimit.toString());
@@ -84,7 +85,6 @@ class BushelQuantity extends Component {
             const sq = common.formatNumberCommas(q);
             this.setState({ quantity: sq });
             this.props.onQuantityChange(sq);
-            this.timer = setTimeout(this.plusButtonPress, 100);
         } catch (error) {
             console.log(error);
         }

@@ -27,6 +27,7 @@ class ButtonList extends Component {
                 this.props.myFarmCropValues(code, year);
                 this.props.myFarmTradeSalesOutSideApp(code, year);
                 this.props.selectId(id);
+                this.props.selectedCropName(name);
             } else {
                // this.props.selectId(this.props.old[0].id);
                 Alert.alert(
