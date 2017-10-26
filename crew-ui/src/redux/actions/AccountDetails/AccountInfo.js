@@ -50,9 +50,9 @@ export const accountDetails = () => {
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.crmSToken)
                             .then(response => response.json(), rej => Promise.reject(rej))
-                            .then(dashBoardData =>{ console.log(dashBoardData);
-                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData }) }
-                            )
+                            .then(dashBoardData =>{
+                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData })
+                            })
                             .catch(/*(status, error) => {
                                 console.log(`error ${error}`);
                             }*/bugsnag.notify);

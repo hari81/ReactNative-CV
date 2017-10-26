@@ -51,8 +51,6 @@ export const getReviewOrderQuote = (orderData) => {
                 if (quoteData === null || quoteData === undefined) {
                     console.log('There was an issue with the quote.');
                 } else {
-                    console.log('review quote data is: ', quoteData);
-                    console.log('Order Data is', orderData);
                     //reprice needs some of the initial data for display on the review screen
                     if (quoteData.metadata.quoteType.toLowerCase() === 'rpx') {
                         quoteData.metadata.buySell = orderData.buySell;
@@ -110,9 +108,8 @@ export const placeOrder = () => {
             data.targetPrice = common.cleanNumericString(oData.metadata.targetPrice.toString());
             data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
-        console.log('placeing Data', data);
         return doPostFetch(url, data, getState().auth.basicToken)
-            .then(response => { console.log(response);
+            .then(response => {
                 if (response.status === 200 || response.status === 201) {
                     return response.json();
                 }
