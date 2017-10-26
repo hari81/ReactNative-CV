@@ -24,11 +24,11 @@ class SideMenuBar extends Component {
         this.setState({ popUpAlert: !this.state.popUpAlert });
     }
     logOutButtonPress = () => {
-        Alert.alert('Alert', TextInput, [{ text: 'Cancel', onPress: () => this.cancelButton() }, { text: 'Yes', onPress: () => this.logout() }]);
+        Alert.alert('Alert', 'Are you sure you want to log out?', [{ text: 'Cancel', onPress: () => this.cancelButton() }, { text: 'Yes', onPress: () => this.logout() }]);
     }
     logout =() => {
-            this.props.invalidateSession();
-            Actions.auth();
+        this.props.invalidateSession();
+        Actions.auth();
     }
     oldPasswordTextChange = (text) => {
         this.setState({ oldPassword: text });

@@ -40,7 +40,6 @@ class ButtonList extends Component {
                 );
             }
         }
-
     }
     render() {
         try {

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>BugsnagAPIKey</key>
-	<string>68b014a4eeef1b6c8859c6acc206458e123</string>
+	<string>68b014a4eeef1b6c8859c6acc206458e</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>CargillReactApp</string>
+	<string>Cargill Price Hedging</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -27,7 +27,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
 	<string>1.25</string>
+=======
+	<string>1.29</string>
+>>>>>>> 228eea22b91bc4763bb2449e05e8644d0d46101b
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import ProductsList from './ProductsList';
-import st from '../../../Utils/SafeTraverse';
 import expandArrow from '../../common/img/arrow_down_grey.png';
 import bugsnag from '../../common/BugSnag';
+import * as common from '../../../Utils/common';
 
 class ProductType extends Component {
     constructor() {
@@ -30,24 +30,24 @@ class ProductType extends Component {
     }
     render() {
         try {
-            const productInitial = this.props.products.find(x => x.name.toLowerCase() === 'producer swap').name;
+            //default to producer swap (107) if we have products and 107 exists in the list
+            let productInitial = null;
+            if (common.isValueExists(this.props.products)) {
+                const oPI = this.props.products.find(x => x.id === 107);
+                if (common.isValueExists(oPI)) { productInitial = oPI.name; }
+            }
             return (
                 <View>
                     <View style={styles.container}>
-                        <Text style={{color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10}}>PRODUCT</Text>
-                        <TouchableWithoutFeedback
-                            onPress={() => this.setState({productListEnable: !this.state.productListEnable})}>
-                            <View style={{width: 252, height: 50, backgroundColor: '#fff', flexDirection: 'row'}}>
-                                <View style={{width: 200, marginTop: 8, marginLeft: 8}}>
-                                    <Text style={{
-                                        color: '#9f9f9f',
-                                        fontFamily: 'HelveticaNeue',
-                                        textAlign: 'auto',
-                                        fontSize: 16,
-                                        alignSelf: 'stretch'
-                                    }}>{this.props.selectedProduct.productName || productInitial}</Text>
+                        <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue', paddingBottom: 10 }}>PRODUCT</Text>
+                        <TouchableWithoutFeedback onPress={() => this.setState({ productListEnable: !this.state.productListEnable })}>
+                            <View style={{ width: 252, height: 50, backgroundColor: '#fff', flexDirection: 'row' }}>
+                                <View style={{ width: 200, marginTop: 8, marginLeft: 8 }}>
+                                    <Text style={{ color: '#9f9f9f', fontFamily: 'HelveticaNeue', textAlign: 'auto', fontSize: 16, alignSelf: 'stretch' }}>
+                                        {this.props.selectedProduct.productName || productInitial}
+                                    </Text>
                                 </View>
-                                <Image source={expandArrow} style={{height: 20, width: 20, margin: 10}}/>
+                                <Image source={expandArrow} style={{ height: 20, width: 20, margin: 10 }} />
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -62,20 +62,8 @@ class ProductType extends Component {
     }
 }
 const styles = {
-    container: {
-        flexDirection: 'column',
-        marginTop: 16,
-        justifyContent: 'center'
-
-    },
-    productListContainer: {
-        width: 252,
-        height: 100,
-        position: 'absolute',
-        backgroundColor: 'white',
-        marginTop: 98,
-
-    }
+    container: { flexDirection: 'column', marginTop: 16, justifyContent: 'center' },
+    productListContainer: { width: 252, height: 100, position: 'absolute', backgroundColor: '#fff', marginTop: 98 }
 };
 
 const mapStateToProps = (state) => {
