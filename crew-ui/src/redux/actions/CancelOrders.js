@@ -9,7 +9,7 @@ export const orderReceipt = (orderid, selectedCrop) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${ORDER_SERVICES_URL}orders/${orderid}`;
-        return doDeleteFetch(url, getState().auth.basicToken)
+        return doDeleteFetch(url, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 202) {
                    // console.log(response);

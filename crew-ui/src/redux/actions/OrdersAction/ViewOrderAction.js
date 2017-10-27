@@ -11,7 +11,7 @@ export const ViewOrdersData = (crop) => {
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
     const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
-    return doGetFetch(url, getState().auth.basicToken)
+    return doGetFetch(url, getState().auth.crmSToken)
         .then(response => {
             if (response.status === 200) {
                 return response.json();
@@ -50,7 +50,7 @@ export const dropDownCrop = () => {
       const user = getState().account.accountDetails;
       bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     const url = `${ORDER_SERVICES_URL}commodities`;
-    return doGetFetch(url, getState().auth.basicToken)
+    return doGetFetch(url, getState().auth.crmSToken)
         .then(response => response.json())
       .then(dropDownData => {
         //  console.log(dropDownData);

@@ -47,7 +47,7 @@ export default class ExternalValues extends Component {
                     this.setState({ basis: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
                         this.props.onSelectVal(value, transtype);
                         this.setState({ basis: value });
                     }
@@ -60,7 +60,7 @@ export default class ExternalValues extends Component {
                     this.setState({ adj: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
                         this.props.onSelectVal(value, transtype);
                         this.setState({ adj: value });
                     }

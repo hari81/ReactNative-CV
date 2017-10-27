@@ -35,9 +35,9 @@ class FarmInputFields extends Component {
             case 'profits':
                 this.refs.scrollView.scrollTo({ x: 0, y: 140, animated: true });
                 if (this.props.pro.slice(-4) === 'acre') {
-                     if (this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 10)).trim().length <= 7) {
+                     if (this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 9)).trim().length <= 7) {
                         this.props.updateProValue(
-                           this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 10)).trim());
+                           this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.pro.length - 9)).trim());
                     } else {
                         this.props.updateProValue(
                             this.props.pro.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, 8).trim());
@@ -57,8 +57,8 @@ class FarmInputFields extends Component {
             case 'cost':
                 this.refs.scrollView.scrollTo({ x: 0, y: 50, animated: true });
                 if (this.props.cos.slice(-4) === 'acre') {
-                    if (this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.cos.length - 10)).trim().length <= 7) {
-                        this.props.updateCosValue(this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.cos.length - 10)).trim());
+                    if (this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.cos.length - 9)).trim().length <= 7) {
+                        this.props.updateCosValue(this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, (this.props.cos.length - 9)).trim());
                     } else {
                         this.props.updateCosValue(this.props.cos.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1').slice(1, 8).trim());
                     }
@@ -140,7 +140,7 @@ class FarmInputFields extends Component {
                         <View style={styles.containerStyle}>
                             <TextInput
 
-                                placeholder='Ex: $550 /per acre'
+                                placeholder='Ex: $550 per acre'
                                 style={styles.inputStyle}
                                 value={cos}
                                 onChangeText={this.onChangeCost.bind(this)}
@@ -148,7 +148,7 @@ class FarmInputFields extends Component {
                                     this.refs.scrollView.scrollToEnd();
                                     if (cos !== '') {
                                         updateCosValue(`$${cos.toString()
-                                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`);
+                                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`);
                                     }
                                     if (cos.slice(-4) === 'acre') {
                                         updateCosValue(cos);
@@ -180,7 +180,7 @@ class FarmInputFields extends Component {
                         <View style={styles.containerStyle}>
                             <TextInput
 
-                                placeholder='Ex: $70 /per acre'
+                                placeholder='Ex: $70 per acre'
                                 style={styles.inputStyle}
                                 value={pro}
                                 onChangeText={this.onChangeProfit.bind(this)}
@@ -188,7 +188,7 @@ class FarmInputFields extends Component {
                                     this.refs.scrollView.scrollToEnd();
                                     if (pro !== '') {
                                         updateProValue(`$${pro.toString()
-                                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`);
+                                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`);
                                     }
                                     if (pro.slice(-4) === 'acre') {
                                         updateProValue(pro);

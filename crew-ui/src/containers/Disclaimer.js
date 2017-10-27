@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
@@ -35,6 +35,7 @@ class Disclaimer extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
+                    <StatusBar barStyle='light-content' />
                     <View style={{backgroundColor: '#000', width, height: 20}}/>
                     <CommonHeader/>
                     <PageHeader headerText="Terminology You'll See Here" headerInfoText=''/>

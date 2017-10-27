@@ -61,7 +61,7 @@ export default class App extends React.Component {
                         style={styles.logoStyle}
                     />
                     <Text style={styles.textStyle}>Price Hedging</Text>
-                    <Button buttonStyle={{}} textStyle={{ paddingLeft: width * 0.08, paddingTop: 12, paddingBottom: 10,  color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(learnMoreProdUrl)}> Learn More</Button>
+                    <Button buttonStyle={{}} textStyle={{ paddingLeft: width * 0.08, paddingTop: 12, paddingBottom: 10, color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(learnMoreProdUrl)}> Learn More</Button>
                 </View>
             </View>
             <View style={{ flex: 2 }}>

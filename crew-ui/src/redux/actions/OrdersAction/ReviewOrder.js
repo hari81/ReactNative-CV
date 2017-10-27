@@ -40,7 +40,7 @@ export const getReviewOrderQuote = (orderData) => {
         }
         
 
-        return doPostFetch(url, data, getState().auth.basicToken)
+        return doPostFetch(url, data, getState().auth.crmSToken)
             .then(response => { 
                 if (response.status === 200) {
                     return response.json();
@@ -111,7 +111,7 @@ export const placeOrder = () => {
             data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
         console.log('placeing Data', data);
-        return doPostFetch(url, data, getState().auth.basicToken)
+        return doPostFetch(url, data, getState().auth.crmSToken)
             .then(response => { console.log(response);
                 if (response.status === 200 || response.status === 201) {
                     return response.json();

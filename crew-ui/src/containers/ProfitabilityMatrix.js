@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import Matrix from '../components/ProfitabilityMatrix/Matrix';
 import { CommonHeader } from '../components/common';
@@ -33,6 +33,7 @@ class ProfitabilityMatrix extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={styles.container}>
+                    <StatusBar barStyle='light-content' />
                     <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: height * 0.026 }} />
                     <CommonHeader />
                     <CropHeader />
