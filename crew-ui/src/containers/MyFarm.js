@@ -53,7 +53,7 @@ cancelMyFarm = () => {
 };
 cropDataSave = () => {
     if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
-        Alert.alert('Please fill all mandatory fields before saving the data.');
+        Alert.alert('Please fill all mandatory(*) fields before saving the data.');
         return;
     }
     this.props.cropDataSave(this.state);
