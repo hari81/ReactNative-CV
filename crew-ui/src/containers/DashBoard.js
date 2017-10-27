@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../components/common';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
@@ -16,6 +16,7 @@ class DashBoard extends Component {
             const {width, height} = Dimensions.get('window');
             return (
                 <View>
+                    <StatusBar barStyle='light-content' />
                     <View style={{backgroundColor: 'rgb(0,0,0)', width, height: width * 0.026}}/>
                     <CommonHeader/>
                     <View style={{backgroundColor: 'rgb(239,244,247)'}}>

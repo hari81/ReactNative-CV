@@ -49,9 +49,9 @@ export const cropDataSave = (cropValues) => {
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const cropButData = getState().cropsButtons.cropButtons.filter(item => item.id === getState().cropsButtons.selectedId);
         const uCost = cropValues.cost.slice(-4) === 'acre' ?
-            cropValues.cost.slice(1, (cropValues.cost.length - 10)) : cropValues.cost;
+            cropValues.cost.slice(1, (cropValues.cost.length - 9)) : cropValues.cost;
         const uProfitGoal = cropValues.profit.slice(-4) === 'acre' ?
-            cropValues.profit.slice(1, (cropValues.profit.length - 10)) : cropValues.profit;
+            cropValues.profit.slice(1, (cropValues.profit.length - 9)) : cropValues.profit;
         const eYield = cropValues.yield.slice(-7) === 'bushels' ?
             cropValues.yield.slice(0, (cropValues.yield.length - 8)) : cropValues.yield;
         const aPlanted = cropValues.acres.slice(-5) === 'acres' ?

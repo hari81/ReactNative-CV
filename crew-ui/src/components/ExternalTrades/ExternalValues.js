@@ -47,7 +47,7 @@ export default class ExternalValues extends Component {
                     this.setState({ basis: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
                         this.props.onSelectVal(value, transtype);
                         this.setState({ basis: value });
                     }
@@ -60,7 +60,7 @@ export default class ExternalValues extends Component {
                     this.setState({ adj: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
                         this.props.onSelectVal(value, transtype);
                         this.setState({ adj: value });
                     }
@@ -322,7 +322,7 @@ export default class ExternalValues extends Component {
                                 onChangeText={this.externalTrans.bind(this, 'basis')}
                                 onFocus={this.baisonFocus.bind(this)}
                                 onBlur={() => {
-                                    this.setState({basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}`});
+                                    this.setState({basis: this.state.basis === '' || '-.' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}`});
                                 }}
 
                                 keyboardType='numeric'
@@ -344,7 +344,7 @@ export default class ExternalValues extends Component {
                                 onChangeText={this.externalTrans.bind(this, 'adjustments')}
                                 onFocus={this.adjustmentonFocus.bind(this)}
                                 onBlur={() => {
-                                    this.setState({adj: this.state.adj === '' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}`});
+                                    this.setState({adj: this.state.adj === '' || '-.' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}`});
                                 }}
 
                                 keyboardType='numeric'

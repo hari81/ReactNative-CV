@@ -56,7 +56,7 @@ class OutSideTradeSales extends Component {
                             width: 300,
                             backgroundColor: 'rgb(39,153,137)'
                         }, this.props.tradeFlag ? {backgroundColor: 'rgba(39,153,137,0.35)'} : {}]}
-                        disabled={this.props.tradeFlag}
+                        //disabled={this.props.tradeFlag}
                         onPress={this.externalsales.bind(this)}
                     >
                         <View
