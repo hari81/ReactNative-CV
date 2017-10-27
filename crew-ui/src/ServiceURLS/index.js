@@ -10,7 +10,7 @@ export const AUTHENTICATE_URL = Config.URL_AUTHENTICATE_URL;
 export const VELO_SERVICES_URL = Config.URL_VELO_SERVICES; //CRM Session Token
 
 //Open Positions or Closed Positions trade Receipt url
-export const POSITONS_TRADE_RECEIPT_URL = Config.URL_POSITIONS_TRADE_RECEIPT; //Basic auth
+export const POSITIONS_TRADE_RECEIPT_URL = Config.URL_POSITIONS_TRADE_RECEIPT; //Basic auth
 
 //x-api-key
 export const X_API_KEY = Config.X_API_KEY;
