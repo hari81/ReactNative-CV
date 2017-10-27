@@ -36,7 +36,7 @@ class BushelQuantity extends Component {
             if (text <= this.props.quantityLimit) {
                 this.setState({ quantity: text });
             } else {
-                AlertIOS.alert('Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\n Please contact CRM @ 1-952-742-7414 or \nemail: cargillpricehede@cargill.com to request a limit increase.');
+                Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
                 //Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
@@ -76,7 +76,7 @@ class BushelQuantity extends Component {
             if (q <= (this.props.quantityLimit - parseInt(this.props.quantityIncrement)) || q === 0) {
                 q += parseInt(this.props.quantityIncrement);
             } else {
-                AlertIOS.alert('Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\n Please contact CRM @ 1-952-742-7414 or \nemail: cargillpricehede@cargill.com to request a limit increase.');
+                Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
                 q = parseInt(this.props.quantityLimit.toString());
             }
             const qp = this.calculateHedgePercent(q);
