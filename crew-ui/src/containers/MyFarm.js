@@ -83,7 +83,8 @@ placeNewOrder() {
     } else {
         this.props.farmActionFlag(false);
         this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code);
-        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+        //Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+        Actions.whatToday();
     }
 }
 

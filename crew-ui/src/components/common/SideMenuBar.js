@@ -87,7 +87,7 @@ class SideMenuBar extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={styles.messageContainer}>
-                    <View style={[styles.triangle, {marginLeft: width * 0.96}]}/>
+                    <View style={[styles.triangle, {marginLeft: width * 0.94, marginTop: 4}]}/>
                     <View style={[styles.messageBox, {marginLeft: width * 0.74}]}>
                         <TouchableOpacity onPress={this.cancelButton}>
                             <View style={{marginLeft: width * 0.2324, marginTop: 2}}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../components/common';
 import MyCropButton from '../components/common/CropButtons/MyCropButton';
@@ -13,17 +13,18 @@ class DashBoard extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-            const {width, height} = Dimensions.get('window');
+            const { width, height } = Dimensions.get('window');
             return (
                 <View>
-                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: width * 0.026}}/>
-                    <CommonHeader/>
-                    <View style={{backgroundColor: 'rgb(239,244,247)'}}>
-                        <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
-                        <MyFarmTiles/>
-                        <MyFarmProduction/>
-                        <ActionBar/>
-                        <MyCropButton/>
+                    <StatusBar barStyle='light-content' />
+                    <View style={{ backgroundColor: 'black', width, height: 20 }} />
+                    <CommonHeader />
+                    <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
+                        <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
+                        <MyFarmTiles />
+                        <MyFarmProduction />
+                        <ActionBar />
+                        <MyCropButton />
                     </View>
                 </View>
             );
