@@ -1,5 +1,5 @@
 import RNFetchBlob from 'react-native-fetch-blob';
-import { ORDER_SERVICES_URL, POSITONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
+import { ORDER_SERVICES_URL, POSITIONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS, TRADE_RECEIPT_PDFVIEW } from '../types';
 import * as common from '../../../Utils/common';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
@@ -38,7 +38,7 @@ export const OpenPositionsData = (crop) => {
                         })
                     //)
                     //.then(openPositions =>
-                        dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions })
+                        dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions });
                     //);
                 }
             })
@@ -53,7 +53,7 @@ export const tradeReceipt = (relativePath) => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        const url = `${POSITONS_TRADE_RECEIPT_URL}${relativePath.substr(1, relativePath.length)}`;
+        const url = `${POSITIONS_TRADE_RECEIPT_URL}${relativePath.substr(1, relativePath.length)}`;
         //console.log('url', url);
         RNFetchBlob
             .config({
