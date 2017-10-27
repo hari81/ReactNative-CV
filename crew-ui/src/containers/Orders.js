@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, SegmentedControlIOS, Text, TouchableHighlight, Picker, Dimensions } from 'react-native';
+import { FlatList, View, SegmentedControlIOS, Text, TouchableHighlight, Picker, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -225,6 +225,7 @@ class Orders extends Component {
           //console.log(width, height)
           return (
               <View style={{ width, height }}>
+                  <StatusBar barStyle='light-content' />
                   <View
                       style={{
                           backgroundColor: 'black',

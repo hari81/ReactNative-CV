@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
@@ -44,9 +44,10 @@ class Disclaimer extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
-                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
-                    <CommonHeader />
-                    <PageHeader headerText="Terminology You'll See Here" headerInfoText='' />
+                    <StatusBar barStyle='light-content' />
+                    <View style={{backgroundColor: '#000', width, height: 20}}/>
+                    <CommonHeader/>
+                    <PageHeader headerText="Terminology You'll See Here" headerInfoText=''/>
 
                     <View style={styles.disclaimerMain}>
                         <View style={styles.disclaimerContainer}>
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    return { 
+    return {
         acc: state.account,
         products: state.products
     };

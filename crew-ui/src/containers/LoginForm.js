@@ -144,9 +144,13 @@ class LoginForm extends Component {
                       </View>
                       <Text style={{fontSize: 13, color: '#fff', paddingLeft: 10, paddingTop: 20}}>Having trouble
                           logging in? Please call +1-952-742-7414 or </Text>
+
                       <Button textStyle={{fontSize: 13, color: '#fff', paddingLeft: 8, textDecorationLine: 'underline'}}
                               buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>
                           email: cargillpricehedge@cargill.com</Button>
+                      <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, paddingTop: 5}}>
+                          Support available from 7:30am to 4:30pm CST Monday - Friday.
+                      </Text>
                   </Card>
               </ScrollView>
           );

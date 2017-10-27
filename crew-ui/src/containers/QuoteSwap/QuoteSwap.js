@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../../components/common/index';
 import MyCropButton from '../../components/common/CropButtons/MyCropButton';
@@ -37,6 +37,7 @@ class QuoteSwap extends Component {
             if (this.state.selectedOrder === undefined) {
                 return (
                     <View>
+                        <StatusBar barStyle='light-content' />
                         <View style={{backgroundColor: '#000', width, height: 20}}/>
                         <CommonHeader/>
                         <View style={{backgroundColor: 'rgb(239,244,247)'}}>

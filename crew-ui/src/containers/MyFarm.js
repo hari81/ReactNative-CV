@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, Alert, Keyboard, Dimensions } from 'react-native';
+import { Text, View, TouchableHighlight, Alert, Keyboard, Dimensions, StatusBar } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../components/common';
@@ -22,18 +22,19 @@ import bugsnag from '../components/common/BugSnag';
       cost: '',
       yield: '',
       incbasis: false,
-      tradeflag: props.tradeflag || false
+     // tradeflag: props.tradeflag || false
     };
   }
 cancelMyFarm = () => {
       Keyboard.dismiss();
-    if (!this.state.tradeflag) {
-        const cropData = this.props.far.myFarmCropData.cropYear;
+    const cropData = this.props.far.myFarmCropData.cropYear;
+    if (/*!this.state.tradeflag*/ cropData !== null) {
+     //   const cropData = this.props.far.myFarmCropData.cropYear;
     //    console.log(cropData);
         this.setState({
             acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
-            profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
-            cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
+            profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
+            cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
             yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
             estimate: cropData.basis,
             incbasis: cropData.includeBasis,
@@ -52,21 +53,21 @@ cancelMyFarm = () => {
 };
 cropDataSave = () => {
     if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
-        Alert.alert('Values are missing, Please make sure fill all TextInputs with Numbers');
+        Alert.alert('Please fill all mandatory fields before saving the data.');
         return;
     }
     this.props.cropDataSave(this.state);
-    this.setState({ tradeflag: false });
+   // this.setState({ tradeflag: false });
 };
 
-     cropDataSave1() {
+    /* cropDataSave1() {
          if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
-             Alert.alert('Values are missing, Please make sure fill all TextInputs with Numbers');
+             Alert.alert('Please fill all mandatory fields before saving the data.');
              return;
          }
          this.props.cropDataSave(this.state);
          this.setState({ tradeflag: false });
-     }
+     }*/
 
 placeNewOrder() {
     const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
@@ -142,19 +143,17 @@ setData =(props) => {
               yield: '',
               estimate: 0,
               incbasis: false,
-              tradeflag: true,
-
-
+             // tradeflag: true,
           });
       } else {
               this.setState({
                   acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
-                  profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
-                  cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} /per acre`,
+                  profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
+                  cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
                   yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
                   estimate: cropData.basis,
                   incbasis: cropData.includeBasis,
-                  tradeflag: false
+                //  tradeflag: false
               });
           }
       }
@@ -175,6 +174,7 @@ componentWillReceiveProps(newProps) {
 
         return (
             <View>
+                <StatusBar barStyle='light-content' />
                 <View
                     style={{
                         backgroundColor: 'black',
@@ -231,7 +231,8 @@ componentWillReceiveProps(newProps) {
                             height: height - 310,
                             backgroundColor: '#3d4c57',
                             marginHorizontal: 16,
-                            marginTop: 20
+                            marginTop: 20,
+                            justifyContent: 'space-between'
                         }}
                     >
                         <Text
@@ -255,7 +256,6 @@ componentWillReceiveProps(newProps) {
                                              updateYieValue={(val) => this.setState({yield: val})}
                             />
 
-
                             <View style={{
                                 marginRight: 20,
                                 borderLeftWidth: 1,
@@ -267,7 +267,7 @@ componentWillReceiveProps(newProps) {
                                                    sliderVal={val => this.setState({estimate: val})}
                                                    switchVal={val => this.setState({incbasis: val})}
                                 />
-                                <OutSideTradeSales tradeFlag={this.state.tradeflag}
+                                <OutSideTradeSales //tradeFlag={this.state.tradeflag}
                                                    gotoexternal={this.externalsales.bind(this)}/>
                                 <View
                                     style={{
@@ -320,6 +320,7 @@ componentWillReceiveProps(newProps) {
                                 </View>
                             </View>
                         </View>
+                        <Text style={{color: 'white', paddingLeft: 16 }}> *Required fields </Text>
                     </View>
                 </View>
 

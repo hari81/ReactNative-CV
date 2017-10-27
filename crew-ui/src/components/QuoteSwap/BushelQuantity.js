@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Keyboard, Alert, AlertIOS } from 'react-native';
 import { connect } from 'react-redux';
 import { Spinner } from '../../components/common/Spinner';
 import * as common from '../../Utils/common';
@@ -36,7 +36,8 @@ class BushelQuantity extends Component {
             if (text <= this.props.quantityLimit) {
                 this.setState({ quantity: text });
             } else {
-                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
+                AlertIOS.alert('Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\n Please contact CRM @ 1-952-742-7414 or \nemail: cargillpricehede@cargill.com to request a limit increase.');
+                //Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
                 this.setState({ quantity: this.props.quantityLimit.toString() });
             }
             const qp = this.calculateHedgePercent(text);
@@ -75,7 +76,7 @@ class BushelQuantity extends Component {
             if (q <= (this.props.quantityLimit - parseInt(this.props.quantityIncrement)) || q === 0) {
                 q += parseInt(this.props.quantityIncrement);
             } else {
-                Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
+                AlertIOS.alert('Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\n Please contact CRM @ 1-952-742-7414 or \nemail: cargillpricehede@cargill.com to request a limit increase.');
                 q = parseInt(this.props.quantityLimit.toString());
             }
             const qp = this.calculateHedgePercent(q);

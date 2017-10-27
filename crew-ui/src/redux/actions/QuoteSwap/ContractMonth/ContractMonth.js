@@ -23,7 +23,7 @@ export const quoteSwapUnderlying = (year, code) => {
             underlyings: oSymbols
         };
         console.log('start quote swap underlying db lookup 1', new Date());        
-        return doPostFetch(swapUrl, quoteUnderlying, getState().auth.basicToken)
+        return doPostFetch(swapUrl, quoteUnderlying, getState().auth.crmSToken)
             .then(response => {
                 if (response.status !== 200) {
                     isSuccess = false;
@@ -49,7 +49,7 @@ export const quoteSwapUnderlying = (year, code) => {
                         };
                     }, rej => Promise.reject(rej));
                     console.log('start quote swap underlying db lookup 2', new Date());
-                    return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.basicToken)
+                    return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.crmSToken)
                     .then(response => response.json(), rej => Promise.reject(rej))
                     .then(limit => {
                         console.log('end quote swap underlying db lookup 2', new Date());
@@ -80,7 +80,7 @@ export const bushelQuantityLimit = (underlying) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         dispatch({ type: 'BUSHEL_SPIN_ACTIVE' });
-        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.basicToken)
+        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.crmSToken)
         .then(response => response.json(), rej => Promise.reject(rej))
         .then(limit => {
             console.log('end quote swap underlying db lookup 2', new Date());

@@ -12,7 +12,7 @@ export const ClosedPositionsData = (crop) => {
     const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
     const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
 
-    return doGetFetch(url, getState().auth.basicToken)
+    return doGetFetch(url, getState().auth.crmSToken)
         .then(response => {
             if (response.status === 200) {
                 return response.json();
