@@ -1,17 +1,19 @@
+import Config from 'react-native-config';
+
 //order services url
-export const ORDER_SERVICES_URL = 'https://ws5ll39bna.execute-api.us-east-1.amazonaws.com/qa/'; // Basic
+export const ORDER_SERVICES_URL = Config.URL_ORDER_SERVICES; // Basic
 
 //Authentication url
-export const AUTHENTICATE_URL = 'https://s8f0t8d99j.execute-api.us-east-1.amazonaws.com/qa/';
+export const AUTHENTICATE_URL = Config.URL_AUTHENTICATE_URL;
 
 //velo services url
-export const VELO_SERVICES_URL = 'https://cxq6lnfmel.execute-api.us-east-1.amazonaws.com/qa/';  //CRM Session Token
+export const VELO_SERVICES_URL = Config.URL_VELO_SERVICES; //CRM Session Token
 
 //Open Positions or Closed Positions trade Receipt url
-export const POSITONS_TRADE_RECEIPT_URL = 'https://6sf5q4fzd6.execute-api.us-east-1.amazonaws.com/qa/'; //Basic auth
+export const POSITONS_TRADE_RECEIPT_URL = Config.URL_POSITIONS_TRADE_RECEIPT; //Basic auth
 
 //x-api-key
-export const X_API_KEY = 'rGNHStTlLQ976h9dZ3sSi1sWW6Q8qOxQ9ftvZvpb';
+export const X_API_KEY = Config.X_API_KEY;
 
 //WEB links
 export const PRIVACY = 'http://go.cargill.com/CargillPriceHedgingPrivacy';

@@ -450,7 +450,7 @@ class UpdateOrderDetails extends Component {
                     <View style={styles.titleBarOrder}>
                         <Text style={styles.orderTitle}>Close Position</Text>
                         <View style={{ flexDirection: 'row', marginLeft: 630 }}>
-                            <TouchableOpacity onPress={() => Actions.disclaimer()}>
+                            <TouchableOpacity onPress={() => Actions.disclaimer({ productId: this.state.riskProductId })}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.questionIcon}>?</Text>
                                     <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
