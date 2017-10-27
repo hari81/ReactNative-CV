@@ -173,7 +173,7 @@ class SetOrderDetails extends Component {
                     <View style={styles.setOrderDetails}>
                         <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: width * 0.02 }}>Set Order Details</Text>
                         <View style={{ flexDirection: 'row', marginLeft: width * 0.60 }}>
-                            <TouchableOpacity onPress={() => Actions.disclaimer()}>
+                            <TouchableOpacity onPress={() => Actions.disclaimer({ productId: this.state.riskProductId })}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.questionIcon}>?</Text>
                                     <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
