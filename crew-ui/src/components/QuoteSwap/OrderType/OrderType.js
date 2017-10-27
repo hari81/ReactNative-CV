@@ -99,6 +99,6 @@ const styles = {
 
 const mapStateToProps = state => {
     return { acc: state.account };
-}
+};
 
 export default connect(mapStateToProps, null)(OrderType);
