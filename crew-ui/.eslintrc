@@ -1,0 +1,19 @@
+{
+  "extends": "rallycoding",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "arrowFunctions": true
+    }
+  },
+  "rules": { 
+    "max-len": "off",
+    "arrow-body-style": "off",
+    "react/require-extension": "off",
+    "no-lonely-if": "off",
+    "no-param-reassign": "off",
+    "react/sort-comp": "off",
+    "radix": "off",
+    "no-mixed-operators": "off"
+  }
+}
