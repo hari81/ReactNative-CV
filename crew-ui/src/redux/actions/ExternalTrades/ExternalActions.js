@@ -16,7 +16,13 @@ export const externalGetTrans = () => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
+                return response.json();
+            })
             .then(tradeValues => {
                 if (tradeValues.trades.length === 0) {
                     tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
@@ -41,7 +47,13 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
         const accountNo = getState().account.accountDetails.defaultAccountId;
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
+                return response.json();
+            })
             .then(tradeValues => {
                 if (tradeValues.trades.length === 0) {
                     tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
@@ -88,7 +100,13 @@ export const saveExternalTrades = (newTrades) => {
         const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/trades`;
      //   console.log(url);
         return doPutFetch(url, tradeValues, getState().auth.crmSToken)
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
+                return response.json();
+            })
             .then(savedTradeValues => {
                 const savedTrades = Object.assign({}, { trades: savedTradeValues });
                 dispatch({ type: EXTERNAL_GET_TRANS, payload: savedTrades });
