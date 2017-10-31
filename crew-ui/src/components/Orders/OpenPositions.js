@@ -20,7 +20,7 @@ class OpenPositions extends Component {
       transId: sOrder.id,
       activityId: sLine.id
     };
-    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.year });
+    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.cropYear });
   }
 
   openTradeReceipt() {
