@@ -104,6 +104,10 @@ export const cropDataSave = (cropValues) => {
                     Alert.alert('Data Saved Successfully');
                     return response.json();
                 }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
             }, rej => Promise.reject(rej))
             .then(putResponse => {
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: putResponse });
