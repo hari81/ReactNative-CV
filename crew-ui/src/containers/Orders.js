@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, SegmentedControlIOS, Text, TouchableHighlight, Picker, Dimensions, StatusBar } from 'react-native';
+import { FlatList, View, SegmentedControlIOS, Text, Picker, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -7,7 +7,7 @@ import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
 import { Spinner, CommonHeader } from '../components/common';
-import { ViewOrdersData, dropDownCrop, selectedCrop } from '../redux/actions/OrdersAction/ViewOrderAction';
+import { ViewOrdersData, /*dropDownCrop,*/ selectedCrop } from '../redux/actions/OrdersAction/ViewOrderAction';
 import { OpenPositionsData } from '../redux/actions/OrdersAction/OpenPositions';
 import { ClosedPositionsData } from '../redux/actions/OrdersAction/ClosedPositions';
 import st from '../Utils/SafeTraverse';
@@ -23,7 +23,7 @@ class Orders extends Component {
     };
   }
   componentDidMount() {
-      this.props.dropDownCrop();
+     // this.props.dropDownCrop();
       const crop = this.state.Crop;
       switch (this.state.selectedTab) {
           case 'Open Orders':
@@ -75,8 +75,9 @@ class Orders extends Component {
   }
 
     pickerValues() {
-        return (this.props.viewOrders.dropDownData || []).map((item) => (
-            <Picker.Item label={item.name} value={item.code} key={item.code} />));
+        //return (this.props.viewOrders.dropDownData || []).map((item) => (
+        return this.props.acc.defaultAccount.commodities.map(item => (
+            <Picker.Item label={item.name} value={item.commodity} key={item.commodity} />));
     }
 
     selectedTabOrder = (val) => {
@@ -378,7 +379,7 @@ const mapDispatchToProps = dispatch => {
       ViewOrdersData,
       ClosedPositionsData,
       OpenPositionsData,
-      dropDownCrop,
+     // dropDownCrop,
       selectedCrop,
     },
     dispatch

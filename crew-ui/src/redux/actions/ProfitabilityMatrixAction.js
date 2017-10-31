@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { doPostFetch } from '../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../ServiceURLS/index';
 import bugsnag from '../../components/common/BugSnag';
@@ -25,7 +26,13 @@ export const profitabilityMatrixData = (obj) => {
             yieldIncrement: obj.matrixYieldIncrement
         }
         return doPostFetch(url, body, getState().auth.crmSToken)
-            .then(response => response.json(), rej => Promise.reject(rej))
+            .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
+                return response.json();
+            }, rej => Promise.reject(rej))
             .then(matrixData => {
                 const Data = matrixData.map((o, i) => {
                 return {

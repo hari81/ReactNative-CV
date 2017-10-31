@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { ORDER_SERVICES_URL, POSITIONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS, TRADE_RECEIPT_PDFVIEW } from '../types';
@@ -17,6 +18,10 @@ export const OpenPositionsData = (crop) => {
                 if (response.status === 200) {
                     return response.json();
                 }
+                    if (response.status === 403) {
+                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        return;
+                    }
                 common.createAlertErrorMessage(response, 'There was an issue in retrieving the open positions.');
             })
             .then(opens => {
@@ -69,6 +74,10 @@ export const tradeReceipt = (relativePath) => {
         //doGetTradeReceiptFetch(url, getState().auth.basicToken)
             .then((res) => {
                 //console.log('pdf path', res.path());
+                if (res.status === 403) {
+                    res.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
                 dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: res.path() });
             })
             .catch(bugsnag.notify);

@@ -17,6 +17,10 @@ export const accountDetails = () => {
                     dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
                 return response.json();
             })
             .then(AccountData => {
@@ -25,7 +29,13 @@ export const accountDetails = () => {
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
                 return doGetFetch(accountUrl, getState().auth.crmSToken)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (response.status === 403) {
+                            response.json().then(userFail => { Alert.alert(userFail.message); });
+                            return;
+                        }
+                        return response.json();
+                    })
                     .then(Data => {
                         dispatch({ type: DEFAULT_ACCOUNT_DETAILS, payload: Data });
                         const ButtonsData = [];
