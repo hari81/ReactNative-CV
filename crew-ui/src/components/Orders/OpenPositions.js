@@ -3,13 +3,8 @@ import { Text, TouchableHighlight, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import bugsnag from '../../components/common/BugSnag';
-import st from '../../Utils/SafeTraverse';
-
 
 class OpenPositions extends Component {
-    constructor() {
-        super();
-    }
   onUnwind(item) {
     const sOrder = this.props.item;
     const sLine = sOrder.lines.find(x => x.type.toLowerCase() === 'new');
@@ -25,7 +20,7 @@ class OpenPositions extends Component {
       transId: sOrder.id,
       activityId: sLine.id
     };
-    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.year });
+    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.cropYear });
   }
 
   openTradeReceipt() {
@@ -35,13 +30,12 @@ class OpenPositions extends Component {
 
   render() {
         try {
-            const {userId, firstName, email} = this.props.acc.accountDetails;
+            const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
     const {
       id,
       status,
       riskProduct,
-      confirm,
       lines,
       underlyingObjectData
     } = this.props.item;
@@ -103,9 +97,7 @@ class OpenPositions extends Component {
                   }}
                 >
                   <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                    {lines[0].quantity
-                      .toString()
-                      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + unit}s
+                    {lines[0].quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + unit}s
                   </Text>
 
                 </View>
@@ -173,7 +165,7 @@ class OpenPositions extends Component {
 
                     <View style={styles.buttonview}>
                         <TouchableHighlight
-                            style={[styles.viewbutton, status === 'pendingUnwind' ? {backgroundColor: 'rgba(39,153,137,0.65 )'} : {}]}
+                            style={[styles.viewbutton, status === 'pendingUnwind' ? { backgroundColor: 'rgba(39,153,137,0.65 )' } : {}]}
                             disabled={status === 'pendingUnwind'}
                             onPress={this.onUnwind.bind(this, this.props.item)}
                             underlayColor='#ddd'
@@ -234,11 +226,9 @@ const styles = {
     borderColor: 'rgb(159,169,186)',
     marginTop: 16,
     marginBottom: 16,
-    //marginLeft: 20,
     marginRight: 20
   },
   yearStyle: {
-    // marginRight: 10,
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 10,
