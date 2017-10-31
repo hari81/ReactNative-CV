@@ -41,15 +41,20 @@ export default class ExternalValues extends Component {
                 }
                 break;
             case 'basis':
-                const regu = /^-?\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
+                const regu = /^-?\$?\d\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
                 if ((regu.test(value) || value === '' || value === '-') && value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
                     this.props.onSelectVal(value, transtype);
                     this.setState({ basis: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
+                        if (value === '.' || value === '-.' || value === '-') {
                         this.props.onSelectVal(value, transtype);
-                        this.setState({ basis: value });
+                        this.setState({ basis: value }); }
+                        else if (value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
+                            this.props.onSelectVal(value, transtype);
+                            this.setState({ basis: value });
+                        }
                     }
                 }
                 break;
@@ -60,9 +65,14 @@ export default class ExternalValues extends Component {
                     this.setState({ adj: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
-                        this.props.onSelectVal(value, transtype);
-                        this.setState({ adj: value });
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
+                        if (value === '.' || value === '-.' || value === '-') {
+                            this.props.onSelectVal(value, transtype);
+                            this.setState({ adj: value }); }
+                        else if (value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
+                            this.props.onSelectVal(value, transtype);
+                            this.setState({ adj: value });
+                        }
                     }
                 }
                 break;
@@ -321,7 +331,7 @@ export default class ExternalValues extends Component {
                                 value={typeof items.basis === 'undefined' ? '' : this.state.basis}
                                 onChangeText={this.externalTrans.bind(this, 'basis')}
                                 onFocus={this.baisonFocus.bind(this)}
-                                onBlur={() => {
+                                onBlur={() => { if (this.state.basis === '-.' || this.state.basis === '.'){ this.setState({basis: ''}); return; }
                                     this.setState({basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}`});
                                 }}
 

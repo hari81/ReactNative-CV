@@ -23,6 +23,10 @@ export const loginUser = (saveUser, email, pword) => {
       const basicToken = `Basic ${base64.encode(`${email}:${pword}`)}`;
   return doPostFetch(url, authBody, basicToken)
       .then(response => {
+          if (response.status === 403) {
+              response.json().then(userFail => { Alert.alert(userFail.message); });
+              return;
+          }
         if (response.ok) {
           return response.json().then(responseJson => {
             if (responseJson.authenticated) {
@@ -58,6 +62,10 @@ export const forGetPassword = (userName) => {
     return (dispatch) => {
         return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
             .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
                 if (response.ok) {
                     Alert.alert('Reset Password', `An email  will be sent to the below address so you can reset your password \n ${userName}`);
                 } else {

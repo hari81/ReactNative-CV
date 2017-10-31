@@ -12,7 +12,13 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
         const accountNo = getState().account.accountDetails.defaultAccountId;
        const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${commodityCode}/${cropYear}`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => response.json(), rej => Promise.reject(rej))
+            .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
+                return response.json();
+            }, rej => Promise.reject(rej))
             .then(cropValues => {
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
             })
@@ -31,9 +37,12 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
             .then(response => {
              if (response.status === 404) {
                     return {};
-                } else {
-                    return response.json();
                 }
+                if (response.status === 403) {
+                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        return;
+                    }
+                    return response.json();
             }, rej => Promise.reject(rej))
             .then(cropValuesSummary => {
                 dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary });
@@ -70,6 +79,10 @@ export const cropDataSave = (cropValues) => {
              const values = { cropYear: setCropData };
             return doPostFetch(url, values, getState().auth.crmSToken)
                 .then(response => {
+                        if (response.status === 403) {
+                            response.json().then(userFail => { Alert.alert(userFail.message); });
+                            return;
+                        }
                     if (response.status === 201) {
                        // console.log('Data Saved');
                         Alert.alert('Data Saved Successfully');
@@ -93,6 +106,10 @@ export const cropDataSave = (cropValues) => {
                     if (response.ok) {
                         Alert.alert('Data Saved Successfully');
                         return response.json();
+                    }
+                    if (response.status === 403) {
+                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        return;
                     }
                 }, rej => Promise.reject(rej))
                 .then(putResponse => {

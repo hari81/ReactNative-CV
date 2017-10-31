@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
@@ -17,6 +18,10 @@ export const ClosedPositionsData = (crop) => {
             if (response.status === 200) {
                 return response.json();
             }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    return;
+                }
             common.createAlertErrorMessage(response, 'There was an issue in retrieving the closed positions.');
         })
         .then(closed => {

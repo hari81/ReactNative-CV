@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { FETCHING_ORDERS_ACTIVITY, DROP_DOWN_VALUES, ITEMS_FETCH_DATA_SUCCESS } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
@@ -15,6 +16,10 @@ export const ViewOrdersData = (crop) => {
         .then(response => {
             if (response.status === 200) {
                 return response.json();
+            }
+            if (response.status === 403) {
+                response.json().then(userFail => { Alert.alert(userFail.message); });
+                return;
             }
             common.createAlertErrorMessage(response, 'There was an issue in retrieving the orders.');
         })
@@ -45,18 +50,24 @@ export const ViewOrdersData = (crop) => {
   };
 };
 
-export const dropDownCrop = () => {
+/*export const dropDownCrop = () => {
   return (dispatch, getState) => {
       const user = getState().account.accountDetails;
       bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     const url = `${ORDER_SERVICES_URL}commodities`;
     return doGetFetch(url, getState().auth.crmSToken)
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 403) {
+                response.json().then(userFail => { Alert.alert(userFail.message); });
+                return;
+            }
+            return response.json();
+        })
       .then(dropDownData => {
         //  console.log(dropDownData);
         dispatch({ type: DROP_DOWN_VALUES, payload: dropDownData });
       })
-      .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
+      .catch(/*error => console.log(`error ${error}`)*//*bugsnag.notify);
   };
-};
+};*/
 

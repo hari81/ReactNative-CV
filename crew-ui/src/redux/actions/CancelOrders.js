@@ -11,18 +11,32 @@ export const orderReceipt = (orderid, selectedCrop) => {
         const url = `${ORDER_SERVICES_URL}orders/${orderid}`;
         return doDeleteFetch(url, getState().auth.crmSToken)
             .then(response => {
-                if (response.status === 202) {
+                switch (response.status) {
+                    case 404:
+                        Alert.alert('Order cannot be canceled as it is cant found.');
+                        break;
+                    case 410:
+                        Alert.alert('Order cannot be canceled as it is cant found.');
+                        break;
+                    case 403:
+                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        break;
+                    case 500:
+                        Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
+                        break;
+                    default:
+                        return response.json();
+                }
+                /*if (response.status === 202) {
                    // console.log(response);
                     //Actions.cancelorderreceipt({ orderid });
                 } else {
-                    console.log(response.status);
+
                     if (response.status === 404) {
-                        //dispatch({ type: SERVER_NORESPONSE });
                         Alert.alert('Order cannot be canceled as it is cant found.');
                         //console.log('Response failed');
                     }
                     if (response.status === 410) {
-                        //dispatch({ type: SERVER_NORESPONSE });
                         Alert.alert('Order cannot be canceled as it is cant found.');
                         //console.log('Response failed');
                     }
@@ -33,7 +47,7 @@ export const orderReceipt = (orderid, selectedCrop) => {
                         Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
                     }
                 }
-                return response.json();
+                return response.json();*/
             })
             .then(cancelResponse => {
                 //console.log(cancelResponse);
