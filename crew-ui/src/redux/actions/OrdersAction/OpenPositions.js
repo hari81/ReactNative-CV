@@ -34,11 +34,13 @@ export const OpenPositionsData = (crop) => {
                 } else {
                   const openPositions = opens.map((item) => {
                             const oUnderlying = common.createUnderlyingObject(item.lines[0].underlying);
+                            const cYear = item.lines[0].cropYear;
                             const uod = {
                                 //year needs to be a int value instead of a string for later compares/equality tests
                                 year: common.convertStringToInt(oUnderlying.underlyingYear),
                                 crop: oCrop.name,
                                 cropCode: oCrop.commodity,
+                                cropYear: cYear,
                                 month: oUnderlying.underlyingMonthDesc,
                                 unit: oCrop.unitOfMeasure
                             };
