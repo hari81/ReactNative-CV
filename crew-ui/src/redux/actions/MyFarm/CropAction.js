@@ -1,5 +1,6 @@
 import { Alert } from 'react-native';
-import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, MY_FARM_ACTION } from '../types';
+import { Actions } from 'react-native-router-flux';
+import { MY_FARM_CROP_VALUES, MY_FARM_CROP_VALUES_SUMMARY, MY_FARM_ACTION, CLEAR_APPLICATION_STATE } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch, doPutFetch, doPostFetch } from '../../../Utils/FetchApiCalls';
 import bugsnag from '../../../components/common/BugSnag';
@@ -13,13 +14,16 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
        const url = `${VELO_SERVICES_URL}cropData/${accountNo}/${commodityCode}/${cropYear}`;
         return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
-                if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                if (response.status === 403 && getState().myFar.farmFlag) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                     return;
                 }
                 return response.json();
             }, rej => Promise.reject(rej))
             .then(cropValues => {
+                if (cropValues === undefined) {
+                    return;
+                }
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
             })
             .catch(bugsnag.notify);
@@ -29,25 +33,21 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
 export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
     return (dispatch, getState) => {
         // dispatch({ type: FETCHING_ORDERS_ACTIVITY });
-        const user = getState().account.accountDetails;
-        bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        const accountNo = getState().account.accountDetails.defaultAccountId;
-        const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
-        return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => {
-             if (response.status === 404) {
-                    return {};
-                }
-                if (response.status === 403) {
-                        response.json().then(userFail => { Alert.alert(userFail.message); });
-                        return;
+            const user = getState().account.accountDetails;
+            bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
+            const accountNo = getState().account.accountDetails.defaultAccountId;
+            const url = `${VELO_SERVICES_URL}externalTrades/${accountNo}/${commodityCode}/${cropYear}/summary`;
+            return doGetFetch(url, getState().auth.crmSToken)
+                .then(response => {
+                    if (response.status === 404) {
+                        return {};
                     }
                     return response.json();
-            }, rej => Promise.reject(rej))
-            .then(cropValuesSummary => {
-                dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary });
-            })
-            .catch(bugsnag.notify);
+                }, rej => Promise.reject(rej))
+                .then(cropValuesSummary => {
+                    dispatch({type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary});
+                })
+                .catch(bugsnag.notify);
     };
 };
 
@@ -81,7 +81,7 @@ export const cropDataSave = (cropValues) => {
             return doPostFetch(url, values, getState().auth.crmSToken)
                 .then(response => {
                         if (response.status === 403) {
-                            response.json().then(userFail => { Alert.alert(userFail.message); });
+                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                             return;
                         }
                     if (response.status === 201) {
@@ -103,10 +103,6 @@ export const cropDataSave = (cropValues) => {
                 if (response.ok) {
                     Alert.alert('Data Saved Successfully');
                     return response.json();
-                }
-                if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
-                    return;
                 }
             }, rej => Promise.reject(rej))
             .then(putResponse => {

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import cancelimage from './img/Cancel-20.png';
 import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
+//import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from './Button';
@@ -100,17 +101,19 @@ class MyFarmTiles extends Component {
 
     goToFarm = () => {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        //this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
+        this.props.farmActionFlag(true);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-        this.props.farmActionFlag(true);
         Actions.myfarm();
     }
 
     enterCropDetails = () => {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        //this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
+        this.props.farmActionFlag(true);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-        this.props.farmActionFlag(true);
         Actions.myfarm({ tradeflag: true });
     };
     boxes(name, val) {
@@ -259,7 +262,8 @@ const mapDispatchToProps = dispatch => {
             myFarmCropValues,
             cropButtonPress,
             myFarmTradeSalesOutSideApp,
-            farmActionFlag
+            farmActionFlag,
+            //dashBoardDataFetch
         },
         dispatch
     );

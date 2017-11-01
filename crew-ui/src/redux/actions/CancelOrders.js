@@ -3,6 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../ServiceURLS';
 import { doDeleteFetch } from '../../Utils/FetchApiCalls';
 import bugsnag from '../.././components/common/BugSnag';
+import { CLEAR_APPLICATION_STATE } from './types';
 
 export const orderReceipt = (orderid, selectedCrop) => {
     return (dispatch, getState) => {
@@ -19,7 +20,7 @@ export const orderReceipt = (orderid, selectedCrop) => {
                         Alert.alert('Order cannot be canceled as it is cant found.');
                         break;
                     case 403:
-                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                         break;
                     case 500:
                         Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
@@ -51,6 +52,9 @@ export const orderReceipt = (orderid, selectedCrop) => {
             })
             .then(cancelResponse => {
                 //console.log(cancelResponse);
+                if (cancelResponse === undefined) {
+                    return;
+                }
                 if (cancelResponse.statusCode === 200 || cancelResponse.statusCode === 202 || cancelResponse.statusCode === 404) {
                     Actions.cancelorderreceipt({ orderid, message: cancelResponse.message, selectedCrop });
                 } else {
