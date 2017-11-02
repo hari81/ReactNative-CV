@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as commonStyles from '../../Utils/styles';
-import bugsnag from '../../components/common/BugSnag';
+import * as commonStyles from '../../../Utils/styles';
+import bugsnag from '../../common/BugSnag';
 
 class TradeDirection extends Component {
     constructor(props) {

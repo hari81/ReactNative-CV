@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import bugsnag from '../../components/common/BugSnag';
+import bugsnag from '../../common/BugSnag';
 
 class BidAskPrice extends Component {
     render() {

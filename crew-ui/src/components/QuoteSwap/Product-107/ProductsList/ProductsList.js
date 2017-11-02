@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { onChangeName, onChangeId } from '../../../redux/actions/QuoteSwap/ProductType/SelectedProduct';
-import bugsnag from '../../common/BugSnag';
+import { onChangeName, onChangeId } from '../../../../redux/actions/QuoteSwap/ProductType/SelectedProduct';
+import bugsnag from '../../../common/BugSnag';
 
 class ProductsList extends Component {
     selectProduct(name, id) {

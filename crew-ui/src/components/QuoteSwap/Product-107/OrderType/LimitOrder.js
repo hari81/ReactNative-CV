@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, TextInput, Keyboard, DatePickerIOS } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import Info from '../../common/img/Info-white.png';
-import { InfoPopup } from '../../common/InfoPopup';
-import cancel from '../../common/img/Cancel-40.png';
-import * as common from '../../../Utils/common';
-import bugsnag from '../../common/BugSnag';
+import Info from '../../../common/img/Info-white.png';
+import { InfoPopup } from '../../../common/InfoPopup';
+import cancel from '../../../common/img/Cancel-40.png';
+import * as common from '../../../../Utils/common';
+import bugsnag from '../../../common/BugSnag';
 
 class LimitOrder extends Component {
     constructor(props) {

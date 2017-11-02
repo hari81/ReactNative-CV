@@ -12,7 +12,7 @@ export const changePassword = (oldP, newP) => {
             newPassword: newP,
             domain: 'okta'
         };
-        return doPostFetch(url, body, getState().auth.basicToken)
+        return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => response.json(), rej => Promise.reject(rej))
             .then(res => {
                 if (res.status === 'FORBIDDEN') {

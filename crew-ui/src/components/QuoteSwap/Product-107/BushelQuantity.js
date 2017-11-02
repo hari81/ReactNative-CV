@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { Spinner } from '../../components/common/Spinner';
-import * as common from '../../Utils/common';
-import bugsnag from '../../components/common/BugSnag';
+import { Spinner } from '../../common/Spinner';
+import * as common from '../../../Utils/common';
+import bugsnag from '../../common/BugSnag';
 
 class BushelQuantity extends Component {
     constructor(props) {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar } from 'react-native';
-import { CommonHeader } from '../components/common/index';
-import MyCropButton from '../components/common/CropButtons/MyCropButton';
-import MyFarmTiles from '../components/common/MyFarmTiles';
-import OrderMenuOptions from '../components/OrderMenuOptions';
+import { CommonHeader } from '../../components/common/index';
+import MyCropButton from '../../components/common/CropButtons/MyCropButton';
+import MyFarmTiles from '../../components/common/MyFarmTiles';
+import OrderMenuOptions from '../../components/QuoteSwap/OrderMenuOptions';
 
 const { height, width } = Dimensions.get('window');
 export default class WhatToday extends Component {

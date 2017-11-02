@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import moment from 'moment';
-import Refresh from '../../components/common/img/Refresh.png';
-import { Button } from '../../components/common/Button';
-import { Spinner } from '../../components/common/Spinner';
-import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
-import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
-import * as commonStyles from '../../Utils/styles';
-import * as common from '../../Utils/common';
+import Refresh from '../../../components/common/img/Refresh.png';
+import { Button } from '../../../components/common/Button';
+import { Spinner } from '../../../components/common/Spinner';
+import { getReviewOrderQuote } from '../../../redux/actions/OrdersAction/ReviewOrder';
+import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import * as commonStyles from '../../../Utils/styles';
+import * as common from '../../../Utils/common';
 
-import Info from '../../components/common/img/Info-white.png';
-import cancel from '../../components/common/img/Cancel-40.png';
-import { InfoPopup } from '../../components/common/InfoPopup';
-import bugsnag from '../.././components/common/BugSnag';
+import Info from '../../../components/common/img/Info-white.png';
+import cancel from '../../../components/common/img/Cancel-40.png';
+import { InfoPopup } from '../../../components/common/InfoPopup';
+import bugsnag from '../../../components/common/BugSnag';
 
 class UpdateOrderDetails extends Component {
     constructor(props) {
