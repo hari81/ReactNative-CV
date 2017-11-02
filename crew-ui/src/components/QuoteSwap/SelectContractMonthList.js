@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, FlatList, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Spinner } from '../common/Spinner';
 import * as common from '../../Utils/common';
 import st from '../../Utils/SafeTraverse';
 import { ImageButton } from '../common/ImageButton';
+import Refresh from '../common/img/Refresh.png';
+import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 
 const { height, width } = Dimensions.get('window');
 class SelectContractMonthList extends Component {
@@ -17,6 +20,10 @@ class SelectContractMonthList extends Component {
     }
     onSelectedMonth(id, month, year) { this.props.onSelectedMonth(id, month, year); }
     benefitsScreen = () => { Actions.productBenefits(); }
+    onRefresh() {
+        const { cropYear, cropCode } = this.props.contractMonth.contract[0];
+        this.props.quoteSwapUnderlying(cropYear, cropCode);
+    }
     render() {
         let spinner = null;
         if (this.props.contractMonth.spinFlag) {
@@ -32,6 +39,14 @@ class SelectContractMonthList extends Component {
                 <View>
                      <View style={{ flexDirection: 'row' }}>
                           <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>Let's select your contract month</Text></View>
+                            <View style={{ marginTop: 34 }}>
+                                <TouchableOpacity onPress={this.onRefresh.bind(this)}>
+                                     <View style={{ flexDirection: 'row' }}>
+                                        <Image style={{ width: 18, height: 18, marginLeft: 20, marginRight: 4 }} source={Refresh} />
+                                        <Text style={{ color: '#fff', fontSize: 13, marginTop: 4 }}>as of {moment().format('MMM Do YYYY, h:mm a')}</Text>
+                                     </View>
+                                </TouchableOpacity>
+                            </View>
                           <View style={styles.productDetailsView}>
                               <View style={{ marginLeft: 14, marginTop: 6 }}>
                                   <Text style={{ fontSize: 24, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Product Details</Text>
@@ -48,13 +63,13 @@ class SelectContractMonthList extends Component {
                               </View>
                           </View>
                      </View>
-                    <View style={{ position: 'absolute', marginTop: height * 0.078 }}>
-                      <FlatList
-                       numColumns={4}
-                        data={this.props.contractMonth.contract}
-                        extraData={this.props.selectedMonth}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) => (
+                     <View style={{ position: 'absolute', marginTop: height * 0.078 }}>
+                        <FlatList
+                            numColumns={4}
+                            data={this.props.contractMonth.contract}
+                            extraData={this.props.selectedMonth}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => (
                                 <View style={{ marginTop: height * 0.039, marginLeft: width * 0.012 }}>
                                          <TouchableOpacity onPress={this.onSelectedMonth.bind(this, item.id, item.month, item.year)}>
                                                     <View style={styles.contractMonthView}>
@@ -70,7 +85,7 @@ class SelectContractMonthList extends Component {
                                          </TouchableOpacity>
                                 </View>
                                 )}
-                      />
+                        />
                     </View>
                     <View style={{ flexDirection: 'row', marginTop: height * 0.015, marginLeft: width * 0.60 }}>
                                 <ImageButton text='BACK' onPress={this.benefitsScreen} />
@@ -89,9 +104,9 @@ class SelectContractMonthList extends Component {
 const styles = {
     container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, },
     subViewStyle: { marginLeft: width * 0.012, marginTop: height * 0.031 },
-    subTextStyle: { fontSize: 32, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
+    subTextStyle: { fontSize: 28, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
     contractMonthView: { height: height * 0.154, width: width * 0.134, backgroundColor: 'rgb(255,255,255)', borderRadius: 4 },
-    productDetailsView: { height: height * 0.416, width: width * 0.324, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.175, marginTop: 41 },
+    productDetailsView: { height: height * 0.416, width: width * 0.324, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.02, marginTop: 41 },
     monthYearView: { flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(239,244,247)', borderTopLeftRadius: 4, borderTopRightRadius: 4 },
     monthYearText: { color: 'rgb(59,76,89)', fontSize: 18, fontFamily: 'HelveticaNeue' },
     priceView: { flex: 3, justifyContent: 'center', alignItems: 'center' },
@@ -107,4 +122,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, null)(SelectContractMonthList);
+export default connect(mapStateToProps,{ quoteSwapUnderlying })(SelectContractMonthList);
