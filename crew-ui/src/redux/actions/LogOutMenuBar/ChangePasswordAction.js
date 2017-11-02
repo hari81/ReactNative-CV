@@ -17,10 +17,12 @@ export const changePassword = (oldP, newP) => {
         };
         return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => {
+                // Session Token expired condition
                 if (response.status === 403) {
                     response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                     return;
                 }
+
                 return response.json();
             }, rej => Promise.reject(rej))
             .then(res => {

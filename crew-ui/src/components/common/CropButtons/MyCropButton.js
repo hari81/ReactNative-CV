@@ -22,7 +22,7 @@ class MyCropButton extends Component {
             return <Spinner />;
         }
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(120,120,120, .65)' }}>
                 <FlatList
                     ref={(ref) => { this.flatListRef = ref; }}
                     getItemLayout={this.getItemLayout}
@@ -30,7 +30,8 @@ class MyCropButton extends Component {
                     data={this.props.crops.cropButtons}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
-                        <ButtonList 
+                        <ButtonList
+                            dis='1234'
                             item={item} 
                             key={item.id} 
                             userflag={this.props.uservaluesfalg} 
