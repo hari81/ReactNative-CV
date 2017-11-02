@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Alert, Keyboard, Dimensions, StatusBar } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../components/common';
 import OutSideTradeSales from '../components/MyFarm/OutSideTradeSales';
@@ -60,15 +60,6 @@ cropDataSave = () => {
    // this.setState({ tradeflag: false });
 };
 
-    /* cropDataSave1() {
-         if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
-             Alert.alert('Please fill all mandatory fields before saving the data.');
-             return;
-         }
-         this.props.cropDataSave(this.state);
-         this.setState({ tradeflag: false });
-     }*/
-
 placeNewOrder() {
     const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
     const changes = this.userChangesFarmData();
@@ -82,9 +73,9 @@ placeNewOrder() {
             { cancelable: false }
         );
     } else {
-        this.props.farmActionFlag(false);
-        this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code);
+        this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code, 'MyFarm');
         Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+        this.props.farmActionFlag(false);
     }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import st from '../../Utils/SafeTraverse';
@@ -10,9 +10,9 @@ import bugsnag from '../../components/common/BugSnag';
 class CropHeader extends Component {
     matrixToMyFarm = () => {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
+        this.props.farmActionFlag(true);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
-        this.props.farmActionFlag(true);
         Actions.myfarm();
     }
     render() {
