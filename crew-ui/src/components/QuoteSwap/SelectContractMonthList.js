@@ -12,14 +12,29 @@ import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth
 
 const { height, width } = Dimensions.get('window');
 class SelectContractMonthList extends Component {
+    constructor() {
+        super();
+        this.state = {
+            price: 0
+        };
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.contractMonth.spinFlag && nextProps.selectedMonth !== 0) {
             this.onSelectedMonth(0);
         }
     }
-    onSelectedMonth(id, month, year) { this.props.onSelectedMonth(id, month, year); }
+    onSelectedMonth(id, month, year, bidPrice) {
+        this.setState({ price: bidPrice })
+        this.props.onSelectedMonth(id, month, year);
+    }
     benefitsScreen = () => { Actions.productBenefits(); }
+    selectQuantity = () => {
+        const price = this.state.price || st(this.props, ['contractMonth', 'contract', 0, 'bidPrice'])
+        const cMonth = this.props.cMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])
+        const cYear = this.props.cYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])
+        Actions.selectQuantity({ cMonth, cYear, price });
+    }
     onRefresh() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
@@ -50,14 +65,14 @@ class SelectContractMonthList extends Component {
                           <View style={styles.productDetailsView}>
                               <View style={{ marginLeft: 14, marginTop: 6 }}>
                                   <Text style={{ fontSize: 24, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Product Details</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' }}>Your Crop is</Text>
-                                  <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' }}>Your Product is a </Text>
-                                  <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{risk110Name}</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' }}>Your trade direction is</Text>
-                                  <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' }}>Your product details are</Text>
-                                  <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
+                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Crop is</Text>
+                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Product is a </Text>
+                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{risk110Name}</Text>
+                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your trade direction is</Text>
+                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
+                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your product details are</Text>
+                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
                                       {this.props.cMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.cYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
                                   </Text>
                               </View>
@@ -71,7 +86,7 @@ class SelectContractMonthList extends Component {
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => (
                                 <View style={{ marginTop: height * 0.039, marginLeft: width * 0.012 }}>
-                                         <TouchableOpacity onPress={this.onSelectedMonth.bind(this, item.id, item.month, item.year)}>
+                                         <TouchableOpacity onPress={this.onSelectedMonth.bind(this, item.id, item.month, item.year, item.bidPrice)}>
                                                     <View style={styles.contractMonthView}>
                                                         <View style={item.id === sId ? [styles.monthYearView, { backgroundColor: 'rgb(39,153,137)' }] : styles.monthYearView}>
                                                             <Text style={item.id === sId ? [styles.monthYearText, { color: 'rgb(255,255,255)' }] : styles.monthYearText}>
@@ -87,9 +102,9 @@ class SelectContractMonthList extends Component {
                                 )}
                         />
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: height * 0.015, marginLeft: width * 0.60 }}>
+                    <View style={{ flexDirection: 'row', marginTop: height * 0.028, marginLeft: width * 0.62 }}>
                                 <ImageButton text='BACK' onPress={this.benefitsScreen} />
-                                <ImageButton text='NEXT' />
+                                <ImageButton text='NEXT' onPress={this.selectQuantity} />
                      </View>
                  </View>
             );
@@ -105,8 +120,8 @@ const styles = {
     container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, },
     subViewStyle: { marginLeft: width * 0.012, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 28, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
-    contractMonthView: { height: height * 0.154, width: width * 0.134, backgroundColor: 'rgb(255,255,255)', borderRadius: 4 },
-    productDetailsView: { height: height * 0.416, width: width * 0.324, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.02, marginTop: 41 },
+    contractMonthView: { height: height * 0.154, width: width * 0.140, backgroundColor: 'rgb(255,255,255)', borderRadius: 4 },
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.04, marginTop: 41 },
     monthYearView: { flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(239,244,247)', borderTopLeftRadius: 4, borderTopRightRadius: 4 },
     monthYearText: { color: 'rgb(59,76,89)', fontSize: 18, fontFamily: 'HelveticaNeue' },
     priceView: { flex: 3, justifyContent: 'center', alignItems: 'center' },

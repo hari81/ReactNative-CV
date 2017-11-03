@@ -22,7 +22,7 @@ class ProductBenefitsList extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>Benefits of the product you have selected</Text></View>
-                <View style={{ flexDirection: 'row', marginTop: height * 0.403, marginLeft: width * 0.60 }}>
+                <View style={{ flexDirection: 'row', marginTop: height * 0.403, marginLeft: width * 0.62 }}>
                     <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
                     <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} />
                 </View>
