@@ -9,8 +9,10 @@ import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAc
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
-        if (this.props.dis === '1234')
-        { return;}
+        //disable the button press when buttons are not clear
+        if (this.props.vision === 'notclear') {
+            return;
+        }
         //Dashboard data fetch
         this.props.dashBoardDataFetch(year, code);
         this.props.onQuoteSwapUnderlying(year, code);
@@ -49,7 +51,7 @@ class ButtonList extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const { id, cropYear, code, name } = this.props.item;
             return (/*<View style={{ flexDirection: 'row', marginLeft: 10, backgroundColor: 'rgba(120,20,20, .65)'}}>*/
-                <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={this.props.dis === '1234' ? true : id === this.props.id}>
+                <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
                 <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
                     <Text
                         style={id === this.props.id ? { color: 'white', fontSize: 16 } : {

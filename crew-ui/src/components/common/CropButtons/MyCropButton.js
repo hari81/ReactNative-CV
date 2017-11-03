@@ -16,13 +16,18 @@ class MyCropButton extends Component {
         const activeButton = buttons.indexOf(this.props.id);
         this.flatListRef.scrollToIndex({ animated: true, index: activeButton });
     }
+componentVisible() {
+    if (this.props.appearance === 'notclear') {
+        return <View style={{ zIndex: 2, marginTop: -80, width: 1024, height: 120, backgroundColor: '#3d4c5799' }} />;
+    }
+}
 
     buttonsAppear() {
         if (this.props.crops.buttonActive) {
             return <Spinner />;
         }
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(120,120,120, .65)' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center',  }}>
                 <FlatList
                     ref={(ref) => { this.flatListRef = ref; }}
                     getItemLayout={this.getItemLayout}
@@ -31,7 +36,7 @@ class MyCropButton extends Component {
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
                         <ButtonList
-                            dis='1234'
+                            vision={this.props.appearance}
                             item={item} 
                             key={item.id} 
                             userflag={this.props.uservaluesfalg} 
@@ -40,6 +45,7 @@ class MyCropButton extends Component {
                         />)
                     }
                 />
+                {this.componentVisible()}
             </View>);
     }
 
