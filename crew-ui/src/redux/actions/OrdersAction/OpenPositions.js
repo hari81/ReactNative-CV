@@ -1,6 +1,8 @@
+import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { ORDER_SERVICES_URL, POSITIONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
-import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS, TRADE_RECEIPT_PDFVIEW } from '../types';
+import { FETCHING_ORDERS_ACTIVITY, OPEN_POSITIONS_DATA_SUCCESS, TRADE_RECEIPT_PDFVIEW, CLEAR_APPLICATION_STATE } from '../types';
 import * as common from '../../../Utils/common';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import bugsnag from '../../../components/common/BugSnag';
@@ -17,19 +19,28 @@ export const OpenPositionsData = (crop) => {
                 if (response.status === 200) {
                     return response.json();
                 }
+                    if (response.status === 403) {
+                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE })});
+                        return;
+                    }
                 common.createAlertErrorMessage(response, 'There was an issue in retrieving the open positions.');
             })
             .then(opens => {
+                if (opens === undefined) {
+                    return;
+                }
                 if (!Array.isArray(opens)) {
                     dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
                 } else {
                   const openPositions = opens.map((item) => {
                             const oUnderlying = common.createUnderlyingObject(item.lines[0].underlying);
+                            const cYear = item.lines[0].cropYear;
                             const uod = {
                                 //year needs to be a int value instead of a string for later compares/equality tests
                                 year: common.convertStringToInt(oUnderlying.underlyingYear),
                                 crop: oCrop.name,
                                 cropCode: oCrop.commodity,
+                                cropYear: cYear,
                                 month: oUnderlying.underlyingMonthDesc,
                                 unit: oCrop.unitOfMeasure
                             };
@@ -64,10 +75,17 @@ export const tradeReceipt = (relativePath) => {
                 'User-Agent': 'Crew 0.1.0',
                 Authorization: `CRM ${getState().auth.crmSToken}`,
                 Accept: 'application/pdf',
-                'Cache-Control': 'no-store'
+                //'Cache-Control': 'no-store'
             })
         //doGetTradeReceiptFetch(url, getState().auth.basicToken)
             .then((res) => {
+            console.log('status code', res.respInfo.status);
+                if (res.respInfo.status === 403) {
+                    Alert.alert('User Authenticated fail');
+                    Actions.auth();
+                    dispatch({ type: CLEAR_APPLICATION_STATE });
+                    return;
+                }
                 //console.log('pdf path', res.path());
                 dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: res.path() });
             })

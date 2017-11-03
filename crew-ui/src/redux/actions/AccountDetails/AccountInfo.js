@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT } from '../types';
+import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT, CLEAR_APPLICATION_STATE } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import bugsnag from '../../../components/common/BugSnag';
@@ -17,6 +17,10 @@ export const accountDetails = () => {
                     dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    return;
+                }
                 return response.json();
             })
             .then(AccountData => {
@@ -25,7 +29,9 @@ export const accountDetails = () => {
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
                 return doGetFetch(accountUrl, getState().auth.crmSToken)
-                    .then(response => response.json())
+                    .then(response => {
+                        return response.json();
+                    })
                     .then(Data => {
                         dispatch({ type: DEFAULT_ACCOUNT_DETAILS, payload: Data });
                         const ButtonsData = [];

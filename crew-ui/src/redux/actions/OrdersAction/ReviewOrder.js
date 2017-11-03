@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ORDERS_REVIEW_QUOTE } from '../types';
+import { ORDERS_REVIEW_QUOTE, CLEAR_APPLICATION_STATE } from '../types';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
@@ -45,9 +45,16 @@ export const getReviewOrderQuote = (orderData) => {
                 if (response.status === 200) {
                     return response.json();
                 }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                    return;
+                }
                 Alert.alert('Review Order', 'There was an issue with quoting this order.\n\nPlease check data and try again.');
             })
             .then(quoteData => {
+                if (quoteData === undefined) {
+                    return;
+                }
                 if (quoteData === null || quoteData === undefined) {
                     console.log('There was an issue with the quote.');
                 } else {
@@ -112,14 +119,21 @@ export const placeOrder = () => {
         }
         console.log('placeing Data', data);
         return doPostFetch(url, data, getState().auth.crmSToken)
-            .then(response => { console.log(response);
+            .then(response => {
                 if (response.status === 200 || response.status === 201) {
                     return response.json();
+                }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                    return;
                 }
                 //redirect to failure screen
                 Actions.tcerror();                
             })
             .then((orderData) => {
+                if (orderData === undefined) {
+                    return;
+                }
                 switch (orderData.status) {
                     case '201':
                     case 201:
@@ -136,6 +150,7 @@ export const placeOrder = () => {
             })
             .catch((status, error) => {
                 console.log('error', error);
+                bugsnag.notify(error);
                 //redirect to order failure screen
                 Actions.tcerror();
             });

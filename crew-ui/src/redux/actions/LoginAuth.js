@@ -1,10 +1,12 @@
 import { AsyncStorage, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import base64 from 'base-64';
 import {
   LOGIN_USER,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  SERVER_NORESPONSE
+  SERVER_NORESPONSE,
+  CLEAR_APPLICATION_STATE
 } from './types';
 import { AUTHENTICATE_URL } from '../../ServiceURLS/index';
 import { doPostFetch, doLoginPostFetch } from '../../Utils/FetchApiCalls';
@@ -23,6 +25,10 @@ export const loginUser = (saveUser, email, pword) => {
       const basicToken = `Basic ${base64.encode(`${email}:${pword}`)}`;
   return doPostFetch(url, authBody, basicToken)
       .then(response => {
+          if (response.status === 403) {
+              response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+              return;
+          }
         if (response.ok) {
           return response.json().then(responseJson => {
             if (responseJson.authenticated) {
@@ -58,6 +64,10 @@ export const forGetPassword = (userName) => {
     return (dispatch) => {
         return doLoginPostFetch(url, { domain: 'okta', sendEmail: true })
             .then(response => {
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    return;
+                }
                 if (response.ok) {
                     Alert.alert('Reset Password', `An email  will be sent to the below address so you can reset your password \n ${userName}`);
                 } else {

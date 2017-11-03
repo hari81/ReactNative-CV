@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView, Dimensions,StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -447,6 +447,7 @@ class UpdateOrderDetails extends Component {
 
             return (
                 <View style={styles.container}>
+                    <StatusBar barStyle='light-content' />
                     <View style={styles.titleBarOrder}>
                         <Text style={styles.orderTitle}>Close Position</Text>
                         <View style={{ flexDirection: 'row', marginLeft: 630 }}>

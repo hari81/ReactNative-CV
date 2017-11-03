@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { CLEAR_APPLICATION_STATE } from '../actions/types';
 import AuthReducer from './AuthReducer';
 import vieworders from './OrdersReducer/ViewOrdersReducer';
 import OpenPositions from './OrdersReducer/OpenPositions';
@@ -37,7 +38,7 @@ const appReducer = combineReducers({
     matrixData: getMatrixData
 });
 const rootReducer = (state, action) => {
-    if (action.type === 'INVALIDATE_SESSION') {
+    if (action.type === CLEAR_APPLICATION_STATE) {
         state = undefined;
     }
     return appReducer(state, action);
