@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import { CommonHeader } from '../../components/common/index';
-import MyCropButton from '../../components/common/CropButtons/MyCropButton';
-import MyFarmTiles from '../../components/common/MyFarmTiles';
+import { CommonHeader } from '../../../components/common/index';
+import MyCropButton from '../../../components/common/CropButtons/MyCropButton';
+import MyFarmTiles from '../../../components/common/MyFarmTiles';
 import SetOrderDetails from './SetOrderDetails';
 import UpdateOrderDetails from './UpdateOrderDetails';
-import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
-import st from '../../Utils/SafeTraverse';
-import bugsnag from '../.././components/common/BugSnag';
+import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
+import st from '../../../Utils/SafeTraverse';
+import bugsnag from '../../../components/common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
 

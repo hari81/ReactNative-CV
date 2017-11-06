@@ -8,22 +8,26 @@ import CancelOrderReceipt from './components/CancelOrders/CancelOrderReceipt';
 import DashBoard from './containers/DashBoard';
 import MyFarm from './containers/MyFarm';
 import ExternalSales from './containers/ExternalSales';
-import QuoteSwap from './containers/QuoteSwap/QuoteSwap';
+import QuoteSwap from './containers/QuoteSwap/Product-107/QuoteSwap';
 import ChartApp from './components/DashBoard/DoughnutChart/ChartApp';
-import TradeConfirmationOrderReceipt from './components/QuoteSwap/TradeConfirmationOrderReceipt';
-import TradeConfirmationError from './components/QuoteSwap/TradeConfirmationError';
+import TradeConfirmationOrderReceipt from './components/QuoteSwap/Product-107/TradeConfirmationOrderReceipt';
+import TradeConfirmationError from './components/QuoteSwap/Product-107/TradeConfirmationError';
 import ReviewOrder from './components/Orders/ReviewOrder';
 import Disclaimer from './containers/Disclaimer';
 import ProfitabilityMatrix from './containers/ProfitabilityMatrix';
 import TradeReceipt from './components/Orders/TradeReceipt';
+import WhatToday from './containers/QuoteSwap/OrderMenu';
+import ProductBenefits from './containers/QuoteSwap/ProductBenefits';
+import SelectContractMonth from './containers/QuoteSwap/SelectContractMonth';
+import SelectQuantity from './containers/QuoteSwap/SelectQuantity';
 
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key='auth' type={ActionConst.RESET} initial >
+      <Scene key='auth' type={ActionConst.RESET} initial>
         <Scene hideNavBar key='app' type={ActionConst.RESET} component={App} initial />
       </Scene>
-      <Scene key='main' type={ActionConst.RESET}>
+      <Scene key='main' type={ActionConst.RESET} >
         <Scene hideNavBar key='dashboard' component={DashBoard} type={ActionConst.RESET} />
         <Scene hideNavBar key='orders' component={Orders} type={ActionConst.RESET} />
         <Scene hideNavBar key='cancelorder' component={CancelOrder} type={ActionConst.RESET} />
@@ -39,6 +43,10 @@ const RouterComponent = () => {
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />
         <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} type={ActionConst.RESET} />
         <Scene hideNavBar key="pdfview" component={TradeReceipt} />
+        <Scene hideNavBar key="whatToday" component={WhatToday} type={ActionConst.RESET} />
+        <Scene hideNavBar key="productBenefits" component={ProductBenefits} type={ActionConst.RESET} />
+        <Scene hideNavBar key="selectContractMonth" component={SelectContractMonth} type={ActionConst.RESET} />
+        <Scene hideNavBar key="selectQuantity" component={SelectQuantity} />
       </Scene>
     </Router>
   );

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import LimitOrder from './LimitOrder';
-import * as commonStyles from '../../../Utils/styles';
-import * as common from '../../../Utils/common';
-import bugsnag from '../../common/BugSnag';
+import * as commonStyles from '../../../../Utils/styles';
+import * as common from '../../../../Utils/common';
+import bugsnag from '../../../common/BugSnag';
 
 class OrderType extends Component {
     constructor() {

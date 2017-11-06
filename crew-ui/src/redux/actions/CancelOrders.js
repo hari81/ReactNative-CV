@@ -32,7 +32,6 @@ export const orderReceipt = (orderid, selectedCrop) => {
                    // console.log(response);
                     //Actions.cancelorderreceipt({ orderid });
                 } else {
-
                     if (response.status === 404) {
                         Alert.alert('Order cannot be canceled as it is cant found.');
                         //console.log('Response failed');

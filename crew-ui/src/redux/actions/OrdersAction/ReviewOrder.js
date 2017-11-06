@@ -58,8 +58,6 @@ export const getReviewOrderQuote = (orderData) => {
                 if (quoteData === null || quoteData === undefined) {
                     console.log('There was an issue with the quote.');
                 } else {
-                    console.log('review quote data is: ', quoteData);
-                    console.log('Order Data is', orderData);
                     //reprice needs some of the initial data for display on the review screen
                     if (quoteData.metadata.quoteType.toLowerCase() === 'rpx') {
                         quoteData.metadata.buySell = orderData.buySell;

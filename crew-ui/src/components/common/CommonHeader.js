@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableHighlight, Alert, Dimensions } from 'react-native';
+import { Text, View, Image, TouchableHighlight, Alert, Dimensions, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
