@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
-import { FETCHING_ORDERS_ACTIVITY, DROP_DOWN_VALUES, ITEMS_FETCH_DATA_SUCCESS } from '../types';
+import { FETCHING_ORDERS_ACTIVITY, /*DROP_DOWN_VALUES,*/ ITEMS_FETCH_DATA_SUCCESS, CLEAR_APPLICATION_STATE } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
@@ -18,12 +19,15 @@ export const ViewOrdersData = (crop) => {
                 return response.json();
             }
             if (response.status === 403) {
-                response.json().then(userFail => { Alert.alert(userFail.message); });
+                response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                 return;
             }
             common.handleError(response, 'There was an issue in retrieving the orders.');
         })
         .then(items => {
+            if (items === undefined) {
+                return;
+            }
             const oOrders = items.value;
             if (!Array.isArray(oOrders)) {
                 dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: [] });

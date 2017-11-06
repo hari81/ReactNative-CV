@@ -46,12 +46,15 @@ export const getReviewOrderQuote = (orderData) => {
                     return response.json();
                 }
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                     return;
                 }
                 Alert.alert('Review Order', 'There was an issue with quoting this order.\n\nPlease check data and try again.');
             })
             .then(quoteData => {
+                if (quoteData === undefined) {
+                    return;
+                }
                 if (quoteData === null || quoteData === undefined) {
                     console.log('There was an issue with the quote.');
                 } else {

@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
-import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS } from '../types';
+import { FETCHING_ORDERS_ACTIVITY, CLOSED_POSITIONS_DATA_SUCCESS, CLEAR_APPLICATION_STATE } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import bugsnag from '../../../components/common/BugSnag';
 import * as common from '../../../Utils/common';
@@ -19,12 +20,15 @@ export const ClosedPositionsData = (crop) => {
                 return response.json();
             }
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                     return;
                 }
             common.handleError(response, 'There was an issue in retrieving the closed positions.');
         })
         .then(closed => {
+            if (closed === undefined) {
+                return;
+            }
             if (!Array.isArray(closed)) {
                 dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: [] });
             } else {

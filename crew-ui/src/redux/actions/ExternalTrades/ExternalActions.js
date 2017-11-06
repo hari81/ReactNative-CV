@@ -1,7 +1,7 @@
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 import { doGetFetch, doPutFetch } from '../../../Utils/FetchApiCalls';
-import { EXTERNAL_GET_TRANS, EXTERNAL_FLAG } from '../types';
+import { EXTERNAL_GET_TRANS, EXTERNAL_FLAG, CLEAR_APPLICATION_STATE } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import bugsnag from '../../../components/common/BugSnag';
 
@@ -18,12 +18,15 @@ export const externalGetTrans = () => {
         return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                     return;
                 }
                 return response.json();
             })
             .then(tradeValues => {
+                if (tradeValues === undefined) {
+                    return;
+                }
                 if (tradeValues.trades.length === 0) {
                     tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
                 }
@@ -49,12 +52,15 @@ export const externalGetTransDashboard = (commodityCode, cropYear) => {
         return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                     return;
                 }
                 return response.json();
             })
             .then(tradeValues => {
+                if (tradeValues === undefined) {
+                    return;
+                }
                 if (tradeValues.trades.length === 0) {
                     tradeValues = Object.assign({}, tradeValues, { trades: [{}] });
                 }
@@ -102,12 +108,15 @@ export const saveExternalTrades = (newTrades) => {
         return doPutFetch(url, tradeValues, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                     return;
                 }
                 return response.json();
             })
             .then(savedTradeValues => {
+                if (savedTradeValues === undefined) {
+                    return;
+                }
                 const savedTrades = Object.assign({}, { trades: savedTradeValues });
                 dispatch({ type: EXTERNAL_GET_TRANS, payload: savedTrades });
                 Alert.alert('Trade Data Saved Successfully');
@@ -125,16 +134,3 @@ function tradeSetData(item) {
         netContractPrice: parseFloat(item.futuresPrice) + parseFloat(item.basis || 0) + parseFloat(item.adjustments || 0)
     });
 }
-
-/*function tradeSetRemoveData(removeTransData) {
-    return Object.assign({}, {
-        tradeDate: removeTransData.tradeDate,
-        quantity: removeTransData.quantity,
-        futuresPrice: removeTransData.futuresPrice,
-        basis: removeTransData.basis,
-        adjustments: removeTransData.adjustments
-    });
-}*/
-
-
-

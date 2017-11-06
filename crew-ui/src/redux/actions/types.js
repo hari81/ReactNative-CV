@@ -33,3 +33,5 @@ export const INVALID_ACCOUNT = 'invalid_account';
 export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
 export const ORDERS_REVIEW_SPIN_ACTIVE = 'orders_review_spin_active';
 export const ORDERS_REVIEW_SPIN_INACTIVE = 'orders_review_spin_inactive';
+
+export const CLEAR_APPLICATION_STATE = 'clear_application_state';

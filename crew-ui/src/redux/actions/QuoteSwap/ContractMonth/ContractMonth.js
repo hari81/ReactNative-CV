@@ -1,9 +1,11 @@
 import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 import * as common from '../../../../Utils/common';
 import { bushelLimitShow } from '../ContractMonth/ContractMonthSelect';
 import bugsnag from '../../../../components/common/BugSnag';
+import { CLEAR_APPLICATION_STATE } from '../../types';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
@@ -28,14 +30,17 @@ export const quoteSwapUnderlying = (year, code) => {
             .then(response => {
                 if (response.status !== 200) {
                     isSuccess = false;
-                    if (response.status === 403) {
-                        response.json().then(userFail => { Alert.alert(userFail.message); });
-                        return;
-                    }
+                }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    return;
                 }
                 return response.json();
             })
             .then(underlyingQuotes => {
+                if (underlyingQuotes === undefined) {
+                    return;
+                }
                 if (isSuccess) {
                     console.log('end quote swap underlying db lookup 1', new Date());
                     const contractData = oContracts.map((o, i) => {
@@ -57,7 +62,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.crmSToken)
                     .then(response => {
                         if (response.status === 403) {
-                            response.json().then(userFail => { Alert.alert(userFail.message); });
+                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                             return;
                         }
                         return response.json();
