@@ -1,4 +1,5 @@
-import { Alert } from 'react-native';
+import React from 'react';
+import { Alert, NetInfo } from 'react-native';
 import bugsnag from '../components/common/BugSnag';
 
 /* puts numbers in a number value (ex. 1000 -> 1,000 1234567.23 -> 1,234,567.23) */
@@ -175,25 +176,61 @@ export function minusBeforeDollarSign(num, decimals) {
     return '$' + parseFloat(num).toFixed(decimals);
 }
 
+export async function isConnectionAvailable() {
+    try {
+        const res = await fetch('https://www.google.com');
+        if (res.status === 200) return true;
+    } catch (error) {
+        return false;
+    }
+    return false;
+}
+
 /*  used to show a consistent alert message to the user for unexpected errors
     if possible, show the messages returned from the server in the oError object
 */
-export function createAlertErrorMessage(oError, initialMessage = '') {
-    let msg = `\n${initialMessage}`;
-    if (oError !== null && oError !== undefined) {
-        if (oError.length > 0) {
-            if (isValueExists(oError[0].internalMessage)) {
-                msg += `\n\n ${capitalizeWord(oError[0].internalMessage)}`;
+export async function handleError(oError, initialMessage = '') {
+    let msg = '\n';
+
+    //first, check connection status
+    NetInfo.isConnected.fetch().then(isConnected => {
+        if (isConnected) {
+            //we're connected so issue was with velo call...parse error message(s), show to user, and log to bugsnag if not development
+            msg += initialMessage;
+            if (oError !== null && oError !== undefined) {
+                if (oError.length > 0) {
+                    if (isValueExists(oError[0].internalMessage)) {
+                        msg += `\n\n ${capitalizeWord(oError[0].internalMessage)}`;
+                    }
+                    if (isValueExists(oError[0].message)) {
+                        msg += `\n\n ${capitalizeWord(oError[0].message)}`;
+                    }
+                }
+                if (isValueExists(oError.message)) {
+                    msg += `\n\n ${capitalizeWord(oError.message)}`;            
+                }
             }
-            if (isValueExists(oError[0].message)) {
-                msg += `\n\n ${capitalizeWord(oError[0].message)}`;
+            msg += '\n\n Please contact the trading desk at 1-952-742-7414';
+            //show alert to user and log to bugsnag if not in Dev mode
+            Alert.alert('Cargill Price Hedging', msg);
+            if (__DEV__ === true) { console.log('dev error', oError); }
+            else { bugsnag.notify(oError); }
+        } else {
+            const res = isConnectionAvailable();
+            if (res === true) {
+                //actually connected so parse like we are and blame netinfo for being not great at its job
+                Alert.alert('Cargill Price Hedging', msg);
+                if (__DEV__ === true) {
+                    console.log('dev error', oError);
+                } else {
+                    bugsnag.notify(oError);
+                }
+            } else {
+                //not connected...just show no internet connection error to user
+                msg += 'There is currently no internet connection available.\n\nPlease check your internet settings and try again.';
+                console.log('connection error', oError);
+                Alert.alert('Cargill Price Hedging', msg);
             }
         }
-        if (isValueExists(oError.message)) {
-            msg += `\n\n ${capitalizeWord(oError.message)}`;            
-        }
-    }
-    msg += '\n\n Please contact the trading desk at 1-952-742-7414';
-    Alert.alert('Cargill Price Hedging', msg);
-    bugsnag.notify(oError);
+    });
 }

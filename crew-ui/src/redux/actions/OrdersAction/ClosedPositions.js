@@ -22,7 +22,7 @@ export const ClosedPositionsData = (crop) => {
                     response.json().then(userFail => { Alert.alert(userFail.message); });
                     return;
                 }
-            common.createAlertErrorMessage(response, 'There was an issue in retrieving the closed positions.');
+            common.handleError(response, 'There was an issue in retrieving the closed positions.');
         })
         .then(closed => {
             if (!Array.isArray(closed)) {
@@ -45,7 +45,7 @@ export const ClosedPositionsData = (crop) => {
             }
       })
       .catch(error => {
-        common.createAlertErrorMessage(error, 'There was an issue in retrieving the closed positions.');
+        common.handleError(error, 'There was an issue in retrieving the closed positions.');
         dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: [] });
     });
   };

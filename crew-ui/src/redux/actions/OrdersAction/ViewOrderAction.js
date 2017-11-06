@@ -21,7 +21,7 @@ export const ViewOrdersData = (crop) => {
                 response.json().then(userFail => { Alert.alert(userFail.message); });
                 return;
             }
-            common.createAlertErrorMessage(response, 'There was an issue in retrieving the orders.');
+            common.handleError(response, 'There was an issue in retrieving the orders.');
         })
         .then(items => {
             const oOrders = items.value;
@@ -44,7 +44,7 @@ export const ViewOrdersData = (crop) => {
             }
       })
       .catch(error => {
-        common.createAlertErrorMessage(error, 'There was an issue in retrieving the orders.');
+        common.handleError(error, 'There was an issue in retrieving the orders.');
         dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: [] });
     });
   };

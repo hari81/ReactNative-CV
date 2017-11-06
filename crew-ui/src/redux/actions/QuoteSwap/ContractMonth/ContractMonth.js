@@ -28,10 +28,10 @@ export const quoteSwapUnderlying = (year, code) => {
             .then(response => {
                 if (response.status !== 200) {
                     isSuccess = false;
-                }
-                if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); });
-                    return;
+                    if (response.status === 403) {
+                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        return;
+                    }
                 }
                 return response.json();
             })
@@ -68,13 +68,19 @@ export const quoteSwapUnderlying = (year, code) => {
                         dispatch(bushelLimitShow(limit));
                         console.log('* * * * * end quote swap underlying * * * * *', new Date());
                     })
-                    .catch(/*(status, error) => {
-                        console.log(`error ${error}`);
-                    }*/ bugsnag.notify);
+                    .catch(error => {
+                        common.handleError(error, 'There was an issue with retrieving data for this commodity.');
+                        dispatch(contractMonthData(null));
+                    });
                 }
-                common.createAlertErrorMessage(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');
+                //issuccss = false
+                common.handleError(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');                    
+                dispatch(contractMonthData(null));
             })
-        .catch(/*error => console.log(error)*/bugsnag.notify);
+        .catch(error => {
+            common.handleError(error, 'There was an issue with retrieving data for this commodity.');                    
+            dispatch(contractMonthData(null));
+        });
     };
 };
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView, Dimensions,StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard, DatePickerIOS, ScrollView, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import Refresh from '../../components/common/img/Refresh.png';
 import { Button } from '../../components/common/Button';
@@ -246,7 +246,7 @@ class UpdateOrderDetails extends Component {
 
     onReturnToOrders() {
         const cropCode = this.props.cropId.substring(0, this.props.cropId.length - 4);        
-        Actions.orders({ selectedTab: 'Open Positions', Crop: cropCode, type: ActionConst.REPLACE });
+        Actions.orders({ selectedTab: 'Open Positions', Crop: cropCode });
     }
  
     onScrollUpdate() {
