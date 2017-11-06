@@ -9,6 +9,10 @@ import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAc
 
 class ButtonList extends Component {
     buttonPress(year, code, id, name) {
+        //disable the button press when buttons are not clear
+        if (this.props.vision === 'notclear') {
+            return;
+        }
         //Dashboard data fetch
         this.props.dashBoardDataFetch(year, code);
         this.props.onQuoteSwapUnderlying(year, code);
@@ -46,7 +50,7 @@ class ButtonList extends Component {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const { id, cropYear, code, name } = this.props.item;
-            return (<View style={{ flexDirection: 'row', marginLeft: 10}}>
+            return (/*<View style={{ flexDirection: 'row', marginLeft: 10, backgroundColor: 'rgba(120,20,20, .65)'}}>*/
                 <TouchableOpacity onPress={this.buttonPress.bind(this, cropYear, code, id, name)} disabled={id === this.props.id}>
                 <View style={[styles.ButtonStyle, id === this.props.id ? { backgroundColor: 'rgb(39,153,137)' } : { backgroundColor: 'rgb(255,255,255)' }]}>
                     <Text
@@ -68,7 +72,7 @@ class ButtonList extends Component {
                     >Crop</Text>
                 </View>
             </TouchableOpacity>
-        </View>);
+       /* </View> */);
         } catch (error) {
             bugsnag.notify(error);
         }
@@ -81,7 +85,7 @@ const styles = {
         borderRadius: 3,
         justifyContent: 'center',
         paddingTop: 3,
-        marginLeft: 4,
+        marginLeft: 12,
         marginTop: 8,
         alignItems: 'center',
         backgroundColor: '#fff',

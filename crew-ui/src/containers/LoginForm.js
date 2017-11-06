@@ -134,19 +134,29 @@ class LoginForm extends Component {
                       <CardSection>
                           {this.renderButton()}
                       </CardSection>
-                      <View style={{flexDirection: 'row'}}>
-                          <Button buttonStyle={{}}
-                                  textStyle={{color: 'white', textDecorationLine: 'underline', fontSize: 16}}
-                                  onPress={this.forGetPass.bind(this)}> Forgot Password? </Button>
-                          <Button buttonStyle={{marginLeft: width * 0.02}}
-                                  textStyle={{color: 'white', textDecorationLine: 'underline', fontSize: 16}}
-                                  onPress={() => Linking.openURL(signUpNow)}> Not Registered? Sign Up Now! </Button>
-                      </View>
-                      <Text style={{fontSize: 13, color: '#fff', paddingLeft: 10, paddingTop: 20}}>Having trouble
-                          logging in? Please call +1-952-742-7414 or </Text>
-                      <Button textStyle={{fontSize: 13, color: '#fff', paddingLeft: 8, textDecorationLine: 'underline'}}
-                              buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}>
-                          email: cargillpricehedge@cargill.com</Button>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Button 
+                                buttonStyle={{}}
+                                textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }}
+                                onPress={this.forGetPass.bind(this)}
+                            > Forgot Password? </Button>
+                            <Button 
+                                buttonStyle={{ marginLeft: width * 0.02 }}
+                                textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }}
+                                onPress={() => Linking.openURL(signUpNow)}
+                            > Not Registered? Sign Up Now! </Button>
+                        </View>
+                        <View style={{ paddingLeft: 5, paddingTop: 15 }}>
+                            <Text style={{ fontSize: 13, color: '#fff' }}>Having trouble logging in? Please call +1-952-742-7414</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ fontSize: 13, color: '#fff' }}>or email: </Text>
+                                <Button 
+                                    textStyle={{ fontSize: 13, color: '#fff', textDecorationLine: 'underline' }} 
+                                    buttonStyle={{}} onPress={() => Linking.openURL('mailto:cargillpricehedge@cargill.com')}
+                                >cargillpricehedge@cargill.com</Button>
+                            </View>
+                            <Text style={{ fontSize: 12, color: '#fff', paddingTop: 5 }}>Support available from 7:30am to 4:30pm CST Monday - Friday.</Text>
+                        </View>
                   </Card>
               </ScrollView>
           );

@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { PageHeader } from '../components/common/PageHeader';
 import { CommonHeader } from '../components/common';
 import DisclaimerData from '../restAPI/disclaimer.json';
 import bugsnag from '../components/common/BugSnag';
+import * as common from '../Utils/common';
 
 class Disclaimer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            productId: this.props.productId,
+            productName: common.translateProductId(this.props.productId, this.props.products)
+        };
+    }
+
     onGetStarted() {
         Actions.pop();
     }
@@ -35,20 +44,20 @@ class Disclaimer extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
+                    <StatusBar barStyle='light-content' />
                     <View style={{backgroundColor: '#000', width, height: 20}}/>
                     <CommonHeader/>
                     <PageHeader headerText="Terminology You'll See Here" headerInfoText=''/>
 
                     <View style={styles.disclaimerMain}>
                         <View style={styles.disclaimerContainer}>
-                            <Text style={styles.disclaimerTitle}>To help you get started, let's go over a couple terms
-                                we'll use here</Text>
+                            <Text style={styles.disclaimerTitle}>To help you get started, let's go over a couple terms we'll use here</Text>
                             <View style={styles.disclaimerTermsContainer}>
-                                <View style={[styles.disclaimerTextBox, {flex: 0.52, marginRight: 20}]}>
-                                    <Text style={styles.disclaimerSubHead}>Producer Swap</Text>
+                                <View style={[styles.disclaimerTextBox, { flex: 0.52, marginRight: 20 }]}>
+                                    <Text style={styles.disclaimerSubHead}>{this.state.productName}</Text>
                                     <Text style={styles.disclaimerText}>{DisclaimerData.description}</Text>
                                 </View>
-                                <View style={[styles.disclaimerTextBox, {flex: 0.48}]}>
+                                <View style={[styles.disclaimerTextBox, { flex: 0.48 }]}>
                                     {this.renderTerms()}
                                 </View>
                             </View>
@@ -86,7 +95,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    return { acc: state.account };
+    return {
+        acc: state.account,
+        products: state.products
+    };
 };
 
 export default connect(mapStateToProps, null)(Disclaimer);

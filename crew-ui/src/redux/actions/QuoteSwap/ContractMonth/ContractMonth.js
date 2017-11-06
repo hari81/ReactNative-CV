@@ -1,8 +1,11 @@
+import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 import * as common from '../../../../Utils/common';
 import { bushelLimitShow } from '../ContractMonth/ContractMonthSelect';
 import bugsnag from '../../../../components/common/BugSnag';
+import { CLEAR_APPLICATION_STATE } from '../../types';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
@@ -23,14 +26,21 @@ export const quoteSwapUnderlying = (year, code) => {
             underlyings: oSymbols
         };
         console.log('start quote swap underlying db lookup 1', new Date());        
-        return doPostFetch(swapUrl, quoteUnderlying, getState().auth.basicToken)
+        return doPostFetch(swapUrl, quoteUnderlying, getState().auth.crmSToken)
             .then(response => {
                 if (response.status !== 200) {
                     isSuccess = false;
                 }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    return;
+                }
                 return response.json();
             })
             .then(underlyingQuotes => {
+                if (underlyingQuotes === undefined) {
+                    return;
+                }
                 if (isSuccess) {
                     console.log('end quote swap underlying db lookup 1', new Date());
                     const contractData = oContracts.map((o, i) => {
@@ -49,8 +59,14 @@ export const quoteSwapUnderlying = (year, code) => {
                         };
                     }, rej => Promise.reject(rej));
                     console.log('start quote swap underlying db lookup 2', new Date());
-                    return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.basicToken)
-                    .then(response => response.json(), rej => Promise.reject(rej))
+                    return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.crmSToken)
+                    .then(response => {
+                        if (response.status === 403) {
+                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                            return;
+                        }
+                        return response.json();
+                    }, rej => Promise.reject(rej))
                     .then(limit => {
                         console.log('end quote swap underlying db lookup 2', new Date());
                         dispatch(contractMonthData(contractData));
@@ -80,8 +96,14 @@ export const bushelQuantityLimit = (underlying) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         dispatch({ type: 'BUSHEL_SPIN_ACTIVE' });
-        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.basicToken)
-        .then(response => response.json(), rej => Promise.reject(rej))
+        return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.crmSToken)
+        .then(response => {
+            if (response.status === 403) {
+                response.json().then(userFail => { Alert.alert(userFail.message); });
+                return;
+            }
+            return response.json();
+        }, rej => Promise.reject(rej))
         .then(limit => {
             console.log('end quote swap underlying db lookup 2', new Date());
             dispatch(bushelLimitShow(limit));

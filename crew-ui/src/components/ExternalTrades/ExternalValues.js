@@ -41,15 +41,20 @@ export default class ExternalValues extends Component {
                 }
                 break;
             case 'basis':
-                const regu = /^-?\$?\d+(,\d{3})*\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
+                const regu = /^-?\$?\d\.?[0-9]?[0-9]?[0-9]?[0-9]?$/;
                 if ((regu.test(value) || value === '' || value === '-') && value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
                     this.props.onSelectVal(value, transtype);
                     this.setState({ basis: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
+                        if (value === '.' || value === '-.' || value === '-') {
                         this.props.onSelectVal(value, transtype);
-                        this.setState({ basis: value });
+                        this.setState({ basis: value }); }
+                        else if (value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
+                            this.props.onSelectVal(value, transtype);
+                            this.setState({ basis: value });
+                        }
                     }
                 }
                 break;
@@ -60,9 +65,14 @@ export default class ExternalValues extends Component {
                     this.setState({ adj: value });
                     break;
                 } else {
-                    if (/^[\-\$?\d]?$/.test(value)) {
-                        this.props.onSelectVal(value, transtype);
-                        this.setState({ adj: value });
+                    if (/^[\-\$?\d]?$/.test(value) || /^-?\.?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(value)) {
+                        if (value === '.' || value === '-.' || value === '-') {
+                            this.props.onSelectVal(value, transtype);
+                            this.setState({ adj: value }); }
+                        else if (value.length <= 7 && value <= 9.9999 && value >= -9.9999) {
+                            this.props.onSelectVal(value, transtype);
+                            this.setState({ adj: value });
+                        }
                     }
                 }
                 break;
@@ -200,8 +210,8 @@ export default class ExternalValues extends Component {
             const {width} = Dimensions.get('window');
             const {removeTrans, items = {}, fcontract, placeholdervalues} = this.props;
             // console.log(items.underlyingSymbol);
-            const a = Number(items.adjustments || 0);
-            const b = Number(items.basis || 0);
+            const a = Number(items.adjustments === '.' || items.adjustments === '-' || items.adjustments === '-.' ? 0 : items.adjustments || 0);
+            const b = Number(items.basis === '.' || items.basis === '-' || items.basis === '-.' ? 0 : items.basis || 0);
             const f = Number(items.futuresPrice || 0);
             return (
                 <View style={{backgroundColor: '#3d4c57', width}}>
@@ -321,7 +331,7 @@ export default class ExternalValues extends Component {
                                 value={typeof items.basis === 'undefined' ? '' : this.state.basis}
                                 onChangeText={this.externalTrans.bind(this, 'basis')}
                                 onFocus={this.baisonFocus.bind(this)}
-                                onBlur={() => {
+                                onBlur={() => { if (this.state.basis === '-.' || this.state.basis === '.'){ this.setState({ basis: '' }); return; }
                                     this.setState({basis: this.state.basis === '' ? '' : `$${parseFloat(this.state.basis).toFixed(4)}`});
                                 }}
 
@@ -343,7 +353,7 @@ export default class ExternalValues extends Component {
                                 value={typeof items.adjustments === 'undefined' ? '' : this.state.adj}
                                 onChangeText={this.externalTrans.bind(this, 'adjustments')}
                                 onFocus={this.adjustmentonFocus.bind(this)}
-                                onBlur={() => {
+                                onBlur={() => { if (this.state.adj === '-.' || this.state.adj === '.') { this.setState({ adj: '' }); return; }
                                     this.setState({adj: this.state.adj === '' ? '' : `$${parseFloat(this.state.adj).toFixed(4)}`});
                                 }}
 

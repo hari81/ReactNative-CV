@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import bugsnag from '../../components/common/BugSnag';
+import * as common from '../../Utils/common';
 
 class ClosedPositions extends Component {
     openTradeReceipt() {
@@ -10,26 +11,32 @@ class ClosedPositions extends Component {
     }
   render() {
         try {
-            const {userId, firstName, email} = this.props.acc.accountDetails;
+            const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-            const {width, height} = Dimensions.get('window');
-            const product = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
-                .product;
-            const tradeDate = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
-                .tradeDate;
-            const netPrice = this.props.item.lines.filter(obj => obj.type === 'NEW')[0]
-                .netPremium;
-            const closedPrice = this.props.item.lines.filter(
-                obj => obj.type === 'REPRICE'
-            )[0].netPremium;
-            const unwindDate = this.props.item.lines.filter(
-                obj => obj.type === 'REPRICE'
-            )[0].tradeDate;
-            const quantity = this.props.item.lines.filter(
-                obj => obj.type === 'REPRICE'
-            )[0].quantity;
-            const buysell = this.props.item.lines.filter(obj => obj.type === 'REPRICE')[0]
-                .buysell;
+
+            //values from NEW type
+            let oTemp = this.props.item.lines.filter(obj => obj.type === 'NEW');
+            let product = '';
+            let tradeDate = '';
+            let netPrice = '';
+            if (common.isValueExists(oTemp) && oTemp.length > 0) { 
+                product = oTemp[0].product;
+                tradeDate = oTemp[0].tradeDate;
+                netPrice = `$${oTemp[0].netPremium.toFixed(4)}`;
+            }
+
+            //values from REPRICE type
+            oTemp = this.props.item.lines.filter(obj => obj.type === 'REPRICE');
+            let closedPrice = '';
+            let unwindDate = '';
+            let quantity = '';
+            let buysell = '';
+            if (common.isValueExists(oTemp) && oTemp.length > 0) {
+                closedPrice = `$${oTemp[0].netPremium.toFixed(4)}`;
+                unwindDate = oTemp[0].tradeDate;
+                quantity = oTemp[0].quantity;
+                buysell = oTemp[0].buysell;                
+            }
 
             const { id, riskProduct, underlyingObjectData } = this.props.item;
 
@@ -49,12 +56,12 @@ class ClosedPositions extends Component {
                     </View>
 
                     <View style={{ margin: 20, width: '24.41%' }}>
-                        <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {fontSize: 14} : {}]}>
+                        <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
                             {underlyingObjectData.crop} {riskProduct}
                         </Text>
                         <View style={{ flexDirection: 'row', marginTop: 15, justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'column'}}>
-                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>QUANTITY</Text>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                     <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                                         {quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
@@ -63,7 +70,7 @@ class ClosedPositions extends Component {
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? {paddingTop: 7} : {}]}>DIRECTION</Text>
+                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
                                 <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                                     {buysell === 'S' ? 'Sell' : 'Buy'}
                                 </Text>
@@ -80,14 +87,14 @@ class ClosedPositions extends Component {
                             <View style={{ flexDirection: 'column' }}>
                                 <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>NET PRICE</Text>
                                 <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                                    ${netPrice.toFixed(4)}
+                                    {netPrice}
                                 </Text>
                             </View>
                             <View style={{ flexDirection: 'column', marginLeft: 20 }}>
                                 <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>CLOSED PRICE</Text>
                                 <View style={{ flex: 1 }}>
                                     <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                                        ${closedPrice.toFixed(4)}
+                                        {closedPrice}
                                     </Text>
                                 </View>
                             </View>
@@ -111,15 +118,10 @@ class ClosedPositions extends Component {
                     </View>
 
                     <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12 }}>
-                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE
-                            DATE</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                            {tradeDate}
-                        </Text>
+                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE DATE</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{tradeDate}</Text>
                         <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>CLOSE OUT DATE</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                            {unwindDate}
-                        </Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{unwindDate}</Text>
                     </View>
                 </View>
             );
@@ -138,7 +140,6 @@ const styles = {
   },
 
   yearStyle: {
-   // marginRight: 10,
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 10,

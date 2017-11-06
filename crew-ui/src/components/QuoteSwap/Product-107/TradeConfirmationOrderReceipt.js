@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableHighlight, Dimensions, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../../common/index';
@@ -35,6 +35,7 @@ class TradeConfirmationOrderReceipt extends Component {
             const {width, height} = Dimensions.get('window');
             return (
                 <View>
+                    <StatusBar barStyle='light-content' />
                     <View style={{backgroundColor: 'rgb(0,0,0)', width, height: 20}}/>
                     <CommonHeader/>
                     <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 63}}>

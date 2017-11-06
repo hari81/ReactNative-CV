@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView, TouchableHighlight, Alert, Dimensions } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableHighlight, Alert, Dimensions, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import cancel from '../components/common/img/Cancel.png';
@@ -193,6 +193,7 @@ class ExternalSales extends Component {
             //  console.log(fc);
             return (
                 <View style={{width, height, backgroundColor: 'rgb(29,37,49)'}}>
+                    <StatusBar barStyle='light-content' />
                     <View style={{
                         height: 52,
                         justifyContent: 'flex-end',

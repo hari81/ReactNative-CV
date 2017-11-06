@@ -66,6 +66,7 @@ export function capitalizeWord(word) {
         underlyingMonthDesc: 'December',
         underlyingYear: '2017',
         underlyingYearShort: '7'
+    ***** NOTE: do not pass Underlying Year as Crop Year as the data may be mismatched (ex. CH2018 is crop year 2017) *****
 */
 export function createUnderlyingObject(underlying) {
     //construct underlying object from underlying value
@@ -126,7 +127,7 @@ export function cleanNumericString(value) {
     if (value === undefined || value === null) {
         return '';
     }
-    let t = value;
+    let t = value.toString();
     //remove commas, dollars, and blanks
     t = t.replace(',', '');
     t = t.replace('$', '');

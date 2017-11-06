@@ -4,7 +4,7 @@ const configuration = new Configuration();
 
 //Applying Bugsnag configuration
 configuration.apiKey = '68b014a4eeef1b6c8859c6acc206458e';
-configuration.appVersion = '1.30';
+configuration.appVersion = '1.36';
 //configuration.autoNotify = false;
 configuration.consoleBreadcrumbsEnabled = true;
 configuration.handlePromiseRejections = true;

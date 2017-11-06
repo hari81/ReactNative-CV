@@ -8,7 +8,9 @@ export const displayProperties = () => {
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${VELO_SERVICES_URL}dashboard/displayProperties`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => response.json(), rej => Promise.reject(rej))
+            .then(response => {
+                return response.json();
+            }, rej => Promise.reject(rej))
             .then(displayProps =>
                 dispatch(displayProperty(displayProps))
             )

@@ -84,8 +84,8 @@ class CommonHeader extends Component {
                         <Text style={{ color: '#ffffff35', fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }}> | </Text>
                         <TouchableHighlight onPress={this.logOffPress}>
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                            <Image style={{ width: width * 0.031, height: height * 0.0416, marginLeft: 20 }} source={User} />
-                            <Image source={require('./img/ExpandArrow.png')} style={{ width: 10, height: 10, marginLeft: 10, marginTop: 10, marginRight: 20 }} />
+                                <Image style={{ width: width * 0.031, height: height * 0.0416, marginLeft: 20 }} source={User} />
+                                <Image source={require('./img/ExpandArrow.png')} style={{ width: 10, height: 10, marginLeft: 10, marginTop: 10, marginRight: 20 }} />
                         </View>
                         </TouchableHighlight>
                     </View>

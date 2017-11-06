@@ -1,6 +1,9 @@
+import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import { AUTHENTICATE_URL } from '../../../ServiceURLS/index';
 import bugsnag from '../../../components/common/BugSnag';
+import { CLEAR_APPLICATION_STATE } from '../types';
 
 export const changePassword = (oldP, newP) => {
     return (dispatch, getState) => {
@@ -13,8 +16,19 @@ export const changePassword = (oldP, newP) => {
             domain: 'okta'
         };
         return doPostFetch(url, body, getState().auth.crmSToken)
-            .then(response => response.json(), rej => Promise.reject(rej))
+            .then(response => {
+                // Session Token expired condition
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    return;
+                }
+
+                return response.json();
+            }, rej => Promise.reject(rej))
             .then(res => {
+                if (res === undefined) {
+                    return;
+                }
                 if (res.status === 'FORBIDDEN') {
                     dispatch({ type: 'PASSWORD_UPDATE_FAILED', payload: res.details[0] });
                 } else if (res === 'OK') {
