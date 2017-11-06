@@ -16,7 +16,7 @@ class SelectQuantity extends Component {
             price: '',
             cMonth: props.cMonth,
             cYear: props.cYear,
-            mPrice: props.mPrice
+            mPrice: parseFloat(props.mPrice).toFixed(4)
         }
         this.timer = null;
     }
@@ -41,11 +41,11 @@ class SelectQuantity extends Component {
 
     onChangeQuantity(text) {
         if (/[0-9]+$/.test(text) || text === '') {
-            if (text <= this.props.quantityLimit) {
+            if (text <= (this.props.quantityLimit / 2)) {
                 this.setState({ quantity: text });
             } else {
                 Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
-                this.setState({ quantity: this.props.quantityLimit.toString() });
+                this.setState({ quantity: (this.props.quantityLimit / 2).toString() });
             }
             const qp = this.calculateHedgePercent(text);
             this.setState({ qPercent: qp });
@@ -79,12 +79,12 @@ class SelectQuantity extends Component {
             if (q < 1) {
                 q = 0;
             }
-            if (q <= (this.props.quantityLimit - parseInt(this.props.quantityIncrement)) || q === 0) {
+            if (q <= ((this.props.quantityLimit / 2) - parseInt(this.props.quantityIncrement)) || q === 0) {
                 q += parseInt(this.props.quantityIncrement);
                 this.timer = setTimeout(this.plusButtonPress, 100);
             } else {
                 Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
-                q = parseInt(this.props.quantityLimit.toString());
+                q = parseInt((this.props.quantityLimit / 2).toString());
             }
             const qp = this.calculateHedgePercent(q);
             this.setState({ qPercent: qp });

@@ -54,8 +54,8 @@ class WhatTodayOptions extends Component {
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>What would you like to do today?</Text></View>
                 <View style={{ flexDirection: 'row' }}>
                 {this.optionsMenu(1, lineGraph, `I want to set a price`, risk107Id)}
-                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk110Id)}
-                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk5Id)}
+                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk5Id)}
+                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk110Id)}
                 </View>
             </View>
         );
