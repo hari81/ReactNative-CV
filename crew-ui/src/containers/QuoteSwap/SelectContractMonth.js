@@ -17,7 +17,9 @@ class ContractMonths extends Component {
             cropyear: props.cropyear || st(props, ['Crops', 0, 'cropYear']),
             selectedMonth: 0,
             contractMonth: '',
-            contractYear: ''
+            contractYear: '',
+            underlying: '',
+            lastTradeDate: ''
         };
     }
     componentDidMount() {
@@ -27,8 +29,8 @@ class ContractMonths extends Component {
     onQuoteSwapUnderlying(year, code) {
         this.props.quoteSwapUnderlying(year, code);
     }
-    onSelectedMonth(id, month, year) {
-        this.setState({ selectedMonth: id, contractMonth: month, contractYear: year });
+    onSelectedMonth(id, month, year, underlying, lastTradeDate) {
+        this.setState({ selectedMonth: id, contractMonth: month, contractYear: year, underlying, lastTradeDate });
     }
 
     render() {
@@ -43,8 +45,7 @@ class ContractMonths extends Component {
                     <SelectContractMonthList
                         onSelectedMonth={this.onSelectedMonth.bind(this)}
                         selectedMonth={this.state.selectedMonth}
-                        cMonth={this.state.contractMonth}
-                        cYear={this.state.contractYear}
+                        parentState={this.state}
                     />
                     <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} />
                 </View>
