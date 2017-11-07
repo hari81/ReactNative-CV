@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
-import rightArrow from './img/rightArrow.png';
-import leftArrow from './img/leftArrow.png';
-import checkGreen from './img/checkGreen.png';
-import checkWhite from './img/checkWhite.png';
+import rightArrow from './img/structure/rightArrow.png';
+import leftArrow from './img/structure/leftArrow.png';
+import checkGreen from './img/structure/checkGreen.png';
+import checkWhite from './img/structure/checkWhite.png';
 
 const { height, width } = Dimensions.get('window');
 const ImageButton = ({ onPress, text, buttonStyle = styles.buttonStyle, textStyle = styles.textStyle }) => {

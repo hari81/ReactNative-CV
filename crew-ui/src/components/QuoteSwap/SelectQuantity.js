@@ -33,7 +33,8 @@ class SelectQuantity extends Component {
                     if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
                         Alert.alert('Product Details', 'A quantity of 1 or greater must be entered.');
                     } else {
-                        Actions.customizeOrder();
+
+                        Actions.suggestedQuote();
                     }
                 } catch (error) {
                     Alert.alert(`Unexpected error occurred: ${error}`);
@@ -126,6 +127,7 @@ class SelectQuantity extends Component {
         clearTimeout(this.timer);
     }
     render() {
+        console.log(this.state)
         const priceUpTo = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(2 * parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         const addQuant = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         let risk110Name = null;
