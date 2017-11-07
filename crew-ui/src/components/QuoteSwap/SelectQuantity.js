@@ -11,12 +11,14 @@ class SelectQuantity extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: this.props.quantity.toString(),
+            quantity: props.parentState.quantity.toString(),
             qPercent: this.calculateHedgePercent(0),
             price: '',
-            cMonth: props.cMonth,
-            cYear: props.cYear,
-            mPrice: parseFloat(props.mPrice).toFixed(4)
+            cMonth: props.parentState.cMonth,
+            cYear: props.parentState.cYear,
+            strike: props.parentState.mPrice === null ? '-  ' : parseFloat(props.parentState.mPrice).toFixed(4),
+            underlying: props.parentState.underlying,
+            expirationDate: props.parentState.lastTradeDate
         }
         this.timer = null;
     }
@@ -25,6 +27,17 @@ class SelectQuantity extends Component {
         switch (id) {
             case 1:
                 Actions.selectContractMonth();
+                break;
+            case 2:
+                try {
+                    if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
+                        Alert.alert('Product Details', 'A quantity of 1 or greater must be entered.');
+                    } else {
+                        Actions.customizeOrder();
+                    }
+                } catch (error) {
+                    Alert.alert(`Unexpected error occurred: ${error}`);
+                }
                 break;
             default:
         }
@@ -101,7 +114,7 @@ class SelectQuantity extends Component {
         let qp = 0;
         if (this.props.myFarmProd !== null && common.isValueExists(this.props.myFarmProd.estimatedTotalProduction)) {
             const qty = currQuantity === '' ? 0 : parseFloat(currQuantity);
-            if (this.props.buySell.toLowerCase() === 'b' || this.props.buySell.toLowerCase() === 'buy') {
+            if (this.props.parentState.buySell.toLowerCase() === 'b' || this.props.parentState.buySell.toLowerCase() === 'buy') {
                 qp = ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity - qty) / this.props.myFarmProd.estimatedTotalProduction) * 100;
             } else {
                 qp = ((this.props.myFarmProd.estimatedTotalProduction - this.props.myFarmProd.unhedgedProduction.totalQuantity + qty) / this.props.myFarmProd.estimatedTotalProduction) * 100;
@@ -146,7 +159,7 @@ class SelectQuantity extends Component {
                     </View>
                     <View style={{ marginLeft: 20, marginTop: 6 }}>
                         <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Current Market Price is</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>$ {this.state.mPrice}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>$ {this.state.strike}</Text>
                         <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Your Additional Qty is </Text>
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{addQuant}</Text>
                         <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>You May Price Up To</Text>

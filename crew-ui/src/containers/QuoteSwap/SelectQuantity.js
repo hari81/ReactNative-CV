@@ -16,7 +16,9 @@ class SelectQuantityHedge extends Component {
             buySell: 'S',
             cMonth: props.cMonth,
             cYear: props.cYear,
-            mPrice: props.price
+            mPrice: props.price,
+            underlying: props.underlying,
+            lastTradeDate: props.lastTradeDate
         };
     }
     onQuantityChange(quant) {
@@ -32,14 +34,10 @@ class SelectQuantityHedge extends Component {
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <SelectQuantity
-                        buySell={this.state.buySell}
                         onQuantityChange={this.onQuantityChange.bind(this)}
-                        quantity={this.state.quantity}
                         quantityIncrement={this.props.quantityIncrement}
                         quantityLimit={this.props.bushelLimit}
-                        cMonth={this.state.cMonth}
-                        cYear={this.state.cYear}
-                        mPrice={this.state.mPrice}
+                        parentState={this.state}
                     />
                     <MyCropButton />
                 </View>
@@ -50,18 +48,12 @@ class SelectQuantityHedge extends Component {
 const mapStateToProps = (state) => {
     const code = state.cropsButtons.selectedId;
     const crop = state.account.defaultAccount.commodities.filter((item) => item.commodity === code.slice(0, (code.length - 4)));
-    //const tTick = crop[0].tickSizeIncrement === null || crop[0].tickSizeIncrement === undefined ? '0' : crop[0].tickSizeIncrement.toString();
     const tBQL = (state.selectedContractMonth.bushelQuantity === null || !common.isValueExists(state.selectedContractMonth.bushelQuantity.shortLimitAvailable)) ? 0 : Math.round(state.selectedContractMonth.bushelQuantity.shortLimitAvailable);
     const tQty = crop[0].quantityIncrement === null ? '0' : crop[0].quantityIncrement.toString();
 
     return {
-        //MyFarmProd: state.dashBoardButtons,
-        //limitOrderData: state.limitOrder,
-        //contractMonth: state.contractData,
-        //tickSizeIncrement: tTick,
         quantityIncrement: tQty,
-        bushelLimit: tBQL,
-        //acc: state.account
+        bushelLimit: tBQL
     };
 };
 export default connect(mapStateToProps, null)(SelectQuantityHedge);
