@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import ProductsList from './ProductsList';
-import expandArrow from '../../common/img/arrow_down_grey.png';
-import bugsnag from '../../common/BugSnag';
-import * as common from '../../../Utils/common';
+import expandArrow from '../../../common/img/arrow_down_grey.png';
+import bugsnag from '../../../common/BugSnag';
+import * as common from '../../../../Utils/common';
 
 class ProductType extends Component {
     constructor() {

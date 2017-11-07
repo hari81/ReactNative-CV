@@ -13,7 +13,7 @@ class DashBoard extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-            const {width, height} = Dimensions.get('window');
+            const { width, height } = Dimensions.get('window');
             return (
                 <View>
                     <StatusBar barStyle='light-content' />

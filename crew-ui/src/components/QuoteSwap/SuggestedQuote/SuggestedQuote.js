@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { CommonHeader, Button } from '../../common/index';
+import { CommonHeader, ImageButton } from '../../common/index';
 import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
 import { ProductDetails } from './ProductDetails';
 import { SuggestedPrice } from './SuggestedPrice';
-import checkGreen from '../../common/img/structure/checkGreen.png';
-import checkWhite from '../../common/img/structure/checkWhite.png';
-import st from '../../../Utils/SafeTraverse';
 import bugsnag from '../.././common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
@@ -51,18 +48,23 @@ class SuggestedQuote extends Component {
                                         <Text style={{ fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31, paddingTop: 20, paddingLeft: 20}}>Our suggested quote given the current market</Text>
                                         <SuggestedPrice/>
                                         <Text style={{paddingLeft: 20, marginTop: 50, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31}}>Would you like to hedge at these levels?</Text>
-                                        <View style={{flexDirection: 'row'}}>
-                                            {/*<ImageButton img={checkGreen}>YES - Place Order Now!</ImageButton>
-                                            <ImageButton img={checkWhite}>NO - Customize Order</ImageButton>*/}
+                                        <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-around'}}>
+                                            <ImageButton text='YES - Place Order Now!' />
+                                            <ImageButton text='NO - Customize Order' />
                                         </View>
                                     </View>
                                     <View>
-                                        <ProductDetails/>
+                                        <ProductDetails />
+                                        <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
+
+                                            <ImageButton text='BACK' />
+                                            <ImageButton text='NEXT' />
+                                        </View>
                                     </View>
                                 </View>
                             </View>
 
-                            <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} />
+                            <MyCropButton appearance='notclear' />
                         </View>
                     </View>);
         } catch (error) {

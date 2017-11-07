@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight, Dimensions, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { CommonHeader } from '../common';
-import MyFarmTiles from '../common/MyFarmTiles';
-import ec from '../common/img/OrderError.png';
-import bugsnag from '../../components/common/BugSnag';
+import { CommonHeader } from '../../common/index';
+import MyFarmTiles from '../../common/MyFarmTiles';
+import ec from '../../common/img/OrderError.png';
+import bugsnag from '../../common/BugSnag';
 
 class TradeConfirmationError extends Component {
     onBackToOrders() {

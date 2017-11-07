@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "riskProductId": 110,
+    "orderType": "limit",
+    "quoteType": "new",
+    "quantity": 1000,
+    "buySell": "S",
+    "underlying": "CZ2017",
+    "strike": 3.5,
+    "targetPrice": 0.0,
+    "expirationDate": "2017-11-24",
+    "notes": "Stephen Test ATWAQ"
+  },
+  "quoteId": "06046a83-aa0e-4c7c-89e9-4cae23799747",
+  "price": 0.0,
+  "underlyingPrice": 3.4975,
+  "midMarketMark": -0.03,
+  "units": "bushel",
+  "currency": "USD",
+  "quoteExpiration": "2017-11-02T20:26:56.530Z",
+  "strike": 3.33,
+  "bonusPrice": 3.61,
+  "rebate": 0.28,
+  "premium": 0,
+  "premiumPaymentDate": "2017-11-24",
+  "accrualStartDate": "2017-11-02"
+}

@@ -7,16 +7,6 @@ import { quoteSwapUnderlying } from '../../../redux/actions/QuoteSwap/ContractMo
 import bugsnag from '../../common/BugSnag';
 
 class ContractMonth extends Component {
-    constructor() {
-        super();
-        this.state = {
-            timeNow: moment().format('MMM Do YYYY, h:mm a')
-        };
-    }
-    
-    componentWillReceiveProps() {
-        this.setState({ timeNow: moment().format('MMM Do YYYY, h:mm a') });
-    }
 
     onUpdate() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
@@ -48,10 +38,10 @@ class ContractMonth extends Component {
                 <View style={styles.container}>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{ color: '#fff', fontSize: 16, fontFamily: 'HelveticaNeue' }}>CONTRACT MONTH</Text>
-                        <TouchableOpacity onPress={this.onUpdate.bind(this, this.state.timeNow)}>
+                        <TouchableOpacity onPress={this.onUpdate.bind(this)}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Image style={{ width: 18, height: 18, marginLeft: 20, marginRight: 4 }} source={Refresh} />
-                                <Text style={{ color: '#fff', fontSize: 11, marginTop: 4 }}>as of {this.state.timeNow}</Text>
+                                <Text style={{ color: '#fff', fontSize: 11, marginTop: 4 }}>as of {moment().format('MMM Do YYYY, h:mm a')}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

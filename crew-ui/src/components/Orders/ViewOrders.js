@@ -6,7 +6,6 @@ import bugsnag from '../../components/common/BugSnag';
 
 class ViewOrders extends Component {
   onCancelPress(item) {
-      console.log(this.props.selected);
     Actions.cancelorder({ item, selectedCrop: this.props.selected });
   }
   render() {
