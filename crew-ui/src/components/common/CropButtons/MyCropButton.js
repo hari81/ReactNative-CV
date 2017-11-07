@@ -61,7 +61,6 @@ componentVisible() {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             const {width} = Dimensions.get('window');
             return (
-
                 <View style={styles.buttonStyle}>
                     <View style={{flexDirection: 'column'}}>
                         <View style={{flexDirection: 'row', marginTop: 10, marginLeft: 20}}>

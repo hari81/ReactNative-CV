@@ -26,6 +26,8 @@ class SelectQuantity extends Component {
             case 1:
                 Actions.selectContractMonth();
                 break;
+            case 2:
+                Actions.suggestedQuote();
             default:
         }
     }

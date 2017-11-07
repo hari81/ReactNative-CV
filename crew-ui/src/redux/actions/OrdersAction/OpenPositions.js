@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { ORDER_SERVICES_URL, POSITIONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
@@ -79,7 +79,9 @@ export const tradeReceipt = (relativePath) => {
             })
         //doGetTradeReceiptFetch(url, getState().auth.basicToken)
             .then((res) => {
-            console.log('status code', res.respInfo.status);
+            console.log('path', res.path());
+            console.log('data', res);
+           // console.log('status code', res.respInfo.status);
                 if (res.respInfo.status === 403) {
                     Alert.alert('User Authenticated fail');
                     Actions.auth();
@@ -87,6 +89,7 @@ export const tradeReceipt = (relativePath) => {
                     return;
                 }
                 //console.log('pdf path', res.path());
+                Linking.openURL(`file://${res.path()}`);
                 dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: res.path() });
             })
             .catch(bugsnag.notify);

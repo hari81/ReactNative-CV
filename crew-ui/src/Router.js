@@ -20,6 +20,7 @@ import WhatToday from './containers/QuoteSwap/OrderMenu';
 import ProductBenefits from './containers/QuoteSwap/ProductBenefits';
 import SelectContractMonth from './containers/QuoteSwap/SelectContractMonth';
 import SelectQuantity from './containers/QuoteSwap/SelectQuantity';
+import SuggestedQuote from './components/QuoteSwap/SuggestedQuote/SuggestedQuote';
 
 const RouterComponent = () => {
   return (
@@ -47,6 +48,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key="productBenefits" component={ProductBenefits} type={ActionConst.RESET} />
         <Scene hideNavBar key="selectContractMonth" component={SelectContractMonth} type={ActionConst.RESET} />
         <Scene hideNavBar key="selectQuantity" component={SelectQuantity} />
+        <Scene hideNavBar key='suggestedQuote'component={SuggestedQuote} />
       </Scene>
     </Router>
   );
