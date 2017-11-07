@@ -24,27 +24,34 @@ class SelectContractMonthList extends Component {
             this.onSelectedMonth(0);
         }
     }
-    onSelectedMonth(id, month, year, bidPrice) {
+    onSelectedMonth(id, month, year, bidPrice, underlying, lastTradeDate) {
         this.setState({ price: bidPrice })
-        this.props.onSelectedMonth(id, month, year);
+        this.props.onSelectedMonth(id, month, year, underlying, lastTradeDate);
     }
     benefitsScreen = () => { Actions.productBenefits(); }
     selectQuantity = () => {
         const price = this.state.price || st(this.props, ['contractMonth', 'contract', 0, 'bidPrice'])
-        const cMonth = this.props.cMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])
-        const cYear = this.props.cYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])
-        Actions.selectQuantity({ cMonth, cYear, price });
+        const cMonth = this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])
+        const cYear = this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])
+        const underlying = this.props.parentState.underlying || st(this.props, ['contractMonth', 'contract', 0, 'underlying'])
+        const lastTradeDate = this.props.parentState.lastTradeDate || st(this.props, ['contractMonth', 'contract', 0, 'lastTradeDate'])
+        Actions.selectQuantity({ cMonth, cYear, price, underlying, lastTradeDate });
     }
     onRefresh() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
         this.props.quoteSwapUnderlying(cropYear, cropCode);
+    }
+    getPrice(price) {
+        let bPrice = '-';
+        bPrice = price === null ? '-' : '$' + parseFloat(price).toFixed(4);
+        return bPrice;
     }
     render() {
         let spinner = null;
         if (this.props.contractMonth.spinFlag) {
             spinner = (<Spinner size="small" />);
         } else {
-            const sId = this.props.selectedMonth;
+            const sId = this.props.parentState.selectedMonth;
             let risk110Name = null;
             if (common.isValueExists(this.props.products)) {
                 const risk110 = this.props.products.find(x => x.id === 110);
@@ -73,7 +80,7 @@ class SelectContractMonthList extends Component {
                                   <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
                                   <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your product details are</Text>
                                   <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
-                                      {this.props.cMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.cYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
+                                      {this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
                                   </Text>
                               </View>
                           </View>
@@ -86,7 +93,7 @@ class SelectContractMonthList extends Component {
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => (
                                 <View style={{ marginTop: height * 0.039, marginLeft: width * 0.012 }}>
-                                         <TouchableOpacity onPress={this.onSelectedMonth.bind(this, item.id, item.month, item.year, item.bidPrice)}>
+                                         <TouchableOpacity onPress={this.onSelectedMonth.bind(this, item.id, item.month, item.year, item.bidPrice, item.underlying, item.lastTradeDate)}>
                                                     <View style={styles.contractMonthView}>
                                                         <View style={item.id === sId ? [styles.monthYearView, { backgroundColor: 'rgb(39,153,137)' }] : styles.monthYearView}>
                                                             <Text style={item.id === sId ? [styles.monthYearText, { color: 'rgb(255,255,255)' }] : styles.monthYearText}>
@@ -94,7 +101,7 @@ class SelectContractMonthList extends Component {
                                                             </Text>
                                                         </View>
                                                         <View style={styles.priceView}>
-                                                            <Text style={styles.priceText}> ${parseFloat(item.bidPrice).toFixed(4)}</Text>
+                                                            <Text style={styles.priceText}> {this.getPrice(item.bidPrice)}</Text>
                                                         </View>
                                                     </View>
                                          </TouchableOpacity>
