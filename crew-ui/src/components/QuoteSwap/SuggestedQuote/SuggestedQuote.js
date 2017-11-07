@@ -49,7 +49,7 @@ class SuggestedQuote extends Component {
                                         <ProductDetails />
                                         <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
                                             <ImageButton text='BACK' />
-                                            <ImageButton text='NEXT' />
+                                            <ImageButton text='NEXT' inactive='true' />
                                         </View>
                                     </View>
                                 </View>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
-import rightArrow from './img/rightArrow.png';
-import leftArrow from './img/leftArrow.png';
-import checkGreen from './img/checkGreen.png';
-import checkWhite from './img/checkWhite.png';
+import rightArrow from './img/structure/rightArrow.png';
+import leftArrow from './img/structure/leftArrow.png';
+import checkGreen from './img/structure/checkGreen.png';
+import checkWhite from './img/structure/checkWhite.png';
 
 const { height, width } = Dimensions.get('window');
-const ImageButton = ({ onPress, text, buttonStyle = styles.buttonStyle, textStyle = styles.textStyle }) => {
+const ImageButton = ({ onPress, text, inactive, buttonStyle = styles.buttonStyle, textStyle = styles.textStyle }) => {
     let button = null;
 
     if (text === 'BACK') {
@@ -20,9 +20,9 @@ const ImageButton = ({ onPress, text, buttonStyle = styles.buttonStyle, textStyl
         );
     } else if (text === 'NEXT') {
         button = (
-            <TouchableOpacity onPress={onPress}>
-                <View style={buttonStyle}>
-                <Text style={textStyle}>{text}</Text>
+            <TouchableOpacity onPress={onPress} disabled={inactive === 'true'}>
+                <View style={[buttonStyle, inactive === 'true' ? { backgroundColor: 'rgba(39,153,137, .65)' } : {}]}>
+                <Text style={[textStyle, inactive === 'true' ? { color: 'rgba(255,255,255, .35)' } : {}]}>{text}</Text>
                 <Image source={rightArrow} />
                 </View>
             </TouchableOpacity>
@@ -32,7 +32,7 @@ const ImageButton = ({ onPress, text, buttonStyle = styles.buttonStyle, textStyl
         button = (
             <TouchableOpacity onPress={onPress}>
                 <View style={[buttonStyle, { width: width * 0.27 }, text.substr(0, 2) === 'NO' ? { backgroundColor: 'rgb(255,255,255)' } : {}] }>
-                    <Image source={text.substr(0, 2) === 'NO' ? checkWhite : checkGreen} />
+                    <Image source={text.substr(0, 2) === 'NO' ? checkWhite : checkGreen} style={{ height: 40, width: 40 }} />
                     <Text style={[textStyle, { paddingRight: 20 }, text.substr(0, 2) === 'NO' ? { color: 'rgb(39,153,137)' } : {}]}>{text}</Text>
                 </View>
             </TouchableOpacity>
