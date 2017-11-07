@@ -29,8 +29,8 @@ class ActionBar extends Component {
     dashboardToPlaceOrder = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
         //Actions.quoteswap({ cropcode: Crop[0].code, cropyear: Crop[0].cropYear });
-        Actions.whatToday()
-       // Actions.suggestedQuote();
+       // Actions.whatToday()
+        Actions.suggestedQuote();
     }
 
     render() {
