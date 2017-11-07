@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, WebView, StyleSheet, Button, Dimensions, Text } from 'react-native';
+import { View, WebView, StyleSheet, Button, Dimensions, Text, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { CommonHeader, Spinner } from '../../components/common';
@@ -61,7 +61,7 @@ class TradeReceipt extends Component {
                         }}
                     />
                     <CommonHeader/>
-                    <Button color='white' title='<<Back to Positions' onPress={() => Actions.pop()} />
+                    <Button color='white' title='<<Back to Positions' onPress={() => {Actions.pop();/*Linking.openURL(`file://${this.props.pdfview}`); console.log('file', `file://${this.props.pdfview}`)*/}} />
                     {this.renderPdfView()}
                 </View>);
         } catch (error) {

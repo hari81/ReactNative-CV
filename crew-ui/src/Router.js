@@ -16,6 +16,7 @@ import ReviewOrder from './components/Orders/ReviewOrder';
 import Disclaimer from './containers/Disclaimer';
 import ProfitabilityMatrix from './containers/ProfitabilityMatrix';
 import TradeReceipt from './components/Orders/TradeReceipt';
+import SuggestedQuote from './components/QuoteSwap/SuggestedQuote/SuggestedQuote';
 
 const RouterComponent = () => {
   return (
@@ -39,6 +40,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />
         <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} type={ActionConst.RESET} />
         <Scene hideNavBar key="pdfview" component={TradeReceipt} />
+        <Scene hideNavBar key='sugested'component={SuggestedQuote} />
       </Scene>
     </Router>
   );

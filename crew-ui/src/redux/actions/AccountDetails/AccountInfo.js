@@ -21,10 +21,15 @@ export const accountDetails = () => {
                     response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                     return;
                 }
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    Alert.alert('Unable to retrieve your account information, please contact us.');
+                    return 'noresponse';
+                }
             })
             .then(AccountData => {
-                if (AccountData === undefined) { return; }
+                if (AccountData === undefined || AccountData === 'noresponse') { dispatch({type: CLEAR_APPLICATION_STATE}); return; }
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
