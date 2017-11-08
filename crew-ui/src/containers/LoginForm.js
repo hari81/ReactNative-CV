@@ -68,7 +68,10 @@ class LoginForm extends Component {
           this.props.accountDetails();
           this.props.productType();
           this.props.displayProperties();
-          this.setState({ signIn: true });
+          if (Object.keys(newProps.acc.accountDetails).length > 0) {
+              console.log('Account Data exists.');
+              this.setState({ signIn: true });
+          }
       }
       if (newProps.auth.error) {
           AlertIOS.alert('Error', newProps.auth.msg);
