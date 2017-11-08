@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ORDERS_REVIEW_QUOTE, ORDERS_REVIEW_SPIN_ACTIVE, ORDERS_REVIEW_SPIN_INACTIVE } from '../types';
+import { ORDERS_REVIEW_QUOTE, CLEAR_APPLICATION_STATE, ORDERS_REVIEW_SPIN_ACTIVE, ORDERS_REVIEW_SPIN_INACTIVE } from '../types';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
@@ -126,7 +126,7 @@ export const placeOrder = () => {
                     case 201:
                         return response.json();
                     case 403:
-                        response.json().then(userFail => { Alert.alert(userFail.message); });
+                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                         return;
                     case 400:
                         Actions.tcerror({ message: response.message }); break;
