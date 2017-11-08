@@ -12,7 +12,6 @@ const SuggestedPrice = () => {
             <PriceType img={coins} price='4.25' text='Bonus Price' />
             <PriceType img={calender} text='Pricing Period' date={new Date().toLocaleDateString()} />
             <PriceType img={card} price='0.00' text='Price' />
-
         </View>
     );
 };
@@ -23,7 +22,6 @@ const PriceType = ({ text, price, img, date }) => {
             <Image source={img} style={{ marginTop: 10 }} />
             <Text style={styles.PricetextStyle}>{text}</Text>
             <Text style={[styles.PricetextStyle, { fontSize: 22, paddingTop: 0, fontFamily: 'HelveticaNeue' }]}>{date === undefined ? '$'+price : date}</Text>
-
         </View>
     );
 };

@@ -31,8 +31,8 @@ const ImageButton = ({ onPress, text, buttonStyle = styles.buttonStyle, textStyl
     if (text.substr(0, 2) === 'YE' || text.substr(0, 2) === 'NO') {
         button = (
             <TouchableOpacity onPress={onPress}>
-                <View style={[buttonStyle, { width: width * 0.27 }, text.substr(0, 2) === 'NO' ? { backgroundColor: 'rgb(255,255,255)' } : {}] }>
-                    <Image source={text.substr(0, 2) === 'NO' ? checkWhite : checkGreen} />
+                <View style={[buttonStyle, { width: width * 0.27, marginRight: 10, marginLeft: 20 }, text.substr(0, 2) === 'NO' ? { backgroundColor: 'rgb(255,255,255)' } : {}] }>
+                    <Image source={text.substr(0, 2) === 'NO' ? checkWhite : checkGreen} style={{ height: 30, width: 30 }} />
                     <Text style={[textStyle, { paddingRight: 20 }, text.substr(0, 2) === 'NO' ? { color: 'rgb(39,153,137)' } : {}]}>{text}</Text>
                 </View>
             </TouchableOpacity>

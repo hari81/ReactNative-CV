@@ -3,7 +3,7 @@ import { View, Dimensions, StatusBar } from 'react-native';
 import { CommonHeader } from '../../components/common/index';
 import MyCropButton from '../../components/common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../components/common/MyFarmTiles';
-import CustomizeOrder from '../../components/QuoteSwap/CustomizeOrder';
+import CustomizeOrder from '../../components/QuoteSwap/CustomizeOrder/CustomizeOrder';
 
 const { height, width } = Dimensions.get('window');
 export default class CustomizingOrder extends Component {
@@ -17,7 +17,7 @@ export default class CustomizingOrder extends Component {
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <CustomizeOrder />
-                    <MyCropButton />
+                    <MyCropButton appearance='notclear' />
                 </View>
             </View>
         );

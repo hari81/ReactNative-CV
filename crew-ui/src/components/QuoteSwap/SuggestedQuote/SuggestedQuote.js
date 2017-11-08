@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader, ImageButton } from '../../common/index';
 import MyCropButton from '../../common/CropButtons/MyCropButton';
@@ -18,6 +19,17 @@ class SuggestedQuote extends Component {
             cropyear: props.cropyear || st(props, ['Crops', 0, 'cropYear']),
             selectedOrder: props.selectedOrder
         };*/
+    }
+    nextScreens(id) {
+        switch (id) {
+            case 1:
+                Actions.selectQuantity();
+                break;
+            case 2:
+                Actions.customizeOrder();
+                break;
+            default:
+        }
     }
 
     render() {
@@ -48,8 +60,8 @@ class SuggestedQuote extends Component {
                                     <View>
                                         <ProductDetails />
                                         <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
-                                            <ImageButton text='BACK' />
-                                            <ImageButton text='NEXT' />
+                                            <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
+                                            <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} />
                                         </View>
                                     </View>
                                 </View>

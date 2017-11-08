@@ -124,7 +124,7 @@ class SelectContractMonthList extends Component {
     }
 }
 const styles = {
-    container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, },
+    container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)' },
     subViewStyle: { marginLeft: width * 0.012, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 28, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
     contractMonthView: { height: height * 0.154, width: width * 0.140, backgroundColor: 'rgb(255,255,255)', borderRadius: 4 },
@@ -144,4 +144,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps,{ quoteSwapUnderlying })(SelectContractMonthList);
+export default connect(mapStateToProps, { quoteSwapUnderlying })(SelectContractMonthList);
