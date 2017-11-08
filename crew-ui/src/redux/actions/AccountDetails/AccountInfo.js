@@ -11,20 +11,28 @@ export const accountDetails = () => {
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
-                /*console.log(response);*/
                 if (response.status === 404) {
                     Alert.alert('No Account found');
                     dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    response.json().then(userFail => { 
+                        Alert.alert(userFail.message); 
+                        Actions.auth(); 
+                        dispatch({ type: CLEAR_APPLICATION_STATE }); 
+                    });
                     return;
                 }
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    Alert.alert('Unable to retrieve your account information, please contact CRM @ 1-952-742-7414.');
+                    return 'noresponse';
+                }
             })
             .then(AccountData => {
-                if (AccountData === undefined) { return; }
+                if (AccountData === undefined || AccountData === 'noresponse') { dispatch({ type: CLEAR_APPLICATION_STATE }); Actions.auth(); return; }
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
