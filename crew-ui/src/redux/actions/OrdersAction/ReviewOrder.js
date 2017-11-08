@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ORDERS_REVIEW_QUOTE, CLEAR_APPLICATION_STATE } from '../types';
+import { ORDERS_REVIEW_QUOTE, CLEAR_APPLICATION_STATE, ORDERS_REVIEW_SPIN_ACTIVE, ORDERS_REVIEW_SPIN_INACTIVE } from '../types';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
@@ -76,9 +76,9 @@ export const getReviewOrderQuote = (orderData) => {
                     Actions.revieworder();
                 }
             })
-            .catch(/*(status, error) => {
-                console.log('error', error);
-            }*/bugsnag.notify);
+            .catch(error => {
+                common.handleError(error, 'There was an issue with quoting this order.');
+            });
     };
 };
 
@@ -86,6 +86,7 @@ export const placeOrder = () => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
+        dispatch({ type: ORDERS_REVIEW_SPIN_ACTIVE });
         const url = `${ORDER_SERVICES_URL}orders`;
         const oData = getState().reviewQuote.quoteData;
         let data = null;
@@ -117,42 +118,45 @@ export const placeOrder = () => {
             data.targetPrice = common.cleanNumericString(oData.metadata.targetPrice.toString());
             data.goodTilDate = common.formatDate(oData.metadata.goodTilDate, 6);
         }
-        console.log('placeing Data', data);
+        console.log('placing Data', data);
         return doPostFetch(url, data, getState().auth.crmSToken)
             .then(response => {
-                if (response.status === 200 || response.status === 201) {
-                    return response.json();
+                switch (response.status) {
+                    case 200:
+                    case 201:
+                        return response.json();
+                    case 403:
+                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                        return;
+                    case 400:
+                        Actions.tcerror({ message: response.message }); break;
+                    default:
+                        Actions.tcerror(); break;
                 }
-                if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
-                    return;
-                }
-                //redirect to failure screen
-                Actions.tcerror();                
             })
             .then((orderData) => {
-                if (orderData === undefined) {
-                    return;
-                }
-                switch (orderData.status) {
-                    case '201':
-                    case 201:
-                        Actions.tcorderreceipt({ orderId: orderData.id, message: orderData.statusMessage }); break;
-                    case '500':
-                    case 500:
-                        Actions.tcerror({ message: orderData.statusMessage }); break;
-                    case '400':
-                    case 400:
-                        Actions.tcerror({ message: orderData.statusMessage }); break;
-                    default:
-                        Actions.tcerror({ message: orderData.statusMessage }); break;
+                if (common.isValueExists(orderData)) {
+                    switch (orderData.status) {
+                        case '201':
+                        case 201:
+                            Actions.tcorderreceipt({ orderId: orderData.id, message: orderData.statusMessage }); break;
+                        case '500':
+                        case 500:
+                            Actions.tcerror({ message: orderData.statusMessage }); break;
+                        case '400':
+                        case 400:
+                            Actions.tcerror({ message: orderData.statusMessage }); break;
+                        default:
+                            Actions.tcerror({ message: orderData.statusMessage }); break;
+                    }
+                } else {
+                    Actions.tcerror();
                 }
             })
-            .catch((status, error) => {
-                console.log('error', error);
-                bugsnag.notify(error);
-                //redirect to order failure screen
-                Actions.tcerror();
+            .catch(error => {
+                //don't redirect to order failure screen if no response received
+                common.handleError(error);
+                dispatch({ type: ORDERS_REVIEW_SPIN_INACTIVE });
             });
     };
 };

@@ -3,13 +3,13 @@ import { Actions } from 'react-native-router-flux';
 import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT, CLEAR_APPLICATION_STATE } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
+import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 
 export const accountDetails = () => {
     return (dispatch, getState) => {
-
         const url = `${VELO_SERVICES_URL}accounts`;
-       return doGetFetch(url, getState().auth.crmSToken)
+        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 404) {
                     Alert.alert('No Account found');
@@ -64,16 +64,19 @@ export const accountDetails = () => {
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.crmSToken)
                             .then(response => response.json(), rej => Promise.reject(rej))
-                            .then(dashBoardData =>{ console.log(dashBoardData);
-                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData }) }
-                            )
-                            .catch(/*(status, error) => {
-                                console.log(`error ${error}`);
-                            }*/bugsnag.notify);
+                            .then(dashBoardData => { 
+                                console.log(dashBoardData);
+                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
+                            })
+                            .catch(bugsnag.notify);
                     })
-                    .catch(/*error => console.log(`error ${error}`)); */ bugsnag.notify);
+                    .catch(error => {
+                        common.handleError(error);
+                    });
             })
-            .catch(/*error => console.log(`error ${error}`)*/bugsnag.notify);
+            .catch(error => {
+                common.handleError(error);
+                dispatch({ type: 'DASHBOARD_DATA', payload: null });
+            });
     };
 };
-

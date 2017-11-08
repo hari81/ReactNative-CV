@@ -23,7 +23,7 @@ export const OpenPositionsData = (crop) => {
                         response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE })});
                         return;
                     }
-                common.createAlertErrorMessage(response, 'There was an issue in retrieving the open positions.');
+                common.handleError(response, 'There was an issue in retrieving the open positions.');
             })
             .then(opens => {
                 if (opens === undefined) {
@@ -50,7 +50,7 @@ export const OpenPositionsData = (crop) => {
                 }
             })
             .catch(error => {
-                common.createAlertErrorMessage(error, 'There was an issue in retrieving the open positions.');
+                common.handleError(error, 'There was an issue in retrieving the open positions.');
                 dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
             });
     };
