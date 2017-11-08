@@ -11,15 +11,17 @@ export const accountDetails = () => {
         const url = `${VELO_SERVICES_URL}accounts`;
        return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
-                console.log(response);
-                console.log('seesionToken',getState().auth.crmSToken);
                 if (response.status === 404) {
                     Alert.alert('No Account found');
                     dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    response.json().then(userFail => { 
+                        Alert.alert(userFail.message); 
+                        Actions.auth(); 
+                        dispatch({ type: CLEAR_APPLICATION_STATE }); 
+                    });
                     return;
                 }
                 if (response.ok) {
