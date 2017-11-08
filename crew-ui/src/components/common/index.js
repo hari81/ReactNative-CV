@@ -1,6 +1,8 @@
 import CommonHeader from './CommonHeader';
+import ImageButton from './ImageButton';
+
 export * from './Button';
-export * from './ImageButton';
+//export * from './ImageButton';
 export * from './Card';
 export * from './CardSection';
 export * from './Spinner';
@@ -9,4 +11,4 @@ export * from './InfoPopup.js';
 export * from './PageHeader.js';
 export * from '../ExternalTrades/ExternalInput';
 export * from '../ExternalTrades/ExternalNumberInput';
-export { CommonHeader };
+export { CommonHeader, ImageButton };
