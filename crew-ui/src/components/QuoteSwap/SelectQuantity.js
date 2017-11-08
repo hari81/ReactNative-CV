@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions, TextInput, TouchableOpacity, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ImageButton } from '../common/ImageButton';
+import { ImageButton } from '../common';
+import { optimalSuggestedQuote } from '../../redux/actions/QuoteSwap/SuggestedQuote';
 import * as common from '../../Utils/common';
 import st from '../../Utils/SafeTraverse';
 
@@ -19,7 +20,7 @@ class SelectQuantity extends Component {
             strike: props.parentState.mPrice === null ? '-  ' : parseFloat(props.parentState.mPrice).toFixed(4),
             underlying: props.parentState.underlying,
             expirationDate: props.parentState.lastTradeDate
-        }
+        };
         this.timer = null;
     }
 
@@ -33,8 +34,8 @@ class SelectQuantity extends Component {
                     if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
                         Alert.alert('Product Details', 'A quantity of 1 or greater must be entered.');
                     } else {
-
-                        Actions.suggestedQuote();
+                        const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.underlyingData.underlyingYear;
+                        this.props.optimalSuggestedQuote(this.state, cropYear);
                     }
                 } catch (error) {
                     Alert.alert(`Unexpected error occurred: ${error}`);
@@ -228,4 +229,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, null)(SelectQuantity);
+export default connect(mapStateToProps, { optimalSuggestedQuote })(SelectQuantity);
