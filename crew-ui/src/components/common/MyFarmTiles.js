@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import cancelimage from './img/Cancel-20.png';
 import { myFarmCropValues, cropButtonPress, myFarmTradeSalesOutSideApp, farmActionFlag } from '../../redux/actions/MyFarm/CropAction';
-//import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from './Button';
 import bugsnag from '../common/BugSnag';
 
 class MyFarmTiles extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -101,7 +99,6 @@ class MyFarmTiles extends Component {
 
     goToFarm = () => {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
-        //this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
         this.props.farmActionFlag(true);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
@@ -110,12 +107,12 @@ class MyFarmTiles extends Component {
 
     enterCropDetails = () => {
         const cropData = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
-        //this.props.dashBoardDataFetch(cropData[0].cropYear, cropData[0].code);
         this.props.farmActionFlag(true);
         this.props.myFarmCropValues(cropData[0].code, cropData[0].cropYear);
         this.props.myFarmTradeSalesOutSideApp(cropData[0].code, cropData[0].cropYear);
         Actions.myfarm({ tradeflag: true });
     };
+
     boxes(name, val) {
         return (
             <View style={styles.boxStyle}>
@@ -136,28 +133,24 @@ class MyFarmTiles extends Component {
             if (st(this.props, ['myFarmTiles', 'breakEvenPrice']) === null) {
                 return (
                     <View style={styles.containerStyle}>
-                        <View style={{marginLeft: width * 0.0224, marginTop: height * 0.0338}}>
-                            <Text style={{fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium'}}>My
+                        <View style={{ marginLeft: width * 0.0224, marginTop: height * 0.0338 }}>
+                            <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My
                                 Farm </Text>
                             <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
                         </View>
-                        <View style={{
-                            width: 1,
-                            marginLeft: width * 0.0146,
-                            marginRight: width * 0.00683,
-                            marginTop: height * 0.033,
-                            height: height * 0.0611,
-                            backgroundColor: 'rgb(221,221,221)'
-                        }}/>
-                        <View style={{width: 1, height: height * 0.0611}}/>
-                        <View style={{justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488}}>
-                            <Text>Enter your
-                                current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
+                        <View style={{ width: 1, marginLeft: width * 0.0146, marginRight: width * 0.00683, marginTop: height * 0.033, height: height * 0.0611, backgroundColor: 'rgb(221,221,221)' }} />
+                        <View style={{ width: 1, height: height * 0.0611 }} />
+                        <View style={{ justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488 }}>
+                            <Text>Enter your current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
                         </View>
-                        <Button onPress={this.enterCropDetails} textStyle={{color: 'white'}}
-                                buttonStyle={styles.enterCropButtonStyle}>
-                            Enter Crop Details
-                        </Button>
+
+                        <TouchableOpacity 
+                            onPress={this.enterCropDetails}
+                            disabled={!this.props.isDataExists}
+                            style={[styles.buttonStyle, this.props.isDataExists ? styles.buttonStyleEnabled : styles.buttonStyleDisabled]} 
+                        >
+                            <Text style={{ color: '#fff' }}>Enter Crop Details</Text>
+                        </TouchableOpacity>
                 </View>
             );
         }
@@ -212,44 +205,64 @@ const { height, width } = Dimensions.get('window');
 
 const styles = {
     containerStyle: { flexDirection: 'row', backgroundColor: 'rgb(255,255,255)', height: height * 0.129, width: width * 0.97, marginHorizontal: width * 0.0156, marginTop: height * 0.0182, borderColor: 'rgb(190,216,221)', borderWidth: 1, position: 'absolute', zIndex: 1 },
-    boxStyle: { width: width * 0.1308, height: height * 0.0885, backgroundColor: 'rgb(239,244,247)', marginRight: width * 0.0058, marginTop: height * 0.0195},
-    enterCropButtonStyle: { justifyContent: 'center', alignItems: 'center', height: height * 0.039, width: width * 0.1562, backgroundColor: 'rgb(39,153,137)', marginTop: height * 0.039, marginLeft: width * 0.039, borderRadius: 5 },
+    boxStyle: { width: width * 0.1308, height: height * 0.0885, backgroundColor: 'rgb(239,244,247)', marginRight: width * 0.0058, marginTop: height * 0.0195 },
     priceStyle: { fontSize: 24, color: 'rgb(61,76,87)', paddingLeft: width * 0.0097, fontFamily: 'HelveticaNeue-Medium', opacity: 93 },
     messageContainer: { position: 'absolute', marginTop: height * 0.0976, left: 0 },
     triangle: { width: 0, height: 0, backgroundColor: 'transparent', borderStyle: 'solid', borderColor: '#ddd', borderLeftWidth: 8, borderRightWidth: 8, borderBottomWidth: 16, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderBottomColor: '#ddd' },
     messageBox: { width: width * 0.253, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3 },
     messageBoxText: { fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 15, paddingTop: 0, paddingRight: 15, paddingBottom: 15 },
-    infoIcon: { fontSize: 13, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(135,136,140)', width: 18, height: 18, borderRadius: 9, borderWidth: 2, borderColor: 'rgb(135,136,140)', paddingLeft: 7, paddingTop: 1, marginTop: 5 }
+    infoIcon: { fontSize: 13, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(135,136,140)', width: 18, height: 18, borderRadius: 9, borderWidth: 2, borderColor: 'rgb(135,136,140)', paddingLeft: 7, paddingTop: 1, marginTop: 5 },
+    buttonStyle: { height: height * 0.039, width: width * 0.1562, justifyContent: 'center', alignItems: 'center', marginTop: height * 0.042, borderRadius: 4, marginLeft: width * 0.042 },
+    buttonStyleEnabled: { backgroundColor: '#279989' },
+    buttonStyleDisabled: { backgroundColor: '#27998965' }
 };
 
 const mapStateToProps = state => {
+    let tBreakEvenPrice = null;
+    let tTargetPrice = null;
+    let tAvgPriceSold = null;
+    let tProfitPerAcre = null;
+    let tUnhedgedProduction = null;
+    let tBasisEstimate = null;
+    if (common.isValueExists(state.displayProperties)) {
+        tBreakEvenPrice = st(state.displayProperties).filter(item => item.propKey === 'breakEvenPrice')[0].propValue;
+        tTargetPrice = st(state.displayProperties).filter(item => item.propKey === 'targetPrice')[0].propValue;
+        tAvgPriceSold = st(state.displayProperties).filter(item => item.propKey === 'averagePriceSold')[0].propValue;
+        tProfitPerAcre = st(state.displayProperties).filter(item => item.propKey === 'profitPerAcre')[0].propValue;
+        tUnhedgedProduction = st(state.displayProperties).filter(item => item.propKey === 'unhedgedProduction')[0].propValue;
+        tBasisEstimate = st(state.displayProperties).filter(item => item.propKey === 'basisEstimate')[0].propValue;
+    }
+    let tDataExists = true;
+    if (common.isValueExists(state.dashBoardData.Data)) { tDataExists = true; } else { tDataExists = false; }
+
     return {
         acc: state.account,
         cropButton: state.cropsButtons,
         myf: state.myFar,
         infoState: state.info,
+        isDataExists: tDataExists,
 
         myFarmTiles: st(state.dashBoardData, ['Data', 'myFarmTiles']),
 
         unitOfMeasure: st(state.account, ['defaultAccount', 'commodities', 0, 'unitOfMeasure']),
 
-        breakEvenPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice'])).toFixed(2),
-        breakEvenPriceInfo: st(state.displayProperties).filter(item => item.propKey === 'breakEvenPrice')[0].propValue,
+        breakEvenPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice']) === null ? '   -' : `$${parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice'])).toFixed(2)}`,
+        breakEvenPriceInfo: tBreakEvenPrice,
 
-        targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])).toFixed(2),
-        targetPriceInfo: st(state.displayProperties).filter(item => item.propKey === 'targetPrice')[0].propValue,
+        targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? '   -' : `$${parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])).toFixed(2)}`,
+        targetPriceInfo: tTargetPrice,
 
-        avgPriceSold: st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold'])).toFixed(2),
-        avgPriceSoldInfo: st(state.displayProperties).filter(item => item.propKey === 'averagePriceSold')[0].propValue,
+        avgPriceSold: st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold']) === null ? '   -' : `$${parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold'])).toFixed(2)}`,
+        avgPriceSoldInfo: tAvgPriceSold,
 
-        profitPerAcre: st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre'])).toFixed(2),
-        profitPerAcreInfo: st(state.displayProperties).filter(item => item.propKey === 'profitPerAcre')[0].propValue,
+        profitPerAcre: st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre']) === null ? '   -' : `$${parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre'])).toFixed(2)}`,
+        profitPerAcreInfo: tProfitPerAcre,
 
         unhedgedProduction: st(state.dashBoardData, ['Data', 'myFarmTiles', 'unhedgedProduction']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'unhedgedProduction'])).toFixed(0)),
-        unhedgedProductionInfo: st(state.displayProperties).filter(item => item.propKey === 'unhedgedProduction')[0].propValue,
+        unhedgedProductionInfo: tUnhedgedProduction,
 
         basisEstimate: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate']) === null ? '   -' : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate'])),
-        basisEstimateInfo: st(state.displayProperties).filter(item => item.propKey === 'basisEstimate')[0].propValue,
+        basisEstimateInfo: tBasisEstimate,
         basisEstimateEnabled: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']) === null ? '   -' : st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']),
 
         underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol)
@@ -263,7 +276,6 @@ const mapDispatchToProps = dispatch => {
             cropButtonPress,
             myFarmTradeSalesOutSideApp,
             farmActionFlag,
-            //dashBoardDataFetch
         },
         dispatch
     );
