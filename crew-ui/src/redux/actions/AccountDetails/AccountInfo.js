@@ -13,7 +13,7 @@ export const accountDetails = () => {
             .then(response => {
                 if (response.status === 404) {
                     Alert.alert('No Account found');
-                    dispatch({ type: INVALID_ACCOUNT, payload: false });
+                    //dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
                 if (response.status === 403) {
