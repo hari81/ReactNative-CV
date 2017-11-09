@@ -32,7 +32,7 @@ export const accountDetails = () => {
                 }
             })
             .then(AccountData => {
-                if (AccountData === undefined || AccountData === 'noresponse') { dispatch({ type: CLEAR_APPLICATION_STATE }); Actions.auth(); return; }
+                if (AccountData === undefined || AccountData === 'noresponse') { dispatch({ type: CLEAR_APPLICATION_STATE }); return; }
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
