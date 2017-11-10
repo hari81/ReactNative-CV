@@ -188,29 +188,16 @@ componentWillReceiveProps(newProps) {
 
                         }}
                     >
-                        <Text
-                            style={{
-                                color: 'rgb(0,118,129)',
-                                fontSize: 20,
-                                paddingRight: 30,
-                                paddingLeft: 20,
-                                fontFamily: 'HelveticaNeue-Medium'
-                            }}
-                        >
-                            My Farm Set up
+                        <Text style={{ color: 'rgb(0,118,129)', fontSize: 20, paddingRight: 20, paddingLeft: 20, fontFamily: 'HelveticaNeue-Medium' }}>
+                            My Farm Setup
                         </Text>
                     </View>
-                    <View
-                        style={{justifyContent: 'center', height: 50, marginLeft: 30, width: 470}}
-                    >
-                        <Text style={{fontSize: 12, color: 'rgb(159,169,186)'}}>
-                            Please complete the fields below. This information will be
-                            used to provide you with insights about your farm in the My Farm section of the application.
-                        </Text>
+                    <View style={{ justifyContent: 'center', height: 50, marginLeft: 0, width: 520 }}>
+                        <Text style={{ fontSize: 12, color: 'rgb(159,169,186)' }}>Enter your farm information. We’ll use this to estimate your profitability, breakeven, and risk.</Text>
                     </View>
-                    <View style={{ width: '22%', height: 40, justifyContent: 'center', marginHorizontal: 20, alignItems: 'center' }}>
+                    <View style={{ width: '20%', height: 40, justifyContent: 'center', marginHorizontal: 20, alignItems: 'center' }}>
                         <TouchableHighlight style={{ flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center', borderRadius: 5, alignItems: 'center', borderColor: '#279989' }} onPress={this.placeNewOrder.bind(this)}>
-                            <Text style={{ paddingVertical: 5, paddingHorizontal: 5, fontSize: 16, color: '#fff', fontFamily: 'HelveticaNeue' }}>PLACE NEW ORDER NOW</Text>
+                            <Text style={{ paddingVertical: 5, paddingHorizontal: 5, fontSize: 16, color: '#fff', fontFamily: 'HelveticaNeue' }}>NEW ORDER</Text>
                         </TouchableHighlight>
                     </View>
                 </View>

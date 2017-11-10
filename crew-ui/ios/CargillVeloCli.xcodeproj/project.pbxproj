@@ -1333,10 +1333,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cargill.cargillpricehedging.production;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cargill.cargillreactapp;
 				PRODUCT_NAME = CargillVeloCli;
-				PROVISIONING_PROFILE = "872dd102-634d-435c-b5b8-eb258f5baf3e";
-				PROVISIONING_PROFILE_SPECIFIER = "Distribution CargillPriceHedging Production";
+				PROVISIONING_PROFILE = "b1b7258f-303a-4de8-8046-f5ef786bad4d";
+				PROVISIONING_PROFILE_SPECIFIER = "Distribution cargillreactapp";
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1368,10 +1368,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cargill.cargillpricehedging.production;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cargill.cargillreactapp;
 				PRODUCT_NAME = CargillVeloCli;
-				PROVISIONING_PROFILE = "872dd102-634d-435c-b5b8-eb258f5baf3e";
-				PROVISIONING_PROFILE_SPECIFIER = "Distribution CargillPriceHedging Production";
+				PROVISIONING_PROFILE = "b1b7258f-303a-4de8-8046-f5ef786bad4d";
+				PROVISIONING_PROFILE_SPECIFIER = "Distribution cargillreactapp";
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -112,7 +112,7 @@ class ActionBar extends Component {
                         disabled={!this.props.isDashboardDataExists}
                         style={[styles.placeOrderButtonStyle, this.props.isDashboardDataExists ? styles.placeOrderButtonStyleEnabled : styles.placeOrderButtonStyleDisabled]} 
                     >
-                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: '#fff' }}>PLACE NEW ORDER NOW</Text>
+                        <Text style={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: '#fff' }}>NEW ORDER</Text>
                     </TouchableOpacity>
                 </View>
             );

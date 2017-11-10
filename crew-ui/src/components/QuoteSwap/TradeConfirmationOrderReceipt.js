@@ -105,11 +105,7 @@ class TradeConfirmationOrderReceipt extends Component {
                                             style={styles.buttonStyle}
                                             onPress={this.placeNewOrder.bind(this)}
                                         >
-                                            <Text
-                                                style={styles.buttonTextStyle}
-                                            >
-                                                PLACE NEW ORDER NOW
-                                            </Text>
+                                            <Text style={styles.buttonTextStyle}>NEW ORDER</Text>
                                         </TouchableHighlight>
                                     </View>
                                 </View>
