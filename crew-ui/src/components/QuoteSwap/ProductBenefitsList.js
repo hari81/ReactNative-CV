@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ImageButton } from '../common/ImageButton';
+import { ImageButton } from '../common';
 
 const { height, width } = Dimensions.get('window');
 class ProductBenefitsList extends Component {

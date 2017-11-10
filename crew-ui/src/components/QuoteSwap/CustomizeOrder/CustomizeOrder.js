@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ImageButton } from '../../common/ImageButton';
+import ImageButton from '../../common/ImageButton';
 import CustomizePrice from './CustomizePrice';
 import st from '../../../Utils/SafeTraverse';
 import * as common from '../../../Utils/common';
 
 const { height, width } = Dimensions.get('window');
 class CustomizeOrder extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            bonusPrice: props.bonusPrice,
+        };
+    }
+    onBonusPriceIncrease(price) {
+        this.setState({ bonusPrice: price });
+    }
+
     nextScreens(id) {
         switch (id) {
             case 1:
@@ -25,6 +35,8 @@ class CustomizeOrder extends Component {
                 risk110Name = risk110.name;
             }
         }
+        const addQuant = this.props.quantity;
+        const priceUpTo = common.formatNumberCommas(2 * common.cleanNumericString(this.props.quantity))
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
@@ -41,16 +53,18 @@ class CustomizeOrder extends Component {
                             <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
                             <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your product details are</Text>
                             <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
-                                ...
+                                {this.props.cMonth} {this.props.cYear}
                             </Text>
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 6 }}>
                             <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Current Market Price is</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>...</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Your Additional Qty is </Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>...</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>You May Price Up To</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>...</Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>${this.props.cPrice}</Text>
+                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Additional Qty Price is </Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>${this.state.bonusPrice}</Text>
+                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Additional Qty is </Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{addQuant}</Text>
+                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>You May Price Up To</Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{priceUpTo}</Text>
                         </View>
                     </View>
                     <View style={{ marginTop: 30, marginLeft: 14 }}>
@@ -61,10 +75,10 @@ class CustomizeOrder extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', marginLeft: width * 0.62, marginTop: 20 }}>
                     <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
-                    <ImageButton text='NEXT' />
+                    <ImageButton text='NEXT' inactive='true' />
                 </View>
 
-                <CustomizePrice />
+                <CustomizePrice onBonusPriceIncrease={this.onBonusPriceIncrease.bind(this)} />
 
             </View>
         );
@@ -80,7 +94,9 @@ const mapStateToProps = (state) => {
     return {
         cropButton: state.cropsButtons,
         products: state.products,
-        underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol)
+        underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol),
+        cPrice: state.optimalQuote.suggestedQuote.underlyingPrice === null ? '  -' : parseFloat(state.optimalQuote.suggestedQuote.underlyingPrice).toFixed(4),
+        bonusPrice: state.optimalQuote.suggestedQuote.bonusPrice === null ? '  -' : parseFloat(state.optimalQuote.suggestedQuote.bonusPrice).toFixed(4),
     };
 }
 

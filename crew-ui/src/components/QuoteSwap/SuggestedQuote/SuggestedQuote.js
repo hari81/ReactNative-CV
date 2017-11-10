@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { View, Dimensions, StatusBar, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { CommonHeader, ImageButton } from '../../common/index';
+import { CommonHeader, ImageButton } from '../../common';
 import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
-import { ProductDetails } from './ProductDetails';
+import ProductDetails from './ProductDetails';
 import { SuggestedPrice } from './SuggestedPrice';
 import bugsnag from '../.././common/BugSnag';
 
@@ -14,11 +14,11 @@ const { width, height } = Dimensions.get('window');
 class SuggestedQuote extends Component {
     constructor(props) {
         super(props);
-      /*  this.state = {
-            cropcode: props.cropcode || st(props, ['Crops', 0, 'code']),
-            cropyear: props.cropyear || st(props, ['Crops', 0, 'cropYear']),
+       this.state = {
+            cropcode: props.cropcode,
+            cropyear: props.cropyear,
             selectedOrder: props.selectedOrder
-        };*/
+        };
     }
     nextScreens(id) {
         switch (id) {
@@ -32,9 +32,19 @@ class SuggestedQuote extends Component {
         }
     }
 
+    backToBushalQty = () => {
+        Actions.pop();
+    };
+    customizeOrder = () => {
+        const { cMonth, cYear, quantity } = this.props.previousState;
+        Actions.customizeOrder({ cMonth, cYear, quantity });
+    }
     render() {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
+            const { strike, bonusPrice, accrualStartDate, price, underlyingPrice } = this.props.suggestQuote;
+            const { cMonth, cYear, expirationDate, quantity } = this.props.previousState;
+            const contractMonth = cMonth + ' ' + cYear;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
                 return (
                     <View>
@@ -50,18 +60,30 @@ class SuggestedQuote extends Component {
                                 <View style={{ flexDirection: 'row', marginTop: 40, marginBottom: 15, marginHorizontal: 15, height: 445, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)', backgroundColor: 'rgb(61,76,81)' }}>
                                     <View>
                                         <Text style={{ fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31, paddingTop: 20, paddingLeft: 20 }}>Our suggested quote given the current market</Text>
-                                        <SuggestedPrice />
+                                        <SuggestedPrice
+                                            floorPrice={strike}
+                                            bonusPrice={bonusPrice}
+                                            aStartDate={accrualStartDate}
+                                            endDate={expirationDate}
+                                            price={price}
+                                        />
                                         <Text style={{ paddingLeft: 20, marginTop: 50, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31 }}>Would you like to hedge at these levels?</Text>
                                         <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
                                             <ImageButton text='YES - Place Order Now!' />
-                                            <ImageButton text='NO - Customize Order' />
+                                            <ImageButton text='NO - Customize Order' onPress={this.customizeOrder}/>
                                         </View>
                                     </View>
                                     <View>
-                                        <ProductDetails />
+                                        <ProductDetails
+                                            marketPrice={underlyingPrice}
+                                            additionalQtyPrice={bonusPrice}
+                                            contractMonth={contractMonth}
+                                            quantity={quantity}
+                                            cropYear={this.props.cropYear}
+                                        />
                                         <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
-                                            <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
-                                            <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} />
+                                            <ImageButton text='BACK' onPress={this.backToBushalQty}/>
+                                            <ImageButton text='NEXT' inactive='true' />
                                         </View>
                                     </View>
                                 </View>

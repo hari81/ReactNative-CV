@@ -16,7 +16,11 @@ export default class CustomizingOrder extends Component {
                 <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
-                    <CustomizeOrder />
+                    <CustomizeOrder
+                        cMonth={this.props.cMonth}
+                        cYear={this.props.cYear}
+                        quantity={this.props.quantity}
+                    />
                     <MyCropButton appearance='notclear' />
                 </View>
             </View>

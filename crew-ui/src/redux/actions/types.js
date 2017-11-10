@@ -31,5 +31,7 @@ export const DEFAULT_ACCOUNT_DETAILS = 'default_account_information';
 export const INVALID_ACCOUNT = 'invalid_account';
 
 export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
+export const SUGGESTED_OPTIMAL_QUOTE = 'suggested_optimal_quote';
+export const OPTIMAL_QUOTE_SPIN_ACTIVE = 'optimal_quote_spin_active';
 
 export const CLEAR_APPLICATION_STATE = 'clear_application_state';

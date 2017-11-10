@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions, TextInput, TouchableOpacity, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ImageButton } from '../common/ImageButton';
+import { ImageButton } from '../common';
+import { optimalSuggestedQuote } from '../../redux/actions/QuoteSwap/SuggestedQuote';
 import * as common from '../../Utils/common';
 import st from '../../Utils/SafeTraverse';
 
@@ -19,7 +20,7 @@ class SelectQuantity extends Component {
             strike: props.parentState.mPrice === null ? '-  ' : parseFloat(props.parentState.mPrice).toFixed(4),
             underlying: props.parentState.underlying,
             expirationDate: props.parentState.lastTradeDate
-        }
+        };
         this.timer = null;
     }
 
@@ -33,8 +34,8 @@ class SelectQuantity extends Component {
                     if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
                         Alert.alert('Product Details', 'A quantity of 1 or greater must be entered.');
                     } else {
-
-                        Actions.suggestedQuote();
+                        const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.underlyingData.underlyingYear;
+                        this.props.optimalSuggestedQuote(1, this.state, cropYear);
                     }
                 } catch (error) {
                     Alert.alert(`Unexpected error occurred: ${error}`);
@@ -127,7 +128,6 @@ class SelectQuantity extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        console.log(this.state)
         const priceUpTo = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(2 * parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         const addQuant = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         let risk110Name = null;
@@ -203,7 +203,7 @@ class SelectQuantity extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', marginLeft: width * 0.62, marginTop: height * 0.028 }}>
                     <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
-                    <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} />
+                    <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} id='spin' />
                 </View>
 
             </View>
@@ -228,4 +228,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, null)(SelectQuantity);
+export default connect(mapStateToProps, { optimalSuggestedQuote })(SelectQuantity);
