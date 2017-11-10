@@ -71,8 +71,8 @@ class FarmInputFields extends Component {
 
     render() {
         try {
-            const {width, height} = Dimensions.get('window');
-            const {acr, pro, yie, cos, updateAcrValue, updateProValue, updateCosValue, updateYieValue} = this.props;
+            const { width, height } = Dimensions.get('window');
+            const { acr, pro, yie, cos, updateAcrValue, updateProValue, updateCosValue, updateYieValue } = this.props;
             return (
                 <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
 
@@ -82,16 +82,11 @@ class FarmInputFields extends Component {
                             paddingLeft: 15,
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            //width: 430,
                             height: height - 410
                         }}
                     >
 
-                        <Text
-                            style={{color: 'white', marginBottom: 10, fontSize: 16}}
-                        >
-                            Acres Planted *
-                        </Text>
+                        <Text style={{ color: 'white', marginBottom: 10, fontSize: 16 }}>Acres Planted*</Text>
                         <View style={styles.containerStyle}>
                             <TextInput
                                 value={acr.toString()}
@@ -127,16 +122,7 @@ class FarmInputFields extends Component {
                                 }}
                             />
                         </View>
-                        <Text
-                            style={{
-                                color: 'white',
-                                marginBottom: 10,
-                                marginTop: 30,
-                                fontSize: 16
-                            }}
-                        >
-                            Cost Per Acre *
-                        </Text>
+                        <Text style={{ color: 'white', marginBottom: 10, marginTop: 30, fontSize: 16 }}>Cost Per Acre*</Text>
                         <View style={styles.containerStyle}>
                             <TextInput
 
@@ -175,7 +161,7 @@ class FarmInputFields extends Component {
                                 fontSize: 16
                             }}
                         >
-                            Profit Goal Per Acre *
+                            Profit Goal Per Acre*
                         </Text>
                         <View style={styles.containerStyle}>
                             <TextInput
@@ -216,11 +202,11 @@ class FarmInputFields extends Component {
                                 fontSize: 16
                             }}
                         >
-                            Expected Yield *
+                            Expected Yield*
                         </Text>
 
 
-                        <View style={[styles.containerStyle, {marginBottom: 10}]}>
+                        <View style={[styles.containerStyle, { marginBottom: 10 }]}>
                             <TextInput
 
                                 placeholder={'Ex: 175 bushels'}

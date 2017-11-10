@@ -134,23 +134,22 @@ class MyFarmTiles extends Component {
                 return (
                     <View style={styles.containerStyle}>
                         <View style={{ marginLeft: width * 0.0224, marginTop: height * 0.0338 }}>
-                            <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My
-                                Farm </Text>
+                            <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm</Text>
                             <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
                         </View>
                         <View style={{ width: 1, marginLeft: width * 0.0146, marginRight: width * 0.00683, marginTop: height * 0.033, height: height * 0.0611, backgroundColor: 'rgb(221,221,221)' }} />
-                        <View style={{ width: 1, height: height * 0.0611 }} />
-                        <View style={{ justifyContent: 'center', marginLeft: width * 0.0195, width: width * 0.488 }}>
-                            <Text>Enter your current {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to receive helpful insights</Text>
+                        <View style={{ justifyContent: 'center', marginLeft: 10, width: width * 0.54 }}>
+                            <Text>Enter your {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to view risk and profitability insights in the Dashboard</Text>
                         </View>
-
-                        <TouchableOpacity 
-                            onPress={this.enterCropDetails}
-                            disabled={!this.props.isDataExists}
-                            style={[styles.buttonStyle, this.props.isDataExists ? styles.buttonStyleEnabled : styles.buttonStyleDisabled]} 
-                        >
-                            <Text style={{ color: '#fff' }}>Enter Crop Details</Text>
-                        </TouchableOpacity>
+                        <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 30 }}>
+                            <TouchableOpacity 
+                                onPress={this.enterCropDetails}
+                                disabled={!this.props.isDataExists}
+                                style={[styles.buttonStyle, { justifyContent: 'center', alignItems: 'center' }, this.props.isDataExists ? styles.buttonStyleEnabled : styles.buttonStyleDisabled]} 
+                            >
+                                <Text style={{ color: '#fff' }}>Enter Crop Details</Text>
+                            </TouchableOpacity>
+                        </View>
                 </View>
             );
         }
@@ -164,8 +163,7 @@ class MyFarmTiles extends Component {
                         <View style={{ flexDirection: 'row', width: 100 }}>
                             <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
                         </View>
-                        <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit My Farm Details</Text>
-
+                        <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -212,7 +210,7 @@ const styles = {
     messageBox: { width: width * 0.253, borderColor: '#ddd', borderWidth: 2, backgroundColor: '#fff', borderRadius: 3 },
     messageBoxText: { fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 15, paddingTop: 0, paddingRight: 15, paddingBottom: 15 },
     infoIcon: { fontSize: 13, fontFamily: 'HelveticaNeue-Bold', color: 'rgb(135,136,140)', width: 18, height: 18, borderRadius: 9, borderWidth: 2, borderColor: 'rgb(135,136,140)', paddingLeft: 7, paddingTop: 1, marginTop: 5 },
-    buttonStyle: { height: height * 0.039, width: width * 0.1562, justifyContent: 'center', alignItems: 'center', marginTop: height * 0.042, borderRadius: 4, marginLeft: width * 0.042 },
+    buttonStyle: { height: height * 0.039, width: width * 0.1562, marginTop: height * 0.042, borderRadius: 4 },
     buttonStyleEnabled: { backgroundColor: '#279989' },
     buttonStyleDisabled: { backgroundColor: '#27998965' }
 };

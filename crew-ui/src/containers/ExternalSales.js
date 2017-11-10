@@ -183,58 +183,33 @@ class ExternalSales extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-            //console.log('externnal', this.state.transaction);
-            // console.log('DataBase trades', this.props.extra.tradeData.trades);
-            const {width, height} = Dimensions.get('window');
-            // const crop = this.props.underlying.filter(item => item.commodity === this.props.id.slice(0, this.props.id.length - 4));
-            //  const fcon = crop[0].crops.filter(item => item.cropYear == this.props.id.slice(-4))[0].futuresContracts;
-            //  const fc = fcon.map(item => item.symbol);
+            const { width, height } = Dimensions.get('window');
             const fc = this.props.underlying;
-            //  console.log(fc);
+
             return (
-                <View style={{width, height, backgroundColor: 'rgb(29,37,49)'}}>
+                <View style={{ width, height, backgroundColor: 'rgb(29,37,49)' }}>
                     <StatusBar barStyle='light-content' />
-                    <View style={{
-                        height: 52,
-                        justifyContent: 'flex-end',
-                        alignItems: 'flex-end',
-                        flexDirection: 'row',
-                        marginRight: 23
-                    }}>
-                        <Text style={{fontSize: 18, color: 'white', paddingRight: 20, marginBottom: 5}}>Close </Text>
+                    <View style={{ height: 52, justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row', marginTop: 15, marginRight: 20 }}>
+                        <Text style={{ fontSize: 18, color: 'white', paddingRight: 10, paddingBottom: 5 }}>Close</Text>
                         <TouchableHighlight onPress={this.backToDashboardMyfarm}>
-                            <Image source={cancel} style={{width: 32, height: 32}}/>
+                            <Image source={cancel} style={{ width: 32, height: 32 }} />
                         </TouchableHighlight>
                     </View>
 
-                    <View style={{
-                        height: 100,
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: 20,
-                        marginBottom: 20
-                    }}>
-                        <Text style={{fontSize: 24, color: 'white', paddingBottom: 20}}>{this.externalCropYearName()} Trades Outside the App</Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{alignItems: 'center'}}>
-                                <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>
-                                    Below you can enter transactions that were completed outside of the application.
-                                    This information is
-                                </Text>
-                                <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>
-                                    used to calculate your total marketed production, as well as your average marketed
-                                    price, value of sold
-                                </Text>
-                                <Text style={{fontSize: 17, color: 'white', paddingLeft: 82}}>
-                                    production and the break even on unsold production.
-                                </Text>
+                    <View style={{ height: 100, justifyContent: 'space-between', alignItems: 'center', marginTop: 20, marginBottom: 20 }}>
+                        <Text style={{ fontSize: 24, color: 'white', paddingBottom: 20 }}>{this.externalCropYearName()} Trades Outside the App</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ flex: 1, alignItems: 'center' }}>
+                                <Text style={{ fontSize: 17, color: 'white', paddingTop: 10 }}>Enter cash contracts and trades with a broker. We’ll use this to estimate your profitability, breakeven and risk.</Text>
                             </View>
-                            <View style={{width: 144, justifyContent: 'center', alignItems: 'center', marginLeft: 25}}>
-                                <TouchableHighlight onPress={this.addNewTransaction}>
-                                    <Image source={plus} style={{width: 32, height: 32}}/>
-                                </TouchableHighlight>
-                                <Text style={{color: 'white', fontSize: 10}}>Add</Text>
-                                <Text style={{color: 'white', fontSize: 10}}>Transaction</Text>
+                            <View style={{ marginRight: 25 }}>
+                                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <TouchableHighlight onPress={this.addNewTransaction}>
+                                        <Image source={plus} style={{ width: 32, height: 32 }} />
+                                    </TouchableHighlight>
+                                    <Text style={{ color: 'white', fontSize: 10 }}>Add</Text>
+                                    <Text style={{ color: 'white', fontSize: 10 }}>Transaction</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
