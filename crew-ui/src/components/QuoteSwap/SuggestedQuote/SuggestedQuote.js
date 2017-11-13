@@ -13,12 +13,28 @@ import bugsnag from '../.././common/BugSnag';
 const { width, height } = Dimensions.get('window');
 
 class SuggestedQuote extends Component {
+    nextScreens(id) {
+        switch (id) {
+            case 1:
+                Actions.selectQuantity();
+                break;
+            case 2:
+                Actions.customizeOrder();
+                break;
+            default:
+        }
+    }
     backToBushalQty = () => {
         Actions.pop();
     };
+
     componentDidMount() {
         this.props.estimateProfit('Start');
         this.props.estimateProfit();
+    }
+    customizeOrder = () => {
+        const { cMonth, cYear, quantity } = this.props.previousState;
+        Actions.customizeOrder({ cMonth, cYear, quantity });
     }
     reviewOrder = () => {
         Actions.structureOrderReview();
@@ -44,19 +60,26 @@ class SuggestedQuote extends Component {
                                 <View style={styles.container}>
                                     <View>
                                         <Text style={styles.suggestedText}>Our suggested quote given the current market</Text>
-                                        <SuggestedPrice floorPrice={strike} bonusPrice={bonusPrice}
-                                         aStartDate={accrualStartDate} endDate={expirationDate}
-                                        price={price}
+                                        <SuggestedPrice
+                                            floorPrice={strike}
+                                            bonusPrice={bonusPrice}
+                                            aStartDate={accrualStartDate}
+                                            endDate={expirationDate}
+                                            price={price}
                                         />
                                         <Text style={styles.hedgeText}>Would you like to hedge at these levels?</Text>
                                         <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
                                             <ImageButton text='YES - Reviw Order ' onPress={this.reviewOrder} />
-                                            <ImageButton text='NO - Customize Order' />
+                                            <ImageButton text='NO - Customize Order' onPress={this.customizeOrder}/>
                                         </View>
                                     </View>
                                     <View>
-                                        <ProductDetails marketPrice={underlyingPrice} additionalQtyPrice={bonusPrice}
-                                                        contractMonth={contractMonth} quantity={quantity} cropYear={this.props.cropYear}
+                                        <ProductDetails
+                                            marketPrice={underlyingPrice}
+                                            additionalQtyPrice={bonusPrice}
+                                            contractMonth={contractMonth}
+                                            quantity={quantity}
+                                            cropYear={this.props.cropYear}
                                         />
                                         <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
                                             <ImageButton text='BACK' onPress={this.backToBushalQty} />
@@ -69,8 +92,8 @@ class SuggestedQuote extends Component {
                             <MyCropButton appearance='notclear' />
                         </View>
                     </View>);
-            } catch (error) {
-                bugsnag.notify(error);
+        } catch (error) {
+            bugsnag.notify(error);
         }
     }
 }

@@ -114,7 +114,7 @@ class BushelQuantity extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let tBushelLimit = null;
             if (this.props.contractMonth.bushelSpinFlag) {
-                tBushelLimit = (<Spinner size="small"/>);
+                tBushelLimit = (<Spinner size="small" />);
             } else {
                 tBushelLimit = (<Text style={styles.bushelLimitText}>Your Available Limit
                     is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
