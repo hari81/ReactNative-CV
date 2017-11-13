@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { CommonHeader, ImageButton } from '../../common';
 import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
 import ProductDetails from './ProductDetails';
 import { SuggestedPrice } from './SuggestedPrice';
+import { estimateProfit } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
 import bugsnag from '../.././common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
 
 class SuggestedQuote extends Component {
-    constructor(props) {
-        super(props);
-       this.state = {
-            cropcode: props.cropcode,
-            cropyear: props.cropyear,
-            selectedOrder: props.selectedOrder
-        };
-    }
     nextScreens(id) {
         switch (id) {
             case 1:
@@ -31,20 +24,27 @@ class SuggestedQuote extends Component {
             default:
         }
     }
-
     backToBushalQty = () => {
         Actions.pop();
     };
+
+    componentDidMount() {
+        this.props.estimateProfit('Start');
+        this.props.estimateProfit();
+    }
     customizeOrder = () => {
         const { cMonth, cYear, quantity } = this.props.previousState;
         Actions.customizeOrder({ cMonth, cYear, quantity });
     }
+    reviewOrder = () => {
+        Actions.structureOrderReview();
+    };
     render() {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             const { strike, bonusPrice, accrualStartDate, price, underlyingPrice } = this.props.suggestQuote;
             const { cMonth, cYear, expirationDate, quantity } = this.props.previousState;
-            const contractMonth = cMonth + ' ' + cYear;
+            const contractMonth = `${cMonth} ${cYear}`;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
                 return (
                     <View>
@@ -56,10 +56,10 @@ class SuggestedQuote extends Component {
                             <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
 
                             <MyFarmTiles />
-                            <View style={{ height: 500 }}>
-                                <View style={{ flexDirection: 'row', marginTop: 40, marginBottom: 15, marginHorizontal: 15, height: 445, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)', backgroundColor: 'rgb(61,76,81)' }}>
+                            <View style={{ height: height - 264 }}>
+                                <View style={styles.container}>
                                     <View>
-                                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31, paddingTop: 20, paddingLeft: 20 }}>Our suggested quote given the current market</Text>
+                                        <Text style={styles.suggestedText}>Our suggested quote given the current market</Text>
                                         <SuggestedPrice
                                             floorPrice={strike}
                                             bonusPrice={bonusPrice}
@@ -67,9 +67,9 @@ class SuggestedQuote extends Component {
                                             endDate={expirationDate}
                                             price={price}
                                         />
-                                        <Text style={{ paddingLeft: 20, marginTop: 50, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31 }}>Would you like to hedge at these levels?</Text>
+                                        <Text style={styles.hedgeText}>Would you like to hedge at these levels?</Text>
                                         <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
-                                            <ImageButton text='YES - Place Order Now!' />
+                                            <ImageButton text='YES - Reviw Order ' onPress={this.reviewOrder} />
                                             <ImageButton text='NO - Customize Order' onPress={this.customizeOrder}/>
                                         </View>
                                     </View>
@@ -82,7 +82,7 @@ class SuggestedQuote extends Component {
                                             cropYear={this.props.cropYear}
                                         />
                                         <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
-                                            <ImageButton text='BACK' onPress={this.backToBushalQty}/>
+                                            <ImageButton text='BACK' onPress={this.backToBushalQty} />
                                             <ImageButton text='NEXT' inactive='true' />
                                         </View>
                                     </View>
@@ -104,5 +104,31 @@ const mapStateToProps = state => {
         acc: state.account
     };
 };
+const styles = {
+    container: {
+        flexDirection: 'row',
+        marginTop: 40,
+        marginBottom: 15,
+        marginHorizontal: 15,
+        height: 445,
+        borderTopWidth: 4,
+        borderTopColor: 'rgb(231,181,20)',
+        backgroundColor: 'rgb(61,76,81)'
+    },
+    suggestedText: {
+        fontFamily: 'HelveticaNeue-Thin',
+        color: 'white',
+        fontSize: 31,
+        paddingTop: 20,
+        paddingLeft: 20
+    },
+    hedgeText: {
+        paddingLeft: 20,
+        marginTop: 50,
+        fontFamily: 'HelveticaNeue-Thin',
+        color: 'white',
+        fontSize: 31
+    }
+};
 
-export default connect(mapStateToProps, null)(SuggestedQuote);
+export default connect(mapStateToProps, { estimateProfit })(SuggestedQuote);

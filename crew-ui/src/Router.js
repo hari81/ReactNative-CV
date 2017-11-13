@@ -22,6 +22,7 @@ import SelectContractMonth from './containers/QuoteSwap/SelectContractMonth';
 import SelectQuantity from './containers/QuoteSwap/SelectQuantity';
 import CustomizeOrder from './containers/QuoteSwap/CustomizeOrder';
 import SuggestedQuote from './components/QuoteSwap/SuggestedQuote/SuggestedQuote';
+import StructureOrderReview from './components/QuoteSwap/StructureOrderReview/StructureOrderReview';
 
 const RouterComponent = () => {
   return (
@@ -51,6 +52,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key="selectQuantity" component={SelectQuantity} />
         <Scene hideNavBar key="customizeOrder" component={CustomizeOrder} />
         <Scene hideNavBar key='suggestedQuote'component={SuggestedQuote} />
+        <Scene hideNavBar key='structureOrderReview' component={StructureOrderReview} />
       </Scene>
     </Router>
   );

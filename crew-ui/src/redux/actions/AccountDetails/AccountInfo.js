@@ -14,22 +14,22 @@ export const accountDetails = () => {
                 /*console.log(response);*/
                 if (response.status === 404) {
                     Alert.alert('No Account found');
-                    dispatch({ type: INVALID_ACCOUNT, payload: false });
+                    //dispatch({ type: INVALID_ACCOUNT, payload: false });
                     return;
                 }
                 if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    response.json().then(userFail => { Alert.alert(userFail.message); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                     return;
                 }
                 if (response.ok) {
                     return response.json();
                 } else {
-                    Alert.alert('Unable to retrieve your account information, please contact us.');
+                    Alert.alert('Unable to retrieve your account information, please contact Cargill Desk.');
                     return 'noresponse';
                 }
             })
             .then(AccountData => {
-                if (AccountData === undefined || AccountData === 'noresponse') { dispatch({type: CLEAR_APPLICATION_STATE}); return; }
+                if (AccountData === undefined || AccountData === 'noresponse') { dispatch({ type: CLEAR_APPLICATION_STATE }); return; }
                 dispatch({ type: ACCOUNT_INFORMATION, payload: AccountData });
                 const accountNo = AccountData.defaultAccountId;
                 const accountUrl = `${VELO_SERVICES_URL}accounts/${accountNo}/crops`;
