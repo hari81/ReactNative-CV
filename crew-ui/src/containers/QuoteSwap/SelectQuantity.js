@@ -39,7 +39,7 @@ class SelectQuantityHedge extends Component {
                         quantityLimit={this.props.bushelLimit}
                         parentState={this.state}
                     />
-                    <MyCropButton />
+                    <MyCropButton appearance='notclear' />
                 </View>
             </View>
         );

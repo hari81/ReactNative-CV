@@ -6,33 +6,48 @@ import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 
-export const optimalSuggestedQuote = (optimalValue, cropYear) => {
-   // console.log('optimal Value', optimalValue);
+export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: true });
+            dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: true });
         const quoteUrl = `${ORDER_SERVICES_URL}quotes/optimalQuote`;
-       // console.log('quoteURL', quoteUrl);
-        const quoteBody = {
-            riskProductId: 110,
-            orderType: 'limit',
-            quoteType: 'new',
-            quantity: Number(common.cleanNumericString(optimalValue.quantity)),
-            buySell: 'S',
-            underlying: optimalValue.underlying,
-            strike: Number(optimalValue.strike),
-            targetPrice: 0.0,
-            expirationDate: optimalValue.expirationDate,
-            //notes: "Stephen Test ATWAQ"
-        };
-      //  console.log('Body of quote', quoteBody);
+
+        let quoteBody = null;
+        if (id === 1) {
+            quoteBody = {
+                riskProductId: 110,
+                orderType: 'limit',
+                quoteType: 'new',
+                buySell: 'S',
+                targetPrice: 0.0,
+                quantity: Number(common.cleanNumericString(optimalValue.quantity)),
+                underlying: optimalValue.underlying,
+                strike: Number(optimalValue.strike),
+                expirationDate: optimalValue.expirationDate,
+
+            };
+        } else if (id === 2) {
+            quoteBody = {
+                riskProductId: 110,
+                orderType: 'limit',
+                quoteType: 'new',
+                buySell: 'S',
+                targetPrice: 0.0,
+                quantity: getState().optimalQuote.suggestedQuote.metadata.quantity,
+                underlying: getState().optimalQuote.suggestedQuote.metadata.underlying,
+                expirationDate: getState().optimalQuote.suggestedQuote.metadata.expirationDate,
+                strike: optimalValue.floorPrice,
+                bonusPrice: optimalValue.bonusPrice,
+                solveFor: 'premium'
+            };
+        }
         return doPostFetch(quoteUrl, quoteBody, getState().auth.crmSToken)
-            .then(response => { /*console.log('response', response);*/
-                if(response.ok) {
+            .then(response => {
+                if (response.ok) {
                     return response.json();
                 } else {
-                    Alert.alert('No Suggested Quote', 'Please contact Cargill Desk');
+                    Alert.alert('No Suggested Quote', 'Please Contact Cargill Desk');
                 }
             })
             .then(suggestedValue => {
@@ -40,10 +55,11 @@ export const optimalSuggestedQuote = (optimalValue, cropYear) => {
                     dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
                     return;
                 }
-               // console.log('suggested Quote', suggestedValue);
                 dispatch({ type: SUGGESTED_OPTIMAL_QUOTE, payload: suggestedValue });
-                Actions.suggestedQuote({ suggestQuote: suggestedValue, previousState: optimalValue, cropYear });
-                dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
+                if (id === 1) {
+                    Actions.suggestedQuote({ suggestQuote: suggestedValue, previousState: optimalValue, cropYear });
+                }
+
             })
             .catch(bugsnag.notify);
     };

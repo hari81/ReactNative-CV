@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar, Text } from 'react-native';
-import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { CommonHeader, ImageButton } from '../../common';
 import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
@@ -20,10 +20,25 @@ class SuggestedQuote extends Component {
             selectedOrder: props.selectedOrder
         };
     }
+    nextScreens(id) {
+        switch (id) {
+            case 1:
+                Actions.selectQuantity();
+                break;
+            case 2:
+                Actions.customizeOrder();
+                break;
+            default:
+        }
+    }
 
     backToBushalQty = () => {
         Actions.pop();
     };
+    customizeOrder = () => {
+        const { cMonth, cYear, quantity } = this.props.previousState;
+        Actions.customizeOrder({ cMonth, cYear, quantity });
+    }
     render() {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
@@ -45,19 +60,26 @@ class SuggestedQuote extends Component {
                                 <View style={{ flexDirection: 'row', marginTop: 40, marginBottom: 15, marginHorizontal: 15, height: 445, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)', backgroundColor: 'rgb(61,76,81)' }}>
                                     <View>
                                         <Text style={{ fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31, paddingTop: 20, paddingLeft: 20 }}>Our suggested quote given the current market</Text>
-                                        <SuggestedPrice floorPrice={strike} bonusPrice={bonusPrice}
-                                         aStartDate={accrualStartDate} endDate={expirationDate}
-                                        price={price}
+                                        <SuggestedPrice
+                                            floorPrice={strike}
+                                            bonusPrice={bonusPrice}
+                                            aStartDate={accrualStartDate}
+                                            endDate={expirationDate}
+                                            price={price}
                                         />
                                         <Text style={{ paddingLeft: 20, marginTop: 50, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 31 }}>Would you like to hedge at these levels?</Text>
                                         <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
                                             <ImageButton text='YES - Place Order Now!' />
-                                            <ImageButton text='NO - Customize Order' />
+                                            <ImageButton text='NO - Customize Order' onPress={this.customizeOrder}/>
                                         </View>
                                     </View>
                                     <View>
-                                        <ProductDetails marketPrice={underlyingPrice} additionalQtyPrice={bonusPrice}
-                                                        contractMonth={contractMonth} quantity={quantity} cropYear={this.props.cropYear}
+                                        <ProductDetails
+                                            marketPrice={underlyingPrice}
+                                            additionalQtyPrice={bonusPrice}
+                                            contractMonth={contractMonth}
+                                            quantity={quantity}
+                                            cropYear={this.props.cropYear}
                                         />
                                         <View style={{ flexDirection: 'row', marginTop: 25, marginLeft: 20 }}>
                                             <ImageButton text='BACK' onPress={this.backToBushalQty}/>

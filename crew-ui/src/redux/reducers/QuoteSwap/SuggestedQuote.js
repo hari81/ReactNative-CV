@@ -10,7 +10,7 @@ export default function SugQuote(state = INITIAL_STATE, action) {
         case OPTIMAL_QUOTE_SPIN_ACTIVE:
             return Object.assign({}, state, { spinFlag: action.payload });
         case SUGGESTED_OPTIMAL_QUOTE:
-            return Object.assign({}, state, { suggestedQuote: action.payload });
+            return Object.assign({}, state, { suggestedQuote: action.payload, spinFlag: false });
         default:
             return state;
     }

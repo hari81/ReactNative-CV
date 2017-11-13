@@ -9,7 +9,7 @@ import checkWhite from './img/structure/checkWhite.png';
 
 const { height, width } = Dimensions.get('window');
 const ImageButton = (props) => {
-    const { onPress, text, inactive, buttonStyle = styles.buttonStyle, textStyle = styles.textStyle } = props;
+    const { onPress, text, inactive, buttonStyle = styles.buttonStyle, textStyle = styles.textStyle, id } = props;
     let button = null;
 
     if (text === 'BACK') {
@@ -22,9 +22,9 @@ const ImageButton = (props) => {
             </TouchableOpacity>
         );
     } else if (text === 'NEXT') {
-        if (props.suggestQuote.spinFlag) {
+        if (props.suggestQuote.spinFlag && id === 'spin') {
          button = (<View style={[buttonStyle, { backgroundColor: 'rgb(39,153,137)' }]}>
-                 <Spinner />
+                 <Spinner size='small' />
              </View>
              );
          } else {
@@ -42,9 +42,9 @@ const ImageButton = (props) => {
     if (text.substr(0, 2) === 'YE' || text.substr(0, 2) === 'NO') {
         button = (
             <TouchableOpacity onPress={onPress}>
-                <View style={[buttonStyle, { width: width * 0.27 }, text.substr(0, 2) === 'NO' ? { backgroundColor: 'rgb(255,255,255)' } : {}] }>
-                    <Image source={text.substr(0, 2) === 'NO' ? checkWhite : checkGreen} style={{ height: 40, width: 40 }} />
-                    <Text style={[textStyle, { paddingRight: 20 }, text.substr(0, 2) === 'NO' ? { color: 'rgb(39,153,137)' } : {}]}>{text}</Text>
+                <View style={[buttonStyle, { width: width * 0.27, marginRight: 10, marginLeft: 20 }, text.substr(0, 2) === 'NO' ? { backgroundColor: 'rgb(255,255,255)' } : {}] }>
+                    <Image source={text.substr(0, 2) === 'NO' ? checkWhite : checkGreen} style={{ height: 30, width: 30 }} />
+                    <Text style={[textStyle, { paddingRight: 17 }, text.substr(0, 2) === 'NO' ? { color: 'rgb(39,153,137)', fontSize: 17 } : {}]}>{text}</Text>
                 </View>
             </TouchableOpacity>
         );
