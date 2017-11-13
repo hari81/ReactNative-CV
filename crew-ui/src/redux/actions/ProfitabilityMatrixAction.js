@@ -26,7 +26,7 @@ export const profitabilityMatrixData = (obj) => {
             targetPrice: obj.targetPrice,
             expectedYield: obj.expectedYield,
             yieldIncrement: obj.matrixYieldIncrement
-        }
+        };
         return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 403) {

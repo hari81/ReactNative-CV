@@ -128,6 +128,7 @@ class SelectQuantity extends Component {
         clearTimeout(this.timer);
     }
     render() {
+        console.log(this.state)
         const priceUpTo = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(2 * parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         const addQuant = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         let risk110Name = null;
