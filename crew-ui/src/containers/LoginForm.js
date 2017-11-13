@@ -64,13 +64,15 @@ class LoginForm extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-     /* if (Object.keys(newProps.acc.accountDetails).length > 0) {
-          this.setState({ signIn: true });
-      }*/
-      if (newProps.auth.loginSuccess /*&& !this.state.signIn*/) {
+      if (newProps.auth.loginSuccess && !this.state.signIn) {
+          if (Object.keys(newProps.acc.accountDetails).length > 0) {
+              this.setState({ signIn: true });
+              return;
+          }
          this.props.accountDetails();
           this.props.productType();
           this.props.displayProperties();
+
       }
       if (newProps.auth.error) {
           AlertIOS.alert('Error', newProps.auth.msg);

@@ -1,38 +1,41 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import * as common from '../../../Utils/common';
 
-const ProductDetails = ({ marketPrice, additionalQtyPrice, contractMonth, quantity, cropYear }) => {
+const ProductDetails = (props) => {
+    const { marketPrice, additionalQtyPrice, contractMonth, quantity, cropYear } = props;
     const quantityDouble = 2 * Number(common.cleanNumericString(quantity));
+    const cropName = props.cropBut.selectedCropName;
+    const uom = props.acc.filter(item => item.name === cropName);
     return (
         <View style={styles.ViewStyle}>
             <Text style={styles.productDet}>Product Details</Text>
             <View style={{ flexDirection: 'row', marginHorizontal: 15, justifyContent: 'space-between' }}>
                 <View style={{ justifyContent: 'space-around' }}>
-                    <Text style={styles.textValue}>Your crop is</Text>
+                    <Text style={styles.textValue}>Crop</Text>
                     <Text style={styles.textHeader}>{cropYear}</Text>
-                    <Text style={styles.textValue}>Your product is</Text>
-                    <Text style={styles.textHeader}>Accrual Trigger</Text>
-                    <Text style={styles.textValue}>Your trade direction is</Text>
+                    <Text style={styles.textValue}>Product</Text>
+                    <Text style={styles.textHeader}>{props.riskProduct.name}</Text>
+                    <Text style={styles.textValue}>Trade direction</Text>
                     <Text style={styles.textHeader}>Sell</Text>
-                    <Text style={styles.textValue}>Your contact month is</Text>
+                    <Text style={styles.textValue}>Contract month</Text>
                     <Text style={styles.textHeader}>{contractMonth}</Text>
                 </View>
 
                 <View>
-                    <Text style={styles.textValue}>Current Market Price is</Text>
+                    <Text style={styles.textValue}>Current Market Price</Text>
                     <Text style={styles.textHeader}>${marketPrice}</Text>
-                    <Text style={styles.textValue}>Your Additional Qty Price is</Text>
+                    <Text style={styles.textValue}>Contigent Offer Price</Text>
                     <Text style={styles.textHeader}>${additionalQtyPrice}</Text>
-                    <Text style={styles.textValue}>Your Aditional Qty is</Text>
-                    <Text style={styles.textHeader}>{quantity}</Text>
+                    <Text style={styles.textValue}>Contigent Offer Quantity</Text>
+                    <Text style={styles.textHeader}>{quantity} {uom[0].unitOfMeasure}s</Text>
                     <Text style={styles.textValue}>You May Price Up To</Text>
-                    <Text style={styles.textHeader}>{common.formatNumberCommas(quantityDouble)}</Text>
+                    <Text style={styles.textHeader}>{common.formatNumberCommas(quantityDouble)} {uom[0].unitOfMeasure}s</Text>
                 </View>
             </View>
             <Text style={[styles.estimatedProfit, { paddingLeft: 15 }]}>ESTIMATED PROFIT</Text>
-            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>$0.1 to $74.90/acre</Text>
+            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${props.sug.estProfitStart} to ${props.sug.estProfitEnd}/acre</Text>
         </View>
     );
 };
@@ -75,4 +78,12 @@ const styles = {
     }
 };
 
-export default ProductDetails;
+const mapStateToProps = (state) => {
+    return { riskProduct: state.products[0],
+        sug: state.optimalQuote,
+        acc: state.account.defaultAccount.commodities,
+        cropBut: state.cropsButtons
+    };
+};
+
+export default connect(mapStateToProps, null)(ProductDetails);
