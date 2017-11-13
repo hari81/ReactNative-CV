@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ORDERS_REVIEW_QUOTE, CLEAR_APPLICATION_STATE, ORDERS_REVIEW_SPIN_ACTIVE, ORDERS_REVIEW_SPIN_INACTIVE } from '../types';
+import { ORDERS_REVIEW_QUOTE, CLEAR_APPLICATION_STATE, ORDERS_REVIEW_SPIN_ACTIVE, ORDERS_REVIEW_SPIN_INACTIVE, REVIEW_ORDER_SPIN_ACTIVE, REVIEW_ORDER_SPIN_INACTIVE } from '../types';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
@@ -10,6 +10,7 @@ export const getReviewOrderQuote = (orderData) => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
+        dispatch({ type: REVIEW_ORDER_SPIN_ACTIVE });
         const url = `${ORDER_SERVICES_URL}quotes`;
         let data = null;
         if (orderData.quoteType.toLowerCase() === 'rpx') {
@@ -39,7 +40,6 @@ export const getReviewOrderQuote = (orderData) => {
             }
         }
         
-
         return doPostFetch(url, data, getState().auth.crmSToken)
             .then(response => { 
                 if (response.status === 200) {
@@ -49,6 +49,7 @@ export const getReviewOrderQuote = (orderData) => {
                     response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
                     return;
                 }
+                dispatch({ type: REVIEW_ORDER_SPIN_INACTIVE });
                 Alert.alert('Review Order', 'There was an issue with quoting this order.\n\nPlease check data and try again.');
             })
             .then(quoteData => {
@@ -73,10 +74,12 @@ export const getReviewOrderQuote = (orderData) => {
                         }
                     }
                     dispatch({ type: ORDERS_REVIEW_QUOTE, payload: quoteData });
+                    dispatch({ type: REVIEW_ORDER_SPIN_INACTIVE });
                     Actions.revieworder();
                 }
             })
             .catch(error => {
+                dispatch({ type: REVIEW_ORDER_SPIN_INACTIVE });
                 common.handleError(error, 'There was an issue with quoting this order.');
             });
     };
@@ -126,7 +129,7 @@ export const placeOrder = () => {
                     case 201:
                         return response.json();
                     case 403:
-                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                         return;
                     case 400:
                         Actions.tcerror({ message: response.message }); break;
