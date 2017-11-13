@@ -42,29 +42,29 @@ class CustomizeOrder extends Component {
                 <View style={{ flexDirection: 'row' }}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>Use the + and - buttons to customize your levels</Text></View>
                 <View style={styles.productDetailsView}>
-                    <Text style={{ fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Product Details</Text>
+                    <Text style={styles.pDetails}>Product Details</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Your Crop is</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Product is a </Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{risk110Name}</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your trade direction is</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your product details are</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
+                            <Text style={styles.pHeader}>Your Crop is</Text>
+                            <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                            <Text style={styles.pHeader}>Your Product is a </Text>
+                            <Text style={styles.pBody}>{risk110Name}</Text>
+                            <Text style={styles.pHeader}>Your trade direction is</Text>
+                            <Text style={styles.pBody}>Sell</Text>
+                            <Text style={styles.pHeader}>Your product details are</Text>
+                            <Text style={styles.pBody}>
                                 {this.props.cMonth} {this.props.cYear}
                             </Text>
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 6 }}>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Current Market Price is</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>${this.props.cPrice}</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Additional Qty Price is </Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>${this.state.bonusPrice}</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Additional Qty is </Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{addQuant}</Text>
-                            <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>You May Price Up To</Text>
-                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{priceUpTo}</Text>
+                            <Text style={styles.pHeader}>Current Market Price is</Text>
+                            <Text style={styles.pBody}>${this.props.cPrice}</Text>
+                            <Text style={styles.pHeader}>Your Additional Qty Price is </Text>
+                            <Text style={styles.pBody}>${this.state.bonusPrice}</Text>
+                            <Text style={styles.pHeader}>Your Additional Qty is </Text>
+                            <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
+                            <Text style={styles.pHeader}>You May Price Up To</Text>
+                            <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                         </View>
                     </View>
                     <View style={{ marginTop: 30, marginLeft: 14 }}>
@@ -88,10 +88,14 @@ const styles = {
     container: { height: height * 0.593, width: width * 0.968, backgroundColor: 'rgb(61,76,87)', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)' },
     subViewStyle: { marginLeft: width * 0.02, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 30, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
-    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.01, marginTop: 41 }
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.01, marginTop: 41 },
+    pDetails: { fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' },
+    pHeader: { fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 },
+    pBody: { fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }
 }
 const mapStateToProps = (state) => {
     return {
+        defaultAccountData: state.account.defaultAccount,
         cropButton: state.cropsButtons,
         products: state.products,
         underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol),
