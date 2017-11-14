@@ -72,13 +72,13 @@ class SelectContractMonthList extends Component {
                           <View style={styles.productDetailsView}>
                               <View style={{ marginLeft: 14, marginTop: 6 }}>
                                   <Text style={styles.pDetails}>Product Details</Text>
-                                  <Text style={styles.pHeader}>Your Crop is</Text>
+                                  <Text style={styles.pHeader}>Crop</Text>
                                   <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                                  <Text style={styles.pHeader}>Your Product is a </Text>
+                                  <Text style={styles.pHeader}>Product</Text>
                                   <Text style={styles.pBody}>{risk110Name}</Text>
-                                  <Text style={styles.pHeader}>Your trade direction is</Text>
+                                  <Text style={styles.pHeader}>Trade direction</Text>
                                   <Text style={styles.pBody}>Sell</Text>
-                                  <Text style={styles.pHeader}>Your product details are</Text>
+                                  <Text style={styles.pHeader}>Contract Month</Text>
                                   <Text style={styles.pBody}>
                                       {this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
                                   </Text>

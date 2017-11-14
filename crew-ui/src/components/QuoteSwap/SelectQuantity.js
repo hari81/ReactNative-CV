@@ -128,7 +128,6 @@ class SelectQuantity extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        console.log(this.state)
         const priceUpTo = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(2 * parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         const addQuant = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         let risk110Name = null;
@@ -149,21 +148,21 @@ class SelectQuantity extends Component {
                     <Text style={styles.pDetails}>Product Details</Text>
                     <View style={{ flexDirection: 'row' }}>
                     <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
-                        <Text style={styles.pHeader}>Your Crop is</Text>
+                        <Text style={styles.pHeader}>Crop</Text>
                         <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                        <Text style={styles.pHeader}>Your Product is a </Text>
+                        <Text style={styles.pHeader}>Product</Text>
                         <Text style={styles.pBody}>{risk110Name}</Text>
-                        <Text style={styles.pHeader}>Your trade direction is</Text>
+                        <Text style={styles.pHeader}>Trade direction</Text>
                         <Text style={styles.pBody}>Sell</Text>
-                        <Text style={styles.pHeader}>Your product details are</Text>
+                        <Text style={styles.pHeader}>Contract Month</Text>
                         <Text style={styles.pBody}>
                             {this.state.cMonth} {this.state.cYear}
                         </Text>
                     </View>
                     <View style={{ marginLeft: 20, marginTop: 6 }}>
-                        <Text style={styles.pHeader}>Current Market Price is</Text>
+                        <Text style={styles.pHeader}>Current Market Price</Text>
                         <Text style={styles.pBody}>$ {this.state.strike}</Text>
-                        <Text style={styles.pHeader}>Your Additional Qty is </Text>
+                        <Text style={styles.pHeader}>Contigent Offer Quantity</Text>
                         <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                         <Text style={styles.pHeader}>You May Price Up To</Text>
                         <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>

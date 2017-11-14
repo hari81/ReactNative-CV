@@ -12,10 +12,17 @@ class CustomizeOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            bonusPrice: props.bonusPrice,
+            bonusPrice: props.bPrice,
+            eProfitStart: props.eProfitStart_S,
+            eProfitEnd: props.eProfitEnd_S
         };
     }
-    onBonusPriceIncrease(price) {
+    componentWillReceiveProps(nextProps) {
+        if (this.state.eProfitStart !== nextProps.eProfitStart_C || this.state.eProfitEnd !== nextProps.eProfitEnd_C) {
+            this.setState({ eProfitStart: nextProps.eProfitStart_C, eProfitEnd: nextProps.eProfitEnd_C });
+        }
+    }
+    onPriceChange(price) {
         this.setState({ bonusPrice: price });
     }
 
@@ -45,23 +52,23 @@ class CustomizeOrder extends Component {
                     <Text style={styles.pDetails}>Product Details</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
-                            <Text style={styles.pHeader}>Your Crop is</Text>
+                            <Text style={styles.pHeader}>Crop</Text>
                             <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                            <Text style={styles.pHeader}>Your Product is a </Text>
+                            <Text style={styles.pHeader}>Product</Text>
                             <Text style={styles.pBody}>{risk110Name}</Text>
-                            <Text style={styles.pHeader}>Your trade direction is</Text>
+                            <Text style={styles.pHeader}>Trade direction</Text>
                             <Text style={styles.pBody}>Sell</Text>
-                            <Text style={styles.pHeader}>Your product details are</Text>
+                            <Text style={styles.pHeader}>Contract Month</Text>
                             <Text style={styles.pBody}>
                                 {this.props.cMonth} {this.props.cYear}
                             </Text>
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 6 }}>
-                            <Text style={styles.pHeader}>Current Market Price is</Text>
+                            <Text style={styles.pHeader}>Current Market Price</Text>
                             <Text style={styles.pBody}>${this.props.cPrice}</Text>
-                            <Text style={styles.pHeader}>Your Additional Qty Price is </Text>
+                            <Text style={styles.pHeader}>Contigent Offer Price</Text>
                             <Text style={styles.pBody}>${this.state.bonusPrice}</Text>
-                            <Text style={styles.pHeader}>Your Additional Qty is </Text>
+                            <Text style={styles.pHeader}>Contigent Offer Quantity</Text>
                             <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                             <Text style={styles.pHeader}>You May Price Up To</Text>
                             <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
@@ -69,7 +76,7 @@ class CustomizeOrder extends Component {
                     </View>
                     <View style={{ marginTop: 30, marginLeft: 14 }}>
                         <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue', color: 'rgb(230,180,19)' }}>ESTIMATED PROFIT</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>..</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{ `$${this.state.eProfitStart} to $${this.state.eProfitEnd}/acre`}</Text>
                     </View>
                 </View>
                 </View>
@@ -78,7 +85,12 @@ class CustomizeOrder extends Component {
                     <ImageButton text='NEXT' inactive='true' />
                 </View>
 
-                <CustomizePrice onBonusPriceIncrease={this.onBonusPriceIncrease.bind(this)} />
+                <CustomizePrice
+                    onPriceChange={this.onPriceChange.bind(this)}
+                    fPrice={this.props.fPrice}
+                    bPrice={this.props.bPrice}
+                    price={this.props.price}
+                />
 
             </View>
         );
@@ -98,9 +110,12 @@ const mapStateToProps = (state) => {
         defaultAccountData: state.account.defaultAccount,
         cropButton: state.cropsButtons,
         products: state.products,
-        underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol),
-        cPrice: state.optimalQuote.suggestedQuote.underlyingPrice === null ? '  -' : parseFloat(state.optimalQuote.suggestedQuote.underlyingPrice).toFixed(4),
-        bonusPrice: state.optimalQuote.suggestedQuote.bonusPrice === null ? '  -' : parseFloat(state.optimalQuote.suggestedQuote.bonusPrice).toFixed(4),
+        eProfitStart_S: common.isValueExists(state.eProfit.estProfitStart_S) ? state.eProfit.estProfitStart_S : '  -',
+        eProfitEnd_S: common.isValueExists(state.eProfit.estProfitEnd_S) ? state.eProfit.estProfitEnd_S : '   -',
+        eProfitStart_C: common.isValueExists(state.eProfit.estProfitStart_C) ? state.eProfit.estProfitStart_C : '  -',
+        eProfitEnd_C: common.isValueExists(state.eProfit.estProfitEnd_C) ? state.eProfit.estProfitEnd_C : '   -',
+        underlyingData: common.isValueExists(state.dashBoardData.Data.actionBar.todayPrice.symbol) ? common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol) : 0,
+        cPrice: common.isValueExists(state.optimalQuote.suggestedQuote.underlyingPrice) ? parseFloat(state.optimalQuote.suggestedQuote.underlyingPrice).toFixed(4) : '  -',
     };
 }
 

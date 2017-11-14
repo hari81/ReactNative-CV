@@ -20,6 +20,9 @@ export default class CustomizingOrder extends Component {
                         cMonth={this.props.cMonth}
                         cYear={this.props.cYear}
                         quantity={this.props.quantity}
+                        fPrice={this.props.strike}
+                        bPrice={this.props.bonusPrice}
+                        price={this.props.price}
                     />
                     <MyCropButton appearance='notclear' />
                 </View>
