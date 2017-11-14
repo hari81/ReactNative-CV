@@ -7,7 +7,7 @@ import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
 import ProductDetails from './ProductDetails';
 import { SuggestedPrice } from './SuggestedPrice';
-import { estimateProfit } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
+import { estimateProfit } from '../../../redux/actions/QuoteSwap/EstimatedProfitAction';
 import bugsnag from '../.././common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
@@ -29,12 +29,13 @@ class SuggestedQuote extends Component {
     };
 
     componentDidMount() {
-        this.props.estimateProfit('Start');
-        this.props.estimateProfit();
+        this.props.estimateProfit(1, 'Start');
+        this.props.estimateProfit(1);
     }
     customizeOrder = () => {
         const { cMonth, cYear, quantity } = this.props.previousState;
-        Actions.customizeOrder({ cMonth, cYear, quantity });
+        const { strike, bonusPrice, price } = this.props.suggestQuote;
+        Actions.customizeOrder({ cMonth, cYear, quantity, strike, bonusPrice, price });
     }
     reviewOrder = () => {
         Actions.structureOrderReview();
@@ -101,7 +102,8 @@ class SuggestedQuote extends Component {
 const mapStateToProps = state => {
     return {
         Crops: state.cropsButtons.cropButtons,
-        acc: state.account
+        acc: state.account,
+        sug: state.eProfit
     };
 };
 const styles = {

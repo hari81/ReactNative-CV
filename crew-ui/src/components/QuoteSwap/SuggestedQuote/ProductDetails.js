@@ -35,7 +35,7 @@ const ProductDetails = (props) => {
                 </View>
             </View>
             <Text style={[styles.estimatedProfit, { paddingLeft: 15 }]}>ESTIMATED PROFIT</Text>
-            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${props.sug.estProfitStart} to ${props.sug.estProfitEnd}/acre</Text>
+            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${props.sug.estProfitStart_S} to ${props.sug.estProfitEnd_S}/acre</Text>
         </View>
     );
 };
@@ -80,7 +80,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return { riskProduct: state.products[0],
-        sug: state.optimalQuote,
+        sug: state.eProfit,
         acc: state.account.defaultAccount.commodities,
         cropBut: state.cropsButtons
     };
