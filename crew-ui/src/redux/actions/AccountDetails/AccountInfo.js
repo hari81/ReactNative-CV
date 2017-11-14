@@ -3,6 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT, CLEAR_APPLICATION_STATE } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
+import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 
 export const accountDetails = () => {
@@ -60,9 +61,16 @@ export const accountDetails = () => {
                         const code = Data.commodities[0].commodity;
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.crmSToken)
-                            .then(response => response.json(), rej => Promise.reject(rej))
+                            .then(response => {console.log(response);
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            common.handleError(null, 'There was an issue in retrieving the dashboard data.');
+                            return 'invalid';
+                            }, rej => Promise.reject(rej))
                             .then(dashBoardData =>{
-                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData })
+                                if (dashBoardData === 'invalid') { return; }
+                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
                             })
                             .catch(/*(status, error) => {
                                 console.log(`error ${error}`);

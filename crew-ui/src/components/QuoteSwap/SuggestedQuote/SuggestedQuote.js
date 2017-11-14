@@ -69,7 +69,7 @@ class SuggestedQuote extends Component {
                                         />
                                         <Text style={styles.hedgeText}>Would you like to hedge at these levels?</Text>
                                         <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
-                                            <ImageButton text='YES - Reviw Order ' onPress={this.reviewOrder} />
+                                            <ImageButton text='YES - Review Order ' onPress={this.reviewOrder} />
                                             <ImageButton text='NO - Customize Order' onPress={this.customizeOrder}/>
                                         </View>
                                     </View>

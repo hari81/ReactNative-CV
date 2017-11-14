@@ -6,6 +6,7 @@ import { CommonHeader } from '../../common';
 import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
 import MarketConditionPlaceOrder from './MarketConditionPlaceOrder';
+import ReviewOrder from './ReviewOrder';
 import bugsnag from '../.././common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
@@ -31,11 +32,11 @@ class StructureOrderReview extends Component {
                         <MyFarmTiles />
                         <View style={{ height: height - 264 }}>
                             <View style={styles.container}>
-                                <View style={{ width: 650 }}>
-                                    <Text style={styles.suggestedText}>Let's review and complete your order</Text>
-
+                                <View style={{ width: 680 }} >
+                                    <View><Text style={styles.suggestedText}>Let's review and complete your order</Text></View>
+                                    <ReviewOrder/>
                                 </View>
-                                <View>
+                                <View style={{ marginRight: 20 }}>
                                     <MarketConditionPlaceOrder />
                                 </View>
                             </View>
@@ -65,7 +66,8 @@ const styles = {
         height: 445,
         borderTopWidth: 4,
         borderTopColor: 'rgb(231,181,20)',
-        backgroundColor: 'rgb(61,76,81)'
+        backgroundColor: 'rgb(61,76,81)',
+        justifyContent: 'space-between'
     },
     suggestedText: {
         fontFamily: 'HelveticaNeue-Thin',

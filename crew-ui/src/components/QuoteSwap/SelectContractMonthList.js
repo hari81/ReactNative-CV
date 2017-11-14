@@ -36,6 +36,7 @@ class SelectContractMonthList extends Component {
         const underlying = this.props.parentState.underlying || st(this.props, ['contractMonth', 'contract', 0, 'underlying'])
         const lastTradeDate = this.props.parentState.lastTradeDate || st(this.props, ['contractMonth', 'contract', 0, 'lastTradeDate'])
         Actions.selectQuantity({ cMonth, cYear, price, underlying, lastTradeDate });
+       // Actions.structureOrderReview();
     }
     onRefresh() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
