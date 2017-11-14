@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import Refresh from '../../components/common/img/Refresh.png';
-import { Button } from '../../components/common/Button';
 import { Spinner } from '../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../redux/actions/OrdersAction/ReviewOrder';
 import { quoteSwapUnderlying } from '../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
@@ -429,13 +428,16 @@ class UpdateOrderDetails extends Component {
                                         </View>
                                     </View>
                                     {/* buttons */}
-                                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'baseline', zIndex: -1 }}>
-                                        <Button onPress={this.onReturnToOrders.bind(this)} buttonStyle={styles.buttonStyle} textStyle={styles.textStyle}>CANCEL</Button>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'baseline', marginTop: 20, zIndex: -1 }}>
+                                        <TouchableOpacity onPress={this.onReturnToOrders.bind(this)} style={[commonStyles.common.touchButtonCancel, { marginRight: 15 }]}>
+                                            <Text style={commonStyles.common.touchButtonCancelText}>CANCEL</Text>
+                                        </TouchableOpacity>    
                                         <TouchableOpacity 
                                             onPress={this.onReviewOrder.bind(this)}
-                                            style={[styles.buttonStyle, { marginLeft: 28, backgroundColor: '#279989', borderColor: '#279989' }]}
+                                            style={[commonStyles.common.touchButton, this.props.isReviewEnabled ? commonStyles.common.touchButtonEnabled : commonStyles.common.touchButtonDisabled]}
+                                            disabled={!this.props.isReviewEnabled}
                                         >
-                                            <Text style={[styles.textStyle, { color: '#fff' }]}>REVIEW ORDER</Text>
+                                            <Text style={[commonStyles.common.touchButtonText, this.props.isReviewEnabled ? commonStyles.common.touchButtonTextEnabled : commonStyles.common.touchButtonTextDisabled]}>REVIEW ORDER</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -475,14 +477,12 @@ const styles = {
     titleBarOrder: { flexDirection: 'row', height: 47, width: 990, borderBottomWidth: 1, borderColor: '#e7b514', alignItems: 'center' },
     orderTitle: { fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: 21 },
     enabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff', marginBottom: 10 },
-    disabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff60', marginBottom: 10 },
+    disabledLabel: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#ffffff65', marginBottom: 10 },
     disabledDataContainer: { marginBottom: 15, backgroundColor: '#ffffff80', borderRadius: 4, height: 40, width: 250, paddingLeft: 15, paddingTop: 10 },
-    disabledData: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#00000060' },
+    disabledData: { fontSize: 16, fontFamily: 'HelveticaNeue', color: '#00000065' },
     disabledContractMonth: { width: 80, height: 50, backgroundColor: '#376768', marginLeft: 5, marginTop: 5, justifyContent: 'center', alignItems: 'center' },
-    disabledContractMonthYearText: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#ffffff60' },
-    disabledContractBidAskPrice: { fontSize: 18, fontFamily: 'HelveticaNeue-Bold', color: '#ffffff60' },
-    textStyle: { color: '#9fa9ba', fontSize: 18, fontFamily: 'HelveticaNeue' },
-    buttonStyle: { marginTop: 24, width: 164, height: 40, backgroundColor: '#fff', borderRadius: 4, borderWidth: 1, borderColor: '#fff', justifyContent: 'center', alignItems: 'center', zIndex: -1 },
+    disabledContractMonthYearText: { fontSize: 12, fontFamily: 'HelveticaNeue', color: '#ffffff65' },
+    disabledContractBidAskPrice: { fontSize: 18, fontFamily: 'HelveticaNeue-Bold', color: '#ffffff65' },
     refreshImage: { width: 18, height: 18, marginLeft: 12, marginRight: 5, marginTop: 2 },
 
     pricesContainer: { flexDirection: 'row', width: 480, height: 55, backgroundColor: '#5d6d79', padding: 40, paddingTop: 8, paddingBottom: 8, zIndex: -1 },
@@ -496,6 +496,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
+    const isReviewSpinInactive = common.isValueExists(state.reviewQuote) ? !state.reviewQuote.reviewSpinFlag : true;
+
     return {
         products: state.products,
         contractMonth: state.contractData,
@@ -503,7 +505,8 @@ const mapStateToProps = (state) => {
         cropId: state.cropsButtons.selectedId,
         infoTargetPrice: state.displayProperties.filter(item => item.propKey === 'infoTargetPrice')[0].propValue,
         infoOptionExpirationDate: state.displayProperties.filter(item => item.propKey === 'infoOptionExpirationDate')[0].propValue,
-        acc: state.account
+        acc: state.account,
+        isReviewEnabled: isReviewSpinInactive        
     };
 };
 

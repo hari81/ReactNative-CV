@@ -32,17 +32,21 @@ class BushelQuantity extends Component {
     }
 
     onChangeQuantity(text) {
+        let q = common.convertStringToInt(text);
         if (/[0-9]+$/.test(text) || text === '') {
             if (text <= this.props.quantityLimit) {
-                this.setState({ quantity: text });
+                q = parseInt(text);
             } else {
                 Alert.alert('Price Hedging', `\nYour Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s.\n\nPlease contact CRM @ 1-952-742-7414 or\nemail cargillpricehedge@cargill.com \nto request a limit increase.`);
-                this.setState({ quantity: this.props.quantityLimit.toString() });
+                q = parseInt(this.props.quantityLimit.toString());
             }
-            const qp = this.calculateHedgePercent(text);
+            const qp = this.calculateHedgePercent(q);
             this.setState({ qPercent: qp });
+            //convert to string before setting state (but bubble non-formatted string up)
+            const sq = common.formatNumberCommas(q);
+            this.setState({ quantity: sq });
+            this.props.onQuantityChange(sq);
         }
-        this.props.onQuantityChange(text);
     }
 
     minusButtonPress = () => {
@@ -75,7 +79,7 @@ class BushelQuantity extends Component {
             if (q <= (this.props.quantityLimit - parseInt(this.props.quantityIncrement)) || q === 0) {
                 q += parseInt(this.props.quantityIncrement);
             } else {
-                Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
+                Alert.alert('Price Hedging', `\nYour Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s.\n\nPlease contact CRM @ 1-952-742-7414 or\nemail: cargillpricehedge@cargill.com \nto request a limit increase.`);
                 q = parseInt(this.props.quantityLimit.toString());
             }
             const qp = this.calculateHedgePercent(q);

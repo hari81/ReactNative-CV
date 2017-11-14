@@ -217,8 +217,12 @@ export function handleError(oError, initialMessage = '') {
                         //actually connected so parse like we are and blame netinfo for being not great at its job
                         msg += parseErrorInfo(oError, initialMessage);
                         Alert.alert('Cargill Price Hedging', msg);
-                        if (__DEV__ === true) { console.log('dev error', oError); } 
-                        else { bugsnag.notify(oError); }
+                        if (__DEV__ === true) { 
+                            if (isValueExists(oError)) console.log('dev error', oError);
+                            else console.log('dev error');
+                        } else { 
+                            bugsnag.notify(oError); 
+                        }
                     } else {
                         //anything other than 202 is not connected...just show no internet connection error to user
                         showNoInternetConnectionError(null);
@@ -239,5 +243,4 @@ function showNoInternetConnectionError(oError) {
     const msg = 'There is currently no internet connection available.\n\nPlease check your internet settings and try again.';
     console.log('connection error', oError);
     Alert.alert('Cargill Price Hedging', msg);
-
 }
