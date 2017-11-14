@@ -34,7 +34,9 @@ export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
 
 export const SUGGESTED_OPTIMAL_QUOTE = 'suggested_optimal_quote';
 export const OPTIMAL_QUOTE_SPIN_ACTIVE = 'optimal_quote_spin_active';
-export const ESTIMATED_PROFIT_START = 'estimated_profit_start';
-export const ESTIMATED_PROFIT_END = 'estimated_profit_end';
+export const ESTIMATED_PROFIT_START_S = 'estimated_profit_start_s';
+export const ESTIMATED_PROFIT_END_S = 'estimated_profit_end_s';
+export const ESTIMATED_PROFIT_START_C = 'estimated_profit_star_c';
+export const ESTIMATED_PROFIT_END_C = 'estimated_profit_end_c';
 
 export const CLEAR_APPLICATION_STATE = 'clear_application_state';

@@ -10,6 +10,7 @@ import { Button } from '../../common/Button';
 import * as common from '../../../Utils/common';
 import { optimalSuggestedQuote } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
 import { Spinner } from '../../common/Spinner';
+import { estimateProfit } from '../../../redux/actions/QuoteSwap/EstimatedProfitAction';
 
 const { height, width } = Dimensions.get('window');
 
@@ -17,16 +18,25 @@ class CustomizePrice extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            floorPrice: props.floorPrice,
-            bonusPrice: props.bonusPrice,
-            price: parseFloat(props.price).toFixed(4),
-            showButtons: true
+            floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
+            bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
+            price: common.isValueExists(props.price) ? parseFloat(props.price).toFixed(4) : 0,
+            showButtons: true,
+            flag: false
         };
         this.timer = null;
     }
     componentWillReceiveProps(nextProps) {
+        if (nextProps.spin) {
+            this.setState({ flag: true });
+        }
         if (this.state.price !== nextProps.price) {
           this.setState({ price: nextProps.price });
+        }
+        if (this.state.flag) {
+            this.props.estimateProfit(2, 'Start', this.state);
+            this.props.estimateProfit(2, '', this.state);
+            this.setState({ flag: false });
         }
     }
     priceType(id, img, text, price) {
@@ -67,7 +77,7 @@ class CustomizePrice extends Component {
                     <Text style={{ paddingLeft: 20, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 22 }}>
                         Would you like to hedge at these levels at a price of ${this.state.price}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                        <ImageButton text='YES - Place Order Now!' />
+                        <ImageButton text='YES - Review Order' />
                         <ImageButton text='NO - Work Levels at $0 Cost' />
                     </View>
                 </View>
@@ -107,7 +117,7 @@ class CustomizePrice extends Component {
         }
     }
     stopTimer() {
-        this.props.onBonusPriceIncrease(this.state.bonusPrice);
+        this.props.onPriceChange(this.state.bonusPrice);
         clearTimeout(this.timer);
     }
     render() {
@@ -157,13 +167,10 @@ const styles = {
 }
 const mapStateToProps = state => {
     return {
-        bonusPrice: state.optimalQuote.suggestedQuote.bonusPrice === null ? 0 : state.optimalQuote.suggestedQuote.bonusPrice,
-        floorPrice: state.optimalQuote.suggestedQuote.strike === null ? 0 : state.optimalQuote.suggestedQuote.strike,
-        price: state.optimalQuote.suggestedQuote.midMarketMark === null ? 0 : parseFloat(state.optimalQuote.suggestedQuote.midMarketMark).toFixed(4),
-        sDate: state.optimalQuote.suggestedQuote.accrualStartDate,
-        eDate: state.optimalQuote.suggestedQuote.metadata.expirationDate,
+        sDate: common.isValueExists(state.optimalQuote.suggestedQuote.accrualStartDate) ? state.optimalQuote.suggestedQuote.accrualStartDate : '-',
+        eDate: common.isValueExists(state.optimalQuote.suggestedQuote.metadata.expirationDate) ? state.optimalQuote.suggestedQuote.metadata.expirationDate : '-',
         spin: state.optimalQuote.spinFlag
     };
 };
 
-export default connect(mapStateToProps, { optimalSuggestedQuote })(CustomizePrice);
+export default connect(mapStateToProps, { optimalSuggestedQuote, estimateProfit })(CustomizePrice);
