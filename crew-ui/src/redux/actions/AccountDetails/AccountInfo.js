@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, INVALID_ACCOUNT, CLEAR_APPLICATION_STATE } from '../types';
+import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, CLEAR_APPLICATION_STATE } from '../types';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
@@ -63,10 +63,18 @@ export const accountDetails = () => {
                         const code = Data.commodities[0].commodity;
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.crmSToken)
-                            .then(response => response.json(), rej => Promise.reject(rej))
+                            .then(response => {
+                                if (response.status === 200) {
+                                    return response.json();
+                                }
+                                common.handleError(null, 'There was an issue in retrieving the dashboard data.');
+                                return null;
+                            })
                             .then(dashBoardData => { 
-                                console.log(dashBoardData);
-                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
+                                if (common.isValueExists(dashBoardData)) {
+                                    console.log(dashBoardData);
+                                    dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
+                                }
                             })
                             .catch(bugsnag.notify);
                     })

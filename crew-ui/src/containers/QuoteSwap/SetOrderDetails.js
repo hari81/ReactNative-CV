@@ -41,21 +41,23 @@ class SetOrderDetails extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.contractMonth.spinFlag && this.state.selectedContractMonth === null && nextProps.contractMonth != null && common.isValueExists(nextProps.contractMonth.contract)) {
+        if (!nextProps.contractMonth.spinFlag && this.state.selectedContractMonth === null && nextProps.contractMonth != null && common.isValueExists(nextProps.contractMonth.contract)) {
             const cmonth = nextProps.contractMonth.contract[0];
             this.onSelectContractMonth(cmonth);
-        } else if (this.state.selectedContractMonth !== null && common.isValueExists(nextProps.contractMonth)) {
-           const sm = nextProps.contractMonth.contract.find(x => x.underlying === this.state.selectedContractMonth.underlying);
-           //if we can't find a match, a new crop/contract/month has been selected (so set it and forget it)
-           if (sm === undefined || sm === null) {
-               const cm = nextProps.contractMonth.contract[0];
-               this.onSelectContractMonth(cm);
-               if (cm.cropYear !== this.state.selectedContractMonth.cropYear || cm.cropCode !== this.state.selectedContractMonth.cropCode) {
-                   this.setState({ quantity: 0 });
-               }
-            } else if (this.state.isRefreshPrices) {
-                this.setState({ isRefreshPrices: false });            
-                this.onSelectContractMonth(sm);
+        } else {
+            if (this.state.selectedContractMonth !== null && common.isValueExists(nextProps.contractMonth) && common.isValueExists(nextProps.contractMonth.contract)) {
+                const sm = nextProps.contractMonth.contract.find(x => x.underlying === this.state.selectedContractMonth.underlying);
+                //if we can't find a match, a new crop/contract/month has been selected (so set it and forget it)
+                if (sm === undefined || sm === null) {
+                    const cm = nextProps.contractMonth.contract[0];
+                    this.onSelectContractMonth(cm);
+                    if (cm.cropYear !== this.state.selectedContractMonth.cropYear || cm.cropCode !== this.state.selectedContractMonth.cropCode) {
+                        this.setState({ quantity: 0 });
+                    }
+                } else if (this.state.isRefreshPrices) {
+                    this.setState({ isRefreshPrices: false });            
+                    this.onSelectContractMonth(sm);
+                }
             }
         }
     }
@@ -164,8 +166,8 @@ class SetOrderDetails extends Component {
                                         onScrollDown={this.onScrollDown.bind(this)}
                                     />
                                     <BidAskPrice contractData={this.props.contractMonth} selectedContractMonth={this.state.selectedContractMonth} />
-                                    <View style={{ flexDirection: 'row', marginLeft: 30 }}>
-                                        <TouchableOpacity onPress={this.onCancel.bind(this)} style={[cStyles.common.touchButtonCancel, { marginRight: 10 }]}>
+                                    <View style={{ flexDirection: 'row', marginLeft: 145 }}>
+                                        <TouchableOpacity onPress={this.onCancel.bind(this)} style={[cStyles.common.touchButtonCancel, { marginRight: 15 }]}>
                                             <Text style={cStyles.common.touchButtonCancelText}>CANCEL</Text>
                                         </TouchableOpacity>    
                                         <TouchableOpacity 

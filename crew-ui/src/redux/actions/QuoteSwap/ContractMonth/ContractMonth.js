@@ -76,15 +76,18 @@ export const quoteSwapUnderlying = (year, code) => {
                     .catch(error => {
                         common.handleError(error, 'There was an issue with retrieving data for this commodity.');
                         dispatch(contractMonthData(null));
+                        dispatch({ type: 'CONTRACT_ERROR' });
                     });
                 }
                 //issuccss = false
                 common.handleError(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');                    
                 dispatch(contractMonthData(null));
+                dispatch({ type: 'CONTRACT_ERROR' });
             })
         .catch(error => {
             common.handleError(error, 'There was an issue with retrieving data for this commodity.');                    
             dispatch(contractMonthData(null));
+            dispatch({ type: 'CONTRACT_ERROR' });
         });
     };
 };

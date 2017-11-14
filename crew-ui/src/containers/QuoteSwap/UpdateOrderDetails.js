@@ -429,7 +429,7 @@ class UpdateOrderDetails extends Component {
                                     </View>
                                     {/* buttons */}
                                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'baseline', marginTop: 20, zIndex: -1 }}>
-                                        <TouchableOpacity onPress={this.onReturnToOrders.bind(this)} style={[commonStyles.common.touchButtonCancel, { marginRight: 10 }]}>
+                                        <TouchableOpacity onPress={this.onReturnToOrders.bind(this)} style={[commonStyles.common.touchButtonCancel, { marginRight: 15 }]}>
                                             <Text style={commonStyles.common.touchButtonCancelText}>CANCEL</Text>
                                         </TouchableOpacity>    
                                         <TouchableOpacity 

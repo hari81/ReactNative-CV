@@ -1,13 +1,13 @@
 export const common = {
     /* common button styles */
     //touchable opacity (button) with text inside
-    touchButton: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', borderRadius: 4, paddingTop: 10, paddingBottom: 10, width: 220 },
+    touchButton: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', borderRadius: 4, paddingTop: 10, paddingBottom: 10, minWidth: 160 },
     touchButtonEnabled: { backgroundColor: '#279988' },
     touchButtonDisabled: { backgroundColor: '#27998865' },
     touchButtonText: { fontFamily: 'HelveticaNeue-Light', color: '#fff', fontSize: 18 },
     touchButtonTextEnabled: { color: '#fff' },
     touchButtonTextDisabled: { color: '#ffffff65' },
-    touchButtonCancel: { backgroundColor: '#fff', alignItems: 'center', alignSelf: 'center', justifyContent: 'center', borderRadius: 4, paddingTop: 10, paddingBottom: 10, width: 220 },
+    touchButtonCancel: { backgroundColor: '#fff', alignItems: 'center', alignSelf: 'center', justifyContent: 'center', borderRadius: 4, paddingTop: 10, paddingBottom: 10, minWidth: 160 },
     touchButtonCancelText: { fontFamily: 'HelveticaNeue-Light', color: '#9fa9ba', fontSize: 18 },
     
     /* radio buttons */
