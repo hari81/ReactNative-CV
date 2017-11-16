@@ -44,12 +44,12 @@ const ReviewOrder = (props) => {
                         <Text style={styles.quoteLabel}>Floor Price
                             </Text>
                         <Text
-                            style={styles.quoteData}>${strike}</Text>
+                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.strike : strike}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Bonus Price</Text>
                         <Text
-                            style={styles.quoteData}>${bonusPrice}
+                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
                             </Text>
                     </View>
                     <View style={styles.quoteField}>
@@ -78,7 +78,7 @@ const ReviewOrder = (props) => {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contingent Offer Price</Text>
                         <Text
-                            style={styles.quoteData}>${bonusPrice}</Text>
+                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>You May Price Up to</Text>

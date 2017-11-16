@@ -57,7 +57,7 @@ class CustomizeOrder extends Component {
                             <Text style={styles.pHeader}>Product</Text>
                             <Text style={styles.pBody}>{risk110Name}</Text>
                             <Text style={styles.pHeader}>Trade direction</Text>
-                            <Text style={styles.pBody}>Sell</Text>
+                            <Text style={styles.pBody}>Buy</Text>
                             <Text style={styles.pHeader}>Contract Month</Text>
                             <Text style={styles.pBody}>
                                 {this.props.cMonth} {this.props.cYear}

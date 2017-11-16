@@ -75,12 +75,11 @@ export const tradeReceipt = (relativePath) => {
                 'User-Agent': 'Crew 0.1.0',
                 Authorization: `CRM ${getState().auth.crmSToken}`,
                 Accept: 'application/pdf',
-                //'Cache-Control': 'no-store'
+                'Cache-Control': 'no-store'
             })
         //doGetTradeReceiptFetch(url, getState().auth.basicToken)
             .then((res) => {
-            console.log('path', res.path());
-            console.log('data', res);
+           // console.log('path', res.path());
            // console.log('status code', res.respInfo.status);
                 if (res.respInfo.status === 403) {
                     Alert.alert('User Authenticated fail');
@@ -89,7 +88,8 @@ export const tradeReceipt = (relativePath) => {
                     return;
                 }
                 //console.log('pdf path', res.path());
-                Linking.openURL(`file://${res.path()}`);
+               //Linking.openURL(`file://${res.path()}`);
+
                 dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: res.path() });
             })
             .catch(bugsnag.notify);

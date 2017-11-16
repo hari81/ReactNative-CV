@@ -16,9 +16,6 @@ class StructureOrderReview extends Component {
     render() {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
-           // const { strike, bonusPrice, accrualStartDate, price, underlyingPrice } = this.props.suggestQuote;
-           // const { cMonth, cYear, expirationDate, quantity } = this.props.previousState;
-           // const contractMonth = `${cMonth} ${cYear}`;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View>
@@ -34,10 +31,10 @@ class StructureOrderReview extends Component {
                             <View style={styles.container}>
                                 <View style={{ width: 680 }} >
                                     <View><Text style={styles.suggestedText}>Let's review and complete your order</Text></View>
-                                    <ReviewOrder/>
+                                    <ReviewOrder custom={this.props.cust || ''} price={this.props.price}/>
                                 </View>
                                 <View style={{ marginRight: 20 }}>
-                                    <MarketConditionPlaceOrder />
+                                    <MarketConditionPlaceOrder custom={this.props.cust || ''} price={this.props.price} />
                                 </View>
                             </View>
                         </View>
