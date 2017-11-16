@@ -27,18 +27,18 @@ class CancelOrder extends Component {
           const cancelData = this.props.item;
           return (
               <View style={styles.containerStyle}>
-                  <StatusBar barStyle='light-content'/>
+                  <StatusBar barStyle='light-content' />
 
                   {/* header stuff */}
-                  <View style={{backgroundColor: '#000', width, height: 20}}/>
-                  <CommonHeader/>
+                  <View style={{ backgroundColor: '#000', width, height: 20 }} />
+                  <CommonHeader />
 
-                  <View style={{backgroundColor: '#eff4f7'}}>
-                      <View style={{height: 83, width, backgroundColor: '#404e59'}}/>
+                  <View style={{ backgroundColor: '#eff4f7' }}>
+                      <View style={{ height: 83, width, backgroundColor: '#404e59' }} />
 
-                      <MyFarmTiles/>
+                      <MyFarmTiles />
 
-                      <View style={{marginTop: 20}}>
+                      <View style={{ marginTop: 20 }}>
                           <View style={styles.backHeader}>
                               <View style={styles.headerTextBox}>
                                   <Text style={styles.headerText}>Review Cancel Details</Text>
@@ -54,59 +54,53 @@ class CancelOrder extends Component {
                           <View style={styles.orderContainer}>
                               {/* order details */}
                               <View style={styles.orderFields}>
-                                  <View style={{flex: 1}}>
+                                  <View style={{ flex: 1 }}>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your crop is</Text>
+                                          <Text style={styles.orderLabel}>Crop</Text>
                                           <Text style={styles.orderData}>{cancelData.crop} {cancelData.year}</Text>
                                       </View>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your order# is</Text>
+                                          <Text style={styles.orderLabel}>Order #</Text>
                                           <Text style={styles.orderData}>{cancelData.orderId}</Text>
                                       </View>
 
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your trade direction is</Text>
+                                          <Text style={styles.orderLabel}>Trade Direction</Text>
                                           <Text style={styles.orderData}>{cancelData.buySell}</Text>
                                       </View>
 
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your contract details are</Text>
+                                          <Text style={styles.orderLabel}>Contract Details</Text>
                                           <Text style={styles.orderData}>{cancelData.month} {cancelData.year}</Text>
                                       </View>
 
                                   </View>
-                                  <View style={{flex: 1}}>
+                                  <View style={{ flex: 1 }}>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your contract expiry date is</Text>
-                                          <Text
-                                              style={styles.orderData}>{common.formatDate(cancelData.expirationDate, 5)}</Text>
+                                          <Text style={styles.orderLabel}>Contract expiry date is</Text>
+                                          <Text style={styles.orderData}>{common.formatDate(cancelData.expirationDate, 5)}</Text>
                                       </View>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your bushel quantity is</Text>
-                                          <Text
-                                              style={styles.orderData}>{cancelData.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
+                                          <Text style={styles.orderLabel}>Bushel Quantity</Text>
+                                          <Text style={styles.orderData}>{cancelData.quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
                                       </View>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your order type is</Text>
-                                          <Text
-                                              style={styles.orderData}>{cancelData.orderType.charAt(0) + cancelData.orderType.slice(1, cancelData.orderType.length).toLocaleLowerCase()}</Text>
+                                          <Text style={styles.orderLabel}>Order Type</Text>
+                                          <Text style={styles.orderData}>{cancelData.orderType.charAt(0) + cancelData.orderType.slice(1, cancelData.orderType.length).toLocaleLowerCase()}</Text>
                                       </View>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your order will be valid until</Text>
-                                          <Text
-                                              style={styles.orderData}>{cancelData.goodTilDate === undefined ? 'N/A' : common.formatDate(cancelData.goodTilDate, 5)}</Text>
+                                          <Text style={styles.orderLabel}>Order Valid Until</Text>
+                                          <Text style={styles.orderData}>{cancelData.goodTilDate === undefined ? 'N/A' : common.formatDate(cancelData.goodTilDate, 5)}</Text>
                                       </View>
                                   </View>
-                                  <View style={{flex: 1}}>
+                                  <View style={{ flex: 1 }}>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your order status is</Text>
-                                          <Text
-                                              style={styles.orderData}>{cancelData.orderState.label.charAt(0) + cancelData.orderState.label.slice(1, cancelData.orderState.label.length).toLocaleLowerCase()}</Text>
+                                          <Text style={styles.orderLabel}>Order Status</Text>
+                                          <Text style={styles.orderData}>{cancelData.orderState.label.charAt(0) + cancelData.orderState.label.slice(1, cancelData.orderState.label.length).toLocaleLowerCase()}</Text>
                                       </View>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Your price is</Text>
-                                          <Text
-                                              style={styles.orderData}>{cancelData.orderType === 'MARKET' ? 'Market' : '$' + cancelData.targetPrice}</Text>
+                                          <Text style={styles.orderLabel}>Price</Text>
+                                          <Text style={styles.orderData}>{cancelData.orderType === 'MARKET' ? 'Market' : '$' + cancelData.targetPrice}</Text>
                                       </View>
 
                                   </View>
@@ -115,14 +109,18 @@ class CancelOrder extends Component {
 
                               {/* buttons */}
                               <View style={styles.buttonContainer}>
-                                  <Button buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]}
-                                          textStyle={[styles.orderButtonTextStyle, {color: '#9fa9ba'}]}
-                                          onPress={this.onBackToOrders.bind(this)}>
+                                    <Button 
+                                        buttonStyle={[styles.orderButtonStyle, styles.backButtonStyle]}
+                                        textStyle={[styles.orderButtonTextStyle, { color: '#9fa9ba' }]}
+                                        onPress={this.onBackToOrders.bind(this)}
+                                    >
                                       BACK TO ORDERS LIST
-                                  </Button>
-                                  <Button buttonStyle={[styles.orderButtonStyle, {backgroundColor: '#279988'}]}
-                                          textStyle={[styles.orderButtonTextStyle, {color: '#fff'}]}
-                                          onPress={this.cancelOrder.bind(this)}>
+                                    </Button>
+                                    <Button 
+                                        buttonStyle={[styles.orderButtonStyle, { backgroundColor: '#279988' }]}
+                                        textStyle={[styles.orderButtonTextStyle, { color: '#fff' }]}
+                                        onPress={this.cancelOrder.bind(this)}
+                                    >
                                       CANCEL ORDER NOW
                                   </Button>
                               </View>

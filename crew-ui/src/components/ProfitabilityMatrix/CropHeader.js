@@ -35,7 +35,7 @@ class CropHeader extends Component {
                                 fontSize: 12,
                                 color: 'rgb(255,255,255)'
                             }}>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
-                            <Text style={{fontSize: 10, color: 'rgb(39,153,137)'}}>Edit My Farm Details</Text>
+                            <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit</Text>
                         </View>
                     </TouchableOpacity>
                     <View style={{

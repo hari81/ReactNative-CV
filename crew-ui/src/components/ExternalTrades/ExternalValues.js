@@ -397,7 +397,7 @@ export default class ExternalValues extends Component {
                             edit={false}
                             stylenp={{borderWidth: 2, borderColor: (a + b + f).toFixed(4) < 0 ? 'red' : 'green'}}
                         />
-                        <View style={{height: 50, justifyContent: 'center', alignItems: 'center', marginLeft: 20}}>
+                        <View style={{height: 50, justifyContent: 'center', alignItems: 'center', marginLeft: 25}}>
                             <TouchableHighlight onPress={removeTrans}>
                                 <Image source={minus} style={{width: 32, height: 32}}/>
                             </TouchableHighlight>
