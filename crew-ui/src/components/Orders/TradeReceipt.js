@@ -10,8 +10,7 @@ class TradeReceipt extends Component {
     constructor() {
         super();
         this.state = { 
-            pdfloading: true,
-            pdfreceipt: null,
+            pdfloading: false,
             pdferror: false
         };
     }
@@ -19,20 +18,18 @@ class TradeReceipt extends Component {
     componentDidMount() {
         this.props.tradeReceipt(this.props.confirm);
     }
-
     componentWillReceiveProps(newProps) {
-        if (newProps.pdfview !== null) {
-            this.setState({ pdfloading: false });
-            if (newProps.pdfview === 'error') {
-                this.setState({ pdferror: true });
-            } else {
-                this.setState({ pdferror: false, pdfreceipt: newProps.pdfview });
-            }
+    //console.log(newProps.pdfview);
+       setTimeout(() =>
+            this.setState({ pdfloading: true }), 1000);
+        if (newProps.pdfview === 'error') {
+            this.setState({ pdferror: true });
         }
     }
 
+
     renderPdfView() {
-        if (this.state.pdfloading) {
+        if (!this.state.pdfloading) {
             return (
                 <View style={{ justifyContent: 'center', flexDirection: 'column' }}>
                     <Text style={{ marginTop: 30, color: 'white', textAlign: 'center', fontSize: 25, marginBottom: 30 }}>
@@ -41,7 +38,7 @@ class TradeReceipt extends Component {
                     <Spinner size='large' />
                 </View>
             );
-        } 
+        }
         if (this.state.pdferror) {
             return (
                 <View style={{ padding: 20, paddingLeft: 50 }}>
@@ -52,7 +49,7 @@ class TradeReceipt extends Component {
         return (
             <WebView 
                 style={{ backgroundColor: 'rgb(64,78,89)' }} 
-                source={{ uri: `file://${this.state.pdfreceipt}` }} 
+                source={{ uri: `file://${this.props.pdfview}` }}
             />
         );
     }
