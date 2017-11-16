@@ -77,7 +77,7 @@ class CancelOrder extends Component {
                                   </View>
                                   <View style={{ flex: 1 }}>
                                       <View style={styles.orderField}>
-                                          <Text style={styles.orderLabel}>Contract expiry date is</Text>
+                                          <Text style={styles.orderLabel}>Contract Expiry Date</Text>
                                           <Text style={styles.orderData}>{common.formatDate(cancelData.expirationDate, 5)}</Text>
                                       </View>
                                       <View style={styles.orderField}>

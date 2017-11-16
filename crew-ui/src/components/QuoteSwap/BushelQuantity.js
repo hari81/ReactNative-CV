@@ -32,10 +32,10 @@ class BushelQuantity extends Component {
     }
 
     onChangeQuantity(text) {
-        let q = common.convertStringToInt(text);
         if (/[0-9]+$/.test(text) || text === '') {
-            if (text <= this.props.quantityLimit) {
-                q = parseInt(text);
+            let q = common.convertStringToInt(text);
+            if (q <= this.props.quantityLimit) {
+                q = parseInt(q);
             } else {
                 Alert.alert('Price Hedging', `\nYour Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s.\n\nPlease contact CRM @ 1-952-742-7414 or\nemail cargillpricehedge@cargill.com \nto request a limit increase.`);
                 q = parseInt(this.props.quantityLimit.toString());

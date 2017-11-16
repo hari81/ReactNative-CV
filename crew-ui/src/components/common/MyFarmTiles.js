@@ -139,7 +139,7 @@ class MyFarmTiles extends Component {
                         </View>
                         <View style={{ width: 1, marginLeft: width * 0.0146, marginRight: width * 0.00683, marginTop: height * 0.033, height: height * 0.0611, backgroundColor: 'rgb(221,221,221)' }} />
                         <View style={{ justifyContent: 'center', marginLeft: 10, width: width * 0.54 }}>
-                            <Text>Enter your {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to view risk and profitability insights in the Dashboard</Text>
+                            <Text>Enter your {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to view risk and profitability insights in the Dashboard.</Text>
                         </View>
                         <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 30 }}>
                             <TouchableOpacity 

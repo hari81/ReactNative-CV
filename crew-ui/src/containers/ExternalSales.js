@@ -200,7 +200,7 @@ class ExternalSales extends Component {
                         <Text style={{ fontSize: 24, color: 'white', paddingBottom: 20 }}>{this.externalCropYearName()} Trades Outside the App</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ flex: 1, alignItems: 'center' }}>
-                                <Text style={{ fontSize: 17, color: 'white', paddingTop: 10 }}>Enter cash contracts and trades with a broker. We’ll use this to estimate your profitability, breakeven and risk.</Text>
+                                <Text style={{ fontSize: 17, color: 'white', paddingTop: 10, paddingLeft: 20, paddingRight: 40 }}>Enter cash contracts and trades with a broker. We’ll use this information to estimate your profitability, breakeven and risk.</Text>
                             </View>
                             <View style={{ marginRight: 25 }}>
                                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -230,54 +230,31 @@ class ExternalSales extends Component {
                             )}
                     </ScrollView>
 
-                    <View style={{
-                        flexDirection: 'row',
-                        height: 100,
-                        justifyContent: 'flex-end',
-                        marginRight: 100,
-                        alignItems: 'center'
-                    }}>
-                        <TouchableHighlight
-                            style={{
-                                backgroundColor: 'white',
-                                borderRadius: 5,
-                                height: 40,
-                                width: 150
-                            }}
-                            onPress={this.cancelButtonClick.bind(this)}
-                        >
-                            <View
-                                style={{
-                                    flex: 1,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}
+
+                    <View style={{ flexDirection: 'row' }}>
+                            
+                        <View style={{ justifyContent: 'center' }}>
+                            <Text style={{ color: 'white', paddingLeft: 16 }}> *Required</Text>
+                        </View>
+
+                        <View style={{ flex: 1, flexDirection: 'row', height: 100, justifyContent: 'flex-end', marginRight: 100, alignItems: 'center' }}>
+                            <TouchableHighlight
+                                style={{ backgroundColor: 'white', borderRadius: 5, height: 40, width: 150 }}
+                                onPress={this.cancelButtonClick.bind(this)}
                             >
-                                <Text style={{textAlign: 'center'}}>CANCEL</Text>
-                            </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight
-                            style={{
-                                marginLeft: 20,
-                                backgroundColor: '#279989',
-                                borderRadius: 5,
-                                height: 40,
-                                width: 150
-                            }}
-                            onPress={this.saveTransactions.bind(this)}
-                        >
-                            <View
-                                style={{
-                                    flex: 1,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{textAlign: 'center'}}>CANCEL</Text>
+                                </View>
+                            </TouchableHighlight>
+                            <TouchableHighlight 
+                                style={{ marginLeft: 20, backgroundColor: '#279989', borderRadius: 5, height: 40, width: 150 }}
+                                onPress={this.saveTransactions.bind(this)}
                             >
-                                <Text style={{color: 'white'}}>SAVE</Text>
-                            </View>
-                        </TouchableHighlight>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{color: 'white'}}>SAVE</Text>
+                                </View>
+                            </TouchableHighlight>
+                        </View>
                     </View>
                 </View>
             );

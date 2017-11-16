@@ -83,12 +83,10 @@ class MyFarmProduction extends Component {
                             </View>
                         </View>
                         <View style={styles.secondContainerStyle}>
-                            <View style={[styles.productionTitleStyle, { width: width * 0.279 }]}>
-                                <View style={{ marginTop: height * 0.019, marginLeft: width * 0.0332 }}>
-                                    <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
-                                </View>
+                            <View style={[styles.productionTitleStyle, { width: width * 0.279, justifyContent: 'center', alignItems: 'center' }]}>
+                                <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
                             </View>
-                            <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability</Text>
+                            <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability.</Text>
                             <View style={{ marginLeft: width * 0.029 }}>
                                 <Image source={matrix} width={width * 0.217} height={height * 0.1999} />
                             </View>
@@ -114,7 +112,7 @@ class MyFarmProduction extends Component {
                                     <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>YOUR FARM PRODUCTION</Text>
                                 </View>
                                 <View style={{ marginTop: height * 0.024 }}>
-                                    <Text style={{ fontSize: 14, marginLeft: width * 0.087, color: 'rgb(127,127,127)' }}>Estimated Total Production</Text>
+                                    <Text style={{ fontSize: 14, marginLeft: width * 0.087, color: 'rgb(127,127,127)' }}>Estimated Total Production:</Text>
                                 </View>
                                 <View style={{ marginTop: height * 0.014, alignSelf: 'stretch' }}>
                                     <Text style={{ fontSize: 23, fontFamily: 'HelveticaNeue-Bold', marginLeft: 4, color: 'rgb(1,172,168)' }}>
@@ -128,12 +126,10 @@ class MyFarmProduction extends Component {
                             {this.spinner(percent)}
                         </View>
                         <View style={styles.secondContainerStyle}>
-                            <View style={[styles.productionTitleStyle, { width: width * 0.279 }]}>
-                                <View style={{ marginTop: height * 0.0195, marginLeft: width * 0.033 }}>
-                                    <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
-                                </View>
+                            <View style={[styles.productionTitleStyle, { width: width * 0.279, justifyContent: 'center', alignItems: 'center' }]}>
+                                <Text style={{ fontSize: 16, color: 'rgb(131,141,148)' }}>PROFITABILITY MATRIX</Text>
                             </View>
-                            <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability</Text>
+                            <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability.</Text>
                             <View style={{ marginLeft: width * 0.029 }}>
                                 <Image source={matrix} width={width * 0.217} height={height * 0.199} />
                             </View>
@@ -145,7 +141,7 @@ class MyFarmProduction extends Component {
                                 <Text style={[styles.viewProfitabilityText, this.props.isDashboardDataExists ? null : styles.viewProfitabilityTextDisabled]}>VIEW PROFITABILITY</Text>
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability</Text>
+                        <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability.</Text>
                         <View style={{ marginLeft: width * 0.029 }}><Image source={matrix} width={width * 0.1} height={height * 0.1} /></View>
                         <TouchableOpacity
                             onPress={this.dashBoardToMatrix}
