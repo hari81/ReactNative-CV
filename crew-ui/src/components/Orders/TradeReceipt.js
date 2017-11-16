@@ -14,11 +14,10 @@ class TradeReceipt extends Component {
     componentDidMount() {
         this.props.tradeReceipt(this.props.confirm);
     }
-    componentWillReceiveProps(newProps) {
-//console.log(newProps.pdfview);
-       if (newProps.pdfview !== null) {
-            this.setState({ pdfflag: true });
-        }
+    componentWillReceiveProps() {
+    //console.log(newProps.pdfview);
+       setTimeout(() =>
+            this.setState({ pdfflag: true }), 1000);
     }
     renderPdfView() {
         if (!this.state.pdfflag) {
