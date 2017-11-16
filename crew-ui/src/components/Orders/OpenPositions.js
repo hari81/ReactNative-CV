@@ -3,6 +3,7 @@ import { Text, TouchableHighlight, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import bugsnag from '../../components/common/BugSnag';
+import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
 
 class OpenPositions extends Component {
   onUnwind(item) {
@@ -242,4 +243,4 @@ const mapStateToProps = state => {
         acc: state.account
     };
 };
-export default connect(mapStateToProps, null)(OpenPositions);
+export default connect(mapStateToProps, { tradeReceipt })(OpenPositions);

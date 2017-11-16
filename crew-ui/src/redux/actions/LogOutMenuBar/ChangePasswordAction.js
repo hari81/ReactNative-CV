@@ -17,15 +17,10 @@ export const changePassword = (oldP, newP) => {
         };
         return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => {
-                // Session Token expired condition
-                if (response.status === 403) {
-                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
-                    return;
-                }
-
                 return response.json();
             }, rej => Promise.reject(rej))
             .then(res => {
+                console.log(res);
                 if (res === undefined) {
                     return;
                 }
@@ -33,6 +28,10 @@ export const changePassword = (oldP, newP) => {
                     dispatch({ type: 'PASSWORD_UPDATE_FAILED', payload: res.details[0] });
                 } else if (res === 'OK') {
                     dispatch({ type: 'PASSWORD_UPDATE_SUCCESS', payload: 'Password is Changed Successfully' });
+                } else {
+                    Alert.alert(res.message);
+                    Actions.auth();
+                    dispatch({ type: CLEAR_APPLICATION_STATE });
                 }
             })
             .catch(/*(status, error) => {

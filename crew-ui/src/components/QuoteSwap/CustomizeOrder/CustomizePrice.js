@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import ImageButton from '../../common/ImageButton';
 import lock from '../../common/img/structure/smLock.png';
@@ -51,7 +52,7 @@ class CustomizePrice extends Component {
     calculatePrice = () => {
         this.props.optimalSuggestedQuote(2, this.state);
         this.setState({ showButtons: true });
-    }
+    };
     priceText(id, price) {
         if (id !== 3) {
             if (!this.state.showButtons && id === 4) {
@@ -77,20 +78,27 @@ class CustomizePrice extends Component {
                     <Text style={{ paddingLeft: 20, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 22 }}>
                         Would you like to hedge at these levels at a price of ${this.state.price}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                        <ImageButton text='YES - Review Order' />
-                        <ImageButton text='NO - Work Levels at $0 Cost' />
+                        <ImageButton text='YES - Review Order' onPress={this.onReviewOrder}/>
+                        <ImageButton text='NO - Work Levels at $0 Cost' onPress={this.onWorkLevelsCost}/>
                     </View>
                 </View>
             );
         }
     }
+    onReviewOrder = () => {
+       // const { foorPrice, bonusPrice, price } = this.state;
+        Actions.structureOrderReview({ cust: 'customize' });
+    };
+    onWorkLevelsCost = () => {
+        Actions.structureOrderReview({ cust: 'customize' });
+    };
     fPricePlusButton = () => {
         this.setState({ showButtons: false });
         if (common.isValueExists(this.state.floorPrice)) {
             this.setState({ floorPrice: (parseFloat(this.state.floorPrice) + 0.01).toFixed(2) });
             this.timer = setTimeout(this.fPricePlusButton, 50);
         }
-    }
+    };
     fPriceMinusButton = () => {
         this.setState({ showButtons: false });
         if (common.isValueExists(this.state.floorPrice)) {
@@ -99,14 +107,14 @@ class CustomizePrice extends Component {
             this.timer = setTimeout(this.fPriceMinusButton, 50);
         }
         }
-    }
+    };
     bPricePlusButton = () => {
         this.setState({ showButtons: false });
         if (common.isValueExists(this.state.floorPrice)) {
             this.setState({ bonusPrice: (parseFloat(this.state.bonusPrice) + 0.01).toFixed(2) });
             this.timer = setTimeout(this.bPricePlusButton, 50);
         }
-    }
+    };
     bPriceMinusButton = () => {
         this.setState({ showButtons: false });
         if (common.isValueExists(this.state.floorPrice)) {
@@ -115,7 +123,7 @@ class CustomizePrice extends Component {
                 this.timer = setTimeout(this.bPriceMinusButton, 50);
             }
         }
-    }
+    };
     stopTimer() {
         this.props.onPriceChange(this.state.bonusPrice);
         clearTimeout(this.timer);
@@ -164,7 +172,7 @@ class CustomizePrice extends Component {
 const styles = {
     PriceViewStyle: { width: width * 0.128, height: height * 0.177, alignItems: 'center', backgroundColor: 'white', borderRadius: 0, borderWidth: 1, borderColor: '#01aca8', marginLeft: 20, marginTop: 30 },
     PriceTextStyle: { color: 'rgb(0,95,134)', fontFamily: 'HelveticaNeue-Light', fontSize: 16, paddingTop: 2 },
-}
+};
 const mapStateToProps = state => {
     return {
         sDate: common.isValueExists(state.optimalQuote.suggestedQuote.accrualStartDate) ? state.optimalQuote.suggestedQuote.accrualStartDate : '-',

@@ -47,12 +47,12 @@ class SelectQuantity extends Component {
 
     onFocusMake =() => {
         this.setState({ quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });
-    }
+    };
     onBlurMake = () => {
         const sq = common.formatNumberCommas(this.state.quantity);
         this.setState({ quantity: sq });
         this.props.onQuantityChange(sq);
-    }
+    };
 
     onChangeQuantity(text) {
         if (/[0-9]+$/.test(text) || text === '') {
@@ -153,7 +153,7 @@ class SelectQuantity extends Component {
                         <Text style={styles.pHeader}>Product</Text>
                         <Text style={styles.pBody}>{risk110Name}</Text>
                         <Text style={styles.pHeader}>Trade direction</Text>
-                        <Text style={styles.pBody}>Sell</Text>
+                        <Text style={styles.pBody}>Buy</Text>
                         <Text style={styles.pHeader}>Contract Month</Text>
                         <Text style={styles.pBody}>
                             {this.state.cMonth} {this.state.cYear}
