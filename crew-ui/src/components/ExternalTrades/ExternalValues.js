@@ -225,7 +225,7 @@ export default class ExternalValues extends Component {
                             }}
                             //onblur = {() => { this.setState({ show: false }); }}
                             placeholder={'MM/DD/YYYY'}
-                            label='Trade Date *'
+                            label='Trade Date*'
                             // value={typeof items.tradeDate === 'undefined' ? '' : this.state.date.toLocaleDateString()}
                             value={this.state.date.toLocaleDateString()}
 
@@ -244,8 +244,7 @@ export default class ExternalValues extends Component {
 
                             }}
                         >
-                            <Text style={{fontSize: 15, color: 'white', paddingBottom: 10, alignItems: 'center'}}>Contract
-                                Month *</Text>
+                            <Text style={{fontSize: 15, color: 'white', paddingBottom: 10, alignItems: 'center'}}>Contract Month*</Text>
                             <View
                                 style={{
                                     justifyContent: 'flex-end',
@@ -279,7 +278,7 @@ export default class ExternalValues extends Component {
 
 
                         <View style={styles.containerStyle}>
-                            <Text style={styles.labelStyle}>Quantity *</Text>
+                            <Text style={styles.labelStyle}>Quantity*</Text>
                             <TextInput
                                 placeholder='Ex: 22,000'
                                 style={[styles.inputStyle]}
@@ -302,7 +301,7 @@ export default class ExternalValues extends Component {
                         </View>
 
                         <View style={styles.containerStyle}>
-                            <Text style={styles.labelStyle}> Futures Price *</Text>
+                            <Text style={styles.labelStyle}> Futures Price*</Text>
                             <TextInput
                                 placeholder=' $3.9550'
                                 style={[styles.inputStyle]}

@@ -193,7 +193,7 @@ componentWillReceiveProps(newProps) {
                         </Text>
                     </View>
                     <View style={{ justifyContent: 'center', height: 50, marginLeft: 0, width: 520 }}>
-                        <Text style={{ fontSize: 12, color: 'rgb(159,169,186)' }}>Enter your farm information. We’ll use this to estimate your profitability, breakeven, and risk.</Text>
+                        <Text style={{ fontSize: 12, color: 'rgb(159,169,186)' }}>Enter your farm information. We’ll use this information to estimate your profitability, breakeven, and risk.</Text>
                     </View>
                     <View style={{ width: '20%', height: 40, justifyContent: 'center', marginHorizontal: 20, alignItems: 'center' }}>
                         <TouchableHighlight style={{ flex: 1, alignSelf: 'stretch', backgroundColor: '#279989', justifyContent: 'center', borderRadius: 5, alignItems: 'center', borderColor: '#279989' }} onPress={this.placeNewOrder.bind(this)}>
@@ -298,7 +298,7 @@ componentWillReceiveProps(newProps) {
                                 </View>
                             </View>
                         </View>
-                        <Text style={{color: 'white', paddingLeft: 16 }}> *Required fields </Text>
+                        <Text style={{color: 'white', paddingLeft: 16 }}> *Required</Text>
                     </View>
                 </View>
 
