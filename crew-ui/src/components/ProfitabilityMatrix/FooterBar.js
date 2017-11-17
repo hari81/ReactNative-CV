@@ -202,7 +202,7 @@ class FooterBar extends Component {
                 </View>
 
                 <Button buttonStyle={styles.placeOrderButtonStyle} textStyle={{ fontFamily: 'HelveticaNeue-Light', fontSize: 18, color: 'rgb(255,255,255)' }} onPress={this.matrixToPlaceOrder}>
-                    PLACE NEW ORDER NOW
+                    NEW ORDER
                 </Button>
             </View>
 

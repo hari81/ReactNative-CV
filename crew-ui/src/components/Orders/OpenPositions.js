@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, Image } from 'react-native';
+import { Text, TouchableHighlight, TouchableOpacity, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import * as common from '../../Utils/common';
 import bugsnag from '../../components/common/BugSnag';
 
 class OpenPositions extends Component {
@@ -25,7 +26,6 @@ class OpenPositions extends Component {
 
   openTradeReceipt() {
         Actions.pdfview({ orderId: this.props.item.id, confirm: this.props.item.confirm });
-        //this.props.tradeReceipt(this.props.item.confirm);
   }
 
   render() {
@@ -133,9 +133,9 @@ class OpenPositions extends Component {
         <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '13.18%' }}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT</Text>
-            <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
+            <TouchableOpacity onPress={this.openTradeReceipt.bind(this)}>
               <Image style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }} source={require('../common/img/PDF.png')} />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 25 }}>TRADE ID#</Text>
           <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
@@ -177,7 +177,7 @@ class OpenPositions extends Component {
                 </View>
             );
         } catch (error) {
-            bugsnag.notify(error);
+          common.handleError(error);
         }
   }
 }

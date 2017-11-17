@@ -20,10 +20,10 @@ export const OpenPositionsData = (crop) => {
                     return response.json();
                 }
                     if (response.status === 403) {
-                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE })});
+                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                         return;
                     }
-                common.createAlertErrorMessage(response, 'There was an issue in retrieving the open positions.');
+                common.handleError(response, 'There was an issue in retrieving the open positions.');
             })
             .then(opens => {
                 if (opens === undefined) {
@@ -50,7 +50,7 @@ export const OpenPositionsData = (crop) => {
                 }
             })
             .catch(error => {
-                common.createAlertErrorMessage(error, 'There was an issue in retrieving the open positions.');
+                common.handleError(error, 'There was an issue in retrieving the open positions.');
                 dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
             });
     };
@@ -61,13 +61,11 @@ export const tradeReceipt = (relativePath) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${POSITIONS_TRADE_RECEIPT_URL}${relativePath.substr(1, relativePath.length)}`;
-        //console.log('url', url);
         RNFetchBlob
             .config({
                 // add this option that makes response data to be stored as a file.
                 fileCache: true,
                 appendExt: 'pdf',
-                //path: DocumentDir
             })
             .fetch('GET', url, {
                 'Content-Type': 'application/json',
@@ -77,7 +75,6 @@ export const tradeReceipt = (relativePath) => {
                 Accept: 'application/pdf',
                 //'Cache-Control': 'no-store'
             })
-        //doGetTradeReceiptFetch(url, getState().auth.basicToken)
             .then((res) => {
             console.log('status code', res.respInfo.status);
                 if (res.respInfo.status === 403) {
@@ -86,10 +83,11 @@ export const tradeReceipt = (relativePath) => {
                     dispatch({ type: CLEAR_APPLICATION_STATE });
                     return;
                 }
-                //console.log('pdf path', res.path());
                 dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: res.path() });
             })
-            .catch(bugsnag.notify);
+            .catch(error => {
+                dispatch({ type: TRADE_RECEIPT_PDFVIEW, pdfPath: 'error' });
+                common.handleError(error, 'There was an issue in retrieving the Order Receipt.');
+            });
     };
 };
-

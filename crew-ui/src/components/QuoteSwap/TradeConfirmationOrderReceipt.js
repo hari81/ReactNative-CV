@@ -9,7 +9,6 @@ import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardActio
 import bugsnag from '../../components/common/BugSnag';
 
 class TradeConfirmationOrderReceipt extends Component {
-
     onBackToOrders() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
         this.props.dashBoardDataFetch(cropButData[0].cropYear, cropButData[0].code);
@@ -32,35 +31,30 @@ class TradeConfirmationOrderReceipt extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-            const {width, height} = Dimensions.get('window');
+            const { width, height } = Dimensions.get('window');
             return (
                 <View>
                     <StatusBar barStyle='light-content' />
-                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: 20}}/>
-                    <CommonHeader/>
-                    <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 63}}>
-                        <View style={{height: 83, backgroundColor: 'rgb(64,78,89)'}}/>
-                        <MyFarmTiles/>
+                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
+                    <CommonHeader />
+                    <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
+                        <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
+                        <MyFarmTiles />
                         <View>
                             <View style={styles.orderReceipt}>
 
                                 <Text style={styles.textOrderReceipt}> Order Receipt</Text>
                             </View>
-                            <View
-                                style={{backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16}}>
+                            <View style={{ backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16 }}>
                                 <Text style={styles.textCongratulations}> Congratulations! Your order has been
                                     received!</Text>
-                                <Image source={confirmtick} style={styles.imageStyle}/>
-                                <View style={[styles.messageView, {
-                                    height: height - 392,
-                                    justifyContent: 'space-around'
-                                }]}>
+                                <Image source={confirmtick} style={styles.imageStyle} />
+                                <View style={[styles.messageView, { height: height - 392, justifyContent: 'space-around' }]}>
                                     <View>
                                         <Text style={styles.orderSuccess}> Your order was successfully received. Your
                                             order number is:</Text>
-                                        <Text
-                                            style={styles.orderNumber}> {this.props.orderId} {this.props.message}</Text>
-                                        <Text style={[styles.textStyle, {paddingTop: 20}]}>Once your order is complete
+                                        <Text style={styles.orderNumber}> {this.props.orderId} </Text>
+                                        <Text style={[styles.textStyle, { paddingTop: 20 }]}>Once your order is complete
                                             you can view your trade details in the</Text>
                                         <Text style={styles.textStyle}>Positions & Orders screen by clicking the button
                                             below. The Position</Text>
@@ -85,7 +79,7 @@ class TradeConfirmationOrderReceipt extends Component {
                                             onPress={this.onBackToOrders.bind(this)}
                                         >
                                             <Text
-                                                style={[styles.buttonTextStyle, {color: 'rgb(159,169,186)'}]}
+                                                style={[styles.buttonTextStyle, { color: 'rgb(159,169,186)' }]}
                                             >
                                                 BACK TO DASHBOARD
                                             </Text>
@@ -105,11 +99,7 @@ class TradeConfirmationOrderReceipt extends Component {
                                             style={styles.buttonStyle}
                                             onPress={this.placeNewOrder.bind(this)}
                                         >
-                                            <Text
-                                                style={styles.buttonTextStyle}
-                                            >
-                                                PLACE NEW ORDER NOW
-                                            </Text>
+                                            <Text style={styles.buttonTextStyle}>NEW ORDER</Text>
                                         </TouchableHighlight>
                                     </View>
                                 </View>

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet, Dimensions, StatusBar, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
-import { CommonHeader, InfoPopup } from '../../components/common';
+import { CommonHeader, InfoPopup, Button } from '../../components/common';
 import MyFarmTiles from '../common/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import Info from '../common/img/Info.png';
@@ -23,6 +23,18 @@ class ReviewOrder extends Component {
         this.priceInfo = { top: 205, left: 650, width: 300, arrowPosition: 'top', message: this.props.infoEstimatedNetPrice };        
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (common.isValueExists(nextProps.isSpinActive)) {
+            if (nextProps.isSpinActive) {
+                this.setState({ isPlaceOrderEnabled: false });
+            } else {
+                if (this.state.isTermsAccepted) {
+                    this.setState({ isPlaceOrderEnabled: true });
+                }
+            }
+        }
+    }
+        
     onModifyOrder() {
         Actions.pop();
     }
@@ -70,28 +82,25 @@ class ReviewOrder extends Component {
             if (this.props.isLimitOrder) {
                 limitViewGTD = (
                     <View style={styles.quoteField}>
-                        <Text style={styles.quoteLabel}>Your order will be valid until</Text>
-                        <Text
-                            style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
+                        <Text style={styles.quoteLabel}>Order Valid Until</Text>
+                        <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
                     </View>
                 );
                 limitViewPrice = (
                     <View style={styles.quoteField}>
-                        <Text style={styles.quoteLabel}>Your limit price is</Text>
-                        <Text
-                            style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
+                        <Text style={styles.quoteLabel}>Limit Price</Text>
+                        <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
                     </View>
                 );
             }
             let lMidMarketMark = null;
             if (!this.props.isRepriceOrder) {
                 lMidMarketMark = (
-                    <View style={[styles.quoteField, {marginBottom: 0, marginRight: 60, alignItems: 'center'}]}>
+                    <View style={[styles.quoteField, { marginBottom: 0, marginRight: 60, alignItems: 'center' }]}>
                         <Text style={[styles.quoteLabel, styles.marketLabel]}>MID MARKET MARK</Text>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Text
-                                style={[styles.quoteData, styles.marketData]}>{parseFloat(this.props.calcs.midMarketMarkCents).toFixed(1)}</Text>
-                            <Text style={[styles.quoteData, styles.marketLabel, {fontSize: 14}]}> Cents
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={[styles.quoteData, styles.marketData]}>{parseFloat(this.props.calcs.midMarketMarkCents).toFixed(1)}</Text>
+                            <Text style={[styles.quoteData, styles.marketLabel, { fontSize: 14 }]}> Cents
                                 per {common.capitalizeWord(this.props.data.units)}</Text>
                         </View>
                     </View>
@@ -102,14 +111,14 @@ class ReviewOrder extends Component {
 
                 <View>
                     <StatusBar barStyle='light-content' />
-                    <View style={{backgroundColor: '#000', width, height: 20}}/>
-                    <CommonHeader/>
-                    <View style={{backgroundColor: '#eff4f7'}}>
-                        <View style={{height: 83, width, backgroundColor: '#404e59'}}/>
+                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
+                    <CommonHeader />
+                    <View style={{ backgroundColor: '#eff4f7' }}>
+                        <View style={{ height: 83, width, backgroundColor: '#404e59' }} />
 
-                        <MyFarmTiles/>
+                        <MyFarmTiles />
 
-                        <View style={{marginTop: 20}}>
+                        <View style={{ marginTop: 20 }}>
                             <View style={styles.backHeader}>
                                 <View style={styles.headerTextBox}>
                                     <Text style={styles.headerText}>Review Your Order Details</Text>
@@ -119,69 +128,57 @@ class ReviewOrder extends Component {
 
                         <View style={styles.reviewMain}>
                             <View style={styles.reviewContainer}>
-                                <Text style={styles.reviewTitle}>Your {this.props.tradeTitle} details have been set.
-                                    Let's review it and complete your order.</Text>
+                                <Text style={styles.reviewTitle}>Let’s review the details and complete your order.</Text>
                                 <View style={styles.quoteContainer}>
                                     {/* quote fields */}
                                     <View style={styles.quoteFields}>
-                                        <View style={{flex: 1}}>
+                                        <View style={{ flex: 1 }}>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your crop is</Text>
-                                                <Text
-                                                    style={styles.quoteData}>{this.props.commodity.name} {this.props.commodity.year}</Text>
+                                                <Text style={styles.quoteLabel}>Crop</Text>
+                                                <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.commodity.year}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your product is a</Text>
+                                                <Text style={styles.quoteLabel}>Product</Text>
                                                 <Text style={styles.quoteData}>{this.props.productDesc}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your trade direction is</Text>
+                                                <Text style={styles.quoteLabel}>Trade Direction</Text>
                                                 <Text style={styles.quoteData}>{this.props.buySell}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your contract details are</Text>
-                                                <Text
-                                                    style={styles.quoteData}>{this.props.underlying.underlyingMonthDesc} {this.props.underlying.underlyingYear}</Text>
+                                                <Text style={styles.quoteLabel}>Contract Details</Text>
+                                                <Text style={styles.quoteData}>{this.props.underlying.underlyingMonthDesc} {this.props.underlying.underlyingYear}</Text>
                                             </View>
                                         </View>
-                                        <View style={{flex: 1}}>
+                                        <View style={{ flex: 1 }}>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your contract expiry date is</Text>
-                                                <Text
-                                                    style={styles.quoteData}>{common.formatDate(this.props.data.metadata.expirationDate, 5)}</Text>
+                                                <Text style={styles.quoteLabel}>Contract Expiry Date</Text>
+                                                <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.expirationDate, 5)}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your {this.props.data.units} quantity
-                                                    is</Text>
-                                                <Text
-                                                    style={styles.quoteData}>{common.formatNumberCommas(this.props.data.metadata.quantity)}</Text>
+                                                <Text style={styles.quoteLabel}>{common.capitalizeWord(this.props.data.units)} Quantity</Text>
+                                                <Text style={styles.quoteData}>{common.formatNumberCommas(this.props.data.metadata.quantity)}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your order type is</Text>
-                                                <Text
-                                                    style={styles.quoteData}>{common.capitalizeWord(this.props.data.metadata.orderType)}
-                                                    Order</Text>
+                                                <Text style={styles.quoteLabel}>Order Type</Text>
+                                                <Text style={styles.quoteData}>{common.capitalizeWord(this.props.data.metadata.orderType)} Order</Text>
                                             </View>
                                             {limitViewGTD}
                                         </View>
-                                        <View style={{flex: 1}}>
+                                        <View style={{ flex: 1 }}>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>Your service fee is</Text>
-                                                <Text
-                                                    style={styles.quoteData}>${parseFloat(this.props.calcs.midMarketMark).toFixed(4)}</Text>
+                                                <Text style={styles.quoteLabel}>Service Fee</Text>
+                                                <Text style={styles.quoteData}>${parseFloat(this.props.calcs.midMarketMark).toFixed(4)}</Text>
                                             </View>
                                             {limitViewPrice}
                                             <View style={styles.quoteField}>
-                                                <View style={{flexDirection: 'row'}}>
-                                                    <Text style={styles.quoteLabel}>Your estimated Net price is</Text>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={styles.quoteLabel}>Estimated Net Price</Text>
                                                     <TouchableOpacity onPress={this.showPriceInfo.bind(this)}>
-                                                        <Image
-                                                            style={{width: 16, height: 16, marginLeft: 5, marginTop: 2}}
-                                                            source={Info}/>
+                                                        <Image style={{ width: 16, height: 16, marginLeft: 5, marginTop: 2 }} source={Info} />
                                                     </TouchableOpacity>
                                                 </View>
-                                                <Text
-                                                    style={styles.quoteData}>${parseFloat(this.props.calcs.totalPrice).toFixed(4)}</Text>
+                                                <Text style={styles.quoteData}>${parseFloat(this.props.calcs.totalPrice).toFixed(4)}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -189,17 +186,18 @@ class ReviewOrder extends Component {
                                     <View>
                                         <View style={styles.quoteMarketContainer}>
                                             {lMidMarketMark}
-                                            <View style={[styles.quoteField, {marginBottom: 0, alignItems: 'center'}]}>
+                                            <View style={[styles.quoteField, { marginBottom: 0, alignItems: 'center' }]}>
                                                 <Text style={[styles.quoteLabel, styles.marketLabel]}>INDICATIVE MARKET
                                                     PRICE</Text>
-                                                <Text
-                                                    style={[styles.quoteData, styles.marketData]}>${parseFloat(this.props.data.price).toFixed(4)}</Text>
+                                                <Text style={[styles.quoteData, styles.marketData]}>${parseFloat(this.props.data.price).toFixed(4)}</Text>
                                             </View>
                                         </View>
                                         <View style={styles.termsContainer}>
-                                            <Switch style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd'
-                                                    onValueChange={this.onAcceptTerms.bind(this)}
-                                                    value={this.state.isTermsAccepted}/>
+                                            <Switch 
+                                                style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd'
+                                                onValueChange={this.onAcceptTerms.bind(this)}
+                                                value={this.state.isTermsAccepted}
+                                            />
                                             <Text>Agree to </Text>
                                             <TouchableOpacity onPress={this.showTermsConditions.bind(this)}>
                                                 <Text style={styles.termsLink}>Terms and Conditions</Text>
@@ -210,16 +208,13 @@ class ReviewOrder extends Component {
                                     <View style={styles.buttonContainer}>
                                         <View style={[styles.reviewButtonStyle, styles.backButtonStyle]}>
                                             <TouchableOpacity onPress={this.onModifyOrder.bind()}>
-                                                <Text style={[styles.reviewButtonTextStyle, {color: '#9fa9ba'}]}>MODIFY
+                                                <Text style={[styles.reviewButtonTextStyle, { color: '#9fa9ba' }]}>MODIFY
                                                     ORDER</Text>
                                             </TouchableOpacity>
                                         </View>
-                                        <View
-                                            style={[styles.reviewButtonStyle, this.state.isPlaceOrderEnabled ? styles.reviewButtonStyleEnabled : styles.reviewButtonStyleDisabled]}>
-                                            <TouchableOpacity onPress={this.onPlaceOrderNow.bind(this)}
-                                                              disabled={!this.state.isPlaceOrderEnabled}>
-                                                <Text style={[styles.reviewButtonTextStyle, {color: '#fff'}]}>PLACE
-                                                    ORDER NOW</Text>
+                                        <View style={[styles.reviewButtonStyle, this.state.isPlaceOrderEnabled ? styles.reviewButtonStyleEnabled : styles.reviewButtonStyleDisabled]}>
+                                            <TouchableOpacity onPress={this.onPlaceOrderNow.bind(this)} disabled={!this.state.isPlaceOrderEnabled}>
+                                                <Text style={[styles.reviewButtonTextStyle, { color: '#fff' }]}>PLACE ORDER NOW</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -238,16 +233,23 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
-const termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
+const termsInfo = { 
+    top: 150, 
+    left: 300, 
+    width: 500, 
+    arrowPosition: 'bottom', 
+    message: DisclaimerData.disclosure,
+    link: <Button buttonStyle={{}} textStyle={{ marginTop: -10, fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', textDecorationLine: 'underline' }} onPress={() => Linking.openURL('https://www.cargill.com/price-risk/crm/pre-trade-disclosure')}>Pre-Trade Disclosure</Button>
+};
 
 const styles = StyleSheet.create({
     /* container */
-    reviewMain: { height: height - 100, backgroundColor: '#eff4f7' },
-    reviewContainer: { height: height - 240, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 15, paddingBottom: 50 },
+    reviewMain: { height: height - 120, backgroundColor: '#eff4f7' },
+    reviewContainer: { height: height - 260, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 15, paddingBottom: 50 },
     reviewTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 32, color: '#fff', marginRight: 100, marginBottom: 15 },
 
     /* quote fields */
-    quoteContainer: { height: height - 360, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 120, paddingRight: 120 },
+    quoteContainer: { height: height - 345, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 120, paddingRight: 120 },
     quoteFields: { flexDirection: 'row', flex: 1 },
     quoteField: { marginBottom: 10 },
     quoteLabel: { fontFamily: 'Helveticaneue-Thin', color: '#3b4a55', fontSize: 14 },
@@ -307,7 +309,8 @@ const mapStateToProps = state => {
         isLimitOrder: isLimit,
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade',
-        infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue
+        infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue,
+        isSpinActive: state.reviewQuote.spinFlag
     };
 };
 

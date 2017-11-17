@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, NetInfo } from 'react-native';
 import bugsnag from '../components/common/BugSnag';
 
 /* puts numbers in a number value (ex. 1000 -> 1,000 1234567.23 -> 1,234,567.23) */
@@ -175,11 +175,8 @@ export function minusBeforeDollarSign(num, decimals) {
     return '$' + parseFloat(num).toFixed(decimals);
 }
 
-/*  used to show a consistent alert message to the user for unexpected errors
-    if possible, show the messages returned from the server in the oError object
-*/
-export function createAlertErrorMessage(oError, initialMessage = '') {
-    let msg = `\n${initialMessage}`;
+export function parseErrorInfo(oError, initialMessage) {
+    let msg = initialMessage;
     if (oError !== null && oError !== undefined) {
         if (oError.length > 0) {
             if (isValueExists(oError[0].internalMessage)) {
@@ -194,6 +191,56 @@ export function createAlertErrorMessage(oError, initialMessage = '') {
         }
     }
     msg += '\n\n Please contact the trading desk at 1-952-742-7414';
+    return msg;
+}
+
+/*  used to show a consistent alert message to the user for unexpected errors
+    if possible, show the messages returned from the server in the oError object
+*/
+export function handleError(oError, initialMessage = '') {
+    let msg = '\n';
+
+    //first, check connection status
+    NetInfo.isConnected.fetch().then(isConnected => {
+        if (isConnected) {
+            //we're connected so issue was with velo call...parse error message(s), show to user, and log to bugsnag if not development
+            msg += parseErrorInfo(oError, initialMessage);
+            //show alert to user and log to bugsnag if not in Dev mode
+            Alert.alert('Cargill Price Hedging', msg);
+            if (__DEV__ === true) { console.log('dev error', oError); }
+            else { bugsnag.notify(oError); }
+        } else {
+            try {
+                fetch('https://www.google.com', { method: 'GET' })
+                .then(response => {
+                    if (response.status === 200) {
+                        //actually connected so parse like we are and blame netinfo for being not great at its job
+                        msg += parseErrorInfo(oError, initialMessage);
+                        Alert.alert('Cargill Price Hedging', msg);
+                        if (__DEV__ === true) { 
+                            if (isValueExists(oError)) console.log('dev error', oError);
+                            else console.log('dev error');
+                        } else { 
+                            bugsnag.notify(oError); 
+                        }
+                    } else {
+                        //anything other than 202 is not connected...just show no internet connection error to user
+                        showNoInternetConnectionError(null);
+                    }
+                })
+                .catch(error => {
+                    showNoInternetConnectionError(error);
+                });
+            } catch (error) {
+                showNoInternetConnectionError(error);
+            }
+        }
+    });
+}
+
+function showNoInternetConnectionError(oError) {
+    //not connected...just show no internet connection error to user
+    const msg = 'There is currently no internet connection available.\n\nPlease check your internet settings and try again.';
+    console.log('connection error', oError);
     Alert.alert('Cargill Price Hedging', msg);
-    bugsnag.notify(oError);
 }

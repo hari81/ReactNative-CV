@@ -8,10 +8,17 @@ export const productType = () => {
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${ORDER_SERVICES_URL}riskproducts`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => response.json(), rej => Promise.reject(rej))
-            .then(riskProducts =>
-                dispatch(riskProductData(riskProducts))
-            )
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return 'invalid';
+                }
+                }, rej => Promise.reject(rej))
+            .then(riskProducts => {
+                if (riskProducts === 'invalid') { return; }
+                dispatch(riskProductData(riskProducts));
+            })
             .catch(/*(status, error) => {
                 console.log(`error ${error}`);
             }*/bugsnag.notify);
