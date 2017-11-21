@@ -47,12 +47,12 @@ class SelectQuantity extends Component {
 
     onFocusMake =() => {
         this.setState({ quantity: this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1') });
-    }
+    };
     onBlurMake = () => {
         const sq = common.formatNumberCommas(this.state.quantity);
         this.setState({ quantity: sq });
         this.props.onQuantityChange(sq);
-    }
+    };
 
     onChangeQuantity(text) {
         if (/[0-9]+$/.test(text) || text === '') {
@@ -128,7 +128,6 @@ class SelectQuantity extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        console.log(this.state)
         const priceUpTo = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(2 * parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         const addQuant = common.isValueExists(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1')) ? common.formatNumberCommas(parseInt(this.state.quantity.replace(/(\d+),(?=\d{3}(\D|$))/g, '$1'))) : '    -';
         let risk110Name = null;
@@ -146,27 +145,27 @@ class SelectQuantity extends Component {
                 <View style={{ flexDirection: 'row' }}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>What quantity do you want to hedge today?</Text></View>
                 <View style={styles.productDetailsView}>
-                    <Text style={{ fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Product Details</Text>
+                    <Text style={styles.pDetails}>Product Details</Text>
                     <View style={{ flexDirection: 'row' }}>
                     <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Your Crop is</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Product is a </Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{risk110Name}</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your trade direction is</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your product details are</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
+                        <Text style={styles.pHeader}>Crop</Text>
+                        <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                        <Text style={styles.pHeader}>Product</Text>
+                        <Text style={styles.pBody}>{risk110Name}</Text>
+                        <Text style={styles.pHeader}>Trade direction</Text>
+                        <Text style={styles.pBody}>Buy</Text>
+                        <Text style={styles.pHeader}>Contract Month</Text>
+                        <Text style={styles.pBody}>
                             {this.state.cMonth} {this.state.cYear}
                         </Text>
                     </View>
                     <View style={{ marginLeft: 20, marginTop: 6 }}>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Current Market Price is</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>$ {this.state.strike}</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>Your Additional Qty is </Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{addQuant}</Text>
-                        <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)' }}>You May Price Up To</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{priceUpTo}</Text>
+                        <Text style={styles.pHeader}>Current Market Price</Text>
+                        <Text style={styles.pBody}>$ {this.state.strike}</Text>
+                        <Text style={styles.pHeader}>Contigent Offer Quantity</Text>
+                        <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
+                        <Text style={styles.pHeader}>You May Price Up To</Text>
+                        <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                     </View>
                     </View>
                 </View>
@@ -217,7 +216,10 @@ const styles = {
     subTextStyle: { fontSize: 32, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
     updownIcon: { fontSize: 36, fontFamily: 'HelveticaNeue-Bold', color: '#fff', width: 48, borderRadius: 24, borderWidth: 2, borderColor: '#fff', paddingLeft: 15 },
     bushelLimitText: { fontSize: 15, fontFamily: 'HelveticaNeue', color: '#e7b514' },
-    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.01, marginTop: 41 }
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.01, marginTop: 41 },
+    pDetails: { fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' },
+    pHeader: { fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 },
+    pBody: { fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }
 }
 const mapStateToProps = state => {
     return {

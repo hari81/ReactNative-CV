@@ -7,7 +7,8 @@ import MyCropButton from '../../common/CropButtons/MyCropButton';
 import MyFarmTiles from '../../common/MyFarmTiles';
 import ProductDetails from './ProductDetails';
 import { SuggestedPrice } from './SuggestedPrice';
-import { estimateProfit } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
+import { estimateProfit } from '../../../redux/actions/QuoteSwap/EstimatedProfitAction';
+import * as common from '../../../Utils/common';
 import bugsnag from '../.././common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
@@ -29,13 +30,14 @@ class SuggestedQuote extends Component {
     };
 
     componentDidMount() {
-        this.props.estimateProfit('Start');
-        this.props.estimateProfit();
+        this.props.estimateProfit(1, 'Start');
+        this.props.estimateProfit(1);
     }
     customizeOrder = () => {
         const { cMonth, cYear, quantity } = this.props.previousState;
-        Actions.customizeOrder({ cMonth, cYear, quantity });
-    }
+        const { strike, bonusPrice, price } = this.props.suggestQuote;
+        Actions.customizeOrder({ cMonth, cYear, quantity, strike, bonusPrice, price });
+    };
     reviewOrder = () => {
         Actions.structureOrderReview();
     };
@@ -43,8 +45,8 @@ class SuggestedQuote extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             const { strike, bonusPrice, accrualStartDate, price, underlyingPrice } = this.props.suggestQuote;
-            const { cMonth, cYear, expirationDate, quantity } = this.props.previousState;
-            const contractMonth = `${cMonth} ${cYear}`;
+            const { underlying, expirationDate, quantity } = this.props.previousState;
+            const contractMonth = `${common.createUnderlyingObject(underlying).underlyingMonthDesc} ${common.createUnderlyingObject(underlying).underlyingYear}`;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
                 return (
                     <View>
@@ -69,7 +71,7 @@ class SuggestedQuote extends Component {
                                         />
                                         <Text style={styles.hedgeText}>Would you like to hedge at these levels?</Text>
                                         <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
-                                            <ImageButton text='YES - Reviw Order ' onPress={this.reviewOrder} />
+                                            <ImageButton text='YES - Review Order ' onPress={this.reviewOrder} />
                                             <ImageButton text='NO - Customize Order' onPress={this.customizeOrder}/>
                                         </View>
                                     </View>
@@ -101,7 +103,8 @@ class SuggestedQuote extends Component {
 const mapStateToProps = state => {
     return {
         Crops: state.cropsButtons.cropButtons,
-        acc: state.account
+        acc: state.account,
+        sug: state.eProfit
     };
 };
 const styles = {

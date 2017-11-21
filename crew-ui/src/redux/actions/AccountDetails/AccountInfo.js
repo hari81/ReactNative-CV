@@ -61,17 +61,16 @@ export const accountDetails = () => {
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.crmSToken)
                             .then(response => {
-                                if (response.status === 200) {
+                                console.log(response);
+                                if (response.ok) {
                                     return response.json();
                                 }
                                 common.handleError(null, 'There was an issue in retrieving the dashboard data.');
-                                return null;
-                            })
-                            .then(dashBoardData => { 
-                                if (common.isValueExists(dashBoardData)) {
-                                    console.log(dashBoardData);
-                                    dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
-                                }
+                                return 'invalid';
+                            }, rej => Promise.reject(rej))
+                            .then(dashBoardData => {
+                                if (dashBoardData === 'invalid') { return; }
+                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
                             })
                             .catch(error => {
                                 common.handleError(error);

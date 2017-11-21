@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as common from '../../../Utils/common';
 
 const ProductDetails = (props) => {
-    const { marketPrice, additionalQtyPrice, contractMonth, quantity, cropYear } = props;
+    const { marketPrice, additionalQtyPrice, contractMonth, quantity } = props;
     const quantityDouble = 2 * Number(common.cleanNumericString(quantity));
     const cropName = props.cropBut.selectedCropName;
     const uom = props.acc.filter(item => item.name === cropName);
@@ -14,11 +14,11 @@ const ProductDetails = (props) => {
             <View style={{ flexDirection: 'row', marginHorizontal: 15, justifyContent: 'space-between' }}>
                 <View style={{ justifyContent: 'space-around' }}>
                     <Text style={styles.textValue}>Crop</Text>
-                    <Text style={styles.textHeader}>{cropYear}</Text>
+                    <Text style={styles.textHeader}>{cropName} {props.cropBut.selectedId.slice(-4)}</Text>
                     <Text style={styles.textValue}>Product</Text>
                     <Text style={styles.textHeader}>{props.riskProduct.name}</Text>
                     <Text style={styles.textValue}>Trade direction</Text>
-                    <Text style={styles.textHeader}>Sell</Text>
+                    <Text style={styles.textHeader}>Buy</Text>
                     <Text style={styles.textValue}>Contract month</Text>
                     <Text style={styles.textHeader}>{contractMonth}</Text>
                 </View>
@@ -35,7 +35,7 @@ const ProductDetails = (props) => {
                 </View>
             </View>
             <Text style={[styles.estimatedProfit, { paddingLeft: 15 }]}>ESTIMATED PROFIT</Text>
-            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${props.sug.estProfitStart} to ${props.sug.estProfitEnd}/acre</Text>
+            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${props.sug.estProfitStart_S} to ${props.sug.estProfitEnd_S}/acre</Text>
         </View>
     );
 };
@@ -80,7 +80,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return { riskProduct: state.products[0],
-        sug: state.optimalQuote,
+        sug: state.eProfit,
         acc: state.account.defaultAccount.commodities,
         cropBut: state.cropsButtons
     };

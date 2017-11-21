@@ -36,6 +36,7 @@ class SelectContractMonthList extends Component {
         const underlying = this.props.parentState.underlying || st(this.props, ['contractMonth', 'contract', 0, 'underlying'])
         const lastTradeDate = this.props.parentState.lastTradeDate || st(this.props, ['contractMonth', 'contract', 0, 'lastTradeDate'])
         Actions.selectQuantity({ cMonth, cYear, price, underlying, lastTradeDate });
+       // Actions.structureOrderReview();
     }
     onRefresh() {
         const { cropYear, cropCode } = this.props.contractMonth.contract[0];
@@ -71,15 +72,15 @@ class SelectContractMonthList extends Component {
                             </View>
                           <View style={styles.productDetailsView}>
                               <View style={{ marginLeft: 14, marginTop: 6 }}>
-                                  <Text style={{ fontSize: 24, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Product Details</Text>
-                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Crop is</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
-                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your Product is a </Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{risk110Name}</Text>
-                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your trade direction is</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>Sell</Text>
-                                  <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 }}>Your product details are</Text>
-                                  <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>
+                                  <Text style={styles.pDetails}>Product Details</Text>
+                                  <Text style={styles.pHeader}>Crop</Text>
+                                  <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                                  <Text style={styles.pHeader}>Product</Text>
+                                  <Text style={styles.pBody}>{risk110Name}</Text>
+                                  <Text style={styles.pHeader}>Trade direction</Text>
+                                  <Text style={styles.pBody}>Buy</Text>
+                                  <Text style={styles.pHeader}>Contract Month</Text>
+                                  <Text style={styles.pBody}>
                                       {this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
                                   </Text>
                               </View>
@@ -132,7 +133,10 @@ const styles = {
     monthYearView: { flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(239,244,247)', borderTopLeftRadius: 4, borderTopRightRadius: 4 },
     monthYearText: { color: 'rgb(59,76,89)', fontSize: 18, fontFamily: 'HelveticaNeue' },
     priceView: { flex: 3, justifyContent: 'center', alignItems: 'center' },
-    priceText: { color: 'rgb(60,76,88)', fontSize: 30, fontFamily: 'HelveticaNeue-Bold' }
+    priceText: { color: 'rgb(60,76,88)', fontSize: 30, fontFamily: 'HelveticaNeue-Bold' },
+    pDetails: { fontSize: 24, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' },
+    pHeader: { fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 },
+    pBody: { fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }
 }
 const mapStateToProps = state => {
     return {
