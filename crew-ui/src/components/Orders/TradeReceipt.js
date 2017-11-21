@@ -9,40 +9,34 @@ import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
 class TradeReceipt extends Component {
     constructor() {
         super();
-        this.state = {
+        this.state = { 
             pdfloading: false,
             pdferror: false
         };
     }
+
     componentDidMount() {
         this.props.tradeReceipt(this.props.confirm);
     }
     componentWillReceiveProps(newProps) {
     //console.log(newProps.pdfview);
-    setTimeout(() =>
+       setTimeout(() =>
             this.setState({ pdfloading: true }), 1000);
         if (newProps.pdfview === 'error') {
             this.setState({ pdferror: true });
         }
     }
+
     renderPdfView() {
         if (!this.state.pdfloading) {
-            return (<View
-                style={{ justifyContent: 'center', flexDirection: 'column' }}>
-                <Text
-                    style={{
-                        marginTop: 30,
-                        color: 'white',
-                        textAlign: 'center',
-                        fontSize: 25,
-                        marginBottom: 30
-                    }}
-                >
-                    Loading trade receipt for id: {this.props.orderId}
-
-                </Text>
-                <Spinner size='large' />
-            </View>);
+            return (
+                <View style={{ justifyContent: 'center', flexDirection: 'column' }}>
+                    <Text style={{ marginTop: 30, color: 'white', textAlign: 'center', fontSize: 25, marginBottom: 30 }}>
+                        Loading Trade Receipt for Id: {this.props.orderId}
+                    </Text>
+                    <Spinner size='large' />
+                </View>
+            );
         }
         if (this.state.pdferror) {
             return (
@@ -51,27 +45,21 @@ class TradeReceipt extends Component {
                 </View>
             );
         }
-       return (
-           <WebView
-            style={{ backgroundColor: 'rgb(64,78,89)' }}
-            source={{ uri: `file://${this.props.pdfview}` }}
-           />
-       );
-
+        return (
+            <WebView 
+                style={{ backgroundColor: 'rgb(64,78,89)' }} 
+                source={{ uri: `file://${this.props.pdfview}` }}
+            />
+        );
     }
 
     render() {
         try {
             return (
                 <View style={styles.container}>
-                    <View
-                        style={{
-                            backgroundColor: 'black',
-                            height: 20
-                        }}
-                    />
+                    <View style={{ backgroundColor: 'black', height: 20 }} />
                     <CommonHeader />
-                    <Button color='white' title='<<Back to Positions' onPress={() => Actions.pop()} />
+                    <Button color='white' title='<< Back to Positions' onPress={() => Actions.pop()} />
                     {this.renderPdfView()}
                 </View>);
         } catch (error) {
@@ -89,7 +77,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-    return { pdfview: state.openPositions.receipt };
+    return { 
+        pdfview: state.openPositions.receipt
+    };
 };
 
 export default connect(mapStateToProps, { tradeReceipt })(TradeReceipt);

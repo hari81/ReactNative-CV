@@ -49,9 +49,7 @@ render() {
                     </View>
                 </View>
                 <View style={{width: 130, height: 118, backgroundColor: 'rgb(89,108,121)', justifyContent: 'center'}}>
-                    <Text style={{color: 'rgb(255,255,255)', fontSize: 10, textAlign: 'center'}}> TOGGLE ON/OFF TO
-                        INCLUDE BASIS IN
-                        CALCULATIONS </Text>
+                    <Text style={{color: 'rgb(255,255,255)', fontSize: 10, textAlign: 'center'}}>INCLUDE BASIS IN CALCULATIONS</Text>
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 15}}>
                         <Text style={{color: 'rgb(255,255,255)'}}>OFF</Text>
                         <Switch

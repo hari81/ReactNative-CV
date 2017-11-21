@@ -8,34 +8,32 @@ import bugsnag from '../../common/BugSnag';
 
 class TradeConfirmationError extends Component {
     onBackToOrders() {
-        Actions.dashboard();
+        Actions.quoteswap();
     }
 
     render() {
         try {
-            const {width, height} = Dimensions.get('window');
+            const { width, height } = Dimensions.get('window');
             return (
                 <View>
                     <StatusBar barStyle='light-content' />
-                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: 20}}/>
-                    <CommonHeader/>
-                    <View style={{backgroundColor: 'rgb(239,244,247)', height: height - 63}}>
-                        <View style={{height: 83, backgroundColor: 'rgb(64,78,89)'}}/>
-                        <MyFarmTiles/>
+                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
+                    <CommonHeader />
+                    <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 63 }}>
+                        <View style={{ height: 83, backgroundColor: 'rgb(64,78,89)' }} />
+                        <MyFarmTiles />
                         <View style={styles.orderReceipt}>
                             <Text style={styles.textOrderReceipt}> Order Receipt</Text>
                         </View>
-                        <View style={{backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16}}>
+                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: height - 255, marginHorizontal: 16 }}>
                             <Text style={styles.textOopsStyle}> Ooops! There was a problem with your order</Text>
-                            <Image source={ec} style={styles.imageStyle}/>
-                            <View style={[styles.textMessage, {height: height - 392}]}>
-                                <Text style={[styles.textStyle, {paddingTop: 100}]}>Error Your order was
-                                    rejected.</Text>
+                            <Image source={ec} style={styles.imageStyle} />
+                            <View style={[styles.textMessage, { height: height - 392 }]}>
+                                <Text style={[styles.textStyle, { paddingTop: 100 }]}>There was an issue with your order. Please review the order data and submit again.</Text>
 
                                 <Text style={styles.textStyle}>{this.props.message}</Text>
 
-                                <Text style={[styles.textStyle, {marginTop: 20}]}>Please contact the trading desk at
-                                    1-952-742-7414</Text>
+                                <Text style={[styles.textStyle, { marginTop: 20 }]}>If there problem persists, please contact the trading desk at 1-952-742-7414</Text>
                                 <View style={styles.buttonView}>
                                     <TouchableHighlight
                                         style={[styles.buttonStyle]}

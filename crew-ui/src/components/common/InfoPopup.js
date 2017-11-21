@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import cancelimage from '../common/img/Cancel-20.png';
 import bugsnag from '../common/BugSnag';
+import * as common from '../../Utils/common';
 
 const InfoPopup = ({ popupInfo, onClose }) => {
     try {
@@ -12,31 +13,42 @@ const InfoPopup = ({ popupInfo, onClose }) => {
         const arrowPosition = popupInfo.arrowPosition;
         const boxmessage = popupInfo.message;
 
+        let tLink = null;
+        if (common.isValueExists(popupInfo.link)) {
+            tLink = (
+                <View style={{ paddingLeft: 25, marginBottom: 20 }}>
+                    {popupInfo.link}
+                </View>
+            );
+        }
+
         let popup = (
-            <View style={{position: 'absolute', marginTop: top, marginLeft: left}}>
-                <View style={[styles.triangle, styles.triangleTop, {marginLeft: arrowleft}]}/>
-                <View style={[styles.messageBox, {width: boxwidth}]}>
+            <View style={{ position: 'absolute', marginTop: top, marginLeft: left }}>
+                <View style={[styles.triangle, styles.triangleTop, { marginLeft: arrowleft }]} />
+                <View style={[styles.messageBox, { width: boxwidth }]}>
                     <TouchableOpacity onPress={onClose}>
-                        <View style={{marginLeft: boxwidth - 25, marginTop: 5}}>
-                            <Image source={cancelimage} style={{width: 20, height: 20}}/>
+                        <View style={{ marginLeft: boxwidth - 25, marginTop: 5 }}>
+                            <Image source={cancelimage} style={{ width: 20, height: 20 }} />
                         </View>
                     </TouchableOpacity>
                     <Text style={styles.messageBoxText}>{boxmessage}</Text>
+                    {tLink}
                 </View>
             </View>
         );
         if (arrowPosition === 'bottom') {
             popup = (
-                <View style={{position: 'absolute', marginTop: top, marginLeft: left}}>
-                    <View style={[styles.messageBox, {width: boxwidth}]}>
+                <View style={{ position: 'absolute', marginTop: top, marginLeft: left }}>
+                    <View style={[styles.messageBox, { width: boxwidth }]}>
                         <TouchableOpacity onPress={onClose}>
-                            <View style={{marginLeft: boxwidth - 25, marginTop: 5}}>
-                                <Image source={cancelimage} style={{width: 20, height: 20}}/>
+                            <View style={{ marginLeft: boxwidth - 25, marginTop: 5 }}>
+                                <Image source={cancelimage} style={{ width: 20, height: 20 }} />
                             </View>
                         </TouchableOpacity>
                         <Text style={styles.messageBoxText}>{boxmessage}</Text>
+                        {tLink}
                     </View>
-                    <View style={[styles.triangle, styles.triangleBottom, {marginLeft: arrowleft}]}/>
+                    <View style={[styles.triangle, styles.triangleBottom, { marginLeft: arrowleft }]} />
                 </View>
             );
         }

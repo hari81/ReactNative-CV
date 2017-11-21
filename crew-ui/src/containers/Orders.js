@@ -303,7 +303,7 @@ class Orders extends Component {
                             {/*
                               <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
                                   <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }}>
-                                      <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>PLACE NEW ORDER NOW</Text>
+                                      <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>NEW ORDER</Text>
                                   </View>
                               </TouchableHighlight>
                             */}

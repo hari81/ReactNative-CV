@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
     spinFlag: false,
     bushelSpinFlag: false,
-    contract: ''
+    contract: '',
+    isError: false
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -14,6 +15,8 @@ export default function (state = INITIAL_STATE, action) {
             return Object.assign({}, state, { bushelSpinFlag: false });
         case 'CONTRACT_MONTH_DATA':
             return Object.assign({}, state, { contract: action.payload }, { spinFlag: false });
+        case 'CONTRACT_ERROR':
+            return Object.assign({}, state, { isError: true });
         default:
             return state;
     }
