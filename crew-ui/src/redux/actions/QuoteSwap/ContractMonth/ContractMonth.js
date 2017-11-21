@@ -62,7 +62,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.crmSToken)
                     .then(response => {
                         if (response.status === 403) {
-                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                             return;
                         }
                         return response.json();

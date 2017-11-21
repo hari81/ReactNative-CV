@@ -23,6 +23,7 @@ import SelectQuantity from './containers/QuoteSwap/SelectQuantity';
 import CustomizeOrder from './containers/QuoteSwap/CustomizeOrder';
 import SuggestedQuote from './components/QuoteSwap/SuggestedQuote/SuggestedQuote';
 import StructureOrderReview from './components/QuoteSwap/StructureOrderReview/StructureOrderReview';
+import AccountInfo from './components/Account/AccountInfo';
 
 const RouterComponent = () => {
   return (
@@ -53,6 +54,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key="customizeOrder" component={CustomizeOrder} />
         <Scene hideNavBar key='suggestedQuote'component={SuggestedQuote} />
         <Scene hideNavBar key='structureOrderReview' component={StructureOrderReview} />
+        <Scene hideNavBar key='accountinfo' component={AccountInfo} type={ActionConst.RESET} />
       </Scene>
     </Router>
   );
