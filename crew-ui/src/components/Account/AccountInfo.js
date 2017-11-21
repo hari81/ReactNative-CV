@@ -18,12 +18,12 @@ class AccountInfo extends Component {
                     const yearEnd = citem.crops[citem.crops.length - 1].cropYear;
                     return (
                     <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                        <Text style={[styles.cropField, { width: 125 }]}>{citem.name}</Text>
-                        <Text style={[styles.cropField, { width: 150, textAlign: 'right' }]}>{common.formatNumberCommas(item.shortLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={[styles.cropField, { width: 150, textAlign: 'right' }]}>{common.formatNumberCommas(item.longLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={[styles.cropField, { width: 150, textAlign: 'right' }]}>{common.formatNumberCommas(item.shortOptionLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={[styles.cropField, { width: 150, textAlign: 'right' }]}>{common.formatNumberCommas(item.longOptionLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={[styles.cropField, { width: 100, marginLeft: 40 }]}>{item.tenor} months</Text>
+                        <Text style={[styles.cropField, { width: 125, textAlign: 'left' }]}>{citem.name}</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.shortLimit)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.longLimit)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.shortOptionLimit)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.longOptionLimit)} {citem.unitOfMeasure}s</Text>
+                        <Text style={[styles.cropField, { width: 100, marginLeft: 40, textAlign: 'left' }]}>{item.tenor} months</Text>
                         <Text style={[styles.cropField, {}]}>{yearStart}-{yearEnd}</Text>
                     </View>
                     );
@@ -96,12 +96,12 @@ class AccountInfo extends Component {
                             </View>
                             <View style={styles.sectionBodyContainer}>
                                 <View style={{ flexDirection: 'row', marginTop: 5, marginBottom: 5 }}>
-                                    <Text style={[styles.cropHeader, { width: 125 }]} />
-                                    <Text style={[styles.cropHeader, { width: 150, textAlign: 'right' }]}>SHORT LIMIT</Text>
-                                    <Text style={[styles.cropHeader, { width: 150, textAlign: 'right' }]}>LONG LIMIT</Text>
-                                    <Text style={[styles.cropHeader, { width: 150, textAlign: 'right' }]}>SHORT OPTION LIMIT</Text>
-                                    <Text style={[styles.cropHeader, { width: 150, textAlign: 'right' }]}>LONG OPTION LIMIT</Text>
-                                    <Text style={[styles.cropHeader, { width: 100, marginLeft: 40 }]}>TENOR</Text>
+                                    <Text style={[styles.cropHeader, { width: 125, textAlign: 'left' }]} />
+                                    <Text style={styles.cropHeader}>SHORT LIMIT</Text>
+                                    <Text style={styles.cropHeader}>LONG LIMIT</Text>
+                                    <Text style={styles.cropHeader}>SHORT OPTION LIMIT</Text>
+                                    <Text style={styles.cropHeader}>LONG OPTION LIMIT</Text>
+                                    <Text style={[styles.cropHeader, { width: 100, marginLeft: 40, textAlign: 'left' }]}>TENOR</Text>
                                     <Text style={[styles.cropHeader, {}]}>CROP YEARS</Text>
                                 </View>
                                 {this.renderCrops()}
@@ -173,13 +173,12 @@ const styles = StyleSheet.create({
     sectionBodyContainer: { paddingLeft: 15, paddingBottom: 20, paddingRight: 15 },
     fieldGroup: { flexDirection: 'row', marginBottom: 2 },
     labelSm: { fontFamily: 'HelveticaNeue', fontSize: 11, textAlign: 'right', width: 80, marginRight: 5 },
-    labelMd: { fontFamily: 'HelveticaNeue', fontSize: 12 },
     labelLg: { fontFamily: 'HelveticaNeue', fontSize: 14 },
     labelCredit: { fontFamily: 'HelveticaNeue', fontSize: 12, width: 200 },
     fieldSm: { fontFamily: 'HelveticaNeue', fontSize: 11 },
     fieldMd: { fontFamily: 'HelveticaNeue', fontSize: 12 },
-    cropHeader: { fontFamily: 'HelveticaNeue', fontSize: 11, minWidth: 80 },
-    cropField: { fontFamily: 'HelveticaNeue', fontSize: 14, minWidth: 80 },
+    cropHeader: { fontFamily: 'HelveticaNeue', fontSize: 11, width: 150, textAlign: 'right' },
+    cropField: { fontFamily: 'HelveticaNeue', fontSize: 14, width: 150, textAlign: 'right' },
     emailStyle: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#4a90e2' },
     summaryRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }
 });
