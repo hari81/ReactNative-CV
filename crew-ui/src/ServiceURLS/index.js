@@ -16,10 +16,7 @@ export const POSITIONS_TRADE_RECEIPT_URL = Config.URL_POSITIONS_TRADE_RECEIPT; /
 export const X_API_KEY = Config.X_API_KEY;
 
 //WEB links
-export const PRIVACY = 'http://go.cargill.com/CargillPriceHedgingPrivacy';
-export const TERMS = 'http://go.cargill.com/CargillPriceHedgingTerms';
-
-export const signUpNow = 'https://cargillrm.force.com/account';
-
-export const learnMoreTempUrl = 'http://dev-cargill-price-hedging.pantheonsite.io/';
-export const learnMoreProdUrl = 'http://www.cargillpricehedging.com';
+export const URL_PRIVACY = 'http://go.cargill.com/CargillPriceHedgingPrivacy';
+export const URL_TERMS = 'http://go.cargill.com/CargillPriceHedgingTerms';
+export const URL_SIGN_UP = 'https://cargillrm.force.com/account';
+export const URL_LEARN_MORE = 'http://www.cargillpricehedging.com';

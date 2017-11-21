@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Linking, StatusBar, Dimensions, Image } from 'react-native';
 import LoginForm from '../containers/LoginForm';
-import { PRIVACY, TERMS, learnMoreProdUrl } from '../ServiceURLS/index';
+import { URL_PRIVACY, URL_TERMS, URL_LEARN_MORE } from '../ServiceURLS/index';
 import { Button } from './common/Button';
 //import bugsnag from '.././components/common/BugSnag';
 
@@ -61,7 +61,7 @@ export default class App extends React.Component {
                         style={styles.logoStyle}
                     />
                     <Text style={styles.textStyle}>Price Hedging</Text>
-                    <Button buttonStyle={{}} textStyle={{ paddingLeft: width * 0.08, paddingTop: 12, paddingBottom: 10, color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(learnMoreProdUrl)}> Learn More</Button>
+                    <Button buttonStyle={{}} textStyle={{ paddingLeft: width * 0.08, paddingTop: 12, paddingBottom: 10, color: 'white', textDecorationLine: 'underline', fontSize: 16 }} onPress={() => Linking.openURL(URL_LEARN_MORE)}> Learn More</Button>
                 </View>
             </View>
             <View style={{ flex: 2 }}>
@@ -80,9 +80,9 @@ export default class App extends React.Component {
         <View style={{ width, height: 60, backgroundColor: '#3d4c57', alignItems: 'center', justifyContent: 'center' }} >
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={{ color: 'white', fontSize: 12 }}>Cargill Website |  </Text>
-            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(PRIVACY)}>Privacy</Button>
+            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(URL_PRIVACY)}>Privacy</Button>
               <Text style={{ color: 'white', fontSize: 12 }}> |  </Text>
-            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(TERMS)}>Terms & Conditions</Button>
+            <Button buttonStyle={{}} textStyle={{ color: 'white', fontSize: 12, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(URL_TERMS)}>Terms & Conditions</Button>
           </View>
 
           <Text style={{ color: 'white', fontSize: 12 }}>
