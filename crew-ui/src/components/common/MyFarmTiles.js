@@ -223,6 +223,21 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+    let tBreakEvenPrice = null;
+    let tTargetPrice = null;
+    let tAvgPriceSold = null;
+    let tProfitPerAcre = null;
+    let tUnhedgedProduction = null;
+    let tBasisEstimate = null;
+    if (common.isValueExists(state.displayProperties)) {
+        tBreakEvenPrice = st(state.displayProperties).filter(item => item.propKey === 'breakEvenPrice')[0].propValue;
+        tTargetPrice = st(state.displayProperties).filter(item => item.propKey === 'targetPrice')[0].propValue;
+        tAvgPriceSold = st(state.displayProperties).filter(item => item.propKey === 'averagePriceSold')[0].propValue;
+        tProfitPerAcre = st(state.displayProperties).filter(item => item.propKey === 'profitPerAcre')[0].propValue;
+        tUnhedgedProduction = st(state.displayProperties).filter(item => item.propKey === 'unhedgedProduction')[0].propValue;
+        tBasisEstimate = st(state.displayProperties).filter(item => item.propKey === 'basisEstimate')[0].propValue;
+    }
+
     return {
         acc: state.account,
         cropButton: state.cropsButtons,
@@ -234,22 +249,22 @@ const mapStateToProps = state => {
         unitOfMeasure: st(state.account, ['defaultAccount', 'commodities', 0, 'unitOfMeasure']),
 
         breakEvenPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'breakEvenPrice'])).toFixed(2),
-        breakEvenPriceInfo: st(state.displayProperties).filter(item => item.propKey === 'breakEvenPrice')[0].propValue,
+        breakEvenPriceInfo: tBreakEvenPrice,
 
         targetPrice: st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'targetPrice'])).toFixed(2),
-        targetPriceInfo: st(state.displayProperties).filter(item => item.propKey === 'targetPrice')[0].propValue,
+        targetPriceInfo: tTargetPrice,
 
         avgPriceSold: st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'averagePriceSold'])).toFixed(2),
-        avgPriceSoldInfo: st(state.displayProperties).filter(item => item.propKey === 'averagePriceSold')[0].propValue,
+        avgPriceSoldInfo: tAvgPriceSold,
 
         profitPerAcre: st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre']) === null ? '   -' : '$ '+parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'profitPerAcre'])).toFixed(2),
-        profitPerAcreInfo: st(state.displayProperties).filter(item => item.propKey === 'profitPerAcre')[0].propValue,
+        profitPerAcreInfo: tProfitPerAcre,
 
         unhedgedProduction: st(state.dashBoardData, ['Data', 'myFarmTiles', 'unhedgedProduction']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'unhedgedProduction'])).toFixed(0)),
-        unhedgedProductionInfo: st(state.displayProperties).filter(item => item.propKey === 'unhedgedProduction')[0].propValue,
+        unhedgedProductionInfo: tUnhedgedProduction,
 
         basisEstimate: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate']) === null ? '   -' : parseFloat(st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimate'])),
-        basisEstimateInfo: st(state.displayProperties).filter(item => item.propKey === 'basisEstimate')[0].propValue,
+        basisEstimateInfo: tBasisEstimate,
         basisEstimateEnabled: st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']) === null ? '   -' : st(state.dashBoardData, ['Data', 'myFarmTiles', 'basisEstimateEnabled']),
 
         underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol)

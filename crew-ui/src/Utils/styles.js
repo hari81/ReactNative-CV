@@ -1,4 +1,8 @@
 export const common = {
+    /* positions */
+    positionsDataLabel: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#01aca8' },
+    positionsData: { fontFamily: 'HelveticaNeue-Thin', fontSize: 14 },
+  
     /* radio buttons */
     radioButtonContainer: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#fff', backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' },
     radioButtonSelected: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#279989' },
