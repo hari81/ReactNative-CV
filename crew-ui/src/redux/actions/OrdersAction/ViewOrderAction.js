@@ -22,7 +22,7 @@ export const ViewOrdersData = (crop) => {
                 response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                 return;
             }
-            common.createAlertErrorMessage(response, 'There was an issue in retrieving the orders.');
+            common.handleError(response, 'There was an issue in retrieving the orders.');
         })
         .then(items => {
             if (items === undefined) {
@@ -48,7 +48,7 @@ export const ViewOrdersData = (crop) => {
             }
       })
       .catch(error => {
-        common.createAlertErrorMessage(error, 'There was an issue in retrieving the orders.');
+        common.handleError(error, 'There was an issue in retrieving the orders.');
         dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: [] });
     });
   };

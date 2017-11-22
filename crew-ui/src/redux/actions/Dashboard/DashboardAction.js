@@ -2,6 +2,7 @@ import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
+import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 import { CLEAR_APPLICATION_STATE } from '../types';
 
@@ -26,11 +27,13 @@ export const dashBoardDataFetch = (year, code, myfarm) => {
                 }
                 dispatch(dashboardData(dashBoardData));
             })
-            .catch(/*(status, error) => {
-                console.log(`error ${error}`);
-            }*/bugsnag.notify);
+            .catch(error => {
+                common.handleError(error);
+                dispatch(dashboardData(null));
+            });
     };
 };
+
 export function dashboardData(dashBoardData) {
     return {
         type: 'DASHBOARD_DATA',

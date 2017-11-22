@@ -170,32 +170,9 @@ export function getExpDate(contractMonth) {
 export function minusBeforeDollarSign(num, decimals) {
     if (num < 0) {
         const val = (parseFloat(num).toString()).slice(1, num.length);
-        return '-$' + parseFloat(val).toFixed(decimals);
+        return `-$${parseFloat(val).toFixed(decimals)}`;
     }
-    return '$' + parseFloat(num).toFixed(decimals);
-}
-
-/*  used to show a consistent alert message to the user for unexpected errors
-    if possible, show the messages returned from the server in the oError object
-*/
-export function createAlertErrorMessage(oError, initialMessage = '') {
-    let msg = `\n${initialMessage}`;
-    if (oError !== null && oError !== undefined) {
-        if (oError.length > 0) {
-            if (isValueExists(oError[0].internalMessage)) {
-                msg += `\n\n ${capitalizeWord(oError[0].internalMessage)}`;
-            }
-            if (isValueExists(oError[0].message)) {
-                msg += `\n\n ${capitalizeWord(oError[0].message)}`;
-            }
-        }
-        if (isValueExists(oError.message)) {
-            msg += `\n\n ${capitalizeWord(oError.message)}`;            
-        }
-    }
-    msg += '\n\n Please contact the trading desk at 1-952-742-7414';
-    Alert.alert('Cargill Price Hedging', msg);
-    bugsnag.notify(oError);
+    return `$${parseFloat(num).toFixed(decimals)}`;
 }
 
 export function parseErrorInfo(oError, initialMessage) {

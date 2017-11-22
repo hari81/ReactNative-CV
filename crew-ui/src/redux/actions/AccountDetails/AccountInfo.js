@@ -24,7 +24,7 @@ export const accountDetails = () => {
                 }
                 if (response.ok) {
                     return response.json();
-                }
+                }
                 Alert.alert('Unable to retrieve your account information, please contact CRM @ 1-952-742-7414.');
                 return 'noresponse';
             })

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, Text, Alert, TouchableOpacity, Switch, Image, StyleSheet, Dimensions, StatusBar, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import * as common from '../../Utils/common';
-import { CommonHeader, InfoPopup } from '../../components/common';
+import { CommonHeader, InfoPopup, Button } from '../../components/common';
 import MyFarmTiles from '../common/MyFarmTiles';
 import { getReviewOrderQuote, placeOrder } from '../../redux/actions/OrdersAction/ReviewOrder';
 import Info from '../common/img/Info.png';
@@ -23,6 +23,18 @@ class ReviewOrder extends Component {
         this.priceInfo = { top: 205, left: 650, width: 300, arrowPosition: 'top', message: this.props.infoEstimatedNetPrice };        
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (common.isValueExists(nextProps.isSpinActive)) {
+            if (nextProps.isSpinActive) {
+                this.setState({ isPlaceOrderEnabled: false });
+            } else {
+                if (this.state.isTermsAccepted) {
+                    this.setState({ isPlaceOrderEnabled: true });
+                }
+            }
+        }
+    }
+        
     onModifyOrder() {
         Actions.pop();
     }
@@ -70,13 +82,13 @@ class ReviewOrder extends Component {
             if (this.props.isLimitOrder) {
                 limitViewGTD = (
                     <View style={styles.quoteField}>
-                        <Text style={styles.quoteLabel}>Your order will be valid until</Text>
+                        <Text style={styles.quoteLabel}>Order Valid Until</Text>
                         <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.goodTilDate, 5)}</Text>
                     </View>
                 );
                 limitViewPrice = (
                     <View style={styles.quoteField}>
-                        <Text style={styles.quoteLabel}>Your limit price is</Text>
+                        <Text style={styles.quoteLabel}>Limit Price</Text>
                         <Text style={styles.quoteData}>${parseFloat(this.props.data.metadata.targetPrice).toFixed(4)}</Text>
                     </View>
                 );
@@ -116,8 +128,7 @@ class ReviewOrder extends Component {
 
                         <View style={styles.reviewMain}>
                             <View style={styles.reviewContainer}>
-                                <Text style={styles.reviewTitle}>Your {this.props.tradeTitle} details have been set.
-                                    Let's review it and complete your order.</Text>
+                                <Text style={styles.reviewTitle}>Let’s review the details and complete your order.</Text>
                                 <View style={styles.quoteContainer}>
                                     {/* quote fields */}
                                     <View style={styles.quoteFields}>
@@ -145,7 +156,7 @@ class ReviewOrder extends Component {
                                                 <Text style={styles.quoteData}>{common.formatDate(this.props.data.metadata.expirationDate, 5)}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
-                                                <Text style={styles.quoteLabel}>{this.props.data.units} Quantity</Text>
+                                                <Text style={styles.quoteLabel}>{common.capitalizeWord(this.props.data.units)} Quantity</Text>
                                                 <Text style={styles.quoteData}>{common.formatNumberCommas(this.props.data.metadata.quantity)}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
@@ -221,16 +232,23 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
-const termsInfo = { top: 180, left: 300, width: 500, arrowPosition: 'bottom', message: DisclaimerData.disclosure };
+const termsInfo = { 
+    top: 150, 
+    left: 300, 
+    width: 500, 
+    arrowPosition: 'bottom', 
+    message: DisclaimerData.disclosure,
+    link: <Button buttonStyle={{}} textStyle={{ marginTop: -10, fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', textDecorationLine: 'underline' }} onPress={() => Linking.openURL('https://www.cargill.com/price-risk/crm/pre-trade-disclosure')}>Pre-Trade Disclosure</Button>
+};
 
 const styles = StyleSheet.create({
     /* container */
-    reviewMain: { height: height - 100, backgroundColor: '#eff4f7' },
-    reviewContainer: { height: height - 240, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 15, paddingBottom: 50 },
+    reviewMain: { height: height - 120, backgroundColor: '#eff4f7' },
+    reviewContainer: { height: height - 260, backgroundColor: '#404e59', marginLeft: 15, marginRight: 15, padding: 15, paddingBottom: 50 },
     reviewTitle: { backgroundColor: '#404e59', fontFamily: 'HelveticaNeue-Thin', fontSize: 32, color: '#fff', marginRight: 100, marginBottom: 15 },
 
     /* quote fields */
-    quoteContainer: { height: height - 360, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 120, paddingRight: 120 },
+    quoteContainer: { height: height - 345, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 5, padding: 20, paddingLeft: 120, paddingRight: 120 },
     quoteFields: { flexDirection: 'row', flex: 1 },
     quoteField: { marginBottom: 10 },
     quoteLabel: { fontFamily: 'Helveticaneue-Thin', color: '#3b4a55', fontSize: 14 },
@@ -290,7 +308,8 @@ const mapStateToProps = state => {
         isLimitOrder: isLimit,
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade',
-        infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue
+        infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue,
+        isSpinActive: state.reviewQuote.spinFlag
     };
 };
 

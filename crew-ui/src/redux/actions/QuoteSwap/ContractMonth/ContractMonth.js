@@ -73,13 +73,22 @@ export const quoteSwapUnderlying = (year, code) => {
                         dispatch(bushelLimitShow(limit));
                         console.log('* * * * * end quote swap underlying * * * * *', new Date());
                     })
-                    .catch(/*(status, error) => {
-                        console.log(`error ${error}`);
-                    }*/ bugsnag.notify);
+                    .catch(error => {
+                        common.handleError(error, 'There was an issue with retrieving data for this commodity.');
+                        dispatch(contractMonthData(null));
+                        dispatch({ type: 'CONTRACT_ERROR' });
+                    });
                 }
-                common.createAlertErrorMessage(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');
+                //issuccss = false
+                common.handleError(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');                    
+                dispatch(contractMonthData(null));
+                dispatch({ type: 'CONTRACT_ERROR' });
             })
-        .catch(/*error => console.log(error)*/bugsnag.notify);
+        .catch(error => {
+            common.handleError(error, 'There was an issue with retrieving data for this commodity.');                    
+            dispatch(contractMonthData(null));
+            dispatch({ type: 'CONTRACT_ERROR' });
+        });
     };
 };
 

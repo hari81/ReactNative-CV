@@ -31,7 +31,11 @@ export const DEFAULT_ACCOUNT_DETAILS = 'default_account_information';
 export const INVALID_ACCOUNT = 'invalid_account';
 export const ACCOUNT_INFO_LIMITS = 'account_info_limits';
 
+export const REVIEW_ORDER_SPIN_ACTIVE = 'review_order_spin_active';
+export const REVIEW_ORDER_SPIN_INACTIVE = 'review_order_spin_inactive';
 export const ORDERS_REVIEW_QUOTE = 'orders_review_quote';
+export const ORDERS_REVIEW_SPIN_ACTIVE = 'orders_review_spin_active';
+export const ORDERS_REVIEW_SPIN_INACTIVE = 'orders_review_spin_inactive';
 
 export const SUGGESTED_OPTIMAL_QUOTE = 'suggested_optimal_quote';
 export const OPTIMAL_QUOTE_SPIN_ACTIVE = 'optimal_quote_spin_active';
