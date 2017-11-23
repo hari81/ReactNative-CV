@@ -26,7 +26,10 @@ export const myFarmCropValues = (commodityCode, cropYear) => {
                 }
                 dispatch({ type: MY_FARM_CROP_VALUES, payload: cropValues });
             })
-            .catch(bugsnag.notify);
+            .catch(error => {
+                common.handleError(error);
+                dispatch({ type: MY_FARM_CROP_VALUES, payload: null });
+            });
     };
 };
 
@@ -43,11 +46,14 @@ export const myFarmTradeSalesOutSideApp = (commodityCode, cropYear) => {
                         return {};
                     }
                     return response.json();
-                }, rej => Promise.reject(rej))
-                .then(cropValuesSummary => {
-                    dispatch({type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary});
-                })
-                .catch(bugsnag.notify);
+            }, rej => Promise.reject(rej))
+            .then(cropValuesSummary => {
+                dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: cropValuesSummary });
+            })
+            .catch(error => {
+                common.handleError(error);
+                dispatch({ type: MY_FARM_CROP_VALUES_SUMMARY, payload: null });
+            });
     };
 };
 

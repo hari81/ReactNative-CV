@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ImageButton } from '../common/ImageButton';
+import { ImageButton } from '../common';
 
 const { height, width } = Dimensions.get('window');
 class ProductBenefitsList extends Component {
@@ -32,7 +32,7 @@ class ProductBenefitsList extends Component {
     }
 }
 const styles = {
-    container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, },
+    container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)' },
     subViewStyle: { marginLeft: width * 0.042, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 32, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' }
 }

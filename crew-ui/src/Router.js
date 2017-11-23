@@ -22,6 +22,8 @@ import SelectContractMonth from './containers/QuoteSwap/SelectContractMonth';
 import SelectQuantity from './containers/QuoteSwap/SelectQuantity';
 import CustomizeOrder from './containers/QuoteSwap/CustomizeOrder';
 import SuggestedQuote from './components/QuoteSwap/SuggestedQuote/SuggestedQuote';
+import StructureOrderReview from './components/QuoteSwap/StructureOrderReview/StructureOrderReview';
+import AccountInfo from './components/Account/AccountInfo';
 
 const RouterComponent = () => {
   return (
@@ -41,7 +43,7 @@ const RouterComponent = () => {
         <Scene hideNavBar key="chartApp" component={ChartApp} type={ActionConst.RESET} />
         <Scene hideNavBar key='revieworder' component={ReviewOrder} />
         <Scene hideNavBar key='tcorderreceipt' component={TradeConfirmationOrderReceipt} type={ActionConst.RESET} />
-        <Scene hideNavBar key='tcerror' component={TradeConfirmationError} type={ActionConst.RESET} />
+        <Scene hideNavBar key='tcerror' component={TradeConfirmationError} />
         <Scene hideNavBar key='disclaimer' component={Disclaimer} />
         <Scene hideNavBar key="matrix" component={ProfitabilityMatrix} type={ActionConst.RESET} />
         <Scene hideNavBar key="pdfview" component={TradeReceipt} />
@@ -51,6 +53,8 @@ const RouterComponent = () => {
         <Scene hideNavBar key="selectQuantity" component={SelectQuantity} />
         <Scene hideNavBar key="customizeOrder" component={CustomizeOrder} />
         <Scene hideNavBar key='suggestedQuote'component={SuggestedQuote} />
+        <Scene hideNavBar key='structureOrderReview' component={StructureOrderReview} />
+        <Scene hideNavBar key='accountinfo' component={AccountInfo} type={ActionConst.RESET} />
       </Scene>
     </Router>
   );

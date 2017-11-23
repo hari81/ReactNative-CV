@@ -60,7 +60,7 @@ class TradeDirection extends Component {
 }
 
 const styles = {
-    container: { flexDirection: 'column', marginTop: 10, zIndex: -1 },
+    container: { flexDirection: 'column', zIndex: -1 },
 };
 
 const mapStateToProps = (state) => {

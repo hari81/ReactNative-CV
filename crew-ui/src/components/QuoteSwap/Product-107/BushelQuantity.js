@@ -33,17 +33,20 @@ class BushelQuantity extends Component {
 
     onChangeQuantity(text) {
         if (/[0-9]+$/.test(text) || text === '') {
-            if (text <= this.props.quantityLimit) {
-                this.setState({ quantity: text });
+            let q = common.convertStringToInt(text);
+            if (q <= this.props.quantityLimit) {
+                q = parseInt(q);
             } else {
-                Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
-                //Alert.alert(`Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s`);
-                this.setState({ quantity: this.props.quantityLimit.toString() });
+                Alert.alert('Price Hedging', `\nYour Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s.\n\nPlease contact CRM @ 1-952-742-7414 or\nemail cargillpricehedge@cargill.com \nto request a limit increase.`);
+                q = parseInt(this.props.quantityLimit.toString());
             }
-            const qp = this.calculateHedgePercent(text);
+            const qp = this.calculateHedgePercent(q);
             this.setState({ qPercent: qp });
+            //convert to string before setting state (but bubble non-formatted string up)
+            const sq = common.formatNumberCommas(q);
+            this.setState({ quantity: sq });
+            this.props.onQuantityChange(sq);
         }
-        this.props.onQuantityChange(text);
     }
 
     minusButtonPress = () => {
@@ -77,7 +80,7 @@ class BushelQuantity extends Component {
                 q += parseInt(this.props.quantityIncrement);
                 this.timer = setTimeout(this.plusButtonPress, 100);
             } else {
-                Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
+                Alert.alert('Price Hedging', `\nYour Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s.\n\nPlease contact CRM @ 1-952-742-7414 or\nemail: cargillpricehedge@cargill.com \nto request a limit increase.`);
                 q = parseInt(this.props.quantityLimit.toString());
             }
             const qp = this.calculateHedgePercent(q);
@@ -114,10 +117,9 @@ class BushelQuantity extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             let tBushelLimit = null;
             if (this.props.contractMonth.bushelSpinFlag) {
-                tBushelLimit = (<Spinner size="small"/>);
+                tBushelLimit = (<Spinner size="small" />);
             } else {
-                tBushelLimit = (<Text style={styles.bushelLimitText}>Your Available Limit
-                    is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
+                tBushelLimit = (<Text style={styles.bushelLimitText}>Available Limit {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
             }
 
             return (
@@ -146,14 +148,10 @@ class BushelQuantity extends Component {
                             selectTextOnFocus
                         />
                         <TouchableOpacity onPressIn={this.plusButtonPress} onPressOut={this.stopTimer.bind(this)}>
-                            <Text style={[styles.updownIcon, {marginTop: 5, marginLeft: 15, paddingLeft: 9}]}>+</Text>
+                            <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
                         </TouchableOpacity>
-                        <View style={{flexDirection: 'column', marginLeft: 30}}>
-                            <Text style={{
-                                fontSize: 16,
-                                fontFamily: 'HelveticaNeue',
-                                color: '#fff'
-                            }}>{this.state.qPercent.toFixed(0)}% HEDGED</Text>
+                        <View style={{ flexDirection: 'column', marginLeft: 30 }}>
+                            <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: '#fff' }}>{this.state.qPercent.toFixed(0)}% HEDGED</Text>
                             {tBushelLimit}
                         </View>
                     </View>

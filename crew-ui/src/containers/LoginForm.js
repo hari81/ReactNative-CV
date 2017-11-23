@@ -7,7 +7,7 @@ import { loginUser, forGetPassword } from '../redux/actions/LoginAuth';
 import { productType } from '../redux/actions/QuoteSwap/ProductType/ProductType';
 import { accountDetails } from '../redux/actions/AccountDetails/AccountInfo';
 import { displayProperties } from '../redux/actions/Dashboard/DisplayPropertiesAction';
-import { signUpNow } from '../ServiceURLS/index';
+import { URL_SIGN_UP } from '../ServiceURLS/index';
 import bugsnag from '../components/common/BugSnag';
 
 const { height, width } = Dimensions.get('window');
@@ -65,11 +65,13 @@ class LoginForm extends Component {
 
   componentWillReceiveProps(newProps) {
       if (newProps.auth.loginSuccess && !this.state.signIn) {
-         this.props.accountDetails();
+          if (Object.keys(newProps.acc.accountDetails).length > 0) {
+              this.setState({ signIn: true });
+              return;
+          }
+          this.props.accountDetails();
           this.props.productType();
           this.props.displayProperties();
-          if (Object.keys(newProps.acc.accountDetails).length > 0) {
-          this.setState({ signIn: true }); }
       }
       if (newProps.auth.error) {
           AlertIOS.alert('Error', newProps.auth.msg);
@@ -144,7 +146,7 @@ class LoginForm extends Component {
                             <Button 
                                 buttonStyle={{ marginLeft: width * 0.02 }}
                                 textStyle={{ color: 'white', textDecorationLine: 'underline', fontSize: 16 }}
-                                onPress={() => Linking.openURL(signUpNow)}
+                                onPress={() => Linking.openURL(URL_SIGN_UP)}
                             > Not Registered? Sign Up Now! </Button>
                         </View>
                         <View style={{ paddingLeft: 5, paddingTop: 15 }}>

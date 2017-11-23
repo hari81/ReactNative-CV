@@ -62,7 +62,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.crmSToken)
                     .then(response => {
                         if (response.status === 403) {
-                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE });});
+                            response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
                             return;
                         }
                         return response.json();
@@ -73,13 +73,22 @@ export const quoteSwapUnderlying = (year, code) => {
                         dispatch(bushelLimitShow(limit));
                         console.log('* * * * * end quote swap underlying * * * * *', new Date());
                     })
-                    .catch(/*(status, error) => {
-                        console.log(`error ${error}`);
-                    }*/ bugsnag.notify);
+                    .catch(error => {
+                        common.handleError(error, 'There was an issue with retrieving data for this commodity.');
+                        dispatch(contractMonthData(null));
+                        dispatch({ type: 'CONTRACT_ERROR' });
+                    });
                 }
-                common.createAlertErrorMessage(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');
+                //issuccss = false
+                common.handleError(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');                    
+                dispatch(contractMonthData(null));
+                dispatch({ type: 'CONTRACT_ERROR' });
             })
-        .catch(/*error => console.log(error)*/bugsnag.notify);
+        .catch(error => {
+            common.handleError(error, 'There was an issue with retrieving data for this commodity.');                    
+            dispatch(contractMonthData(null));
+            dispatch({ type: 'CONTRACT_ERROR' });
+        });
     };
 };
 

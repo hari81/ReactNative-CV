@@ -17,6 +17,8 @@ import limitorder from './QuoteSwap/ProductType/LimitOrderReducer';
 import getDashBoardData from './Dashboard/DashboardReducer';
 import getDisplayProps from './Dashboard/DisplayPropertiesReducer';
 import getMatrixData from './ProfitabilityMatrixReducer';
+import SugQuote from './QuoteSwap/SuggestedQuote';
+import EstProfit from './QuoteSwap/EstimateProfitReducer';
 
 const appReducer = combineReducers({
     auth: AuthReducer,
@@ -30,12 +32,14 @@ const appReducer = combineReducers({
     selectedContractMonth: selectcontractMonth,
     contractData: contractMonth,
     selectedProductQuoteSwap: selectedProduct,
+    eProfit: EstProfit,
     account: accountDetails,
     reviewQuote: reviewOrderGetQuote,
     limitOrder: limitorder,
     dashBoardData: getDashBoardData,
     displayProperties: getDisplayProps,
-    matrixData: getMatrixData
+    matrixData: getMatrixData,
+    optimalQuote: SugQuote
 });
 const rootReducer = (state, action) => {
     if (action.type === CLEAR_APPLICATION_STATE) {

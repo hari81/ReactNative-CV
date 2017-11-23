@@ -1,28 +1,33 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
+import * as common from '../../../Utils/common';
 import lock from '../../common/img/structure/smLock.png';
 import coins from '../../common/img/structure/smCoins.png';
 import calender from '../../common/img/structure/smCalendar.png';
 import card from '../../common/img/structure/smCard.png';
 
-const SuggestedPrice = () => {
+const SuggestedPrice = ({ floorPrice, bonusPrice, aStartDate, price, endDate }) => {
     return (
         <View style={{ flexDirection: 'row' }}>
-            <PriceType img={lock} price='3.83' text='Floor Price' />
-            <PriceType img={coins} price='4.25' text='Bonus Price' />
-            <PriceType img={calender} text='Pricing Period' date={new Date().toLocaleDateString()} />
-            <PriceType img={card} price='0.00' text='Price' />
+            <PriceType img={lock} price={floorPrice} text='Floor Price' />
+            <PriceType img={coins} price={bonusPrice} text='Bonus Price' />
+            <PriceType img={calender} text='Pricing Period' sdate={aStartDate} edate={endDate} />
+            <PriceType img={card} price={price.toFixed(2)} text='Price' />
 
         </View>
     );
 };
 
-const PriceType = ({ text, price, img, date }) => {
+const PriceType = ({ text, price, img, sdate, edate }) => {
     return (
         <View style={styles.PriceViewStyle}>
             <Image source={img} style={{ marginTop: 10 }} />
-            <Text style={styles.PricetextStyle}>{text}</Text>
-            <Text style={[styles.PricetextStyle, { fontSize: 22, paddingTop: 0, fontFamily: 'HelveticaNeue' }]}>{date === undefined ? '$'+price : date}</Text>
+            <Text style={[styles.PricetextStyle, sdate === undefined ? {} : { paddingTop: 0, fontSize: 13 }]}>{text}</Text>
+            <Text style={[styles.PricetextStyle,
+                sdate === undefined ? { fontSize: 22, paddingTop: 0, fontFamily: 'HelveticaNeue' } : { fontSize: 16, paddingTop: 0, fontFamily: 'HelveticaNeue-Bold' }]}
+            >
+                {sdate === undefined ? `$${price}` : `${common.formatDate(sdate, 5)} to ${common.formatDate(edate, 5)}` }
+                </Text>
 
         </View>
     );

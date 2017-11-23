@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, Image, TouchableOpacity } from 'react-native';
+import { Text, TouchableHighlight, TouchableOpacity, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PositionsAdditionalDetail from './PositionsAdditionalDetail';
-import bugsnag from '../../components/common/BugSnag';
+import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
 import * as common from '../../Utils/common';
 import * as commonStyles from '../../Utils/styles';
+import bugsnag from '../../components/common/BugSnag';
 
 class OpenPositions extends Component {
   constructor(props) {
@@ -34,8 +35,7 @@ class OpenPositions extends Component {
   }
 
   openTradeReceipt() {
-        Actions.pdfview({ orderId: this.props.item.id, confirm: this.props.item.confirm });
-        //this.props.tradeReceipt(this.props.item.confirm);
+    Actions.pdfview({ orderId: this.props.item.id, confirm: this.props.item.confirm });
   }
 
   toggleAddlDetails() {
@@ -184,5 +184,4 @@ const mapStateToProps = state => {
         acc: state.account
     };
 };
-
-export default connect(mapStateToProps, null)(OpenPositions);
+export default connect(mapStateToProps, { tradeReceipt })(OpenPositions);

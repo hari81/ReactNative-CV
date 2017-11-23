@@ -9,11 +9,16 @@ export const displayProperties = () => {
         const url = `${VELO_SERVICES_URL}dashboard/displayProperties`;
         return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return 'invalid';
+                }
             }, rej => Promise.reject(rej))
-            .then(displayProps =>
-                dispatch(displayProperty(displayProps))
-            )
+            .then(displayProps => {
+                if (displayProps === 'invalid') { return; }
+                dispatch(displayProperty(displayProps));
+            })
             .catch(/*(status, error) => {
                 console.log(`error ${error}`);
             }*/bugsnag.notify);
