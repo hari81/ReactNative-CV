@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import * as common from '../../../Utils/common';
+import Info from '../../common/img/Info-white.png';
 //import bugsnag from '../common/BugSnag';
 
 const ReviewOrder = (props) => {
@@ -26,7 +27,7 @@ const ReviewOrder = (props) => {
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Trade direction</Text>
-                        <Text style={styles.quoteData}>{'Sell'}</Text>
+                        <Text style={styles.quoteData}>Buy</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contract Month</Text>
@@ -49,13 +50,18 @@ const ReviewOrder = (props) => {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Bonus Price</Text>
                         <Text
-                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
+                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
                             </Text>
                     </View>
                     <View style={styles.quoteField}>
-                        <Text style={styles.quoteLabel}>Price</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.quoteLabel}>Price</Text>
+                            <TouchableOpacity onPress={() => Alert.alert('message')}>
+                                <Image style={{ width: 20, height: 20, marginLeft: 20, marginTop: 1 }} source={Info} />
+                            </TouchableOpacity>
+                        </View>
                         <Text
-                            style={styles.quoteData}>${price.toFixed(2)}
+                            style={styles.quoteData}>${props.level === 'zero' ? '0.00' : price.toFixed(2)}
                             </Text>
                     </View>
                     <View style={styles.quoteField}>
@@ -78,7 +84,7 @@ const ReviewOrder = (props) => {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contingent Offer Price</Text>
                         <Text
-                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
+                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>You May Price Up to</Text>

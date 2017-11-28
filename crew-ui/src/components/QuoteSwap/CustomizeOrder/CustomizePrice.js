@@ -21,7 +21,7 @@ class CustomizePrice extends Component {
         this.state = {
             floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
             bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
-            price: common.isValueExists(props.price) ? parseFloat(props.price).toFixed(4) : 0,
+            price: common.isValueExists(props.price) ? parseFloat(props.price).toFixed(2) : 0,
             showButtons: true,
             flag: false
         };
@@ -90,7 +90,7 @@ class CustomizePrice extends Component {
         Actions.structureOrderReview({ cust: 'customize' });
     };
     onWorkLevelsCost = () => {
-        Actions.structureOrderReview({ cust: 'customize' });
+        Actions.structureOrderReview({ cust: 'customize', level: 'zero' });
     };
     fPricePlusButton = () => {
         this.setState({ showButtons: false });
@@ -177,7 +177,8 @@ const mapStateToProps = state => {
     return {
         sDate: common.isValueExists(state.optimalQuote.suggestedQuote.accrualStartDate) ? state.optimalQuote.suggestedQuote.accrualStartDate : '-',
         eDate: common.isValueExists(state.optimalQuote.suggestedQuote.metadata.expirationDate) ? state.optimalQuote.suggestedQuote.metadata.expirationDate : '-',
-        spin: state.optimalQuote.spinFlag
+        spin: state.optimalQuote.spinFlag,
+        price: common.isValueExists(state.optimalQuote.suggestedQuote.price) ? state.optimalQuote.suggestedQuote.price : 0
     };
 };
 
