@@ -1,4 +1,8 @@
 export const common = {
+    /* positions */
+    positionsDataLabel: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#01aca8' },
+    positionsData: { fontFamily: 'HelveticaNeue-Thin', fontSize: 14 },
+  
     /* common button styles */
     //touchable opacity (button) with text inside
     touchButton: { alignItems: 'center', alignSelf: 'center', justifyContent: 'center', borderRadius: 4, paddingTop: 10, paddingBottom: 10, minWidth: 160 },
