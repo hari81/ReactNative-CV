@@ -1,4 +1,5 @@
-import { Alert, NetInfo } from 'react-native';
+import React from 'react';
+import { Alert, Linking, NetInfo, Text, TouchableOpacity } from 'react-native';
 import bugsnag from '../components/common/BugSnag';
 
 /* puts numbers in a number value (ex. 1000 -> 1,000 1234567.23 -> 1,234,567.23) */
@@ -173,6 +174,27 @@ export function minusBeforeDollarSign(num, decimals) {
         return `-$${parseFloat(val).toFixed(decimals)}`;
     }
     return `$${parseFloat(num).toFixed(decimals)}`;
+}
+
+export function getDisclosure(data, productId, termsInfo) {
+    //get disclosure based on product id
+    const tTermsInfo = termsInfo;
+    const d = data.disclosures.find(x => x.productId === productId);
+    if (isValueExists(d)) {
+        let tUrl = null;
+        if (isValueExists(d.disclosureUrl)) {
+            tUrl = (
+                <TouchableOpacity onPress={() => Linking.openURL(`${d.disclosureUrl}`)}>
+                    <Text style={{ marginTop: -10, fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', textDecorationLine: 'underline' }}>
+                        {d.disclosureUrlName}
+                    </Text>
+                </TouchableOpacity>
+            );
+        }
+        tTermsInfo.message = d.disclosure;
+        tTermsInfo.link = tUrl;
+    }
+    return tTermsInfo;
 }
 
 export function parseErrorInfo(oError, initialMessage) {

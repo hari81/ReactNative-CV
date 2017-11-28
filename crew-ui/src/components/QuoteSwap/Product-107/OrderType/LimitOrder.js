@@ -20,8 +20,8 @@ class LimitOrder extends Component {
             dateFlag: false
         };
         this.timer = null;
-        this.limitPriceInfo = { top: 30, left: 0, width: 200, arrowPosition: 'top', message: this.props.infoTargetPrice };
-        this.orderExpiryInfo = { top: 30, left: 270, width: 200, arrowPosition: 'top', message: this.props.infoOptionExpirationDate };
+        this.limitPriceInfo = { top: 32, left: 2, width: 200, arrowPosition: 'top', message: this.props.infoTargetPrice };
+        this.orderExpiryInfo = { top: 32, left: 259, width: 200, arrowPosition: 'top', message: this.props.infoOptionExpirationDate };
     }
 
     componentWillReceiveProps(nextProps) {

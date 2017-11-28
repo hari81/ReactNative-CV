@@ -42,12 +42,20 @@ class Disclaimer extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+
+            //get disclosure based on product id
+            let tDisclosure = '';
+            const ddd = DisclaimerData.disclosures.find(x => x.productId === this.state.productId);
+            if (common.isValueExists(ddd)) {
+                tDisclosure = ddd.description;
+            }
+
             return (
                 <View>
                     <StatusBar barStyle='light-content' />
-                    <View style={{backgroundColor: '#000', width, height: 20}}/>
-                    <CommonHeader/>
-                    <PageHeader headerText="Terminology You'll See Here" headerInfoText=''/>
+                    <View style={{ backgroundColor: '#000', width, height: 20 }} />
+                    <CommonHeader />
+                    <PageHeader headerText="Terminology You'll See Here" headerInfoText='' />
 
                     <View style={styles.disclaimerMain}>
                         <View style={styles.disclaimerContainer}>
@@ -55,7 +63,7 @@ class Disclaimer extends Component {
                             <View style={styles.disclaimerTermsContainer}>
                                 <View style={[styles.disclaimerTextBox, { flex: 0.52, marginRight: 20 }]}>
                                     <Text style={styles.disclaimerSubHead}>{this.state.productName}</Text>
-                                    <Text style={styles.disclaimerText}>{DisclaimerData.description}</Text>
+                                    <Text style={styles.disclaimerText}>{tDisclosure}</Text>
                                 </View>
                                 <View style={[styles.disclaimerTextBox, { flex: 0.48 }]}>
                                     {this.renderTerms()}

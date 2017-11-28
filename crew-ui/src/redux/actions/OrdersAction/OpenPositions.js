@@ -24,6 +24,7 @@ export const OpenPositionsData = (crop) => {
                         return;
                     }
                 common.handleError(response, 'There was an issue in retrieving the open positions.');
+                dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
             })
             .then(opens => {
                 if (opens === undefined) {

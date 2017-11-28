@@ -24,7 +24,7 @@ class AccountInfo extends Component {
                         <Text style={styles.cropField}>{common.formatNumberCommas(item.shortOptionLimit)} {citem.unitOfMeasure}s</Text>
                         <Text style={styles.cropField}>{common.formatNumberCommas(item.longOptionLimit)} {citem.unitOfMeasure}s</Text>
                         <Text style={[styles.cropField, { width: 100, marginLeft: 40, textAlign: 'left' }]}>{item.tenor} months</Text>
-                        <Text style={[styles.cropField, {}]}>{yearStart}-{yearEnd}</Text>
+                        <Text style={[styles.cropField, { width: 100, textAlign: 'left' }]}>{yearStart}-{yearEnd}</Text>
                     </View>
                     );
                 }}
@@ -34,7 +34,7 @@ class AccountInfo extends Component {
 
     render() {
         try {
-            const { userId, firstName, email } = this.props.acc.accountDetails;
+            const { userId, userName, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={{ height, backgroundColor: '#eff4f7' }}>
@@ -48,11 +48,15 @@ class AccountInfo extends Component {
                             <View style={[styles.sectionBodyContainer, { flexDirection: 'row' }]}>
                                 <View style={{ flex: 0.5 }}>
                                     <View style={[styles.fieldGroup, { marginTop: 10, marginBottom: 10 }]}>
-                                        <Text style={{ fontSize: 16 }}>{this.props.acc.accountDetails.firstName} {this.props.acc.accountDetails.lastname}</Text>
+                                        <Text style={{ fontSize: 16 }}>{this.props.acc.defaultAccount.legalName}</Text>
                                     </View>
                                     <View style={styles.fieldGroup}>
                                         <Text style={styles.labelSm}>ACCOUNT ID:</Text>
                                         <Text style={styles.fieldSm}>{this.props.acc.accountDetails.defaultAccountId}</Text>
+                                    </View>
+                                    <View style={styles.fieldGroup}>
+                                        <Text style={styles.labelSm}>USER NAME:</Text>
+                                        <Text style={styles.fieldSm}>{userName}</Text>
                                     </View>
                                     <View style={styles.fieldGroup}>
                                         <Text style={styles.labelSm}>USER ID:</Text>
@@ -102,7 +106,7 @@ class AccountInfo extends Component {
                                     <Text style={styles.cropHeader}>SHORT OPTION LIMIT</Text>
                                     <Text style={styles.cropHeader}>LONG OPTION LIMIT</Text>
                                     <Text style={[styles.cropHeader, { width: 100, marginLeft: 40, textAlign: 'left' }]}>TENOR</Text>
-                                    <Text style={[styles.cropHeader, {}]}>CROP YEARS</Text>
+                                    <Text style={[styles.cropHeader, { width: 100, textAlign: 'left' }]}>CROP YEARS</Text>
                                 </View>
                                 {this.renderCrops()}
                             </View>
