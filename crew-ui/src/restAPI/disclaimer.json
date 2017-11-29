@@ -1,6 +1,20 @@
 {
-  "disclosure": "CFTC How it Works Disclosures: Flexible Hedge: Above the swap value, customer pays Cargill. Below the swap value, Cargill pays customer. Consumer Swap: Above the swap value, Cargill pays customer. Below the swap value, customer pays Cargill.\n\nAcceptance of this offer and the subsequent Posted Positions shall constitute an Acknowledgment and Confirmation for this Transaction under applicable law, including the U.S. Dodd-Frank Wall Street Reform and Consumer Protection Act and accompanying regulations.",
-  "description": "A Flexible Hedge can be initiated by using either a market order or a limit order. The fixed price of the swap is determined by the underlying commodity market, contract month and year.\n\nThis is how a Flexible Hedge works: When the position is closed, if the corresponding market is above the fixed price, a customer pays Cargill the difference between the market and the fixed price. If the corresponding market is below the fixed price, Cargill pays the customer the difference between the fixed price and the market.\n\nBenefit of using a Flexible Hedge:  A Flexible Hedge is a 'short swap' that allows the user to protect against declining prices. A Flexible Hedge also provides unlimited flexibility and control by allowing the user to protect market prices independently of the cash market; so, basis decisions can be optimized. The user remains in control by deciding when to enter or exit the swap position.",
+  "disclosures": [
+    {
+      "productId": 107,
+      "disclosure": "CFTC How it Works Disclosures: Flexible Hedge: Above the swap value, customer pays Cargill. Below the swap value, Cargill pays customer. Consumer Swap: Above the swap value, Cargill pays customer. Below the swap value, customer pays Cargill.\n\nAcceptance of this offer and the subsequent Posted Positions shall constitute an Acknowledgment and Confirmation for this Transaction under applicable law, including the U.S. Dodd-Frank Wall Street Reform and Consumer Protection Act and accompanying regulations.",
+      "disclosureUrl": "https://www.cargill.com/price-risk/crm/pre-trade-disclosure",
+      "disclosureUrlName": "Pre-Trade Disclosure",
+      "description": "A Flexible Hedge can be initiated by using either a market order or a limit order. The fixed price of the swap is determined by the underlying commodity market, contract month and year.\n\nThis is how a Flexible Hedge works: When the position is closed, if the corresponding market is above the fixed price, a customer pays Cargill the difference between the market and the fixed price. If the corresponding market is below the fixed price, Cargill pays the customer the difference between the fixed price and the market.\n\nBenefit of using a Flexible Hedge:  A Flexible Hedge is a 'short swap' that allows the user to protect against declining prices. A Flexible Hedge also provides unlimited flexibility and control by allowing the user to protect market prices independently of the cash market; so, basis decisions can be optimized. The user remains in control by deciding when to enter or exit the swap position."
+    },
+    {
+      "productId": 110,
+      "disclosure": "CFTC How it Works Disclosures:\n\n-Each day the Commodity Contract settles above the Floor Price, your daily quantity is priced at the Bonus Price.\n\n-Each day the Commodity Contract settles at or below the Floor Price, your daily quantity is priced at the Floor Price.\n\n-On the Expiration Date if the Contract settles above the Contingent Offer Price, you will price an additional like quantity of the Contract (in addition to the initial quantity) at the Contingent Offer Price.\n\nAcceptance of this offer and the subsequent Posted Positions shall constitute an Acknowledgement and Confirmation for this Transaction under applicable law, including the U.S. Dodd-Frank Wall Street Reform and Consumer Protection Act and accompanying regulations.",
+      "disclosureUrl": "https://www.cargill.com/price-risk/crm/pre-trade-disclosure",
+      "disclosureUrlName": "Pre-Trade Disclosure",
+      "description": ""
+    }
+  ],
   "terms": [
     {
       "terminology": "Market Order",

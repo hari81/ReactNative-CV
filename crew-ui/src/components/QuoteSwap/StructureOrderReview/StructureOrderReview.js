@@ -33,9 +33,7 @@ class StructureOrderReview extends Component {
                                     <View><Text style={styles.suggestedText}>Let's review and complete your order</Text></View>
                                     <ReviewOrder custom={this.props.cust || ''} price={this.props.price}/>
                                 </View>
-                                <View style={{ marginRight: 20 }}>
-                                    <MarketConditionPlaceOrder custom={this.props.cust || ''} price={this.props.price} />
-                                </View>
+                                <MarketConditionPlaceOrder custom={this.props.cust || ''} price={this.props.price} />
                             </View>
                         </View>
 

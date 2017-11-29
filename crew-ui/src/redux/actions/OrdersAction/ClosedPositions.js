@@ -24,6 +24,7 @@ export const ClosedPositionsData = (crop) => {
                     return;
                 }
             common.handleError(response, 'There was an issue in retrieving the closed positions.');
+            dispatch({ type: CLOSED_POSITIONS_DATA_SUCCESS, payload: [] });
         })
         .then(closed => {
             if (closed === undefined) {

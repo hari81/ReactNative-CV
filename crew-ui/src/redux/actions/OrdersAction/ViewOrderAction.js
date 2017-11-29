@@ -23,6 +23,7 @@ export const ViewOrdersData = (crop) => {
                 return;
             }
             common.handleError(response, 'There was an issue in retrieving the orders.');
+            dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: [] });
         })
         .then(items => {
             if (items === undefined) {
