@@ -43,7 +43,9 @@ class CustomizeOrder extends Component {
             }
         }
         const addQuant = this.props.quantity;
-        const priceUpTo = common.formatNumberCommas(2 * common.cleanNumericString(this.props.quantity))
+        const priceUpTo = common.formatNumberCommas(2 * common.cleanNumericString(this.props.quantity));
+        const { underlying } = this.props.sug.suggestedQuote.metadata;
+
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
@@ -60,7 +62,7 @@ class CustomizeOrder extends Component {
                             <Text style={styles.pBody}>Buy</Text>
                             <Text style={styles.pHeader}>Contract Month</Text>
                             <Text style={styles.pBody}>
-                                {this.props.cMonth} {this.props.cYear}
+                                {common.createUnderlyingObject(underlying).underlyingMonthDesc} {underlying.slice(-4)}
                             </Text>
                         </View>
                         <View style={{ marginLeft: 20, marginTop: 6 }}>
@@ -69,7 +71,7 @@ class CustomizeOrder extends Component {
                             <Text style={styles.pHeader}>Contigent Offer Price</Text>
                             <Text style={styles.pBody}>${this.state.bonusPrice}</Text>
                             <Text style={styles.pHeader}>Contigent Offer Quantity</Text>
-                            <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
+                            <Text style={styles.pBody}>{common.formatNumberCommas(addQuant)} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                             <Text style={styles.pHeader}>You May Price Up To</Text>
                             <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                         </View>
@@ -107,6 +109,7 @@ const styles = {
 }
 const mapStateToProps = (state) => {
     return {
+        sug: state.optimalQuote,
         defaultAccountData: state.account.defaultAccount,
         cropButton: state.cropsButtons,
         products: state.products,
