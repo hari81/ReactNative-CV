@@ -29,13 +29,13 @@ const ProductDetails = (props) => {
                     <Text style={styles.textValue}>Contigent Offer Price</Text>
                     <Text style={styles.textHeader}>${additionalQtyPrice}</Text>
                     <Text style={styles.textValue}>Contigent Offer Quantity</Text>
-                    <Text style={styles.textHeader}>{quantity} {uom[0].unitOfMeasure}s</Text>
+                    <Text style={styles.textHeader}>{common.formatNumberCommas(quantity)} {uom[0].unitOfMeasure}s</Text>
                     <Text style={styles.textValue}>You May Price Up To</Text>
                     <Text style={styles.textHeader}>{common.formatNumberCommas(quantityDouble)} {uom[0].unitOfMeasure}s</Text>
                 </View>
             </View>
             <Text style={[styles.estimatedProfit, { paddingLeft: 15 }]}>ESTIMATED PROFIT</Text>
-            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${props.sug.estProfitStart_S} to ${props.sug.estProfitEnd_S}/acre</Text>
+            <Text style={[styles.textHeader, { paddingLeft: 15 }]}>${parseFloat(props.sug.estProfitStart_S).toFixed(2)} to ${parseFloat(props.sug.estProfitEnd_S).toFixed(2)}/acre</Text>
         </View>
     );
 };
@@ -79,7 +79,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-    return { riskProduct: state.products[0],
+    return { riskProduct: state.products.filter(item => item.id === 110)[0],
         sug: state.eProfit,
         acc: state.account.defaultAccount.commodities,
         cropBut: state.cropsButtons

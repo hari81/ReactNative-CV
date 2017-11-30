@@ -26,7 +26,7 @@ class SuggestedQuote extends Component {
         }
     }
     backToBushalQty = () => {
-        Actions.pop();
+        Actions.popTo('selectQuantity');
     };
 
     componentDidMount() {

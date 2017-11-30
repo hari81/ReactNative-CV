@@ -21,7 +21,7 @@ class CustomizePrice extends Component {
         this.state = {
             floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
             bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
-            price: common.isValueExists(props.price) ? parseFloat(props.price).toFixed(4) : 0,
+            price: common.isValueExists(props.price) ? props.price : 0,
             showButtons: true,
             flag: false
         };
@@ -64,7 +64,7 @@ class CustomizePrice extends Component {
                 return (<Spinner size='small' color='black' />);
             }
             return (
-            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue' }]}>{price}</Text>
+            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${price}</Text>
             );
         }
         return (
@@ -79,7 +79,7 @@ class CustomizePrice extends Component {
                         Would you like to hedge at these levels at a price of ${this.state.price}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
                         <ImageButton text='YES - Review Order' onPress={this.onReviewOrder}/>
-                        <ImageButton text='NO - Work Levels at $0 Cost' onPress={this.onWorkLevelsCost}/>
+                        <ImageButton text='NO, work these levels at $0 cost' onPress={this.onWorkLevelsCost}/>
                     </View>
                 </View>
             );
@@ -90,7 +90,7 @@ class CustomizePrice extends Component {
         Actions.structureOrderReview({ cust: 'customize' });
     };
     onWorkLevelsCost = () => {
-        Actions.structureOrderReview({ cust: 'customize' });
+        Actions.structureOrderReview({ cust: 'customize', level: 'zero' });
     };
     fPricePlusButton = () => {
         this.setState({ showButtons: false });
@@ -139,7 +139,7 @@ class CustomizePrice extends Component {
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>+</Text>
                             </View>
                         </TouchableOpacity>
-                        {this.priceType(1, lock, 'Floor Price', '$'+ this.state.floorPrice)}
+                        {this.priceType(1, lock, 'Floor Price', this.state.floorPrice)}
                         <TouchableOpacity onPressIn={this.fPriceMinusButton} onPressOut={this.stopTimer.bind(this)}>
                             <View style={{ width: width * 0.128, height: 30, backgroundColor: 'rgb(34,116,148)', marginLeft: 20, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>-</Text>
@@ -153,7 +153,7 @@ class CustomizePrice extends Component {
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>+</Text>
                             </View>
                         </TouchableOpacity>
-                        {this.priceType(2, coins, 'Bonus Price', '$' + this.state.bonusPrice)}
+                        {this.priceType(2, coins, 'Bonus Price', this.state.bonusPrice)}
                         <TouchableOpacity onPressIn={this.bPriceMinusButton} onPressOut={this.stopTimer.bind(this)}>
                             <View style={{ width: width * 0.128, height: 30, backgroundColor: 'rgb(34,116,148)', marginLeft: 20, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>-</Text>
@@ -162,7 +162,7 @@ class CustomizePrice extends Component {
                     </View>
 
                     {this.priceType(3, calender, 'Pricing Period', pPeriod)}
-                    {this.priceType(4, card, 'Price', '$'+ this.state.price)}
+                    {this.priceType(4, card, 'Price', parseFloat(this.state.price).toFixed(2))}
                 </View>
                 {this.orderButtons()}
             </View>
@@ -177,7 +177,8 @@ const mapStateToProps = state => {
     return {
         sDate: common.isValueExists(state.optimalQuote.suggestedQuote.accrualStartDate) ? state.optimalQuote.suggestedQuote.accrualStartDate : '-',
         eDate: common.isValueExists(state.optimalQuote.suggestedQuote.metadata.expirationDate) ? state.optimalQuote.suggestedQuote.metadata.expirationDate : '-',
-        spin: state.optimalQuote.spinFlag
+        spin: state.optimalQuote.spinFlag,
+        price: common.isValueExists(state.optimalQuote.suggestedQuote.price) ? state.optimalQuote.suggestedQuote.price : 0,
     };
 };
 
