@@ -65,9 +65,9 @@ class OpenPositions extends Component {
 
       if (riskProductId !== 109) {
         tShowAddlDetails = (
-            <View style={{ alignItems: 'flex-end', marginTop: -20, paddingRight: 20, paddingBottom: 10 }}>
+            <View style={{ marginTop: -16, marginLeft: 860, paddingBottom: 8 }}>
                 <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
-                      <Text style={styles.moreLink}>{moreLinkText}</Text>
+                    <Text style={styles.moreLink}>{moreLinkText}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -174,7 +174,7 @@ const styles = {
   viewbutton: { height: 50, width: 150, borderRadius: 5, marginTop: 30, backgroundColor: '#279989', justifyContent: 'center', alignItems: 'center' },
   borderStyle: { borderLeftWidth: 1, borderColor: 'rgb(159,169,186)', marginTop: 16, marginBottom: 16, marginRight: 20 },
   yearStyle: { marginTop: 10, marginBottom: 10, marginLeft: 10, width: 100, justifyContent: 'center' },
-  moreLink: { minWidth: 120, fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988', padding: 2, textAlign: 'center' },
+  moreLink: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988' },  
 };
 
 const mapStateToProps = state => {

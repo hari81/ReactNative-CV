@@ -67,9 +67,7 @@ class ClosedPositions extends Component {
                 tShowAddlDetails = (
                     <View style={{ marginTop: -16, marginLeft: 828, paddingBottom: 8 }}>
                         <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
-                            <View style={{ }}>
                             <Text style={styles.moreLink}>{moreLinkText}</Text>
-                            </View>
                         </TouchableOpacity>
                     </View>
                 );
