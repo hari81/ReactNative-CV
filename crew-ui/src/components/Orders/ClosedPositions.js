@@ -57,19 +57,17 @@ class ClosedPositions extends Component {
             let tAddlDetails = null;
             let tShowAddlDetails = null;
 
-            let moreLinkText = 'Show Details...';
+            let moreLinkText = 'Show Details >>';
             if (this.state.isShowAddlDetails) {
-                moreLinkText = 'Hide Details...';
+                moreLinkText = '<< Hide Details';
                 tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} />;
             }
 
             if (riskProductId !== 109) {
                 tShowAddlDetails = (
-                    <View style={{ alignItems: 'flex-end', marginTop: -10, paddingRight: 45, paddingBottom: 10 }}>
+                    <View style={{ marginTop: -16, marginLeft: 828, paddingBottom: 8 }}>
                         <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
-                            <View style={{ borderRadius: 3, borderWidth: 3, borderColor: '#279989', backgroundColor: '#279989' }}>
-                                <Text style={styles.moreLink}>{moreLinkText}</Text>
-                            </View>
+                            <Text style={styles.moreLink}>{moreLinkText}</Text>
                         </TouchableOpacity>
                     </View>
                 );
@@ -161,7 +159,7 @@ class ClosedPositions extends Component {
 const styles = {
   subContainerStyle: { flexDirection: 'column', margin: 5, backgroundColor: '#fff', borderRadius: 4 },
   yearStyle: { marginTop: 10, marginBottom: 10, marginLeft: 10, width: 100, justifyContent: 'center' },
-  moreLink: { minWidth: 120, fontFamily: 'HelveticaNeue', fontSize: 12, color: '#fff', padding: 2, textAlign: 'center' },
+  moreLink: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988' },
   addlField: { minWidth: 150, paddingLeft: 20 },
   addlGroupTitle: { fontFamily: 'HelveticaNeue-Bold', color: '#3d4c57', marginBottom: 5 },
   addlGroup: { marginLeft: 115, flexDirection: 'row', marginBottom: 5 }

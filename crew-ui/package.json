@@ -32,6 +32,7 @@
     "react-native-keyboard-spacer": "^0.3.1",
     "react-native-popup-dialog": "^0.9.36",
     "react-native-router-flux": "^3.35.0",
+    "react-native-version-number": "^0.3.0",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",
     "redux": "^3.7.2",
