@@ -74,7 +74,7 @@ class SelectContractMonthList extends Component {
                               <View style={{ marginLeft: 14, marginTop: 6 }}>
                                   <Text style={styles.pDetails}>Product Details</Text>
                                   <Text style={styles.pHeader}>Crop</Text>
-                                  <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                                  <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
                                   <Text style={styles.pHeader}>Product</Text>
                                   <Text style={styles.pBody}>{risk110Name}</Text>
                                   <Text style={styles.pHeader}>Trade direction</Text>
@@ -129,7 +129,7 @@ const styles = {
     subViewStyle: { marginLeft: width * 0.012, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 28, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
     contractMonthView: { height: height * 0.154, width: width * 0.140, backgroundColor: 'rgb(255,255,255)', borderRadius: 4 },
-    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.04, marginTop: 41 },
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.03, marginTop: 41 },
     monthYearView: { flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(239,244,247)', borderTopLeftRadius: 4, borderTopRightRadius: 4 },
     monthYearText: { color: 'rgb(59,76,89)', fontSize: 18, fontFamily: 'HelveticaNeue' },
     priceView: { flex: 3, justifyContent: 'center', alignItems: 'center' },

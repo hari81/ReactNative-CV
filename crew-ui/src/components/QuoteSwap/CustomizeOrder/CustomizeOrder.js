@@ -13,8 +13,8 @@ class CustomizeOrder extends Component {
         super(props);
         this.state = {
             bonusPrice: props.bPrice,
-            eProfitStart: props.eProfitStart_S,
-            eProfitEnd: props.eProfitEnd_S
+            eProfitStart: props.eProfitStart_S === '' ? '' : props.eProfitStart_S,
+            eProfitEnd: props.eProfitEnd_S === '' ? '' : props.eProfitEnd_S
         };
     }
     componentWillReceiveProps(nextProps) {
@@ -53,7 +53,7 @@ class CustomizeOrder extends Component {
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
                             <Text style={styles.pHeader}>Crop</Text>
-                            <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                            <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
                             <Text style={styles.pHeader}>Product</Text>
                             <Text style={styles.pBody}>{risk110Name}</Text>
                             <Text style={styles.pHeader}>Trade direction</Text>
@@ -76,7 +76,7 @@ class CustomizeOrder extends Component {
                     </View>
                     <View style={{ marginTop: 30, marginLeft: 14 }}>
                         <Text style={{ fontSize: 18, fontFamily: 'HelveticaNeue', color: 'rgb(230,180,19)' }}>ESTIMATED PROFIT</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{ `$${this.state.eProfitStart} to $${this.state.eProfitEnd}/acre`}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{ `$${parseFloat(this.state.eProfitStart).toFixed(2)} to $${parseFloat(this.state.eProfitEnd).toFixed(2)}/acre`}</Text>
                     </View>
                 </View>
                 </View>
