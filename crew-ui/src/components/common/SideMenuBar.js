@@ -22,7 +22,7 @@ class SideMenuBar extends Component {
     }
 
     logOutButtonPress = () => {
-        Alert.alert('Price Hedging', 'Are you sure you want to log out?', [{ text: 'Cancel', onPress: () => this.cancelButton() }, { text: 'Yes', onPress: () => this.logout() }]);
+        Alert.alert('Price Hedging', 'Are you sure you want to log out?', [{ text: 'Cancel', onPress: () => this.props.onToggleSideMenu() }, { text: 'Yes', onPress: () => this.logout() }]);
     }
 
     logout =() => {
@@ -31,7 +31,8 @@ class SideMenuBar extends Component {
     }
 
     onAccountInfo() {
-        this.props.getAccountLimits();        
+        this.props.getAccountLimits();
+        this.props.onToggleSideMenu();
     }
 
     onAbout() {

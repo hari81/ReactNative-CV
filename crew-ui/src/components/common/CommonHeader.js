@@ -40,6 +40,7 @@ class CommonHeader extends Component {
         if (this.state.sideMenuBarShow) {
             return (
                 <SideMenuBar 
+                    onToggleSideMenu={this.toggleSideMenu}
                     onShowAbout={this.onShowHideAbout} 
                     onShowChangePassword={this.onShowHideChangePassword}
                 />
