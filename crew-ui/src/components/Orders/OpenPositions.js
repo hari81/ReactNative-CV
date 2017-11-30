@@ -57,9 +57,9 @@ class OpenPositions extends Component {
       let tAddlDetails = null;
       let tShowAddlDetails = null;
 
-      let moreLinkText = 'Show Details...';
+      let moreLinkText = 'Show Details >>';
       if (this.state.isShowAddlDetails) {
-          moreLinkText = 'Hide Details...';
+          moreLinkText = '<< Hide Details';
           tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} />;
       }
 
@@ -67,9 +67,7 @@ class OpenPositions extends Component {
         tShowAddlDetails = (
             <View style={{ alignItems: 'flex-end', marginTop: -20, paddingRight: 20, paddingBottom: 10 }}>
                 <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
-                    <View style={{ borderRadius: 3, borderWidth: 3, borderColor: '#279989', backgroundColor: '#279989' }}>
-                        <Text style={styles.moreLink}>{moreLinkText}</Text>
-                    </View>
+                      <Text style={styles.moreLink}>{moreLinkText}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -176,7 +174,7 @@ const styles = {
   viewbutton: { height: 50, width: 150, borderRadius: 5, marginTop: 30, backgroundColor: '#279989', justifyContent: 'center', alignItems: 'center' },
   borderStyle: { borderLeftWidth: 1, borderColor: 'rgb(159,169,186)', marginTop: 16, marginBottom: 16, marginRight: 20 },
   yearStyle: { marginTop: 10, marginBottom: 10, marginLeft: 10, width: 100, justifyContent: 'center' },
-  moreLink: { minWidth: 120, fontFamily: 'HelveticaNeue', fontSize: 12, color: '#fff', padding: 2, textAlign: 'center' },
+  moreLink: { minWidth: 120, fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988', padding: 2, textAlign: 'center' },
 };
 
 const mapStateToProps = state => {

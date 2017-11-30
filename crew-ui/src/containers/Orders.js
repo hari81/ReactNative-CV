@@ -234,7 +234,7 @@ class Orders extends Component {
                           height: 20
                       }}
                   />
-                  <CommonHeader onPress={this.refreshData} refreshImg={Refresh} title="Refresh Data" />
+                  <CommonHeader onPress={this.refreshData} refreshImg={Refresh} refreshTitle="Refresh Data" />
 
                   <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
 

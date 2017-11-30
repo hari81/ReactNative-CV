@@ -17,14 +17,14 @@ class DashBoard extends Component {
             return (
                 <View>
                     <StatusBar barStyle='light-content' />
-                    <View style={{backgroundColor: 'rgb(0,0,0)', width, height: width * 0.026}}/>
-                    <CommonHeader/>
-                    <View style={{backgroundColor: 'rgb(239,244,247)'}}>
-                        <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
-                        <MyFarmTiles/>
-                        <MyFarmProduction/>
-                        <ActionBar/>
-                        <MyCropButton/>
+                    <View style={{ backgroundColor: 'rgb(0,0,0)', width, height: 20 }} />
+                    <CommonHeader />
+                    <View style={{ backgroundColor: 'rgb(239,244,247)' }}>
+                        <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
+                        <MyFarmTiles />
+                        <MyFarmProduction />
+                        <ActionBar />
+                        <MyCropButton />
                     </View>
                 </View>
             );
@@ -33,7 +33,9 @@ class DashBoard extends Component {
         }
     }
 }
+
 const mapStateToProps = (state) => {
     return { acc: state.account };
-}
+};
+
 export default connect(mapStateToProps, null)(DashBoard);

@@ -20,5 +20,10 @@ export const common = {
     radioButtonText: { color: '#ffffff', fontSize: 16, marginLeft: 5 },
     radioButtonContainerDisabled: { height: 32, width: 32, borderRadius: 16, borderWidth: 2, borderColor: '#9ea6b1', backgroundColor: '#ffffff80', alignItems: 'center', justifyContent: 'center' },
     radioButtonSelectedDisabled: { height: 20, width: 20, borderRadius: 10, backgroundColor: '#376768' },
-    radioButtonTextDisabled: { color: '#ffffff60', fontSize: 16, marginLeft: 5 }
+    radioButtonTextDisabled: { color: '#ffffff60', fontSize: 16, marginLeft: 5 },
+
+    /* popup stuff */
+    popupContainer: { zIndex: 1000, position: 'absolute', borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 0, shadowColor: '#aaa', shadowOffset: { width: 2, height: 2 }, shadowRadius: 5, shadowOpacity: 0.8 },
+    popupTitleContainer: { borderTopColor: '#e7b514', borderTopWidth: 4, backgroundColor: '#3d4c57', padding: 20 },
+    popupTitleText: { color: '#fff', fontFamily: 'HelveticaNeue-Thin', fontSize: 24, textAlign: 'center' },
 };
