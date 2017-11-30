@@ -79,7 +79,7 @@ class CustomizePrice extends Component {
                         Would you like to hedge at these levels at a price of ${this.state.price}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
                         <ImageButton text='YES - Review Order' onPress={this.onReviewOrder}/>
-                        <ImageButton text='NO, work thses levels at $0 cost' onPress={this.onWorkLevelsCost}/>
+                        <ImageButton text='NO, work these levels at $0 cost' onPress={this.onWorkLevelsCost}/>
                     </View>
                 </View>
             );
