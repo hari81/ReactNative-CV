@@ -25,12 +25,13 @@ class WhatTodayOptions extends Component {
             default:
         }
     }
-    optionsMenu = (id, image, text, riskId) => {
+    optionsMenu = (id, image, text, riskId, productName) => {
        return (
            <View style={{ marginLeft: id === 1 ? width * 0.081 : width * 0.022, marginTop: height * 0.0377 }}>
                <TouchableOpacity disabled={riskId === null} onPress={this.nextScreens.bind(this, id)}>
                       <View style={riskId === null ? [styles.optionsContainer, { backgroundColor: 'grey' }] : styles.optionsContainer}>
-                          <Image source={image} style={{ marginLeft: id === 3 ? width * 0.035 : width * 0.088, marginTop: height * 0.056 }} />
+                          <Text style={{ color: '#3d4c57', fontSize: 27, textAlign: 'center', fontFamily: 'HelveticaNeue' }}> {productName} </Text>
+                          <Image source={image} style={{ marginLeft: id === 3 ? width * 0.035 : width * 0.088, marginTop: 10 }} />
                           <View style={{ justifyContent: 'flex-start', marginLeft: 30 }}><Text style={styles.optionsTextStyle}>{ text } </Text></View>
                       </View>
                </TouchableOpacity>
@@ -53,9 +54,9 @@ class WhatTodayOptions extends Component {
             <View style={styles.container}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>What would you like to do today?</Text></View>
                 <View style={{ flexDirection: 'row' }}>
-                {this.optionsMenu(1, lineGraph, `I want to set a price`, risk107Id)}
-                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk5Id)}
-                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk110Id)}
+                {this.optionsMenu(1, lineGraph, `I want to set a price`, risk107Id, this.props.products.find(x => x.id === 107).name)}
+                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk5Id, this.props.products.find(x => x.id === 5).name)}
+                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk110Id, this.props.products.find(x => x.id === 110).name)}
                 </View>
             </View>
         );

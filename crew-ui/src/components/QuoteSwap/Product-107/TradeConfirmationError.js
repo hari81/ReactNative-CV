@@ -8,7 +8,8 @@ import bugsnag from '../../common/BugSnag';
 
 class TradeConfirmationError extends Component {
     onBackToOrders() {
-        Actions.quoteswap();
+        //Actions.quoteswap();
+        Actions.whatToday();
     }
 
     render() {

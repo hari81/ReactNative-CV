@@ -24,7 +24,8 @@ class TradeConfirmationOrderReceipt extends Component {
     placeNewOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
      //   console.log(cropButData[0].code, cropButData[0].year);
-        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+      //  Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
+        Actions.whatToday();
     }
 
     render() {
