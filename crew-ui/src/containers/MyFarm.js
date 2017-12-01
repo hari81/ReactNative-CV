@@ -299,7 +299,7 @@ componentWillReceiveProps(newProps) {
                                 </View>
                             </View>
                         </View>
-                        <Text style={{color: 'white', paddingLeft: 16 }}> *Required</Text>
+                        <Text style={{ color: 'white', paddingLeft: 16, paddingBottom: 2 }}> *Required</Text>
                     </View>
                 </View>
 
