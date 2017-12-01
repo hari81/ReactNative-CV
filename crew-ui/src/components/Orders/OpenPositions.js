@@ -60,10 +60,10 @@ class OpenPositions extends Component {
       let moreLinkText = 'Show Details >>';
       if (this.state.isShowAddlDetails) {
           moreLinkText = '<< Hide Details';
-          tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} />;
+          tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} unit={unit} data={lines[0]} />;
       }
 
-      if (riskProductId !== 109) {
+      if (riskProductId === 110) {
         tShowAddlDetails = (
             <View style={{ marginTop: -16, marginLeft: 860, paddingBottom: 8 }}>
                 <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
@@ -71,11 +71,14 @@ class OpenPositions extends Component {
                 </TouchableOpacity>
             </View>
         );
-    }
+      }
+
+      const firstRowHeight = 55;
 
     return (
       <View style={styles.subContainerStyle}>
         <View style={{ flexDirection: 'row', margin: 0, padding: 0 }}>
+          {/* month/year box */}
           <View style={[styles.yearStyle, { width: '10.74%' }]}>
             <View style={{ backgroundColor: 'rgb(39,153,137)', height: 40, justifyContent: 'center' }}>
               <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>{month}</Text>
@@ -87,13 +90,13 @@ class OpenPositions extends Component {
           </View>
 
           <View style={{ width: '22.4%' }}>
-            <View style={{ margin: 14 }}>
-              <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
+            <View style={{ margin: 10 }}>
+              <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20, height: firstRowHeight }, (crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
                 {crop} {riskProduct}
               </Text>
-              <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row' }}>
                 <View style={{ flexDirection: 'column' }}>
-                  <Text style={[commonStyles.common.positionsDataLabel, (crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
+                  <Text style={commonStyles.common.positionsDataLabel}>QUANTITY</Text>
                   <View style={{ width: 130, flexDirection: 'row', justifyContent: 'flex-start' }}>
                     <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
                       {lines[0].quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + unit}s
@@ -101,45 +104,43 @@ class OpenPositions extends Component {
                   </View>
                 </View>
                 <View style={{ flexDirection: 'column' }}>
-                  <Text style={[commonStyles.common.positionsDataLabel, (crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
+                  <Text style={commonStyles.common.positionsDataLabel}>DIRECTION</Text>
                   <Text style={commonStyles.common.positionsData}>
                     {direction}
                   </Text>
+                </View>
+                <View style={{ flexDirection: 'column' }}>
+                  <Text style={[commonStyles.common.positionsDataLabel, { marginLeft: 35 }]}>NET PRICE</Text>
+                  <Text style={[commonStyles.common.positionsData, { marginLeft: 35 }]}>${lines[0].netPremium}</Text>
                 </View>
               </View>
             </View>
           </View>
 
-          <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '16.11%' }}>
+          <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, height: firstRowHeight, width: '16.11%' }}>
             <Text style={commonStyles.common.positionsDataLabel}>PRODUCT</Text>
-            <Text style={commonStyles.common.positionsData}>
-              {lines[0].product}
-            </Text>
-            <Text style={[commonStyles.common.positionsDataLabel, { paddingTop: 16 }]}>NET PRICE</Text>
-            <Text style={commonStyles.common.positionsData}>
-              ${lines[0].netPremium}
-            </Text>
+            <Text style={commonStyles.common.positionsData}>{lines[0].product}</Text>
           </View>
 
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '13.18%' }}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', height: firstRowHeight }}>
               <Text style={commonStyles.common.positionsDataLabel}>TRADE RECEIPT</Text>
               <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
                 <Image style={{ width: 20, height: 20, marginLeft: 5 }} source={require('../common/img/PDF.png')} />
               </TouchableHighlight>
             </View>
-            <Text style={[commonStyles.common.positionsDataLabel, { paddingTop: 25 }]}>TRADE ID#</Text>
+            <Text style={commonStyles.common.positionsDataLabel}>TRADE ID#</Text>
             <Text style={commonStyles.common.positionsData}>
               {' '}{id}{' '}
             </Text>
           </View>
 
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10.74%' }}>
-            <Text style={commonStyles.common.positionsDataLabel}>TRADE DATE</Text>
-            <Text style={commonStyles.common.positionsData}>
-              {lines[0].tradeDate}
-            </Text>
-            <Text style={[commonStyles.common.positionsDataLabel, { paddingTop: 18 }]}>STATUS</Text>
+            <View style={{ height: firstRowHeight }}>
+              <Text style={commonStyles.common.positionsDataLabel}>TRADE DATE</Text>
+              <Text style={commonStyles.common.positionsData}>{lines[0].tradeDate}</Text>
+            </View>
+            <Text style={commonStyles.common.positionsDataLabel}>STATUS</Text>
             <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
               {status.charAt(0).toUpperCase() + status.substr(1)}
             </Text>
