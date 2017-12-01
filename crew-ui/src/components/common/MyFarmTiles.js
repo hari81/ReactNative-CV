@@ -135,11 +135,11 @@ class MyFarmTiles extends Component {
                     <View style={styles.containerStyle}>
                         <View style={{ marginLeft: width * 0.0224, marginTop: height * 0.0338 }}>
                             <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm</Text>
-                            <Text>{this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName}</Text>
+                            <Text>{this.props.cropButton.selectedId.slice(-4)} {this.props.cropButton.selectedCropName}</Text>
                         </View>
                         <View style={{ width: 1, marginLeft: width * 0.0146, marginRight: width * 0.00683, marginTop: height * 0.033, height: height * 0.0611, backgroundColor: 'rgb(221,221,221)' }} />
                         <View style={{ justifyContent: 'center', marginLeft: 10, width: width * 0.54 }}>
-                            <Text>Enter your {this.props.underlyingData.underlyingYear} {this.props.cropButton.selectedCropName} crop details to view risk and profitability insights in the Dashboard.</Text>
+                            <Text>Enter your {this.props.cropButton.selectedId.slice(-4)} {this.props.cropButton.selectedCropName} crop details to view risk and profitability insights in the Dashboard.</Text>
                         </View>
                         <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 30 }}>
                             <TouchableOpacity 
@@ -161,7 +161,7 @@ class MyFarmTiles extends Component {
 
                         <Text style={{ fontSize: 24, color: 'rgb(61,76,87)', fontFamily: 'HelveticaNeue-Medium' }}>My Farm </Text>
                         <View style={{ flexDirection: 'row', width: 100 }}>
-                            <Text style={{ fontSize: 12 }}>{this.props.underlyingData.underlyingYear}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
+                            <Text style={{ fontSize: 12 }}>{this.props.cropButton.selectedId.slice(-4)}</Text><Text style={{ fontSize: 12 }}> {this.props.cropButton.selectedCropName}</Text>
                         </View>
                         <Text style={{ fontSize: 10, color: 'rgb(39,153,137)' }}>Edit</Text>
                     </View>
