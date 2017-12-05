@@ -29,27 +29,27 @@ class ClosedPositions extends Component {
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
 
             //values from NEW type
-            let oTemp = this.props.item.lines.filter(obj => obj.type === 'NEW');
+            const oLineNew = this.props.item.lines.filter(obj => obj.type === 'NEW');
             let product = '';
             let tradeDate = '';
             let netPrice = '';
-            if (common.isValueExists(oTemp) && oTemp.length > 0) { 
-                product = oTemp[0].product;
-                tradeDate = oTemp[0].tradeDate;
-                netPrice = `$${oTemp[0].netPremium.toFixed(4)}`;
+            if (common.isValueExists(oLineNew) && oLineNew.length > 0) { 
+                product = oLineNew[0].product;
+                tradeDate = oLineNew[0].tradeDate;
+                netPrice = `$${oLineNew[0].netPremium.toFixed(4)}`;
             }
 
             //values from REPRICE type
-            oTemp = this.props.item.lines.filter(obj => obj.type === 'REPRICE');
+            const oLineReprice = this.props.item.lines.filter(obj => obj.type === 'REPRICE');
             let closedPrice = '';
             let unwindDate = '';
             let quantity = '';
             let buysell = '';
-            if (common.isValueExists(oTemp) && oTemp.length > 0) {
-                closedPrice = `$${oTemp[0].netPremium.toFixed(4)}`;
-                unwindDate = oTemp[0].tradeDate;
-                quantity = oTemp[0].quantity;
-                buysell = oTemp[0].buysell;                
+            if (common.isValueExists(oLineReprice) && oLineReprice.length > 0) {
+                closedPrice = `$${oLineReprice[0].netPremium.toFixed(4)}`;
+                unwindDate = oLineReprice[0].tradeDate;
+                quantity = oLineReprice[0].quantity;
+                buysell = oLineReprice[0].buysell;                
             }
 
             const { id, riskProduct, riskProductId, underlyingObjectData } = this.props.item;
@@ -63,11 +63,11 @@ class ClosedPositions extends Component {
                 tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} />;
             }
 
-            if (riskProductId !== 109) {
+            if (riskProductId === 110) {
                 tShowAddlDetails = (
                     <View style={{ marginTop: -16, marginLeft: 828, paddingBottom: 8 }}>
                         <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
-                            <Text style={styles.moreLink}>{moreLinkText}</Text>
+                            <Text style={commonStyles.common.positionsMoreLink}>{moreLinkText}</Text>
                         </TouchableOpacity>
                     </View>
                 );
@@ -76,7 +76,7 @@ class ClosedPositions extends Component {
             return (
                 <View style={[styles.subContainerStyle]}>
                     <View style={{ flexDirection: 'row', margin: 0, padding: 0 }}>
-                        <View style={[styles.yearStyle, { width: '10.74%' }]}>
+                        <View style={[commonStyles.common.positionsYearStyle, { width: '10.74%' }]}>
                             <View style={{ backgroundColor: '#279989', height: 40, justifyContent: 'center' }}>
                                 <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
                                     {underlyingObjectData.month}
@@ -157,12 +157,7 @@ class ClosedPositions extends Component {
 }
 
 const styles = {
-  subContainerStyle: { flexDirection: 'column', margin: 5, backgroundColor: '#fff', borderRadius: 4 },
-  yearStyle: { marginTop: 10, marginBottom: 10, marginLeft: 10, width: 100, justifyContent: 'center' },
-  moreLink: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988' },
-  addlField: { minWidth: 150, paddingLeft: 20 },
-  addlGroupTitle: { fontFamily: 'HelveticaNeue-Bold', color: '#3d4c57', marginBottom: 5 },
-  addlGroup: { marginLeft: 115, flexDirection: 'row', marginBottom: 5 }
+  subContainerStyle: { flexDirection: 'column', margin: 5, backgroundColor: '#fff', borderRadius: 4 }
 };
 
 const mapStateToProps = state => {

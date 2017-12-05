@@ -8,9 +8,10 @@ class PositionsAdditionalDetail extends Component {
             let tAddlDetails = null;
             switch (this.props.riskProductId) {
                 case 110:
-                    const bd = this.props.data.bonusDetails;
-                    const od = this.props.data.offerDetails;
-                    tAddlDetails = (
+                    const bd = common.isValueExists(this.props.data) ? this.props.data.bonusDetails : null;
+                    const od = common.isValueExists(this.props.data) ? this.props.data.offerDetails : null;
+                    if (common.isValueExists(bd) && common.isValueExists(od)) {
+                        tAddlDetails = (
                         <View style={{ paddingTop: 5, paddingRight: 20, paddingLeft: 20, paddingBottom: 5, backgroundColor: '#efefef80' }}>
                             {/* bonus details */ }
                             <Text style={styles.addlGroupTitle}>Floored Daily Bonus Details</Text>
@@ -73,6 +74,16 @@ class PositionsAdditionalDetail extends Component {
                             <Text style={[styles.addlGroupTitle, styles.addlFieldNote]}>You may price up to {common.formatNumberCommas(od.priceUpTo)} {this.props.unit}s</Text>
                         </View>
                         );
+                    } else {
+                        tAddlDetails = (
+                            <View style={{ paddingTop: 5, paddingRight: 20, paddingLeft: 20, paddingBottom: 5, backgroundColor: '#efefef80' }}>
+                                {/* bonus details */ }
+                                <Text style={styles.addlGroupTitle}>Floored Daily Bonus Details</Text>
+                                {/* Offer Details */ }
+                                <Text style={styles.addlGroupTitle}>Contingent Offer Details</Text>
+                            </View>
+                        );                            
+                    }
                     break;
                 default: // others
                     tAddlDetails = (

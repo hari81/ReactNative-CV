@@ -39,8 +39,8 @@ class ReviewOrder extends Component {
         Actions.pop();
     }
 
-    onAcceptTerms() {
-        this.setState({ isTermsAccepted: true, isPlaceOrderEnabled: true });
+    onToggleTerms() {
+        this.setState({ isTermsAccepted: !this.state.isTermsAccepted, isPlaceOrderEnabled: !this.state.isTermsAccepted });
     }
 
     onPlaceOrderNow() {
@@ -195,7 +195,7 @@ class ReviewOrder extends Component {
                                         <View style={styles.termsContainer}>
                                             <Switch 
                                                 style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd'
-                                                onValueChange={this.onAcceptTerms.bind(this)}
+                                                onValueChange={this.onToggleTerms.bind(this)}
                                                 value={this.state.isTermsAccepted}
                                             />
                                             <Text>Agree to </Text>

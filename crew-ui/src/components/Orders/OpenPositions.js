@@ -67,7 +67,7 @@ class OpenPositions extends Component {
         tShowAddlDetails = (
             <View style={{ marginTop: -16, marginLeft: 860, paddingBottom: 8 }}>
                 <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
-                    <Text style={styles.moreLink}>{moreLinkText}</Text>
+                    <Text style={commonStyles.common.positionsMoreLink}>{moreLinkText}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -79,7 +79,7 @@ class OpenPositions extends Component {
       <View style={styles.subContainerStyle}>
         <View style={{ flexDirection: 'row', margin: 0, padding: 0 }}>
           {/* month/year box */}
-          <View style={[styles.yearStyle, { width: '10.74%' }]}>
+          <View style={[commonStyles.common.positionsYearStyle, { width: '10.74%' }]}>
             <View style={{ backgroundColor: 'rgb(39,153,137)', height: 40, justifyContent: 'center' }}>
               <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>{month}</Text>
             </View>
@@ -174,8 +174,6 @@ const styles = {
   buttonText: { color: '#fff', fontSize: 14, textAlign: 'center', justifyContent: 'center', fontFamily: 'HelveticaNeue' },
   viewbutton: { height: 50, width: 150, borderRadius: 5, marginTop: 30, backgroundColor: '#279989', justifyContent: 'center', alignItems: 'center' },
   borderStyle: { borderLeftWidth: 1, borderColor: 'rgb(159,169,186)', marginTop: 16, marginBottom: 16, marginRight: 20 },
-  yearStyle: { marginTop: 10, marginBottom: 10, marginLeft: 10, width: 100, justifyContent: 'center' },
-  moreLink: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988' },  
 };
 
 const mapStateToProps = state => {
