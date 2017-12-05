@@ -14,6 +14,7 @@
     "no-param-reassign": "off",
     "react/sort-comp": "off",
     "radix": "off",
-    "no-mixed-operators": "off"
+    "no-mixed-operators": "off",
+    "no-case-declarations": "off",
   }
 }
