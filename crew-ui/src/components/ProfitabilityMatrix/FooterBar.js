@@ -161,19 +161,9 @@ class FooterBar extends Component {
                                               onPressOut={this.reCalculate}>
                                 <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
                             </TouchableOpacity>
-                            <TextInput
-                                style={{
-                                    height: height * 0.054,
-                                    width: width * 0.09,
-                                    borderRadius: 4,
-                                    backgroundColor: 'rgb(255,255,255)',
-                                    padding: 2
-                                }}
-                                maxLength={9}
-                                placeholder='0'
-                                value={parseFloat(this.state.targetPrice).toFixed(2)}
-                                onFocus={this.onFocusMake}
-                            />
+                            <View style={{ justifyContent: 'center', alignItems: 'center', height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)' }}>
+                                <Text style={{ fontSize: 18 }}>{parseFloat(this.state.targetPrice).toFixed(2)}</Text>
+                            </View>
                             <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'price')}
                                               onPressOut={this.reCalculate}>
                                 <Text
@@ -188,13 +178,9 @@ class FooterBar extends Component {
                         <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate} >
                             <Text style={[styles.updownIcon, { marginTop: 5, marginRight: 15 }]}>-</Text>
                         </TouchableOpacity>
-                        <TextInput
-                            style={{ height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)', paddingLeft: width * 0.0097 }}
-                            maxLength={9}
-                            placeholder="0"
-                            value={this.state.expectedYield}
-                            onFocus={this.onFocusMake}
-                        />
+                        <View style={{ justifyContent: 'center', alignItems: 'center', height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)' }}>
+                            <Text style={{ fontSize: 18 }}>{this.state.expectedYield}</Text>
+                        </View>
                         <TouchableOpacity onPressIn={this.plusButtonPress.bind(this, 'yield')} onPressOut={this.reCalculate}>
                             <Text style={[styles.updownIcon, { marginTop: 5, marginLeft: 15, paddingLeft: 9 }]}>+</Text>
                         </TouchableOpacity>

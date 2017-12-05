@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, SegmentedControlIOS, Text, Picker, Dimensions, StatusBar } from 'react-native';
+import { FlatList, View, SegmentedControlIOS, Text, Dimensions, StatusBar, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -7,9 +7,10 @@ import ViewOrders from '../components/Orders/ViewOrders';
 import OpenPositions from '../components/Orders/OpenPositions';
 import ClosedPositions from '../components/Orders/ClosedPositions';
 import { Spinner, CommonHeader } from '../components/common';
-import { ViewOrdersData, /*dropDownCrop,*/ selectedCrop } from '../redux/actions/OrdersAction/ViewOrderAction';
+import { ViewOrdersData, segmentTabSelect, selectedCrop } from '../redux/actions/OrdersAction/ViewOrderAction';
 import { OpenPositionsData } from '../redux/actions/OrdersAction/OpenPositions';
 import { ClosedPositionsData } from '../redux/actions/OrdersAction/ClosedPositions';
+import MyCropButton from '../components/common/CropButtons/MyCropButton';
 import st from '../Utils/SafeTraverse';
 import Refresh from '../components/common/img/Refresh.png';
 import bugsnag from '../components/common/BugSnag';
@@ -24,39 +25,43 @@ class Orders extends Component {
   }
   componentDidMount() {
      // this.props.dropDownCrop();
-      const crop = this.state.Crop;
+      const id = this.props.cropBut.selectedId;
+      const cropCode = id.substr(0, id.length - 4);
+      const cropYear = id.slice(-4);
       switch (this.state.selectedTab) {
           case 'Open Orders':
-              this.props.ViewOrdersData(crop);
+              this.props.ViewOrdersData(cropCode, cropYear);
               break;
           case 'Open Positions':
-              this.props.OpenPositionsData(crop);
+              this.props.OpenPositionsData(cropCode, cropYear);
               break;
           case 'Closed Positions':
-              this.props.ClosedPositionsData(crop);
+              this.props.ClosedPositionsData(cropCode, cropYear);
               break;
           default:
       }
   }
   
   refreshData = () => {
-        const crop = this.state.Crop;
+      const id = this.props.cropBut.selectedId;
+        const cropCode = id.substr(0, id.length - 4);
+      const cropYear = id.slice(-4);
         switch (this.state.selectedTab) {
             case 'Open Orders':
-                this.props.ViewOrdersData(crop);
+                this.props.ViewOrdersData(cropCode, cropYear);
                 break;
             case 'Open Positions':
-                this.props.OpenPositionsData(crop);
+                this.props.OpenPositionsData(cropCode, cropYear);
                 break;
             case 'Closed Positions':
-                this.props.ClosedPositionsData(crop);
+                this.props.ClosedPositionsData(cropCode, cropYear);
                 break;
             default:
                 console.log('Something wrong');
         }
     };
 
-  dropDown(cropCode) {
+  /*dropDown(cropCode) {
       this.setState({ Crop: cropCode });
 
     switch (this.state.selectedTab) {
@@ -78,19 +83,24 @@ class Orders extends Component {
         //return (this.props.viewOrders.dropDownData || []).map((item) => (
         return this.props.acc.defaultAccount.commodities.map(item => (
             <Picker.Item label={item.name} value={item.commodity} key={item.commodity} />));
-    }
+    }*/
 
     selectedTabOrder = (val) => {
         this.setState({ selectedTab: val });
+        console.log('slected Tab', this.state.selectedTab);
+        const id = this.props.cropBut.selectedId;
+        const cropCode = id.substr(0, id.length - 4);
+        const cropYear = id.slice(-4);
+        this.props.segmentTabSelect(val);
         switch (val) {
             case 'Open Orders':
-                this.props.ViewOrdersData(this.state.Crop);
+                this.props.ViewOrdersData(cropCode, cropYear);
                 break;
             case 'Open Positions':
-                this.props.OpenPositionsData(this.state.Crop);
+                this.props.OpenPositionsData(cropCode, cropYear);
                 break;
             case 'Closed Positions':
-                this.props.ClosedPositionsData(this.state.Crop);
+                this.props.ClosedPositionsData(cropCode, cropYear);
                 break;
             default:
                 console.log('Select Wrong');
@@ -241,7 +251,7 @@ class Orders extends Component {
                   <View
                       style={{
                           width: width - 20,
-                          height: 100,
+                          height: 70,
                           borderTopColor: 'rgb(231,181,20)',
                           borderTopWidth: 3,
                           backgroundColor: 'white',
@@ -252,25 +262,24 @@ class Orders extends Component {
                       }}
                   >
 
-                      <View style={styles.positions}>
+                      {/* <View style={styles.positions}>
                           <Text style={{ fontSize: 20, color: 'rgb(0,118,129)', paddingTop: 10, fontFamily: 'HelveticaNeue-Medium', paddingLeft: 20 }}>
                               Positions & Orders
                           </Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                      </View>*/}
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                           <View
                               style={{
-                                  width: '15%',
-                                  marginLeft: 20,
+                                  width: '17%',
+                                  marginLeft: 10,
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  borderRadius: 10
+                                 // borderRadius: 10
                               }}
-                          ><Text style={{ paddingTop: 10, fontSize: 10, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(0,118,129)' }}>Select Commodity ▼</Text>
-                              <Picker
+                          >{/*<Text style={{ paddingTop: 10, fontSize: 10, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(0,118,129)' }}>Select Commodity ▼</Text>
+                                  <Picker
                                   style={{ width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)' }}
-                                  // this.state.Crop === 'C' ? { backgroundColor: '#fff8dc' } : this.state.Crop === 'S' ? {backgroundColor: '#665847'} : {backgroundColor: '#f5deb3'}]}
-                                  mode='dropdown'
+                                 mode='dropdown'
                                   itemStyle={{ height: 48, borderColor: 'rgb(39,153,137)' }}
                                   selectedValue={this.state.Crop}
                                   onValueChange={this.dropDown.bind(this)}
@@ -278,9 +287,10 @@ class Orders extends Component {
 
                                   {this.pickerValues()}
 
-                              </Picker>
+                              </Picker>*/}
+                              <Text style={{ fontSize: 18, color: 'rgb(0,118,129)', paddingTop: 15, fontFamily: 'HelveticaNeue-Medium', }}>Orders & Positions</Text>
                           </View>
-                          <View style={{ justifyContent: 'center', marginLeft: 10 }}>
+                          <View style={{ justifyContent: 'center', marginLeft: 10, alignItems: 'center', marginTop: 15 }}>
                               <SegmentedControlIOS
                                   alignItems='center'
                                   tintColor='rgb(39,153,137)'
@@ -299,22 +309,24 @@ class Orders extends Component {
                                   onValueChange={this.selectedTabOrder}
                               />
                           </View>
-                          <View style={{ width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25 }}>
-                            {/*
+                          <View style={{ width: '20%', justifyContent: 'center', marginLeft: 45, marginRight: 25, marginTop: 15 }}>
+
                               <TouchableHighlight onPress={this.placeNewOrder.bind(this)}>
                                   <View style={{ width: 206, height: 32, borderRadius: 5, backgroundColor: 'rgb(39,153,137)', justifyContent: 'center', alignItems: 'center' }}>
                                       <Text style={{ fontSize: 16, color: 'rgb(255,255,255)' }}>NEW ORDER</Text>
                                   </View>
                               </TouchableHighlight>
-                            */}
+
                           </View>
                       </View>
                   </View>
-                  <View style={{ backgroundColor: 'rgb(239,244,247)', height: height - 118, zIndex: -1 }}>
-                      <View style={{ backgroundColor: '#3d4c57', height: 50, marginLeft: 10, marginRight: 10 }} />
-                      <View style={{ backgroundColor: '#3d4c57', height: height - 180, marginLeft: 10, marginRight: 10 }}>
+                  <View style={{ backgroundColor: 'rgb(239,244,247)', height, zIndex: -1 }}>
+                      <View style={{ backgroundColor: '#3d4c57', height: 10, marginLeft: 10, marginRight: 10 }} />
+                      <View style={{ backgroundColor: '#3d4c57', height: height - 290, marginLeft: 10, marginRight: 10, marginBottom: 10 }}>
                           {this.renderFlatList()}
                       </View>
+
+                    <MyCropButton />
 
                   </View>
               </View>
@@ -381,6 +393,7 @@ const mapDispatchToProps = dispatch => {
       OpenPositionsData,
      // dropDownCrop,
       selectedCrop,
+      segmentTabSelect
     },
     dispatch
   );

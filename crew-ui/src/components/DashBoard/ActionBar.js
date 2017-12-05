@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
+import { segmentTabSelect } from '../../redux/actions/OrdersAction/ViewOrderAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from '../common/Button';
@@ -13,11 +14,13 @@ class ActionBar extends Component {
 
     dashBoardToOrders = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
+        this.props.segmentTabSelect('Open Orders');
         Actions.orders({ Crop });
     }
 
     dashBoardToOpenPositions = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
+        this.props.segmentTabSelect('Open Positions');
         Actions.orders({ selectedTab: 'Open Positions', Crop });
     }
 
@@ -148,4 +151,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { externalGetTransDashboard })(ActionBar);
+export default connect(mapStateToProps, { externalGetTransDashboard, segmentTabSelect })(ActionBar);

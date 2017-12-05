@@ -6,14 +6,14 @@ import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import bugsnag from '../../../components/common/BugSnag';
 import * as common from '../../../Utils/common';
 
-export const ClosedPositionsData = (crop) => {
+export const ClosedPositionsData = (crop, cropYear) => {
   return (dispatch, getState) => {
       const user = getState().account.accountDetails;
       bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
-    const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
-
+    const url = `${ORDER_SERVICES_URL}positions?commodity=${crop}&cropYear=${cropYear}&state=closed&sort=product.contractMonth.month,product.contractMonth.year`;
+      //console.log('closed Url', url);
     return doGetFetch(url, getState().auth.crmSToken)
         .then(response => {
             if (response.status === 200) {
