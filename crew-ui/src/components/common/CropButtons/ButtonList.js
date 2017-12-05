@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { myFarmCropValues, myFarmTradeSalesOutSideApp } from '../../../redux/actions/MyFarm/CropAction';
 import { selectId, selectedCropName } from '../../../redux/actions/CropButtons/ButtonAction';
+import { ViewOrdersData } from '../../../redux/actions/OrdersAction/ViewOrderAction';
+import { OpenPositionsData } from '../../../redux/actions/OrdersAction/OpenPositions';
+import { ClosedPositionsData } from '../../../redux/actions/OrdersAction/ClosedPositions';
 import bugsnag from '../BugSnag';
 import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
 
@@ -12,6 +15,21 @@ class ButtonList extends Component {
         //Dashboard data fetch
         this.props.dashBoardDataFetch(year, code);
         this.props.onQuoteSwapUnderlying(year, code);
+        //Positions & Orders
+        console.log('cropYear', year);
+        console.log('buttons', this.props.tab);
+        switch (this.props.tab) {
+            case 'Open Orders':
+                this.props.ViewOrdersData(code, year);
+                break;
+            case 'Open Positions':
+                this.props.OpenPositionsData(code, year);
+                break;
+            case 'Closed Positions':
+                this.props.ClosedPositionsData(code, year);
+                break;
+            default:
+        }
         //myFarmAction
         if (!this.props.far.farmFlag) {
             this.props.myFarmCropValues(code, year);
@@ -20,7 +38,6 @@ class ButtonList extends Component {
             this.props.selectedCropName(name);
             this.props.selectId(id);
         } else {
-            //.log('farm data');
             const val = this.props.userflag();
             //console.log('flag', val);
             if (!val) {
@@ -95,7 +112,8 @@ const mapStateToProps = state => {
     return {
         id: state.cropsButtons.selectedId,
         far: state.myFar,
-        acc: state.account
+        acc: state.account,
+        tab: state.vieworder.selectedSegmentTab
     };
 };
 const matchDispatchToProps = (dispatch) => {
@@ -104,7 +122,10 @@ const matchDispatchToProps = (dispatch) => {
         selectedCropName,
         myFarmCropValues,
         myFarmTradeSalesOutSideApp,
-        dashBoardDataFetch
+        dashBoardDataFetch,
+        ViewOrdersData,
+        OpenPositionsData,
+        ClosedPositionsData
     }, dispatch);
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ButtonList);

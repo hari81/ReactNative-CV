@@ -1,18 +1,19 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
-import { FETCHING_ORDERS_ACTIVITY, /*DROP_DOWN_VALUES,*/ ITEMS_FETCH_DATA_SUCCESS, CLEAR_APPLICATION_STATE } from '../types';
+import { FETCHING_ORDERS_ACTIVITY, ITEMS_FETCH_DATA_SUCCESS, CLEAR_APPLICATION_STATE, SEGMENT_TAB_SELECT } from '../types';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 
-export const ViewOrdersData = (crop) => {
+export const ViewOrdersData = (crop, cropYear) => {
   return (dispatch, getState) => {
       const user = getState().account.accountDetails;
       bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
     dispatch({ type: FETCHING_ORDERS_ACTIVITY });
     const oCrop = getState().account.defaultAccount.commodities.find(x => x.commodity === crop);
-    const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&sort=underlyingMonth,underlyingYear`;
+    const url = `${ORDER_SERVICES_URL}orders?commodity=${crop}&cropYear=${cropYear}&sort=underlyingMonth,underlyingYear`;
+    //console.log('orders Url', url);
     return doGetFetch(url, getState().auth.crmSToken)
         .then(response => {
             if (response.status === 200) {
@@ -53,6 +54,10 @@ export const ViewOrdersData = (crop) => {
     });
   };
 };
+
+export const segmentTabSelect = (tab) => {
+    return { type: SEGMENT_TAB_SELECT, payload: tab };
+}
 
 /*export const dropDownCrop = () => {
   return (dispatch, getState) => {
