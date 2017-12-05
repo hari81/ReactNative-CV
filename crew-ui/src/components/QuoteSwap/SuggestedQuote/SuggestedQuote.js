@@ -34,9 +34,9 @@ class SuggestedQuote extends Component {
         this.props.estimateProfit(1);
     }
     customizeOrder = () => {
-        const { cMonth, cYear, quantity } = this.props.previousState;
+        const { quantity } = this.props.previousState;
         const { strike, bonusPrice, price } = this.props.suggestQuote;
-        Actions.customizeOrder({ cMonth, cYear, quantity, strike, bonusPrice, price });
+        Actions.customizeOrder({ quantity, strike, bonusPrice, price });
     };
     reviewOrder = () => {
         Actions.structureOrderReview();

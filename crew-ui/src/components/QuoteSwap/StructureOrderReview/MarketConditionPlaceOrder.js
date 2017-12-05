@@ -36,7 +36,10 @@ class MarketConditionPlaceOrder extends Component {
     }
     onModifyOrder() {
         if (this.props.custom === 'customize') {
-            Actions.pop();
+            //Actions.pop();
+            const { strike, bonusPrice, price } = this.props.sug;
+            const quantity = this.props.sug.metadata.quantity;
+            Actions.customizeOrder({ quantity, strike, bonusPrice, price, flag: false });
             return;
         }
         const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.cropButton.selectedId.slice(-4);
@@ -140,7 +143,8 @@ const mapStateToProps = state => {
             flag: state.optimalQuote.spinFlag,
             cropButton: state.cropsButtons,
             stateinfoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue,
-            productId: tProductId
+            productId: tProductId,
+            sug: state.optimalQuote.suggestedQuote
    };
 };
 

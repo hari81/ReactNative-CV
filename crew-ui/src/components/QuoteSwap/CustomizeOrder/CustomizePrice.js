@@ -22,10 +22,15 @@ class CustomizePrice extends Component {
             floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
             bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
             price: common.isValueExists(props.price) ? props.price : 0,
-            showButtons: true,
+            showButtons: props.customFlag || true,
             flag: false
         };
         this.timer = null;
+        //console.log('flag1', this.state.showButtons);
+    }
+    componentWillMount() {
+        //console.log('flag2', this.props.customFlag);
+        this.setState({ showButtons: this.props.customFlag || true });
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.spin) {
@@ -35,6 +40,7 @@ class CustomizePrice extends Component {
           this.setState({ price: nextProps.price });
         }
         if (this.state.flag) {
+
             this.props.estimateProfit(2, 'Start', this.state);
             this.props.estimateProfit(2, '', this.state);
             this.setState({ flag: false });
@@ -129,7 +135,7 @@ class CustomizePrice extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        const pPeriod = common.formatDate(this.props.sDate, 5) + ' to       '+ common.formatDate(this.props.eDate, 5)
+        const pPeriod = 'TODAY to \n'+ common.formatDate(this.props.eDate, 5);
         return (
             <View style={{ position: 'absolute', marginTop: height * 0.1 }}>
                 <View style={{ flexDirection: 'row' }}>

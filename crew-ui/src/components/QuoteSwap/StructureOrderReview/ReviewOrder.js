@@ -87,7 +87,7 @@ class ReviewOrder extends Component {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Pricing Period</Text>
                         <Text
-                            style={styles.quoteData}>{common.formatDate(accrualStartDate, 5)} to
+                            style={styles.quoteData}>{'TODAY'} to
                         </Text>
                         <Text
                             style={styles.quoteData}>{common.formatDate(expirationDate, 5)}
