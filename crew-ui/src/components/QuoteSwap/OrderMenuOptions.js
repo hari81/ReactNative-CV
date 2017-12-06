@@ -42,21 +42,24 @@ class WhatTodayOptions extends Component {
         let risk107Id = null;
         let risk110Id = null;
         let risk5Id = null;
+        let risk107Name = null;
+        let risk110Name = null;
+        let risk5Name = null;
         if (common.isValueExists(this.props.products)) {
             const risk107 = this.props.products.find(x => x.id === 107);
-            if (common.isValueExists(risk107)) { risk107Id = risk107.id; }
+            if (common.isValueExists(risk107)) { risk107Id = risk107.id; risk107Name = risk107.name; }
             const risk110 = this.props.products.find(x => x.id === 110);
-            if (common.isValueExists(risk110)) { risk110Id = risk110.id; }
+            if (common.isValueExists(risk110)) { risk110Id = risk110.id; risk110Name = risk110.name; }
             const risk5 = this.props.products.find(x => x.id === 5);
-            if (common.isValueExists(risk5)) { risk5Id = risk5.id; }
+            if (common.isValueExists(risk5)) { risk5Id = risk5.id; risk5Name = risk5.name; }
         }
         return (
             <View style={styles.container}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>What would you like to do today?</Text></View>
                 <View style={{ flexDirection: 'row' }}>
-                {this.optionsMenu(1, lineGraph, `I want to set a price`, risk107Id, this.props.products.find(x => x.id === 107).name)}
-                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk5Id, this.props.products.find(x => x.id === 5).name)}
-                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk110Id, this.props.products.find(x => x.id === 110).name)}
+                {this.optionsMenu(1, lineGraph, `I want to set a price`, risk107Id, risk107Name)}
+                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk5Id, risk5Name)}
+                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk110Id, risk110Name)}
                 </View>
             </View>
         );
