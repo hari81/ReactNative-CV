@@ -16,8 +16,6 @@ class ButtonList extends Component {
         this.props.dashBoardDataFetch(year, code);
         this.props.onQuoteSwapUnderlying(year, code);
         //Positions & Orders
-        console.log('cropYear', year);
-        console.log('buttons', this.props.tab);
         switch (this.props.tab) {
             case 'Open Orders':
                 this.props.ViewOrdersData(code, year);
@@ -39,14 +37,12 @@ class ButtonList extends Component {
             this.props.selectId(id);
         } else {
             const val = this.props.userflag();
-            //console.log('flag', val);
             if (!val) {
                 this.props.myFarmCropValues(code, year);
                 this.props.myFarmTradeSalesOutSideApp(code, year);
                 this.props.selectId(id);
                 this.props.selectedCropName(name);
             } else {
-               // this.props.selectId(this.props.old[0].id);
                 Alert.alert(
                     'My Farm Data',
                     'Please CANCEL or SAVE your changes prior to proceeding to the next screen.',

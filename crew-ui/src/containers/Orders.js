@@ -24,7 +24,6 @@ class Orders extends Component {
     };
   }
   componentDidMount() {
-     // this.props.dropDownCrop();
       const id = this.props.cropBut.selectedId;
       const cropCode = id.substr(0, id.length - 4);
       const cropYear = id.slice(-4);
@@ -60,34 +59,8 @@ class Orders extends Component {
                 console.log('Something wrong');
         }
     };
-
-  /*dropDown(cropCode) {
-      this.setState({ Crop: cropCode });
-
-    switch (this.state.selectedTab) {
-        case 'Open Orders':
-        this.props.ViewOrdersData(cropCode);
-
-        break;
-        case 'Open Positions':
-            this.props.OpenPositionsData(cropCode);
-            break;
-        case 'Closed Positions':
-            this.props.ClosedPositionsData(cropCode);
-            break;
-        default:
-    }
-  }
-
-    pickerValues() {
-        //return (this.props.viewOrders.dropDownData || []).map((item) => (
-        return this.props.acc.defaultAccount.commodities.map(item => (
-            <Picker.Item label={item.name} value={item.commodity} key={item.commodity} />));
-    }*/
-
     selectedTabOrder = (val) => {
         this.setState({ selectedTab: val });
-        console.log('slected Tab', this.state.selectedTab);
         const id = this.props.cropBut.selectedId;
         const cropCode = id.substr(0, id.length - 4);
         const cropYear = id.slice(-4);
@@ -103,7 +76,7 @@ class Orders extends Component {
                 this.props.ClosedPositionsData(cropCode, cropYear);
                 break;
             default:
-                console.log('Select Wrong');
+                console.log('Selected Wrong');
         }
     };
 
@@ -131,7 +104,6 @@ class Orders extends Component {
     }
 
     if (this.state.selectedTab === 'Open Orders') {
-      //console.log('Orders Button Pressed');
       if (!st(this.props, ['viewOrders', 'items', 'length'])) {
         return (
           <View
@@ -164,7 +136,6 @@ class Orders extends Component {
       );
     }
     if (this.state.selectedTab === 'Open Positions') {
-        //console.log('Open Positions Pressed');
         if (!st(this.props, ['openPositions', 'length'])) {
             return (
                 <View
@@ -196,8 +167,6 @@ class Orders extends Component {
         );
     }
     if (this.state.selectedTab === 'Closed Positions') {
-      // console.log('Closed Positions Pressed');
-
       if (this.props.closedPositions.length === 0) {
         return (
           <Text
@@ -233,7 +202,6 @@ class Orders extends Component {
           const { userId, firstName, email } = this.props.acc.accountDetails;
           bugsnag.setUser(`User Id: ${userId}`, firstName, email);
           const { width, height } = Dimensions.get('window');
-          //console.log(width, height)
           return (
               <View style={{ width, height }}>
                   <StatusBar barStyle='light-content' />
@@ -262,11 +230,6 @@ class Orders extends Component {
                       }}
                   >
 
-                      {/* <View style={styles.positions}>
-                          <Text style={{ fontSize: 20, color: 'rgb(0,118,129)', paddingTop: 10, fontFamily: 'HelveticaNeue-Medium', paddingLeft: 20 }}>
-                              Positions & Orders
-                          </Text>
-                      </View>*/}
                       <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                           <View
                               style={{
@@ -276,18 +239,7 @@ class Orders extends Component {
                                   alignItems: 'center',
                                  // borderRadius: 10
                               }}
-                          >{/*<Text style={{ paddingTop: 10, fontSize: 10, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(0,118,129)' }}>Select Commodity ▼</Text>
-                                  <Picker
-                                  style={{ width: 150, height: 55, marginTop: -10, borderColor: 'rgb(39,153,137)' }}
-                                 mode='dropdown'
-                                  itemStyle={{ height: 48, borderColor: 'rgb(39,153,137)' }}
-                                  selectedValue={this.state.Crop}
-                                  onValueChange={this.dropDown.bind(this)}
-                              >
-
-                                  {this.pickerValues()}
-
-                              </Picker>*/}
+                          >
                               <Text style={{ fontSize: 18, color: 'rgb(0,118,129)', paddingTop: 15, fontFamily: 'HelveticaNeue-Medium', }}>Orders & Positions</Text>
                           </View>
                           <View style={{ justifyContent: 'center', marginLeft: 10, alignItems: 'center', marginTop: 15 }}>
@@ -326,7 +278,7 @@ class Orders extends Component {
                           {this.renderFlatList()}
                       </View>
 
-                    <MyCropButton />
+                    <MyCropButton sTab={this.state.selectedTab} />
 
                   </View>
               </View>
@@ -374,7 +326,6 @@ const styles = {
   },
 };
 const mapStateToProps = state => {
-  //  console.log(state)
   return {
     viewOrders: state.vieworder,
     openPositions: state.openPositions.openPstns,
@@ -391,7 +342,6 @@ const mapDispatchToProps = dispatch => {
       ViewOrdersData,
       ClosedPositionsData,
       OpenPositionsData,
-     // dropDownCrop,
       selectedCrop,
       segmentTabSelect
     },

@@ -59,24 +59,4 @@ export const segmentTabSelect = (tab) => {
     return { type: SEGMENT_TAB_SELECT, payload: tab };
 }
 
-/*export const dropDownCrop = () => {
-  return (dispatch, getState) => {
-      const user = getState().account.accountDetails;
-      bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-    const url = `${ORDER_SERVICES_URL}commodities`;
-    return doGetFetch(url, getState().auth.crmSToken)
-        .then(response => {
-            if (response.status === 403) {
-                response.json().then(userFail => { Alert.alert(userFail.message); });
-                return;
-            }
-            return response.json();
-        })
-      .then(dropDownData => {
-        //  console.log(dropDownData);
-        dispatch({ type: DROP_DOWN_VALUES, payload: dropDownData });
-      })
-      .catch(/*error => console.log(`error ${error}`)*//*bugsnag.notify);
-  };
-};*/
 
