@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Alert, Dimensions, Image, Linking, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import VersionNumber from 'react-native-version-number';
 import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
 import { Input } from './Input';
 import Phone from './img/Phone.png';
@@ -94,7 +93,7 @@ class CommonHeader extends Component {
                         </TouchableOpacity>
                         <Image source={imgLogo} style={{ alignSelf: 'center' }} />
                         <Text style={[cStyles.common.popupTitleText, styles.aboutTitle]}>PRICE HEDGING</Text>
-                        <Text style={styles.aboutVersion}>Build Version {VersionNumber.buildVersion}</Text>
+                        <Text style={styles.aboutVersion}>Build Version 1.2</Text>
                     </View>
                     <TouchableOpacity style={styles.aboutLink} onPress={this.onOpenAboutLink.bind(this, URL_LEARN_MORE)}>
                         <Text style={styles.aboutLinkText}>Learn More</Text>

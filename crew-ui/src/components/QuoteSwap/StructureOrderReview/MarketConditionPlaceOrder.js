@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
+import { Actions, NavigationActions } from 'react-native-router-flux';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { View, Text, Switch, TouchableOpacity, Dimensions, Alert } from 'react-native';
@@ -36,7 +36,7 @@ class MarketConditionPlaceOrder extends Component {
     }
     onModifyOrder() {
         if (this.props.custom === 'customize') {
-            Actions.pop();
+            Actions.popTo('customizeOrder');
             return;
         }
         const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.cropButton.selectedId.slice(-4);

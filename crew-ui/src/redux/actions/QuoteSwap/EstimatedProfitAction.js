@@ -46,7 +46,7 @@ export const estimateProfit = (id, start, obj) => {
                 yieldIncrement: 5
             };
         }
-        console.log(body)
+        console.log('reacl', body)
         return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 403) {
