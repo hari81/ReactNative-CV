@@ -28,7 +28,9 @@ class SelectContractMonthList extends Component {
         this.setState({ price: bidPrice })
         this.props.onSelectedMonth(id, month, year, underlying, lastTradeDate);
     }
-    benefitsScreen = () => { Actions.productBenefits(); }
+    benefitsScreen(id, name) { 
+        Actions.productBenefits({ riskProductId: id, riskProductName: name }); 
+    }
     selectQuantity = () => {
         const price = this.state.price || st(this.props, ['contractMonth', 'contract', 0, 'bidPrice'])
         const cMonth = this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])
@@ -53,10 +55,14 @@ class SelectContractMonthList extends Component {
             spinner = (<Spinner size="small" />);
         } else {
             const sId = this.props.parentState.selectedMonth;
-            let risk110Name = null;
+            let riskName = null;
+            let riskId = null;
             if (common.isValueExists(this.props.products)) {
-                const risk110 = this.props.products.find(x => x.id === 110);
-                if (common.isValueExists(risk110)) { risk110Name = risk110.name; }
+                const risk110 = this.props.products.find(x => x.id === 110);                
+                if (common.isValueExists(risk110)) { 
+                    riskName = risk110.name; 
+                    riskId = risk110.id;
+                }
             }
             spinner = (
                 <View>
@@ -76,7 +82,7 @@ class SelectContractMonthList extends Component {
                                   <Text style={styles.pHeader}>Crop</Text>
                                   <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
                                   <Text style={styles.pHeader}>Product</Text>
-                                  <Text style={styles.pBody}>{risk110Name}</Text>
+                                  <Text style={styles.pBody}>{riskName}</Text>
                                   <Text style={styles.pHeader}>Trade direction</Text>
                                   <Text style={styles.pBody}>Buy</Text>
                                   <Text style={styles.pHeader}>Contract Month</Text>
@@ -111,8 +117,8 @@ class SelectContractMonthList extends Component {
                         />
                     </View>
                     <View style={{ flexDirection: 'row', marginTop: height * 0.028, marginLeft: width * 0.62 }}>
-                                <ImageButton text='BACK' onPress={this.benefitsScreen} />
-                                <ImageButton text='NEXT' onPress={this.selectQuantity} />
+                        <ImageButton text='BACK' onPress={this.benefitsScreen.bind(this, riskId, riskName)} />
+                        <ImageButton text='NEXT' onPress={this.selectQuantity} />
                      </View>
                  </View>
             );

@@ -68,9 +68,9 @@ class CustomizeOrder extends Component {
                         <View style={{ marginLeft: 20, marginTop: 6 }}>
                             <Text style={styles.pHeader}>Current Market Price</Text>
                             <Text style={styles.pBody}>${this.props.cPrice}</Text>
-                            <Text style={styles.pHeader}>Contigent Offer Price</Text>
+                            <Text style={styles.pHeader}>Contingent Offer Price</Text>
                             <Text style={styles.pBody}>${this.state.bonusPrice}</Text>
-                            <Text style={styles.pHeader}>Contigent Offer Quantity</Text>
+                            <Text style={styles.pHeader}>Contingent Offer Quantity</Text>
                             <Text style={styles.pBody}>{common.formatNumberCommas(addQuant)} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                             <Text style={styles.pHeader}>You May Price Up To</Text>
                             <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
