@@ -29,7 +29,7 @@ class CustomizeOrder extends Component {
     nextScreens(id) {
         switch (id) {
             case 1:
-                Actions.pop();
+                Actions.popTo('suggestedQuote');
                 break;
             default:
         }
@@ -45,7 +45,7 @@ class CustomizeOrder extends Component {
         const addQuant = this.props.quantity;
         const priceUpTo = common.formatNumberCommas(2 * common.cleanNumericString(this.props.quantity));
         const { underlying } = this.props.sug.suggestedQuote.metadata;
-
+        console.log('flag rp', this.props.flag);
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
@@ -92,6 +92,7 @@ class CustomizeOrder extends Component {
                     fPrice={this.props.fPrice}
                     bPrice={this.props.bPrice}
                     price={this.props.price}
+                    customFlag={this.props.flag}
                 />
 
             </View>
@@ -113,10 +114,10 @@ const mapStateToProps = (state) => {
         defaultAccountData: state.account.defaultAccount,
         cropButton: state.cropsButtons,
         products: state.products,
-        eProfitStart_S: common.isValueExists(state.eProfit.estProfitStart_S) ? state.eProfit.estProfitStart_S : '  -',
-        eProfitEnd_S: common.isValueExists(state.eProfit.estProfitEnd_S) ? state.eProfit.estProfitEnd_S : '   -',
-        eProfitStart_C: common.isValueExists(state.eProfit.estProfitStart_C) ? state.eProfit.estProfitStart_C : '  -',
-        eProfitEnd_C: common.isValueExists(state.eProfit.estProfitEnd_C) ? state.eProfit.estProfitEnd_C : '   -',
+        eProfitStart_S: common.isValueExists(state.eProfit.estProfitStart_S) ? state.eProfit.estProfitStart_S : 0,
+        eProfitEnd_S: common.isValueExists(state.eProfit.estProfitEnd_S) ? state.eProfit.estProfitEnd_S : 0,
+        eProfitStart_C: common.isValueExists(state.eProfit.estProfitStart_C) ? state.eProfit.estProfitStart_C : 0,
+        eProfitEnd_C: common.isValueExists(state.eProfit.estProfitEnd_C) ? state.eProfit.estProfitEnd_C : 0,
         underlyingData: common.isValueExists(state.dashBoardData.Data.actionBar.todayPrice.symbol) ? common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol) : 0,
         cPrice: common.isValueExists(state.optimalQuote.suggestedQuote.underlyingPrice) ? parseFloat(state.optimalQuote.suggestedQuote.underlyingPrice).toFixed(4) : '  -',
     };
