@@ -6,6 +6,7 @@ import { CommonHeader } from '../common';
 import MyFarmTiles from '../common/MyFarmTiles';
 import confirmtick from '../common/img/confirmationSuccess.png';
 import { dashBoardDataFetch } from '../../redux/actions/Dashboard/DashboardAction';
+import { segmentTabSelect } from '../../redux/actions/OrdersAction/ViewOrderAction';
 import bugsnag from '../../components/common/BugSnag';
 
 class TradeConfirmationOrderReceipt extends Component {
@@ -17,13 +18,12 @@ class TradeConfirmationOrderReceipt extends Component {
 
     reviewPositionsOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
-    //    console.log('Crop Code:', cropButData[0].code);
+        this.props.segmentTabSelect('Open Orders');
         Actions.orders({ Crop: cropButData[0].code });
     }
 
     placeNewOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
-     //   console.log(cropButData[0].code, cropButData[0].year);
         Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].year });
     }
 
@@ -194,4 +194,4 @@ const mapStateToProps = (state) => {
     return { crops: state.cropsButtons, acc: state.account };
 };
 
-export default connect(mapStateToProps, { dashBoardDataFetch })(TradeConfirmationOrderReceipt);
+export default connect(mapStateToProps, { dashBoardDataFetch, segmentTabSelect })(TradeConfirmationOrderReceipt);
