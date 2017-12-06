@@ -93,7 +93,7 @@ class CommonHeader extends Component {
                         </TouchableOpacity>
                         <Image source={imgLogo} style={{ alignSelf: 'center' }} />
                         <Text style={[cStyles.common.popupTitleText, styles.aboutTitle]}>PRICE HEDGING</Text>
-                        <Text style={styles.aboutVersion}>Build Version 1.2</Text>
+                        <Text style={styles.aboutVersion}>Build Version 2.0.0</Text>
                     </View>
                     <TouchableOpacity style={styles.aboutLink} onPress={this.onOpenAboutLink.bind(this, URL_LEARN_MORE)}>
                         <Text style={styles.aboutLinkText}>Learn More</Text>

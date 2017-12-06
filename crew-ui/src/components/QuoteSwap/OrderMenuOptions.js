@@ -27,10 +27,10 @@ class WhatTodayOptions extends Component {
     }
     optionsMenu = (id, image, text, riskId, productName) => {
        return (
-           <View style={{ marginLeft: id === 1 ? width * 0.081 : width * 0.022, marginTop: height * 0.0377 }}>
+           <View style={{ marginLeft: id === 1 ? width * 0.081 : width * 0.022, marginTop: height * 0.0377, borderRadius: 5 }}>
                <TouchableOpacity disabled={riskId === null} onPress={this.nextScreens.bind(this, id)}>
                       <View style={riskId === null ? [styles.optionsContainer, { backgroundColor: 'grey' }] : styles.optionsContainer}>
-                          <Text style={{ color: '#3d4c57', fontSize: 27, textAlign: 'center', fontFamily: 'HelveticaNeue' }}> {productName} </Text>
+                          <Text style={{ color: 'rgb(34,116,148)', fontSize: 25, textAlign: 'center', fontFamily: 'HelveticaNeue-Bold', paddingTop: 5 }}> {productName} </Text>
                           <Image source={image} style={{ marginLeft: id === 3 ? width * 0.035 : width * 0.088, marginTop: 10 }} />
                           <View style={{ justifyContent: 'flex-start', marginLeft: 30 }}><Text style={styles.optionsTextStyle}>{ text } </Text></View>
                       </View>

@@ -39,14 +39,13 @@ export const estimateProfit = (id, start, obj) => {
                 openPositionsAmount: 0,
                 openPositionsQuantity: 0,
                 priceIncrement: 0.1,
-                targetPrice: (start === 'Start' ? Number(obj.floorPrice) : Number(obj.bonusPrice)) + Number(obj.price),
+                targetPrice: (start === 'Start' ? Number(obj.floorPrice) : Number(obj.bonusPrice)) + getState().optimalQuote.suggestedQuote.price,
                 unitCost: getState().dashBoardData.Data.myFarmProduction.unitCost,
                 xDimension: 1,
                 yDimension: 1,
                 yieldIncrement: 5
             };
         }
-        console.log('reacl', body)
         return doPostFetch(url, body, getState().auth.crmSToken)
             .then(response => {
                 if (response.status === 403) {

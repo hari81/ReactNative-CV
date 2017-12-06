@@ -22,7 +22,8 @@ class SideMenuBar extends Component {
     }
 
     logOutButtonPress = () => {
-        Alert.alert('Price Hedging', 'Are you sure you want to log out?', [{ text: 'Cancel', onPress: () => this.props.onToggleSideMenu() }, { text: 'Yes', onPress: () => this.logout() }]);
+        this.props.onToggleSideMenu();
+        Alert.alert('Price Hedging', 'Are you sure you want to log out?', [{ text: 'Cancel' }, { text: 'Yes', onPress: () => this.logout() }]);
     }
 
     logout =() => {
@@ -51,15 +52,15 @@ class SideMenuBar extends Component {
                 <View style={styles.messageContainer}>
                     <View style={[styles.triangle, { marginLeft: width * 0.94, marginTop: 4 }]} />
                     <View style={[styles.messageBox, { marginLeft: width * 0.74 }]}>
-                        <TouchableOpacity onPress={this.cancelButton}>
+                        <TouchableOpacity onPress={this.props.onToggleSideMenu}>
                             <View style={{ marginLeft: width * 0.2324, marginTop: 2 }}>
                                 <Image source={cancelimage} style={{ width: width * 0.0156, height: width * 0.0156 }} />
                             </View>
                         </TouchableOpacity>
                         <Button onPress={this.onAccountInfo.bind(this)} buttonStyle={{}} textStyle={styles.messageBoxText}>Account Information</Button>
                         <Button onPress={this.onChangePassword.bind(this)} buttonStyle={{}} textStyle={styles.messageBoxText}>Change Password</Button>
-                        <Button onPress={this.logOutButtonPress} buttonStyle={{}} textStyle={styles.messageBoxText}>Log Out</Button>
                         <Button onPress={this.onAbout.bind(this)} buttonStyle={{}} textStyle={styles.messageBoxText}>About</Button>
+                        <Button onPress={this.logOutButtonPress} buttonStyle={{}} textStyle={styles.messageBoxText}>Log Out</Button>
                     </View>
                 </View>
             );

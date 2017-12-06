@@ -2,6 +2,8 @@ export const common = {
     /* positions */
     positionsDataLabel: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#01aca8' },
     positionsData: { fontFamily: 'HelveticaNeue-Thin', fontSize: 14 },
+    positionsYearStyle: { marginTop: 10, marginBottom: 10, marginLeft: 10, width: 100, justifyContent: 'center' },
+    positionsMoreLink: { fontFamily: 'HelveticaNeue', fontSize: 12, color: '#279988' },  
   
     /* common button styles */
     //touchable opacity (button) with text inside
