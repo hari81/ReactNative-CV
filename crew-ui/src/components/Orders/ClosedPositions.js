@@ -60,7 +60,7 @@ class ClosedPositions extends Component {
             let moreLinkText = 'Show Details >>';
             if (this.state.isShowAddlDetails) {
                 moreLinkText = '<< Hide Details';
-                tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} />;
+                tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} data={oLineReprice[0]} />;
             }
 
             if (riskProductId === 110) {
