@@ -28,19 +28,28 @@ class MyFarmProduction extends Component {
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.unhedgedTotalQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(61,76,87)' }}>{this.props.unhedgedTotalAmount}</Text>
-                    <Text style={{ fontSize: 15, paddingTop: height * 0.0156, color: 'rgb(29,37,49)' }}>OPEN ORDERS</Text>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.040, color: 'rgb(29,37,49)' }}>CONTINGENT OFFERS</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.openOrdersQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
+                    <Text style={{ fontSize: 26, color: 'rgb(61,76,87)' }}>{this.props.openPositionsTradeAmount}</Text>
+                </View>
+                <View>
+                    <View style={{ borderRadius: 100, marginTop: height * 0.036, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(158,42,47)' }} />
+                    <View style={{ borderRadius: 100, marginTop: height * 0.140, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(0,95,134)' }} />
                 </View>
 
-                <View style={{ width: width * 0.2734 }}>
-                    <View style={{ borderRadius: 100, marginTop: height * 0.036, marginLeft: 5, width: width * 0.0156, height: height * 0.019, backgroundColor: 'rgb(158,42,47)' }} />
+                <View style={{ width: width * 0.2734, marginTop: height * 0.05 }}>
                     <ChartApp />
-                    <View style={{ flexDirection: 'column', position: 'absolute', marginLeft: width * 0.11, marginTop: height * 0.156 }}>
-                        <Text style={{ fontSize: 14, paddingLeft: width * 0.016, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(61,76,87)' }} >
+                    <View style={{ flexDirection: 'column', position: 'absolute', marginLeft: width * 0.09, marginTop: height * 0.11 }}>
+                        <Text style={{ fontSize: 14, paddingLeft: width * 0.02, fontFamily: 'HelveticaNeue-Medium', color: 'rgb(61,76,87)' }} >
                             {percent}%
                         </Text>
                         <Text style={{ fontSize: 15, paddingLeft: width * 0.0039, fontFamily: 'HelveticaNeue', color: 'rgb(171,178,183)' }}>UNSOLD</Text>
+                    </View>
+                    <View style={{ position: 'absolute', marginTop: height * 0.29, flexDirection: 'row', marginLeft: width * 0.02 }}>
+                    <Text style={{ fontSize: 15, color: 'rgb(29,37,49)', paddingTop: height * 0.01 }}>OPEN ORDERS:  </Text>
+                    <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.openOrdersQuantity}</Text>
+                    <Text style={{ fontSize: 12, color: 'rgb(121,120,119)', paddingTop: height * 0.012 }}>{this.props.unitOfMeasure}s</Text>
                     </View>
                 </View>
 
@@ -48,7 +57,7 @@ class MyFarmProduction extends Component {
                     <View style={{ borderRadius: 100, marginTop: height * 0.036, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(135,136,140)' }} />
                     <View style={{ borderRadius: 100, marginTop: height * 0.15, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(218,170,0)' }} />
                 </View>
-                <View style={{ width: width * 0.185, flexDirection: 'column' }}>
+                <View style={{ width: width * 0.168, flexDirection: 'column' }}>
                     <Text style={{ fontSize: 15, paddingTop: height * 0.036, color: 'rgb(29,37,49)' }}>TRADES</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(29,37,49)' }}>(OUTSIDE THE APP)</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.externalTradesQuantity}</Text>
@@ -187,18 +196,18 @@ const mapStateToProps = (state) => {
         myFarmProductionData: st(state.dashBoardData, ['Data']),
         unitOfMeasure: st(state.account, ['defaultAccount', 'commodities', 0, 'unitOfMeasure']),
 
-        estimatedTotalProduction: st(state.dashBoardData, ['Data', 'myFarmProduction', 'estimatedTotalProduction']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'estimatedTotalProduction']))),
+        estimatedTotalProduction: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'estimatedTotalProduction'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'estimatedTotalProduction']))) : '   -' ,
 
-        unhedgedTotalQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalQuantity'])).toFixed(0)),
-        unhedgedTotalAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount'])).toFixed(0)),
+        unhedgedTotalQuantity: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalQuantity'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalQuantity'])).toFixed(0)) : '   -',
+        unhedgedTotalAmount: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount'])) ? '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'unhedgedProduction', 'totalTradeAmount'])).toFixed(0)) : '   -',
 
-        openOrdersQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openOrders', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openOrders', 'totalQuantity'])).toFixed(0)),
+        openOrdersQuantity: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openOrders', 'totalQuantity'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openOrders', 'totalQuantity'])).toFixed(0)) : '   -',
 
-        externalTradesQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalQuantity'])).toFixed(0)),
-        externalTradesAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount'])).toFixed(0)),
+        externalTradesQuantity: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalQuantity'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalQuantity'])).toFixed(0)) : '   -',
+        externalTradesAmount: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount'])) ? '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'externalTrades', 'totalTradeAmount'])).toFixed(0)) : '   -',
 
-        openPositionsQuantity: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity']) === null ? '   -' : common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity'])).toFixed(0)),
-        openPositionsTradeAmount: st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount']) === null ? '   -' : '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])).toFixed(0)),
+        openPositionsQuantity: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity'])).toFixed(0)) : '   -',
+        openPositionsTradeAmount: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])) ? '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])).toFixed(0)) : '   -',
         isDashboardDataExists: isDataExists
     };
 };
