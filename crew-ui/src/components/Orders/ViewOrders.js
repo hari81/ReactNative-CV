@@ -43,7 +43,11 @@ class ViewOrders extends Component {
     const crop = underlyingObjectData.crop;
     const unit = underlyingObjectData.unit;
     const targetPrice = this.props.item.targetPrice || 0;
-
+    let tStrike = this.props.item.strike;
+    if (common.isValueExists(tStrike)) { tStrike = tStrike.toFixed(2); }
+    let tBonusPrice = this.props.item.bonusPrice;
+    if (common.isValueExists(tBonusPrice)) { tBonusPrice = tBonusPrice.toFixed(2); }
+    
     const d = new Date(createTime);
     const strDate = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
     const utcdate = new Date(createTime);
@@ -109,9 +113,9 @@ class ViewOrders extends Component {
 
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10%' }}>
             <Text style={cStyles.common.positionsDataLabel}>STRIKE</Text>
-            <Text style={cStyles.common.positionsData}>$0.00</Text>
+            <Text style={cStyles.common.positionsData}>${tStrike}</Text>
             <Text style={[cStyles.common.positionsDataLabel, { paddingTop: 14 }]}>BONUS PRICE</Text>
-            <Text style={cStyles.common.positionsData}>$0.00</Text>
+            <Text style={cStyles.common.positionsData}>${tBonusPrice}</Text>
           </View>
 
           <View style={styles.borderStyle} />
