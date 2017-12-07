@@ -192,8 +192,9 @@ class Orders extends Component {
     }
   }
     placeNewOrder() {
-        const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-        Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].cropYear });
+        //const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
+        //Actions.quoteswap({ cropcode: cropButData[0].code, cropyear: cropButData[0].cropYear });
+        Actions.whatToday();
     }
 
 
