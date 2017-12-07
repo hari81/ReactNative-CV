@@ -136,7 +136,7 @@ class ReviewOrder extends Component {
                                         <View style={{ flex: 1 }}>
                                             <View style={styles.quoteField}>
                                                 <Text style={styles.quoteLabel}>Crop</Text>
-                                                <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.commodity.year}</Text>
+                                                <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.cropBut.selectedId.slice(-4)}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
                                                 <Text style={styles.quoteLabel}>Product</Text>
@@ -304,7 +304,8 @@ const mapStateToProps = state => {
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade',
         infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue,
-        isSpinActive: state.reviewQuote.spinFlag
+        isSpinActive: state.reviewQuote.spinFlag,
+        cropBut: state.cropsButtons
     };
 };
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import { externalGetTransDashboard } from '../../redux/actions/ExternalTrades/ExternalActions';
+import { segmentTabSelect } from '../../redux/actions/OrdersAction/ViewOrderAction';
 import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 import { Button } from '../common/Button';
@@ -13,11 +14,13 @@ class ActionBar extends Component {
 
     dashBoardToOrders = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
+        this.props.segmentTabSelect('Open Orders');
         Actions.orders({ Crop });
     }
 
     dashBoardToOpenPositions = () => {
         const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId)[0].code;
+        this.props.segmentTabSelect('Open Positions');
         Actions.orders({ selectedTab: 'Open Positions', Crop });
     }
 
@@ -126,7 +129,7 @@ class ActionBar extends Component {
 const { height, width } = Dimensions.get('window');
 
 const styles = {
-    containerStyle: { flexDirection: 'row', height: height * 0.102, width: width * 0.97, marginHorizontal: width * 0.0156, marginVertical: height * 0.013, backgroundColor: 'rgb(255,255,255)', borderColor: 'rgb(190,216,221)', borderWidth: 1 },
+    containerStyle: { flexDirection: 'row', height: height * 0.111, width: width * 0.97, marginHorizontal: width * 0.0156, marginVertical: height * 0.013, backgroundColor: 'rgb(255,255,255)', borderColor: 'rgb(190,216,221)', borderWidth: 1 },
     BorderStyle: { width: 1, height: height * 0.091, backgroundColor: 'rgb(221,221,221)', marginTop: 4 },
     placeOrderButtonStyle: { height: height * 0.052, width: width * 0.2149, justifyContent: 'center', alignItems: 'center', marginTop: height * 0.026, borderRadius: 4, marginLeft: width * 0.029 },
     placeOrderButtonStyleEnabled: { backgroundColor: '#279989' },
@@ -150,4 +153,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { externalGetTransDashboard })(ActionBar);
+export default connect(mapStateToProps, { externalGetTransDashboard, segmentTabSelect })(ActionBar);

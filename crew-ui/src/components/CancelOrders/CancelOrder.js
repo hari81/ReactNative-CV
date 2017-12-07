@@ -57,7 +57,7 @@ class CancelOrder extends Component {
                                   <View style={{ flex: 1 }}>
                                       <View style={styles.orderField}>
                                           <Text style={styles.orderLabel}>Crop</Text>
-                                          <Text style={styles.orderData}>{cancelData.crop} {cancelData.year}</Text>
+                                          <Text style={styles.orderData}>{cancelData.crop} {this.props.cropBut.selectedId.slice(-4)}</Text>
                                       </View>
                                       <View style={styles.orderField}>
                                           <Text style={styles.orderLabel}>Order #</Text>
@@ -168,7 +168,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-    return { acc: state.account };
+    return { acc: state.account, cropBut: state.cropsButtons };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CancelOrder);
