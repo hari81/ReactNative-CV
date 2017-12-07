@@ -33,6 +33,7 @@ class ViewOrders extends Component {
         buySell,
         orderState,
         orderType,
+        riskProductId,
         riskProductName,
         underlyingObjectData,
         goodTilDate
@@ -53,6 +54,23 @@ class ViewOrders extends Component {
     const utcdate = new Date(createTime);
     const offset = new Date().getTimezoneOffset();
     utcdate.setMinutes(utcdate.getMinutes() - offset);
+
+    let tBonusFields = null;
+    switch (riskProductId) {
+      case 110:
+        tBonusFields = (
+          <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10%' }}>
+            <Text style={cStyles.common.positionsDataLabel}>STRIKE</Text>
+            <Text style={cStyles.common.positionsData}>${tStrike}</Text>
+            <Text style={[cStyles.common.positionsDataLabel, { paddingTop: 14 }]}>BONUS PRICE</Text>
+            <Text style={cStyles.common.positionsData}>${tBonusPrice}</Text>
+          </View>
+        );
+        break;
+      default:
+        tBonusFields = <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10%' }} />;
+        break;
+    }
 
     return (
       <View style={styles.subContainerStyle}>
@@ -111,12 +129,7 @@ class ViewOrders extends Component {
             </Text>
           </View>
 
-          <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10%' }}>
-            <Text style={cStyles.common.positionsDataLabel}>STRIKE</Text>
-            <Text style={cStyles.common.positionsData}>${tStrike}</Text>
-            <Text style={[cStyles.common.positionsDataLabel, { paddingTop: 14 }]}>BONUS PRICE</Text>
-            <Text style={cStyles.common.positionsData}>${tBonusPrice}</Text>
-          </View>
+          {tBonusFields}
 
           <View style={styles.borderStyle} />
 
