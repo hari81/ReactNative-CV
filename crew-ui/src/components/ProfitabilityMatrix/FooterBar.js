@@ -101,7 +101,7 @@ class FooterBar extends Component {
                                 EVEN</Text>
                             <Text style={{
                                 color: 'rgb(255,255,255)',
-                                fontSize: 30,
+                                fontSize: 28,
                                 fontFamily: 'HelveticaNeue'
                             }}>${this.props.breakEvenPrice.toFixed(2)}</Text>
                         </View>
@@ -144,7 +144,7 @@ class FooterBar extends Component {
                                 PRICE</Text>
                             <Text style={{
                                 color: 'rgb(255,255,255)',
-                                fontSize: 30,
+                                fontSize: 28,
                                 fontFamily: 'HelveticaNeue'
                             }}>${this.props.targetPrice.toFixed(2)}</Text>
                         </View>

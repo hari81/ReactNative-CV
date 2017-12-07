@@ -3,10 +3,11 @@ import { View, Text, Image, TouchableHighlight, Dimensions, StatusBar } from 're
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { CommonHeader } from '../../common/index';
-import MyFarmTiles from '../../common/MyFarmTiles';
 import confirmtick from '../../common/img/confirmationSuccess.png';
+import MyFarmTiles from '../../common/MyFarmTiles';
 import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
-import bugsnag from '../../common/BugSnag';
+import { segmentTabSelect } from '../../../redux/actions/OrdersAction/ViewOrderAction';
+import bugsnag from '../../../components/common/BugSnag';
 
 class TradeConfirmationOrderReceipt extends Component {
     onBackToOrders() {
@@ -17,7 +18,7 @@ class TradeConfirmationOrderReceipt extends Component {
 
     reviewPositionsOrder() {
         const cropButData = this.props.crops.cropButtons.filter(item => item.id === this.props.crops.selectedId);
-    //    console.log('Crop Code:', cropButData[0].code);
+        this.props.segmentTabSelect('Open Orders');
         Actions.orders({ Crop: cropButData[0].code });
     }
 
@@ -195,4 +196,4 @@ const mapStateToProps = (state) => {
     return { crops: state.cropsButtons, acc: state.account };
 };
 
-export default connect(mapStateToProps, { dashBoardDataFetch })(TradeConfirmationOrderReceipt);
+export default connect(mapStateToProps, { dashBoardDataFetch, segmentTabSelect })(TradeConfirmationOrderReceipt);
