@@ -17,6 +17,7 @@ import { changePassword } from '../../redux/actions/LogOutMenuBar/ChangePassword
 import * as cStyles from '../../Utils/styles';
 
 const { height, width } = Dimensions.get('window');
+const AppInfo = require('react-native-app-info');            
 
 class CommonHeader extends Component {
     constructor() {
@@ -93,7 +94,7 @@ class CommonHeader extends Component {
                         </TouchableOpacity>
                         <Image source={imgLogo} style={{ alignSelf: 'center' }} />
                         <Text style={[cStyles.common.popupTitleText, styles.aboutTitle]}>PRICE HEDGING</Text>
-                        <Text style={styles.aboutVersion}>Build Version 2.0.0</Text>
+                        <Text style={styles.aboutVersion}>Build Version {AppInfo.getInfoVersion()}</Text>
                     </View>
                     <TouchableOpacity style={styles.aboutLink} onPress={this.onOpenAboutLink.bind(this, URL_LEARN_MORE)}>
                         <Text style={styles.aboutLinkText}>Learn More</Text>
