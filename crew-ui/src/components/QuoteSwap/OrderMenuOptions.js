@@ -5,30 +5,25 @@ import { connect } from 'react-redux';
 import shield from '../common/img/shield.png';
 import lineGraph from '../common/img/linegraph.png';
 import shieldMoney from '../common/img/shieldMoney.png';
-import st from '../../Utils/SafeTraverse';
 import * as common from '../../Utils/common';
 
 const { height, width } = Dimensions.get('window');
 class WhatTodayOptions extends Component {
-    nextScreens(id) {
+    nextScreens(id, name) {
         switch (id) {
-            case 1:
+            case 107:
                 const Crop = this.props.cropButton.cropButtons.filter(item => item.id === this.props.cropButton.selectedId);
                 Actions.quoteswap({ cropcode: Crop[0].code, cropyear: Crop[0].cropYear });
                 break;
-            case 2:
-                Actions.productBenefits();
-                break;
-            case 3:
-                Actions.productBenefits();
-                break;
             default:
+                Actions.productBenefits({ riskProductId: id, riskProductName: name });
+                break;
         }
     }
     optionsMenu = (id, image, text, riskId, productName) => {
        return (
            <View style={{ marginLeft: id === 1 ? width * 0.081 : width * 0.022, marginTop: height * 0.0377, borderRadius: 5 }}>
-               <TouchableOpacity disabled={riskId === null} onPress={this.nextScreens.bind(this, id)}>
+               <TouchableOpacity disabled={riskId === null} onPress={this.nextScreens.bind(this, riskId, productName)}>
                       <View style={riskId === null ? [styles.optionsContainer, { backgroundColor: 'grey' }] : styles.optionsContainer}>
                           <Text style={{ color: 'rgb(34,116,148)', fontSize: 25, textAlign: 'center', fontFamily: 'HelveticaNeue-Bold', paddingTop: 5 }}> {productName} </Text>
                           <Image source={image} style={{ marginLeft: id === 3 ? width * 0.035 : width * 0.088, marginTop: 10 }} />
@@ -47,19 +42,28 @@ class WhatTodayOptions extends Component {
         let risk5Name = null;
         if (common.isValueExists(this.props.products)) {
             const risk107 = this.props.products.find(x => x.id === 107);
-            if (common.isValueExists(risk107)) { risk107Id = risk107.id; risk107Name = risk107.name; }
+            if (common.isValueExists(risk107)) { 
+                risk107Id = risk107.id; 
+                risk107Name = risk107.name;
+            }
             const risk110 = this.props.products.find(x => x.id === 110);
-            if (common.isValueExists(risk110)) { risk110Id = risk110.id; risk110Name = risk110.name; }
+            if (common.isValueExists(risk110)) { 
+                risk110Id = risk110.id; 
+                risk110Name = risk110.name;
+            }
             const risk5 = this.props.products.find(x => x.id === 5);
-            if (common.isValueExists(risk5)) { risk5Id = risk5.id; risk5Name = risk5.name; }
+            if (common.isValueExists(risk5)) { 
+                risk5Id = risk5.id; 
+                risk5Name = risk5.name;
+            }
         }
         return (
             <View style={styles.container}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>What would you like to do today?</Text></View>
                 <View style={{ flexDirection: 'row' }}>
-                {this.optionsMenu(1, lineGraph, `I want to set a price`, risk107Id, risk107Name)}
-                {this.optionsMenu(2, shield, `I want to protect downside and maintain upside potential for an investment`, risk5Id, risk5Name)}
-                {this.optionsMenu(3, shieldMoney, `I want to price above today's market while locking a floor price`, risk110Id, risk110Name)}
+                    {this.optionsMenu(1, lineGraph, 'I want to set a price', risk107Id, risk107Name)}
+                    {this.optionsMenu(2, shield, 'I want to protect downside and maintain upside potential for an investment', risk5Id, risk5Name)}
+                    {this.optionsMenu(3, shieldMoney, 'I want to price above today\'s market while locking a floor price', risk110Id, risk110Name)}
                 </View>
             </View>
         );
