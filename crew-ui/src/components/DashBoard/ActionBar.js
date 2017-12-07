@@ -144,10 +144,10 @@ const mapStateToProps = state => {
     return {
         acc: state.account,
         cropButton: state.cropsButtons,
-        openOrdersCount: st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount']),
-        openPositionsCount: st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount']),
-        externalTradesCount: st(state.dashBoardData, ['Data', 'actionBar', 'externalTrades', 'totalCount']),
-        todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),
+        openOrdersCount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount'])) ? st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount']) : 0,
+        openPositionsCount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount'])) ? st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount']) : 0,
+        externalTradesCount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'externalTrades', 'totalCount'])) ? st(state.dashBoardData, ['Data', 'actionBar', 'externalTrades', 'totalCount']) : 0,
+        todayPrice: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])) ? parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])) : 0,
         underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol),
         isDashboardDataExists: isDataExists
     };

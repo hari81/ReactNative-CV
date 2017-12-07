@@ -1,0 +1,1825 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing strings render snapshot  1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LoginForm
+    acc={undefined}
+    accountDetails={[Function]}
+    auth={
+        Object {
+            "loading": false,
+          }
+    }
+    displayProperties={[Function]}
+    forGetPassword={[Function]}
+    loginUser={[Function]}
+    productType={[Function]}
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": <Card>
+        <CardSection>
+                <Input
+                        label="Email"
+                        onChangeText={[Function]}
+                        placeholder="Email"
+                        value=""
+                />
+        </CardSection>
+        <CardSection>
+                <Input
+                        label="Password"
+                        onChangeText={[Function]}
+                        onblur={[Function]}
+                        onfocus={[Function]}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        value=""
+                />
+        </CardSection>
+        <CardSection>
+                <View
+                        style={
+                                Object {
+                                        "alignItems": "center",
+                                        "flex": 1,
+                                        "flexDirection": "row",
+                                        "justifyContent": "flex-start",
+                                        "marginTop": 20,
+                                      }
+                        }
+                >
+                        <Switch
+                                disabled={false}
+                                onTintColor="#01aca8"
+                                onValueChange={[Function]}
+                                style={
+                                        Object {
+                                                "backgroundColor": "#3d4c57",
+                                                "marginLeft": 10,
+                                              }
+                                }
+                                value={false}
+                        />
+                        <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                disabled={false}
+                                ellipsizeMode="tail"
+                                style={
+                                        Object {
+                                                "color": "#ffffff",
+                                                "fontSize": 15,
+                                                "marginLeft": 15,
+                                              }
+                                }
+                        >
+                                Save Username
+                        </Text>
+                </View>
+        </CardSection>
+        <CardSection>
+                <Button
+                        onPress={[Function]}
+                >
+                        Log In
+                </Button>
+        </CardSection>
+        <View
+                style={
+                        Object {
+                                "flexDirection": "row",
+                              }
+                }
+        >
+                <Button
+                        buttonStyle={Object {}}
+                        onPress={[Function]}
+                        textStyle={
+                                Object {
+                                        "color": "white",
+                                        "fontSize": 16,
+                                        "textDecorationLine": "underline",
+                                      }
+                        }
+                >
+                         Forgot Password? 
+                </Button>
+                <Button
+                        buttonStyle={
+                                Object {
+                                        "marginLeft": 15,
+                                      }
+                        }
+                        onPress={[Function]}
+                        textStyle={
+                                Object {
+                                        "color": "white",
+                                        "fontSize": 16,
+                                        "textDecorationLine": "underline",
+                                      }
+                        }
+                >
+                         Not Registered? Sign Up Now! 
+                </Button>
+        </View>
+        <View
+                style={
+                        Object {
+                                "paddingLeft": 5,
+                                "paddingTop": 15,
+                              }
+                }
+        >
+                <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        disabled={false}
+                        ellipsizeMode="tail"
+                        style={
+                                Object {
+                                        "color": "#fff",
+                                        "fontSize": 13,
+                                      }
+                        }
+                >
+                        Having trouble logging in? Please call +1-952-742-7414
+                </Text>
+                <View
+                        style={
+                                Object {
+                                        "flexDirection": "row",
+                                      }
+                        }
+                >
+                        <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                disabled={false}
+                                ellipsizeMode="tail"
+                                style={
+                                        Object {
+                                                "color": "#fff",
+                                                "fontSize": 13,
+                                              }
+                                }
+                        >
+                                or email: 
+                        </Text>
+                        <Button
+                                buttonStyle={Object {}}
+                                onPress={[Function]}
+                                textStyle={
+                                        Object {
+                                                "color": "#fff",
+                                                "fontSize": 13,
+                                                "textDecorationLine": "underline",
+                                              }
+                                }
+                        >
+                                cargillpricehedge@cargill.com
+                        </Button>
+                </View>
+                <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        disabled={false}
+                        ellipsizeMode="tail"
+                        style={
+                                Object {
+                                        "color": "#fff",
+                                        "fontSize": 12,
+                                        "paddingTop": 5,
+                                      }
+                        }
+                >
+                        Support available from 7:30am to 4:30pm CST Monday - Friday.
+                </Text>
+        </View>
+</Card>,
+      "keyboardDismissMode": "interactive",
+      "keyboardShouldPersistTaps": "never",
+    },
+    "ref": "scrollView",
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <CardSection>
+            <Input
+                        label="Email"
+                        onChangeText={[Function]}
+                        placeholder="Email"
+                        value=""
+            />
+</CardSection>,
+          <CardSection>
+            <Input
+                        label="Password"
+                        onChangeText={[Function]}
+                        onblur={[Function]}
+                        onfocus={[Function]}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        value=""
+            />
+</CardSection>,
+          <CardSection>
+            <View
+                        style={
+                                    Object {
+                                                "alignItems": "center",
+                                                "flex": 1,
+                                                "flexDirection": "row",
+                                                "justifyContent": "flex-start",
+                                                "marginTop": 20,
+                                              }
+                        }
+            >
+                        <Switch
+                                    disabled={false}
+                                    onTintColor="#01aca8"
+                                    onValueChange={[Function]}
+                                    style={
+                                                Object {
+                                                            "backgroundColor": "#3d4c57",
+                                                            "marginLeft": 10,
+                                                          }
+                                    }
+                                    value={false}
+                        />
+                        <Text
+                                    accessible={true}
+                                    allowFontScaling={true}
+                                    disabled={false}
+                                    ellipsizeMode="tail"
+                                    style={
+                                                Object {
+                                                            "color": "#ffffff",
+                                                            "fontSize": 15,
+                                                            "marginLeft": 15,
+                                                          }
+                                    }
+                        >
+                                    Save Username
+                        </Text>
+            </View>
+</CardSection>,
+          <CardSection>
+            <Button
+                        onPress={[Function]}
+            >
+                        Log In
+            </Button>
+</CardSection>,
+          <View
+            style={
+                        Object {
+                                    "flexDirection": "row",
+                                  }
+            }
+>
+            <Button
+                        buttonStyle={Object {}}
+                        onPress={[Function]}
+                        textStyle={
+                                    Object {
+                                                "color": "white",
+                                                "fontSize": 16,
+                                                "textDecorationLine": "underline",
+                                              }
+                        }
+            >
+                         Forgot Password? 
+            </Button>
+            <Button
+                        buttonStyle={
+                                    Object {
+                                                "marginLeft": 15,
+                                              }
+                        }
+                        onPress={[Function]}
+                        textStyle={
+                                    Object {
+                                                "color": "white",
+                                                "fontSize": 16,
+                                                "textDecorationLine": "underline",
+                                              }
+                        }
+            >
+                         Not Registered? Sign Up Now! 
+            </Button>
+</View>,
+          <View
+            style={
+                        Object {
+                                    "paddingLeft": 5,
+                                    "paddingTop": 15,
+                                  }
+            }
+>
+            <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        disabled={false}
+                        ellipsizeMode="tail"
+                        style={
+                                    Object {
+                                                "color": "#fff",
+                                                "fontSize": 13,
+                                              }
+                        }
+            >
+                        Having trouble logging in? Please call +1-952-742-7414
+            </Text>
+            <View
+                        style={
+                                    Object {
+                                                "flexDirection": "row",
+                                              }
+                        }
+            >
+                        <Text
+                                    accessible={true}
+                                    allowFontScaling={true}
+                                    disabled={false}
+                                    ellipsizeMode="tail"
+                                    style={
+                                                Object {
+                                                            "color": "#fff",
+                                                            "fontSize": 13,
+                                                          }
+                                    }
+                        >
+                                    or email: 
+                        </Text>
+                        <Button
+                                    buttonStyle={Object {}}
+                                    onPress={[Function]}
+                                    textStyle={
+                                                Object {
+                                                            "color": "#fff",
+                                                            "fontSize": 13,
+                                                            "textDecorationLine": "underline",
+                                                          }
+                                    }
+                        >
+                                    cargillpricehedge@cargill.com
+                        </Button>
+            </View>
+            <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        disabled={false}
+                        ellipsizeMode="tail"
+                        style={
+                                    Object {
+                                                "color": "#fff",
+                                                "fontSize": 12,
+                                                "paddingTop": 5,
+                                              }
+                        }
+            >
+                        Support available from 7:30am to 4:30pm CST Monday - Friday.
+            </Text>
+</View>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <Input
+              label="Email"
+              onChangeText={[Function]}
+              placeholder="Email"
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "label": "Email",
+              "onChangeText": [Function],
+              "placeholder": "Email",
+              "value": "",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <Input
+              label="Password"
+              onChangeText={[Function]}
+              onblur={[Function]}
+              onfocus={[Function]}
+              placeholder="Password"
+              secureTextEntry={true}
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "label": "Password",
+              "onChangeText": [Function],
+              "onblur": [Function],
+              "onfocus": [Function],
+              "placeholder": "Password",
+              "secureTextEntry": true,
+              "value": "",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <View
+              style={
+                            Object {
+                                          "alignItems": "center",
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                          "justifyContent": "flex-start",
+                                          "marginTop": 20,
+                                        }
+              }
+>
+              <Switch
+                            disabled={false}
+                            onTintColor="#01aca8"
+                            onValueChange={[Function]}
+                            style={
+                                          Object {
+                                                        "backgroundColor": "#3d4c57",
+                                                        "marginLeft": 10,
+                                                      }
+                            }
+                            value={false}
+              />
+              <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            disabled={false}
+                            ellipsizeMode="tail"
+                            style={
+                                          Object {
+                                                        "color": "#ffffff",
+                                                        "fontSize": 15,
+                                                        "marginLeft": 15,
+                                                      }
+                            }
+              >
+                            Save Username
+              </Text>
+</View>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <Switch
+                  disabled={false}
+                  onTintColor="#01aca8"
+                  onValueChange={[Function]}
+                  style={
+                                    Object {
+                                                      "backgroundColor": "#3d4c57",
+                                                      "marginLeft": 10,
+                                                    }
+                  }
+                  value={false}
+/>,
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                                    Object {
+                                                      "color": "#ffffff",
+                                                      "fontSize": 15,
+                                                      "marginLeft": 15,
+                                                    }
+                  }
+>
+                  Save Username
+</Text>,
+              ],
+              "style": Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginTop": 20,
+              },
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "disabled": false,
+                  "onTintColor": "#01aca8",
+                  "onValueChange": [Function],
+                  "style": Object {
+                    "backgroundColor": "#3d4c57",
+                    "marginLeft": 10,
+                  },
+                  "value": false,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "accessible": true,
+                  "allowFontScaling": true,
+                  "children": "Save Username",
+                  "disabled": false,
+                  "ellipsizeMode": "tail",
+                  "style": Object {
+                    "color": "#ffffff",
+                    "fontSize": 15,
+                    "marginLeft": 15,
+                  },
+                },
+                "ref": null,
+                "rendered": "Save Username",
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <Button
+              onPress={[Function]}
+>
+              Log In
+</Button>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": "Log In",
+              "onPress": [Function],
+            },
+            "ref": null,
+            "rendered": "Log In",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Button
+                buttonStyle={Object {}}
+                onPress={[Function]}
+                textStyle={
+                                Object {
+                                                "color": "white",
+                                                "fontSize": 16,
+                                                "textDecorationLine": "underline",
+                                              }
+                }
+>
+                 Forgot Password? 
+</Button>,
+              <Button
+                buttonStyle={
+                                Object {
+                                                "marginLeft": 15,
+                                              }
+                }
+                onPress={[Function]}
+                textStyle={
+                                Object {
+                                                "color": "white",
+                                                "fontSize": 16,
+                                                "textDecorationLine": "underline",
+                                              }
+                }
+>
+                 Not Registered? Sign Up Now! 
+</Button>,
+            ],
+            "style": Object {
+              "flexDirection": "row",
+            },
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "buttonStyle": Object {},
+                "children": " Forgot Password? ",
+                "onPress": [Function],
+                "textStyle": Object {
+                  "color": "white",
+                  "fontSize": 16,
+                  "textDecorationLine": "underline",
+                },
+              },
+              "ref": null,
+              "rendered": " Forgot Password? ",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "buttonStyle": Object {
+                  "marginLeft": 15,
+                },
+                "children": " Not Registered? Sign Up Now! ",
+                "onPress": [Function],
+                "textStyle": Object {
+                  "color": "white",
+                  "fontSize": 16,
+                  "textDecorationLine": "underline",
+                },
+              },
+              "ref": null,
+              "rendered": " Not Registered? Sign Up Now! ",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                disabled={false}
+                ellipsizeMode="tail"
+                style={
+                                Object {
+                                                "color": "#fff",
+                                                "fontSize": 13,
+                                              }
+                }
+>
+                Having trouble logging in? Please call +1-952-742-7414
+</Text>,
+              <View
+                style={
+                                Object {
+                                                "flexDirection": "row",
+                                              }
+                }
+>
+                <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                disabled={false}
+                                ellipsizeMode="tail"
+                                style={
+                                                Object {
+                                                                "color": "#fff",
+                                                                "fontSize": 13,
+                                                              }
+                                }
+                >
+                                or email: 
+                </Text>
+                <Button
+                                buttonStyle={Object {}}
+                                onPress={[Function]}
+                                textStyle={
+                                                Object {
+                                                                "color": "#fff",
+                                                                "fontSize": 13,
+                                                                "textDecorationLine": "underline",
+                                                              }
+                                }
+                >
+                                cargillpricehedge@cargill.com
+                </Button>
+</View>,
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                disabled={false}
+                ellipsizeMode="tail"
+                style={
+                                Object {
+                                                "color": "#fff",
+                                                "fontSize": 12,
+                                                "paddingTop": 5,
+                                              }
+                }
+>
+                Support available from 7:30am to 4:30pm CST Monday - Friday.
+</Text>,
+            ],
+            "style": Object {
+              "paddingLeft": 5,
+              "paddingTop": 15,
+            },
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "accessible": true,
+                "allowFontScaling": true,
+                "children": "Having trouble logging in? Please call +1-952-742-7414",
+                "disabled": false,
+                "ellipsizeMode": "tail",
+                "style": Object {
+                  "color": "#fff",
+                  "fontSize": 13,
+                },
+              },
+              "ref": null,
+              "rendered": "Having trouble logging in? Please call +1-952-742-7414",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    disabled={false}
+                    ellipsizeMode="tail"
+                    style={
+                                        Object {
+                                                            "color": "#fff",
+                                                            "fontSize": 13,
+                                                          }
+                    }
+>
+                    or email: 
+</Text>,
+                  <Button
+                    buttonStyle={Object {}}
+                    onPress={[Function]}
+                    textStyle={
+                                        Object {
+                                                            "color": "#fff",
+                                                            "fontSize": 13,
+                                                            "textDecorationLine": "underline",
+                                                          }
+                    }
+>
+                    cargillpricehedge@cargill.com
+</Button>,
+                ],
+                "style": Object {
+                  "flexDirection": "row",
+                },
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "children": "or email: ",
+                    "disabled": false,
+                    "ellipsizeMode": "tail",
+                    "style": Object {
+                      "color": "#fff",
+                      "fontSize": 13,
+                    },
+                  },
+                  "ref": null,
+                  "rendered": "or email: ",
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "buttonStyle": Object {},
+                    "children": "cargillpricehedge@cargill.com",
+                    "onPress": [Function],
+                    "textStyle": Object {
+                      "color": "#fff",
+                      "fontSize": 13,
+                      "textDecorationLine": "underline",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": "cargillpricehedge@cargill.com",
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "accessible": true,
+                "allowFontScaling": true,
+                "children": "Support available from 7:30am to 4:30pm CST Monday - Friday.",
+                "disabled": false,
+                "ellipsizeMode": "tail",
+                "style": Object {
+                  "color": "#fff",
+                  "fontSize": 12,
+                  "paddingTop": 5,
+                },
+              },
+              "ref": null,
+              "rendered": "Support available from 7:30am to 4:30pm CST Monday - Friday.",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": <Card>
+          <CardSection>
+                    <Input
+                              label="Email"
+                              onChangeText={[Function]}
+                              placeholder="Email"
+                              value=""
+                    />
+          </CardSection>
+          <CardSection>
+                    <Input
+                              label="Password"
+                              onChangeText={[Function]}
+                              onblur={[Function]}
+                              onfocus={[Function]}
+                              placeholder="Password"
+                              secureTextEntry={true}
+                              value=""
+                    />
+          </CardSection>
+          <CardSection>
+                    <View
+                              style={
+                                        Object {
+                                                  "alignItems": "center",
+                                                  "flex": 1,
+                                                  "flexDirection": "row",
+                                                  "justifyContent": "flex-start",
+                                                  "marginTop": 20,
+                                                }
+                              }
+                    >
+                              <Switch
+                                        disabled={false}
+                                        onTintColor="#01aca8"
+                                        onValueChange={[Function]}
+                                        style={
+                                                  Object {
+                                                            "backgroundColor": "#3d4c57",
+                                                            "marginLeft": 10,
+                                                          }
+                                        }
+                                        value={false}
+                              />
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        disabled={false}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#ffffff",
+                                                            "fontSize": 15,
+                                                            "marginLeft": 15,
+                                                          }
+                                        }
+                              >
+                                        Save Username
+                              </Text>
+                    </View>
+          </CardSection>
+          <CardSection>
+                    <Button
+                              onPress={[Function]}
+                    >
+                              Log In
+                    </Button>
+          </CardSection>
+          <View
+                    style={
+                              Object {
+                                        "flexDirection": "row",
+                                      }
+                    }
+          >
+                    <Button
+                              buttonStyle={Object {}}
+                              onPress={[Function]}
+                              textStyle={
+                                        Object {
+                                                  "color": "white",
+                                                  "fontSize": 16,
+                                                  "textDecorationLine": "underline",
+                                                }
+                              }
+                    >
+                               Forgot Password? 
+                    </Button>
+                    <Button
+                              buttonStyle={
+                                        Object {
+                                                  "marginLeft": 15,
+                                                }
+                              }
+                              onPress={[Function]}
+                              textStyle={
+                                        Object {
+                                                  "color": "white",
+                                                  "fontSize": 16,
+                                                  "textDecorationLine": "underline",
+                                                }
+                              }
+                    >
+                               Not Registered? Sign Up Now! 
+                    </Button>
+          </View>
+          <View
+                    style={
+                              Object {
+                                        "paddingLeft": 5,
+                                        "paddingTop": 15,
+                                      }
+                    }
+          >
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              disabled={false}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "color": "#fff",
+                                                  "fontSize": 13,
+                                                }
+                              }
+                    >
+                              Having trouble logging in? Please call +1-952-742-7414
+                    </Text>
+                    <View
+                              style={
+                                        Object {
+                                                  "flexDirection": "row",
+                                                }
+                              }
+                    >
+                              <Text
+                                        accessible={true}
+                                        allowFontScaling={true}
+                                        disabled={false}
+                                        ellipsizeMode="tail"
+                                        style={
+                                                  Object {
+                                                            "color": "#fff",
+                                                            "fontSize": 13,
+                                                          }
+                                        }
+                              >
+                                        or email: 
+                              </Text>
+                              <Button
+                                        buttonStyle={Object {}}
+                                        onPress={[Function]}
+                                        textStyle={
+                                                  Object {
+                                                            "color": "#fff",
+                                                            "fontSize": 13,
+                                                            "textDecorationLine": "underline",
+                                                          }
+                                        }
+                              >
+                                        cargillpricehedge@cargill.com
+                              </Button>
+                    </View>
+                    <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              disabled={false}
+                              ellipsizeMode="tail"
+                              style={
+                                        Object {
+                                                  "color": "#fff",
+                                                  "fontSize": 12,
+                                                  "paddingTop": 5,
+                                                }
+                              }
+                    >
+                              Support available from 7:30am to 4:30pm CST Monday - Friday.
+                    </Text>
+          </View>
+</Card>,
+        "keyboardDismissMode": "interactive",
+        "keyboardShouldPersistTaps": "never",
+      },
+      "ref": "scrollView",
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <CardSection>
+              <Input
+                            label="Email"
+                            onChangeText={[Function]}
+                            placeholder="Email"
+                            value=""
+              />
+</CardSection>,
+            <CardSection>
+              <Input
+                            label="Password"
+                            onChangeText={[Function]}
+                            onblur={[Function]}
+                            onfocus={[Function]}
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            value=""
+              />
+</CardSection>,
+            <CardSection>
+              <View
+                            style={
+                                          Object {
+                                                        "alignItems": "center",
+                                                        "flex": 1,
+                                                        "flexDirection": "row",
+                                                        "justifyContent": "flex-start",
+                                                        "marginTop": 20,
+                                                      }
+                            }
+              >
+                            <Switch
+                                          disabled={false}
+                                          onTintColor="#01aca8"
+                                          onValueChange={[Function]}
+                                          style={
+                                                        Object {
+                                                                      "backgroundColor": "#3d4c57",
+                                                                      "marginLeft": 10,
+                                                                    }
+                                          }
+                                          value={false}
+                            />
+                            <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          disabled={false}
+                                          ellipsizeMode="tail"
+                                          style={
+                                                        Object {
+                                                                      "color": "#ffffff",
+                                                                      "fontSize": 15,
+                                                                      "marginLeft": 15,
+                                                                    }
+                                          }
+                            >
+                                          Save Username
+                            </Text>
+              </View>
+</CardSection>,
+            <CardSection>
+              <Button
+                            onPress={[Function]}
+              >
+                            Log In
+              </Button>
+</CardSection>,
+            <View
+              style={
+                            Object {
+                                          "flexDirection": "row",
+                                        }
+              }
+>
+              <Button
+                            buttonStyle={Object {}}
+                            onPress={[Function]}
+                            textStyle={
+                                          Object {
+                                                        "color": "white",
+                                                        "fontSize": 16,
+                                                        "textDecorationLine": "underline",
+                                                      }
+                            }
+              >
+                             Forgot Password? 
+              </Button>
+              <Button
+                            buttonStyle={
+                                          Object {
+                                                        "marginLeft": 15,
+                                                      }
+                            }
+                            onPress={[Function]}
+                            textStyle={
+                                          Object {
+                                                        "color": "white",
+                                                        "fontSize": 16,
+                                                        "textDecorationLine": "underline",
+                                                      }
+                            }
+              >
+                             Not Registered? Sign Up Now! 
+              </Button>
+</View>,
+            <View
+              style={
+                            Object {
+                                          "paddingLeft": 5,
+                                          "paddingTop": 15,
+                                        }
+              }
+>
+              <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            disabled={false}
+                            ellipsizeMode="tail"
+                            style={
+                                          Object {
+                                                        "color": "#fff",
+                                                        "fontSize": 13,
+                                                      }
+                            }
+              >
+                            Having trouble logging in? Please call +1-952-742-7414
+              </Text>
+              <View
+                            style={
+                                          Object {
+                                                        "flexDirection": "row",
+                                                      }
+                            }
+              >
+                            <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          disabled={false}
+                                          ellipsizeMode="tail"
+                                          style={
+                                                        Object {
+                                                                      "color": "#fff",
+                                                                      "fontSize": 13,
+                                                                    }
+                                          }
+                            >
+                                          or email: 
+                            </Text>
+                            <Button
+                                          buttonStyle={Object {}}
+                                          onPress={[Function]}
+                                          textStyle={
+                                                        Object {
+                                                                      "color": "#fff",
+                                                                      "fontSize": 13,
+                                                                      "textDecorationLine": "underline",
+                                                                    }
+                                          }
+                            >
+                                          cargillpricehedge@cargill.com
+                            </Button>
+              </View>
+              <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            disabled={false}
+                            ellipsizeMode="tail"
+                            style={
+                                          Object {
+                                                        "color": "#fff",
+                                                        "fontSize": 12,
+                                                        "paddingTop": 5,
+                                                      }
+                            }
+              >
+                            Support available from 7:30am to 4:30pm CST Monday - Friday.
+              </Text>
+</View>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <Input
+                label="Email"
+                onChangeText={[Function]}
+                placeholder="Email"
+                value=""
+/>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "label": "Email",
+                "onChangeText": [Function],
+                "placeholder": "Email",
+                "value": "",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <Input
+                label="Password"
+                onChangeText={[Function]}
+                onblur={[Function]}
+                onfocus={[Function]}
+                placeholder="Password"
+                secureTextEntry={true}
+                value=""
+/>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "label": "Password",
+                "onChangeText": [Function],
+                "onblur": [Function],
+                "onfocus": [Function],
+                "placeholder": "Password",
+                "secureTextEntry": true,
+                "value": "",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <View
+                style={
+                                Object {
+                                                "alignItems": "center",
+                                                "flex": 1,
+                                                "flexDirection": "row",
+                                                "justifyContent": "flex-start",
+                                                "marginTop": 20,
+                                              }
+                }
+>
+                <Switch
+                                disabled={false}
+                                onTintColor="#01aca8"
+                                onValueChange={[Function]}
+                                style={
+                                                Object {
+                                                                "backgroundColor": "#3d4c57",
+                                                                "marginLeft": 10,
+                                                              }
+                                }
+                                value={false}
+                />
+                <Text
+                                accessible={true}
+                                allowFontScaling={true}
+                                disabled={false}
+                                ellipsizeMode="tail"
+                                style={
+                                                Object {
+                                                                "color": "#ffffff",
+                                                                "fontSize": 15,
+                                                                "marginLeft": 15,
+                                                              }
+                                }
+                >
+                                Save Username
+                </Text>
+</View>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <Switch
+                    disabled={false}
+                    onTintColor="#01aca8"
+                    onValueChange={[Function]}
+                    style={
+                                        Object {
+                                                            "backgroundColor": "#3d4c57",
+                                                            "marginLeft": 10,
+                                                          }
+                    }
+                    value={false}
+/>,
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    disabled={false}
+                    ellipsizeMode="tail"
+                    style={
+                                        Object {
+                                                            "color": "#ffffff",
+                                                            "fontSize": 15,
+                                                            "marginLeft": 15,
+                                                          }
+                    }
+>
+                    Save Username
+</Text>,
+                ],
+                "style": Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "flex-start",
+                  "marginTop": 20,
+                },
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "disabled": false,
+                    "onTintColor": "#01aca8",
+                    "onValueChange": [Function],
+                    "style": Object {
+                      "backgroundColor": "#3d4c57",
+                      "marginLeft": 10,
+                    },
+                    "value": false,
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "children": "Save Username",
+                    "disabled": false,
+                    "ellipsizeMode": "tail",
+                    "style": Object {
+                      "color": "#ffffff",
+                      "fontSize": 15,
+                      "marginLeft": 15,
+                    },
+                  },
+                  "ref": null,
+                  "rendered": "Save Username",
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <Button
+                onPress={[Function]}
+>
+                Log In
+</Button>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": "Log In",
+                "onPress": [Function],
+              },
+              "ref": null,
+              "rendered": "Log In",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <Button
+                  buttonStyle={Object {}}
+                  onPress={[Function]}
+                  textStyle={
+                                    Object {
+                                                      "color": "white",
+                                                      "fontSize": 16,
+                                                      "textDecorationLine": "underline",
+                                                    }
+                  }
+>
+                   Forgot Password? 
+</Button>,
+                <Button
+                  buttonStyle={
+                                    Object {
+                                                      "marginLeft": 15,
+                                                    }
+                  }
+                  onPress={[Function]}
+                  textStyle={
+                                    Object {
+                                                      "color": "white",
+                                                      "fontSize": 16,
+                                                      "textDecorationLine": "underline",
+                                                    }
+                  }
+>
+                   Not Registered? Sign Up Now! 
+</Button>,
+              ],
+              "style": Object {
+                "flexDirection": "row",
+              },
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "buttonStyle": Object {},
+                  "children": " Forgot Password? ",
+                  "onPress": [Function],
+                  "textStyle": Object {
+                    "color": "white",
+                    "fontSize": 16,
+                    "textDecorationLine": "underline",
+                  },
+                },
+                "ref": null,
+                "rendered": " Forgot Password? ",
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "buttonStyle": Object {
+                    "marginLeft": 15,
+                  },
+                  "children": " Not Registered? Sign Up Now! ",
+                  "onPress": [Function],
+                  "textStyle": Object {
+                    "color": "white",
+                    "fontSize": 16,
+                    "textDecorationLine": "underline",
+                  },
+                },
+                "ref": null,
+                "rendered": " Not Registered? Sign Up Now! ",
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                                    Object {
+                                                      "color": "#fff",
+                                                      "fontSize": 13,
+                                                    }
+                  }
+>
+                  Having trouble logging in? Please call +1-952-742-7414
+</Text>,
+                <View
+                  style={
+                                    Object {
+                                                      "flexDirection": "row",
+                                                    }
+                  }
+>
+                  <Text
+                                    accessible={true}
+                                    allowFontScaling={true}
+                                    disabled={false}
+                                    ellipsizeMode="tail"
+                                    style={
+                                                      Object {
+                                                                        "color": "#fff",
+                                                                        "fontSize": 13,
+                                                                      }
+                                    }
+                  >
+                                    or email: 
+                  </Text>
+                  <Button
+                                    buttonStyle={Object {}}
+                                    onPress={[Function]}
+                                    textStyle={
+                                                      Object {
+                                                                        "color": "#fff",
+                                                                        "fontSize": 13,
+                                                                        "textDecorationLine": "underline",
+                                                                      }
+                                    }
+                  >
+                                    cargillpricehedge@cargill.com
+                  </Button>
+</View>,
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                                    Object {
+                                                      "color": "#fff",
+                                                      "fontSize": 12,
+                                                      "paddingTop": 5,
+                                                    }
+                  }
+>
+                  Support available from 7:30am to 4:30pm CST Monday - Friday.
+</Text>,
+              ],
+              "style": Object {
+                "paddingLeft": 5,
+                "paddingTop": 15,
+              },
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "accessible": true,
+                  "allowFontScaling": true,
+                  "children": "Having trouble logging in? Please call +1-952-742-7414",
+                  "disabled": false,
+                  "ellipsizeMode": "tail",
+                  "style": Object {
+                    "color": "#fff",
+                    "fontSize": 13,
+                  },
+                },
+                "ref": null,
+                "rendered": "Having trouble logging in? Please call +1-952-742-7414",
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      disabled={false}
+                      ellipsizeMode="tail"
+                      style={
+                                            Object {
+                                                                  "color": "#fff",
+                                                                  "fontSize": 13,
+                                                                }
+                      }
+>
+                      or email: 
+</Text>,
+                    <Button
+                      buttonStyle={Object {}}
+                      onPress={[Function]}
+                      textStyle={
+                                            Object {
+                                                                  "color": "#fff",
+                                                                  "fontSize": 13,
+                                                                  "textDecorationLine": "underline",
+                                                                }
+                      }
+>
+                      cargillpricehedge@cargill.com
+</Button>,
+                  ],
+                  "style": Object {
+                    "flexDirection": "row",
+                  },
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "or email: ",
+                      "disabled": false,
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#fff",
+                        "fontSize": 13,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "or email: ",
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "buttonStyle": Object {},
+                      "children": "cargillpricehedge@cargill.com",
+                      "onPress": [Function],
+                      "textStyle": Object {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "textDecorationLine": "underline",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "cargillpricehedge@cargill.com",
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "accessible": true,
+                  "allowFontScaling": true,
+                  "children": "Support available from 7:30am to 4:30pm CST Monday - Friday.",
+                  "disabled": false,
+                  "ellipsizeMode": "tail",
+                  "style": Object {
+                    "color": "#fff",
+                    "fontSize": 12,
+                    "paddingTop": 5,
+                  },
+                },
+                "ref": null,
+                "rendered": "Support available from 7:30am to 4:30pm CST Monday - Friday.",
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+}
+`;

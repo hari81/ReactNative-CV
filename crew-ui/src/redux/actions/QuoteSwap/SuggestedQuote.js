@@ -13,7 +13,6 @@ export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: true });
         const quoteUrl = `${ORDER_SERVICES_URL}quotes/optimalQuote`;
-        console.log('Previous State', optimalValue);
         let quoteBody = null;
         if (id === 1) {
             quoteBody = {
@@ -57,7 +56,6 @@ export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
                     dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
                     return;
                 }
-                console.log('suggested Quote', suggestedValue);
                 dispatch({ type: SUGGESTED_OPTIMAL_QUOTE, payload: suggestedValue });
                 if (id === 1) {
                     Actions.suggestedQuote({ suggestQuote: suggestedValue, previousState: optimalValue, cropYear });

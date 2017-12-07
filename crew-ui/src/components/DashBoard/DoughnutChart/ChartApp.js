@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 class ChartApp extends Component {
     render() {
-        const data = [{ number: this.props.externalTradesQuantity }, { number: this.props.openPositionsQuantity }, { number: this.props.unhedgedTotalQuantity }]
+        const data = [{ number: this.props.externalTradesQuantity }, { number: this.props.openPositionsQuantity }, { number: this.props.unhedgedTotalQuantity }, { number: 100000 }]
         return (
             <View>
                 <Pie pieWidth={width * 0.39} pieHeight={width * 0.39} data={data} />

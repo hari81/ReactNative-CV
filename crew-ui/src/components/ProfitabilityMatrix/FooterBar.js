@@ -160,7 +160,7 @@ class FooterBar extends Component {
                         <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity onPressIn={this.minusButtonPress.bind(this, 'price')}
                                               onPressOut={this.reCalculate}>
-                                <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15}]}>-</Text>
+                                <Text style={[styles.updownIcon, {marginTop: 5, marginRight: 15 }]}>-</Text>
                             </TouchableOpacity>
                             <View style={{ justifyContent: 'center', alignItems: 'center', height: height * 0.054, width: width * 0.09, borderRadius: 4, backgroundColor: 'rgb(255,255,255)' }}>
                                 <Text style={{ fontSize: 18 }}>{parseFloat(this.state.targetPrice).toFixed(2)}</Text>
