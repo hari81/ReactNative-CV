@@ -36,6 +36,7 @@ class MyCropButton extends Component {
                             userflag={this.props.uservaluesfalg} 
                             old={this.props.olditem} 
                             onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)}
+                            sTab={this.props.sTab}
                         />)
                     }
                 />
