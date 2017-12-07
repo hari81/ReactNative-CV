@@ -4,16 +4,16 @@ import { X_API_KEY } from '../ServiceURLS/index';
 //const fetch = require('isomorphic-fetch');
 
 function sessionToken(crmSToken) {
-   return `CRM ${crmSToken}`;
+    return `CRM ${crmSToken}`;
 }
-export const reqHeaders = new Headers();
-reqHeaders.append('Content-Type', 'application/json');
-reqHeaders.append('x-api-key', X_API_KEY);
-reqHeaders.append('User-Agent', 'Crew 0.1.0');
-
+export const reqHeaders = {
+    'Content-Type': 'application/json',
+    'x-api-key': X_API_KEY,
+    'User-Agent': 'Crew 0.1.0',
+}
 function doGetFetch(url, token) {
-    reqHeaders.delete('Authorization');
-    reqHeaders.append('Authorization', sessionToken(token));
+    delete reqHeaders.Authorization;
+    reqHeaders.Authorization = sessionToken(token);
     return fetch(url, {
         method: 'GET',
         headers: reqHeaders
@@ -21,8 +21,8 @@ function doGetFetch(url, token) {
 }
 
 function doPutFetch(url, body, token) {
-    reqHeaders.delete('Authorization');
-    reqHeaders.append('Authorization', sessionToken(token));
+    delete reqHeaders.Authorization;
+    reqHeaders.Authorization = sessionToken(token);
     return fetch(url, {
         method: 'PUT',
         headers: reqHeaders,
@@ -31,8 +31,8 @@ function doPutFetch(url, body, token) {
 }
 
 function doPostFetch(url, body, token) {
-    reqHeaders.delete('Authorization');
-    reqHeaders.append('Authorization', sessionToken(token));
+    delete reqHeaders.Authorization;
+    reqHeaders.Authorization = sessionToken(token);
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,
@@ -41,7 +41,7 @@ function doPostFetch(url, body, token) {
 }
 
 function doLoginPostFetch(url, body) {
-    reqHeaders.append('Accept-Encoding', 'gzip,deflate');
+    reqHeaders['Accept-Encoding'] = 'gzip,deflate';
     return fetch(url, {
         method: 'POST',
         headers: reqHeaders,
@@ -50,8 +50,8 @@ function doLoginPostFetch(url, body) {
 }
 
 function doDeleteFetch(url, token) {
-    reqHeaders.delete('Authorization');
-    reqHeaders.append('Authorization', sessionToken(token));
+    delete reqHeaders.Authorization;
+    reqHeaders.Authorization = sessionToken(token);
     return fetch(url, {
         method: 'DELETE',
         headers: reqHeaders
@@ -59,12 +59,12 @@ function doDeleteFetch(url, token) {
 }
 
 function doGetTradeReceiptFetch(url, token) {
-    reqHeaders.delete('Authorization');
-    reqHeaders.append('Authorization', sessionToken(token));
+    delete reqHeaders.Authorization;
+    reqHeaders.Authorization = sessionToken(token);
     // console.log(url);
-    reqHeaders.append('Accept', 'application/pdf');
-    reqHeaders.append('Cache-Control', 'no-store');
-     RNFetchBlob
+    reqHeaders.Accept = 'application/pdf';
+    reqHeaders['Cache-Control'] = 'no-store';
+    RNFetchBlob
         .config({
             // add this option that makes response data to be stored as a file.
             fileCache: true,

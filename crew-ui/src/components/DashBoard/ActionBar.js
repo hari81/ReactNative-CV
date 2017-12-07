@@ -126,7 +126,7 @@ class ActionBar extends Component {
 const { height, width } = Dimensions.get('window');
 
 const styles = {
-    containerStyle: { flexDirection: 'row', height: height * 0.102, width: width * 0.97, marginHorizontal: width * 0.0156, marginVertical: height * 0.013, backgroundColor: 'rgb(255,255,255)', borderColor: 'rgb(190,216,221)', borderWidth: 1 },
+    containerStyle: { flexDirection: 'row', height: height * 0.111, width: width * 0.97, marginHorizontal: width * 0.0156, marginVertical: height * 0.013, backgroundColor: 'rgb(255,255,255)', borderColor: 'rgb(190,216,221)', borderWidth: 1 },
     BorderStyle: { width: 1, height: height * 0.091, backgroundColor: 'rgb(221,221,221)', marginTop: 4 },
     placeOrderButtonStyle: { height: height * 0.052, width: width * 0.2149, justifyContent: 'center', alignItems: 'center', marginTop: height * 0.026, borderRadius: 4, marginLeft: width * 0.029 },
     placeOrderButtonStyleEnabled: { backgroundColor: '#279989' },
@@ -141,10 +141,10 @@ const mapStateToProps = state => {
     return {
         acc: state.account,
         cropButton: state.cropsButtons,
-        openOrdersCount: st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount']),
-        openPositionsCount: st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount']),
-        externalTradesCount: st(state.dashBoardData, ['Data', 'actionBar', 'externalTrades', 'totalCount']),
-        todayPrice: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price']) === null ? 0 : parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])),
+        openOrdersCount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount'])) ? st(state.dashBoardData, ['Data', 'actionBar', 'openOrders', 'totalCount']) : 0,
+        openPositionsCount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount'])) ? st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalCount']) : 0,
+        externalTradesCount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'externalTrades', 'totalCount'])) ? st(state.dashBoardData, ['Data', 'actionBar', 'externalTrades', 'totalCount']) : 0,
+        todayPrice: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])) ? parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'price'])) : 0,
         underlyingData: st(state.dashBoardData, ['Data', 'actionBar', 'todayPrice', 'symbol']) === null ? 0 : common.createUnderlyingObject(state.dashBoardData.Data.actionBar.todayPrice.symbol),
         isDashboardDataExists: isDataExists
     };
