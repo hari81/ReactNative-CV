@@ -1394,7 +1394,7 @@
 				PRODUCT_NAME = CargillVeloCli;
 				PROVISIONING_PROFILE = "b1b7258f-303a-4de8-8046-f5ef786bad4d";
 				PROVISIONING_PROFILE_SPECIFIER = "Distribution cargillreactapp";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1431,7 +1431,7 @@
 				PRODUCT_NAME = CargillVeloCli;
 				PROVISIONING_PROFILE = "b1b7258f-303a-4de8-8046-f5ef786bad4d";
 				PROVISIONING_PROFILE_SPECIFIER = "Distribution cargillreactapp";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
