@@ -91,23 +91,23 @@ class OpenPositions extends Component {
 
           <View style={{ width: '22.4%' }}>
             <View style={{ margin: 10 }}>
-              <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20, height: firstRowHeight }, (crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
-                {crop} {riskProduct}
-              </Text>
+              <View style={{ height: firstRowHeight }}>
+                <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20, marginTop: 5 }, (crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
+                  {crop} {riskProduct}
+                </Text>
+              </View>
               <View style={{ flexDirection: 'row' }}>
                 <View style={{ flexDirection: 'column' }}>
                   <Text style={commonStyles.common.positionsDataLabel}>QUANTITY</Text>
                   <View style={{ width: 130, flexDirection: 'row', justifyContent: 'flex-start' }}>
-                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
+                    <Text style={commonStyles.common.positionsData}>
                       {lines[0].quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + unit}s
                     </Text>
                   </View>
                 </View>
                 <View style={{ flexDirection: 'column' }}>
                   <Text style={commonStyles.common.positionsDataLabel}>DIRECTION</Text>
-                  <Text style={commonStyles.common.positionsData}>
-                    {direction}
-                  </Text>
+                  <Text style={commonStyles.common.positionsData}>{direction}</Text>
                 </View>
                 <View style={{ flexDirection: 'column' }}>
                   <Text style={[commonStyles.common.positionsDataLabel, { marginLeft: 35 }]}>NET PRICE</Text>

@@ -126,7 +126,7 @@ setData =(props) => {
     if (common.isValueExists(props.far.myFarmCropData)) {
         if (Object.keys(props.far.myFarmCropData).length !== 0) {
             const cropData = props.far.myFarmCropData.cropYear;
-            if (common.isValueExists(cropData)) {
+            if (!common.isValueExists(cropData)) {
                 this.setState({ acres: '', profit: '', cost: '', yield: '', estimate: 0, incbasis: false, });
             } else {
                 this.setState({
