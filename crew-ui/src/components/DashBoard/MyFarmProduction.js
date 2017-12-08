@@ -28,14 +28,14 @@ class MyFarmProduction extends Component {
                     <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.unhedgedTotalQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
                     <Text style={{ fontSize: 24, color: 'rgb(61,76,87)' }}>{this.props.unhedgedTotalAmount}</Text>
-                    <Text style={{ fontSize: 15, paddingTop: height * 0.040, color: 'rgb(29,37,49)' }}>CONTINGENT OFFERS</Text>
-                    <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.openOrdersQuantity}</Text>
+                    <Text style={{ fontSize: 15, paddingTop: height * 0.050, color: 'rgb(29,37,49)' }}>CONTINGENT OFFERS</Text>
+                    <Text style={{ fontSize: 24, color: 'rgb(121,120,119)' }}>{this.props.contingentQuantity}</Text>
                     <Text style={{ fontSize: 12, color: 'rgb(121,120,119)' }}>{this.props.unitOfMeasure}s</Text>
-                    <Text style={{ fontSize: 26, color: 'rgb(61,76,87)' }}>{this.props.openPositionsTradeAmount}</Text>
+                    <Text style={{ fontSize: 26, color: 'rgb(61,76,87)' }}>{this.props.contingentAmount}</Text>
                 </View>
                 <View>
                     <View style={{ borderRadius: 100, marginTop: height * 0.036, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(158,42,47)' }} />
-                    <View style={{ borderRadius: 100, marginTop: height * 0.140, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(0,95,134)' }} />
+                    <View style={{ borderRadius: 100, marginTop: height * 0.149, marginRight: 5, width: width * 0.0156, height: height * 0.02, backgroundColor: 'rgb(0,95,134)' }} />
                 </View>
 
                 <View style={{ width: width * 0.2734, marginTop: height * 0.05 }}>
@@ -208,6 +208,9 @@ const mapStateToProps = (state) => {
 
         openPositionsQuantity: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalQuantity'])).toFixed(0)) : '   -',
         openPositionsTradeAmount: common.isValueExists(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])) ? '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'myFarmProduction', 'openPositions', 'totalTradeAmount'])).toFixed(0)) : '   -',
+
+        contingentQuantity: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalContingentOfferQuantity'])) ? common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalContingentOfferQuantity'])).toFixed(0)) : '   -',
+        contingentAmount: common.isValueExists(st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalContingentOfferTradeAmount'])) ? '$ ' + common.formatNumberCommas(parseFloat(st(state.dashBoardData, ['Data', 'actionBar', 'openPositions', 'totalContingentOfferTradeAmount'])).toFixed(0)) : '   -',
         isDashboardDataExists: isDataExists
     };
 };
