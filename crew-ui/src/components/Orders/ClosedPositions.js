@@ -60,12 +60,12 @@ class ClosedPositions extends Component {
             let moreLinkText = 'Show Details >>';
             if (this.state.isShowAddlDetails) {
                 moreLinkText = '<< Hide Details';
-                tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} />;
+                tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} unit={underlyingObjectData.unit} data={oLineReprice[0]} />;
             }
 
             if (riskProductId === 110) {
                 tShowAddlDetails = (
-                    <View style={{ marginTop: -16, marginLeft: 828, paddingBottom: 8 }}>
+                    <View style={{ marginTop: -8, marginLeft: 823, paddingBottom: 8 }}>
                         <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
                             <Text style={commonStyles.common.positionsMoreLink}>{moreLinkText}</Text>
                         </TouchableOpacity>
@@ -73,9 +73,12 @@ class ClosedPositions extends Component {
                 );
             }
 
+            const firstRowHeight = 55;            
+
             return (
                 <View style={[styles.subContainerStyle]}>
                     <View style={{ flexDirection: 'row', margin: 0, padding: 0 }}>
+                      {/* month/year box */}
                         <View style={[commonStyles.common.positionsYearStyle, { width: '10.74%' }]}>
                             <View style={{ backgroundColor: '#279989', height: 40, justifyContent: 'center' }}>
                                 <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
@@ -89,44 +92,48 @@ class ClosedPositions extends Component {
                             </View>
                         </View>
 
-                        <View style={{ margin: 20, width: '24.41%' }}>
-                            <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
-                                {underlyingObjectData.crop} {riskProduct}
-                            </Text>
-                            <View style={{ flexDirection: 'row', marginTop: 13, justifyContent: 'space-between' }}>
-                                <View style={{ flexDirection: 'column' }}>
-                                    <Text style={[commonStyles.common.positionsDataLabel, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
-                                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                                        <Text style={commonStyles.common.positionsData}>{quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
-                                        <Text style={commonStyles.common.positionsData}>{` ${underlyingObjectData.unit}s`}</Text>
-                                    </View>
+                        <View style={{ width: '29%' }}>
+                            <View style={{ margin: 10 }}>
+                                <View style={{ height: firstRowHeight }}>
+                                    <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20, marginTop: 5 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
+                                        {underlyingObjectData.crop} {riskProduct}
+                                    </Text>
                                 </View>
-                                <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-                                    <Text style={[commonStyles.common.positionsDataLabel, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
-                                    <Text style={commonStyles.common.positionsData}>{buysell === 'S' ? 'Sell' : 'Buy'}</Text>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ flexDirection: 'column' }}>
+                                        <Text style={commonStyles.common.positionsDataLabel}>QUANTITY</Text>
+                                        <View style={{ width: 130, flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                            <Text style={commonStyles.common.positionsData}>{quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
+                                            <Text style={commonStyles.common.positionsData}>{` ${underlyingObjectData.unit}s`}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ flexDirection: 'column' }}>
+                                        <Text style={commonStyles.common.positionsDataLabel}>DIRECTION</Text>
+                                        <Text style={commonStyles.common.positionsData}>{buysell === 'S' ? 'Sell' : 'Buy'}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
 
-                        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12, width: '20%' }}>
-                            <Text style={commonStyles.common.positionsDataLabel}>PRODUCT</Text>
-                            <Text style={commonStyles.common.positionsData}>{product}</Text>
-                            <View style={{ flexDirection: 'row', marginTop: 14, justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'column', marginTop: 10, marginLeft: 20, width: '20%' }}>
+                            <View style={{ flexDirection: 'column', height: firstRowHeight }}>
+                                <Text style={commonStyles.common.positionsDataLabel}>PRODUCT</Text>
+                                <Text style={commonStyles.common.positionsData}>{product}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
                                 <View style={{ flexDirection: 'column' }}>
                                     <Text style={commonStyles.common.positionsDataLabel}>NET PRICE</Text>
                                     <Text style={commonStyles.common.positionsData}>{netPrice}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'column', marginLeft: 20 }}>
                                     <Text style={commonStyles.common.positionsDataLabel}>CLOSED PRICE</Text>
-                                    <View style={{ flex: 1 }}>
-                                        <Text style={commonStyles.common.positionsData}>{closedPrice}</Text>
-                                    </View>
+                                    <Text style={commonStyles.common.positionsData}>{closedPrice}</Text>
                                 </View>
                             </View>
                         </View>
 
-                        <View style={{ flexDirection: 'column', marginLeft: 30, marginTop: 12, width: '16%' }}>
-                            <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'column', marginTop: 10, marginLeft: 20, width: '16%' }}>
+                            <View style={{ flexDirection: 'row', height: firstRowHeight }}>
                                 <Text style={commonStyles.common.positionsDataLabel}>TRADE RECEIPT </Text>
                                 <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
                                     <Image
@@ -135,15 +142,21 @@ class ClosedPositions extends Component {
                                     />
                                 </TouchableHighlight>
                             </View>
-                            <Text style={[commonStyles.common.positionsDataLabel, { marginTop: 22 }]}>TRADE ID#</Text>
-                            <Text style={commonStyles.common.positionsData}>{id}</Text>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={[commonStyles.common.positionsDataLabel, { }]}>TRADE ID#</Text>
+                                <Text style={commonStyles.common.positionsData}>{id}</Text>
+                            </View>
                         </View>
 
-                        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12 }}>
-                            <Text style={commonStyles.common.positionsDataLabel}> TRADE DATE</Text>
-                            <Text style={commonStyles.common.positionsData}>{tradeDate}</Text>
-                            <Text style={[commonStyles.common.positionsDataLabel, { paddingTop: 14 }]}>CLOSE OUT DATE</Text>
-                            <Text style={commonStyles.common.positionsData}>{unwindDate}</Text>
+                        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10 }}>
+                            <View style={{ flexDirection: 'column', height: firstRowHeight }}>
+                                <Text style={commonStyles.common.positionsDataLabel}> TRADE DATE</Text>
+                                <Text style={commonStyles.common.positionsData}>{tradeDate}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={commonStyles.common.positionsDataLabel}>CLOSE OUT DATE</Text>
+                                <Text style={commonStyles.common.positionsData}>{unwindDate}</Text>
+                            </View>
                         </View>
                     </View>
                     {tShowAddlDetails}

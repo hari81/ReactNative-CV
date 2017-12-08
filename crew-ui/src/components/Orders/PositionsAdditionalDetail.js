@@ -48,7 +48,7 @@ class PositionsAdditionalDetail extends Component {
                                 </View>
                                 <View style={styles.addlField}>
                                     <Text style={styles.listLabel}>AVERAGE PRICE</Text>
-                                    <Text style={styles.listText}>TBD</Text>
+                                    <Text style={styles.listText}>${common.formatNumberCommas(bd.estimatedAverage.toFixed(2))}</Text>
                                 </View>
                             </View>
                             {/* Offer Details */ }
