@@ -32,7 +32,7 @@ class ProductBenefitsList extends Component {
                 tImgBenefits = null;
                 break;
             case 110:
-                tBodyText = 'The Floored Daily Bonus provides the security of a floor with the opportunity to earn a daily bonus during the pricing period – simply select your floor price and bonus price. Each day the commodity contract settles above the floor price, the contract prices at the bonus price. If the market settles below the floor price you benefit from the floor. If on the calculation date the commodity contract settles above the bonus price you price an additional quantity at the bonus price (in addition to the original quantity). This additional quantity is also known as the Contingent Offer quantity. The Floored Daily Bonus is typically offered at zero cost with the ability to work orders at customized levels.';
+                tBodyText = 'The Floored Daily Bonus provides the security of a floor with the opportunity to earn a bonus daily during the pricing period – simply select your floor price and bonus price. Each day the commodity contract settles above the floor price, the contract prices at the bonus price. If the market settles below the floor price you benefit from the floor. If on the calculation date the commodity contract settles above the bonus price you price an additional quantity at the bonus price (in addition to the original quantity). This additional quantity is also known as the Contingent Offer. The Floored Daily Bonus is typically offered at zero cost with the ability to work orders at customized levels.'
                 tFooterText = 'On contract calculation date or when unwinding the position remember to place an offsetting physical position and update my farm details to maintain accurate My Farm insights, as applicable.';
                 tImgBenefits = imgBenefits110;
                 break;
@@ -62,7 +62,6 @@ class ProductBenefitsList extends Component {
                         <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} />
                     </View>
                 </View>
-
             </View>
         );
     }
