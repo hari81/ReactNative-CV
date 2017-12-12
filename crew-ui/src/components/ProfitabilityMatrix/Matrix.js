@@ -14,7 +14,7 @@ class Matrix extends Component {
                 numColumns={11}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <View style={item.value <= 0 ? [styles.boxStyle, { backgroundColor: 'rgb(158,42,47)', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderWidth: item.id === 60 ? 3 : 1 }] : [styles.boxStyle, { backgroundColor: 'rgb(1,172,168)', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderWidth: item.id === 60 ? 3 : 1  }]}>
+                    <View style={item.value <= 0 ? [styles.boxStyle, { backgroundColor: 'rgb(158,42,47)', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderWidth: item.id === 60 ? 3 : 1 }] : [styles.boxStyle, { backgroundColor: 'rgb(1,172,168)', borderColor: item.id === 60 ? 'rgb(245,131,51)' : 'white', borderWidth: item.id === 60 ? 3 : 1  }]}>
                         <Text style={styles.textStyle}>{common.minusBeforeDollarSign(item.value, 0)}</Text >
                     </View>
                 )}

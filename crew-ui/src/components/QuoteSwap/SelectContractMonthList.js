@@ -65,7 +65,8 @@ class SelectContractMonthList extends Component {
                 }
             }
             spinner = (
-                <View>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ width: width * 0.61 }}>
                      <View style={{ flexDirection: 'row' }}>
                           <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>Let's select your contract month</Text></View>
                             <View style={{ marginTop: 34 }}>
@@ -76,23 +77,8 @@ class SelectContractMonthList extends Component {
                                      </View>
                                 </TouchableOpacity>
                             </View>
-                          <View style={styles.productDetailsView}>
-                              <View style={{ marginLeft: 14, marginTop: 6 }}>
-                                  <Text style={styles.pDetails}>Product Details</Text>
-                                  <Text style={styles.pHeader}>Crop</Text>
-                                  <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
-                                  <Text style={styles.pHeader}>Product</Text>
-                                  <Text style={styles.pBody}>{riskName}</Text>
-                                  <Text style={styles.pHeader}>Trade direction</Text>
-                                  <Text style={styles.pBody}>Buy</Text>
-                                  <Text style={styles.pHeader}>Contract Month</Text>
-                                  <Text style={styles.pBody}>
-                                      {this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
-                                  </Text>
-                              </View>
-                          </View>
                      </View>
-                     <View style={{ position: 'absolute', marginTop: height * 0.078 }}>
+                     <View>
                         <FlatList
                             numColumns={4}
                             data={this.props.contractMonth.contract}
@@ -116,10 +102,30 @@ class SelectContractMonthList extends Component {
                                 )}
                         />
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: height * 0.028, marginLeft: width * 0.62 }}>
+                    </View>
+                    <View>
+                    <View style={{ marginLeft: width * 0.01, marginTop: height * 0.05 }}>
+                    <View style={styles.productDetailsView}>
+                        <View style={{ marginLeft: 14, marginTop: 6 }}>
+                            <Text style={styles.pDetails}>Product Details</Text>
+                            <Text style={styles.pHeader}>Crop</Text>
+                            <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
+                            <Text style={styles.pHeader}>Product</Text>
+                            <Text style={styles.pBody}>{riskName}</Text>
+                            <Text style={styles.pHeader}>Trade direction</Text>
+                            <Text style={styles.pBody}>Buy</Text>
+                            <Text style={styles.pHeader}>Contract Month</Text>
+                            <Text style={styles.pBody}>
+                                {this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: height * 0.028 }}>
                         <ImageButton text='BACK' onPress={this.benefitsScreen.bind(this, riskId, riskName)} />
                         <ImageButton text='NEXT' onPress={this.selectQuantity} />
                      </View>
+                    </View>
+                    </View>
                  </View>
             );
         }
@@ -135,7 +141,7 @@ const styles = {
     subViewStyle: { marginLeft: width * 0.012, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 28, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
     contractMonthView: { height: height * 0.154, width: width * 0.140, backgroundColor: 'rgb(255,255,255)', borderRadius: 4 },
-    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: 32, marginTop: 41 },
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)' },
     monthYearView: { flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(239,244,247)', borderTopLeftRadius: 4, borderTopRightRadius: 4 },
     monthYearText: { color: 'rgb(59,76,89)', fontSize: 18, fontFamily: 'HelveticaNeue' },
     priceView: { flex: 3, justifyContent: 'center', alignItems: 'center' },

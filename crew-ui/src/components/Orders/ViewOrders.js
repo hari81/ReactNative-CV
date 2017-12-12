@@ -36,14 +36,14 @@ class ViewOrders extends Component {
         riskProductId,
         riskProductName,
         underlyingObjectData,
-        goodTilDate
+        goodTilDate,
+          targetPrice
       } = this.props.item;
 
     const year = underlyingObjectData.year;
     const month = underlyingObjectData.month;
     const crop = underlyingObjectData.crop;
     const unit = underlyingObjectData.unit;
-    const targetPrice = this.props.item.targetPrice || 0;
     let tStrike = this.props.item.strike;
     if (common.isValueExists(tStrike)) { tStrike = tStrike.toFixed(2); }
     let tBonusPrice = this.props.item.bonusPrice;
