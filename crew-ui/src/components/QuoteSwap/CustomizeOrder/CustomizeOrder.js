@@ -49,8 +49,18 @@ class CustomizeOrder extends Component {
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
+                <View style={{ width: width * 0.614 }}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>Use the + and - buttons to customize your levels</Text></View>
-                <View style={styles.productDetailsView}>
+                    <CustomizePrice
+                        onPriceChange={this.onPriceChange.bind(this)}
+                        fPrice={this.props.fPrice}
+                        bPrice={this.props.bPrice}
+                        price={this.props.price}
+                        customFlag={this.props.flag}
+                    />
+                </View>
+                    <View style={{ marginLeft: width * 0.01, marginTop: height * 0.06 }}>
+                    <View style={styles.productDetailsView}>
                     <Text style={styles.pDetails}>Product Details</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
@@ -81,19 +91,12 @@ class CustomizeOrder extends Component {
                         <Text style={{ fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }}>{ `$${parseFloat(this.state.eProfitStart).toFixed(2)} to $${parseFloat(this.state.eProfitEnd).toFixed(2)}/acre`}</Text>
                     </View>
                 </View>
-                </View>
-                <View style={{ flexDirection: 'row', marginLeft: width * 0.62, marginTop: 20 }}>
+                <View style={{ flexDirection: 'row', marginTop: 20 }}>
                     <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
                     <ImageButton text='NEXT' inactive='true' />
                 </View>
-
-                <CustomizePrice
-                    onPriceChange={this.onPriceChange.bind(this)}
-                    fPrice={this.props.fPrice}
-                    bPrice={this.props.bPrice}
-                    price={this.props.price}
-                    customFlag={this.props.flag}
-                />
+                    </View>
+                </View>
 
             </View>
         );
@@ -103,7 +106,7 @@ const styles = {
     container: { height: height * 0.593, width: width * 0.968, backgroundColor: 'rgb(61,76,87)', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)' },
     subViewStyle: { marginLeft: width * 0.02, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 30, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
-    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.01, marginTop: 41 },
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)' },
     pDetails: { fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' },
     pHeader: { fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 },
     pBody: { fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }
