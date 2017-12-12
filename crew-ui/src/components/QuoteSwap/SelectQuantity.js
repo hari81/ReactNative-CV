@@ -142,35 +142,9 @@ class SelectQuantity extends Component {
             is {common.formatNumberCommas(this.props.quantityLimit)} {this.props.defaultAccountData.commodities[0].unitOfMeasure}s</Text>);
         return (
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ width: width * 0.61 }}>
                 <View style={styles.subViewStyle}><Text style={styles.subTextStyle}>What quantity do you want to hedge today?</Text></View>
-                <View style={styles.productDetailsView}>
-                    <Text style={styles.pDetails}>Product Details</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                    <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
-                        <Text style={styles.pHeader}>Crop</Text>
-                        <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
-                        <Text style={styles.pHeader}>Product</Text>
-                        <Text style={styles.pBody}>{risk110Name}</Text>
-                        <Text style={styles.pHeader}>Trade direction</Text>
-                        <Text style={styles.pBody}>Buy</Text>
-                        <Text style={styles.pHeader}>Contract Month</Text>
-                        <Text style={styles.pBody}>
-                            {this.state.cMonth} {this.state.cYear}
-                        </Text>
-                    </View>
-                    <View style={{ marginLeft: 20, marginTop: 6 }}>
-                        <Text style={styles.pHeader}>Current Market Price</Text>
-                        <Text style={styles.pBody}>$ {this.state.strike}</Text>
-                        <Text style={styles.pHeader}>Contingent Offer Quantity</Text>
-                        <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
-                        <Text style={styles.pHeader}>You May Price Up To</Text>
-                        <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
-                    </View>
-                    </View>
-                </View>
-                </View>
-                <View style={{ flexDirection: 'row', marginLeft: width * 0.042, marginTop: height * 0.1, position: 'absolute' }}>
+                <View style={{ flexDirection: 'row', marginTop: height * 0.03, marginLeft: width * 0.04 }}>
                     <TouchableOpacity onPressIn={this.minusButtonPress} onPressOut={this.stopTimer.bind(this)}>
                         <Text style={[styles.updownIcon, { marginTop: 3, marginRight: 15 }]}>-</Text>
                     </TouchableOpacity>
@@ -201,9 +175,37 @@ class SelectQuantity extends Component {
                         {tBushelLimit}
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', marginLeft: width * 0.62, marginTop: height * 0.028 }}>
+                </View>
+                <View style={{ marginLeft: width * 0.01, marginTop: height * 0.05 }}>
+                <View style={styles.productDetailsView}>
+                    <Text style={styles.pDetails}>Product Details</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
+                            <Text style={styles.pHeader}>Crop</Text>
+                            <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
+                            <Text style={styles.pHeader}>Product</Text>
+                            <Text style={styles.pBody}>{risk110Name}</Text>
+                            <Text style={styles.pHeader}>Trade direction</Text>
+                            <Text style={styles.pBody}>Buy</Text>
+                            <Text style={styles.pHeader}>Contract Month</Text>
+                            <Text style={styles.pBody}>
+                                {this.state.cMonth} {this.state.cYear}
+                            </Text>
+                        </View>
+                        <View style={{ marginLeft: 20, marginTop: 6 }}>
+                            <Text style={styles.pHeader}>Current Market Price</Text>
+                            <Text style={styles.pBody}>$ {this.state.strike}</Text>
+                            <Text style={styles.pHeader}>Contingent Offer Quantity</Text>
+                            <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
+                            <Text style={styles.pHeader}>You May Price Up To</Text>
+                            <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row', marginTop: height * 0.028 }}>
                     <ImageButton text='BACK' onPress={this.nextScreens.bind(this, 1)} />
                     <ImageButton text='NEXT' onPress={this.nextScreens.bind(this, 2)} id='spin' />
+                </View>
                 </View>
 
             </View>
@@ -211,12 +213,12 @@ class SelectQuantity extends Component {
     }
 }
 const styles = {
-    container: { height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)' },
+    container: { flexDirection: 'row', height: height * 0.593, width: width * 0.968, backgroundColor: '#3d4c57', marginHorizontal: width * 0.0156, marginTop: height * 0.0494, marginBottom: height * 0.0091, borderColor: '#bed8dd', borderWidth: 1, borderTopWidth: 4, borderTopColor: 'rgb(231,181,20)' },
     subViewStyle: { marginLeft: width * 0.042, marginTop: height * 0.031 },
     subTextStyle: { fontSize: 32, fontFamily: 'HelveticaNeue-Thin', color: 'rgb(255,255,255)' },
     updownIcon: { fontSize: 36, fontFamily: 'HelveticaNeue-Bold', color: '#fff', width: 48, borderRadius: 24, borderWidth: 2, borderColor: '#fff', paddingLeft: 15 },
     bushelLimitText: { fontSize: 15, fontFamily: 'HelveticaNeue', color: '#e7b514' },
-    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)', marginLeft: width * 0.01, marginTop: 41 },
+    productDetailsView: { height: height * 0.380, width: width * 0.329, borderRadius: 4, backgroundColor: 'rgba(224,242,243, 0.1)' },
     pDetails: { fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' },
     pHeader: { fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 },
     pBody: { fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }

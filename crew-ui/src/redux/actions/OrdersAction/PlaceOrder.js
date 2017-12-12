@@ -21,7 +21,7 @@ export const placeOrder = () => {
             underlying: sugData.metadata.underlying,
             orderType: sugData.metadata.orderType,
             expirationDate: common.formatDate(sugData.metadata.expirationDate, 6),
-            targetPrice: common.cleanNumericString(sugData.metadata.targetPrice.toString()),
+            targetPrice: sugData.price,
             goodTilDate: common.formatDate(sugData.metadata.expirationDate, 6)
         };
         console.log('placing Data', body);

@@ -13,6 +13,8 @@ export const profitabilityMatrixData = (obj) => {
         const url = `${VELO_SERVICES_URL}dashboard/profitabilityMatrix`;
         const body = {
             areaPlanted: getState().dashBoardData.Data.myFarmProduction.areaPlanted,
+            contingentOfferAmount: getState().dashBoardData.Data.actionBar.openPositions.totalContingentOfferTradeAmount,
+            contingentOfferQuantity: getState().dashBoardData.Data.actionBar.openPositions.totalContingentOfferQuantity,
             basis: getState().dashBoardData.Data.myFarmTiles.basisEstimate,
             externalTradesAmount: getState().dashBoardData.Data.myFarmProduction.externalTrades.totalTradeAmount,
             externalTradesQuantity: getState().dashBoardData.Data.myFarmProduction.externalTrades.totalQuantity,
