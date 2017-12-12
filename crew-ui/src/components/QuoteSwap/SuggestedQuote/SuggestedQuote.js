@@ -8,13 +8,14 @@ import MyFarmTiles from '../../common/MyFarmTiles';
 import ProductDetails from './ProductDetails';
 import { SuggestedPrice } from './SuggestedPrice';
 import { estimateProfit } from '../../../redux/actions/QuoteSwap/EstimatedProfitAction';
+import { customisedFlag } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
 import * as common from '../../../Utils/common';
 import bugsnag from '../.././common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
 
 class SuggestedQuote extends Component {
-    nextScreens(id) {
+    /*nextScreens(id) {
         switch (id) {
             case 1:
                 Actions.selectQuantity();
@@ -24,9 +25,9 @@ class SuggestedQuote extends Component {
                 break;
             default:
         }
-    }
+    }*/
     backToBushalQty = () => {
-        Actions.pop();
+        Actions.popTo('selectQuantity');
     };
 
     componentDidMount() {
@@ -34,9 +35,10 @@ class SuggestedQuote extends Component {
         this.props.estimateProfit(1);
     }
     customizeOrder = () => {
-        const { cMonth, cYear, quantity } = this.props.previousState;
+        const { quantity } = this.props.previousState;
         const { strike, bonusPrice, price } = this.props.suggestQuote;
-        Actions.customizeOrder({ cMonth, cYear, quantity, strike, bonusPrice, price });
+        this.props.customisedFlag(true);
+        Actions.customizeOrder({ quantity, strike, bonusPrice, price });
     };
     reviewOrder = () => {
         Actions.structureOrderReview();
@@ -134,4 +136,4 @@ const styles = {
     }
 };
 
-export default connect(mapStateToProps, { estimateProfit })(SuggestedQuote);
+export default connect(mapStateToProps, { estimateProfit, customisedFlag })(SuggestedQuote);

@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
-import { SUGGESTED_OPTIMAL_QUOTE, OPTIMAL_QUOTE_SPIN_ACTIVE } from '../types';
+import { SUGGESTED_OPTIMAL_QUOTE, OPTIMAL_QUOTE_SPIN_ACTIVE, SHOW_BUTTONS } from '../types';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import * as common from '../../../Utils/common';
@@ -13,7 +13,6 @@ export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: true });
         const quoteUrl = `${ORDER_SERVICES_URL}quotes/optimalQuote`;
-        console.log('Previous State', optimalValue);
         let quoteBody = null;
         if (id === 1) {
             quoteBody = {
@@ -57,7 +56,6 @@ export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
                     dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
                     return;
                 }
-                console.log('suggested Quote', suggestedValue);
                 dispatch({ type: SUGGESTED_OPTIMAL_QUOTE, payload: suggestedValue });
                 if (id === 1) {
                     Actions.suggestedQuote({ suggestQuote: suggestedValue, previousState: optimalValue, cropYear });
@@ -66,4 +64,8 @@ export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
             })
             .catch(bugsnag.notify);
     };
+};
+
+export const customisedFlag = (val) => {
+    return { type: SHOW_BUTTONS, payload: val };
 };

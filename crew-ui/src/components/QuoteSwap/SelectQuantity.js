@@ -149,7 +149,7 @@ class SelectQuantity extends Component {
                     <View style={{ flexDirection: 'row' }}>
                     <View style={{ marginLeft: 14, marginTop: 6, width: 150 }}>
                         <Text style={styles.pHeader}>Crop</Text>
-                        <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.underlyingData.underlyingYear}</Text>
+                        <Text style={styles.pBody}>{this.props.cropButton.selectedCropName} {this.props.cropButton.selectedId.slice(-4)}</Text>
                         <Text style={styles.pHeader}>Product</Text>
                         <Text style={styles.pBody}>{risk110Name}</Text>
                         <Text style={styles.pHeader}>Trade direction</Text>
@@ -162,7 +162,7 @@ class SelectQuantity extends Component {
                     <View style={{ marginLeft: 20, marginTop: 6 }}>
                         <Text style={styles.pHeader}>Current Market Price</Text>
                         <Text style={styles.pBody}>$ {this.state.strike}</Text>
-                        <Text style={styles.pHeader}>Contigent Offer Quantity</Text>
+                        <Text style={styles.pHeader}>Contingent Offer Quantity</Text>
                         <Text style={styles.pBody}>{addQuant} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                         <Text style={styles.pHeader}>You May Price Up To</Text>
                         <Text style={styles.pBody}>{priceUpTo} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>

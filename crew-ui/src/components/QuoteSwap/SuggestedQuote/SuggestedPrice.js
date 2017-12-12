@@ -24,9 +24,9 @@ const PriceType = ({ text, price, img, sdate, edate }) => {
             <Image source={img} style={{ marginTop: 10 }} />
             <Text style={[styles.PricetextStyle, sdate === undefined ? {} : { paddingTop: 0, fontSize: 13 }]}>{text}</Text>
             <Text style={[styles.PricetextStyle,
-                sdate === undefined ? { fontSize: 22, paddingTop: 0, fontFamily: 'HelveticaNeue' } : { fontSize: 16, paddingTop: 0, fontFamily: 'HelveticaNeue-Bold' }]}
+                sdate === undefined ? { fontSize: 22, paddingTop: 0, fontFamily: 'HelveticaNeue' } : { fontSize: 16, paddingTop: 0, fontFamily: 'HelveticaNeue' }]}
             >
-                {sdate === undefined ? `$${price}` : `${common.formatDate(sdate, 5)} to ${common.formatDate(edate, 5)}` }
+                {sdate === undefined ? `$${price}` : `   Today to \n${common.formatDate(edate, 5)}` }
                 </Text>
 
         </View>

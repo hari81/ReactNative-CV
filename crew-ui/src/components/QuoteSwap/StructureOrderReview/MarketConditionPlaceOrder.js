@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
+import { Actions, NavigationActions } from 'react-native-router-flux';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { View, Text, Switch, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { Spinner } from '../../common/Spinner';
-import { optimalSuggestedQuote } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
+import { optimalSuggestedQuote, customisedFlag } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
 import { placeOrder } from '../../../redux/actions/OrdersAction/PlaceOrder';
 import { InfoPopup } from '../../common';
 import * as common from '../../../Utils/common';
@@ -26,6 +26,7 @@ class MarketConditionPlaceOrder extends Component {
         this.setState({ isTermsAccepted: value, isPlaceOrderEnabled: value });
     }
     showTermsConditions() {
+        termsInfo = common.getDisclosure(DisclaimerData, this.props.productId, termsInfo);
         const popup = (<InfoPopup popupInfo={termsInfo} onClose={this.hideTermsConditions.bind(this)} />);
         this.setState({ termsConditionsPopup: popup });
     }
@@ -35,7 +36,11 @@ class MarketConditionPlaceOrder extends Component {
     }
     onModifyOrder() {
         if (this.props.custom === 'customize') {
-            Actions.pop();
+            //Actions.pop();
+            const { strike, bonusPrice, price } = this.props.sug;
+            const quantity = this.props.sug.metadata.quantity;
+            this.props.customisedFlag(false);
+            Actions.customizeOrder({ quantity, strike, bonusPrice, price });
             return;
         }
         const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.cropButton.selectedId.slice(-4);
@@ -60,7 +65,7 @@ class MarketConditionPlaceOrder extends Component {
     }
     render() {
         return (
-            <View style={{ justifyContent: 'space-around', alignItems: 'center' }}>
+            <View style={{ position: 'absolute', top: 60, left: 675, justifyContent: 'space-around', alignItems: 'center' }}>
                 <View style={styles.ViewStyle}>
                     <Text style={{ color: 'white', fontFamily: 'HelveticaNeue', fontSize: 12 }}>CURRENT MARKET PRICE</Text>
                     <Text style={{ color: 'white', fontFamily: 'HelveticaNeue-Medium', fontSize: 17 }}>{common.minusBeforeDollarSign(this.props.midMarket.underlyingPrice, 4)}</Text>
@@ -70,7 +75,8 @@ class MarketConditionPlaceOrder extends Component {
                 <View style={styles.termsContainer}>
                     <Switch style={styles.switchStyle} onTintColor='#01aca8' //tintColor='#3b4a55'
                         onValueChange={this.onAcceptTerms.bind(this)}
-                        value={this.state.isTermsAccepted} />
+                        value={this.state.isTermsAccepted} 
+                    />
                     <Text style={{ color: 'white', fontFamily: 'HelveticaNeue-Light', fontSize: 14 }}>Agree to </Text>
                     <TouchableOpacity onPress={this.showTermsConditions.bind(this)} >
                         <Text style={styles.termsLink}>Terms and Conditions</Text>
@@ -90,9 +96,9 @@ class MarketConditionPlaceOrder extends Component {
             </View>
         );
     }
-};
+}
 
-const termsInfo = { top: 210, left: -80, width: 350, arrowPosition: 'side', message: DisclaimerData.disclosure };
+let termsInfo = { top: -5, left: -385, width: 500, arrowPosition: 'right' };
 const { width, height } = Dimensions.get('window');
 const StyledText = styled.Text`
   color: white; 
@@ -101,7 +107,6 @@ const StyledText = styled.Text`
 `;
 const styles = { /* container */
     ViewStyle: {
-        marginTop: 40,
         width: 287,
         height: 121,
         alignSelf: 'stretch',
@@ -128,11 +133,20 @@ const styles = { /* container */
 };
 
 const mapStateToProps = state => {
+    let tProductId = null;
+    if (common.isValueExists(state.optimalQuote.suggestedQuote)) {
+        if (common.isValueExists(state.optimalQuote.suggestedQuote.metadata)) {
+            tProductId = state.optimalQuote.suggestedQuote.metadata.riskProductId;
+        }
+    }
+
    return { midMarket: state.optimalQuote.suggestedQuote,
             flag: state.optimalQuote.spinFlag,
             cropButton: state.cropsButtons,
-            stateinfoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue
+            stateinfoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue,
+            productId: tProductId,
+            sug: state.optimalQuote.suggestedQuote
    };
 };
 
-export default connect(mapStateToProps, { optimalSuggestedQuote, placeOrder })(MarketConditionPlaceOrder);
+export default connect(mapStateToProps, { optimalSuggestedQuote, placeOrder, customisedFlag })(MarketConditionPlaceOrder);

@@ -38,6 +38,7 @@
 		3D5B9F2A1F534AB50030956B /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5B9F0A1F534A950030956B /* libART.a */; };
 		4161B3AD987A41FFBCE49250 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A5C71BB8404631A17B2A63 /* libRNFS.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		77CC5762C0DB48F4875DEB67 /* libRNAppInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9101F0C5219C4E01A08ECEE6 /* libRNAppInfo.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C0A8A6B4F9B746F18BB4AE48 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5070ED565274DD7B7AA1255 /* libRNFetchBlob.a */; };
 		C733C120E7804C1EB595E524 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D943CD6997443E3BA6A42A4 /* libReactNativeConfig.a */; };
@@ -107,6 +108,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		1576A1A41FD73C180003AFC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BBE74C063B7457B8DF141F7 /* RNAppInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDD7BF781B2D5125006FDA75;
+			remoteInfo = RNAppInfo;
+		};
+		1576A1A61FD73C180003AFC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BBE74C063B7457B8DF141F7 /* RNAppInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDD7BF831B2D5126006FDA75;
+			remoteInfo = RNAppInfoTests;
 		};
 		15D284B71FA12B0D0071E430 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -341,6 +356,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CargillVeloCli/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CargillVeloCli/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1BBE74C063B7457B8DF141F7 /* RNAppInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAppInfo.xcodeproj; path = "../node_modules/react-native-app-info/RNAppInfo.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CargillVeloCli-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CargillVeloCli-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CargillVeloCli-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CargillVeloCli-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35560A83B4BE43E09F7B4D95 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -351,6 +367,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		9101F0C5219C4E01A08ECEE6 /* libRNAppInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAppInfo.a; sourceTree = "<group>"; };
 		C19A6D87FD1F414EADDA5588 /* libBugsnagReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBugsnagReactNative.a; sourceTree = "<group>"; };
 		E5070ED565274DD7B7AA1255 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -387,6 +404,7 @@
 				4161B3AD987A41FFBCE49250 /* libRNFS.a in Frameworks */,
 				C0A8A6B4F9B746F18BB4AE48 /* libRNFetchBlob.a in Frameworks */,
 				C733C120E7804C1EB595E524 /* libReactNativeConfig.a in Frameworks */,
+				77CC5762C0DB48F4875DEB67 /* libRNAppInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +543,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1576A1A01FD73C180003AFC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1576A1A51FD73C180003AFC0 /* libRNAppInfo.a */,
+				1576A1A71FD73C180003AFC0 /* RNAppInfoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		15D284B41FA12B0D0071E430 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +576,7 @@
 				03A5C71BB8404631A17B2A63 /* libRNFS.a */,
 				E5070ED565274DD7B7AA1255 /* libRNFetchBlob.a */,
 				4D943CD6997443E3BA6A42A4 /* libReactNativeConfig.a */,
+				9101F0C5219C4E01A08ECEE6 /* libRNAppInfo.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -622,6 +650,7 @@
 				41AA53CABBDE400D8FEED460 /* RNFS.xcodeproj */,
 				EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */,
 				FC7180A58B024C46AA1D0E4A /* ReactNativeConfig.xcodeproj */,
+				1BBE74C063B7457B8DF141F7 /* RNAppInfo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -834,6 +863,10 @@
 					ProjectRef = FC7180A58B024C46AA1D0E4A /* ReactNativeConfig.xcodeproj */;
 				},
 				{
+					ProductGroup = 1576A1A01FD73C180003AFC0 /* Products */;
+					ProjectRef = 1BBE74C063B7457B8DF141F7 /* RNAppInfo.xcodeproj */;
+				},
+				{
 					ProductGroup = 3DC5ADF21F9672C00057945C /* Products */;
 					ProjectRef = EFB63E11A7A1421694E2CE78 /* RNFetchBlob.xcodeproj */;
 				},
@@ -907,6 +940,20 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1576A1A51FD73C180003AFC0 /* libRNAppInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNAppInfo.a;
+			remoteRef = 1576A1A41FD73C180003AFC0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1576A1A71FD73C180003AFC0 /* RNAppInfoTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNAppInfoTests.xctest;
+			remoteRef = 1576A1A61FD73C180003AFC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		15D284B81FA12B0D0071E430 /* libReactNativeConfig.a */ = {
@@ -1254,12 +1301,16 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
+					"$(SRCROOT)/../node_modules/react-native-app-info/RNAppInfo",
 				);
 				INFOPLIST_FILE = CargillVeloCliTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1285,12 +1336,16 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
+					"$(SRCROOT)/../node_modules/react-native-app-info/RNAppInfo",
 				);
 				INFOPLIST_FILE = CargillVeloCliTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1321,6 +1376,8 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
+					"$(SRCROOT)/../node_modules/react-native-app-info/RNAppInfo",
 				);
 				INFOPLIST_FILE = CargillVeloCli/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1337,7 +1394,7 @@
 				PRODUCT_NAME = CargillVeloCli;
 				PROVISIONING_PROFILE = "b1b7258f-303a-4de8-8046-f5ef786bad4d";
 				PROVISIONING_PROFILE_SPECIFIER = "Distribution cargillreactapp";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1356,6 +1413,8 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
+					"$(SRCROOT)/../node_modules/react-native-app-info/RNAppInfo",
 				);
 				INFOPLIST_FILE = CargillVeloCli/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1372,7 +1431,7 @@
 				PRODUCT_NAME = CargillVeloCli;
 				PROVISIONING_PROFILE = "b1b7258f-303a-4de8-8046-f5ef786bad4d";
 				PROVISIONING_PROFILE_SPECIFIER = "Distribution cargillreactapp";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1395,11 +1454,15 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
+					"$(SRCROOT)/../node_modules/react-native-app-info/RNAppInfo",
 				);
 				INFOPLIST_FILE = "CargillVeloCli-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1435,11 +1498,15 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
+					"$(SRCROOT)/../node_modules/react-native-app-info/RNAppInfo",
 				);
 				INFOPLIST_FILE = "CargillVeloCli-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1476,6 +1543,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CargillVeloCli-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1500,6 +1569,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

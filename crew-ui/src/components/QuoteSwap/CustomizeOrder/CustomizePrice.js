@@ -21,12 +21,17 @@ class CustomizePrice extends Component {
         this.state = {
             floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
             bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
-            price: common.isValueExists(props.price) ? parseFloat(props.price).toFixed(2) : 0,
-            showButtons: true,
+            price: common.isValueExists(props.price) ? props.price : 0,
+            showButtons: props.customFlag,
             flag: false
         };
         this.timer = null;
+        //console.log('flag1', this.state.showButtons);
     }
+   /* componentWillMount() {
+       // console.log('flag2', this.props.customFlag);
+        this.setState({ showButtons: this.props.customFlag });
+    }*/
     componentWillReceiveProps(nextProps) {
         if (nextProps.spin) {
             this.setState({ flag: true });
@@ -35,6 +40,7 @@ class CustomizePrice extends Component {
           this.setState({ price: nextProps.price });
         }
         if (this.state.flag) {
+
             this.props.estimateProfit(2, 'Start', this.state);
             this.props.estimateProfit(2, '', this.state);
             this.setState({ flag: false });
@@ -64,7 +70,7 @@ class CustomizePrice extends Component {
                 return (<Spinner size='small' color='black' />);
             }
             return (
-            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue' }]}>{price}</Text>
+            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${price}</Text>
             );
         }
         return (
@@ -72,6 +78,7 @@ class CustomizePrice extends Component {
         );
     }
     orderButtons() {
+        //console.log('showButtons', this.state.showButtons);
         if (this.state.showButtons) {
             return (
                 <View style={{ position: 'absolute', marginTop: 226 }}>
@@ -79,10 +86,12 @@ class CustomizePrice extends Component {
                         Would you like to hedge at these levels at a price of ${this.state.price}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
                         <ImageButton text='YES - Review Order' onPress={this.onReviewOrder}/>
-                        <ImageButton text='NO - Work Levels at $0 Cost' onPress={this.onWorkLevelsCost}/>
+                        <ImageButton text='NO, work these levels at $0 cost' onPress={this.onWorkLevelsCost}/>
                     </View>
                 </View>
             );
+        } else {
+            return null;
         }
     }
     onReviewOrder = () => {
@@ -129,7 +138,7 @@ class CustomizePrice extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        const pPeriod = common.formatDate(this.props.sDate, 5) + ' to       '+ common.formatDate(this.props.eDate, 5)
+        const pPeriod = 'TODAY to \n'+ common.formatDate(this.props.eDate, 5);
         return (
             <View style={{ position: 'absolute', marginTop: height * 0.1 }}>
                 <View style={{ flexDirection: 'row' }}>
@@ -139,7 +148,7 @@ class CustomizePrice extends Component {
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>+</Text>
                             </View>
                         </TouchableOpacity>
-                        {this.priceType(1, lock, 'Floor Price', '$'+ this.state.floorPrice)}
+                        {this.priceType(1, lock, 'Floor Price', this.state.floorPrice)}
                         <TouchableOpacity onPressIn={this.fPriceMinusButton} onPressOut={this.stopTimer.bind(this)}>
                             <View style={{ width: width * 0.128, height: 30, backgroundColor: 'rgb(34,116,148)', marginLeft: 20, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>-</Text>
@@ -153,7 +162,7 @@ class CustomizePrice extends Component {
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>+</Text>
                             </View>
                         </TouchableOpacity>
-                        {this.priceType(2, coins, 'Bonus Price', '$' + this.state.bonusPrice)}
+                        {this.priceType(2, coins, 'Bonus Price', this.state.bonusPrice)}
                         <TouchableOpacity onPressIn={this.bPriceMinusButton} onPressOut={this.stopTimer.bind(this)}>
                             <View style={{ width: width * 0.128, height: 30, backgroundColor: 'rgb(34,116,148)', marginLeft: 20, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 24, color: 'rgb(255,255,255)', fontFamily: 'HelveticaNeue-bold' }}>-</Text>
@@ -162,7 +171,7 @@ class CustomizePrice extends Component {
                     </View>
 
                     {this.priceType(3, calender, 'Pricing Period', pPeriod)}
-                    {this.priceType(4, card, 'Price', '$'+ this.state.price)}
+                    {this.priceType(4, card, 'Price', parseFloat(this.state.price).toFixed(2))}
                 </View>
                 {this.orderButtons()}
             </View>
@@ -178,7 +187,8 @@ const mapStateToProps = state => {
         sDate: common.isValueExists(state.optimalQuote.suggestedQuote.accrualStartDate) ? state.optimalQuote.suggestedQuote.accrualStartDate : '-',
         eDate: common.isValueExists(state.optimalQuote.suggestedQuote.metadata.expirationDate) ? state.optimalQuote.suggestedQuote.metadata.expirationDate : '-',
         spin: state.optimalQuote.spinFlag,
-        price: common.isValueExists(state.optimalQuote.suggestedQuote.price) ? state.optimalQuote.suggestedQuote.price : 0
+        price: common.isValueExists(state.optimalQuote.suggestedQuote.price) ? state.optimalQuote.suggestedQuote.price : 0,
+        customFlag: state.optimalQuote.custFlag
     };
 };
 

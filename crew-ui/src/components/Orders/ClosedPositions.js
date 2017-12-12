@@ -1,151 +1,176 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableHighlight } from 'react-native';
+import { Text, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import PositionsAdditionalDetail from './PositionsAdditionalDetail';
 import bugsnag from '../../components/common/BugSnag';
 import * as common from '../../Utils/common';
+import * as commonStyles from '../../Utils/styles';
 
 class ClosedPositions extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isShowAddlDetails: false
+        };
+    }
+
     openTradeReceipt() {
         Actions.pdfview({ orderId: this.props.item.id, confirm: this.props.item.confirm });
     }
-  render() {
+
+    toggleAddlDetails() {
+        this.setState({ isShowAddlDetails: !this.state.isShowAddlDetails });
+    }
+
+    render() {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
 
             //values from NEW type
-            let oTemp = this.props.item.lines.filter(obj => obj.type === 'NEW');
+            const oLineNew = this.props.item.lines.filter(obj => obj.type === 'NEW');
             let product = '';
             let tradeDate = '';
             let netPrice = '';
-            if (common.isValueExists(oTemp) && oTemp.length > 0) { 
-                product = oTemp[0].product;
-                tradeDate = oTemp[0].tradeDate;
-                netPrice = `$${oTemp[0].netPremium.toFixed(4)}`;
+            if (common.isValueExists(oLineNew) && oLineNew.length > 0) { 
+                product = oLineNew[0].product;
+                tradeDate = oLineNew[0].tradeDate;
+                netPrice = `$${oLineNew[0].netPremium.toFixed(4)}`;
             }
 
             //values from REPRICE type
-            oTemp = this.props.item.lines.filter(obj => obj.type === 'REPRICE');
+            const oLineReprice = this.props.item.lines.filter(obj => obj.type === 'REPRICE');
             let closedPrice = '';
             let unwindDate = '';
             let quantity = '';
             let buysell = '';
-            if (common.isValueExists(oTemp) && oTemp.length > 0) {
-                closedPrice = `$${oTemp[0].netPremium.toFixed(4)}`;
-                unwindDate = oTemp[0].tradeDate;
-                quantity = oTemp[0].quantity;
-                buysell = oTemp[0].buysell;                
+            if (common.isValueExists(oLineReprice) && oLineReprice.length > 0) {
+                closedPrice = `$${oLineReprice[0].netPremium.toFixed(4)}`;
+                unwindDate = oLineReprice[0].tradeDate;
+                quantity = oLineReprice[0].quantity;
+                buysell = oLineReprice[0].buysell;                
             }
 
-            const { id, riskProduct, underlyingObjectData } = this.props.item;
+            const { id, riskProduct, riskProductId, underlyingObjectData } = this.props.item;
+
+            let tAddlDetails = null;
+            let tShowAddlDetails = null;
+
+            let moreLinkText = 'Show Details >>';
+            if (this.state.isShowAddlDetails) {
+                moreLinkText = '<< Hide Details';
+                tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} unit={underlyingObjectData.unit} data={oLineReprice[0]} />;
+            }
+
+            if (riskProductId === 110) {
+                tShowAddlDetails = (
+                    <View style={{ marginTop: -8, marginLeft: 823, paddingBottom: 8 }}>
+                        <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
+                            <Text style={commonStyles.common.positionsMoreLink}>{moreLinkText}</Text>
+                        </TouchableOpacity>
+                    </View>
+                );
+            }
+
+            const firstRowHeight = 55;            
 
             return (
                 <View style={[styles.subContainerStyle]}>
-                    <View style={[styles.yearStyle, { width: '10.74%' }]}>
-                        <View style={{ backgroundColor: 'rgb(39,153,137)', height: 40, justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
-                                {underlyingObjectData.month}
-                            </Text>
-                        </View>
-                        <View style={{ backgroundColor: 'rgb(61,76,87)', height: 55, justifyContent: 'center' }}>
-                            <Text style={{ textAlign: 'center', fontSize: 20, color: 'white', fontFamily: 'HelveticaNeue-Bold' }}>
-                                {underlyingObjectData.year}
-                            </Text>
-                        </View>
-                    </View>
-
-                    <View style={{ margin: 20, width: '24.41%' }}>
-                        <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
-                            {underlyingObjectData.crop} {riskProduct}
-                        </Text>
-                        <View style={{ flexDirection: 'row', marginTop: 15, justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>QUANTITY</Text>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                                        {quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                                    </Text>
-                                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{`  ${underlyingObjectData.unit}s`}</Text>
-                                </View>
+                    <View style={{ flexDirection: 'row', margin: 0, padding: 0 }}>
+                      {/* month/year box */}
+                        <View style={[commonStyles.common.positionsYearStyle, { width: '10.74%' }]}>
+                            <View style={{ backgroundColor: '#279989', height: 40, justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 14, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue' }}>
+                                    {underlyingObjectData.month}
+                                </Text>
                             </View>
-                            <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-                                <Text style={[{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { paddingTop: 7 } : {}]}>DIRECTION</Text>
-                                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                                    {buysell === 'S' ? 'Sell' : 'Buy'}
+                            <View style={{ backgroundColor: '#3d4c57', height: 55, justifyContent: 'center' }}>
+                                <Text style={{ textAlign: 'center', fontSize: 20, color: 'white', fontFamily: 'HelveticaNeue-Bold' }}>
+                                    {underlyingObjectData.year}
                                 </Text>
                             </View>
                         </View>
-                    </View>
 
-                    <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12, width: '20%' }}>
-                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>PRODUCT</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                            {product}
-                        </Text>
-                        <View style={{ flexDirection: 'row', marginTop: 14, justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>NET PRICE</Text>
-                                <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                                    {netPrice}
-                                </Text>
-                            </View>
-                            <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-                                <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>CLOSED PRICE</Text>
-                                <View style={{ flex: 1 }}>
-                                    <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                                        {closedPrice}
+                        <View style={{ width: '29%' }}>
+                            <View style={{ margin: 10 }}>
+                                <View style={{ height: firstRowHeight }}>
+                                    <Text style={[{ fontFamily: 'HelveticaNeue-Thin', fontSize: 20, marginTop: 5 }, (underlyingObjectData.crop.length + riskProduct.length) >= 18 ? { fontSize: 14 } : {}]}>
+                                        {underlyingObjectData.crop} {riskProduct}
                                     </Text>
+                                </View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ flexDirection: 'column' }}>
+                                        <Text style={commonStyles.common.positionsDataLabel}>QUANTITY</Text>
+                                        <View style={{ width: 130, flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                            <Text style={commonStyles.common.positionsData}>{quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
+                                            <Text style={commonStyles.common.positionsData}>{` ${underlyingObjectData.unit}s`}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ flexDirection: 'column' }}>
+                                        <Text style={commonStyles.common.positionsDataLabel}>DIRECTION</Text>
+                                        <Text style={commonStyles.common.positionsData}>{buysell === 'S' ? 'Sell' : 'Buy'}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                    </View>
 
-                    <View style={{ flexDirection: 'column', marginLeft: 30, marginTop: 12, width: '16%' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}>TRADE RECEIPT </Text>
-                            <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
-                                <Image
-                                    style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
-                                    source={require('../common/img/PDF.png')}
-                                />
-                            </TouchableHighlight>
+                        <View style={{ flexDirection: 'column', marginTop: 10, marginLeft: 20, width: '20%' }}>
+                            <View style={{ flexDirection: 'column', height: firstRowHeight }}>
+                                <Text style={commonStyles.common.positionsDataLabel}>PRODUCT</Text>
+                                <Text style={commonStyles.common.positionsData}>{product}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'column' }}>
+                                    <Text style={commonStyles.common.positionsDataLabel}>NET PRICE</Text>
+                                    <Text style={commonStyles.common.positionsData}>{netPrice}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                                    <Text style={commonStyles.common.positionsDataLabel}>CLOSED PRICE</Text>
+                                    <Text style={commonStyles.common.positionsData}>{closedPrice}</Text>
+                                </View>
+                            </View>
                         </View>
-                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, marginTop: 22 }}>TRADE ID#</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>
-                            {id}
-                        </Text>
-                    </View>
 
-                    <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 12 }}>
-                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12 }}> TRADE DATE</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{tradeDate}</Text>
-                        <Text style={{ color: 'rgb(1,172,168)', fontFamily: 'HelveticaNeue', fontSize: 12, paddingTop: 18 }}>CLOSE OUT DATE</Text>
-                        <Text style={{ fontFamily: 'HelveticaNeue-Thin', fontSize: 14 }}>{unwindDate}</Text>
+                        <View style={{ flexDirection: 'column', marginTop: 10, marginLeft: 20, width: '16%' }}>
+                            <View style={{ flexDirection: 'row', height: firstRowHeight }}>
+                                <Text style={commonStyles.common.positionsDataLabel}>TRADE RECEIPT </Text>
+                                <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
+                                    <Image
+                                        style={{ width: 20, height: 20, marginLeft: 2, marginTop: 4 }}
+                                        source={require('../common/img/PDF.png')}
+                                    />
+                                </TouchableHighlight>
+                            </View>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={[commonStyles.common.positionsDataLabel, { }]}>TRADE ID#</Text>
+                                <Text style={commonStyles.common.positionsData}>{id}</Text>
+                            </View>
+                        </View>
+
+                        <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10 }}>
+                            <View style={{ flexDirection: 'column', height: firstRowHeight }}>
+                                <Text style={commonStyles.common.positionsDataLabel}> TRADE DATE</Text>
+                                <Text style={commonStyles.common.positionsData}>{tradeDate}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={commonStyles.common.positionsDataLabel}>CLOSE OUT DATE</Text>
+                                <Text style={commonStyles.common.positionsData}>{unwindDate}</Text>
+                            </View>
+                        </View>
                     </View>
+                    {tShowAddlDetails}
+                    {tAddlDetails}
                 </View>
             );
         } catch (error) {
-            bugsnag.notify(error);
+            common.handleError(error);
         }
   }
 }
-const styles = {
-  subContainerStyle: {
-    flexDirection: 'row',
-    margin: 5,
-    backgroundColor: '#ffffff',
-    borderRadius: 4,
-    height: 110
-  },
 
-  yearStyle: {
-    marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 10,
-    width: 100,
-    justifyContent: 'center'
-  }
+const styles = {
+  subContainerStyle: { flexDirection: 'column', margin: 5, backgroundColor: '#fff', borderRadius: 4 }
 };
 
 const mapStateToProps = state => {

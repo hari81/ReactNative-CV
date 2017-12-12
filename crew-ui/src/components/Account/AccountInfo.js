@@ -19,12 +19,12 @@ class AccountInfo extends Component {
                     return (
                     <View style={{ flexDirection: 'row', marginTop: 5 }}>
                         <Text style={[styles.cropField, { width: 125, textAlign: 'left' }]}>{citem.name}</Text>
-                        <Text style={styles.cropField}>{common.formatNumberCommas(item.shortLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={styles.cropField}>{common.formatNumberCommas(item.longLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={styles.cropField}>{common.formatNumberCommas(item.shortOptionLimit)} {citem.unitOfMeasure}s</Text>
-                        <Text style={styles.cropField}>{common.formatNumberCommas(item.longOptionLimit)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.shortLimitAvailable)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.longLimitAvailable)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.shortOptionLimitAvailable)} {citem.unitOfMeasure}s</Text>
+                        <Text style={styles.cropField}>{common.formatNumberCommas(item.longOptionLimitAvailable)} {citem.unitOfMeasure}s</Text>
                         <Text style={[styles.cropField, { width: 100, marginLeft: 40, textAlign: 'left' }]}>{item.tenor} months</Text>
-                        <Text style={[styles.cropField, {}]}>{yearStart}-{yearEnd}</Text>
+                        <Text style={[styles.cropField, { width: 100, textAlign: 'left' }]}>{yearStart}-{yearEnd}</Text>
                     </View>
                     );
                 }}
@@ -34,7 +34,7 @@ class AccountInfo extends Component {
 
     render() {
         try {
-            const { userId, firstName, email } = this.props.acc.accountDetails;
+            const { userId, userName, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
             return (
                 <View style={{ height, backgroundColor: '#eff4f7' }}>
@@ -48,11 +48,15 @@ class AccountInfo extends Component {
                             <View style={[styles.sectionBodyContainer, { flexDirection: 'row' }]}>
                                 <View style={{ flex: 0.5 }}>
                                     <View style={[styles.fieldGroup, { marginTop: 10, marginBottom: 10 }]}>
-                                        <Text style={{ fontSize: 16 }}>{this.props.acc.accountDetails.firstName} {this.props.acc.accountDetails.lastname}</Text>
+                                        <Text style={{ fontSize: 18 }}>{this.props.acc.defaultAccount.legalName}</Text>
                                     </View>
                                     <View style={styles.fieldGroup}>
                                         <Text style={styles.labelSm}>ACCOUNT ID:</Text>
                                         <Text style={styles.fieldSm}>{this.props.acc.accountDetails.defaultAccountId}</Text>
+                                    </View>
+                                    <View style={styles.fieldGroup}>
+                                        <Text style={styles.labelSm}>USER NAME:</Text>
+                                        <Text style={styles.fieldSm}>{userName}</Text>
                                     </View>
                                     <View style={styles.fieldGroup}>
                                         <Text style={styles.labelSm}>USER ID:</Text>
@@ -102,7 +106,7 @@ class AccountInfo extends Component {
                                     <Text style={styles.cropHeader}>SHORT OPTION LIMIT</Text>
                                     <Text style={styles.cropHeader}>LONG OPTION LIMIT</Text>
                                     <Text style={[styles.cropHeader, { width: 100, marginLeft: 40, textAlign: 'left' }]}>TENOR</Text>
-                                    <Text style={[styles.cropHeader, {}]}>CROP YEARS</Text>
+                                    <Text style={[styles.cropHeader, { width: 100, textAlign: 'left' }]}>CROP YEARS</Text>
                                 </View>
                                 {this.renderCrops()}
                             </View>
@@ -171,7 +175,7 @@ const styles = StyleSheet.create({
     sectionTitleContainer: { borderBottomWidth: 1, borderColor: '#ccc', paddingLeft: 12, paddingTop: 8, marginLeft: 3, marginRight: 3, marginBottom: 10 },
     sectionTitle: { fontSize: 18, paddingBottom: 6 },
     sectionBodyContainer: { paddingLeft: 15, paddingBottom: 20, paddingRight: 15 },
-    fieldGroup: { flexDirection: 'row', marginBottom: 2 },
+    fieldGroup: { flexDirection: 'row', marginBottom: 3 },
     labelSm: { fontFamily: 'HelveticaNeue', fontSize: 11, textAlign: 'right', width: 80, marginRight: 5 },
     labelLg: { fontFamily: 'HelveticaNeue', fontSize: 14 },
     labelCredit: { fontFamily: 'HelveticaNeue', fontSize: 12, width: 200 },

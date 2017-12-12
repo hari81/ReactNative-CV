@@ -39,8 +39,8 @@ class ReviewOrder extends Component {
         Actions.pop();
     }
 
-    onAcceptTerms() {
-        this.setState({ isTermsAccepted: true, isPlaceOrderEnabled: true });
+    onToggleTerms() {
+        this.setState({ isTermsAccepted: !this.state.isTermsAccepted, isPlaceOrderEnabled: !this.state.isTermsAccepted });
     }
 
     onPlaceOrderNow() {
@@ -53,6 +53,7 @@ class ReviewOrder extends Component {
     }
 
     showTermsConditions() {
+        termsInfo = common.getDisclosure(DisclaimerData, this.props.productId, termsInfo);
         const popup = (<InfoPopup popupInfo={termsInfo} onClose={this.hideTermsConditions.bind(this)} />);
         this.setState({ termsConditionsPopup: popup });
     }
@@ -135,7 +136,7 @@ class ReviewOrder extends Component {
                                         <View style={{ flex: 1 }}>
                                             <View style={styles.quoteField}>
                                                 <Text style={styles.quoteLabel}>Crop</Text>
-                                                <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.commodity.year}</Text>
+                                                <Text style={styles.quoteData}>{this.props.commodity.name} {this.props.cropBut.selectedId.slice(-4)}</Text>
                                             </View>
                                             <View style={styles.quoteField}>
                                                 <Text style={styles.quoteLabel}>Product</Text>
@@ -194,7 +195,7 @@ class ReviewOrder extends Component {
                                         <View style={styles.termsContainer}>
                                             <Switch 
                                                 style={styles.switchStyle} onTintColor='#01aca8' tintColor='#ddd'
-                                                onValueChange={this.onAcceptTerms.bind(this)}
+                                                onValueChange={this.onToggleTerms.bind(this)}
                                                 value={this.state.isTermsAccepted}
                                             />
                                             <Text>Agree to </Text>
@@ -232,14 +233,7 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
-const termsInfo = { 
-    top: 150, 
-    left: 300, 
-    width: 500, 
-    arrowPosition: 'bottom', 
-    message: DisclaimerData.disclosure,
-    link: <Button buttonStyle={{}} textStyle={{ marginTop: -10, fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', textDecorationLine: 'underline' }} onPress={() => Linking.openURL('https://www.cargill.com/price-risk/crm/pre-trade-disclosure')}>Pre-Trade Disclosure</Button>
-};
+let termsInfo = { top: 135, left: 300, width: 500, arrowPosition: 'bottom' };
 
 const styles = StyleSheet.create({
     /* container */
@@ -303,13 +297,15 @@ const mapStateToProps = state => {
             name: state.cropsButtons.selectedCropName,
             year: oUnderlying.underlyingYear
         },
+        productId: state.reviewQuote.quoteData.metadata.riskProductId,
         productDesc: common.translateProductId(state.reviewQuote.quoteData.metadata.riskProductId, state.products),
         underlying: oUnderlying,
         isLimitOrder: isLimit,
         isRepriceOrder: isReprice,
         tradeTitle: isReprice ? 'close position' : 'new trade',
         infoEstimatedNetPrice: state.displayProperties.filter(item => item.propKey === 'infoEstimatedNetPrice')[0].propValue,
-        isSpinActive: state.reviewQuote.spinFlag
+        isSpinActive: state.reviewQuote.spinFlag,
+        cropBut: state.cropsButtons
     };
 };
 

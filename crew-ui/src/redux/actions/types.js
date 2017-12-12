@@ -13,6 +13,7 @@ export const ITEMS_FETCH_DATA_SUCCESS = 'items_fetch_data_success';
 export const OPEN_POSITIONS_DATA_SUCCESS = 'open_positions_data_success';
 export const CLOSED_POSITIONS_DATA_SUCCESS = 'closed_positions_data_success';
 export const TRADE_RECEIPT_PDFVIEW = 'trade_receipt_pdfview';
+export const SEGMENT_TAB_SELECT = 'segment_tab_select';
 
 export const MY_FARM_CROP_VALUES = 'my_farm_crop_values';
 export const MY_FARM_CROP_VALUES_SUMMARY = 'my_farm_crop_values_summary';
@@ -39,6 +40,7 @@ export const ORDERS_REVIEW_SPIN_INACTIVE = 'orders_review_spin_inactive';
 
 export const SUGGESTED_OPTIMAL_QUOTE = 'suggested_optimal_quote';
 export const OPTIMAL_QUOTE_SPIN_ACTIVE = 'optimal_quote_spin_active';
+export const SHOW_BUTTONS = 'show_buttons';
 export const ESTIMATED_PROFIT_START_S = 'estimated_profit_start_s';
 export const ESTIMATED_PROFIT_END_S = 'estimated_profit_end_s';
 export const ESTIMATED_PROFIT_START_C = 'estimated_profit_star_c';

@@ -46,9 +46,8 @@ class LoginForm extends Component {
   renderButton() {
     if (this.props.auth.loading) {
       return <Spinner size='large' />;
-    } else {
-      return <Button onPress={this.onButtonPress.bind(this)}>Login</Button>;
     }
+    return <Button onPress={this.onButtonPress.bind(this)}>Log In</Button>;
   }
 
   scrollChange() {
@@ -79,13 +78,6 @@ class LoginForm extends Component {
   }
 
   render() {
-      try {
-          bugsnag.setUser(`User Id: ${this.state.email}`, this.state.email, this.state.email);
-          bugsnag.leaveBreadcrumb('Navigated to Scene [LoginForm]', {
-              type: 'navigation',
-              component: '<LoginForm />',
-              previousScene: 'Main',
-          });
           return (
               <ScrollView ref='scrollView' keyboardDismissMode='interactive' keyboardShouldPersistTaps='never'>
                   <Card>
@@ -163,9 +155,7 @@ class LoginForm extends Component {
                   </Card>
               </ScrollView>
           );
-      } catch (error) {
-          bugsnag.notify(error);
-      }
+
   }
 }
 

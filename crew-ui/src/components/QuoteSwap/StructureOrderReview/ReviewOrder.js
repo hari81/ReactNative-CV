@@ -1,21 +1,34 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import * as common from '../../../Utils/common';
+import { InfoPopup } from '../../common';
 import Info from '../../common/img/Info-white.png';
 //import bugsnag from '../common/BugSnag';
 
-const ReviewOrder = (props) => {
-    const { orderType, expirationDate, underlying, quantity } = props.sug.suggestedQuote.metadata;
-    const quantityDouble = 2 * Number(common.cleanNumericString(quantity));
-    const { strike, price, bonusPrice, accrualStartDate } = props.sug.suggestedQuote;
-    const cropName = props.cropBut.selectedCropName;
-    const cropYear = props.cropBut.selectedId.slice(-4);
-    const uom = props.acc.filter(item => item.name === cropName);
+import DisclaimerData from '../../../restAPI/disclaimer.json';
 
-    return (
+class ReviewOrder extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showPriceDetails: null
+        };
+    }
+    hidePriceInfo() {
+        const popup = (<View style={{ display: 'none' }} />);
+        this.setState({ showPriceDetails: popup });
+    }
+    render() {
+        const { orderType, expirationDate, underlying, quantity } = this.props.sug.suggestedQuote.metadata;
+        const quantityDouble = 2 * Number(common.cleanNumericString(quantity));
+        const { strike, price, bonusPrice, accrualStartDate } = this.props.sug.suggestedQuote;
+        const cropName = this.props.cropBut.selectedCropName;
+        const cropYear = this.props.cropBut.selectedId.slice(-4);
+        const uom = this.props.acc.filter(item => item.name === cropName);
+        return (
             <View style={styles.quoteFields}>
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Crop</Text>
                         <Text
@@ -23,7 +36,7 @@ const ReviewOrder = (props) => {
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Product</Text>
-                        <Text style={styles.quoteData}>{props.riskProduct.name}</Text>
+                        <Text style={styles.quoteData}>{this.props.riskProduct.name}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Trade direction</Text>
@@ -43,32 +56,39 @@ const ReviewOrder = (props) => {
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Floor Price
-                            </Text>
+                        </Text>
                         <Text
-                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.strike : strike}</Text>
+                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.strike : strike}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Bonus Price</Text>
                         <Text
-                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
-                            </Text>
+                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
+                        </Text>
                     </View>
                     <View style={styles.quoteField}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.quoteLabel}>Price</Text>
-                            <TouchableOpacity onPress={() => Alert.alert('message')}>
-                                <Image style={{ width: 20, height: 20, marginLeft: 20, marginTop: 1 }} source={Info} />
+                            <TouchableOpacity
+                                onPress={() => {
+                                    console.log('this is press event');
+                                    this.setState({ showPriceDetails:
+                                        (<InfoPopup popupInfo={termsInfo} onClose={this.hidePriceInfo.bind(this)} />)
+                                    })}}
+                            >
+                                <Image style={{ width: 20, height: 20, marginLeft: 20, marginTop: 1 }}
+                                       source={Info}/>
                             </TouchableOpacity>
                         </View>
                         <Text
-                            style={styles.quoteData}>${props.level === 'zero' ? '0.00' : price.toFixed(2)}
-                            </Text>
+                            style={styles.quoteData}>${this.props.level === 'zero' ? '0.00' : price.toFixed(2)}
+                        </Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Pricing Period</Text>
                         <Text
-                            style={styles.quoteData}>{common.formatDate(accrualStartDate, 5)} to
-                            </Text>
+                            style={styles.quoteData}>{'TODAY'} to
+                        </Text>
                         <Text
                             style={styles.quoteData}>{common.formatDate(expirationDate, 5)}
                         </Text>
@@ -84,7 +104,7 @@ const ReviewOrder = (props) => {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contingent Offer Price</Text>
                         <Text
-                            style={styles.quoteData}>${props.custom === 'customize' ? props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
+                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>You May Price Up to</Text>
@@ -97,18 +117,19 @@ const ReviewOrder = (props) => {
                             style={styles.quoteData}>{common.capitalizeWord(orderType)}</Text>
                     </View>
                     <View style={styles.quoteField}>
-                            <Text style={styles.quoteLabel}>Order will be valid until</Text>
+                        <Text style={styles.quoteLabel}>Order will be valid until</Text>
                         <Text
                             style={styles.quoteData}>{common.formatDate(expirationDate, 5)}</Text>
                     </View>
 
                 </View>
-            </View>
-
-    );
-};
+                {this.state.showPriceDetails}
+            </View>);
+    }
+}
 
 const { width, height } = Dimensions.get('window');
+const termsInfo = { top: 180, left: 50, width: 450, arrowPosition: 'side', message: DisclaimerData.disclosures[1].disclosure };
 const styles = StyleSheet.create({
     /* container */
     reviewMain: { height: height - 100, backgroundColor: '#eff4f7' },
@@ -131,10 +152,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    return { riskProduct: state.products[0],
+    return { riskProduct: state.products.find(item => item.id === 110),
         sug: state.optimalQuote,
         acc: state.account.defaultAccount.commodities,
-        cropBut: state.cropsButtons };
+        cropBut: state.cropsButtons
+    };
 };
 
 export default connect(mapStateToProps, null)(ReviewOrder);

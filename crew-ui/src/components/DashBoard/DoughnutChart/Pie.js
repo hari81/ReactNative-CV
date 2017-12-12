@@ -56,7 +56,7 @@ class Pie extends React.Component {
         return (
             <View >
                 <Surface width={250} height={250} >
-                    <Group x={140} y={102}>{
+                    <Group x={130} y={102}>{
                             this.props.data.map((item, index) => (
                                     <AnimShape key={'pieshape' + index} color={this.color(index)} d={() => this.createPieChart(index)}/>
                                 )

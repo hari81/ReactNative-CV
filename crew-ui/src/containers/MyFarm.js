@@ -10,9 +10,10 @@ import { cropDataSave, myFarmCropValues, farmActionFlag } from '../redux/actions
 import BasisSliderSwitch from '../components/MyFarm/BasisSliderSwitch';
 import FarmInputFields from '../components/MyFarm/FarmInputFields';
 import { dashBoardDataFetch } from '../redux/actions/Dashboard/DashboardAction';
+import * as common from '../Utils/common';
 import bugsnag from '../components/common/BugSnag';
 
- class MyFarm extends Component {
+class MyFarm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,35 +23,33 @@ import bugsnag from '../components/common/BugSnag';
       cost: '',
       yield: '',
       incbasis: false,
-     // tradeflag: props.tradeflag || false
     };
   }
-cancelMyFarm = () => {
-      Keyboard.dismiss();
-    const cropData = this.props.far.myFarmCropData.cropYear;
-    if (/*!this.state.tradeflag*/ cropData !== null) {
-     //   const cropData = this.props.far.myFarmCropData.cropYear;
-    //    console.log(cropData);
-        this.setState({
-            acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
-            profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
-            cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
-            yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
-            estimate: cropData.basis,
-            incbasis: cropData.includeBasis,
-        });
-    }
-    else {
-        this.setState({
-            estimate: 0,
-            acres: '',
-            profit: '',
-            cost: '',
-            yield: '',
-            incbasis: false
-        });
-    }
-};
+
+    cancelMyFarm = () => {
+        Keyboard.dismiss();
+        const cropData = this.props.far.myFarmCropData.cropYear;
+        if (common.isValueExists(cropData)) {
+            this.setState({
+                acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
+                profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
+                cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
+                yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
+                estimate: cropData.basis,
+                incbasis: cropData.includeBasis,
+            });
+        } else {
+            this.setState({
+                estimate: 0,
+                acres: '',
+                profit: '',
+                cost: '',
+                yield: '',
+                incbasis: false
+            });
+        }
+    };
+
 cropDataSave = () => {
     if (this.state.cost === '' || this.state.profit === '' || this.state.yield === '' || this.state.acres === '') {
         Alert.alert('Please fill all mandatory(*) fields before saving the data.');
@@ -124,31 +123,23 @@ this.setData(this.props);
 }
 
 setData =(props) => {
-   // const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
-  if (Object.keys(props.far.myFarmCropData).length !== 0) {
-      const cropData = props.far.myFarmCropData.cropYear;
-      if (!cropData) {
-          this.setState({
-              acres: '',
-              profit: '',
-              cost: '',
-              yield: '',
-              estimate: 0,
-              incbasis: false,
-             // tradeflag: true,
-          });
-      } else {
-              this.setState({
-                  acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
-                  profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
-                  cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
-                  yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
-                  estimate: cropData.basis,
-                  incbasis: cropData.includeBasis,
-                //  tradeflag: false
-              });
-          }
-      }
+    if (common.isValueExists(props.far.myFarmCropData)) {
+        if (Object.keys(props.far.myFarmCropData).length !== 0) {
+            const cropData = props.far.myFarmCropData.cropYear;
+            if (!common.isValueExists(cropData)) {
+                this.setState({ acres: '', profit: '', cost: '', yield: '', estimate: 0, incbasis: false, });
+            } else {
+                this.setState({
+                    acres: `${cropData.areaPlanted.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} acres`,
+                    profit: `$${cropData.unitProfitGoal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
+                    cost: `$${cropData.unitCost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} per acre`,
+                    yield: `${cropData.expectedYield.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} bushels`,
+                    estimate: cropData.basis,
+                    incbasis: cropData.includeBasis,
+                });
+            }
+        }
+    }
 };
 
 componentWillReceiveProps(newProps) {
@@ -161,7 +152,7 @@ componentWillReceiveProps(newProps) {
     try {
         const { userId, firstName, email } = this.props.acc.accountDetails;
         bugsnag.setUser(`User Id: ${userId}`, firstName, email);
-        const {width, height} = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         const cropButData = this.props.cropBut.cropButtons.filter(item => item.id === this.props.cropBut.selectedId);
 
         return (
@@ -174,11 +165,11 @@ componentWillReceiveProps(newProps) {
                         height: 20
                     }}
                 />
-                <CommonHeader uservaluesfalg={this.userChangesFarmData.bind(this)}/>
+                <CommonHeader uservaluesfalg={this.userChangesFarmData.bind(this)} />
 
-                <View style={{height: 80, backgroundColor: 'rgb(64,78,89)'}}/>
+                <View style={{ height: 80, backgroundColor: 'rgb(64,78,89)' }} />
                 <View
-                    style={[styles.farmSetUp, {width: width - 30, zIndex: 0}]}
+                    style={[styles.farmSetUp, { width: width - 30, zIndex: 0 }]}
                 >
                     <View
                         style={{
@@ -203,7 +194,7 @@ componentWillReceiveProps(newProps) {
                     </View>
                 </View>
 
-                <View style={{height: height - 270, backgroundColor: 'rgb(239,244,247)', zIndex: -1 }}>
+                <View style={{ height: height - 270, backgroundColor: 'rgb(239,244,247)', zIndex: -1 }}>
 
                     <View
                         style={{
@@ -225,29 +216,27 @@ componentWillReceiveProps(newProps) {
                             {`My ${cropButData[0].name.toUpperCase()} ${cropButData[0].cropYear} Crop`}
                         </Text>
 
-                        <View style={{flexDirection: 'row', marginTop: 20}}>
+                        <View style={{ flexDirection: 'row', marginTop: 20 }}>
 
-                            <FarmInputFields acr={this.state.acres} pro={this.state.profit} yie={this.state.yield}
-                                             cos={this.state.cost}
-                                             updateAcrValue={(val) => this.setState({acres: val})}
-                                             updateProValue={(val) => this.setState({profit: val})}
-                                             updateCosValue={(val) => this.setState({cost: val})}
-                                             updateYieValue={(val) => this.setState({yield: val})}
+                            <FarmInputFields 
+                                acr={this.state.acres} 
+                                pro={this.state.profit} 
+                                yie={this.state.yield}
+                                cos={this.state.cost}
+                                updateAcrValue={(val) => this.setState({ acres: val })}
+                                updateProValue={(val) => this.setState({ profit: val })}
+                                updateCosValue={(val) => this.setState({ cost: val })}
+                                updateYieValue={(val) => this.setState({ yield: val })}
                             />
 
-                            <View style={{
-                                marginRight: 20,
-                                borderLeftWidth: 1,
-                                paddingLeft: 45,
-                                borderLeftColor: 'rgb(230,234,280)'
-                            }}
-                            >
-                                <BasisSliderSwitch estim={this.state.estimate} basis={this.state.incbasis}
-                                                   sliderVal={val => this.setState({estimate: val})}
-                                                   switchVal={val => this.setState({incbasis: val})}
+                            <View style={{ marginRight: 20, borderLeftWidth: 1, paddingLeft: 45, borderLeftColor: 'rgb(230,234,280)' }}>
+                                <BasisSliderSwitch 
+                                    estim={this.state.estimate} 
+                                    basis={this.state.incbasis}
+                                    sliderVal={val => this.setState({ estimate: val })}
+                                    switchVal={val => this.setState({ incbasis: val })}
                                 />
-                                <OutSideTradeSales //tradeFlag={this.state.tradeflag}
-                                                   gotoexternal={this.externalsales.bind(this)}/>
+                                <OutSideTradeSales gotoexternal={this.externalsales.bind(this)} />
                                 <View
                                     style={{
                                         flexDirection: 'row',
@@ -272,7 +261,7 @@ componentWillReceiveProps(newProps) {
                                                 alignItems: 'center'
                                             }}
                                         >
-                                            <Text style={{textAlign: 'center'}}>CANCEL</Text>
+                                            <Text style={{ textAlign: 'center' }}>CANCEL</Text>
                                         </View>
                                     </TouchableHighlight>
                                     <TouchableHighlight
@@ -293,13 +282,13 @@ componentWillReceiveProps(newProps) {
                                                 alignItems: 'center'
                                             }}
                                         >
-                                            <Text style={{color: 'white'}}> SAVE </Text>
+                                            <Text style={{ color: 'white' }}> SAVE </Text>
                                         </View>
                                     </TouchableHighlight>
                                 </View>
                             </View>
                         </View>
-                        <Text style={{color: 'white', paddingLeft: 16 }}> *Required</Text>
+                        <Text style={{ color: 'white', paddingLeft: 16, paddingBottom: 2 }}> *Required</Text>
                     </View>
                 </View>
 
