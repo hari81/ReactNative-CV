@@ -10,6 +10,15 @@ class PositionsAdditionalDetail extends Component {
                 case 110:
                     const bd = common.isValueExists(this.props.data) ? this.props.data.bonusDetails : null;
                     const od = common.isValueExists(this.props.data) ? this.props.data.offerDetails : null;
+                    let estAvg = null;
+                    if (common.isValueExists(bd) && common.isValueExists(bd.estimatedAverage)) {
+                        estAvg = (
+                            <View style={styles.addlField}>
+                                <Text style={styles.listLabel}>AVERAGE PRICE</Text>
+                                <Text style={styles.listText}>${common.formatNumberCommas(bd.estimatedAverage.toFixed(2))}</Text>
+                            </View>
+                        );
+                    }
                     if (common.isValueExists(bd) && common.isValueExists(od)) {
                         tAddlDetails = (
                         <View style={{ paddingTop: 5, paddingRight: 20, paddingLeft: 20, paddingBottom: 5, backgroundColor: '#efefef80' }}>
@@ -46,10 +55,7 @@ class PositionsAdditionalDetail extends Component {
                                     <Text style={styles.listLabel}>DAYS PRICED AT BONUS PRICE</Text>
                                     <Text style={styles.listText}>{common.formatNumberCommas(bd.bonusDays)}</Text>
                                 </View>
-                                <View style={styles.addlField}>
-                                    <Text style={styles.listLabel}>AVERAGE PRICE</Text>
-                                    <Text style={styles.listText}>${common.formatNumberCommas(bd.estimatedAverage.toFixed(2))}</Text>
-                                </View>
+                                {estAvg}
                             </View>
                             {/* Offer Details */ }
                             <Text style={styles.addlGroupTitle}>Contingent Offer Details</Text>
