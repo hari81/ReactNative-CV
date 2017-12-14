@@ -10,7 +10,6 @@ import { InfoPopup } from '../../common';
 import * as common from '../../../Utils/common';
 //import st from '../../../Utils/SafeTraverse';
 
-
 import DisclaimerData from '../../../restAPI/disclaimer.json';
 
 class MarketConditionPlaceOrder extends Component {
@@ -36,16 +35,14 @@ class MarketConditionPlaceOrder extends Component {
     }
     onModifyOrder() {
         if (this.props.custom === 'customize') {
-            //Actions.pop();
             const { strike, bonusPrice, price } = this.props.sug;
             const quantity = this.props.sug.metadata.quantity;
             this.props.customisedFlag(false);
-            Actions.customizeOrder({ quantity, strike, bonusPrice, price });
+            Actions.customizeOrder({ quantity, strike, bonusPrice, price, fromsug: 'modify' });
             return;
         }
         const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.cropButton.selectedId.slice(-4);
         this.props.optimalSuggestedQuote(1, this.props.midMarket.metadata, cropYear);
-        //Actions.pop();
     }
     onModifySpinner() {
         if (this.props.flag) {

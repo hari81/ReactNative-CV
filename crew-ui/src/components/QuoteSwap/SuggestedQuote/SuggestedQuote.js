@@ -15,17 +15,6 @@ import bugsnag from '../.././common/BugSnag';
 const { width, height } = Dimensions.get('window');
 
 class SuggestedQuote extends Component {
-    /*nextScreens(id) {
-        switch (id) {
-            case 1:
-                Actions.selectQuantity();
-                break;
-            case 2:
-                Actions.customizeOrder();
-                break;
-            default:
-        }
-    }*/
     backToBushalQty = () => {
         Actions.popTo('selectQuantity');
     };
@@ -36,12 +25,14 @@ class SuggestedQuote extends Component {
     }
     customizeOrder = () => {
         const { quantity } = this.props.previousState;
-        const { strike, bonusPrice, price } = this.props.suggestQuote;
+        const { strike, bonusPrice } = this.props.suggestQuote;
+        const price = 0;
         this.props.customisedFlag(true);
-        Actions.customizeOrder({ quantity, strike, bonusPrice, price });
+        Actions.customizeOrder({ quantity, strike, bonusPrice, price, fromsug: 'sug' });
     };
     reviewOrder = () => {
-        Actions.structureOrderReview();
+        const { strike, bonusPrice } = this.props.suggestQuote;
+        Actions.structureOrderReview({ floorP: strike, bonusP: bonusPrice });
     };
     render() {
         try {

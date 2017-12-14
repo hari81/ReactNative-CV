@@ -17,6 +17,7 @@ class StructureOrderReview extends Component {
         try {
             const { userId, firstName, email } = this.props.acc.accountDetails;
             bugsnag.setUser(`User Id: ${userId}`, firstName, email);
+           // console.log('bonusPrice',this.props.bonusPr);
             return (
                 <View>
                     <StatusBar barStyle='light-content' />
@@ -31,7 +32,8 @@ class StructureOrderReview extends Component {
                             <View style={styles.container}>
                                 <View style={{ width: 680 }} >
                                     <View><Text style={styles.suggestedText}>Let's review and complete your order</Text></View>
-                                    <ReviewOrder custom={this.props.cust || ''} price={this.props.price} level={this.props.level || ''}/>
+                                    <ReviewOrder custom={this.props.cust || ''} price={this.props.price} level={this.props.level || ''}
+                                    floorP={this.props.floorP} bonusP={this.props.bonusP}/>
                                 </View>
                                 <MarketConditionPlaceOrder custom={this.props.cust || ''} price={this.props.price} />
                             </View>

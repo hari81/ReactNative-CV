@@ -23,6 +23,7 @@ class ReviewOrder extends Component {
         const { orderType, expirationDate, underlying, quantity } = this.props.sug.suggestedQuote.metadata;
         const quantityDouble = 2 * Number(common.cleanNumericString(quantity));
         const { strike, price, bonusPrice, accrualStartDate } = this.props.sug.suggestedQuote;
+        const { bonusP, floorP } = this.props;
         const cropName = this.props.cropBut.selectedCropName;
         const cropYear = this.props.cropBut.selectedId.slice(-4);
         const uom = this.props.acc.filter(item => item.name === cropName);
@@ -58,12 +59,12 @@ class ReviewOrder extends Component {
                         <Text style={styles.quoteLabel}>Floor Price
                         </Text>
                         <Text
-                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.strike : strike}</Text>
+                            style={styles.quoteData}>${floorP/*this.props.custom === 'customize' ? parseFloat(this.props.sug.suggestedQuote.metadata.strike).toFixed(2) : parseFloat(strike).toFixed(2)*/}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Bonus Price</Text>
                         <Text
-                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
+                            style={styles.quoteData}>${bonusP /*this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice.toFixed(2) : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice.toFixed(2)*/}
                         </Text>
                     </View>
                     <View style={styles.quoteField}>
@@ -71,7 +72,7 @@ class ReviewOrder extends Component {
                             <Text style={styles.quoteLabel}>Price</Text>
                             <TouchableOpacity
                                 onPress={() => {
-                                    console.log('this is press event');
+                                    //console.log('this is press event');
                                     this.setState({ showPriceDetails:
                                         (<InfoPopup popupInfo={termsInfo} onClose={this.hidePriceInfo.bind(this)} />)
                                     })}}
@@ -87,7 +88,7 @@ class ReviewOrder extends Component {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Pricing Period</Text>
                         <Text
-                            style={styles.quoteData}>{'TODAY'} to
+                            style={styles.quoteData}>{'Today'} to
                         </Text>
                         <Text
                             style={styles.quoteData}>{common.formatDate(expirationDate, 5)}
@@ -104,7 +105,7 @@ class ReviewOrder extends Component {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contingent Offer Price</Text>
                         <Text
-                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
+                            style={styles.quoteData}>${bonusP/*this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice.toFixed(2) : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice.toFixed(2)*/}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>You May Price Up to</Text>

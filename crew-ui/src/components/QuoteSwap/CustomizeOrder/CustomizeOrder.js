@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import ImageButton from '../../common/ImageButton';
 import CustomizePrice from './CustomizePrice';
+import { optimalSuggestedQuote } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
 import st from '../../../Utils/SafeTraverse';
 import * as common from '../../../Utils/common';
 
@@ -29,7 +30,8 @@ class CustomizeOrder extends Component {
     nextScreens(id) {
         switch (id) {
             case 1:
-                Actions.popTo('suggestedQuote');
+                //Actions.popTo('suggestedQuote');
+                this.props.optimalSuggestedQuote(1, this.props.sug.quoteBody, 'back');
                 break;
             default:
         }
@@ -45,8 +47,8 @@ class CustomizeOrder extends Component {
         const addQuant = this.props.quantity;
         const priceUpTo = common.formatNumberCommas(2 * common.cleanNumericString(this.props.quantity));
         const { underlying } = this.props.sug.suggestedQuote.metadata;
-        const { cflag } = this.props;
-        console.log('flag', this.props);
+       // const { cflag } = this.props;
+       // console.log('flag', this.props);
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
@@ -70,7 +72,7 @@ class CustomizeOrder extends Component {
                             <Text style={styles.pHeader}>Current Market Price</Text>
                             <Text style={styles.pBody}>${this.props.cPrice}</Text>
                             <Text style={styles.pHeader}>Contingent Offer Price</Text>
-                            <Text style={styles.pBody}>${this.state.bonusPrice}</Text>
+                            <Text style={styles.pBody}>${parseFloat(this.state.bonusPrice).toFixed(2)}</Text>
                             <Text style={styles.pHeader}>Contingent Offer Quantity</Text>
                             <Text style={styles.pBody}>{common.formatNumberCommas(addQuant)} {this.props.defaultAccountData.commodities[0].unitOfMeasure + 's'}</Text>
                             <Text style={styles.pHeader}>You May Price Up To</Text>
@@ -93,6 +95,7 @@ class CustomizeOrder extends Component {
                     fPrice={this.props.fPrice}
                     bPrice={this.props.bPrice}
                     price={this.props.price}
+                    sugcust={this.props.from}
                 />
 
             </View>
@@ -123,4 +126,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, null)(CustomizeOrder);
+export default connect(mapStateToProps, { optimalSuggestedQuote })(CustomizeOrder);

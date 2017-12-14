@@ -21,17 +21,13 @@ class CustomizePrice extends Component {
         this.state = {
             floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
             bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
-            price: common.isValueExists(props.price) ? props.price : 0,
+            price: this.props.sugcust === 'sug' ? 0 : props.price,
             showButtons: props.customFlag,
             flag: false
         };
         this.timer = null;
-        //console.log('flag1', this.state.showButtons);
     }
-   /* componentWillMount() {
-       // console.log('flag2', this.props.customFlag);
-        this.setState({ showButtons: this.props.customFlag });
-    }*/
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.spin) {
             this.setState({ flag: true });
@@ -70,7 +66,7 @@ class CustomizePrice extends Component {
                 return (<Spinner size='small' color='black' />);
             }
             return (
-            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${price}</Text>
+            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${parseFloat(price).toFixed(2)}</Text>
             );
         }
         return (
@@ -78,7 +74,6 @@ class CustomizePrice extends Component {
         );
     }
     orderButtons() {
-        //console.log('showButtons', this.state.showButtons);
         if (this.state.showButtons) {
             return (
                 <View style={{ position: 'absolute', marginTop: 226 }}>
@@ -95,11 +90,10 @@ class CustomizePrice extends Component {
         }
     }
     onReviewOrder = () => {
-       // const { foorPrice, bonusPrice, price } = this.state;
-        Actions.structureOrderReview({ cust: 'customize' });
+        Actions.structureOrderReview({ cust: 'customize', floorP: this.state.floorPrice, bonusP: this.state.bonusPrice });
     };
     onWorkLevelsCost = () => {
-        Actions.structureOrderReview({ cust: 'customize', level: 'zero' });
+        Actions.structureOrderReview({ cust: 'customize', level: 'zero', floorP: this.state.floorPrice, bonusP: this.state.bonusPrice });
     };
     fPricePlusButton = () => {
         this.setState({ showButtons: false });

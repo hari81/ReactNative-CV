@@ -9,8 +9,8 @@ import card from '../../common/img/structure/smCard.png';
 const SuggestedPrice = ({ floorPrice, bonusPrice, aStartDate, price, endDate }) => {
     return (
         <View style={{ flexDirection: 'row' }}>
-            <PriceType img={lock} price={floorPrice} text='Floor Price' />
-            <PriceType img={coins} price={bonusPrice} text='Bonus Price' />
+            <PriceType img={lock} price={floorPrice.toFixed(2)} text='Floor Price' />
+            <PriceType img={coins} price={bonusPrice.toFixed(2)} text='Bonus Price' />
             <PriceType img={calender} text='Pricing Period' sdate={aStartDate} edate={endDate} />
             <PriceType img={card} price={price.toFixed(2)} text='Price' />
 
