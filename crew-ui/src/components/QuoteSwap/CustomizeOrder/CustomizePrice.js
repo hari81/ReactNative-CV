@@ -132,7 +132,7 @@ class CustomizePrice extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        const pPeriod = 'TODAY to \n'+ common.formatDate(this.props.eDate, 5);
+        const pPeriod = 'Today to \n'+ common.formatDate(this.props.eDate, 5);
         return (
             <View style={{ position: 'absolute', marginTop: height * 0.1 }}>
                 <View style={{ flexDirection: 'row' }}>
