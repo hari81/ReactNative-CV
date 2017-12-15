@@ -85,7 +85,7 @@ const styles = {
     triangleBottom: { marginTop: -2, borderTopWidth: 20, borderBottomColor: '#ddd', shadowOffset: { width: 0, height: 2 } },
     triangleTop: { marginBottom: -1, borderBottomWidth: 20, borderTopColor: '#ddd', borderBottomColor: '#fff', shadowOffset: { width: 0, height: -1 } },
     triangleRight: { alignSelf: 'center', marginLeft: -1, borderTopWidth: 15, borderBottomWidth: 15, borderTopColor: 'transparent', borderBottomColor: 'transparent', borderLeftWidth: 20, borderRightWidth: 0, borderLeftColor: '#fff', borderRightColor: '#fff', shadowColor: '#aaa', shadowRadius: 1, shadowOpacity: 0.2, shadowOffset: { width: 5, height: 0 } },
-    messageBox: { borderColor: '#ddd', borderWidth: 1, backgroundColor: '#fff', borderRadius: 3, shadowColor: '#aaa', shadowOffset: { width: 0, height: 1 }, shadowRadius: 3, shadowOpacity: 0.5, zIndex: 9 },
+    messageBox: { borderColor: '#ddd', borderWidth: 1, backgroundColor: '#fff', borderRadius: 3, shadowColor: '#aaa', shadowOffset: { width: 0, height: 1 }, shadowRadius: 3, shadowOpacity: 0.5, zIndex: 11 },
     messageBoxText: { fontFamily: 'HelveticaNeue-Thin', color: '#3b4a55', fontSize: 14, marginTop: 0, paddingLeft: 25, paddingTop: 0, paddingRight: 25, paddingBottom: 25 }    
 };
 

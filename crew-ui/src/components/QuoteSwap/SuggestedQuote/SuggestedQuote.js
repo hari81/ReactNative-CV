@@ -32,7 +32,7 @@ class SuggestedQuote extends Component {
     };
     reviewOrder = () => {
         const { strike, bonusPrice } = this.props.suggestQuote;
-        Actions.structureOrderReview({ floorP: strike, bonusP: bonusPrice });
+        Actions.structureOrderReview({ floorP: strike, bonusP: bonusPrice, level: 'zero' });
     };
     render() {
         try {

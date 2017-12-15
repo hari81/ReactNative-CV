@@ -35,7 +35,7 @@ class StructureOrderReview extends Component {
                                     <ReviewOrder custom={this.props.cust || ''} price={this.props.price} level={this.props.level || ''}
                                     floorP={this.props.floorP} bonusP={this.props.bonusP}/>
                                 </View>
-                                <MarketConditionPlaceOrder custom={this.props.cust || ''} price={this.props.price} />
+                                <MarketConditionPlaceOrder custom={this.props.cust || ''} level={this.props.level || ''} />
                             </View>
                         </View>
 

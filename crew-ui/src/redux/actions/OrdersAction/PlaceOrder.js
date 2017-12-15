@@ -6,7 +6,7 @@ import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 
-export const placeOrder = () => {
+export const placeOrder = (level) => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
@@ -21,7 +21,7 @@ export const placeOrder = () => {
             underlying: sugData.metadata.underlying,
             orderType: sugData.metadata.orderType,
             expirationDate: common.formatDate(sugData.metadata.expirationDate, 6),
-            targetPrice: common.cleanNumericString(sugData.price),
+            targetPrice: level === 'zero' ? 0 : common.cleanNumericString(sugData.price),
             goodTilDate: common.formatDate(sugData.metadata.expirationDate, 6)
         };
         console.log('placing Data', body);

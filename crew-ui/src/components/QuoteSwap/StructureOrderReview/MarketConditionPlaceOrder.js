@@ -17,9 +17,7 @@ class MarketConditionPlaceOrder extends Component {
         super(props);
         this.state = { isPlaceOrderEnabled: false,
             termsConditionsPopup: null,
-            priceInfoPopup: null
         };
-        this.priceInfo = { top: 205, left: 0, width: 250, arrowPosition: 'top', message: this.props.infoEstimatedNetPrice };
     }
     onAcceptTerms(value) {
         this.setState({ isTermsAccepted: value, isPlaceOrderEnabled: value });
@@ -41,8 +39,7 @@ class MarketConditionPlaceOrder extends Component {
             Actions.customizeOrder({ quantity, strike, bonusPrice, price, fromsug: 'modify' });
             return;
         }
-        const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.cropButton.selectedId.slice(-4);
-        this.props.optimalSuggestedQuote(1, this.props.midMarket.metadata, cropYear);
+        this.props.optimalSuggestedQuote(1, this.props.midMarket.metadata);
     }
     onModifySpinner() {
         if (this.props.flag) {
@@ -55,7 +52,7 @@ class MarketConditionPlaceOrder extends Component {
     onPlaceOrderNow() {
         if (this.state.isTermsAccepted === true) {
             this.setState({ isPlaceOrderEnabled: false });
-            this.props.placeOrder();
+            this.props.placeOrder(this.props.level);
         } else {
             Alert.alert('You must accept the terms and conditions before placing the order.');
         }
