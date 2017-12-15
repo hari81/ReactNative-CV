@@ -46,6 +46,7 @@ export const ViewOrdersData = (crop, cropYear) => {
                     };
                     return Object.assign({}, item, { underlyingObjectData: uod });
                   });
+                console.log('Orders', orders);
                     dispatch({ type: ITEMS_FETCH_DATA_SUCCESS, items: orders });
             }
       })

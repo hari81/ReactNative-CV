@@ -40,6 +40,9 @@ export const ORDERS_REVIEW_SPIN_INACTIVE = 'orders_review_spin_inactive';
 
 export const SUGGESTED_OPTIMAL_QUOTE = 'suggested_optimal_quote';
 export const OPTIMAL_QUOTE_SPIN_ACTIVE = 'optimal_quote_spin_active';
+export const SHOW_BUTTONS = 'show_buttons';
+export const OPTIMAL_QUOTE_BODY = 'optimal_quote_body';
+export const BACK_TO_SUGGESTED_QUOTE = 'back_to_suggested_quote';
 export const ESTIMATED_PROFIT_START_S = 'estimated_profit_start_s';
 export const ESTIMATED_PROFIT_END_S = 'estimated_profit_end_s';
 export const ESTIMATED_PROFIT_START_C = 'estimated_profit_star_c';

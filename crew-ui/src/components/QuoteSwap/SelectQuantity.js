@@ -3,7 +3,7 @@ import { View, Text, Dimensions, TextInput, TouchableOpacity, Keyboard, Alert } 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { ImageButton } from '../common';
-import { optimalSuggestedQuote } from '../../redux/actions/QuoteSwap/SuggestedQuote';
+import { optimalSuggestedQuote, optimalQuoteBody } from '../../redux/actions/QuoteSwap/SuggestedQuote';
 import * as common from '../../Utils/common';
 import st from '../../Utils/SafeTraverse';
 
@@ -34,8 +34,8 @@ class SelectQuantity extends Component {
                     if (this.state.quantity === '' || parseFloat(this.state.quantity) < 1) {
                         Alert.alert('Product Details', 'A quantity of 1 or greater must be entered.');
                     } else {
-                        const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.underlyingData.underlyingYear;
-                        this.props.optimalSuggestedQuote(1, this.state, cropYear);
+                       this.props.optimalQuoteBody(this.state);
+                        this.props.optimalSuggestedQuote(1, this.state);
                     }
                 } catch (error) {
                     Alert.alert(`Unexpected error occurred: ${error}`);
@@ -233,4 +233,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { optimalSuggestedQuote })(SelectQuantity);
+export default connect(mapStateToProps, { optimalSuggestedQuote, optimalQuoteBody })(SelectQuantity);

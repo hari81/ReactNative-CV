@@ -6,7 +6,7 @@ import { InfoPopup } from '../../common';
 import Info from '../../common/img/Info-white.png';
 //import bugsnag from '../common/BugSnag';
 
-import DisclaimerData from '../../../restAPI/disclaimer.json';
+//import DisclaimerData from '../../../restAPI/disclaimer.json';
 
 class ReviewOrder extends Component {
     constructor(props) {
@@ -22,7 +22,8 @@ class ReviewOrder extends Component {
     render() {
         const { orderType, expirationDate, underlying, quantity } = this.props.sug.suggestedQuote.metadata;
         const quantityDouble = 2 * Number(common.cleanNumericString(quantity));
-        const { strike, price, bonusPrice, accrualStartDate } = this.props.sug.suggestedQuote;
+        const { price } = this.props.sug.suggestedQuote;
+        const { bonusP, floorP } = this.props;
         const cropName = this.props.cropBut.selectedCropName;
         const cropYear = this.props.cropBut.selectedId.slice(-4);
         const uom = this.props.acc.filter(item => item.name === cropName);
@@ -58,12 +59,12 @@ class ReviewOrder extends Component {
                         <Text style={styles.quoteLabel}>Floor Price
                         </Text>
                         <Text
-                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.strike : strike}</Text>
+                            style={styles.quoteData}>${parseFloat(floorP).toFixed(2)}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Bonus Price</Text>
                         <Text
-                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}
+                            style={styles.quoteData}>${parseFloat(bonusP).toFixed(2)}
                         </Text>
                     </View>
                     <View style={styles.quoteField}>
@@ -71,7 +72,8 @@ class ReviewOrder extends Component {
                             <Text style={styles.quoteLabel}>Price</Text>
                             <TouchableOpacity
                                 onPress={() => {
-                                    console.log('this is press event');
+                                    //console.log('this is press event');
+                                    const termsInfo = { top: 180, left: 60, width: 450, arrowPosition: 'top', message: this.props.tTargetPrice };
                                     this.setState({ showPriceDetails:
                                         (<InfoPopup popupInfo={termsInfo} onClose={this.hidePriceInfo.bind(this)} />)
                                     })}}
@@ -87,7 +89,7 @@ class ReviewOrder extends Component {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Pricing Period</Text>
                         <Text
-                            style={styles.quoteData}>{'TODAY'} to
+                            style={styles.quoteData}>{'Today'} to
                         </Text>
                         <Text
                             style={styles.quoteData}>{common.formatDate(expirationDate, 5)}
@@ -104,7 +106,7 @@ class ReviewOrder extends Component {
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contingent Offer Price</Text>
                         <Text
-                            style={styles.quoteData}>${this.props.custom === 'customize' ? this.props.sug.suggestedQuote.metadata.bonusPrice === undefined ? bonusPrice : this.props.sug.suggestedQuote.metadata.bonusPrice : bonusPrice}</Text>
+                            style={styles.quoteData}>${parseFloat(bonusP).toFixed(2)}</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>You May Price Up to</Text>
@@ -129,7 +131,7 @@ class ReviewOrder extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
-const termsInfo = { top: 180, left: 50, width: 450, arrowPosition: 'side', message: DisclaimerData.disclosures[1].disclosure };
+
 const styles = StyleSheet.create({
     /* container */
     reviewMain: { height: height - 100, backgroundColor: '#eff4f7' },
@@ -155,7 +157,8 @@ const mapStateToProps = (state) => {
     return { riskProduct: state.products.find(item => item.id === 110),
         sug: state.optimalQuote,
         acc: state.account.defaultAccount.commodities,
-        cropBut: state.cropsButtons
+        cropBut: state.cropsButtons,
+        tTargetPrice: state.displayProperties.filter(item => item.propKey === 'targetPrice')[0].propValue
     };
 };
 

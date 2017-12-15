@@ -1,17 +1,21 @@
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
-import { SUGGESTED_OPTIMAL_QUOTE, OPTIMAL_QUOTE_SPIN_ACTIVE } from '../types';
+import { SUGGESTED_OPTIMAL_QUOTE, OPTIMAL_QUOTE_SPIN_ACTIVE, SHOW_BUTTONS, OPTIMAL_QUOTE_BODY, BACK_TO_SUGGESTED_QUOTE } from '../types';
 import { doPostFetch } from '../../../Utils/FetchApiCalls';
 import { ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
 
-export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
+export const optimalSuggestedQuote = (id, optimalValue, val) => {
    // console.log('optimal Value', optimalValue);
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: true });
+        if (val === 'back') {
+            dispatch({ type: BACK_TO_SUGGESTED_QUOTE, payload: true });
+        } else {
+            dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: true });
+        }
         const quoteUrl = `${ORDER_SERVICES_URL}quotes/optimalQuote`;
         let quoteBody = null;
         if (id === 1) {
@@ -58,10 +62,23 @@ export const optimalSuggestedQuote = (id, optimalValue, cropYear) => {
                 }
                 dispatch({ type: SUGGESTED_OPTIMAL_QUOTE, payload: suggestedValue });
                 if (id === 1) {
-                    Actions.suggestedQuote({ suggestQuote: suggestedValue, previousState: optimalValue, cropYear });
+                    Actions.suggestedQuote({ suggestQuote: suggestedValue, previousState: optimalValue });
                 }
-                dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
+                if (val === 'back') {
+                    dispatch({ type: BACK_TO_SUGGESTED_QUOTE, payload: false });
+                } else {
+                    dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
+                }
+               // dispatch({ type: OPTIMAL_QUOTE_SPIN_ACTIVE, payload: false });
             })
             .catch(bugsnag.notify);
     };
+};
+
+export const customisedFlag = (val) => {
+    return { type: SHOW_BUTTONS, payload: val };
+};
+
+export const optimalQuoteBody = (quoteBody) => {
+    return { type: OPTIMAL_QUOTE_BODY, payload: quoteBody };
 };

@@ -21,17 +21,13 @@ class CustomizePrice extends Component {
         this.state = {
             floorPrice: common.isValueExists(props.fPrice) ? props.fPrice : 0,
             bonusPrice: common.isValueExists(props.bPrice) ? props.bPrice : 0,
-            price: common.isValueExists(props.price) ? props.price : 0,
-            showButtons: props.customFlag || true,
+            price: this.props.sugcust === 'sug' ? 0 : props.price,
+            showButtons: props.customFlag,
             flag: false
         };
         this.timer = null;
-        //console.log('flag1', this.state.showButtons);
     }
-    componentWillMount() {
-        //console.log('flag2', this.props.customFlag);
-        this.setState({ showButtons: this.props.customFlag || true });
-    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.spin) {
             this.setState({ flag: true });
@@ -70,7 +66,7 @@ class CustomizePrice extends Component {
                 return (<Spinner size='small' color='black' />);
             }
             return (
-            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${price}</Text>
+            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${parseFloat(price).toFixed(2)}</Text>
             );
         }
         return (
@@ -89,14 +85,15 @@ class CustomizePrice extends Component {
                     </View>
                 </View>
             );
+        } else {
+            return null;
         }
     }
     onReviewOrder = () => {
-       // const { foorPrice, bonusPrice, price } = this.state;
-        Actions.structureOrderReview({ cust: 'customize' });
+        Actions.structureOrderReview({ cust: 'customize', floorP: this.state.floorPrice, bonusP: this.state.bonusPrice });
     };
     onWorkLevelsCost = () => {
-        Actions.structureOrderReview({ cust: 'customize', level: 'zero' });
+        Actions.structureOrderReview({ cust: 'customize', level: 'zero', floorP: this.state.floorPrice, bonusP: this.state.bonusPrice });
     };
     fPricePlusButton = () => {
         this.setState({ showButtons: false });
@@ -185,6 +182,7 @@ const mapStateToProps = state => {
         eDate: common.isValueExists(state.optimalQuote.suggestedQuote.metadata.expirationDate) ? state.optimalQuote.suggestedQuote.metadata.expirationDate : '-',
         spin: state.optimalQuote.spinFlag,
         price: common.isValueExists(state.optimalQuote.suggestedQuote.price) ? state.optimalQuote.suggestedQuote.price : 0,
+        customFlag: state.optimalQuote.custFlag
     };
 };
 

@@ -4,12 +4,11 @@ import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { View, Text, Switch, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { Spinner } from '../../common/Spinner';
-import { optimalSuggestedQuote } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
+import { optimalSuggestedQuote, customisedFlag } from '../../../redux/actions/QuoteSwap/SuggestedQuote';
 import { placeOrder } from '../../../redux/actions/OrdersAction/PlaceOrder';
 import { InfoPopup } from '../../common';
 import * as common from '../../../Utils/common';
 //import st from '../../../Utils/SafeTraverse';
-
 
 import DisclaimerData from '../../../restAPI/disclaimer.json';
 
@@ -18,9 +17,7 @@ class MarketConditionPlaceOrder extends Component {
         super(props);
         this.state = { isPlaceOrderEnabled: false,
             termsConditionsPopup: null,
-            priceInfoPopup: null
         };
-        this.priceInfo = { top: 205, left: 0, width: 250, arrowPosition: 'top', message: this.props.infoEstimatedNetPrice };
     }
     onAcceptTerms(value) {
         this.setState({ isTermsAccepted: value, isPlaceOrderEnabled: value });
@@ -36,15 +33,13 @@ class MarketConditionPlaceOrder extends Component {
     }
     onModifyOrder() {
         if (this.props.custom === 'customize') {
-            //Actions.pop();
             const { strike, bonusPrice, price } = this.props.sug;
             const quantity = this.props.sug.metadata.quantity;
-            Actions.customizeOrder({ quantity, strike, bonusPrice, price, flag: false });
+            this.props.customisedFlag(false);
+            Actions.customizeOrder({ quantity, strike, bonusPrice, price, fromsug: 'modify' });
             return;
         }
-        const cropYear = this.props.cropButton.selectedCropName + ' ' + this.props.cropButton.selectedId.slice(-4);
-        this.props.optimalSuggestedQuote(1, this.props.midMarket.metadata, cropYear);
-        //Actions.pop();
+        this.props.optimalSuggestedQuote(1, this.props.midMarket.metadata);
     }
     onModifySpinner() {
         if (this.props.flag) {
@@ -57,7 +52,7 @@ class MarketConditionPlaceOrder extends Component {
     onPlaceOrderNow() {
         if (this.state.isTermsAccepted === true) {
             this.setState({ isPlaceOrderEnabled: false });
-            this.props.placeOrder();
+            this.props.placeOrder(this.props.level);
         } else {
             Alert.alert('You must accept the terms and conditions before placing the order.');
         }
@@ -148,4 +143,4 @@ const mapStateToProps = state => {
    };
 };
 
-export default connect(mapStateToProps, { optimalSuggestedQuote, placeOrder })(MarketConditionPlaceOrder);
+export default connect(mapStateToProps, { optimalSuggestedQuote, placeOrder, customisedFlag })(MarketConditionPlaceOrder);

@@ -13,18 +13,28 @@ const ImageButton = (props) => {
     let button = null;
 
     if (text === 'BACK') {
-        button = (
-            <TouchableOpacity onPress={onPress}>
-                <View style={[buttonStyle, { backgroundColor: 'rgb(255,255,255)', marginRight: 10 }]}>
-                <Image source={leftArrow} />
-                <Text style={[textStyle, { color: 'rgb(83,97,114)' }]}>{text}</Text>
-                </View>
-            </TouchableOpacity>
-        );
+        if (props.suggestQuote.custToSugFlag) {
+            button = (
+                    <View style={[buttonStyle, {backgroundColor: 'rgba(39,153,137, .65)', marginRight: 10, flexDirection: 'column', justifyContent: 'center' }]}>
+                        <Spinner size='large' />
+                        <Text style={{ color: 'white' }}>Suggested Quote...</Text>
+                    </View>
+            );
+        } else {
+            button = (
+                <TouchableOpacity onPress={onPress}>
+                    <View style={[buttonStyle, {backgroundColor: 'rgb(255,255,255)', marginRight: 10}]}>
+                        <Image source={leftArrow}/>
+                        <Text style={[textStyle, {color: 'rgb(83,97,114)'}]}>{text}</Text>
+                    </View>
+                </TouchableOpacity>
+            );
+        }
     } else if (text === 'NEXT') {
         if (props.suggestQuote.spinFlag && id === 'spin') {
-         button = (<View style={[buttonStyle, { backgroundColor: 'rgb(39,153,137)' }]}>
-                 <Spinner size='small' />
+         button = (<View style={[buttonStyle, { backgroundColor: 'rgba(39,153,137, .65)', flexDirection: 'column', justifyContent: 'center' }]}>
+                 <Spinner size='large' />
+                 <Text style={{ color: 'white' }}>Suggested Quote...</Text>
              </View>
              );
          } else {

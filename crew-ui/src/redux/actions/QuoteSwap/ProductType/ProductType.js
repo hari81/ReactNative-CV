@@ -8,7 +8,7 @@ export const productType = () => {
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
         const url = `${ORDER_SERVICES_URL}riskproducts`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => {
+            .then(response => { console.log('res', response);
                 if (response.ok) {
                     return response.json();
                 } else {

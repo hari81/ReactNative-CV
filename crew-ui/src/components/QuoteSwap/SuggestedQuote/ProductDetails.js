@@ -25,9 +25,9 @@ const ProductDetails = (props) => {
 
                 <View>
                     <Text style={styles.textValue}>Current Market Price</Text>
-                    <Text style={styles.textHeader}>${marketPrice}</Text>
+                    <Text style={styles.textHeader}>${marketPrice.toFixed(2)}</Text>
                     <Text style={styles.textValue}>Contingent Offer Price</Text>
-                    <Text style={styles.textHeader}>${additionalQtyPrice}</Text>
+                    <Text style={styles.textHeader}>${additionalQtyPrice.toFixed(2)}</Text>
                     <Text style={styles.textValue}>Contingent Offer Quantity</Text>
                     <Text style={styles.textHeader}>{common.formatNumberCommas(quantity)} {uom[0].unitOfMeasure}s</Text>
                     <Text style={styles.textValue}>You May Price Up To</Text>

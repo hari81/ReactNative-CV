@@ -9,7 +9,7 @@ export const accountDetails = () => {
     return (dispatch, getState) => {
         const url = `${VELO_SERVICES_URL}accounts`;
         return doGetFetch(url, getState().auth.crmSToken)
-            .then(response => {
+            .then(response => { console.log('Account Response', response);
                 if (response.status === 404) {
                     Alert.alert('No Account found');
                     return;
@@ -61,7 +61,7 @@ export const accountDetails = () => {
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
                         return doGetFetch(defaultUrl, getState().auth.crmSToken)
                             .then(response => {
-                                console.log(response);
+                                //console.log(response);
                                 if (response.ok) {
                                     return response.json();
                                 }
