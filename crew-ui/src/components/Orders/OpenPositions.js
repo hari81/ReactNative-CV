@@ -6,6 +6,7 @@ import PositionsAdditionalDetail from './PositionsAdditionalDetail';
 import { tradeReceipt } from '../../redux/actions/OrdersAction/OpenPositions';
 import * as common from '../../Utils/common';
 import * as commonStyles from '../../Utils/styles';
+import pdf from '../common/img/PDF.png';
 import bugsnag from '../../components/common/BugSnag';
 
 class OpenPositions extends Component {
@@ -48,12 +49,12 @@ class OpenPositions extends Component {
       bugsnag.setUser(`User Id: ${userId}`, firstName, email);
       const { id, status, riskProduct, riskProductId, lines, underlyingObjectData } = this.props.item;
 
-      const direction = lines[0].buysell === 'B' ? 'Buy' : 'Sell';
+      let direction = lines[0].buysell === 'B' ? 'Buy' : 'Sell';
       const year = underlyingObjectData.year;
       const month = underlyingObjectData.month;
       const crop = underlyingObjectData.crop;
       const unit = underlyingObjectData.unit;
-
+      let netPrice = lines[0].netPremium;
       let tAddlDetails = null;
       let tShowAddlDetails = null;
 
@@ -62,9 +63,23 @@ class OpenPositions extends Component {
           moreLinkText = '<< Hide Details';
           tAddlDetails = <PositionsAdditionalDetail riskProductId={riskProductId} unit={unit} data={lines[0]} />;
       }
+      switch (riskProductId) {
+          case 110:
+            direction = direction === 'Buy' ? 'Short' : 'Long';
+              if (direction === 'Short') {
+                  netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Pays $${Math.abs(netPrice).toFixed(2)}` : `Costs $${netPrice.toFixed(2)}`;
+              } else {
+                  netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Costs $${Math.abs(netPrice).toFixed(2)}` : `Pays $${netPrice.toFixed(2)}`;
+              }
+              break;
+          case 107:
+            netPrice = `$${netPrice}`;
+            break;
+          default:
+      }
 
       if (riskProductId === 110) {
-        tShowAddlDetails = (
+          tShowAddlDetails = (
             <View style={{ marginTop: -16, marginLeft: 860, paddingBottom: 8 }}>
                 <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
                     <Text style={commonStyles.common.positionsMoreLink}>{moreLinkText}</Text>
@@ -77,7 +92,8 @@ class OpenPositions extends Component {
 
     return (
       <View style={styles.subContainerStyle}>
-        <View style={{ flexDirection: 'row', margin: 0, padding: 0 }}>
+
+        <View style={{ flexDirection: 'row' }}>
           {/* month/year box */}
           <View style={[commonStyles.common.positionsYearStyle, { width: '10.74%' }]}>
             <View style={{ backgroundColor: 'rgb(39,153,137)', height: 40, justifyContent: 'center' }}>
@@ -101,17 +117,13 @@ class OpenPositions extends Component {
                   <Text style={commonStyles.common.positionsDataLabel}>QUANTITY</Text>
                   <View style={{ width: 130, flexDirection: 'row', justifyContent: 'flex-start' }}>
                     <Text style={commonStyles.common.positionsData}>
-                      {lines[0].quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + unit}s
+                        {`${lines[0].quantity.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} ${unit}s`}
                     </Text>
                   </View>
                 </View>
                 <View style={{ flexDirection: 'column' }}>
                   <Text style={commonStyles.common.positionsDataLabel}>DIRECTION</Text>
                   <Text style={commonStyles.common.positionsData}>{direction}</Text>
-                </View>
-                <View style={{ flexDirection: 'column' }}>
-                  <Text style={[commonStyles.common.positionsDataLabel, { marginLeft: 35 }]}>NET PRICE</Text>
-                  <Text style={[commonStyles.common.positionsData, { marginLeft: 35 }]}>${lines[0].netPremium}</Text>
                 </View>
               </View>
             </View>
@@ -120,19 +132,21 @@ class OpenPositions extends Component {
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, height: firstRowHeight, width: '16.11%' }}>
             <Text style={commonStyles.common.positionsDataLabel}>PRODUCT</Text>
             <Text style={commonStyles.common.positionsData}>{lines[0].product}</Text>
+            <View style={{ flexDirection: 'column', marginTop: 8 }}>
+              <Text style={commonStyles.common.positionsDataLabel}>NET PRICE</Text>
+              <Text style={commonStyles.common.positionsData}>{netPrice}</Text>
+            </View>
           </View>
 
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '13.18%' }}>
             <View style={{ flexDirection: 'row', height: firstRowHeight }}>
               <Text style={commonStyles.common.positionsDataLabel}>TRADE RECEIPT</Text>
               <TouchableHighlight onPress={this.openTradeReceipt.bind(this)}>
-                <Image style={{ width: 20, height: 20, marginLeft: 5 }} source={require('../common/img/PDF.png')} />
+                <Image style={{ width: 20, height: 20, marginLeft: 5 }} source={pdf} />
               </TouchableHighlight>
             </View>
             <Text style={commonStyles.common.positionsDataLabel}>TRADE ID#</Text>
-            <Text style={commonStyles.common.positionsData}>
-              {' '}{id}{' '}
-            </Text>
+            <Text style={commonStyles.common.positionsData}>{id}</Text>
           </View>
 
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10.74%' }}>
@@ -147,6 +161,7 @@ class OpenPositions extends Component {
           </View>
 
           <View style={styles.borderStyle} />
+
           <View style={styles.buttonview}>
               <TouchableHighlight
                   style={[styles.viewbutton, status === 'pendingUnwind' ? { backgroundColor: 'rgba(39,153,137,0.65 )' } : {}]}
@@ -158,6 +173,7 @@ class OpenPositions extends Component {
               </TouchableHighlight>
           </View>
         </View>
+
         {tShowAddlDetails}
         {tAddlDetails}
       </View>
@@ -169,7 +185,7 @@ class OpenPositions extends Component {
 }
 
 const styles = {
-  subContainerStyle: { flexDirection: 'column', margin: 10, marginVertical: 5, backgroundColor: '#fff', borderRadius: 4 },
+  subContainerStyle: { margin: 10, marginVertical: 5, backgroundColor: '#fff', borderRadius: 4 },
   buttonview: { justifyContent: 'flex-start', alignItems: 'center', width: '18%' },
   buttonText: { color: '#fff', fontSize: 14, textAlign: 'center', justifyContent: 'center', fontFamily: 'HelveticaNeue' },
   viewbutton: { height: 50, width: 150, borderRadius: 5, marginTop: 30, backgroundColor: '#279989', justifyContent: 'center', alignItems: 'center' },

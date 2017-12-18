@@ -37,7 +37,7 @@ class ViewOrders extends Component {
         riskProductName,
         underlyingObjectData,
         goodTilDate,
-          targetPrice
+        targetPrice
       } = this.props.item;
 
     const year = underlyingObjectData.year;
@@ -45,12 +45,14 @@ class ViewOrders extends Component {
     const crop = underlyingObjectData.crop;
     const unit = underlyingObjectData.unit;
     let tStrike = this.props.item.strike;
+    let direction = buySell;
+    let price = targetPrice;
     if (common.isValueExists(tStrike)) { tStrike = tStrike.toFixed(2); }
     let tBonusPrice = this.props.item.bonusPrice;
     if (common.isValueExists(tBonusPrice)) { tBonusPrice = tBonusPrice.toFixed(2); }
     
     const d = new Date(createTime);
-    const strDate = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
+    const strDate = `${d.getFullYear()}-${(`0${(d.getMonth() + 1)}`).slice(-2)}-${(`0${d.getDate()}`).slice(-2)} ${(`0${d.getHours()}`).slice(-2)}:${(`0${d.getMinutes()}`).slice(-2)}:${(`0${d.getSeconds()}`).slice(-2)}`;
     const utcdate = new Date(createTime);
     const offset = new Date().getTimezoneOffset();
     utcdate.setMinutes(utcdate.getMinutes() - offset);
@@ -58,6 +60,13 @@ class ViewOrders extends Component {
     let tBonusFields = null;
     switch (riskProductId) {
       case 110:
+          if (direction === 'Buy') {
+              price = price === 0 ? '$0' : price < 0 ? `Pays $${Math.abs(price).toFixed(2)}` : `Costs $${price.toFixed(2)}`;
+          } else {
+              price = price === 0 ? '$0' : price < 0 ? `Costs $${Math.abs(price).toFixed(2)}` : `Pays $${price.toFixed(2)}`;
+          }
+        direction = direction === 'Buy' ? 'Short' : 'Long';
+
         tBonusFields = (
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10%' }}>
             <Text style={cStyles.common.positionsDataLabel}>STRIKE</Text>
@@ -68,6 +77,7 @@ class ViewOrders extends Component {
         );
         break;
       default:
+        price = !price ? '$0' : `$${price}`;
         tBonusFields = <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '10%' }} />;
         break;
     }
@@ -100,17 +110,17 @@ class ViewOrders extends Component {
                 </View>
                 <View style={{ flexDirection: 'column' }}>
                   <Text style={[cStyles.common.positionsDataLabel, (crop.length + riskProductName.length) >= 18 ? { paddingTop: 8 } : {}]}>DIRECTION</Text>
-                  <Text style={cStyles.common.positionsData}>{buySell}</Text>
+                  <Text style={cStyles.common.positionsData}>{direction}</Text>
                 </View>
               </View>
             </View>
           </View>
 
-          <View style={{ flexDirection: 'column', marginLeft: 40, marginTop: 10, width: '7%' }}>
+          <View style={{ flexDirection: 'column', marginLeft: 40, marginTop: 10, width: '8%' }}>
             <Text style={cStyles.common.positionsDataLabel}>ORDER #</Text>
             <Text style={cStyles.common.positionsData}>{orderId}</Text>
             <Text style={[cStyles.common.positionsDataLabel, { paddingTop: 14 }]}>PRICE</Text>
-            <Text style={cStyles.common.positionsData}>${targetPrice}</Text>
+            <Text style={cStyles.common.positionsData}>{price}</Text>
           </View>
 
           <View style={{ flexDirection: 'column', marginLeft: 20, marginTop: 10, width: '8%' }}>

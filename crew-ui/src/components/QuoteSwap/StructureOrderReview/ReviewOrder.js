@@ -6,7 +6,7 @@ import { InfoPopup } from '../../common';
 import Info from '../../common/img/Info-white.png';
 //import bugsnag from '../common/BugSnag';
 
-//import DisclaimerData from '../../../restAPI/disclaimer.json';
+import DisclaimerData from '../../../restAPI/disclaimer.json';
 
 class ReviewOrder extends Component {
     constructor(props) {
@@ -40,8 +40,21 @@ class ReviewOrder extends Component {
                         <Text style={styles.quoteData}>{this.props.riskProduct.name}</Text>
                     </View>
                     <View style={styles.quoteField}>
+                        <View style={{flexDirection: 'row'}}>
                         <Text style={styles.quoteLabel}>Trade direction</Text>
-                        <Text style={styles.quoteData}>Buy</Text>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    //console.log('this is press event');
+                                    const termsInfo = { top: 125, left: 25, width: 200, arrowPosition: 'top', message: DisclaimerData.structure.tradeDirection };
+                                    this.setState({ showPriceDetails:
+                                        (<InfoPopup popupInfo={termsInfo} onClose={this.hidePriceInfo.bind(this)} />)
+                                    })}}
+                            >
+                                <Image style={{ width: 20, height: 20, marginLeft: 20, marginTop: 1 }}
+                                       source={Info}/>
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={styles.quoteData}>Short</Text>
                     </View>
                     <View style={styles.quoteField}>
                         <Text style={styles.quoteLabel}>Contract Month</Text>
@@ -70,20 +83,9 @@ class ReviewOrder extends Component {
                     <View style={styles.quoteField}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.quoteLabel}>Price</Text>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    //console.log('this is press event');
-                                    const termsInfo = { top: 180, left: 60, width: 450, arrowPosition: 'top', message: this.props.tTargetPrice };
-                                    this.setState({ showPriceDetails:
-                                        (<InfoPopup popupInfo={termsInfo} onClose={this.hidePriceInfo.bind(this)} />)
-                                    })}}
-                            >
-                                <Image style={{ width: 20, height: 20, marginLeft: 20, marginTop: 1 }}
-                                       source={Info}/>
-                            </TouchableOpacity>
                         </View>
                         <Text
-                            style={styles.quoteData}>${this.props.level === 'zero' ? '0.00' : price.toFixed(2)}
+                            style={styles.quoteData}>{this.props.level === 'zero' ? '$0.00' : price < 0 ? `Costs $${Math.abs(price).toFixed(2)}` : `Pays $${price.toFixed(2)}` }
                         </Text>
                     </View>
                     <View style={styles.quoteField}>
@@ -158,7 +160,6 @@ const mapStateToProps = (state) => {
         sug: state.optimalQuote,
         acc: state.account.defaultAccount.commodities,
         cropBut: state.cropsButtons,
-        tTargetPrice: state.displayProperties.filter(item => item.propKey === 'targetPrice')[0].propValue
     };
 };
 

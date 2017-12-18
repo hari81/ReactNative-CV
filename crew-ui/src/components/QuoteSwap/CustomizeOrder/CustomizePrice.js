@@ -56,6 +56,7 @@ class CustomizePrice extends Component {
         this.setState({ showButtons: true });
     };
     priceText(id, price) {
+
         if (id !== 3) {
             if (!this.state.showButtons && id === 4) {
                return (
@@ -65,8 +66,14 @@ class CustomizePrice extends Component {
             if (this.props.spin && id === 4) {
                 return (<Spinner size='small' color='black' />);
             }
+            if (id === 4) {
+                const pri = common.minusBeforeDollarSign(Math.abs(parseFloat(price).toFixed(2)), 2);
+                return (
+                    <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: price < 0 ? 'red' : 'green' }]}>{ price === '0.00' ? pri : parseFloat(price) < 0 ? 'Costs ' + pri : 'Pays ' + pri}</Text>
+                );
+            }
             return (
-            <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: id === 4 ? price < 0 ? 'red' : 'green' : 'rgb(0,95,134)' }]}>${parseFloat(price).toFixed(2)}</Text>
+                <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: 'rgb(0,95,134)' }]}>${parseFloat(price).toFixed(2)}</Text>
             );
         }
         return (
@@ -78,10 +85,10 @@ class CustomizePrice extends Component {
             return (
                 <View style={{ position: 'absolute', marginTop: 226 }}>
                     <Text style={{ paddingLeft: 20, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 22 }}>
-                        Would you like to hedge at these levels at a price of ${this.state.price}?</Text>
+                        Would you like to hedge these levels {this.state.price === 0 ? 'at $0 cost' : this.state.price < 0 ? `at a cost of $${Math.abs(this.state.price).toFixed(2)}` : `and receive $${this.state.price.toFixed(2)}`}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                        <ImageButton text='YES - Review Order' onPress={this.onReviewOrder}/>
-                        <ImageButton text='NO, work these levels at $0 cost' onPress={this.onWorkLevelsCost}/>
+                        <ImageButton text='YES - Review Order' onPress={this.onReviewOrder} />
+                        <ImageButton text='NO, work these levels at $0 cost' onPress={this.onWorkLevelsCost} />
                     </View>
                 </View>
             );
@@ -132,7 +139,7 @@ class CustomizePrice extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        const pPeriod = 'Today to \n'+ common.formatDate(this.props.eDate, 5);
+        const pPeriod = `Today to \n${common.formatDate(this.props.eDate, 5)}`;
         return (
             <View style={{ position: 'absolute', marginTop: height * 0.1 }}>
                 <View style={{ flexDirection: 'row' }}>

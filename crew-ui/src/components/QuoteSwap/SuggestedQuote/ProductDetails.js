@@ -18,7 +18,7 @@ const ProductDetails = (props) => {
                     <Text style={styles.textValue}>Product</Text>
                     <Text style={styles.textHeader}>{props.riskProduct.name}</Text>
                     <Text style={styles.textValue}>Trade direction</Text>
-                    <Text style={styles.textHeader}>Buy</Text>
+                    <Text style={styles.textHeader}>Short</Text>
                     <Text style={styles.textValue}>Contract month</Text>
                     <Text style={styles.textHeader}>{contractMonth}</Text>
                 </View>

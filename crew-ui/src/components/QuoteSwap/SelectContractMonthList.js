@@ -113,7 +113,7 @@ class SelectContractMonthList extends Component {
                             <Text style={styles.pHeader}>Product</Text>
                             <Text style={styles.pBody}>{riskName}</Text>
                             <Text style={styles.pHeader}>Trade direction</Text>
-                            <Text style={styles.pBody}>Buy</Text>
+                            <Text style={styles.pBody}>Short</Text>
                             <Text style={styles.pHeader}>Contract Month</Text>
                             <Text style={styles.pBody}>
                                 {this.props.parentState.contractMonth || st(this.props, ['contractMonth', 'contract', 0, 'month'])} {this.props.parentState.contractYear || st(this.props, ['contractMonth', 'contract', 0, 'year'])}
