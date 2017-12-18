@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, TouchableOpacity, View, Image } from 'react-native';
+import { Alert, Text, TouchableHighlight, TouchableOpacity, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PositionsAdditionalDetail from './PositionsAdditionalDetail';
@@ -31,7 +31,12 @@ class OpenPositions extends Component {
       transId: sOrder.id,
       activityId: sLine.id
     };
-    Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.cropYear });
+    if (uOrder.riskProductId === 110) {
+      const ma = `Please call the support line at 1-952-742-7414 and provide your name and Trade ID ${uOrder.transId}. A trader will provide your close out price over the phone and close the position at your request.\n\nSupport available from 7:30am to 4:30pm CST Monday - Friday.`;
+      Alert.alert('Price Hedging', ma);
+    } else {
+      Actions.quoteswap({ selectedOrder: uOrder, cropcode: item.underlyingObjectData.cropCode, cropyear: item.underlyingObjectData.cropYear });
+    }
   }
 
   openTradeReceipt() {
