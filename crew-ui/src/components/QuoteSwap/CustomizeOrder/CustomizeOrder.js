@@ -72,7 +72,7 @@ class CustomizeOrder extends Component {
                             <Text style={styles.pHeader}>Product</Text>
                             <Text style={styles.pBody}>{risk110Name}</Text>
                             <Text style={styles.pHeader}>Trade direction</Text>
-                            <Text style={styles.pBody}>Buy</Text>
+                            <Text style={styles.pBody}>Short</Text>
                             <Text style={styles.pHeader}>Contract Month</Text>
                             <Text style={styles.pBody}>
                                 {common.createUnderlyingObject(underlying).underlyingMonthDesc} {underlying.slice(-4)}

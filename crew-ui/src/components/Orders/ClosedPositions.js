@@ -56,7 +56,7 @@ class ClosedPositions extends Component {
 
             let tAddlDetails = null;
             let tShowAddlDetails = null;
-
+            let direction = buysell === 'S' ? 'Sell' : 'Buy';
             let moreLinkText = 'Show Details >>';
             if (this.state.isShowAddlDetails) {
                 moreLinkText = '<< Hide Details';
@@ -64,6 +64,7 @@ class ClosedPositions extends Component {
             }
 
             if (riskProductId === 110) {
+                direction = direction === 'Buy' ? 'Short' : 'Long';
                 tShowAddlDetails = (
                     <View style={{ marginTop: -8, marginLeft: 823, paddingBottom: 8 }}>
                         <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>
@@ -109,7 +110,7 @@ class ClosedPositions extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column' }}>
                                         <Text style={commonStyles.common.positionsDataLabel}>DIRECTION</Text>
-                                        <Text style={commonStyles.common.positionsData}>{buysell === 'S' ? 'Sell' : 'Buy'}</Text>
+                                        <Text style={commonStyles.common.positionsData}>{direction}</Text>
                                     </View>
                                 </View>
                             </View>

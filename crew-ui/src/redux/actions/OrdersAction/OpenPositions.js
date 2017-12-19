@@ -1,4 +1,4 @@
-import { Alert, Linking } from 'react-native';
+import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { ORDER_SERVICES_URL, POSITIONS_TRADE_RECEIPT_URL, X_API_KEY } from '../../../ServiceURLS/index';
@@ -20,10 +20,10 @@ export const OpenPositionsData = (crop, cropYear) => {
                 if (response.status === 200) {
                     return response.json();
                 }
-                    if (response.status === 403) {
-                        response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
-                        return;
-                    }
+                if (response.status === 403) {
+                    response.json().then(userFail => { Alert.alert(userFail.message); Actions.auth(); dispatch({ type: CLEAR_APPLICATION_STATE }); });
+                    return;
+                }
                 common.handleError(response, 'There was an issue in retrieving the open positions.');
                 dispatch({ type: OPEN_POSITIONS_DATA_SUCCESS, openPositions: [] });
             })

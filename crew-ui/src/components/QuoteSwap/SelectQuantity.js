@@ -86,7 +86,7 @@ class SelectQuantity extends Component {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     plusButtonPress = () => {
         try {
@@ -110,7 +110,7 @@ class SelectQuantity extends Component {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     calculateHedgePercent(currQuantity) {
         let qp = 0;
@@ -186,7 +186,7 @@ class SelectQuantity extends Component {
                             <Text style={styles.pHeader}>Product</Text>
                             <Text style={styles.pBody}>{risk110Name}</Text>
                             <Text style={styles.pHeader}>Trade direction</Text>
-                            <Text style={styles.pBody}>Buy</Text>
+                            <Text style={styles.pBody}>Short</Text>
                             <Text style={styles.pHeader}>Contract Month</Text>
                             <Text style={styles.pBody}>
                                 {this.state.cMonth} {this.state.cYear}
@@ -222,7 +222,7 @@ const styles = {
     pDetails: { fontSize: 24, paddingLeft: 14, paddingTop: 6, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' },
     pHeader: { fontSize: 12, fontFamily: 'HelveticaNeue-Light', color: 'rgb(255,255,255)', paddingTop: 4 },
     pBody: { fontSize: 16, fontFamily: 'HelveticaNeue', color: 'rgb(255,255,255)' }
-}
+};
 const mapStateToProps = state => {
     return {
         cropButton: state.cropsButtons,

@@ -16,8 +16,8 @@ const ImageButton = (props) => {
         if (props.suggestQuote.custToSugFlag) {
             button = (
                     <View style={[buttonStyle, {backgroundColor: 'rgba(39,153,137, .65)', marginRight: 10, flexDirection: 'column', justifyContent: 'center' }]}>
-                        <Spinner size='large' />
-                        <Text style={{ color: 'white' }}>Suggested Quote...</Text>
+                        <Spinner size='large' color='white' />
+                        <Text style={{ color: 'white' }}>Quoting...</Text>
                     </View>
             );
         } else {
@@ -33,8 +33,8 @@ const ImageButton = (props) => {
     } else if (text === 'NEXT') {
         if (props.suggestQuote.spinFlag && id === 'spin') {
          button = (<View style={[buttonStyle, { backgroundColor: 'rgba(39,153,137, .65)', flexDirection: 'column', justifyContent: 'center' }]}>
-                 <Spinner size='large' />
-                 <Text style={{ color: 'white' }}>Suggested Quote...</Text>
+                 <Spinner size='large' color='white' />
+                 <Text style={{ color: 'white' }}>Quoting...</Text>
              </View>
              );
          } else {

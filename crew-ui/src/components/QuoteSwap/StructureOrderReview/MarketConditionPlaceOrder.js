@@ -42,8 +42,8 @@ class MarketConditionPlaceOrder extends Component {
         this.props.optimalSuggestedQuote(1, this.props.midMarket.metadata);
     }
     onModifySpinner() {
-        if (this.props.flag) {
-            return <View style={{ height: 25 }}><Spinner /></View>;
+        if (this.props.flag ) {
+            return (<View style={{ height: 25, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}><View><Spinner color='rgb(39,153,137)' /></View><Text style={{ color: 'rgb(39,153,137)' }}> Quoting ... </Text></View>);
         }
         return (<TouchableOpacity onPress={this.onModifyOrder.bind(this)}>
             <Text style={[styles.reviewButtonTextStyle, { color: '#9fa9ba', fontFamily: 'HelveticaNeue' }]}>MODIFY ORDER</Text>
