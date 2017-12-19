@@ -91,15 +91,18 @@ class SelectQuantity extends Component {
     plusButtonPress = () => {
         try {
             let q = common.convertStringToInt(this.state.quantity);
-            if (q < 1) {
-                q = 0;
-            }
-            if (q <= ((this.props.quantityLimit / 2) - parseInt(this.props.quantityIncrement)) || q === 0) {
+            if (q < 1) { q = 0; }
+            //check against limit
+            if (q <= ((this.props.quantityLimit / 2) - parseInt(this.props.quantityIncrement)) || (q === 0 && this.props.quantityLimit > 0)) {
                 q += parseInt(this.props.quantityIncrement);
                 this.timer = setTimeout(this.plusButtonPress, 100);
             } else {
-                Alert.alert(' ', 'Your Available Limit is ' + common.formatNumberCommas(this.props.quantityLimit)+ ' '+ this.props.defaultAccountData.commodities[0].unitOfMeasure + 's.' + '\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.');
-                q = parseInt((this.props.quantityLimit / 2).toString());
+                Alert.alert('Cargill Price Hedging', `Your Available Limit is ${common.formatNumberCommas(this.props.quantityLimit)} ${this.props.defaultAccountData.commodities[0].unitOfMeasure}s.\n\nPlease contact CRM @ 1-952-742-7414 \nor\nemail: cargillpricehedge@cargill.com \nto request a limit increase.`);
+                if (this.props.quantityLimit < 0) {
+                    q = 0;
+                } else {
+                    q = parseInt((this.props.quantityLimit / 2).toString());
+                }
             }
             const qp = this.calculateHedgePercent(q);
             this.setState({ qPercent: qp });
