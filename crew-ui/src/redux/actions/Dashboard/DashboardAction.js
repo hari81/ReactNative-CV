@@ -4,13 +4,13 @@ import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
 import * as common from '../../../Utils/common';
 import bugsnag from '../../../components/common/BugSnag';
-import { CLEAR_APPLICATION_STATE } from '../types';
+import { CLEAR_APPLICATION_STATE, DASHBOARD_SPINNER, DASHBOARD_DATA } from '../types';
 
 export const dashBoardDataFetch = (year, code, myfarm) => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        dispatch({ type: 'DASHBOARD_SPINNER' });
+        dispatch({ type: DASHBOARD_SPINNER });
         const url = `${VELO_SERVICES_URL}dashboard/${getState().account.accountDetails.defaultAccountId}/${code}/${year}`;
         return doGetFetch(url, getState().auth.crmSToken)
             .then(response => {
@@ -36,7 +36,7 @@ export const dashBoardDataFetch = (year, code, myfarm) => {
 
 export function dashboardData(dashBoardData) {
     return {
-        type: 'DASHBOARD_DATA',
+        type: DASHBOARD_DATA,
         payload: dashBoardData
     };
 }

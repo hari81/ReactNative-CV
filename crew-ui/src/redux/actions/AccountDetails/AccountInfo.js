@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS, ACCOUNT_INFO_LIMITS, CLEAR_APPLICATION_STATE } from '../types';
+import { ACCOUNT_INFORMATION, ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, DEFAULT_ACCOUNT_DETAILS,
+    ACCOUNT_INFO_LIMITS, CLEAR_APPLICATION_STATE, DASHBOARD_DATA, DASHBOARD_SPINNER, SELECTED_CROP_NAME } from '../types';
 import { VELO_SERVICES_URL, ORDER_SERVICES_URL } from '../../../ServiceURLS/index';
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import * as common from '../../../Utils/common';
@@ -54,8 +55,8 @@ export const accountDetails = () => {
                         dispatch({ type: BUTTONS_SPINNER, payload: false });
                         dispatch({ type: SELECT_ID, payload: ButtonsData[0].id });
                         Actions.main();
-                        dispatch({ type: 'SELECTED_CROP_NAME', payload: ButtonsData[0].name });
-                        dispatch({ type: 'DASHBOARD_SPINNER' });
+                        dispatch({ type: SELECTED_CROP_NAME, payload: ButtonsData[0].name });
+                        dispatch({ type: DASHBOARD_SPINNER });
                         const year = Data.commodities[0].crops[0].cropYear;
                         const code = Data.commodities[0].commodity;
                         const defaultUrl = `${VELO_SERVICES_URL}dashboard/${accountNo}/${code}/${year}`;
@@ -70,21 +71,21 @@ export const accountDetails = () => {
                             }, rej => Promise.reject(rej))
                             .then(dashBoardData => {
                                 if (dashBoardData === 'invalid') { return; }
-                                dispatch({ type: 'DASHBOARD_DATA', payload: dashBoardData });
+                                dispatch({ type: DASHBOARD_DATA, payload: dashBoardData });
                             })
                             .catch(error => {
                                 common.handleError(error);
-                                dispatch({ type: 'DASHBOARD_DATA', payload: null });
+                                dispatch({ type: DASHBOARD_DATA, payload: null });
                             });
                     })
                     .catch(error => {
                         common.handleError(error);
-                        dispatch({ type: 'DASHBOARD_DATA', payload: null });
+                        dispatch({ type: DASHBOARD_DATA, payload: null });
                     });
             })
             .catch(error => {
                 common.handleError(error);
-                dispatch({ type: 'DASHBOARD_DATA', payload: null });
+                dispatch({ type: DASHBOARD_DATA, payload: null });
             });
     };
 };

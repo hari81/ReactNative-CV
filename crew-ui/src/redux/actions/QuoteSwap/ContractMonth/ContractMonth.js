@@ -5,14 +5,14 @@ import { doGetFetch, doPostFetch } from '../../../../Utils/FetchApiCalls';
 import * as common from '../../../../Utils/common';
 import { bushelLimitShow } from '../ContractMonth/ContractMonthSelect';
 import bugsnag from '../../../../components/common/BugSnag';
-import { CLEAR_APPLICATION_STATE } from '../../types';
+import { CLEAR_APPLICATION_STATE, SPIN_ACTIVE, CONTRACT_MONTH_DATA, BUSHEL_SPIN_INACTIVE, CONTRACT_ERROR, BUSHEL_SPIN_ACTIVE } from '../../types';
 
 export const quoteSwapUnderlying = (year, code) => {
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        console.log('* * * * * start quote swap underlying * * * * *', new Date());
-        dispatch({ type: 'SPIN_ACTIVE' });
+       // console.log('* * * * * start quote swap underlying * * * * *', new Date());
+        dispatch({ type: SPIN_ACTIVE });
         let isSuccess = true;
         const cObject = getState().account.defaultAccount.commodities.find(x => x.commodity === code);
         const oContracts = cObject.crops.find(x => x.cropYear === year).futuresContracts;
@@ -25,7 +25,7 @@ export const quoteSwapUnderlying = (year, code) => {
             quoteType: 'mkt',
             underlyings: oSymbols
         };
-        console.log('start quote swap underlying db lookup 1', new Date());        
+        //console.log('start quote swap underlying db lookup 1', new Date());
         return doPostFetch(swapUrl, quoteUnderlying, getState().auth.crmSToken)
             .then(response => {
                 if (response.status !== 200) {
@@ -42,7 +42,7 @@ export const quoteSwapUnderlying = (year, code) => {
                     return;
                 }
                 if (isSuccess) {
-                    console.log('end quote swap underlying db lookup 1', new Date());
+                   // console.log('end quote swap underlying db lookup 1', new Date());
                     const contractData = oContracts.map((o, i) => {
                         const oUnderlying = common.createUnderlyingObject(o.symbol);
                         return {
@@ -58,7 +58,7 @@ export const quoteSwapUnderlying = (year, code) => {
                             cropYear: year
                         };
                     }, rej => Promise.reject(rej));
-                    console.log('start quote swap underlying db lookup 2', new Date());
+                   // console.log('start quote swap underlying db lookup 2', new Date());
                     return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${quoteUnderlying.underlyings[0]}`, getState().auth.crmSToken)
                     .then(response => {
                         if (response.status === 403) {
@@ -68,43 +68,43 @@ export const quoteSwapUnderlying = (year, code) => {
                         return response.json();
                     }, rej => Promise.reject(rej))
                     .then(limit => {
-                        console.log('end quote swap underlying db lookup 2', new Date());
+                        //console.log('end quote swap underlying db lookup 2', new Date());
                         dispatch(contractMonthData(contractData));
                         dispatch(bushelLimitShow(limit));
-                        console.log('* * * * * end quote swap underlying * * * * *', new Date());
+                       // console.log('* * * * * end quote swap underlying * * * * *', new Date());
                     })
                     .catch(error => {
                         common.handleError(error, 'There was an issue with retrieving data for this commodity.');
                         dispatch(contractMonthData(null));
-                        dispatch({ type: 'CONTRACT_ERROR' });
+                        dispatch({ type: CONTRACT_ERROR });
                     });
                 }
                 //issuccss = false
                 common.handleError(underlyingQuotes, 'There was an issue with retrieving data for this commodity.');                    
                 dispatch(contractMonthData(null));
-                dispatch({ type: 'CONTRACT_ERROR' });
+                dispatch({ type: CONTRACT_ERROR });
             })
         .catch(error => {
             common.handleError(error, 'There was an issue with retrieving data for this commodity.');                    
             dispatch(contractMonthData(null));
-            dispatch({ type: 'CONTRACT_ERROR' });
+            dispatch({ type: CONTRACT_ERROR });
         });
     };
 };
 
 export function contractMonthData(contractData) {
        return {
-        type: 'CONTRACT_MONTH_DATA',
+        type: CONTRACT_MONTH_DATA,
         payload: contractData
     };
 }
 
 export const bushelQuantityLimit = (underlying) => {
-    console.log('start quote swap underlying db lookup 2', new Date());
+   // console.log('start quote swap underlying db lookup 2', new Date());
     return (dispatch, getState) => {
         const user = getState().account.accountDetails;
         bugsnag.setUser(`User Id: ${user.userId}`, user.email, user.firstName);
-        dispatch({ type: 'BUSHEL_SPIN_ACTIVE' });
+        dispatch({ type: BUSHEL_SPIN_ACTIVE });
         return doGetFetch(`${ORDER_SERVICES_URL}positions/groupLimits?underlying=${underlying}`, getState().auth.crmSToken)
         .then(response => {
             if (response.status === 403) {
@@ -114,9 +114,9 @@ export const bushelQuantityLimit = (underlying) => {
             return response.json();
         }, rej => Promise.reject(rej))
         .then(limit => {
-            console.log('end quote swap underlying db lookup 2', new Date());
+            //console.log('end quote swap underlying db lookup 2', new Date());
             dispatch(bushelLimitShow(limit));
-            dispatch({ type: 'BUSHEL_SPIN_INACTIVE' });
+            dispatch({ type: BUSHEL_SPIN_INACTIVE });
         });
     };
 };

@@ -17,7 +17,7 @@ export default class ProductBenefits extends Component {
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <ProductBenefitsList riskProductId={this.props.riskProductId} riskProductName={this.props.riskProductName} />
-                    <MyCropButton />
+                    <MyCropButton frm='DB'/>
                 </View>
             </View>
         );

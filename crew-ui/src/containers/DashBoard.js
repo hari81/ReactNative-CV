@@ -24,7 +24,7 @@ class DashBoard extends Component {
                         <MyFarmTiles />
                         <MyFarmProduction />
                         <ActionBar />
-                        <MyCropButton />
+                        <MyCropButton frm='DB'/>
                     </View>
                 </View>
             );

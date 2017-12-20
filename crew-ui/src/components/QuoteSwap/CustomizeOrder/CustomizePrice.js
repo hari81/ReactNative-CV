@@ -69,7 +69,7 @@ class CustomizePrice extends Component {
             if (id === 4) {
                 const pri = common.minusBeforeDollarSign(Math.abs(parseFloat(price).toFixed(2)), 2);
                 return (
-                    <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: price < 0 ? 'red' : 'green' }]}>{ price === '0.00' ? pri : parseFloat(price) < 0 ? 'Costs ' + pri : 'Pays ' + pri}</Text>
+                    <Text style={[styles.PriceTextStyle, { fontSize: 22, fontFamily: 'HelveticaNeue', color: price < 0 ? 'red' : 'green' }]}>{ price === '0.00' ? pri : parseFloat(price) < 0 ? 'Cost ' + pri : 'Credit ' + pri}</Text>
                 );
             }
             return (
@@ -85,7 +85,7 @@ class CustomizePrice extends Component {
             return (
                 <View style={{ position: 'absolute', marginTop: 226 }}>
                     <Text style={{ paddingLeft: 20, fontFamily: 'HelveticaNeue-Thin', color: 'white', fontSize: 22 }}>
-                        Would you like to hedge these levels {this.state.price === 0 ? 'at $0 cost' : this.state.price < 0 ? `at a cost of $${Math.abs(this.state.price).toFixed(2)}` : `and receive $${this.state.price.toFixed(2)}`}?</Text>
+                        Would you like to hedge these levels {this.state.price === 0 ? 'at $0 cost' : this.state.price < 0 ? `at a cost of $${Math.abs(this.state.price).toFixed(2)}` : `for a credit of $${this.state.price.toFixed(2)}`}?</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
                         <ImageButton text='YES - Review Order' onPress={this.onReviewOrder} />
                         <ImageButton text='NO, work these levels at $0 cost' onPress={this.onWorkLevelsCost} />

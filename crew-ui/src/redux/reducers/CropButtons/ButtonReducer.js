@@ -1,4 +1,4 @@
-import { ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER } from '../../actions/types';
+import { ALL_BUTTONS, SELECT_ID, BUTTONS_SPINNER, SELECTED_CROP_NAME } from '../../actions/types';
 
 const INITIAL_STATE = {
     cropButtons: [],
@@ -14,7 +14,7 @@ export default function (state = INITIAL_STATE, action) {
             return Object.assign({}, state, { cropButtons: action.payload });
         case SELECT_ID:
             return Object.assign({}, state, { selectedId: action.payload });
-        case 'SELECTED_CROP_NAME':
+        case SELECTED_CROP_NAME:
             return Object.assign({}, state, { selectedCropName: action.payload });
         case BUTTONS_SPINNER:
             return Object.assign({}, state, { buttonActive: false });
