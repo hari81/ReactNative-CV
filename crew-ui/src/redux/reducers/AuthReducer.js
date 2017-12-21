@@ -3,7 +3,9 @@ import {
   LOGIN_FAIL,
   LOGIN_USER,
   LOGIN_SUCCESS,
-  SERVER_NORESPONSE
+  SERVER_NORESPONSE,
+  PASSWORD_UPDATE_SUCCESS,
+  PASSWORD_UPDATE_FAILED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -34,9 +36,9 @@ export default (state = INITIAL_STATE, action) => {
         msg: 'Network connection failed! Check your wireless connection.',
         loading: false,
       });
-      case 'PASSWORD_UPDATE_SUCCESS':
+      case PASSWORD_UPDATE_SUCCESS:
           return Object.assign({}, state, { passwordUpdateMessage: Alert.alert('Alert', action.payload) });
-      case 'PASSWORD_UPDATE_FAILED':
+      case PASSWORD_UPDATE_FAILED:
           return Object.assign({}, state, { passwordUpdateMessage: Alert.alert('Alert', action.payload) });
     default:
       return state;

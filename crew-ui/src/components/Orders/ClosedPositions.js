@@ -64,7 +64,17 @@ class ClosedPositions extends Component {
             }
 
             if (riskProductId === 110) {
+                netPrice = oLineNew[0].netPremium;
+                closedPrice = oLineReprice[0].netPremium;
                 direction = direction === 'Buy' ? 'Short' : 'Long';
+                if (direction === 'Short') {
+                    netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Credit $${Math.abs(netPrice).toFixed(2)}` : `Cost $${netPrice.toFixed(2)}`;
+                    closedPrice = closedPrice === 0 ? '$0' : closedPrice < 0 ? `Costs $${Math.abs(closedPrice).toFixed(2)}` : `Credit $${closedPrice.toFixed(2)}`;
+                } else {
+                    netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Credit $${Math.abs(netPrice).toFixed(2)}` : `Cost $${netPrice.toFixed(2)}`;
+                    closedPrice = closedPrice === 0 ? '$0' : closedPrice < 0 ? `Costs $${Math.abs(closedPrice).toFixed(2)}` : `Credit $${closedPrice.toFixed(2)}`;
+                }
+
                 tShowAddlDetails = (
                     <View style={{ marginTop: -8, marginLeft: 823, paddingBottom: 8 }}>
                         <TouchableOpacity onPress={this.toggleAddlDetails.bind(this)}>

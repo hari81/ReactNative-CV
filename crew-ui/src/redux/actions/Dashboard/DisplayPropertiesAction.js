@@ -1,5 +1,6 @@
 import { doGetFetch } from '../../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../../ServiceURLS/index';
+import { DISPLAY_PROPERTIES } from '../types';
 import bugsnag from '../../../components/common/BugSnag';
 
 export const displayProperties = () => {
@@ -26,7 +27,7 @@ export const displayProperties = () => {
 };
 export function displayProperty(displayProps) {
     return {
-        type: 'DISPLAY_PROPERTIES',
+        type: DISPLAY_PROPERTIES,
         payload: displayProps
     };
 }

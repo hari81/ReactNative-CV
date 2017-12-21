@@ -28,23 +28,23 @@ render() {
                     </Text>
                     <View>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={{marginLeft: -10, fontSize: 16, color: 'white'}}>-$1.50</Text>
-                            <Text style={{marginRight: -10, fontSize: 16, color: 'white'}}>$1.50</Text>
+                            <Text style={{marginLeft: -10, fontSize: 16, color: 'white'}}>-$1.00</Text>
+                            <Text style={{marginRight: -10, fontSize: 16, color: 'white'}}>$1.00</Text>
                         </View>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text style={{fontSize: 25, color: 'white'}}>|</Text>
                             <Slider
                                 style={{width: 325 }}
                                 step={0.01}
-                                minimumValue={-1.5}
-                                maximumValue={1.5}
+                                minimumValue={-1.0}
+                                maximumValue={1.0}
                                 value={estim}
                                 onValueChange={slideval => this.props.sliderVal(slideval)}
                                 maximumTrackTintColor='rgb(181,182,181)'
                                 minimumTrackTintColor='rgb(39,153,137)'
                                 thumbTintColor='rgb(181,182,181)'
                             />
-                            <Text style={{fontSize: 25, color: 'white'}}>|</Text>
+                            <Text style={{ fontSize: 25, color: 'white' }}>|</Text>
                         </View>
                     </View>
                 </View>

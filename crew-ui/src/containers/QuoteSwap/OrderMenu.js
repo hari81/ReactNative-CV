@@ -17,7 +17,7 @@ export default class WhatToday extends Component {
                     <View style={{ height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)' }} />
                     <MyFarmTiles />
                     <OrderMenuOptions />
-                    <MyCropButton />
+                    <MyCropButton frm='DB'/>
                 </View>
             </View>
         );

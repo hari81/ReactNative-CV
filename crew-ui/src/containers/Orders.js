@@ -279,7 +279,7 @@ class Orders extends Component {
                           {this.renderFlatList()}
                       </View>
 
-                    <MyCropButton sTab={this.state.selectedTab} />
+                    <MyCropButton sTab={this.state.selectedTab} frm='OR'/>
 
                   </View>
               </View>

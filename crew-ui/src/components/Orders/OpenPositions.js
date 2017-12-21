@@ -72,9 +72,9 @@ class OpenPositions extends Component {
           case 110:
             direction = direction === 'Buy' ? 'Short' : 'Long';
               if (direction === 'Short') {
-                  netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Pays $${Math.abs(netPrice).toFixed(2)}` : `Costs $${netPrice.toFixed(2)}`;
+                  netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Credit $${Math.abs(netPrice).toFixed(2)}` : `Cost $${netPrice.toFixed(2)}`;
               } else {
-                  netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Costs $${Math.abs(netPrice).toFixed(2)}` : `Pays $${netPrice.toFixed(2)}`;
+                  netPrice = netPrice === 0 ? '$0' : netPrice < 0 ? `Cost $${Math.abs(netPrice).toFixed(2)}` : `Credit $${netPrice.toFixed(2)}`;
               }
               break;
           case 107:

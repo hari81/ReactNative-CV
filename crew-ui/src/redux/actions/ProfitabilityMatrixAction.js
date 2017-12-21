@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { doPostFetch } from '../../Utils/FetchApiCalls';
 import { VELO_SERVICES_URL } from '../../ServiceURLS/index';
 import bugsnag from '../../components/common/BugSnag';
-import { CLEAR_APPLICATION_STATE } from './types';
+import { CLEAR_APPLICATION_STATE, MATRIX_DATA } from './types';
 
 export const profitabilityMatrixData = (obj) => {
     return (dispatch, getState) => {
@@ -60,7 +60,7 @@ export const profitabilityMatrixData = (obj) => {
 };
 export function profitabilityMatrix(matrixData) {
     return {
-        type: 'MATRIX_DATA',
+        type: MATRIX_DATA,
         payload: matrixData
     };
 }

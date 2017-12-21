@@ -29,26 +29,6 @@ export const orderReceipt = (orderid, selectedCrop) => {
                     default:
                         return response.json();
                 }
-                /*if (response.status === 202) {
-                   // console.log(response);
-                    //Actions.cancelorderreceipt({ orderid });
-                } else {
-                    if (response.status === 404) {
-                        Alert.alert('Order cannot be canceled as it is cant found.');
-                        //console.log('Response failed');
-                    }
-                    if (response.status === 410) {
-                        Alert.alert('Order cannot be canceled as it is cant found.');
-                        //console.log('Response failed');
-                    }
-                    if (response.status === 403) {
-                        Alert.alert('Order cannot be canceled as it is cant found.');
-                    }
-                    if (response.status === 500) {
-                        Alert.alert('Internal Server, Please contact Cargill Hedge desk.');
-                    }
-                }
-                return response.json();*/
             })
             .then(cancelResponse => {
                 //console.log(cancelResponse);

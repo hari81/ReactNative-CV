@@ -61,9 +61,9 @@ class ViewOrders extends Component {
     switch (riskProductId) {
       case 110:
           if (direction === 'Buy') {
-              price = price === 0 ? '$0' : price < 0 ? `Pays $${Math.abs(price).toFixed(2)}` : `Costs $${price.toFixed(2)}`;
+              price = price === 0 ? '$0' : price < 0 ? `Credit $${Math.abs(price).toFixed(2)}` : `Cost $${price.toFixed(2)}`;
           } else {
-              price = price === 0 ? '$0' : price < 0 ? `Costs $${Math.abs(price).toFixed(2)}` : `Pays $${price.toFixed(2)}`;
+              price = price === 0 ? '$0' : price < 0 ? `Cost $${Math.abs(price).toFixed(2)}` : `Credit $${price.toFixed(2)}`;
           }
         direction = direction === 'Buy' ? 'Short' : 'Long';
 

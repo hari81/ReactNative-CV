@@ -1,5 +1,6 @@
 import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch } from '../../../../Utils/FetchApiCalls';
+import { RISK_PRODUCTS_DATA } from '../../types'
 import bugsnag from '../../../../components/common/BugSnag';
 
 export const productType = () => {
@@ -26,7 +27,7 @@ export const productType = () => {
 };
 export function riskProductData(riskproducts) {
     return {
-        type: 'RISK_PRODUCTS_DATA',
+        type: RISK_PRODUCTS_DATA,
         payload: riskproducts
     };
 }

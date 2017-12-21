@@ -43,6 +43,7 @@ componentVisible() {
                             old={this.props.olditem} 
                             onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)}
                             sTab={this.props.sTab}
+                            frm={this.props.frm}
                         />)
                     }
                 />

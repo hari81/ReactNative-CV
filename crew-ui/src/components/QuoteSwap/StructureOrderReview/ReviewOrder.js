@@ -85,7 +85,7 @@ class ReviewOrder extends Component {
                             <Text style={styles.quoteLabel}>Price</Text>
                         </View>
                         <Text
-                            style={styles.quoteData}>{this.props.level === 'zero' ? '$0.00' : price < 0 ? `Costs $${Math.abs(price).toFixed(2)}` : `Pays $${price.toFixed(2)}` }
+                            style={styles.quoteData}>{this.props.level === 'zero' ? '$0.00' : price < 0 ? `Cost $${Math.abs(price).toFixed(2)}` : `Credit $${price.toFixed(2)}` }
                         </Text>
                     </View>
                     <View style={styles.quoteField}>
