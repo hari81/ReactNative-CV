@@ -97,7 +97,7 @@ class MyFarmProduction extends Component {
                             </View>
                             <Text style={{ fontSize: 14, fontFamily: 'HelveticaNeue-Thin', padding: 20, color: 'rgb(29,37,49)' }}>Customize scenarios to see how your trading decisions affect your profitability.</Text>
                             <View style={{ marginLeft: width * 0.029 }}>
-                                <TouchableOpacity onPress={this.dashBoardToMatrix} disabled={!this.props.isDashboardDataExists}>
+                                <TouchableOpacity onPress={this.noFarmSetup} disabled={!this.props.isDashboardDataExists}>
                                     <Image source={matrix} width={width * 0.217} height={height * 0.1999} opacity={this.props.isDashboardDataExists ? 1 : 0.65} />
                                 </TouchableOpacity>
                             </View>
