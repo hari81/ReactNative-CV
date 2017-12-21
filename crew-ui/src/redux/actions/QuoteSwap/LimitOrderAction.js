@@ -1,4 +1,5 @@
-import { ORDER_EXPIRE_DATE,  ORDER_LIMIT_PRICE } from '.././types';
+import { ORDER_EXPIRE_DATE, ORDER_LIMIT_PRICE } from '.././types';
+
 export const onLimitSelection = (limitprice) => {
     return {
         type: ORDER_LIMIT_PRICE,
