@@ -20,7 +20,7 @@ export const changePassword = (oldP, newP) => {
                 return response.json();
             }, rej => Promise.reject(rej))
             .then(res => {
-                console.log(res);
+                //console.log(res);
                 if (res === undefined) {
                     return;
                 }

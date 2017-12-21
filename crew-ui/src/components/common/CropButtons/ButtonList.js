@@ -16,24 +16,39 @@ class ButtonList extends Component {
         if (this.props.vision === 'notclear') {
             return;
         }
-        //Dashboard data fetch
-        this.props.dashBoardDataFetch(year, code);
-        this.props.onQuoteSwapUnderlying(year, code);
-        //Positions & Orders
-        switch (this.props.tab) {
-            case 'Open Orders':
-                this.props.ViewOrdersData(code, year);
-                break;
-            case 'Open Positions':
-                this.props.OpenPositionsData(code, year);
-                break;
-            case 'Closed Positions':
-                this.props.ClosedPositionsData(code, year);
-                break;
-            default:
-        }
-        //myFarmAction
-        if (!this.props.far.farmFlag) {
+        switch (this.props.frm) {
+            case 'DB':
+                //Dashboard data fetch
+                this.props.dashBoardDataFetch(year, code);
+                this.props.selectedCropName(name);
+                this.props.selectId(id);
+            break;
+            case 'OM':
+                this.props.dashBoardDataFetch(year, code);
+                this.props.onQuoteSwapUnderlying(year, code);
+                this.props.selectedCropName(name);
+                this.props.selectId(id);
+             break;
+            case 'OR':
+                //Positions & Orders
+                switch (this.props.tab) {
+                    case 'Open Orders':
+                        this.props.ViewOrdersData(code, year);
+                     break;
+                    case 'Open Positions':
+                        this.props.OpenPositionsData(code, year);
+                    break;
+                    case 'Closed Positions':
+                        this.props.ClosedPositionsData(code, year);
+                    break;
+                    default:
+                }
+                this.props.selectedCropName(name);
+                this.props.selectId(id);
+            break;
+            case 'MF':
+                //myFarmAction
+                if (!this.props.far.farmFlag) {
             this.props.myFarmCropValues(code, year);
             this.props.myFarmTradeSalesOutSideApp(code, year);
             // buttonsSelection
@@ -56,6 +71,9 @@ class ButtonList extends Component {
                     { cancelable: false }
                 );
             }
+        }
+        break;
+            default:
         }
     }
     render() {

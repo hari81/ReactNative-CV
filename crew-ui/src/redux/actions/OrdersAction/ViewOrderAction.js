@@ -59,6 +59,6 @@ export const ViewOrdersData = (crop, cropYear) => {
 
 export const segmentTabSelect = (tab) => {
     return { type: SEGMENT_TAB_SELECT, payload: tab };
-}
+};
 
 

@@ -47,7 +47,7 @@ class ContractMonths extends Component {
                         selectedMonth={this.state.selectedMonth}
                         parentState={this.state}
                     />
-                    <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} />
+                    <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} frm='OM'/>
                 </View>
             </View>
         );

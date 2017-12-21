@@ -44,7 +44,7 @@ class QuoteSwap extends Component {
                             <View style={{height: height * 0.108, width, backgroundColor: 'rgb(64,78,89)'}}/>
                             <MyFarmTiles/>
                             <SetOrderDetails/>
-                            <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} />
+                            <MyCropButton onQuoteSwapUnderlying={this.onQuoteSwapUnderlying.bind(this)} frm='OM'/>
                         </View>
                     </View>
                 );

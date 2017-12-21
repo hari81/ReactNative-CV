@@ -292,7 +292,7 @@ componentWillReceiveProps(newProps) {
                     </View>
                 </View>
 
-                <MyCropButton uservaluesfalg={this.userChangesFarmData.bind(this)} olditem={cropButData} />
+                <MyCropButton uservaluesfalg={this.userChangesFarmData.bind(this)} olditem={cropButData} frm='MF'/>
             </View>
         );
     } catch (error) {

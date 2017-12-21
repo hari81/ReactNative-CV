@@ -99,6 +99,7 @@ export const saveExternalTrades = (newTrades) => {
                     return Object.assign({}, item, tradeSetData(item), { active: true });
                 case true:
                     return Object.assign({}, item, tradeSetData(item));
+                default:
             }
         });
         const tradeValues = tradeValue.concat(removeTrades);
