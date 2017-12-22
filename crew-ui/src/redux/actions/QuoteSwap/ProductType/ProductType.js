@@ -1,6 +1,6 @@
 import { ORDER_SERVICES_URL } from '../../../../ServiceURLS/index';
 import { doGetFetch } from '../../../../Utils/FetchApiCalls';
-import { RISK_PRODUCTS_DATA } from '../../types'
+import { RISK_PRODUCTS_DATA } from '../../types';
 import bugsnag from '../../../../components/common/BugSnag';
 
 export const productType = () => {
