@@ -20,3 +20,6 @@ export const URL_PRIVACY = 'http://go.cargill.com/CargillPriceHedgingPrivacy';
 export const URL_TERMS = 'http://go.cargill.com/CargillPriceHedgingTerms';
 export const URL_SIGN_UP = 'https://cargillrm.force.com/account';
 export const URL_LEARN_MORE = 'http://www.cargillpricehedging.com';
+
+export const URL_HOW_TO_VIDEO = 'https://cargillpricehedging.com/resources/';
+export const URL_HOW_TO_VIDEO_PLACEORDER = 'https://cargillpricehedging.com/2017/12/11/how-to-place-an-order/' ;

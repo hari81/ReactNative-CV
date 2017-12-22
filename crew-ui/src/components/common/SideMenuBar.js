@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Dimensions, TouchableOpacity, Image, Alert, Linking } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,6 +7,7 @@ import cancelimage from './img/Cancel-20.png';
 import { Button } from './Button';
 import { invalidateSession } from '../../redux/actions/LogOutMenuBar/InvalidateSessionAction';
 import { getAccountLimits } from '../../redux/actions/AccountDetails/AccountInfo';
+import { URL_HOW_TO_VIDEO } from '../../ServiceURLS/index';
 import bugsnag from '../common/BugSnag';
 
 const { width, height } = Dimensions.get('window');
@@ -60,6 +61,7 @@ class SideMenuBar extends Component {
                         <Button onPress={this.onAccountInfo.bind(this)} buttonStyle={{}} textStyle={styles.messageBoxText}>Account Information</Button>
                         <Button onPress={this.onChangePassword.bind(this)} buttonStyle={{}} textStyle={styles.messageBoxText}>Change Password</Button>
                         <Button onPress={this.onAbout.bind(this)} buttonStyle={{}} textStyle={styles.messageBoxText}>About</Button>
+                        <Button onPress={() => Linking.openURL(URL_HOW_TO_VIDEO)} buttonStyle={{}} textStyle={styles.messageBoxText}>How To Video</Button>
                         <Button onPress={this.logOutButtonPress} buttonStyle={{}} textStyle={styles.messageBoxText}>Log Out</Button>
                     </View>
                 </View>

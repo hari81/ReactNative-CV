@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Alert, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Alert, Dimensions, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
@@ -12,6 +12,7 @@ import { Spinner } from '../../../components/common/Spinner';
 import { getReviewOrderQuote } from '../../../redux/actions/OrdersAction/ReviewOrder';
 import { bushelQuantityLimit } from '../../../redux/actions/QuoteSwap/ContractMonth/ContractMonth';
 import { dashBoardDataFetch } from '../../../redux/actions/Dashboard/DashboardAction';
+import { URL_HOW_TO_VIDEO_PLACEORDER } from '../../../ServiceURLS/index';
 import * as common from '../../../Utils/common';
 import * as cStyles from '../../../Utils/styles';
 import bugsnag from '../../../components/common/BugSnag';
@@ -188,13 +189,16 @@ class SetOrderDetails extends Component {
                 <View style={styles.container}>
                     <View style={styles.setOrderDetails}>
                         <Text style={{ fontSize: 20, fontFamily: 'HelveticaNeue-Medium', color: '#e7b514', paddingLeft: width * 0.02 }}>Set Order Details</Text>
-                        <View style={{ flexDirection: 'row', marginLeft: width * 0.60 }}>
-                            <TouchableOpacity onPress={() => Actions.disclaimer({ productId: this.state.riskProductId })}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Text style={styles.questionIcon}>?</Text>
-                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>Need Help with this Product?</Text>
-                                </View>
-                            </TouchableOpacity>
+                        <View style={{ flexDirection: 'row', marginLeft: width * 0.58 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                <TouchableOpacity onPress={() => Linking.openURL(URL_HOW_TO_VIDEO_PLACEORDER)}>
+                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 5 }}>How To Video</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => Actions.disclaimer({ productId: this.state.riskProductId })}>
+                                    <Text style={{ fontSize: 12, fontFamily: 'HelveticaNeue', color: '#fff', textDecorationLine: 'underline', marginLeft: 20 }}>Terminology</Text>
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
                     </View>
                     {spinner}
