@@ -1,4 +1,5 @@
-import { SELECT_PRODUCT_ID, SELECT_PRODUCT_NAME } from '../../types'
+import { SELECT_PRODUCT_ID, SELECT_PRODUCT_NAME } from '../../types';
+
 export const onChangeName = (name) => {
     return {
         type: SELECT_PRODUCT_NAME,

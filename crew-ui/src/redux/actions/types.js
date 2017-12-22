@@ -8,6 +8,7 @@ export const FETCHING_ORDERS_ACTIVITY = 'FETCHING_ORDERS_ACTIVITY';
 export const SELECTED_CROP_NAME = 'SELECTED_CROP_NAME';
 
 export const MATRIX_DATA = 'matrix_daa';
+export const MATRIX_SPINNER = 'matrix_spinner';
 
 export const DISPLAY_PROPERTIES = 'display_properties';
 export const RISK_PRODUCTS_DATA = 'risk_products_data';
